@@ -1,0 +1,18 @@
+
+@linkColor: #308ab0;
+
+.content_link() {
+    &:link, &:active, &:visited {
+        color: @linkColor;
+        text-decoration: underline;
+    }
+
+    &:hover {
+        background-color: @linkColor;
+        color: #FFF;
+        text-shadow: none;
+    }
+}
+
+@import "styles.base.less";
+@import "styles.page.less";
