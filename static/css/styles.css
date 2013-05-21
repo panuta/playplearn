@@ -6,7 +6,7 @@ body {
   float: left;
   font-size: 26px;
   font-weight: bold;
-  padding-top: 15px;
+  padding: 12px 0;
 }
 #body-header .logo a {
   color: #1693a5;
@@ -23,7 +23,7 @@ body {
   border-left: 1px solid #E9E9E9;
   display: inline-block;
   list-style: none;
-  padding: 23px 20px 15px;
+  padding: 22px 20px 21px;
 }
 #body-header .navigation ul li a {
   color: #444;
@@ -65,6 +65,10 @@ body {
   background-color: #137f8e;
   color: #FFF;
   text-decoration: none;
+}
+.topic-header-public-speaking {
+  background-image: url(../images/topics/topic-public-speaking.png);
+  background-repeat: no-repeat;
 }
 .page-homepage .headline {
   padding: 70px 0px 0px;
@@ -120,115 +124,6 @@ body {
   list-style: none;
   margin-right: 60px;
   width: 550px;
-  /*
-
-                .bottom {
-                    //border-top: 1px solid #EEE;
-                    padding-top: 15px;
-                }
-
-                .cover {
-                    float: left;
-
-                    img {
-                        height: 200px;
-                        width: 200px;
-                    }
-                }
-
-                .right {
-                    margin-left: 220px;
-                }*/
-
-  /*
-                .topic {
-
-                    ul {
-                        display: inline;
-                        margin: 0;
-
-                        li {
-                            display: inline-block;
-                            list-style: none;
-
-                            a {
-                                color: #444;
-                                font-size: 15px;
-                                font-weight: bold;
-                            }
-                        }
-                    }
-                }*/
-
-  /*
-                ul.statistics {
-                    margin: 0;
-
-                    li {
-                        float: left;
-                        list-style: none;
-                        margin-right: 20px;
-
-                        em {
-                            color: #444;
-                            font-size: 16px;
-                            font-style: normal;
-                            font-weight: bold;
-                        }
-
-                        .text {
-                            display: inline-block;
-                            margin-left: 5px;
-                            vertical-align: bottom;
-                        }
-
-                        .unit {
-                            color: #444;
-                            font-size: 16px;
-                            font-weight: bold;
-                            margin-left: 5px;
-                        }
-
-                        .desc {
-                            color: #666;
-                            font-size: 13px;
-                            display: block;
-                            line-height: 16px;
-                        }
-                    }
-                }
-
-                .teacher {
-                    .avatar {
-                        float: left;
-                        margin-right: 10px;
-
-                        img {
-                            border-radius: 50px;
-                            height: 50px;
-                            width: 50px;
-                        }
-                    }
-
-                    .name {
-                        color: #444;
-                        display: block;
-                        font-size: 15px;
-                        font-weight: bold;
-                        padding-top: 4px;
-                    }
-
-                    .doing {
-                        color: #666;
-                        display: block;
-                        font-size: 13px;
-                    }
-                }
-
-                .footer {
-
-                }*/
-
 }
 .page-homepage .featured-courses ul.courses li.course .top {
   padding: 14px 20px 15px;
@@ -316,4 +211,181 @@ body {
 .page-homepage .featured-courses ul.courses li.course .next a:hover {
   text-decoration: underline;
   text-shadow: none;
+}
+.page-course-outline #body-header {
+  border-bottom: 1px solid #E9E9E9;
+}
+.page-course-outline .course-header {
+  background-position: left top;
+  margin-top: 40px;
+  padding-left: 90px;
+}
+.page-course-outline .course-header .title {
+  color: #444;
+  font-size: 24px;
+  font-weight: bold;
+}
+.page-course-outline .course-header .topic {
+  margin-top: 10px;
+}
+.page-course-outline .course-header .topic a {
+  color: #888;
+  font-size: 14px;
+  font-weight: bold;
+}
+.page-course-outline .course-header .teacher {
+  margin-top: 10px;
+}
+.page-course-outline .course-header .teacher a {
+  font-size: 18px;
+  font-weight: bold;
+}
+.page-course-outline .course-header .teacher a:link,
+.page-course-outline .course-header .teacher a:active,
+.page-course-outline .course-header .teacher a:visited {
+  color: #1693a5;
+  text-decoration: none;
+}
+.page-course-outline .course-header .teacher a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-outline .course-header .teacher .doing {
+  color: #777;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.page-course-outline .course-numbers {
+  border: 1px solid #EEE;
+  margin: 20px 0 30px;
+}
+.page-course-outline .course-numbers .item {
+  border-right: 1px solid #EEE;
+  float: left;
+  padding: 10px 20px 10px 20px;
+}
+.page-course-outline .course-numbers .item .caption {
+  color: #999;
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.page-course-outline .course-numbers .item .number {
+  color: #555;
+  font-size: 16px;
+}
+.page-course-outline .course-numbers .item .number em {
+  color: #555;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+  margin-right: 3px;
+}
+.page-course-outline .course-numbers .item .number em.nobold {
+  font-weight: normal;
+}
+.page-course-outline .course-description {
+  float: left;
+  width: 800px;
+}
+.page-course-outline .course-description .pictures img {
+  width: 800px;
+}
+.page-course-outline .course-description .description .head {
+  color: #444;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.page-course-outline .course-description .description p {
+  color: #444;
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 20px;
+}
+.page-course-outline .course-description .description img {
+  max-width: 700px;
+  border: 1px solid #DDD;
+  padding: 4px;
+}
+.page-course-outline .course-description .teacher {
+  background-color: #F9F9F9;
+  border: 1px solid #E9E9E9;
+  margin-top: 20px;
+  padding: 15px 20px;
+}
+.page-course-outline .course-description .teacher .avatar {
+  float: left;
+}
+.page-course-outline .course-description .teacher .avatar img {
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+}
+.page-course-outline .course-description .teacher .right {
+  margin-left: 125px;
+}
+.page-course-outline .course-description .teacher .head {
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.page-course-outline .course-description .teacher .name a {
+  font-size: 20px;
+  font-weight: bold;
+}
+.page-course-outline .course-description .teacher .name a:link,
+.page-course-outline .course-description .teacher .name a:active,
+.page-course-outline .course-description .teacher .name a:visited {
+  color: #1693a5;
+  text-decoration: none;
+}
+.page-course-outline .course-description .teacher .name a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-outline .course-description .teacher .doing {
+  color: #444;
+  font-weight: bold;
+  margin-top: 7px;
+}
+.page-course-outline .course-description .teacher .credentials {
+  color: #555;
+  line-height: 22px;
+  margin-top: 10px;
+}
+.page-course-outline .course-description .teacher .credentials p {
+  margin-bottom: 15px;
+}
+.page-course-outline .course-sidebar {
+  float: left;
+  margin-left: 40px;
+  width: 330px;
+}
+.page-course-outline .course-reviews {
+  background-color: #CCC;
+  border-bottom: 1px solid #BBB;
+  border-top: 1px solid #BBB;
+  margin-top: 60px;
+  padding: 40px 0px;
+}
+.page-course-outline .course-reviews .head {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.page-course-outline .course-reviews ul {
+  margin: 0;
+}
+.page-course-outline .course-reviews ul li {
+  list-style: none;
+  width: 330px;
+}
+.page-course-outline .course-reviews ul li .content {
+  background-color: #FFF;
+  border: 1px solid #BBB;
+  border-radius: 6px;
+  padding: 15px;
 }
