@@ -1,26 +1,319 @@
-#body-header {
-  padding-top: 15px;
+html,
+body {
+  background-color: #FFF;
 }
 #body-header .logo {
   float: left;
   font-size: 26px;
   font-weight: bold;
+  padding-top: 15px;
+}
+#body-header .logo a {
+  color: #1693a5;
 }
 #body-header .navigation {
   float: left;
-  margin-left: 40px;
+  margin-left: 80px;
 }
-#body-header .navigation a {
-  background-color: #666;
-  color: #FFF;
+#body-header .navigation ul {
+  border-right: 1px solid #E9E9E9;
+  margin: 0;
+}
+#body-header .navigation ul li {
+  border-left: 1px solid #E9E9E9;
   display: inline-block;
-  margin-right: 10px;
-  padding: 3px 15px;
+  list-style: none;
+  padding: 23px 20px 15px;
+}
+#body-header .navigation ul li a {
+  color: #444;
+  font-size: 16px;
 }
 #body-header .account {
   float: right;
 }
+#body-header .account .registration {
+  padding: 23px 0px 15px;
+}
+#body-header .account .registration a {
+  font-size: 15px;
+  margin-left: 12px;
+}
+#body-header .account .registration a:link,
+#body-header .account .registration a:active,
+#body-header .account .registration a:visited {
+  color: #1693a5;
+  text-decoration: none;
+}
+#body-header .account .registration a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
 #body-footer .website {
   font-size: 13px;
   text-align: center;
+}
+.style-button {
+  background-color: #1693a5;
+  border-radius: 4px;
+  color: #FFF;
+  display: inline-block;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+.style-button:hover {
+  background-color: #137f8e;
+  color: #FFF;
+  text-decoration: none;
+}
+.page-homepage .headline {
+  padding: 70px 0px 0px;
+}
+.page-homepage .headline .image {
+  float: left;
+}
+.page-homepage .headline .right {
+  margin-left: 420px;
+}
+.page-homepage .headline .head1 {
+  color: #444;
+  font-size: 38px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+.page-homepage .headline .head2 {
+  color: #444;
+  font-size: 28px;
+  margin-top: 25px;
+}
+.page-homepage .headline p {
+  color: #555;
+  font-size: 16px;
+  line-height: 26px;
+  margin-top: 20px;
+}
+.page-homepage .headline .action {
+  margin-top: 20px;
+}
+.page-homepage .featured-courses {
+  background-color: #F7F7F2;
+  border-bottom: 1px solid #edede2;
+  border-top: 1px solid #edede2;
+  margin-top: 60px;
+  padding: 40px 0px;
+}
+.page-homepage .featured-courses .head {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.page-homepage .featured-courses ul.courses {
+  margin: 0;
+}
+.page-homepage .featured-courses ul.courses li.course {
+  background-color: #FFF;
+  border: 1px solid #E7E7E7;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.07);
+  display: inline-block;
+  list-style: none;
+  margin-right: 60px;
+  width: 550px;
+  /*
+
+                .bottom {
+                    //border-top: 1px solid #EEE;
+                    padding-top: 15px;
+                }
+
+                .cover {
+                    float: left;
+
+                    img {
+                        height: 200px;
+                        width: 200px;
+                    }
+                }
+
+                .right {
+                    margin-left: 220px;
+                }*/
+
+  /*
+                .topic {
+
+                    ul {
+                        display: inline;
+                        margin: 0;
+
+                        li {
+                            display: inline-block;
+                            list-style: none;
+
+                            a {
+                                color: #444;
+                                font-size: 15px;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }*/
+
+  /*
+                ul.statistics {
+                    margin: 0;
+
+                    li {
+                        float: left;
+                        list-style: none;
+                        margin-right: 20px;
+
+                        em {
+                            color: #444;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: bold;
+                        }
+
+                        .text {
+                            display: inline-block;
+                            margin-left: 5px;
+                            vertical-align: bottom;
+                        }
+
+                        .unit {
+                            color: #444;
+                            font-size: 16px;
+                            font-weight: bold;
+                            margin-left: 5px;
+                        }
+
+                        .desc {
+                            color: #666;
+                            font-size: 13px;
+                            display: block;
+                            line-height: 16px;
+                        }
+                    }
+                }
+
+                .teacher {
+                    .avatar {
+                        float: left;
+                        margin-right: 10px;
+
+                        img {
+                            border-radius: 50px;
+                            height: 50px;
+                            width: 50px;
+                        }
+                    }
+
+                    .name {
+                        color: #444;
+                        display: block;
+                        font-size: 15px;
+                        font-weight: bold;
+                        padding-top: 4px;
+                    }
+
+                    .doing {
+                        color: #666;
+                        display: block;
+                        font-size: 13px;
+                    }
+                }
+
+                .footer {
+
+                }*/
+
+}
+.page-homepage .featured-courses ul.courses li.course .top {
+  padding: 14px 20px 15px;
+}
+.page-homepage .featured-courses ul.courses li.course .title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 26px;
+  margin-bottom: 7px;
+}
+.page-homepage .featured-courses ul.courses li.course .title a:link,
+.page-homepage .featured-courses ul.courses li.course .title a:active,
+.page-homepage .featured-courses ul.courses li.course .title a:visited {
+  color: #1693a5;
+  text-decoration: none;
+}
+.page-homepage .featured-courses ul.courses li.course .title a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-homepage .featured-courses ul.courses li.course .at_glance .topic a {
+  color: #666;
+  font-size: 13px;
+  font-weight: bold;
+}
+.page-homepage .featured-courses ul.courses li.course .at_glance .separator {
+  color: #CCC;
+  margin: 0px 5px;
+}
+.page-homepage .featured-courses ul.courses li.course .at_glance .duration {
+  color: #666;
+  font-size: 13px;
+}
+.page-homepage .featured-courses ul.courses li.course .cover {
+  margin-top: 10px;
+}
+.page-homepage .featured-courses ul.courses li.course .cover img {
+  height: 200px;
+  width: 550px;
+}
+.page-homepage .featured-courses ul.courses li.course .teacher {
+  margin-top: 15px;
+}
+.page-homepage .featured-courses ul.courses li.course .teacher .avatar {
+  float: left;
+  margin-right: 10px;
+}
+.page-homepage .featured-courses ul.courses li.course .teacher .avatar img {
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+}
+.page-homepage .featured-courses ul.courses li.course .teacher .name {
+  color: #444;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 4px;
+}
+.page-homepage .featured-courses ul.courses li.course .teacher .doing {
+  color: #666;
+  display: block;
+  font-size: 13px;
+}
+.page-homepage .featured-courses ul.courses li.course .next {
+  border-top: 1px dashed #DDD;
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+.page-homepage .featured-courses ul.courses li.course .next i {
+  color: #C30;
+  margin-right: 5px;
+}
+.page-homepage .featured-courses ul.courses li.course .next a {
+  margin-left: 6px;
+}
+.page-homepage .featured-courses ul.courses li.course .next a:link,
+.page-homepage .featured-courses ul.courses li.course .next a:active,
+.page-homepage .featured-courses ul.courses li.course .next a:visited {
+  color: #1693a5;
+  text-decoration: none;
+}
+.page-homepage .featured-courses ul.courses li.course .next a:hover {
+  text-decoration: underline;
+  text-shadow: none;
 }

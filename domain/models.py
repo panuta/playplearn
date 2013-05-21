@@ -1,6 +1,9 @@
 # -*- encoding: utf-8 -*-
 
+import datetime
+import decimal
 import random
+import shortuuid
 
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
@@ -8,13 +11,15 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.crypto import salted_hmac
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-import shortuuid
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.files import get_thumbnailer
 
 from common.constants.common import GENDER_CHOICES
+from common.constants.course import *
+from common.constants.transaction import TRANSACTION_TYPE_CHOICES
 from common.email import send_registration_email
 
 SHORTUUID_ALPHABETS_FOR_ID = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -148,7 +153,7 @@ class UserRegistrationManager(models.Manager):
 class UserRegistration(models.Model):
     email = models.CharField(max_length=254)
     registration_key = models.CharField(max_length=200, unique=True, db_index=True)
-    registered_on = models.DateTimeField(auto_now_add=True)
+    registered = models.DateTimeField(auto_now_add=True)
 
     objects = UserRegistrationManager()
 
@@ -169,3 +174,138 @@ class UserRegistration(models.Model):
     def claim_registration(self, name, password):
         user_account = UserAccount.objects.create_user(self.email, name, password)
         return user_account
+
+
+class UserAccountBalance(models.Model):
+    user = models.OneToOneField(UserAccount, related_name='account_balance')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, default=decimal.Decimal('0'))
+    last_modified = models.DateTimeField(auto_now=True)
+
+
+class UserAccountBalanceTransaction(models.Model):
+    user = models.ForeignKey(UserAccount, related_name='balance_transactions')
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    note = models.CharField(max_length=500, null=True, blank=True, default='')
+    created = models.DateTimeField(auto_now_add=True)
+
+
+# COURSE ###############################################################################################################
+
+class CourseSchool(models.Model):
+    name = models.CharField(max_length=300)
+
+
+class CourseTopic(models.Model):
+    name = models.CharField(max_length=500)
+
+
+class CourseManager(models.Manager):
+    use_for_related_fields = True
+
+    def get_query_set(self):
+        return super(CourseManager, self).get_query_set().exclude(status='DELETED')
+
+
+class Course(models.Model):
+    uid = models.CharField(max_length=50, db_index=True)
+    title = models.CharField(max_length=500)
+    description = models.TextField(null=True, blank=True, default='')
+    schools = models.ManyToManyField(CourseSchool, null=True, blank=True)
+    topics = models.ManyToManyField(CourseTopic, null=True, blank=True)
+    tuition_fees = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    duration = models.PositiveSmallIntegerField(null=True)
+    duration_unit = models.CharField(max_length=10, null=True, blank=True, default='HOURS')
+    minimum_people = models.PositiveSmallIntegerField(null=True)
+    maximum_people = models.PositiveSmallIntegerField(null=True)
+    level = models.CharField(max_length=20, choices=COURSE_LEVEL_CHOICES, null=True, blank=True)
+    prerequisites = models.CharField(max_length=500, null=True, blank=True)
+
+    teacher = models.ForeignKey(UserAccount, related_name='courses')
+    credentials = models.CharField(max_length=2000, null=True, blank=True, default='')
+
+    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='UNPUBLISHED')
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.title
+
+    objects = CourseManager()
+
+    def save(self, *args, **kwargs):
+        shortuuid.set_alphabet('1234567890')
+        if not self.uid:
+            temp_uuid = shortuuid.uuid()[0:10]
+            while Course.objects.filter(uid=temp_uuid).exists():
+                temp_uuid = shortuuid.uuid()[0:10]
+            self.uid = temp_uuid
+        super(Course, self).save(*args, **kwargs)
+
+        for schedule in self.all_schedules.all():
+            schedule.save()
+
+
+class CourseVenue(models.Model):
+    course = models.OneToOneField(Course)
+    name = models.CharField(max_length=300)
+    location = models.CharField(max_length=1000)
+    latlng = models.CharField(max_length=50)
+
+
+class CourseOutline(models.Model):
+    course = models.ForeignKey(Course, related_name='venue')
+    title = models.CharField(max_length=500)
+    description = models.CharField(max_length=1000, null=True, blank=True, default='')
+
+
+class CourseScheduleManager(models.Manager):
+    use_for_related_fields = True
+
+    def get_query_set(self):
+        return super(CourseScheduleManager, self).get_query_set().exclude(status='DELETED')
+
+
+class CourseSchedule(models.Model):
+    course = models.ForeignKey(Course, related_name='schedules')
+    start_date = models.DateField()
+    start_time = models.TimeField()
+    start_datetime = models.DateTimeField()
+    status = models.CharField(max_length=30, default='OPENING', choices=COURSE_SCHEDULE_STATUS_CHOICES)
+
+    class Meta:
+        ordering = ['-start_datetime']
+
+    def save(self, *args, **kwargs):
+        self.start_datetime = datetime.datetime.combine(self.start_date, self.start_time)
+        super(CourseSchedule, self).save(*args, **kwargs)
+
+    objects = CourseScheduleManager()
+
+    def is_opening(self):
+        rightnow = now()
+        return self.status == 'OPENING' and self.start_datetime > rightnow
+
+
+class CourseEnrollment(models.Model):
+    code = models.CharField(max_length=20)
+    student = models.ForeignKey(UserAccount, related_name='enrollment')
+    schedule = models.ForeignKey(CourseSchedule, related_name='students')
+    note = models.CharField(max_length=1000, blank=True, default='')
+
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_status = models.CharField(max_length=30, choices=COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES)
+
+    status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
+    status_reason = models.CharField(max_length=100, null=True, blank=True, default='')
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class CourseReview(models.Model):
+    user = models.ForeignKey(UserAccount, related_name='reviews')
+    enrollment = models.ForeignKey('CourseEnrollment', related_name='reviews')
+    content = models.CharField(max_length=2000)
+    is_positive = models.BooleanField()
+    created = models.DateTimeField(auto_now_add=True)
+

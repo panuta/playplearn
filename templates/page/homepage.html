@@ -4,6 +4,48 @@
 
 {% block body %}
 <div class="container">
-    HOMEPAGE
+    <div class="headline clearfix">
+        <div class="image"><img src="{{ STATIC_URL }}images/page/homepage/headline.png" /></div>
+        <div class="right">
+            <div class="head1">Learn Something New</div>
+            <div class="head2">From someone who is passionate about it</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla lectus eget tortor placerat ut egestas leo tempus.</p>
+            <div class="action">
+                <a href="#" class="style-button">Browse Courses</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials -->
+<!-- Featured Schools -->
+
+<div class="featured-courses">
+    <div class="container">
+        <div class="head">Featured Courses</div>
+        <ul class="courses">
+            <li class="course">
+                <div class="top">
+                    <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
+                    <div class="at_glance">
+                        <span class="topic"><a href="#">Public Speaking</a></span>
+                        <span class="separator">|</span>
+                        <span class="duration">6 Hours</span>
+                    </div>
+
+                    <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1.jpg" /></a></div>
+
+                    <div class="teacher clearfix">
+                        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                        <a href="#" class="name">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span>
+                    </div>
+                </div>
+
+                <div class="next">
+                    <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

@@ -1,22 +1,40 @@
+html, body {
+    //background-color: #f7f7f2;
+    background-color: #FFF;
+}
+
 #body-header {
-    padding-top: 15px;
 
     .logo {
         float: left;
         font-size: 26px;
         font-weight: bold;
+        padding-top: 15px;
+
+        a {
+            color: @linkColor;
+        }
     }
 
     .navigation {
         float: left;
-        margin-left: 40px;
+        margin-left: 80px;
 
-        a {
-            background-color: #666;
-            color: #FFF;
-            display: inline-block;
-            margin-right :10px;
-            padding: 3px 15px;
+        ul {
+            border-right: 1px solid #E9E9E9;
+            margin: 0;
+
+            li {
+                border-left: 1px solid #E9E9E9;
+                display: inline-block;
+                list-style: none;
+                padding: 23px 20px 15px;
+
+                a {
+                    color: #444;
+                    font-size: 16px;
+                }
+            }
         }
     }
 
@@ -24,7 +42,13 @@
         float: right;
 
         .registration {
+            padding: 23px 0px 15px;
 
+            a {
+                .content_link;
+                font-size: 15px;
+                margin-left: 12px;
+            }
         }
 
         .user {

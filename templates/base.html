@@ -18,9 +18,10 @@
 
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css">
 
-    <script src="{{ STATIC_URL }}libs/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <!--<script src="{{ STATIC_URL }}libs/modernizr-2.6.2-respond-1.1.0.min.js"></script> Firefox Don't Remember Scroll Position-->
 </head>
 <body class="{% block body_class %}{% endblock %}">
 <!--[if lt IE 7]>
@@ -30,10 +31,12 @@
 
 <div id="body-header">
     <div class="container">
-        <div class="logo"><a href="{% url 'view_homepage' %}">Learning Wolf</a></div>
+        <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
         <div class="navigation">
-            <a href="{% url 'view_course_explorer' %}">Courses</a>
-            <a href="{% url 'view_course_teach' %}">Teach</a>
+            <ul>
+                <li><a href="{% url 'view_course_explorer' %}">Browse Courses</a></li>
+                <li><a href="{% url 'view_course_teach' %}">Teach Something</a></li>
+            </ul>
         </div>
         <div class="account">
             {% if user.is_authenticated %}
