@@ -1,3 +1,11 @@
+.DS_Store
+.idea
+sftp-config.json
+media
+settings_local.py
+sitestatic/
+*.swp
+
 *.py[cod]
 
 # C extensions
