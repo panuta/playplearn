@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 
 def view_homepage(request):
-    return render(request, 'pages/homepage.html', {})
+    return render(request, 'page/homepage.html', {})

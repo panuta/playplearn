@@ -137,7 +137,7 @@ class UserAccount(AbstractBaseUser):
 
 class UserRegistrationManager(models.Manager):
     def create_registration(self, email):
-        key_salt = 'accounts.models.UserRegistrationManager_%d' % random.randint(1, 99999999)
+        key_salt = 'account.models.UserRegistrationManager_%d' % random.randint(1, 99999999)
         email = email.encode('utf-8')
         value = email
         registration_key = salted_hmac(key_salt, value).hexdigest()
@@ -159,8 +159,8 @@ class UserRegistration(models.Model):
         email_context = {'settings': settings, 'registration': self}
 
         subject = _('StoryPresso Registration Confirmation')
-        text_email_body = render_to_string('accounts/emails/registration_confirmation.txt', email_context)
-        html_email_body = render_to_string('accounts/emails/registration_confirmation.html', email_context)
+        text_email_body = render_to_string('account/emails/registration_confirmation.txt', email_context)
+        html_email_body = render_to_string('account/emails/registration_confirmation.html', email_context)
 
         send_registration_email([self.email], subject, text_email_body, html_email_body)
 

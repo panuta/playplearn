@@ -11,8 +11,10 @@
     <meta name="keywords" content="{% block head_keywords %}{% endblock %}" />
     <meta name="viewport" content="width=device-width">
 
-    <!--<link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png" />
-    <link rel="icon" href="{{ STATIC_URL }}favicon.ico" />-->
+    {% comment %}
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png" />
+    <link rel="icon" href="{{ STATIC_URL }}favicon.ico" />
+    {% endcomment %}
 
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.min.css">
@@ -26,12 +28,45 @@
 <![endif]-->
 <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
 
-{% block body %}{% endblock %}
+<div id="body-header">
+    <div class="container">
+        <div class="logo"><a href="{% url 'view_homepage' %}">Learning Wolf</a></div>
+        <div class="navigation">
+            <a href="{% url 'view_course_explorer' %}">Courses</a>
+            <a href="{% url 'view_course_teach' %}">Teach</a>
+        </div>
+        <div class="account">
+            {% if user.is_authenticated %}
+                <div class="user">
+                    <a href="{% url 'view_user_profile' %}">{{ user.name }}</a>
+                    <ul>
+                        <li><a href="{% url 'edit_user_profile' %}">Edit profile</a></li>
+                        <li><a href="{% url 'view_student_home' %}">Student dashboard</a></li>
+                        <li><a href="{% url 'view_teacher_home' %}">Teacher dashboard</a></li>
+                        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="registration">
+                    <a href="{% url 'view_signup' %}">Sign up</a>
+                    <a href="{% url 'view_login' %}">Login</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div id="body-content">{% block body %}{% endblock %}</div>
+
+<div id="body-footer">
+    <div class="website">Learning Wolf</div>
+</div>
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
 
+{% comment %}
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,5 +75,6 @@
 ga('create', 'UA-41092535-2', 'learningwolf.com');
 ga('send', 'pageview');
 </script>
+{% endcomment %}
 </body>
 </html>

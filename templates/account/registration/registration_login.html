@@ -1,0 +1,29 @@
+{% extends 'base_inner.html' %}
+
+{% block body_inner %}
+<div class="page-registration">
+    <div class="registration">
+        <h1>เข้าสู่ระบบ</h1>
+        <div class="login-social">
+            <a href="#" class="facebook">Sign-in with Facebook</a>
+            <a href="#" class="twitter">Sign-in with Twitter</a>
+        </div>
+        <div class="login-email">
+            <div class="note">หรือเข้าสู่ระบบด้วยอีเมล</div>
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="text-input">{{ form.email }}{{ form.email.errors }}</div>
+                <div class="text-input">{{ form.password }}{{ form.password.errors }}</div>
+                <input type="hidden" value="{{ next }}" name="next" />
+                <div class="button">
+                    <input type="submit" value="เข้าสู่ระบบ" class="btn" />
+                    <a href="#">ลืมรหัสผ่าน?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

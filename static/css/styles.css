@@ -1,0 +1,26 @@
+#body-header {
+  padding-top: 15px;
+}
+#body-header .logo {
+  float: left;
+  font-size: 26px;
+  font-weight: bold;
+}
+#body-header .navigation {
+  float: left;
+  margin-left: 40px;
+}
+#body-header .navigation a {
+  background-color: #666;
+  color: #FFF;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 3px 15px;
+}
+#body-header .account {
+  float: right;
+}
+#body-footer .website {
+  font-size: 13px;
+  text-align: center;
+}

@@ -181,12 +181,12 @@ FACEBOOK_APP_ID = '163077977195323'
 FACEBOOK_API_SECRET = '530aaf587b0a6b22c9954359f5d13a2e'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 
-LOGIN_ERROR_URL = '/accounts/error/'
+LOGIN_ERROR_URL = '/account/error/'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/accounts/redirect/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/account/redirect/'
 
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accounts/redirect/'
-SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/accounts/redirect/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/account/redirect/'
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/account/redirect/'
 
 SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
