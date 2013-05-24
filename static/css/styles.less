@@ -2,18 +2,61 @@
 @linkColor: #1693a5;
 @linkColorDarker: #137f8e;
 
+@primaryColor: #1693a5;
+@orangeColor: #e46217;
+
 .content_link() {
     &:link, &:active, &:visited {
         color: @linkColor;
-        text-decoration: none;
+        text-decoration: underline;
     }
 
     &:hover {
+        background-color: @linkColor;
+        color: #FFF;
         text-decoration: underline;
         text-shadow: none;
     }
 }
 
+.grey_link() {
+    &:link, &:active, &:visited {
+        color: #888;
+        text-decoration: underline;
+    }
+
+    &:hover {
+        background-color: @linkColor;
+        color: #FFF;
+        text-decoration: underline;
+        text-shadow: none;
+    }
+}
+
+.login_facebook_button() {
+    background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
+    display: inline-block;
+    height: 40px;
+    text-indent: -9999px;
+    width: 230px;
+
+    &:hover {
+        background-position: -230px 0px;
+    }
+}
+
+.login_twitter_button() {
+    background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
+    display: inline-block;
+    height: 40px;
+    text-indent: -9999px;
+    width: 230px;
+
+    &:hover {
+        background-position: -230px -40px;
+    }
+}
+
 @import "styles.base.less";
-@import "styles.common.less";
+@import "styles.layout.less";
 @import "styles.page.less";

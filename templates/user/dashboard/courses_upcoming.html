@@ -1,0 +1,40 @@
+{% extends 'user/dashboard/courses_base.html' %}
+
+{% block courses_content_nav %}{% include 'user/dashboard/courses_base_nav.html' with tab_name='upcoming' %}{% endblock %}
+
+{% block courses_content %}
+<div class="page-my-courses-upcoming">
+
+    {% if upcoming_schedules %}
+    <ul class="courses">
+        {% for schedule in upcoming_schedules %}
+        <li class="course">
+            <div class="top clearfix">
+                <div class="cover"></div>
+                <div class="right">
+                    <div class="do">{% if schedule.course.teacher == request.user %}Teaching{% else %}Attending{% endif %}</div>
+                    <div class="title"><a href="#">{{ schedule.course.title }}</a></div>
+                    {% if schedule.course.teacher != request.user %}
+                        <div class="teacher">{{ schedule.course.teacher.name }}</div>
+                    {% endif %}
+                    <div class="schedule-location">
+                        <div class="schedule">{{ schedule.start_datetime|date:'D j M Y - H:i' }}</div>
+                        <div class="location">at Somewhere</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                {% if schedule.course.teacher == request.user %}
+                    <a href="{% url 'view_classroom_home' schedule.course.uid %}">Manage classroom</a>
+                {% else %}
+                    <a href="{% url 'view_course_enroll_receipt' %}">Enrollment details</a>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="no-course">No upcoming class</div>
+    {% endif %}
+</div>
+{% endblock %}

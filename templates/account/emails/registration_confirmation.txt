@@ -1,0 +1,9 @@
+{% extends 'base_email.txt' %}
+
+{% block email_content %}
+Please click on the link below to confirm your registration with PlayPlanet.
+
+{{ settings.WEBSITE_DOMAIN }}{% url 'activate_email_user' registration.registration_key %}
+
+If you haven't signed up for PlayPlanet, please disregard this email.
+{% endblock %}

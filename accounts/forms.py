@@ -14,7 +14,7 @@ class EmailAuthenticationForm(forms.Form):
     Base class for authenticating users. Extend this to get a form that accepts
     email/password logins.
     """
-    email = forms.EmailField(widget=EmailWidget(attrs={'name': 'email', 'placeholder': 'อีเมล'}))
+    email = forms.EmailField(widget=EmailWidget(attrs={'placeholder': 'อีเมล'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'รหัสผ่าน'}))
 
     def __init__(self, request=None, *args, **kwargs):
@@ -57,7 +57,7 @@ class EmailAuthenticationForm(forms.Form):
 
 
 class EmailSignupForm(forms.Form):
-    email = forms.EmailField(widget=EmailWidget(attrs={'name': 'email', 'placeholder': 'อีเมล'}))
+    email = forms.EmailField(widget=EmailWidget(attrs={'placeholder': 'อีเมล'}))
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

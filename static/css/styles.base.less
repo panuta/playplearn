@@ -1,69 +1,149 @@
-html, body {
-    //background-color: #f7f7f2;
-    background-color: #FFF;
+
+// BOOTSTRAP STYLES ####################################################################################################
+
+.btn {
+    font-size: 12px;
 }
 
-#body-header {
+[class^="icon-"], [class*=" icon-"] {
+    vertical-align: -2px;
+}
 
-    .logo {
-        float: left;
-        font-size: 26px;
-        font-weight: bold;
-        padding: 12px 0;
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    border-radius: 0;
+}
 
-        a {
-            color: @linkColor;
-        }
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    box-shadow: none;
+}
+
+input:focus:invalid,
+textarea:focus:invalid,
+select:focus:invalid {
+    color: inherit;
+    border-color: #cccccc;
+}
+
+input:focus:invalid:focus,
+textarea:focus:invalid:focus,
+select:focus:invalid:focus {
+    border-color: #cccccc;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+
+.dropdown-menu {
+    border-radius: 2px;
+
+    li a {
+        font-size: 0.9em;
     }
 
-    .navigation {
-        float: left;
-        margin-left: 80px;
-
-        ul {
-            border-right: 1px solid #E9E9E9;
-            margin: 0;
-
-            li {
-                border-left: 1px solid #E9E9E9;
-                display: inline-block;
-                list-style: none;
-                padding: 22px 20px 21px;
-
-                a {
-                    color: #444;
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-
-    .account {
-        float: right;
-
-        .registration {
-            padding: 23px 0px 15px;
-
-            a {
-                .content_link;
-                font-size: 15px;
-                margin-left: 12px;
-            }
-        }
-
-        .user {
-
-        }
+    li.divider {
+        margin: 7px 1px;
     }
 }
 
-#body-content {
+.form-actions {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
 
-}
-
-#body-footer {
-    .website {
+    .btn {
         font-size: 13px;
-        text-align: center;
+        margin-right: 15px;
+        padding: 8px 30px;
     }
+}
+
+
+// COMMON USED STYLES ##################################################################################################
+
+.style-button-base() {
+    border: none;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 13.5px;
+    font-weight: bold;
+    padding: 7px 30px;
+
+    &:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    i {
+        margin-right: 3px;
+        vertical-align: middle;
+    }
+}
+
+.style-button {
+    .style-button-base;
+    background-color: #DDD;
+    box-shadow: 0px 3px 0px #BBB;
+    color: #444;
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+
+    &:hover {
+        background-color: @linkColor;
+        box-shadow: 0px 2px 0px @linkColorDarker;
+        text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.style-orange-button {
+    .style-button-base;
+    background-color: @orangeColor;
+    box-shadow: 0px 3px 0px #cd5815;
+    color: #FFF;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.style-primary-button {
+    .style-button-base;
+    background-color: @linkColor;
+    color: #FFF;
+
+    &:hover {
+        background-color: @linkColorDarker;
+    }
+}
+
+.topic-header-public-speaking {
+    background-image: url(../images/topics/topic-public-speaking.png);
+    background-repeat:  no-repeat;
 }

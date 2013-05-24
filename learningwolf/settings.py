@@ -73,6 +73,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
+    'django.core.context_processors.request',
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages'
@@ -166,9 +167,9 @@ THUMBNAIL_PRESERVE_EXTENSIONS = ('png',)
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar_large': {'size': (180, 180), 'crop': True},
-        'avatar_medium': {'size': (100, 100), 'crop': True},
-        'avatar_small': {'size': (40, 40), 'crop': True},
+        'avatar_normal': {'size': (100, 100), 'crop': True},
+        'avatar_small': {'size': (75, 75), 'crop': True},
+        'avatar_tiny': {'size': (30, 30), 'crop': True},
     },
 }
 
@@ -198,9 +199,9 @@ SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 
 USER_AVATAR_ROOT = 'users'
 
-USER_AVATAR_DEFAULT_LARGE = 'avatar/default_large.png'
-USER_AVATAR_DEFAULT_MEDIUM = 'avatar/default_medium.png'
+USER_AVATAR_DEFAULT_NORMAL = 'avatar/default_normal.png'
 USER_AVATAR_DEFAULT_SMALL = 'avatar/default_small.png'
+USER_AVATAR_DEFAULT_TINY = 'avatar/default_tiny.png'
 
 
 # LOCAL SETTINGS #######################################################################################################

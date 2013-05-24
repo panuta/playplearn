@@ -1,0 +1,5 @@
+{% block email_content %}{% endblock %}
+
+---------------------------------------------------
+LearningWolf | learn something
+{{ settings.WEBSITE_DOMAIN }}

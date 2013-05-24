@@ -8,6 +8,7 @@ import shortuuid
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.crypto import salted_hmac
@@ -122,22 +123,51 @@ class UserAccount(AbstractBaseUser):
     # Avatars
 
     @property
-    def large_avatar_url(self):
+    def normal_avatar_url(self):
         if self.avatar:
-            return get_thumbnailer(self.avatar)['avatar_large'].url
-        return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_LARGE)
-
-    @property
-    def medium_avatar_url(self):
-        if self.avatar:
-            return get_thumbnailer(self.avatar)['avatar_medium'].url
-        return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_MEDIUM)
+            return get_thumbnailer(self.avatar)['avatar_normal'].url
+        return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_NORMAL)
 
     @property
     def small_avatar_url(self):
         if self.avatar:
             return get_thumbnailer(self.avatar)['avatar_small'].url
         return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_SMALL)
+
+    @property
+    def tiny_avatar_url(self):
+        if self.avatar:
+            return get_thumbnailer(self.avatar)['avatar_tiny'].url
+        return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_TINY)
+
+    # Stats ------------------------------------------------------------------------------------------------------------
+
+    def num_of_upcoming_courses(self):
+        rightnow = now()
+        return CourseSchedule.objects \
+            .filter(status='OPENING', start_datetime__gt=rightnow) \
+            .filter((Q(course__teacher=self) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
+                    | Q(enrollments__student__in=(self,))).count()
+
+    def num_of_courses_teaching(self):
+        return Course.objects.filter(
+            teacher=self,
+            status='PUBLISHED'
+        ).count()
+
+    def num_of_courses_attended(self):
+        rightnow = now()
+        return Course.objects.filter(
+            schedules__start_datetime__lte=rightnow,
+            schedules__enrollments__status='CONFIRMED',
+            schedules__enrollments__student=self,
+        ).count()
+
+    def num_of_reviews_received(self):
+        return CourseReview.objects.filter(enrollment__schedule__course__teacher=self).count()
+
+    def num_of_reviews_written(self):
+        return self.reviews.count()
 
 
 class UserRegistrationManager(models.Manager):
@@ -163,7 +193,7 @@ class UserRegistration(models.Model):
     def send_confirmation_email(self):
         email_context = {'settings': settings, 'registration': self}
 
-        subject = _('StoryPresso Registration Confirmation')
+        subject = _('LearningWolf Registration Confirmation')
         text_email_body = render_to_string('account/emails/registration_confirmation.txt', email_context)
         html_email_body = render_to_string('account/emails/registration_confirmation.html', email_context)
 
@@ -188,6 +218,21 @@ class UserAccountBalanceTransaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     note = models.CharField(max_length=500, null=True, blank=True, default='')
     created = models.DateTimeField(auto_now_add=True)
+
+
+# VENUE ################################################################################################################
+
+class Venue(models.Model):
+    name = models.CharField(max_length=500)
+    address = models.CharField(max_length=1000)
+    province = models.SmallIntegerField(default=0)
+    latlng = models.CharField(max_length=50)
+
+
+class VenueDetail(models.Model):
+    venue = models.ForeignKey(Venue, related_name='details')
+    detail_name = models.CharField(max_length=100)
+    detail_value = models.CharField(max_length=500)
 
 
 # COURSE ###############################################################################################################
@@ -231,6 +276,9 @@ class Course(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-created']
+
     objects = CourseManager()
 
     def save(self, *args, **kwargs):
@@ -242,15 +290,14 @@ class Course(models.Model):
             self.uid = temp_uuid
         super(Course, self).save(*args, **kwargs)
 
-        for schedule in self.all_schedules.all():
-            schedule.save()
-
 
 class CourseVenue(models.Model):
     course = models.OneToOneField(Course)
-    name = models.CharField(max_length=300)
-    location = models.CharField(max_length=1000)
-    latlng = models.CharField(max_length=50)
+    venue = models.ForeignKey(Venue, null=True)
+    name = models.CharField(max_length=500, null=True, blank=True, default='')
+    address = models.CharField(max_length=1000, null=True, blank=True, default='')
+    province = models.SmallIntegerField(default=0)
+    latlng = models.CharField(max_length=50, null=True, blank=True, default='')
 
 
 class CourseOutline(models.Model):
@@ -268,17 +315,11 @@ class CourseScheduleManager(models.Manager):
 
 class CourseSchedule(models.Model):
     course = models.ForeignKey(Course, related_name='schedules')
-    start_date = models.DateField()
-    start_time = models.TimeField()
     start_datetime = models.DateTimeField()
     status = models.CharField(max_length=30, default='OPENING', choices=COURSE_SCHEDULE_STATUS_CHOICES)
 
     class Meta:
         ordering = ['-start_datetime']
-
-    def save(self, *args, **kwargs):
-        self.start_datetime = datetime.datetime.combine(self.start_date, self.start_time)
-        super(CourseSchedule, self).save(*args, **kwargs)
 
     objects = CourseScheduleManager()
 
@@ -289,8 +330,8 @@ class CourseSchedule(models.Model):
 
 class CourseEnrollment(models.Model):
     code = models.CharField(max_length=20)
-    student = models.ForeignKey(UserAccount, related_name='enrollment')
-    schedule = models.ForeignKey(CourseSchedule, related_name='students')
+    student = models.ForeignKey(UserAccount, related_name='enrollments')
+    schedule = models.ForeignKey(CourseSchedule, related_name='enrollments')
     note = models.CharField(max_length=1000, blank=True, default='')
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -300,6 +341,9 @@ class CourseEnrollment(models.Model):
     status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
     status_reason = models.CharField(max_length=100, null=True, blank=True, default='')
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-schedule__start_datetime']
 
 
 class CourseReview(models.Model):

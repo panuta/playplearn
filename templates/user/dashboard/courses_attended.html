@@ -1,0 +1,37 @@
+{% extends 'user/dashboard/courses_base.html' %}
+
+{% block courses_content_nav %}{% include 'user/dashboard/courses_base_nav.html' with tab_name='attended' %}{% endblock %}
+
+{% block courses_content %}
+<div class="page-my-courses-attended">
+
+    {% if enrollments %}
+        <ul class="courses">
+            {% for enrollment in enrollments %}
+            <li class="course">
+
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="no-course">No attended course</div>
+    {% endif %}
+
+
+    <div class="learning-courses">
+
+        <ul class="courses">
+            {% for enrollment in enrollments %}
+            <li class="course">
+                <!-- cover -->
+                <!-- feedback -->
+                <!-- teacher -->
+                <!-- next course -->
+                <div class="title"><a href="#">{{ enrollment.schedule.course.title }}</a></div>
+                <div><a href="{% url 'view_classroom_home' enrollment.schedule.course.uid %}" class="btn">Go to classroom</a></div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

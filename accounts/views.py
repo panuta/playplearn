@@ -32,7 +32,7 @@ def view_signup(request):
             email = form.cleaned_data['email']
 
             registration = UserRegistration.objects.create_registration(email)
-            registration.send_registration_request()
+            registration.send_confirmation_email()
 
             return redirect('view_user_signup_done')
 

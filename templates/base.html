@@ -34,25 +34,36 @@
         <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
         <div class="navigation">
             <ul>
-                <li><a href="{% url 'view_course_explorer' %}">Browse Courses</a></li>
-                <li><a href="{% url 'view_course_teach' %}">Teach Something</a></li>
+                <li><a href="{% url 'view_course_explorer' %}" class="explore"><i class="icon-search icon-large"></i> All Courses</a></li>
+                <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Become a Teacher</a></li>
             </ul>
         </div>
         <div class="account">
             {% if user.is_authenticated %}
                 <div class="user">
-                    <a href="{% url 'view_user_profile' %}">{{ user.name }}</a>
-                    <ul>
-                        <li><a href="{% url 'edit_user_profile' %}">Edit profile</a></li>
-                        <li><a href="{% url 'view_student_home' %}">Student dashboard</a></li>
-                        <li><a href="{% url 'view_teacher_home' %}">Teacher dashboard</a></li>
-                        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-                    </ul>
+                    <div class="notification notify-courses">
+                        <a href="#"><i class="icon-briefcase icon-light"></i></a>
+                    </div>
+                    <div class="notification notify-news">
+                        <a href="#" class="has-alert"><i class="icon-bell-alt icon-light"></i><span class="number">10</span></a>
+                    </div>
+                    <div class="menu btn-group">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{ user.tiny_avatar_url }}" /> <i class="icon-chevron-down"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="{% url 'view_my_profile' %}">โปรไฟล์</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'view_my_news_feed' %}">News Feed</a></li>
+                            <li><a href="{% url 'view_my_courses_upcoming' %}">My Courses</a></li>
+                            <li><a href="{% url 'edit_my_profile' %}">Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
+                        </ul>
+                    </div>
                 </div>
             {% else %}
                 <div class="registration">
-                    <a href="{% url 'view_signup' %}">Sign up</a>
-                    <a href="{% url 'view_login' %}">Login</a>
+                    <a href="{% url 'view_signup' %}">New user?</a>
+                    <a href="{% url 'view_login' %}?next={{ request.path }}">Login</a>
                 </div>
             {% endif %}
         </div>

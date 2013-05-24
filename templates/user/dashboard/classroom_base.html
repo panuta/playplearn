@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body_class %}page-classroom{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="classroom-header clearfix">
+        <div class="title">{{ course.title }}</div>
+    </div>
+    <div class="classroom-body">
+        <div class="row">
+            <div class="span2 classroom-nav">
+                {% block classroom_nav %}{% endblock %}
+            </div>
+            <div class="span10 classroom-content">
+                {% block classroom_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

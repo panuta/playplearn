@@ -1,0 +1,32 @@
+{% extends 'user/dashboard/courses_base.html' %}
+
+{% block courses_content_nav %}{% include 'user/dashboard/courses_base_nav.html' with tab_name='teaching' %}{% endblock %}
+
+{% block courses_content %}
+<div class="page-my-courses-teaching">
+    <ul class="courses">
+        {% for course in teaching_courses %}
+        <li class="course">
+            <div class="top clearfix">
+                <div class="cover"></div>
+                <div class="right">
+                    <div class="title"><a href="#">{{ course.title }}</a></div>
+
+                </div>
+            </div>
+
+            <div class="footer">
+                <a href="{% url 'view_classroom_home' course.uid %}">Manage classroom</a>
+                <a href="{% url 'view_classroom_home' course.uid %}">Edit course information</a>
+            </div>
+
+            <!-- Number of attending students (Min, Max) -->
+            <!-- Next schedule -->
+            <!-- Status -->
+            <!--  -->
+            <!--  -->
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -11,6 +11,10 @@ def view_course_enroll(request):
     return render(request, 'course/course_enroll.html', {})
 
 
+def view_course_enroll_receipt(request):
+    return render(request, 'course/course_enroll_receipt.html', {})
+
+
 def view_course_explorer(request):
     return render(request, 'course/course_explorer.html', {})
 
