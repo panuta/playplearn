@@ -1,0 +1,63 @@
+{% extends 'user/settings/settings_base.html' %}
+
+{% block settings_nav %}{% include 'user/settings/settings_base_nav.html' with tab_name='profile' %}{% endblock %}
+
+{% block settings_content %}
+<h2 class="head2">Profile settings</h2>
+
+<form method="post" action="." class="style-form" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="control-group avatar-control clearfix">
+        <label class="control-label" for="id_name">Profile picture</label>
+        <div class="controls">
+            <img src="{{ user.small_avatar_url }}" class="avatar" {% if not user.avatar %}title="No picture"{% endif %}/>
+            <div class="tools">
+                <div class="upload-tool">
+                    {{ form.avatar }}
+                    <p class="help-block">Maximum file size is 1MB. Accept only JPG, GIF, and PNG.</p>
+                </div>
+                {% if user.avatar %}
+                    <button class="btn btn-mini remove-avatar" type="submit" name="submit" value="remove-avatar">Remove picture</button>
+                {% endif %}
+            </div>
+            {{ form.avatar.errors }}
+        </div>
+    </div>
+
+    <div class="control-group name-control">
+        <label class="control-label" for="id_name">Name</label>
+        <div class="controls">
+            {{ form.name }}{{ form.name.errors }}
+        </div>
+    </div>
+
+    <div class="control-group headline-control">
+        <label class="control-label" for="id_headline">What define you?</label>
+        <div class="controls">
+            {{ form.headline }}{{ form.headline.errors }}
+            <div class="help-block">Your expertises, Your passions, or What you are born to be.</div>
+        </div>
+    </div>
+
+    <div class="control-group website-control">
+        <label class="control-label" for="id_website">Your website</label>
+        <div class="controls">
+            {{ form.website }}{{ form.website.errors }}
+        </div>
+    </div>
+
+    <div class="control-group phone-control">
+        <label class="control-label" for="id_phone_number">Phone number</label>
+        <div class="controls">
+            {{ form.phone_number }}{{ form.phone_number.errors }}
+            <div class="help-block">Only be shared to the teacher of a course you are attending.</div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="style-primary-button">Update</button>
+    </div>
+
+</form>
+{% endblock %}

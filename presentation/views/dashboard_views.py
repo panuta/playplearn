@@ -8,6 +8,7 @@ from common.decorators import teacher_or_student_only, teacher_only
 
 from domain.models import CourseEnrollment, CourseSchedule, Course
 
+# MY COURSES ###########################################################################################################
 
 @login_required
 def view_my_courses_upcoming(request):
@@ -17,7 +18,7 @@ def view_my_courses_upcoming(request):
         .filter((Q(course__teacher=request.user) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
                 | Q(enrollments__student__in=(request.user,)))
 
-    return render(request, 'user/dashboard/courses_upcoming.html', {'upcoming_schedules': upcoming_schedules})
+    return render(request, 'dashboard/courses_upcoming.html', {'upcoming_schedules': upcoming_schedules})
 
 
 @login_required
@@ -26,40 +27,42 @@ def view_my_courses_attended(request):
     enrollments = CourseEnrollment.objects\
         .filter(schedule__start_datetime__lte=rightnow, student=request.user, status='CONFIRMED')
 
-    return render(request, 'user/dashboard/courses_attended.html', {'enrollments': enrollments})
+    return render(request, 'dashboard/courses_attended.html', {'enrollments': enrollments})
 
 
 @login_required
 def view_my_courses_teaching(request):
     teaching_courses = Course.objects.filter(teacher=request.user)
 
-    return render(request, 'user/dashboard/courses_teaching.html', {'teaching_courses': teaching_courses})
+    return render(request, 'dashboard/courses_teaching.html', {'teaching_courses': teaching_courses})
 
 
 @login_required
 def create_course(request):
-    return render(request, 'user/dashboard/course_create.html', {})
+    return render(request, 'dashboard/course_create.html', {})
 
 
-@login_required
-@teacher_or_student_only
-def view_classroom_home(request, course, course_uid):
-    return render(request, 'user/dashboard/classroom_home.html', {'course': course})
-
+# MANAGE CLASSROOM #####################################################################################################
 
 @login_required
-@teacher_or_student_only
-def view_classroom_students(request, course, course_uid):
-    return render(request, 'user/dashboard/classroom_students.html', {'course': course})
-
-
-@login_required
-@teacher_or_student_only
-def view_classroom_calendar(request, course, course_uid):
-    return render(request, 'user/dashboard/classroom_calendar.html', {'course': course})
+@teacher_only
+def manage_classroom_home(request, course, course_uid):
+    return render(request, 'dashboard/manage_classroom_home.html', {'course': course})
 
 
 @login_required
 @teacher_only
-def view_classroom_feedback(request, course, course_uid):
-    return render(request, 'user/dashboard/classroom_feedback.html', {'course': course})
+def manage_classroom_students(request, course, course_uid):
+    return render(request, 'dashboard/manage_classroom_students.html', {'course': course})
+
+
+@login_required
+@teacher_only
+def manage_classroom_calendar(request, course, course_uid):
+    return render(request, 'dashboard/manage_classroom_calendar.html', {'course': course})
+
+
+@login_required
+@teacher_only
+def manage_classroom_feedback(request, course, course_uid):
+    return render(request, 'dashboard/manage_classroom_feedback.html', {'course': course})

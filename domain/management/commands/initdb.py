@@ -27,6 +27,9 @@ class Command(BaseCommand):
                 user = UserAccount.objects.get(email=admin[1])
             except UserAccount.DoesNotExist:
                 user = UserAccount.objects.create_superuser(admin[1], admin[0], '1q2w3e4r')
+                user.headline = 'Superuser'
+                user.phone_number = '999-999-9999'
+                user.save()
 
             some_admin = user
 
@@ -40,8 +43,7 @@ class Command(BaseCommand):
             except UserAccount.DoesNotExist:
                 user1 = UserAccount.objects.create_user('user1@example.com', 'User1 Lastname', '1q2w3e4r')
                 user1.headline = 'Wood Carpenter'
-                user1.gender = 'M'
-                user1.age = 31
+                user1.phone_number = '111-1111'
                 user1.save()
 
             try:
@@ -49,8 +51,7 @@ class Command(BaseCommand):
             except UserAccount.DoesNotExist:
                 user2 = UserAccount.objects.create_user('user2@example.com', 'User2 Lastname', '1q2w3e4r')
                 user2.headline = 'Computer Science Student'
-                user2.gender = 'F'
-                user2.age = 18
+                user2.phone_number = '222-2222'
                 user2.save()
 
             try:
@@ -58,8 +59,7 @@ class Command(BaseCommand):
             except UserAccount.DoesNotExist:
                 user3 = UserAccount.objects.create_user('user3@example.com', 'User3 Lastname', '1q2w3e4r')
                 user3.headline = 'Avid Learner'
-                user3.gender = 'F'
-                user3.age = 28
+                user3.phone_number = '333-3333'
                 user3.save()
 
             # VENUES

@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/select2/select2.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/slider/css/slider.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/redactor/redactor.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery.fineuploader/fineuploader-3.5.0.css">
+
     <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css">
 
     <!--<script src="{{ STATIC_URL }}libs/modernizr-2.6.2-respond-1.1.0.min.js"></script> Firefox Don't Remember Scroll Position-->
@@ -54,7 +60,7 @@
                             <li class="divider"></li>
                             <li><a href="{% url 'view_my_news_feed' %}">News Feed</a></li>
                             <li><a href="{% url 'view_my_courses_upcoming' %}">My Courses</a></li>
-                            <li><a href="{% url 'edit_my_profile' %}">Settings</a></li>
+                            <li><a href="{% url 'edit_my_settings_profile' %}">Settings</a></li>
                             <li class="divider"></li>
                             <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
                         </ul>
@@ -78,7 +84,16 @@
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}libs/select2/select2.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/slider/js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/redactor/redactor.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fineuploader/jquery.fineuploader-3.5.0.min.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/scripts.base.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
+
+{% block scripts %}{% endblock %}
 
 {% comment %}
 <script>

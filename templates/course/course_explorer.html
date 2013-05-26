@@ -1,9 +1,45 @@
 {% extends 'base.html' %}
 
-{% block body_class %}page-course-explorer{% endblock %}
+{% block body_class %}page-backend page-course-explorer{% endblock %}
 
 {% block body %}
+<div class="backend-container">
 <div class="container">
-    COURSE EXPLORER
+    <h1 class="style-page-header">All Courses</h1>
+    <div class="row">
+        <div class="span3">
+            <div class="explorer-nav">
+                <ul class="filters">
+                    <li class="filter">
+                        <div class="filter-title">SCHOOL</div>
+                        <div class="filter-controls school-filter-controls">
+                            <ul>
+                                <li><input type="checkbox" id="filter_school_business"/><label for="filter_school_business">School of Business</label></li>
+                                <li><input type="checkbox" id="filter_school_engineer"/><label for="filter_school_engineer">School of Engineer</label></li>
+                                <li><input type="checkbox" id="filter_school_craftmanship"/><label for="filter_school_craftmanship">School of Craftmanship</label></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>Keyword</li>
+                    <li>Topics</li>
+                    <li>Location</li>
+                    <li>Date</li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            <div class="explorer-courses">
+                <ul class="courses">
+                    <li class="course">
+                        <div class="course-inner">
+                            <div class="title"><a href="#">This is a course title</a></div>
+                            <!-- School, Topics, Duration, Teacher, Reviews, Next Schedule -->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}

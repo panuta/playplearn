@@ -197,8 +197,6 @@ SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 
 # USER AVATAR
 
-USER_AVATAR_ROOT = 'users'
-
 USER_AVATAR_DEFAULT_NORMAL = 'avatar/default_normal.png'
 USER_AVATAR_DEFAULT_SMALL = 'avatar/default_small.png'
 USER_AVATAR_DEFAULT_TINY = 'avatar/default_tiny.png'

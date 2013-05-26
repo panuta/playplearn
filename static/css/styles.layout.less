@@ -156,3 +156,44 @@ html, body {
         text-align: center;
     }
 }
+
+.page-backend {
+    #body-header {
+        border-bottom: 1px solid #CCC;
+    }
+
+    .backend-container {
+        background-color: #F6F6F6;
+        border-bottom: 1px solid #DDD;
+        border-top: 2px solid #E9E9E9;
+        padding-bottom: 30px;
+
+        .alert {
+            border: none;
+            border-radius: 0;
+            color: #FFF;
+            font-size: 15px;
+            padding: 15px 35px 15px 56px;
+            text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .alert-success {
+            background:url(../images/ui/messages.png) #5abf8e 15px 13px no-repeat;
+            border-left: 10px solid #40a574;
+        }
+
+        .alert-warning {
+            background:url(../images/ui/messages.png) #dfbd00 15px -48px no-repeat;
+            border-left: 10px solid #c5a700;
+        }
+
+        .alert-error {
+            background:url(../images/ui/messages.png) #CC3300 18px -108px no-repeat;
+            border-left: 10px solid #992600;
+        }
+    }
+}

@@ -452,17 +452,113 @@
     }
 }
 
+.page-course-explorer {
+    h1.style-page-header {
+        background-image: url(../images/ui/header/all_courses.png);
+    }
+
+    .explorer-nav {
+        //margin-top: 20px;
+
+        .head {
+            color: #999;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 3px;
+            text-shadow: 1px 1px #FFF;
+        }
+
+        ul.filters {
+            margin: 0;
+
+            li.filter {
+                list-style: none;
+                margin-bottom: 15px;
+
+                .filter-title {
+                    color: #666;
+                    font-size: 13px;
+                    font-weight: bold;
+                    margin-bottom: 3px;
+                }
+
+                .filter-controls {
+                    padding-left: 15px;
+
+                }
+
+                .school-filter-controls {
+                    ul {
+                        margin: 0;
+
+                        li {
+                            list-style: none;
+                            margin-bottom: 4px;
+
+                            label {
+                                display: inline;
+                                vertical-align: middle;
+                            }
+
+                            input {
+                                margin-right: 7px;
+                                vertical-align: 0px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .filter-container {
+            //background-color: #EEE;
+            //border: 1px solid #DDD;
+
+            ul {
+                margin: 0;
+
+                li {
+                    list-style: none;
+                }
+            }
+        }
+    }
+
+    .explorer-courses {
+        //margin-top: 25px;
+        border: 2px solid #EEE;
+    }
+
+    ul.courses {
+        margin: 0;
+        background-color: #FFF;
+        border: 1px solid #DDD;
+        padding: 20px;
+
+        li.course {
+            border-bottom: 1px dashed #DDD;
+
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+
+            list-style: none;
+
+            .course-inner {
+
+            }
+
+            .title {
+                a {
+                    .content_link;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
+}
+
 .page-my-courses {
-    #body-header {
-        border-bottom: 1px solid #CCC;
-    }
-
-    .courses-container {
-        background-color: #F6F6F6;
-        border-bottom: 1px solid #DDD;
-        border-top: 2px solid #E9E9E9;
-    }
-
     .courses-header {
         margin-top: 30px;
 
@@ -488,14 +584,14 @@
             font-size: 20px;
             font-weight: bold;
             margin-top: 8px;
-            text-shadow: 1px 1px rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px #FFF;
         }
 
         .doing {
             color: #777;
             font-weight: bold;
             margin-top: 6px;
-            text-shadow: 1px 1px rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px #FFF;
         }
 
         .stats {
@@ -713,7 +809,7 @@
     }
 }
 
-.page-my-courses-learning {
+.page-my-courses-attended {
 
 }
 
@@ -721,10 +817,494 @@
 
 }
 
-.page-course-create {
+.page-course-form {
+    .form-header {
+        margin-top: 25px;
 
+        .icon {
+            border-radius: 70px;
+            margin-top: 10px;
+            float: left;
+
+            img {
+                border-radius: 56px;
+            }
+        }
+
+        .right {
+            margin-left: 48px;
+        }
+
+        .parent {
+            color: #999;
+
+            a {
+                .grey_link;
+                font-size: 13px;
+            }
+        }
+
+        .title {
+            color: #555;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px #FFF;
+            line-height: 31px;
+        }
+    }
+
+    .form-body {
+        margin-bottom: 40px;
+    }
+
+    .form-body-header {
+        margin: 15px 0 25px;
+
+        .completeness {
+            float: left;
+            margin-top: 9px;
+
+            .progress {
+                background-color: #FFF;
+                background-image: linear-gradient(to bottom, #F9F9F9, #FFF);
+                display: inline-block;
+                height: 15px;
+                margin: 0px;
+                vertical-align: middle;
+                width: 300px;
+            }
+
+            .percentage {
+                color: #555;
+                display: inline-block;
+                font-size: 14px;
+                font-weight: bold;
+                margin-left: 10px;
+                text-shadow: 1px 1px #FFF;
+                vertical-align: middle;
+
+                a {
+                    color: #999;
+                    margin-left: 6px;
+                    text-shadow: 1px 1px #FFF;
+                    vertical-align: 1px;
+
+                    &:hover {
+                        color: @linkColor;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        .actions {
+            float: right;
+
+            .actions-info {
+                display: inline-block;
+                text-align: right;
+                vertical-align: middle;
+
+                .status {
+                    color: #777;
+                    display: block;
+                    font-size: 13px;
+                    font-weight: bold;
+                    margin-bottom: 2px;
+
+                    em {
+                        color: #444;
+                        font-style: normal;
+                    }
+                }
+
+                .autosave {
+                    color: #777;
+                    display: block;
+                    font-size: 13px;
+                    font-weight: bold;
+
+                    em {
+                        color: #444;
+                        font-style: normal;
+                    }
+                }
+            }
+
+            button {
+                margin-left: 10px;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .form-nav {
+        li {
+            &.outline {
+                i {
+                    vertical-align: 0px;
+                }
+            }
+
+            &.story {
+                i {
+                    margin-left: 2px;
+                    vertical-align: 1px;
+                }
+            }
+
+            &.details {
+                i {
+                    margin-left: 2px;
+                    vertical-align: 0px;
+                }
+            }
+
+            &.place {
+                i {
+                    margin-left: 6px;
+                    vertical-align: 1px;
+                }
+            }
+        }
+    }
+
+    .form-content {
+        border: 2px solid #EEE;
+
+        .form-content-inner {
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            padding: 20px;
+        }
+
+        h2 {
+            border-bottom: 3px double #DDD;
+            color: @primaryColor;
+            font-size: 26px;
+            line-height: normal;
+            margin: 0 0 25px 0;
+            padding-bottom: 6px;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+
+            .control-label {
+                color: #555;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 12px;
+            }
+
+            .controls-with-guide {
+                clear: left;
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            .control-guide {
+                background-color: #EEE;
+                border: 1px solid #DDD;
+                color: #555;
+                display: inline-block;
+                font-size: 13px;
+                margin-left: 50px;
+                padding: 10px 15px;
+                vertical-align: top;
+            }
+
+            .arrow_box {
+                position: relative;
+                background: #F9F9F9;
+                border: 1px solid #ddd;
+            }
+
+            .arrow_box:after, .arrow_box:before {
+                right: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .arrow_box:after {
+                border-color: rgba(249, 249, 249, 0);
+                border-right-color: #F9F9F9;
+                border-width: 10px;
+                top: 18px;
+                margin-top: -10px;
+            }
+
+            .arrow_box:before {
+                border-color: rgba(221, 221, 221, 0);
+                border-right-color: #ddd;
+                border-width: 11px;
+                top: 18px;
+                margin-top: -11px;
+            }
+        }
+
+        .title-control {
+            margin-bottom: 30px;
+
+            input {
+                font-size: 16px;
+                height: 30px;
+                width: 95%;
+            }
+        }
+
+        .outline-control {
+            .controls {
+                ul {
+                    margin: 0;
+
+                    li {
+                        border: 1px solid #999;
+                        border-left: 5px solid #999;
+                        box-shadow: 2px 2px 0px #EEE;
+                        list-style: none;
+                        margin-bottom: 15px;
+
+                        .remove {
+                            display: block;
+                            float: right;
+                            line-height: normal;
+                            margin: 8px 9px 0 0;
+
+                            i {
+                                color: #AAA;
+                                font-size: 15px;
+                            }
+
+                            &:hover {
+                                text-decoration: none;
+
+                                i {
+                                    color: #c30;
+                                }
+                            }
+                        }
+
+                        i.icon-reorder, i.icon-plus {
+                            color: #AAA;
+                            cursor: move;
+                            display: inline-block;
+                            line-height: 38px;
+                            padding: 0 14px;
+                            vertical-align: middle;
+                        }
+
+                        input {
+                            border: none;
+                            box-shadow: none;
+                            font-size: 15px;
+                            height: 26px;
+                            margin: 0px;
+                            padding: 5px 0px;
+                            vertical-align: middle;
+                            width: 90%;
+                        }
+                    }
+
+                    li.add {
+                        border: 1px dashed #CCC;
+                        box-shadow: none;
+                        list-style: none;
+                        margin-bottom: 10px;
+                        padding-left: 4px;
+
+                        a {
+                            color: #666;
+                            font-size: 13px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+
+        .story-control {
+            textarea {
+                width: 95%;
+            }
+        }
+
+        .topics-control {
+            select {
+                width: 414px;
+            }
+
+            .control-guide {
+                width: 406px;
+            }
+        }
+
+        .level-control {
+            select {
+                font-size: 15px;
+                padding: 4px;
+
+                option {
+                    padding: 4px;
+                }
+            }
+
+            .control-guide {
+                width: 614px;
+            }
+        }
+
+        .tuition-control {
+            .controls {
+                input {
+                    font-size: 18px;
+                    height: 23px;
+                    text-align: center;
+                    width: 70px;
+                }
+
+                span {
+                    color: #555;
+                    margin-left: 6px;
+                }
+            }
+
+            .control-guide {
+                width: 710px;
+            }
+        }
+
+        .duration-control {
+            .controls {
+                input {
+                    font-size: 18px;
+                    height: 23px;
+                    text-align: center;
+                    width: 50px;
+                }
+
+                span {
+                    color: #555;
+                    margin-left: 6px;
+                }
+            }
+        }
+
+        .capacity-control {
+            input {
+                width: 400px;
+            }
+
+            .control-info {
+                margin-top: 4px;
+                width: 414px; // Added slider handle size
+
+                .min {
+                    color: #999;
+                    float: left;
+                    font-size: 13px;
+                    font-weight: bold;
+                }
+
+                .max {
+                    color: #999;
+                    float: right;
+                    font-size: 13px;
+                    font-weight: bold;
+
+                }
+
+                .current {
+                    color: #444;
+                    font-size: 13px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+            }
+
+            .control-guide {
+                width: 420px;
+            }
+        }
+
+        #content-place {
+            .choices {
+                margin-bottom: 20px;
+                text-align: center;
+
+                a {
+                    background-color: #EEE;
+                    color: #444;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 0px 15px;
+                    padding: 30px 0px;
+                    text-shadow: 1px 1px #FFF;
+                    width: 300px;
+
+                    i {
+                        color: #555;
+                        display: block;
+                        margin-bottom: 7px;
+                        text-shadow: 1px 1px #FFF;
+                    }
+
+                    &:hover {
+                        background-color: @linkColor;
+                        color: #FFF;
+                        text-decoration: none;
+                        text-shadow: -1px -1px @linkColorDarker;
+
+                        i {
+                            color: #FFF;
+                            text-shadow: -1px -1px @linkColorDarker;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #modal-course-submitted {
+        .head1 {
+            color: #444;
+            font-size: 16px;
+            line-height: 25px;
+        }
+    }
 }
 
 .page-classroom {
+
+}
+
+.page-user-settings {
+    h1.style-page-header {
+        background-image: url(../images/ui/header/settings.png);
+    }
+
+    form {
+        .name-control input {
+            width: 300px;
+        }
+
+        .headline-control input {
+            width: 500px;
+        }
+
+        .website-control input {
+            width: 400px;
+        }
+
+        .phone-control input {
+            width: 200px;
+        }
+    }
+
 
 }

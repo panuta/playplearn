@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block body_class %}page-backend page-course-form{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    initCourseCreatePage();
+});
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="backend-container">
+<div class="container">
+    <div class="form-header clearfix">
+
+        <div class="icon">
+            {% if not course %}
+                <img src="{{ STATIC_URL }}images/page/course-form/icon-create.png" />
+            {% else %}
+            {% endif %}
+        </div>
+        <div class="right">
+            <div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
+            <div class="title">Create new course</div>
+        </div>
+    </div>
+    <form method="post" action=".">
+    <div class="form-body">
+        <div class="form-body-header clearfix">
+            <div class="completeness">
+                <div class="progress">
+                    <div class="bar" style="width: 50%;"></div>
+                </div>
+                <div class="percentage">50% Completed <a href="#"><i class="icon-info-sign"></i></a></div>
+            </div>
+            <div class="actions">
+                <span class="actions-info">
+                    <span class="status">Status: <em>UNPUBLISHED</em></span>
+                    <span class="autosave">Auto-saved: <em>Today, 11:00 AM</em></span>
+                </span>
+                <button class="style-button" type="submit" name="submit" value="save">Save</button>
+                <button class="style-orange-button" type="submit" name="submit" value="submit">Submit for Approval</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <div class="form-nav">
+                    <ul class="style-sidebar-nav">
+                        <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
+                        <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
+                        <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Course Details</a></li>
+                        <li class="place last"><a href="#content-place"><i class="icon-map-marker icon-large"></i> Place</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="span10">
+                <div class="form-content">
+                    <div class="form-content-inner">
+                        <div id="content-outline" class="form-content-panel">
+                            <h2>Course Outline</h2>
+                            <div class="control-group title-control">
+                                <label class="control-label" for="id_title">Course Title</label>
+                                <div class="controls">
+                                    <input type="text" id="id_title" placeholder="Title">
+                                    <div class="help-block">Title should be short, precise and convincing</div>
+                                </div>
+                            </div>
+                            <div class="control-group outline-control">
+                                <label class="control-label" for="id_outline">Course Outline</label>
+                                <div class="controls">
+                                    <ul>
+                                        <li><a href="#" class="remove"><i class="icon-remove"></i></a><i class="icon-reorder"></i><input type="text" value="Course Outline 1"/></li>
+                                        <li><a href="#" class="remove"><i class="icon-remove"></i></a><i class="icon-reorder"></i><input type="text" value="Course Outline 1"/></li>
+                                        <li class="add"><i class="icon-plus"></i><a href="#">Add course outline</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="content-story" class="hide form-content-panel">
+                            <h2>Story</h2>
+                            <div class="control-group story-control">
+                                <div class="controls">
+                                    <textarea id="id_story"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="content-details" class="hide form-content-panel">
+                            <h2>Course Details</h2>
+                            <!-- Topics -->
+                            <div class="control-group topics-control">
+                                <div><label class="control-label" for="id_topics">Topics Covering</label></div>
+                                <div class="controls controls-with-guide">
+                                    <select multiple="multiple" id="id_topics">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                                <div class="control-guide arrow_box">
+                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                                </div>
+                            </div>
+
+                            <!-- Level / Prerequisites -->
+                            <div class="control-group level-control">
+                                <div><label class="control-label" for="id_title">Level of Student</label></div>
+                                <div class="controls controls-with-guide">
+                                    <select>
+                                        <option value="ANY">Any level</option>
+                                        <option value="BEGINNER">Beginner</option>
+                                        <option value="INTERMEDIATE">Intermediate</option>
+                                        <option value="ADVANCED">Advanced</option>
+                                    </select>
+                                </div>
+                                <div class="control-guide arrow_box">
+                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                                </div>
+                            </div>
+
+                            <!-- Tuition Fee -->
+                            <div class="control-group tuition-control">
+                                <div><label class="control-label" for="id_title">Tuition Fee</label></div>
+                                <div class="controls controls-with-guide">
+                                    <input type="number" id="id_title">
+                                    <span>Baht</span>
+                                </div>
+                                <div class="control-guide arrow_box">
+                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                                </div>
+                            </div>
+
+                            <!-- Duration / Duration Unit -->
+                            <div class="control-group duration-control">
+                                <label class="control-label" for="id_duration">Duration</label>
+                                <div class="controls">
+                                    <input type="number" id="id_duration">
+                                    <span>Hours</span>
+                                </div>
+                            </div>
+
+                            <!-- Min / Max People -->
+                            <div class="control-group capacity-control">
+                                <div><label class="control-label" for="id_title">Capacity</label></div>
+                                <div class="controls controls-with-guide">
+                                    <input type="text" value="" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="[1,10]" data-slider-tooltip="hide"/>
+                                    <div class="control-info">
+                                        <div class="min">0</div>
+                                        <div class="max">100</div>
+                                        <div class="current">1 - 10 people</div>
+                                    </div>
+                                </div>
+                                <div class="control-guide arrow_box">
+                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                                </div>
+                            </div>
+                        </div>
+                        <div id="content-place" class="hide form-content-panel">
+                            <h2>Place</h2>
+
+                            <div class="choices">
+                                <a href="#"><i class="icon-list icon-3x"></i> Choose from our list</a>
+                                <a href="#"><i class="icon-map-marker icon-3x"></i> Use your own place</a>
+                            </div>
+
+                            <!-- LIST FILTER: Facilities, Province, Size -->
+                            <!-- LIST: Name, Address, Description, Photos -->
+
+                            <!-- USERDEFINED: Name, Address, Map Lat/Lng, How to get there -->
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </form>
+</div>
+</div>
+
+<div class="modal hide" id="modal-course-submitted">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>What's Next?</h3>
+    </div>
+    <div class="modal-body">
+        <p class="head1">Please wait for our staff to review your course information. Usually this will take no longer than 48 hours. You will be notified once the review process is finished.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="{% url 'view_my_courses_teaching' %}" class="style-primary-button">Aye aye!</a>
+    </div>
+</div>
+
+{% endblock %}

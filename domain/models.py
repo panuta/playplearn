@@ -63,9 +63,8 @@ class UserAccount(AbstractBaseUser):
     name = models.CharField(max_length=300)
     headline = models.CharField(max_length=300, null=True, blank=True, default='')
     avatar = ThumbnailerImageField(upload_to=user_avatar_dir, blank=True, null=True)
-
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True, default='')
-    age = models.PositiveSmallIntegerField(null=True)
+    phone_number = models.CharField(max_length=100, null=True, blank=True, default='')
+    website = models.CharField(max_length=255, null=True, blank=True, default='')
 
     date_joined = models.DateTimeField(default=timezone.now())
     is_active = models.BooleanField(default=True)

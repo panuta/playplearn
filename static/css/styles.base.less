@@ -89,6 +89,147 @@ select:focus:invalid:focus {
     }
 }
 
+// BOOTSTRAP MODAL #####################################################################################################
+
+.modal-backdrop {
+    background-color: #333;
+}
+
+body.modal-open {
+    // Prevent background content to scroll when modal is opened
+    overflow: hidden;
+}
+
+.modal {
+    //border: 1px solid rgba(85, 85, 85, 0.3);
+    border: none;
+    border-radius: 0px;
+
+    form {
+        margin: 0px;
+    }
+
+    .modal-header {
+        border-bottom: 0px;
+        border-top: 7px solid @primaryColor;
+        padding: 15px 20px;
+
+        h3 {
+            color: #555;
+            font-size: 22px;
+        }
+    }
+
+    .modal-error {
+        background-color: #e56068;
+        color: #FFF;
+        margin-bottom: 15px;
+        padding: 8px 20px;
+
+        i {
+            vertical-align: -2px;
+        }
+    }
+
+    .modal-body {
+        padding: 0px 20px 15px;
+    }
+
+    .modal-footer {
+        background-color: #FCFCFC;
+        border-top: 1px solid #EEE;
+        padding: 14px 20px 15px;
+
+        .btn {
+            font-size: 0.95em;
+        }
+
+        .btn-cancel {
+            color: #666;
+            font-size: 0.9em;
+        }
+    }
+}
+
+// LIBS: SLIDER ########################################################################################################
+
+.slider {
+    .slider-selection {
+        background-color: #0E90D2;
+        background-image: linear-gradient(to bottom, #149BDF, #0480BE);
+    }
+
+    .slider-handle {
+        background-color: #0E90D2;
+        background-image: linear-gradient(to bottom, #149BDF, #0480BE);
+        opacity: 1;
+    }
+}
+
+
+// FORM ################################################################################################################
+
+.style-form {
+    .control-group {
+        margin-bottom: 25px;
+    }
+
+    label.control-label {
+        color: #555;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"],
+    input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"],
+    .uneditable-input {
+        font-size: 16px;
+        height: 30px;
+        margin-bottom: 5px;
+    }
+
+    .help-block {
+        color: #777;
+        font-size: 13px;
+    }
+
+    .form-actions {
+        .style-primary-button {
+            padding: 10px 50px;
+        }
+    }
+}
+
+form {
+    .avatar-control {
+        img.avatar {
+            border: 1px solid #999;
+            float: left;
+        }
+
+        .tools {
+            margin-left: 100px;
+
+            .help-block {
+                margin-top: 5px;
+            }
+
+            .remove-avatar {
+                color: #555;
+                font-size: 12px;
+                padding: 2px 15px;
+            }
+        }
+
+        .errorlist {
+            margin-left: 100px;
+            margin-top: 5px;
+        }
+    }
+}
+
 
 // COMMON USED STYLES ##################################################################################################
 
@@ -100,7 +241,7 @@ select:focus:invalid:focus {
     font-weight: bold;
     padding: 7px 30px;
 
-    &:hover {
+    &:hover, &:focus {
         color: #FFF;
         text-decoration: none;
     }
@@ -117,12 +258,6 @@ select:focus:invalid:focus {
     box-shadow: 0px 3px 0px #BBB;
     color: #444;
     text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
-
-    &:hover {
-        background-color: @linkColor;
-        box-shadow: 0px 2px 0px @linkColorDarker;
-        text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
-    }
 }
 
 .style-orange-button {
@@ -136,14 +271,100 @@ select:focus:invalid:focus {
 .style-primary-button {
     .style-button-base;
     background-color: @linkColor;
+    box-shadow: 0px 3px 0px @linkColorDarker;
     color: #FFF;
 
     &:hover {
-        background-color: @linkColorDarker;
+        //background-color: @linkColorDarker;
     }
 }
 
 .topic-header-public-speaking {
     background-image: url(../images/topics/topic-public-speaking.png);
     background-repeat:  no-repeat;
+}
+
+h1.style-page-header {
+    background-position: left center;
+    background-repeat: no-repeat;
+    color: #555;
+    font-size: 26px;
+    margin: 20px 0;
+    padding-left: 45px;
+    text-shadow: 1px 1px #FFF;
+}
+
+.style-sidebar-nav {
+    margin: 0;
+    border: 1px solid #DDD;
+
+    li {
+        background-color: #EEE;
+        border-left: 4px solid #DDD;
+        list-style: none;
+
+        a {
+            border-bottom: 1px solid #DDD;
+            border-top: 1px solid #FFF;
+            color: #777;
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            padding-left: 15px;
+            line-height: 42px;
+            text-decoration: none;
+            text-shadow: 1px 1px #FFF;
+
+            i {
+                font-size: 12px;
+                margin-right: 5px;
+                text-shadow: 1px 1px #FFF;
+                vertical-align: 2px;
+            }
+        }
+
+        &.last a {
+            border-bottom: none;
+        }
+
+        &.active {
+            background-color: #FFF;
+
+            a {
+                color: #444;
+            }
+        }
+
+        a:hover {
+            background-color: @linkColor;
+            border-top: 1px solid @linkColor;
+            color: #FFF;
+            text-shadow: -1px -1px @linkColorDarker;
+
+            i {
+                color: #FFF;
+                text-decoration: none;
+                text-shadow: -1px -1px @linkColorDarker;
+            }
+        }
+    }
+}
+
+.style-content-container {
+    border: 2px solid #EEE;
+
+    .inner {
+        background-color: #FFF;
+        border: 1px solid #DDD;
+        padding: 20px 25px;
+
+        h2.head2 {
+            border-bottom: 3px double #EEE;
+            color: @primaryColor;
+            font-size: 22px;
+            line-height: normal;
+            margin: 0 0 25px 0;
+            padding-bottom: 10px;
+        }
+    }
 }

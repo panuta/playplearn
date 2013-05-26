@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block body_class %}page-my-courses{% endblock %}
+{% block body_class %}page-backend page-my-courses{% endblock %}
 
 {% block body %}
-<div class="courses-container">
+<div class="content-container">
 <div class="container">
     <div class="courses-header clearfix">
         <div class="avatar"><img src="{{ request.user.small_avatar_url }}" /></div>
