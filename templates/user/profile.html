@@ -1,10 +1,113 @@
 {% extends 'base.html' %}
 
-{% block body_class %}page-profile{% endblock %}
+{% block body_class %}page-backend page-profile{% endblock %}
 
 {% block body %}
+<div class="backend-container">
 <div class="container">
-GENERAL USER PROFILE
+    <div class="profile-header clearfix">
+        <div class="row">
+            <div class="span9">
+                <div class="profile-header-box style-container">
+                    <div class="container-inner">
+                        <div class="box-header clearfix">
+                            <div class="avatar"><img src="{{ context_user.normal_avatar_url }}" /></div>
+                            <div class="right">
+                                <div class="follow"><a href="#" class="style-orange-button">Follow</a></div>
+                                <div class="name">{{ context_user.name }}</div>
+                                <div class="headline">{{ context_user.headline }}</div>
+                            </div>
+                        </div>
+                        <div class="stats clearfix">
+                            <div class="role-stats teaching-stats">
+                                <div class="head">TEACHING</div>
+                                <ul>
+                                    <li><em>10</em> <span class="unit">Courses</span> <span class="what">teaching</span></li>
+                                    <li class="last"><em>10</em> <span class="unit">Reviews</span> <span class="what">received</span></li>
+                                </ul>
+                            </div>
+                            <div class="role-stats learning-stats">
+                                <div class="head">LEARNING</div>
+                                <ul>
+                                    <li><em>10</em> <span class="unit">Courses</span> <span class="what">attended</span></li>
+                                    <li class="last"><em>10</em> <span class="unit">Reviews</span> <span class="what">given</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="reputations">
+                    <ul>
+                        <li>
+                            <div class="caption">Facebook</div>
+                        </li>
+                        <li>
+                            <div class="caption">Twitter</div>
+                        </li>
+                        <li>
+                            <div class="caption">Positive Reviews</div>
+                        </li>
+                        <li>
+                            <div class="caption">Phone Verified</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="profile-courses">
+        <div class="profile-courses-nav">
+            <em>Teaching Courses</em>
+            <a href="#">Learning Courses</a>
+        </div>
+        <ul class="courses">
+            <li class="course clearfix">
+                <div class="style-course-box">
+                    <div class="course-box-inner">
+                        <div class="top">
+                            <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
+                            <div class="at_glance">
+                                <span class="topic"><a href="#">Public Speaking</a></span>
+                                <span class="separator">|</span>
+                                <span class="duration">6 Hours</span>
+                            </div>
+
+                            <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></a></div>
+
+                            <div class="teacher clearfix">
+                                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                                <a href="#" class="name">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span>
+                            </div>
+                        </div>
+
+                        <div class="next">
+                            <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-reviews">
+                    <ul class="reviews">
+                        <li class="review">
+                            <div class="body">Phasellus dolor felis, pretium sit amet gravida sit amet, molestie vel felis. Donec pulvinar ante et eros vehicula lacinia. Aenean quis nisi magna. Vestibulum consequat scelerisque est, at tempus purus consectetur ut. Morbi aliquet ante eget purus porttitor rhoncus a vitae nibh.</div>
+                            <div class="reviewer">by <a href="#">Panu Tangchalermkul</a></div>
+                        </li>
+                        <li class="review">
+                            <div class="body">Phasellus dolor felis, pretium sit amet gravida sit amet, molestie vel felis. Donec pulvinar ante et eros vehicula lacinia. Aenean quis nisi magna. Vestibulum consequat scelerisque est, at tempus purus consectetur ut. Morbi aliquet ante eget purus porttitor rhoncus a vitae nibh.</div>
+                            <div class="reviewer">by <a href="#">Panu Tangchalermkul</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+
 
 <!-- Name, Doing, Avatar -->
 <!-- Course Attended, Course Teaching, Reviews Received, Reviews Written -->
@@ -13,5 +116,6 @@ GENERAL USER PROFILE
 <!-- Social Credentials -->
 <!-- Member sinces -->
 
+</div>
 </div>
 {% endblock %}

@@ -1,3 +1,6 @@
+em {
+  font-style: normal;
+}
 .btn {
   font-size: 12px;
 }
@@ -308,21 +311,122 @@ h1.style-page-header {
   text-decoration: none;
   text-shadow: -1px -1px #137f8e;
 }
-.style-content-container {
+.style-container {
   border: 2px solid #EEE;
 }
-.style-content-container .inner {
+.style-container .container-inner {
   background-color: #FFF;
   border: 1px solid #DDD;
   padding: 20px 25px;
 }
-.style-content-container .inner h2.head2 {
+.style-container .container-inner h2.head2 {
   border-bottom: 3px double #EEE;
   color: #1693a5;
   font-size: 22px;
   line-height: normal;
   margin: 0 0 25px 0;
   padding-bottom: 10px;
+}
+.style-course-box {
+  border: 2px solid #EEE;
+  display: inline-block;
+  list-style: none;
+  width: 550px;
+}
+.style-course-box .course-box-inner {
+  background-color: #FFF;
+  border: 1px solid #DDD;
+}
+.style-course-box .top {
+  padding: 14px 20px 15px;
+}
+.style-course-box .title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 26px;
+  margin-bottom: 7px;
+}
+.style-course-box .title a:link,
+.style-course-box .title a:active,
+.style-course-box .title a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+.style-course-box .title a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.style-course-box .at_glance .topic a {
+  color: #666;
+  font-size: 13px;
+  font-weight: bold;
+}
+.style-course-box .at_glance .separator {
+  color: #CCC;
+  margin: 0px 5px;
+}
+.style-course-box .at_glance .duration {
+  color: #666;
+  font-size: 13px;
+}
+.style-course-box .cover {
+  margin-top: 10px;
+}
+.style-course-box .cover img {
+  height: 200px;
+  width: 550px;
+}
+.style-course-box .teacher {
+  margin-top: 15px;
+}
+.style-course-box .teacher .avatar {
+  float: left;
+  margin-right: 10px;
+}
+.style-course-box .teacher .avatar img {
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+}
+.style-course-box .teacher .name {
+  color: #444;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 4px;
+}
+.style-course-box .teacher .doing {
+  color: #666;
+  display: block;
+  font-size: 13px;
+}
+.style-course-box .next {
+  border-top: 1px dashed #DDD;
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+.style-course-box .next i {
+  color: #C30;
+  margin-right: 5px;
+}
+.style-course-box .next a {
+  margin-left: 6px;
+}
+.style-course-box .next a:link,
+.style-course-box .next a:active,
+.style-course-box .next a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+.style-course-box .next a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
 }
 html,
 body {
@@ -1619,6 +1723,143 @@ body {
   color: #444;
   font-size: 16px;
   line-height: 25px;
+}
+.page-profile .profile-header {
+  margin-top: 40px;
+}
+.page-profile .profile-header .container-inner {
+  padding: 0;
+}
+.page-profile .profile-header .container-inner .box-header {
+  padding: 20px 25px;
+}
+.page-profile .profile-header .avatar {
+  border-radius: 70px;
+  float: left;
+}
+.page-profile .profile-header .avatar img {
+  border: 2px solid #DDD;
+  border-radius: 100px;
+  height: 100px;
+  padding: 4px;
+  width: 100px;
+}
+.page-profile .profile-header .right {
+  margin-left: 140px;
+}
+.page-profile .profile-header .follow {
+  float: right;
+}
+.page-profile .profile-header .name {
+  color: #444;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.page-profile .profile-header .headline {
+  color: #666;
+  font-size: 15px;
+  margin-top: 8px;
+}
+.page-profile .profile-header .stats {
+  background-color: #FAFAFA;
+  border-top: 1px solid #E7E7E7;
+}
+.page-profile .profile-header .stats .role-stats {
+  float: left;
+}
+.page-profile .profile-header .stats .role-stats .head {
+  color: #888;
+  font-size: 11px;
+  padding: 5px 0;
+  text-align: center;
+}
+.page-profile .profile-header .stats .teaching-stats {
+  border-right: 1px solid #E7E7E7;
+}
+.page-profile .profile-header .stats ul {
+  margin: 0;
+}
+.page-profile .profile-header .stats ul li {
+  border-right: 1px solid #E7E7E7;
+  display: block;
+  float: left;
+  list-style: none;
+  padding-bottom: 6px;
+  width: 215px;
+  text-align: center;
+}
+.page-profile .profile-header .stats ul li em {
+  color: #555;
+  display: block;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+}
+.page-profile .profile-header .stats ul li .unit {
+  color: #666;
+  font-size: 13px;
+}
+.page-profile .profile-header .stats ul li .what {
+  color: #666;
+  font-size: 13px;
+}
+.page-profile .profile-header .stats ul li.last {
+  border-right: none;
+}
+.page-profile .profile-courses {
+  margin-top: 40px;
+}
+.page-profile .profile-courses .profile-courses-nav {
+  margin-bottom: 20px;
+}
+.page-profile .profile-courses .profile-courses-nav em {
+  background-color: #1693a5;
+  border-radius: 4px;
+  color: #FFF;
+  display: inline-block;
+  font-size: 15px;
+  padding: 8px 25px;
+}
+.page-profile .profile-courses .profile-courses-nav a {
+  color: #555;
+  display: inline-block;
+  font-size: 15px;
+  padding: 8px 25px;
+}
+.page-profile .profile-courses ul.courses {
+  margin: 0;
+}
+.page-profile .profile-courses ul.courses li.course {
+  list-style: none;
+}
+.page-profile .profile-courses ul.courses .style-course-box {
+  float: left;
+}
+.page-profile .profile-courses ul.courses .course-reviews {
+  float: right;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews {
+  margin: 0;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review {
+  border: 1px dashed #CCC;
+  list-style: none;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  width: 550px;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .body {
+  font-size: 13px;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .reviewer {
+  color: #777;
+  font-size: 13px;
+  margin-top: 7px;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .reviewer a {
+  color: #444;
+  font-weight: bold;
 }
 .page-user-settings h1.style-page-header {
   background-image: url(../images/ui/header/settings.png);

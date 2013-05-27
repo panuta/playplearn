@@ -1283,6 +1283,178 @@
 
 }
 
+.page-profile {
+    .profile-header {
+        margin-top: 40px;
+
+        .container-inner {
+            padding: 0;
+
+            .box-header {
+                padding: 20px 25px;
+            }
+        }
+
+        .avatar {
+            border-radius: 70px;
+            float: left;
+
+            img {
+                border: 2px solid #DDD;
+                border-radius: 100px;
+                height: 100px;
+                padding: 4px;
+                width: 100px;
+            }
+        }
+
+        .right {
+            margin-left: 140px;
+        }
+
+        .follow {
+            float: right;
+        }
+
+        .name {
+            color: #444;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .headline {
+            color: #666;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .stats {
+            background-color: #FAFAFA;
+            border-top: 1px solid #E7E7E7;
+
+            .role-stats {
+                float: left;
+
+                .head {
+                    color: #888;
+                    font-size: 11px;
+                    padding: 5px 0;
+                    text-align: center;
+                }
+            }
+
+            .teaching-stats {
+                border-right: 1px solid #E7E7E7;
+            }
+
+            ul {
+                margin: 0;
+
+                li {
+                    border-right: 1px solid #E7E7E7;
+                    display: block;
+                    float: left;
+                    list-style: none;
+                    padding-bottom: 6px;
+                    width: 215px;
+                    text-align: center;
+
+                    em {
+                        color: #555;
+                        display: block;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: bold;
+                    }
+
+                    .unit {
+                        color: #666;
+                        font-size: 13px;
+                    }
+
+                    .what {
+                        color: #666;
+                        font-size: 13px;
+                    }
+                }
+
+                li.last {
+                    border-right: none;
+                }
+            }
+        }
+    }
+
+    .profile-courses {
+        margin-top: 40px;
+
+        .profile-courses-nav {
+            margin-bottom: 20px;
+
+            em {
+                background-color: @linkColor;
+                border-radius: 4px;
+                color: #FFF;
+                display: inline-block;
+                font-size: 15px;
+                padding: 8px 25px;
+            }
+
+            a {
+                color: #555;
+                display: inline-block;
+                font-size: 15px;
+                padding: 8px 25px;
+            }
+        }
+
+        ul.courses {
+            margin: 0;
+
+            li.course {
+                list-style: none;
+            }
+
+            .style-course-box {
+                float: left;
+            }
+
+            .course-reviews {
+                float: right;
+
+                ul.reviews {
+                    margin: 0;
+
+                    li.review {
+                        border: 1px dashed #CCC;
+                        list-style: none;
+                        margin-bottom: 20px;
+                        padding: 10px 15px;
+                        width: 550px;
+
+                        .body {
+                            font-size: 13px;
+                        }
+
+                        .reviewer {
+                            color: #777;
+                            font-size: 13px;
+                            margin-top: 7px;
+
+                            a {
+                                color: #444;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
 .page-user-settings {
     h1.style-page-header {
         background-image: url(../images/ui/header/settings.png);

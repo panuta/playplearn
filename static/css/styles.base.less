@@ -1,4 +1,8 @@
 
+em {
+    font-style: normal;
+}
+
 // BOOTSTRAP STYLES ####################################################################################################
 
 .btn {
@@ -350,10 +354,10 @@ h1.style-page-header {
     }
 }
 
-.style-content-container {
+.style-container {
     border: 2px solid #EEE;
 
-    .inner {
+    .container-inner {
         background-color: #FFF;
         border: 1px solid #DDD;
         padding: 20px 25px;
@@ -365,6 +369,111 @@ h1.style-page-header {
             line-height: normal;
             margin: 0 0 25px 0;
             padding-bottom: 10px;
+        }
+    }
+}
+
+// COMPONENT ###########################################################################################################
+
+.style-course-box {
+    border: 2px solid #EEE;
+    display: inline-block;
+    list-style: none;
+    width: 550px;
+
+    .course-box-inner {
+        background-color: #FFF;
+        border: 1px solid #DDD;
+    }
+
+    .top {
+        padding: 14px 20px 15px;
+    }
+
+    .title {
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 26px;
+        margin-bottom: 7px;
+
+        a {
+            .content_link;
+        }
+    }
+
+    .at_glance {
+        .topic {
+            a {
+                color: #666;
+                font-size: 13px;
+                font-weight: bold;
+            }
+        }
+
+        .separator {
+            color: #CCC;
+            margin: 0px 5px;
+        }
+
+        .duration {
+            color: #666;
+            font-size: 13px;
+        }
+    }
+
+    .cover {
+        margin-top: 10px;
+
+        img {
+            height: 200px;
+            width: 550px;
+        }
+    }
+
+    .teacher {
+        margin-top: 15px;
+
+        .avatar {
+            float: left;
+            margin-right: 10px;
+
+            img {
+                border-radius: 50px;
+                height: 50px;
+                width: 50px;
+            }
+        }
+
+        .name {
+            color: #444;
+            display: block;
+            font-size: 15px;
+            font-weight: bold;
+            padding-top: 4px;
+        }
+
+        .doing {
+            color: #666;
+            display: block;
+            font-size: 13px;
+        }
+    }
+
+    .next {
+        border-top: 1px dashed #DDD;
+        color: #444;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 10px 20px;
+
+        i {
+            color: #C30;
+            margin-right: 5px;
+        }
+
+        a {
+            .content_link;
+            margin-left: 6px;
         }
     }
 }
