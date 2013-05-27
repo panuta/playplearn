@@ -92,7 +92,9 @@
 
 .page-homepage {
     .headline {
-        padding: 70px 0px 0px;
+        background: url(../images/ui/bg1.jpg) no-repeat center center;
+        border-bottom: 2px solid #CCC;
+        padding: 70px 0px 50px;
 
         .image {
             float: left;
@@ -103,147 +105,76 @@
         }
 
         .head1 {
-            color: #444;
+            color: #FFF;
             font-size: 38px;
             font-weight: bold;
             margin-top: 15px;
+            text-shadow: -1px -1px #000;
         }
 
         .head2 {
-            color: #444;
+            color: #FFF;
             font-size: 28px;
-            margin-top: 25px;
+            margin-top: 27px;
+            text-shadow: -1px -1px #000;
         }
 
         p {
-            color: #555;
-            font-size: 16px;
+            color: #FFF;
+            font-size: 18px;
             line-height: 26px;
             margin-top: 20px;
+            text-shadow: -1px -1px #000;
         }
 
         .action {
             margin-top: 20px;
+
+            a {
+                font-size: 15px;
+                font-weight: normal;
+                padding: 14px 45px;
+
+                i {
+                    margin-right: 6px;
+                    vertical-align: 1px;
+                }
+            }
         }
     }
 
     .featured-courses {
-        background-color: #F7F7F2;
+        background-color: #F7F7F7;
         border-bottom: 1px solid #edede2;
         border-top: 1px solid #edede2;
-        margin-top: 60px;
         padding: 40px 0px;
 
         .head {
-            color: #555;
-            font-size: 20px;
             margin-bottom: 30px;
             text-align: center;
+
+            h2 {
+                background-color: #EEE;
+                border-radius: 4px;
+                color: #777;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: normal;
+                line-height: normal;
+                margin: 0;
+                padding: 12px 55px;
+            }
         }
 
         ul.courses {
             margin: 0;
 
-            li.course {
-                background-color: #FFF;
-                border: 1px solid #E7E7E7;
-                border-radius: 5px;
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.07);
-                display: inline-block;
-                list-style: none;
-                margin-right: 60px;
-                width: 550px;
+            li.style-course-box {
+                float: left;
+            }
 
-                .top {
-                    padding: 14px 20px 15px;
-                }
-
-                .title {
-                    font-size: 18px;
-                    font-weight: bold;
-                    line-height: 26px;
-                    margin-bottom: 7px;
-
-                    a {
-                        .content_link;
-                    }
-                }
-
-                .at_glance {
-                    .topic {
-                        a {
-                            color: #666;
-                            font-size: 13px;
-                            font-weight: bold;
-                        }
-                    }
-
-                    .separator {
-                        color: #CCC;
-                        margin: 0px 5px;
-                    }
-
-                    .duration {
-                        color: #666;
-                        font-size: 13px;
-                    }
-                }
-
-                .cover {
-                    margin-top: 10px;
-
-                    img {
-                        height: 200px;
-                        width: 550px;
-                    }
-                }
-
-                .teacher {
-                    margin-top: 15px;
-
-                    .avatar {
-                        float: left;
-                        margin-right: 10px;
-
-                        img {
-                            border-radius: 50px;
-                            height: 50px;
-                            width: 50px;
-                        }
-                    }
-
-                    .name {
-                        color: #444;
-                        display: block;
-                        font-size: 15px;
-                        font-weight: bold;
-                        padding-top: 4px;
-                    }
-
-                    .doing {
-                        color: #666;
-                        display: block;
-                        font-size: 13px;
-                    }
-                }
-
-                .next {
-                    border-top: 1px dashed #DDD;
-                    color: #444;
-                    font-size: 13px;
-                    font-weight: bold;
-                    padding: 10px 20px;
-
-                    i {
-                        color: #C30;
-                        margin-right: 5px;
-                    }
-
-                    a {
-                        .content_link;
-                        margin-left: 6px;
-                    }
-                }
+            li.left-box {
+                margin-right: 62px;
             }
         }
     }
@@ -256,27 +187,35 @@
 
     .course-header {
         background-position: left top;
-        margin-top: 40px;
-        padding-left: 90px;
+        margin-top: 35px;
+
+        .avatar {
+            float: left;
+            margin-right: 10px;
+
+            img {
+                border: 1px solid #DDD;
+                border-radius: 100px;
+                border-radius: 75px;
+                height: 75px;
+                padding: 3px;
+                width: 75px;
+            }
+        }
+
+        .right {
+            margin-left: 100px;
+        }
 
         .title {
             color: #444;
             font-size: 24px;
             font-weight: bold;
-        }
-
-        .topic {
-            margin-top: 10px;
-
-            a {
-                color: #888;
-                font-size: 14px;
-                font-weight: bold;
-            }
+            padding-top: 10px;
         }
 
         .teacher {
-            margin-top: 7px;
+            margin-top: 14px;
 
             a {
                 .content_link;
@@ -293,19 +232,19 @@
     }
 
     .course-numbers {
-        border: 1px solid #EEE;
         margin: 20px 0 30px;
 
         .item {
-            border-right: 1px solid #EEE;
+            background-color: #F7F7F7;
             float: left;
-            padding: 10px 20px 10px 20px;
+            margin-right: 5px;
+            padding: 5px 30px 5px 10px;
 
             .caption {
                 color: #999;
                 display: block;
-                font-size: 13px;
-                margin-bottom: 4px;
+                font-size: 12px;
+                margin-bottom: 3px;
             }
 
             .number {
@@ -314,7 +253,7 @@
 
                 em {
                     color: #555;
-                    font-size: 18px;
+                    font-size: 15px;
                     font-style: normal;
                     font-weight: bold;
                     margin-right: 3px;
@@ -327,39 +266,154 @@
         }
     }
 
-    .course-description {
-        float: left;
-        width: 800px;
+    .course-sidebar {
+        .enrollment {
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            padding: 15px;
 
-        .pictures {
-            img {
-                width: 800px;
+
+            .datetime {
+                //border-bottom: 1px dashed #DDD;
+                color: #555;
+                font-size: 15px;
+                font-weight: bold;
+
+
+                .day_date {
+                    float: left;
+                }
+
+                .time {
+                    float: right;
+                    font-size: 24px;
+                    margin-top: 10px;
+                }
+
+                .day {
+                    color: #555;
+                    font-size: 20px;
+                    display: block;
+                }
+
+                .date {
+                    color: #777;
+                    display: block;
+                    margin-top: 5px;
+                }
+            }
+
+            .enroll {
+                margin-top: 15px;
+                text-align: center;
+
+                .enroll-button {
+                    font-size: 16px;
+                    padding: 9px 0px;
+                    text-align: center;
+                    width: 240px;
+
+                    em {
+                        display: block;
+                        font-size: 14px;
+                        font-weight: normal;
+                        margin-top: 2px;
+                    }
+                }
+            }
+
+            .availability {
+                color: #555;
+                font-size: 14px;
+                font-weight: bold;
+                margin-top: 10px;
+                text-align: center;
             }
         }
 
-        .description {
+        .venue {
+            margin-top: 40px;
+
             .head {
-                color: #444;
-                font-size: 18px;
+                color: #555;
+                font-size: 28px;
                 font-weight: bold;
-                margin-bottom: 8px;
+                text-align: center;
             }
 
+            .name {
+                margin-top: 5px;
+                text-align: center;
+
+                a {
+                    color: #444;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+            }
+
+            .address {
+                color: #666;
+                font-size: 15px;
+                line-height: 24px;
+                margin-top: 5px;
+                text-align: center;
+            }
+
+            .minimap {
+                text-align: center;
+
+                .map {
+                    border: 1px solid #EEE;
+                    margin: 7px 0 3px;
+                    padding: 5px;
+                }
+
+                a {
+                    .content_link;
+                    font-size: 13px;
+
+                }
+            }
+        }
+    }
+
+    .course-content {
+        .royalSlider {
+            width: 870px;
+            height: 500px;
+        }
+
+        .course-nav {
+            margin: 40px 0 20px;
+
+            em {
+                background-color: @linkColor;
+                border-radius: 4px;
+                color: #FFF;
+                display: inline-block;
+                font-size: 18px;
+                padding: 12px 35px;
+            }
+
+            a {
+                color: #555;
+                display: inline-block;
+                font-size: 18px;
+                padding: 8px 25px;
+            }
+        }
+
+        .course-story {
             p {
                 color: #444;
-                font-size: 16px;
+                font-size: 15px;
                 line-height: 26px;
                 margin-bottom: 20px;
             }
-
-            img {
-                max-width: 700px;
-                border: 1px solid #DDD;
-                padding: 4px;
-            }
         }
 
-        .teacher {
+        .course-teacher {
             background-color: #F9F9F9;
             border: 1px solid #E9E9E9;
             margin-top: 20px;
@@ -412,40 +466,53 @@
         }
     }
 
-    .course-sidebar {
-        float: left;
-        margin-left: 40px;
-        width: 330px;
-
-
-    }
-
     .course-reviews {
-        background-color: #CCC;
-        border-bottom: 1px solid #BBB;
-        border-top: 1px solid #BBB;
+        background-color: #EEE;
+        border-bottom: 3px solid #F7F7F7;
+        border-top: 3px solid #F7F7F7;
         margin-top: 60px;
         padding: 40px 0px;
 
         .head {
-            color: #555;
-            font-size: 20px;
+            color: #444;
+            font-size: 28px;
             margin-bottom: 30px;
-            text-align: center;
         }
 
-        ul {
+        ul.reviews {
             margin: 0;
 
             li {
+                border: 2px solid #F7F7F7;
                 list-style: none;
-                width: 330px;
+                width: 500px;
 
-                .content {
+                .review-box {
                     background-color: #FFF;
-                    border: 1px solid #BBB;
-                    border-radius: 6px;
-                    padding: 15px;
+                    border: 1px solid #EEE;
+                    padding: 10px 15px;
+                }
+
+                p {
+                    line-height: 23px;
+                }
+
+                .avatar {
+                    float: left;
+
+                    img {
+                        border: 1px solid #DDD;
+                        border-radius: 50px;
+                        height: 50px;
+                        padding: 2px;
+                        width: 50px;
+                    }
+                }
+
+                .name {
+                    font-weight: bold;
+                    margin-left: 70px;
+                    padding-top: 15px;
                 }
             }
         }

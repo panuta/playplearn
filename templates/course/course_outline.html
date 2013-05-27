@@ -2,12 +2,24 @@
 
 {% block body_class %}page-course-outline{% endblock %}
 
+{% block scripts %}
+<script>
+$(document).ready(function($) {
+    $(".royalSlider").royalSlider({
+        keyboardNavEnabled: true
+    });
+});
+</script>
+{% endblock %}
+
 {% block body %}
 <div class="container">
-    <div class="course-header topic-header-public-speaking">
-        <div class="title ">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</div>
-        <div class="topic"><a href="#">Public Speaking</a></div>
-        <div class="teacher"><a href="#">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span></div>
+    <div class="course-header clearfix">
+        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+        <div class="right">
+            <div class="title ">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</div>
+            <div class="teacher"><a href="#">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span></div>
+        </div>
     </div>
 
     <div class="course-numbers clearfix">
@@ -33,44 +45,103 @@
         </div>
     </div>
 
-    <div class="clearfix">
-        <div class="course-description">
-            <div class="description">
-                <div class="head">What You Will Get in This Course</div>
-                <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui. Aliquam semper urna eget justo dignissim commodo.</p>
-                <p><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" /></p>
-                <p>Integer pretium, diam et mollis lacinia, diam magna auctor leo, a pretium metus orci nec dui. Integer consectetur orci eu felis suscipit elementum. Vestibulum sit amet urna fringilla nibh imperdiet venenatis. Integer egestas arcu non nisl lobortis interdum. Quisque quis purus nec ipsum tincidunt elementum. Pellentesque id neque sit amet dolor dignissim auctor id tempus tellus. Etiam ac enim dolor, nec pharetra purus. Maecenas vehicula suscipit ligula, sit amet luctus nulla porttitor et.</p>
-                <p>Cras at iaculis sem. Mauris arcu augue, sollicitudin eget semper vel, commodo nec est. Pellentesque sapien nulla, ultricies eu commodo quis, elementum at turpis. Morbi vitae turpis at libero iaculis congue vel at nibh. Mauris sollicitudin dui sit amet mauris consectetur in imperdiet velit lacinia. Proin sapien lacus, imperdiet eget sollicitudin quis, pretium vitae lorem. Donec pretium suscipit purus, in iaculis augue sagittis eu. Vivamus ligula diam, dignissim eget feugiat a, consectetur ac augue. Aliquam id arcu sem, ac molestie turpis.</p>
-            </div>
-            <div class="teacher clearfix">
-                <div class="head">Meet Your Teacher</div>
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name"><a href="#">Panu Tangchalermkul</a></div>
-                    <div class="doing">Software Developer, Photographer</div>
-                    <div class="credentials">
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam fringilla, libero a luctus gravida, leo odio rhoncus eros, et dapibus dolor turpis sit amet mi. Phasellus iaculis nunc quis tortor euismod sollicitudin. In id sem suscipit urna accumsan rutrum at non est. Nunc et nibh nibh. Pellentesque sit amet purus vitae nulla elementum pretium.</p>
+    <div class="row">
+        <div class="span9">
+            <div class="course-content">
+                <div class="royalSlider rsDefault">
+                    <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" />
+                </div>
+                <div class="course-nav">
+                    <em>Course Story</em>
+                    <a href="#">Course Outline</a>
+                </div>
+                <div class="course-story">
+                    <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui. Aliquam semper urna eget justo dignissim commodo.</p>
+                    <p>Integer pretium, diam et mollis lacinia, diam magna auctor leo, a pretium metus orci nec dui. Integer consectetur orci eu felis suscipit elementum. Vestibulum sit amet urna fringilla nibh imperdiet venenatis. Integer egestas arcu non nisl lobortis interdum. Quisque quis purus nec ipsum tincidunt elementum. Pellentesque id neque sit amet dolor dignissim auctor id tempus tellus. Etiam ac enim dolor, nec pharetra purus. Maecenas vehicula suscipit ligula, sit amet luctus nulla porttitor et.</p>
+                    <p>Cras at iaculis sem. Mauris arcu augue, sollicitudin eget semper vel, commodo nec est. Pellentesque sapien nulla, ultricies eu commodo quis, elementum at turpis. Morbi vitae turpis at libero iaculis congue vel at nibh. Mauris sollicitudin dui sit amet mauris consectetur in imperdiet velit lacinia. Proin sapien lacus, imperdiet eget sollicitudin quis, pretium vitae lorem. Donec pretium suscipit purus, in iaculis augue sagittis eu. Vivamus ligula diam, dignissim eget feugiat a, consectetur ac augue. Aliquam id arcu sem, ac molestie turpis.</p>
+                </div>
+                <div class="course-teacher clearfix">
+                    <div class="head">Meet Your Teacher</div>
+                    <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                    <div class="right">
+                        <div class="name"><a href="#">Panu Tangchalermkul</a></div>
+                        <div class="doing">Software Developer, Photographer</div>
+                        <div class="credentials">
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam fringilla, libero a luctus gravida, leo odio rhoncus eros, et dapibus dolor turpis sit amet mi. Phasellus iaculis nunc quis tortor euismod sollicitudin. In id sem suscipit urna accumsan rutrum at non est. Nunc et nibh nibh. Pellentesque sit amet purus vitae nulla elementum pretium.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
-        <div class="course-sidebar">
-            <div class="schedules"></div>
-            <a href="#" class="style-button">Enroll</a>
+        <div class="span3">
+            <div class="course-sidebar">
+                <div class="enrollment">
+                    <div class="datetime clearfix">
+                        <span class="day_date">
+                            <span class="day">Sunday,</span>
+                            <span class="date">14 September 2013</span>
+                        </span>
+                        <span class="time">18:00</span>
+                    </div>
+                    <div class="enroll">
+                        <a href="#" class="enroll-button style-orange-button">Enroll Now<em>500 Baht</em></a>
+                    </div>
+                    <div class="availability">5 seats left</div>
+                </div>
+                <div class="venue">
+                    <div class="head"><i class="icon-map-marker"></i></div>
+                    <div class="name"><a href="#">Somewhere</a></div>
+                    <div class="address">233/235 Srinakarin Rd. Bang Muang, Muang, Samutprakarn 10270</div>
+                    <div class="minimap">
+                        <div class="map"><a href="#"><img src="{{ STATIC_URL }}images/sample/map1.png" /></a></div>
+                        <a href="#">View in larger map</a>
+                    </div>
+
+                </div>
+                <div class="sharing">
+                    <!-- Facebook Like, Twitter Tweet, Email -->
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="course-reviews">
     <div class="container">
-        <ul>
-            <li>
-                <div class="content">
-                    <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+        <div class="head">Course reviews</div>
+        <div class="row">
+            <div class="span6">
+                <div class="reviews-featured">
+                    <ul class="reviews">
+                        <li class="review">
+                            <div class="review-box clearfix">
+                                <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                                <div class="reviewer">
+                                    <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                                    <div class="name">Panu Tangchalermkul</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="reviewer"></div>
-            </li>
-        </ul>
+            </div>
+            <div class="span6">
+                <div class="reviews-recent">
+                    <ul class="reviews">
+                        <li class="review">
+                            <div class="review-box clearfix">
+                                <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                                <div class="reviewer">
+                                    <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                                    <div class="name">Panu Tangchalermkul</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
