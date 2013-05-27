@@ -48,7 +48,8 @@ urlpatterns += patterns(
     url(r'^settings/profile/$', 'edit_my_settings_profile', name='edit_my_settings_profile'),
     url(r'^settings/social/$', 'edit_my_settings_social', name='edit_my_settings_social'),
     url(r'^settings/notifications/$', 'edit_my_settings_notifications', name='edit_my_settings_notifications'),
-    url(r'^settings/account/$', 'edit_my_settings_account', name='edit_my_settings_account'),
+    url(r'^settings/account/$', 'edit_my_settings_account_email', name='edit_my_settings_account_email'),
+    url(r'^settings/account/password/$', 'edit_my_settings_account_password', name='edit_my_settings_account_password'),
 
     url(r'^news_feed/$', 'view_my_news_feed', name='view_my_news_feed'),
 

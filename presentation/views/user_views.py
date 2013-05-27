@@ -83,7 +83,20 @@ def edit_my_settings_notifications(request):
 
 
 @login_required
-def edit_my_settings_password(request):
+def edit_my_settings_account_email(request):
+    if request.method == 'POST':
+        form = EditAccountEmailForm(request.user, request.POST)
+        if form.is_valid():
+            # TODO Send email change confirmation email
+            messages.success(request, u'Please check our confirmation email from your inbox')
+    else:
+        form = EditAccountEmailForm(request.user)
+
+    return render(request, 'user/settings/settings_account.html', {'form': form})
+
+
+@login_required
+def edit_my_settings_account_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -97,19 +110,6 @@ def edit_my_settings_password(request):
         form = PasswordChangeForm(request.user)
 
     return render(request, 'user/settings/settings_password.html', {'form': form})
-
-
-@login_required
-def edit_my_settings_account(request):
-    if request.method == 'POST':
-        form = EditAccountEmailForm(request.user, request.POST)
-        if form.is_valid():
-            # TODO Send email change confirmation email
-            messages.success(request, u'Please check our confirmation email from your inbox')
-    else:
-        form = EditAccountEmailForm(request.user)
-
-    return render(request, 'user/settings/settings_account.html', {'form': form})
 
 
 @login_required
