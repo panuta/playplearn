@@ -168,10 +168,11 @@ body.modal-open {
   font-size: 13px;
 }
 .style-form .form-actions .style-primary-button {
+  font-size: 14px;
   padding: 10px 50px;
 }
 form .avatar-control img.avatar {
-  border: 1px solid #999;
+  border-radius: 50px;
   float: left;
 }
 form .avatar-control .tools {
@@ -798,6 +799,7 @@ body {
 }
 .page-homepage .featured-courses ul.courses li.style-course-box {
   float: left;
+  margin-bottom: 40px;
 }
 .page-homepage .featured-courses ul.courses li.left-box {
   margin-right: 62px;
@@ -815,23 +817,20 @@ body {
 }
 .page-course-outline .course-header .avatar img {
   border: 1px solid #DDD;
-  border-radius: 100px;
-  border-radius: 75px;
-  height: 75px;
+  border-radius: 50px;
   padding: 3px;
-  width: 75px;
 }
 .page-course-outline .course-header .right {
-  margin-left: 100px;
+  margin-left: 80px;
 }
 .page-course-outline .course-header .title {
   color: #444;
   font-size: 24px;
   font-weight: bold;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 .page-course-outline .course-header .teacher {
-  margin-top: 14px;
+  margin-top: 12px;
 }
 .page-course-outline .course-header .teacher a {
   font-size: 15px;
@@ -882,6 +881,118 @@ body {
 }
 .page-course-outline .course-numbers .item .number em.nobold {
   font-weight: normal;
+}
+.page-course-outline .course-pictures {
+  margin-bottom: 40px;
+}
+.page-course-outline .course-pictures .royalSlider {
+  width: 870px;
+  height: 500px;
+}
+.page-course-outline .course-content ul.nav {
+  margin: 0 0 20px 0;
+}
+.page-course-outline .course-content ul.nav li a {
+  border: none;
+  border-radius: 4px;
+  color: #555;
+  display: block;
+  font-size: 18px;
+  padding: 12px 35px;
+}
+.page-course-outline .course-content ul.nav li.active a {
+  background-color: #1693a5;
+  color: #FFF;
+}
+.page-course-outline .course-content ul.nav-tabs {
+  border: none;
+}
+.page-course-outline .course-content #course_story p {
+  color: #444;
+  font-size: 15px;
+  line-height: 26px;
+  margin: 0 0 20px 0;
+  margin-bottom: 20px;
+}
+.page-course-outline .course-content #course_story ul,
+.page-course-outline .course-content #course_story ol {
+  margin-bottom: 20px;
+}
+.page-course-outline .course-content #course_story li {
+  line-height: 26px;
+}
+.page-course-outline .course-content #course_story em {
+  font-style: italic;
+}
+.page-course-outline .course-content #course_story .line-through {
+  text-decoration: line-through;
+}
+.page-course-outline .course-content #course_story .underline {
+  text-decoration: underline;
+}
+.page-course-outline .course-content #course_story a:link,
+.page-course-outline .course-content #course_story a:active,
+.page-course-outline .course-content #course_story a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+.page-course-outline .course-content #course_story a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-outline .course-teacher {
+  background-color: #F9F9F9;
+  border: 1px solid #E9E9E9;
+  margin-top: 20px;
+  padding: 15px 20px;
+}
+.page-course-outline .course-teacher .avatar {
+  float: left;
+}
+.page-course-outline .course-teacher .avatar img {
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+}
+.page-course-outline .course-teacher .right {
+  margin-left: 125px;
+}
+.page-course-outline .course-teacher .head {
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.page-course-outline .course-teacher .name a {
+  font-size: 20px;
+  font-weight: bold;
+}
+.page-course-outline .course-teacher .name a:link,
+.page-course-outline .course-teacher .name a:active,
+.page-course-outline .course-teacher .name a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+.page-course-outline .course-teacher .name a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-outline .course-teacher .doing {
+  color: #444;
+  font-weight: bold;
+  margin-top: 7px;
+}
+.page-course-outline .course-teacher .credentials {
+  color: #555;
+  line-height: 22px;
+  margin-top: 10px;
+}
+.page-course-outline .course-teacher .credentials p {
+  margin-bottom: 15px;
 }
 .page-course-outline .course-sidebar .enrollment {
   border: 1px solid #DDD;
@@ -935,12 +1046,11 @@ body {
   text-align: center;
 }
 .page-course-outline .course-sidebar .venue {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .page-course-outline .course-sidebar .venue .head {
-  color: #555;
-  font-size: 28px;
-  font-weight: bold;
+  color: #888;
+  font-size: 13px;
   text-align: center;
 }
 .page-course-outline .course-sidebar .venue .name {
@@ -981,85 +1091,6 @@ body {
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
-}
-.page-course-outline .course-content .royalSlider {
-  width: 870px;
-  height: 500px;
-}
-.page-course-outline .course-content .course-nav {
-  margin: 40px 0 20px;
-}
-.page-course-outline .course-content .course-nav em {
-  background-color: #1693a5;
-  border-radius: 4px;
-  color: #FFF;
-  display: inline-block;
-  font-size: 18px;
-  padding: 12px 35px;
-}
-.page-course-outline .course-content .course-nav a {
-  color: #555;
-  display: inline-block;
-  font-size: 18px;
-  padding: 8px 25px;
-}
-.page-course-outline .course-content .course-story p {
-  color: #444;
-  font-size: 15px;
-  line-height: 26px;
-  margin-bottom: 20px;
-}
-.page-course-outline .course-content .course-teacher {
-  background-color: #F9F9F9;
-  border: 1px solid #E9E9E9;
-  margin-top: 20px;
-  padding: 15px 20px;
-}
-.page-course-outline .course-content .course-teacher .avatar {
-  float: left;
-}
-.page-course-outline .course-content .course-teacher .avatar img {
-  border-radius: 100px;
-  height: 100px;
-  width: 100px;
-}
-.page-course-outline .course-content .course-teacher .right {
-  margin-left: 125px;
-}
-.page-course-outline .course-content .course-teacher .head {
-  color: #444;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-.page-course-outline .course-content .course-teacher .name a {
-  font-size: 20px;
-  font-weight: bold;
-}
-.page-course-outline .course-content .course-teacher .name a:link,
-.page-course-outline .course-content .course-teacher .name a:active,
-.page-course-outline .course-content .course-teacher .name a:visited {
-  color: #1693a5;
-  text-decoration: underline;
-}
-.page-course-outline .course-content .course-teacher .name a:hover {
-  background-color: #1693a5;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-course-outline .course-content .course-teacher .doing {
-  color: #444;
-  font-weight: bold;
-  margin-top: 7px;
-}
-.page-course-outline .course-content .course-teacher .credentials {
-  color: #555;
-  line-height: 22px;
-  margin-top: 10px;
-}
-.page-course-outline .course-content .course-teacher .credentials p {
-  margin-bottom: 15px;
 }
 .page-course-outline .course-reviews {
   background-color: #EEE;
@@ -1288,22 +1319,19 @@ body {
   margin-bottom: 15px;
 }
 .page-my-courses .courses-body .courses-content ul.courses li.course .top {
-  padding: 15px;
+  padding: 10px;
 }
 .page-my-courses .courses-body .courses-content ul.courses li.course .cover {
-  background-color: #BBB;
-  height: 100px;
   float: left;
-  width: 100px;
 }
 .page-my-courses .courses-body .courses-content ul.courses li.course .right {
-  margin-left: 115px;
+  margin-left: 290px;
 }
 .page-my-courses .courses-body .courses-content ul.courses li.course .title {
   margin-top: 3px;
 }
 .page-my-courses .courses-body .courses-content ul.courses li.course .title a {
-  font-size: 16px;
+  font-size: 15px;
 }
 .page-my-courses .courses-body .courses-content ul.courses li.course .title a:link,
 .page-my-courses .courses-body .courses-content ul.courses li.course .title a:active,

@@ -1,5 +1,6 @@
 {% extends 'dashboard/courses_base.html' %}
 
+{% block head_title %}My Classes - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='upcoming' %}{% endblock %}
 
 {% block courses_content %}
@@ -10,7 +11,7 @@
         {% for schedule in upcoming_schedules %}
         <li class="course">
             <div class="top clearfix">
-                <div class="cover"></div>
+                <div class="cover"><img src="{{ schedule.course.small_cover_url }}" /></div>
                 <div class="right">
                     <div class="do">{% if schedule.course.teacher == request.user %}Teaching{% else %}Attending{% endif %}</div>
                     <div class="title"><a href="#">{{ schedule.course.title }}</a></div>
@@ -19,13 +20,13 @@
                     {% endif %}
                     <div class="schedule-location">
                         <div class="schedule">{{ schedule.start_datetime|date:'D j M Y - H:i' }}</div>
-                        <div class="location">at Somewhere</div>
+                        <div class="location">at {{ schedule.course.coursevenue.venue_name }}</div>
                     </div>
                 </div>
             </div>
             <div class="footer">
                 {% if schedule.course.teacher == request.user %}
-                    <a href="{% url 'view_classroom_home' schedule.course.uid %}">Manage classroom</a>
+                    <a href="{% url 'manage_classroom_home' schedule.course.uid %}">Manage classroom</a>
                 {% else %}
                     <a href="{% url 'view_course_enroll_receipt' %}">Enrollment details</a>
                 {% endif %}

@@ -3,7 +3,7 @@
 {% block body_class %}page-backend page-my-courses{% endblock %}
 
 {% block body %}
-<div class="content-container">
+<div class="backend-container">
 <div class="container">
     <div class="courses-header clearfix">
         <div class="avatar"><img src="{{ request.user.small_avatar_url }}" /></div>
@@ -12,10 +12,10 @@
             <div class="doing">{{ request.user.headline }}</div>
             <div class="stats">
                 <ul>
-                    <li>{{ request.user.num_of_courses_attended }} Courses Attended</li>
-                    <li>{{ request.user.num_of_courses_teaching }} Courses Teaching</li>
-                    <li>{{ request.user.num_of_reviews_written }} Reviews Given</li>
-                    <li>{{ request.user.num_of_reviews_received }} Reviews Received</li>
+                    <li>{{ request.user.stats_courses_attended }} Courses Attended</li>
+                    <li>{{ request.user.stats_courses_teaching }} Courses Teaching</li>
+                    <li>{{ request.user.stats_reviews_written }} Reviews Given</li>
+                    <li>{{ request.user.stats_reviews_received }} Reviews Received</li>
                 </ul>
             </div>
         </div>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="title"><a href="#">{{ schedule.course.title }}</a></div>
                             <div class="schedule">{{ schedule.start_datetime|date:'D j M Y - H:i' }}</div>
-                            <div class="location">at Somewhere</div>
+                            <div class="location">at {{ schedule.course.coursevenue.venue_name }}</div>
                             <div class="actions">
                                 {% if schedule.course.teacher == request.user %}
                                     <a href="{% url 'view_classroom_home' schedule.course.uid %}">Manage classroom</a>

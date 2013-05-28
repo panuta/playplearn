@@ -23,14 +23,14 @@ DATABASES = {
         }
 }
 
-WEBSITE_NAME = 'LearningWolf'
+WEBSITE_NAME = 'Learning Wolf'
 WEBSITE_URL = 'http://127.0.0.1:8000'
 WEBSITE_DOMAIN = '127.0.0.1:8000'
 
 ALLOWED_HOSTS = []
 
 TIME_ZONE = 'Asia/Bangkok'
-LANGUAGE_CODE = 'th'
+LANGUAGE_CODE = 'en_US'
 
 SITE_ID = 1
 USE_I18N = True
@@ -76,7 +76,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages'
+    'django.contrib.messages.context_processors.messages',
+
+    'learningwolf.context_processors.site_settings',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -168,8 +170,12 @@ THUMBNAIL_PRESERVE_EXTENSIONS = ('png',)
 THUMBNAIL_ALIASES = {
     '': {
         'avatar_normal': {'size': (100, 100), 'crop': True},
-        'avatar_small': {'size': (75, 75), 'crop': True},
+        'avatar_small': {'size': (70, 70), 'crop': True},
+        'avatar_smaller': {'size': (50, 50), 'crop': True},
         'avatar_tiny': {'size': (30, 30), 'crop': True},
+
+        'course_cover_normal': {'size': (550, 200), 'crop': True},
+        'course_cover_small': {'size': (275, 100), 'crop': True},
     },
 }
 
@@ -197,9 +203,15 @@ SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 
 # USER AVATAR
 
-USER_AVATAR_DEFAULT_NORMAL = 'avatar/default_normal.png'
-USER_AVATAR_DEFAULT_SMALL = 'avatar/default_small.png'
-USER_AVATAR_DEFAULT_TINY = 'avatar/default_tiny.png'
+USER_AVATAR_DEFAULT_NORMAL = 'default/avatar/default_normal.png'
+USER_AVATAR_DEFAULT_SMALL = 'default/avatar/default_small.png'
+USER_AVATAR_DEFAULT_SMALLER = 'default/avatar/default_smaller.png'
+USER_AVATAR_DEFAULT_TINY = 'default/avatar/default_tiny.png'
+
+# COURSES
+
+COURSE_COVER_DEFAULT_NORMAL = 'default/course/default_cover_normal.png'
+COURSE_COVER_DEFAULT_SMALL = 'default/course/default_cover_small.png'
 
 
 # LOCAL SETTINGS #######################################################################################################

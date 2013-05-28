@@ -171,6 +171,7 @@
 
             li.style-course-box {
                 float: left;
+                margin-bottom: 40px;
             }
 
             li.left-box {
@@ -195,27 +196,24 @@
 
             img {
                 border: 1px solid #DDD;
-                border-radius: 100px;
-                border-radius: 75px;
-                height: 75px;
+                border-radius: 50px;
                 padding: 3px;
-                width: 75px;
             }
         }
 
         .right {
-            margin-left: 100px;
+            margin-left: 80px;
         }
 
         .title {
             color: #444;
             font-size: 24px;
             font-weight: bold;
-            padding-top: 10px;
+            padding-top: 5px;
         }
 
         .teacher {
-            margin-top: 14px;
+            margin-top: 12px;
 
             a {
                 .content_link;
@@ -262,6 +260,129 @@
                         font-weight: normal;
                     }
                 }
+            }
+        }
+    }
+
+    .course-pictures {
+        margin-bottom: 40px;
+
+        .royalSlider {
+            width: 870px;
+            height: 500px;
+        }
+    }
+
+    .course-content {
+        ul.nav {
+            margin: 0 0 20px 0;
+
+            li {
+                a {
+                    border: none;
+                    border-radius: 4px;
+                    color: #555;
+                    display: block;
+                    font-size: 18px;
+                    padding: 12px 35px;
+                }
+            }
+
+            li.active {
+                a {
+                    background-color: @linkColor;
+                    color: #FFF;
+                }
+            }
+        }
+
+        ul.nav-tabs {
+            border: none;
+        }
+
+        #course_story {
+            p {
+                color: #444;
+                font-size: 15px;
+                line-height: 26px;
+                margin: 0 0 20px 0;
+                margin-bottom: 20px;
+            }
+
+            ul, ol {
+                margin-bottom: 20px;
+            }
+
+            li {
+                line-height: 26px;
+            }
+
+            em {
+                font-style: italic;
+            }
+
+            .line-through {
+                text-decoration: line-through;
+            }
+
+            .underline {
+                text-decoration: underline;
+            }
+
+            a {
+                .content_link;
+            }
+        }
+    }
+
+    .course-teacher {
+        background-color: #F9F9F9;
+        border: 1px solid #E9E9E9;
+        margin-top: 20px;
+        padding: 15px 20px;
+
+        .avatar {
+            float: left;
+
+            img {
+                border-radius: 100px;
+                height: 100px;
+                width: 100px;
+            }
+        }
+
+        .right {
+            margin-left: 125px;
+        }
+
+        .head {
+            color: #444;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            a {
+                .content_link;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+
+        .doing {
+            color: #444;
+            font-weight: bold;
+            margin-top: 7px;
+        }
+
+        .credentials {
+            color: #555;
+            line-height: 22px;
+            margin-top: 10px;
+
+            p {
+                margin-bottom: 15px;
             }
         }
     }
@@ -332,12 +453,11 @@
         }
 
         .venue {
-            margin-top: 40px;
+            margin-top: 30px;
 
             .head {
-                color: #555;
-                font-size: 28px;
-                font-weight: bold;
+                color: #888;
+                font-size: 13px;
                 text-align: center;
             }
 
@@ -373,94 +493,6 @@
                     .content_link;
                     font-size: 13px;
 
-                }
-            }
-        }
-    }
-
-    .course-content {
-        .royalSlider {
-            width: 870px;
-            height: 500px;
-        }
-
-        .course-nav {
-            margin: 40px 0 20px;
-
-            em {
-                background-color: @linkColor;
-                border-radius: 4px;
-                color: #FFF;
-                display: inline-block;
-                font-size: 18px;
-                padding: 12px 35px;
-            }
-
-            a {
-                color: #555;
-                display: inline-block;
-                font-size: 18px;
-                padding: 8px 25px;
-            }
-        }
-
-        .course-story {
-            p {
-                color: #444;
-                font-size: 15px;
-                line-height: 26px;
-                margin-bottom: 20px;
-            }
-        }
-
-        .course-teacher {
-            background-color: #F9F9F9;
-            border: 1px solid #E9E9E9;
-            margin-top: 20px;
-            padding: 15px 20px;
-
-            .avatar {
-                float: left;
-
-                img {
-                    border-radius: 100px;
-                    height: 100px;
-                    width: 100px;
-                }
-            }
-
-            .right {
-                margin-left: 125px;
-            }
-
-            .head {
-                color: #444;
-                font-size: 16px;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-
-            .name {
-                a {
-                    .content_link;
-                    font-size: 20px;
-                    font-weight: bold;
-                }
-            }
-
-            .doing {
-                color: #444;
-                font-weight: bold;
-                margin-top: 7px;
-            }
-
-            .credentials {
-                color: #555;
-                line-height: 22px;
-                margin-top: 10px;
-
-                p {
-                    margin-bottom: 15px;
                 }
             }
         }
@@ -748,18 +780,15 @@
                     margin-bottom: 15px;
 
                     .top {
-                        padding: 15px;
+                        padding: 10px;
                     }
 
                     .cover {
-                        background-color: #BBB;
-                        height: 100px;
                         float: left;
-                        width: 100px;
                     }
 
                     .right {
-                        margin-left: 115px;
+                        margin-left: 290px;
                     }
 
                     .title {
@@ -767,7 +796,7 @@
 
                         a {
                             .content_link;
-                            font-size: 16px;
+                            font-size: 15px;
                         }
                     }
 

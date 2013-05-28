@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% block head_title %}{{ settings.WEBSITE_NAME }} - Learn something new{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
 
 {% block body %}
@@ -11,14 +12,10 @@
             <div class="head2">From people who is passionate about it</div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla lectus eget tortor placerat ut egestas leo tempus.</p>
             <div class="action">
-                <a href="#" class="style-primary-button"><i class="icon-search icon-large"></i> Browse Courses</a>
+                <a href="{% url 'view_courses_explore' %}" class="style-primary-button"><i class="icon-search icon-large"></i> Browse Courses</a>
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-
 </div>
 
 <!-- Testimonials -->
@@ -27,55 +24,33 @@
 <div class="featured-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>Featured Courses</h2>
+            <h2>Recent Courses</h2>
         </div>
         <ul class="courses">
-            <li class="style-course-box left-box">
+            {% for course in recent_courses %}
+            <li class="style-course-box {% cycle 'left-box' 'right-box' %}">
                 <div class="course-box-inner">
                     <div class="top">
-                        <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
+                        <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
                         <div class="at_glance">
-                            <span class="topic"><a href="#">Public Speaking</a></span>
+                            <span class="topic">{% for topic in course.topics.all %}<a href="{% url 'view_courses_explore' %}?topic={{ topic.slug }}">{{ topic.name }}</a>{% endfor %}</span>
                             <span class="separator">|</span>
-                            <span class="duration">6 Hours</span>
+                            <span class="duration">{{ course.duration }} Hours</span>
                         </div>
-
-                        <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></a></div>
-
+                        <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" /></a></div>
                         <div class="teacher clearfix">
-                            <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                            <a href="#" class="name">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span>
+                            <div class="avatar"><img src="{{ course.teacher.smaller_avatar_url }}" /></div>
+                            <a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span>
                         </div>
                     </div>
-
+                    {% comment %}
                     <div class="next">
                         <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
                     </div>
+                    {% endcomment %}
                 </div>
             </li>
-            <li class="style-course-box right-box">
-                <div class="course-box-inner">
-                    <div class="top">
-                        <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
-                        <div class="at_glance">
-                            <span class="topic"><a href="#">Public Speaking</a></span>
-                            <span class="separator">|</span>
-                            <span class="duration">6 Hours</span>
-                        </div>
-
-                        <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></a></div>
-
-                        <div class="teacher clearfix">
-                            <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                            <a href="#" class="name">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span>
-                        </div>
-                    </div>
-
-                    <div class="next">
-                        <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
-                    </div>
-                </div>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 </div>

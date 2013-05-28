@@ -71,21 +71,21 @@ class Command(BaseCommand):
                     name='House1',
                     address='123 Bangkok',
                     province=10,
-                    latlng='100,13',
+                    latlng='13.7890538,100.590303',
                 )
 
             # COURSES
 
-            cooking_school, created = CourseSchool.objects.get_or_create(name='School of Cooking')
-            engineering_school, created = CourseSchool.objects.get_or_create(name='School of Engineering')
-            business_school, created = CourseSchool.objects.get_or_create(name='School of Business')
-            craftmanship_school, created = CourseSchool.objects.get_or_create(name='School of Craftmanship')
+            cooking_school, created = CourseSchool.objects.get_or_create(name='School of Cooking', slug='school_of_cooking')
+            engineering_school, created = CourseSchool.objects.get_or_create(name='School of Engineering', slug='school_of_engineering')
+            business_school, created = CourseSchool.objects.get_or_create(name='School of Business', slug='school_of_business')
+            craftmanship_school, created = CourseSchool.objects.get_or_create(name='School of Craftmanship', slug='school_of_craftmanship')
 
-            watercolor_topic, created = CourseTopic.objects.get_or_create(name='Watercolor Painting')
-            programming_topic, created = CourseTopic.objects.get_or_create(name='Programming')
-            ux_topic, created = CourseTopic.objects.get_or_create(name='User Experience')
-            steak_topic, created = CourseTopic.objects.get_or_create(name='Steak Cooking')
-            building_topic, created = CourseTopic.objects.get_or_create(name='Building')
+            watercolor_topic, created = CourseTopic.objects.get_or_create(name='Watercolor Painting', slug='watercolor_painting')
+            programming_topic, created = CourseTopic.objects.get_or_create(name='Programming', slug='programming')
+            ux_topic, created = CourseTopic.objects.get_or_create(name='User Experience', slug='user_experience')
+            steak_topic, created = CourseTopic.objects.get_or_create(name='Steak Cooking', slug='steak_cooking')
+            building_topic, created = CourseTopic.objects.get_or_create(name='Building', slug='building')
 
             try:
                 course1 = Course.objects.get(uid='COURSE1')
@@ -94,10 +94,8 @@ class Command(BaseCommand):
                     uid='COURSE1',
                     title='How to grill steak',
                     description='I will show you how to grill steak',
-                    tuition_fees=500,
+                    price=500,
                     duration=6,
-                    duration_unit='HOURS',
-                    minimum_people=10,
                     maximum_people=20,
                     level='ANY',
                     prerequisites='Body',
@@ -105,6 +103,7 @@ class Command(BaseCommand):
                     teacher=user1,
                     credentials='I am smart',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                 )
 
                 course1.schools.add(cooking_school)
@@ -116,7 +115,7 @@ class Command(BaseCommand):
                     name='Grill House',
                     address='555 Bangkok',
                     province=10,
-                    latlng='100,14',
+                    latlng='13.9890538,100.390303',
                 )
 
                 course1_schedule1 = CourseSchedule.objects.create(
@@ -125,10 +124,29 @@ class Command(BaseCommand):
                     status='OPENING',
                 )
 
+                course1_schedule2 = CourseSchedule.objects.create(
+                    course=course1,
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 5, 11, 0), is_dst=None),
+                    status='OPENING',
+                )
+
+                course1.next_schedule = course1_schedule2
+                course1.save()
+
                 CourseEnrollment.objects.get_or_create(
-                    code='ENROLL1',
+                    code='ENROLL1_1',
                     student=user3,
                     schedule=course1_schedule1,
+                    price=500,
+                    total=500,
+                    payment_status='PAYMENT_RECEIVED',
+                    status='CONFIRMED',
+                )
+
+                CourseEnrollment.objects.get_or_create(
+                    code='ENROLL1_2',
+                    student=user3,
+                    schedule=course1_schedule2,
                     price=500,
                     total=500,
                     payment_status='PAYMENT_RECEIVED',
@@ -142,10 +160,8 @@ class Command(BaseCommand):
                     uid='COURSE2',
                     title='How to write Django application',
                     description='I will show you how to write Django application',
-                    tuition_fees=1000,
+                    price=1000,
                     duration=10,
-                    duration_unit='HOURS',
-                    minimum_people=2,
                     maximum_people=10,
                     level='BEGINNER',
                     prerequisites='Python',
@@ -153,6 +169,7 @@ class Command(BaseCommand):
                     teacher=user2,
                     credentials='I am a programmer',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 9, 0), is_dst=None),
                 )
 
                 course2.schools.add(engineering_school)
@@ -166,6 +183,9 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 30, 10, 0), is_dst=None),
                     status='OPENING',
                 )
+
+                course2.next_schedule = course2_schedule1
+                course2.save()
 
                 CourseEnrollment.objects.get_or_create(
                     code='ENROLL2',
@@ -184,10 +204,8 @@ class Command(BaseCommand):
                     uid='COURSE3',
                     title='How to design a website',
                     description='I will show you how to design a website',
-                    tuition_fees=2000,
+                    price=2000,
                     duration=18,
-                    duration_unit='HOURS',
-                    minimum_people=5,
                     maximum_people=15,
                     level='BEGINNER',
                     prerequisites='Photoshop',
@@ -195,6 +213,7 @@ class Command(BaseCommand):
                     teacher=user2,
                     credentials='I am a designer',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 10, 0), is_dst=None),
                 )
 
                 course3.schools.add(engineering_school)
@@ -208,6 +227,9 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 9, 30), is_dst=None),
                     status='OPENING',
                 )
+
+                course3.next_schedule = course3_schedule1
+                course3.save()
 
                 CourseEnrollment.objects.get_or_create(
                     code='ENROLL3',
@@ -226,10 +248,8 @@ class Command(BaseCommand):
                     uid='COURSE4',
                     title='How to build a house',
                     description='I will show you how to build a house',
-                    tuition_fees=6000,
+                    price=6000,
                     duration=24,
-                    duration_unit='HOURS',
-                    minimum_people=1,
                     maximum_people=4,
                     level='ADVANCED',
                     prerequisites='Saw',
@@ -237,6 +257,7 @@ class Command(BaseCommand):
                     teacher=user1,
                     credentials='I am a carpenter',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 11, 0), is_dst=None),
                 )
 
                 course4.schools.add(craftmanship_school)
@@ -256,4 +277,7 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 30, 8, 0), is_dst=None),
                     status='OPENING',
                 )
+
+                course4.next_schedule = course4_schedule1
+                course4.save()
 

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block head_title %}Learning Wolf{% endblock %}</title>
+    <title>{% block head_title %}{{ settings.WEBSITE_NAME }}{% endblock %}</title>
     <meta name="description" content="">
     <meta name="keywords" content="{% block head_keywords %}{% endblock %}" />
     <meta name="viewport" content="width=device-width">
@@ -43,7 +43,7 @@
         <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
         <div class="navigation">
             <ul>
-                <li><a href="{% url 'view_course_explorer' %}" class="explore"><i class="icon-search icon-large"></i> All Courses</a></li>
+                <li><a href="{% url 'view_courses_explore' %}" class="explore"><i class="icon-search icon-large"></i> All Courses</a></li>
                 <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Become a Teacher</a></li>
             </ul>
         </div>
@@ -61,7 +61,6 @@
                         <ul class="dropdown-menu pull-right">
                             <li><a href="{% url 'view_my_profile' %}">โปรไฟล์</a></li>
                             <li class="divider"></li>
-                            <li><a href="{% url 'view_my_news_feed' %}">News Feed</a></li>
                             <li><a href="{% url 'view_my_courses_upcoming' %}">My Courses</a></li>
                             <li><a href="{% url 'edit_my_settings_profile' %}">Settings</a></li>
                             <li class="divider"></li>

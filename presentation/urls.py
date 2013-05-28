@@ -7,16 +7,15 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
     'presentation.views.course_views',
-    url(r'^course/$', 'view_course_outline', name='view_course_outline'),
+    url(r'^course/(?P<course_uid>\w+)/$', 'view_course_outline', name='view_course_outline'),
     url(r'^course/enroll/$', 'view_course_enroll', name='view_course_enroll'),
     url(r'^course/enroll/receipt/$', 'view_course_enroll_receipt', name='view_course_enroll_receipt'),
 
-    url(r'^courses/$', 'view_course_explorer', name='view_course_explorer'),
+    url(r'^courses/$', 'view_courses_explore', name='view_courses_explore'),
     url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
-
-
 )
 
+"""
 urlpatterns += patterns(
     'presentation.views.classroom_views',
 
@@ -25,6 +24,7 @@ urlpatterns += patterns(
     url(r'^classroom/(?P<course_uid>\w+)/qa/$', 'view_classroom_qa', name='view_classroom_qa'),
     url(r'^classroom/(?P<course_uid>\w+)/announcement/$', 'view_classroom_announcement', name='view_classroom_announcement'),
 )
+"""
 
 urlpatterns += patterns(
     'presentation.views.dashboard_views',
@@ -32,7 +32,7 @@ urlpatterns += patterns(
     url(r'^my/courses/attended/$', 'view_my_courses_attended', name='view_my_courses_attended'),
     url(r'^my/courses/teaching/$', 'view_my_courses_teaching', name='view_my_courses_teaching'),
 
-    url(r'^course/new/$', 'create_course', name='create_course'),
+    url(r'^my/courses/new/$', 'create_course', name='create_course'),
 
     url(r'^classroom/(?P<course_uid>\w+)/manage/$', 'manage_classroom_home', name='manage_classroom_home'),
     url(r'^classroom/(?P<course_uid>\w+)/manage/students/$', 'manage_classroom_students', name='manage_classroom_students'),
@@ -52,6 +52,4 @@ urlpatterns += patterns(
     url(r'^settings/account/password/$', 'edit_my_settings_account_password', name='edit_my_settings_account_password'),
 
     url(r'^news_feed/$', 'view_my_news_feed', name='view_my_news_feed'),
-
-
 )

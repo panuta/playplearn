@@ -1,6 +1,6 @@
 <ul>
-    <li{% if tab_name == 'home' %} class="active"{% endif %}><a href="{% url 'view_classroom_home' course.uid %}">Home</a></li>
-    <li{% if tab_name == 'students' %} class="active"{% endif %}><a href="{% url 'view_classroom_students' course.uid %}">Students</a></li>
-    <li{% if tab_name == 'calendar' %} class="active"{% endif %}><a href="{% url 'view_classroom_calendar' course.uid %}">Calendar</a></li>
-    <li{% if tab_name == 'feedback' %} class="active"{% endif %}><a href="{% url 'view_classroom_feedback' course.uid %}">Feedback</a></li>
+    <li{% if tab_name == 'home' %} class="active"{% endif %}><a href="{% url 'manage_classroom_home' course.uid %}">Home</a></li>
+    <li{% if tab_name == 'students' %} class="active"{% endif %}><a href="{% url 'manage_classroom_students' course.uid %}">Students</a></li>
+    <li{% if tab_name == 'calendar' %} class="active"{% endif %}><a href="{% url 'manage_classroom_calendar' course.uid %}">Calendar</a></li>
+    <li{% if tab_name == 'feedback' %} class="active"{% endif %}><a href="{% url 'manage_classroom_feedback' course.uid %}">Feedback</a></li>
 </ul>

@@ -1,10 +1,17 @@
 # -*- encoding: utf-8 -*-
+from django.http import Http404
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from domain.models import Course
 
 
-def view_course_outline(request):
-    return render(request, 'course/course_outline.html', {})
+def view_course_outline(request, course_uid):
+    course = get_object_or_404(Course, uid=course_uid)
+
+    if not course.can_view(request.user):
+        raise Http404
+
+    return render(request, 'course/course_outline.html', {'course': course})
 
 
 def view_course_enroll(request):
@@ -15,7 +22,7 @@ def view_course_enroll_receipt(request):
     return render(request, 'course/course_enroll_receipt.html', {})
 
 
-def view_course_explorer(request):
+def view_courses_explore(request):
     return render(request, 'course/course_explorer.html', {})
 
 

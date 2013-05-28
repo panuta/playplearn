@@ -8,7 +8,7 @@ import shortuuid
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.crypto import salted_hmac
@@ -20,6 +20,7 @@ from easy_thumbnails.files import get_thumbnailer
 
 from common.constants.common import GENDER_CHOICES
 from common.constants.course import *
+from common.constants.currency import CURRENCY_CHOICES
 from common.constants.transaction import TRANSACTION_TYPE_CHOICES
 from common.email import send_registration_email
 
@@ -134,6 +135,12 @@ class UserAccount(AbstractBaseUser):
         return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_SMALL)
 
     @property
+    def smaller_avatar_url(self):
+        if self.avatar:
+            return get_thumbnailer(self.avatar)['avatar_smaller'].url
+        return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_SMALLER)
+
+    @property
     def tiny_avatar_url(self):
         if self.avatar:
             return get_thumbnailer(self.avatar)['avatar_tiny'].url
@@ -141,20 +148,20 @@ class UserAccount(AbstractBaseUser):
 
     # Stats ------------------------------------------------------------------------------------------------------------
 
-    def num_of_upcoming_courses(self):
+    def stats_upcoming_courses(self):
         rightnow = now()
         return CourseSchedule.objects \
             .filter(status='OPENING', start_datetime__gt=rightnow) \
             .filter((Q(course__teacher=self) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
                     | Q(enrollments__student__in=(self,))).count()
 
-    def num_of_courses_teaching(self):
+    def stats_courses_teaching(self):
         return Course.objects.filter(
             teacher=self,
             status='PUBLISHED'
         ).count()
 
-    def num_of_courses_attended(self):
+    def stats_courses_attended(self):
         rightnow = now()
         return Course.objects.filter(
             schedules__start_datetime__lte=rightnow,
@@ -162,10 +169,10 @@ class UserAccount(AbstractBaseUser):
             schedules__enrollments__student=self,
         ).count()
 
-    def num_of_reviews_received(self):
+    def stats_reviews_received(self):
         return CourseReview.objects.filter(enrollment__schedule__course__teacher=self).count()
 
-    def num_of_reviews_written(self):
+    def stats_reviews_written(self):
         return self.reviews.count()
 
 
@@ -237,11 +244,13 @@ class VenueDetail(models.Model):
 # COURSE ###############################################################################################################
 
 class CourseSchool(models.Model):
+    slug = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
 
 
 class CourseTopic(models.Model):
-    name = models.CharField(max_length=500)
+    slug = models.CharField(max_length=300)
+    name = models.CharField(max_length=300)
 
 
 class CourseManager(models.Manager):
@@ -251,16 +260,25 @@ class CourseManager(models.Manager):
         return super(CourseManager, self).get_query_set().exclude(status='DELETED')
 
 
+def course_cover_dir(instance, filename):
+    return 'users/%s/courses/%s/%s' % (instance.teacher.uid, instance.uid, filename)
+
+
+def course_picture_dir(instance, filename):
+    return 'users/%s/courses/%s/%s' % (instance.teacher.uid, instance.uid, filename)
+
+
 class Course(models.Model):
     uid = models.CharField(max_length=50, db_index=True)
     title = models.CharField(max_length=500)
+    cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
     description = models.TextField(null=True, blank=True, default='')
     schools = models.ManyToManyField(CourseSchool, null=True, blank=True)
     topics = models.ManyToManyField(CourseTopic, null=True, blank=True)
-    tuition_fees = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    price_unit = models.CharField(max_length=20, default='THB', choices=CURRENCY_CHOICES)
     duration = models.PositiveSmallIntegerField(null=True)
-    duration_unit = models.CharField(max_length=10, null=True, blank=True, default='HOURS')
-    minimum_people = models.PositiveSmallIntegerField(null=True)
     maximum_people = models.PositiveSmallIntegerField(null=True)
     level = models.CharField(max_length=20, choices=COURSE_LEVEL_CHOICES, null=True, blank=True)
     prerequisites = models.CharField(max_length=500, null=True, blank=True)
@@ -268,8 +286,11 @@ class Course(models.Model):
     teacher = models.ForeignKey(UserAccount, related_name='courses')
     credentials = models.CharField(max_length=2000, null=True, blank=True, default='')
 
+    next_schedule = models.ForeignKey('CourseSchedule', null=True, related_name='parent_course')
+
     status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='UNPUBLISHED')
     created = models.DateTimeField(auto_now_add=True)
+    first_published = models.DateTimeField(null=True)
     last_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
@@ -289,6 +310,32 @@ class Course(models.Model):
             self.uid = temp_uuid
         super(Course, self).save(*args, **kwargs)
 
+    # PROPERTIES -------------------------------------------------------------------------------------------------------
+
+    def cover_url(self):
+        if self.cover:
+            return get_thumbnailer(self.cover)['course_cover_normal'].url
+        return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_NORMAL)
+
+    def small_cover_url(self):
+        if self.cover:
+            return get_thumbnailer(self.cover)['course_cover_small'].url
+        return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_SMALL)
+
+    # PERMISSIONS ------------------------------------------------------------------------------------------------------
+
+    def can_view(self, user):
+        return (self.status == 'PUBLISHED') or (self.status == 'UNPUBLISHED' and user == self.teacher) or \
+               (self.status == 'WAIT_FOR_APPROVAL' and (user == self.teacher or user.is_staff()))
+
+    # STATS ------------------------------------------------------------------------------------------------------------
+
+    def stats_attended_students(self):
+        return UserAccount.objects.filter(enrollments__schedule__course=self).distinct().count()
+
+    def stats_reviews(self):
+        return CourseReview.objects.filter(enrollment__schedule__course=self).count()
+
 
 class CourseVenue(models.Model):
     course = models.OneToOneField(Course)
@@ -298,11 +345,37 @@ class CourseVenue(models.Model):
     province = models.SmallIntegerField(default=0)
     latlng = models.CharField(max_length=50, null=True, blank=True, default='')
 
+    # PROPERTIES -------------------------------------------------------------------------------------------------------
+
+    @property
+    def venue_name(self):
+        return self.venue.name if self.venue else self.name
+
+    @property
+    def venue_address(self):
+        return self.venue.address if self.venue else self.address
+
+    @property
+    def venue_latlng(self):
+        return self.venue.latlng if self.venue else self.latlng
+
+
+
 
 class CourseOutline(models.Model):
     course = models.ForeignKey(Course, related_name='venue')
     title = models.CharField(max_length=500)
     description = models.CharField(max_length=1000, null=True, blank=True, default='')
+
+
+class CoursePicture(models.Model):
+    course = models.ForeignKey(Course, related_name='pictures')
+    image = ThumbnailerImageField(upload_to=course_picture_dir)
+    ordering = models.PositiveIntegerField(default=0)
+    uploaded = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['ordering']
 
 
 class CourseScheduleManager(models.Manager):
@@ -326,6 +399,9 @@ class CourseSchedule(models.Model):
         rightnow = now()
         return self.status == 'OPENING' and self.start_datetime > rightnow
 
+    def stats_seats_left(self):
+        return self.course.maximum_people - CourseEnrollment.objects.filter(schedule=self, status='CONFIRMED').count()
+
 
 class CourseEnrollment(models.Model):
     code = models.CharField(max_length=20)
@@ -347,7 +423,7 @@ class CourseEnrollment(models.Model):
 
 class CourseReview(models.Model):
     user = models.ForeignKey(UserAccount, related_name='reviews')
-    enrollment = models.ForeignKey('CourseEnrollment', related_name='reviews')
+    enrollment = models.OneToOneField('CourseEnrollment', related_name='review')
     content = models.CharField(max_length=2000)
     is_positive = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
