@@ -4,28 +4,81 @@
 
 {% block courses_content %}
 <div class="page-my-courses-teaching">
-    <ul class="courses">
-        {% for course in teaching_courses %}
-        <li class="course">
-            <div class="top clearfix">
-                <div class="cover"><img src="{{ course.small_cover_url }}" /></div>
-                <div class="right">
-                    <div class="title"><a href="#">{{ course.title }}</a></div>
+    <div class="row">
+        <div class="span9">
+            <div class="teaching-stats">
+                <ul class="stats">
+                    <li class="stat">
+                        <span class="caption">Total Earning</span>
+                        <span class="number">9,000,000 Baht</span>
+                    </li>
+                    <li class="stat">
+                        <span class="caption">Courses Teaching</span>
+                        <span class="number">99 Courses <span class="smaller">/ 999 Classes</span></span>
+                    </li>
+                    <li class="stat">
+                        <span class="caption">Total Students</span>
+                        <span class="number">9999 Students</span>
+                    </li>
+                    <li class="stat">
+                        <span class="caption">Feedback</span>
+                        <span class="number">9999 Reviews <span class="smaller">(100% Positive Reviews)</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="teaching-courses">
+                <!-- Sort by: Date Created, Latest schedule -->
 
-                </div>
+                <ul class="courses">
+                    <li class="course clearfix">
+                        <div class="title"><a href="#">The Myth of the Visionary Entrepreneur</a></div>
+                        <div class="latest">
+                            <em class="draft">Draft</em>
+                            <span class="datetime">
+                                <span class="caption">Latest class</span>
+                                Sunday, 30 Jun 2013 15:00
+                            </span>
+                            <span class="students">
+                                <span class="caption">Attendance</span>
+                                10/30 students
+                            </span>
+                        </div>
+                        <div class="actions">
+                            <a href="#">Manage course</a>
+                            <a href="#">Add new class</a>
+                        </div>
+                    </li>
+                    <li class="course clearfix">
+                        <div class="title"><a href="#">The Myth of the Visionary Entrepreneur</a></div>
+
+                        <div class="latest">
+                            <em class="public">Public</em>
+                            <span class="datetime">
+                                <span class="caption">Latest class</span>
+                                Sunday, 30 Jun 2013 15:00
+                            </span>
+                            <span class="students">
+                                <span class="caption">Attendance</span>
+                                10/30 students
+                            </span>
+                        </div>
+                        <div class="actions">
+                            <a href="#">Manage course</a>
+                            <a href="#">Add new class</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="span3 teaching-activities">
+            <div class="teaching-create">
+                <a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create a new course</a>
+            </div>
+            <div class="teaching-activities">
+                <div class="head">RECENT ACTIVITIES</div>
             </div>
 
-            <div class="footer">
-                <a href="{% url 'manage_classroom_home' course.uid %}">Manage classroom</a>
-            </div>
-
-            <!-- Number of attending students (Min, Max) -->
-            <!-- Next schedule -->
-            <!-- Status -->
-            <!--  -->
-            <!--  -->
-        </li>
-        {% endfor %}
-    </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}

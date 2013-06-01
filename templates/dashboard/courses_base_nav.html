@@ -1,6 +1,5 @@
-{% if tab_name == 'teaching' %}<div class="pull-right"><a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create a new course</a></div>{% endif %}
 <ul class="nav nav-tabs">
     <li {% if tab_name == 'upcoming' %} class="active"{% endif %}><a href="{% url 'view_my_courses_upcoming' %}">Upcoming{% if request.user.stats_upcoming_courses %} <i class="num">{{ request.user.stats_upcoming_courses }}</i>{% endif %}</a></li>
-    <li {% if tab_name == 'attended' %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">Attended Courses{% if request.user.stats_courses_attended %} <i class="num">{{ request.user.stats_courses_attended }}</i>{% endif %}</a></li>
-    <li {% if tab_name == 'teaching' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' %}">Teaching{% if request.user.stats_courses_teaching %} <i class="num">{{ request.user.stats_courses_teaching }}</i>{% endif %}</a></li>
+    <li {% if tab_name == 'attended' %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">Attended Courses</a></li>
+    <li {% if tab_name == 'teaching' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' %}">Teaching Courses</a></li>
 </ul>

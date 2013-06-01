@@ -43,9 +43,10 @@
         <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
         <div class="navigation">
             <ul>
-                <li><a href="{% url 'view_courses_explore' %}" class="explore"><i class="icon-search icon-large"></i> All Courses</a></li>
-                <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Become a Teacher</a></li>
+                <li><a href="{% url 'view_courses_explore' %}" class="explore"><i class="icon-list icon-large"></i> Browse Courses</a></li>
+                <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Be a Teacher</a></li>
             </ul>
+            <!--<div class="search"><input type="text" /></div>-->
         </div>
         <div class="account">
             {% if user.is_authenticated %}

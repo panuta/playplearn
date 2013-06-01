@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body_class %}page-backend{% endblock %}
+
+{% block body %}
+<div class="backend-header">
+    <div class="container">
+        {% block backend_header %}{% endblock %}
+    </div>
+</div>
+
+<div class="backend-container">
+    {% block backend_container %}{% endblock %}
+</div>
+{% endblock %}

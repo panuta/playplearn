@@ -1,58 +1,41 @@
-{% extends 'base.html' %}
+{% extends 'base_backend.html' %}
 
-{% block body_class %}page-backend page-my-courses{% endblock %}
+{% block body_class %}{{ block.super }} page-my-courses{% endblock %}
 
-{% block body %}
-<div class="backend-container">
-<div class="container">
-    <div class="courses-header clearfix">
-        <div class="avatar"><img src="{{ request.user.small_avatar_url }}" /></div>
-        <div class="right">
-            <div class="name">{{ request.user.name }}</div>
-            <div class="doing">{{ request.user.headline }}</div>
-            <div class="stats">
-                <ul>
-                    <li>{{ request.user.stats_courses_attended }} Courses Attended</li>
-                    <li>{{ request.user.stats_courses_teaching }} Courses Teaching</li>
-                    <li>{{ request.user.stats_reviews_written }} Reviews Given</li>
-                    <li>{{ request.user.stats_reviews_received }} Reviews Received</li>
-                </ul>
-            </div>
-        </div>
+{% block backend_header %}
+<h1>My Courses</h1>
+<div class="stats">
+    <ul>
+        <li>{{ request.user.stats_courses_attended }} Courses Attended</li>
+        <li>{{ request.user.stats_courses_teaching }} Courses Teaching</li>
+        <li>{{ request.user.stats_reviews_written }} Reviews Given</li>
+        <li>{{ request.user.stats_reviews_received }} Reviews Received</li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block backend_container %}
+<div class="backend-tabs">
+    <div class="container">
+        {% block courses_content_nav %}{% endblock %}
     </div>
-    <div class="courses-body">
+</div>
+
+<div class="courses-body">
+    <div class="container">
+        {% block courses_content %}{% endblock %}
+
+        {% comment %}
         <div class="row">
             <div class="span9 courses-content">
-                {% block courses_content_nav %}{% endblock %}
-                <div class="tab-content">
-                    {% block courses_content %}{% endblock %}
-                </div>
+                {% block courses_content %}{% endblock %}
             </div>
             <div class="span3 courses-sidebar">
                 <div class="head">RECENT ACTIVITIES</div>
-                <ul class="courses">
-                    {% for schedule in request.user.get_upcoming_courses %}
-                        <li class="course">
-                            <div class="countdown">3 days</div>
-                            <div class="do">
-                                {% if schedule.course.teacher == request.user %}Teaching{% else %}Attending{% endif %}
-                            </div>
-                            <div class="title"><a href="#">{{ schedule.course.title }}</a></div>
-                            <div class="schedule">{{ schedule.start_datetime|date:'D j M Y - H:i' }}</div>
-                            <div class="location">at {{ schedule.course.coursevenue.venue_name }}</div>
-                            <div class="actions">
-                                {% if schedule.course.teacher == request.user %}
-                                    <a href="{% url 'view_classroom_home' schedule.course.uid %}">Manage classroom</a>
-                                {% else %}
-                                    <a href="{% url 'view_course_enroll_receipt' %}">My enrollment</a>
-                                {% endif %}
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+                <!--  -->
             </div>
         </div>
+        {% endcomment %}
     </div>
-</div>
 </div>
 {% endblock %}

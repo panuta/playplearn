@@ -21,7 +21,6 @@ html, body {
         margin-left: 130px;
 
         ul {
-            border-right: 1px solid #E9E9E9;
             margin: 0;
 
             li {
@@ -29,7 +28,7 @@ html, body {
                 list-style: none;
 
                 a {
-                    border-left: 1px solid #E9E9E9;
+                    border-left: 1px solid #EEE;
                     color: #555;
                     display: inline-block;
                     font-size: 14px;
@@ -38,7 +37,7 @@ html, body {
                     padding: 0px 20px;
 
                     &.teach {
-                        border-right: 1px solid #E9E9E9;
+                        border-right: 1px solid #EEE;
                     }
 
                     i {
@@ -63,6 +62,11 @@ html, body {
                     }
                 }
             }
+        }
+
+        .search {
+            display: inline-block;
+            vertical-align: middle;
         }
     }
 
@@ -158,14 +162,81 @@ html, body {
 }
 
 .page-backend {
-    #body-header {
-        border-bottom: 1px solid #CCC;
+    .backend-header {
+        background-color: @primaryColor;
+        padding: 20px 0;
+
+        h1 {
+            color: #FFF;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: normal;
+            margin: 0;
+        }
+    }
+
+    .backend-tabs {
+        background-color: @primaryColor;
+
+        .nav {
+            margin: 0;
+        }
+
+        .nav-tabs {
+            border: 0;
+        }
+
+        .nav-tabs > li {
+            margin: 0;
+        }
+
+        .nav-tabs > li > a {
+            background-color: @primaryColorLighter;
+            border: 0;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            color: #FFF;
+            font-size: 15px;
+            font-weight: bold;
+            margin-right: 10px;
+            padding: 8px 20px 10px;
+
+            &:hover {
+                background-color: #DDD;
+            }
+
+            i.num {
+                background-color: @primaryColor;
+                border-radius: 3px;
+                color: #FFF;
+                display: inline-block;
+                font-size: 12px;
+                font-style: normal;
+                line-height: normal;
+                margin-left: 3px;
+                padding: 0px 5px;
+                text-shadow: none;
+            }
+        }
+
+        .nav-tabs > li > a:hover,
+        .nav-tabs > .active > a,
+        .nav-tabs > .active > a:hover,
+        .nav-tabs > .active > a:focus {
+            background-color: #FFF;
+            border: 0;
+            color: #444;
+            cursor: pointer;
+
+            i.num {
+                background-color: #BBB;
+                color: #FFF;
+            }
+        }
     }
 
     .backend-container {
-        background-color: #F6F6F6;
-        border-bottom: 1px solid #DDD;
-        border-top: 2px solid #E9E9E9;
+        background-color: #FFF;
         padding-bottom: 30px;
 
         .alert {

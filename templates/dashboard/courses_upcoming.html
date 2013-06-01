@@ -5,31 +5,28 @@
 
 {% block courses_content %}
 <div class="page-my-courses-upcoming">
-
     {% if upcoming_schedules %}
     <ul class="courses">
         {% for schedule in upcoming_schedules %}
-        <li class="course">
-            <div class="top clearfix">
-                <div class="cover"><img src="{{ schedule.course.small_cover_url }}" /></div>
+        <li class="course clearfix">
+            <div class="course-countdown">START IN<em>94 DAYS</em></div>
+            <div class="course-content clearfix">
+                <div class="course-cover"><!--<img src="{{ schedule.course.small_cover_url }}" />--><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></div>
                 <div class="right">
-                    <div class="do">{% if schedule.course.teacher == request.user %}Teaching{% else %}Attending{% endif %}</div>
-                    <div class="title"><a href="#">{{ schedule.course.title }}</a></div>
-                    {% if schedule.course.teacher != request.user %}
-                        <div class="teacher">{{ schedule.course.teacher.name }}</div>
-                    {% endif %}
+                    <div class="title"><a href="#">{{ schedule.course.title }}</a>{% if schedule.course.teacher == request.user %}<span class="yours">Your Course</span>{% endif %}</div>
                     <div class="schedule-location">
-                        <div class="schedule">{{ schedule.start_datetime|date:'D j M Y - H:i' }}</div>
-                        <div class="location">at {{ schedule.course.coursevenue.venue_name }}</div>
+                        <div class="schedule"><span class="day">{{ schedule.start_datetime|date:'l,' }}</span> <span class="date">{{ schedule.start_datetime|date:'j M Y' }}</span> <span class="time">{{ schedule.start_datetime|date:'H:i' }}</span></div>
+                        <div class="at">at</div>
+                        <div class="location">{{ schedule.course.coursevenue.venue_name }}</div>
+                    </div>
+                    <div class="actions">
+                        {% if schedule.course.teacher == request.user %}
+                            <a href="{% url 'manage_classroom_home' schedule.course.uid %}">Manage classroom</a>
+                        {% else %}
+                            <a href="{% url 'view_course_enroll_receipt' %}">Enrollment details</a>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-            <div class="footer">
-                {% if schedule.course.teacher == request.user %}
-                    <a href="{% url 'manage_classroom_home' schedule.course.uid %}">Manage classroom</a>
-                {% else %}
-                    <a href="{% url 'view_course_enroll_receipt' %}">Enrollment details</a>
-                {% endif %}
             </div>
         </li>
         {% endfor %}

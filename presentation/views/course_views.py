@@ -23,7 +23,7 @@ def view_course_enroll_receipt(request):
 
 
 def view_courses_explore(request):
-    return render(request, 'course/course_explorer.html', {})
+    return render(request, 'course/course_browse.html', {})
 
 
 def view_course_teach(request):

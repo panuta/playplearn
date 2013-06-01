@@ -4,7 +4,51 @@
 
 {% block courses_content %}
 <div class="page-my-courses-attended">
+    <div class="row">
+        <div class="span3 courses-topics">
+            <div class="head">TOPICS COVERED</div>
+            <ul class="topics">
+                <li class="topic active"><a href="#">All Topics <span class="counter">4</span></a></li>
+                <li class="topic"><a href="#">Programming <span class="counter">4</span></a></li>
+                <li class="topic"><a href="#">Cooking <span class="counter">2</span></a></li>
+            </ul>
+        </div>
+        <div class="span9">
+            <ul class="courses">
+                <li class="course clearfix">
+                    <div class="actions"><a href="#" class="style-orange-button">Leave Feedback</a></div>
+                    <div class="title"><a href="#">The Myth of the Visionary Entrepreneur</a></div>
+                    <div class="teacher"><a href="#">Panu Tangchalermkul</a></div>
+                    <div class="course-footer clearfix">
+                        <div class="links">
+                            <a href="#">Go to Classroom</a>
+                            <a href="#">View enrollment</a>
+                        </div>
+                        <div class="datetime">Sunday, 30 Jun 2013 15:00</div>
+                    </div>
+                </li>
+                <li class="course clearfix">
+                    <div class="title"><a href="#">The Myth of the Visionary Entrepreneur</a></div>
+                    <div class="teacher"><a href="#">Panu Tangchalermkul</a></div>
+                    <div class="course-footer clearfix">
+                        <div class="links">
+                            <a href="#">Go to Classroom</a>
+                            <a href="#">View enrollment</a>
+                            <a href="#">View my feedback</a>
+                        </div>
+                        <div class="datetime">Sunday, 30 Jun 2013 15:00</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 
+
+
+
+
+
+    {% comment %}
     {% if enrollments %}
         <ul class="courses">
             {% for enrollment in enrollments %}
@@ -33,5 +77,6 @@
             {% endfor %}
         </ul>
     </div>
+    {% endcomment %}
 </div>
 {% endblock %}
