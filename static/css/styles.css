@@ -581,7 +581,7 @@ body {
   padding: 20px 0;
 }
 .page-backend .backend-header .parent {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 .page-backend .backend-header .parent a {
   color: #EEE;
@@ -590,6 +590,10 @@ body {
 }
 .page-backend .backend-header .parent a:hover {
   background-color: #19a7bc;
+}
+.page-backend .backend-header .parent .separator {
+  color: #EEE;
+  margin: 0 6px;
 }
 .page-backend .backend-header h1 {
   color: #FFF;
@@ -1403,7 +1407,7 @@ body {
   text-shadow: none;
 }
 .page-my-courses-upcoming ul.courses li.course {
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-countdown {
   background-color: #e46217;
@@ -1477,11 +1481,23 @@ body {
   margin-left: 10px;
   padding: 0px 10px;
 }
+.page-my-courses-upcoming ul.courses li.course .course-content .teacher {
+  color: #444;
+  margin-top: 2px;
+}
+.page-my-courses-upcoming ul.courses li.course .course-content .teacher .caption {
+  color: #777;
+  font-size: 12px;
+  margin-right: 2px;
+}
+.page-my-courses-upcoming ul.courses li.course .course-content .teacher a {
+  color: #444;
+}
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location {
   color: #444;
   font-size: 14px;
   font-weight: bold;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .schedule {
   display: inline-block;
@@ -1497,23 +1513,40 @@ body {
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .location {
   display: inline-block;
 }
+.page-my-courses-upcoming ul.courses li.course .course-content .schedule-location a {
+  color: #444;
+}
+.page-my-courses-upcoming ul.courses li.course .course-content .attendance {
+  color: #666;
+  font-size: 13px;
+  margin-top: 5px;
+}
 .page-my-courses-upcoming ul.courses li.course .course-content .actions {
   margin-top: 5px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a {
+.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link {
   font-size: 13px;
+  margin-right: 10px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a:link,
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a:active,
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a:visited {
+.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:link,
+.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:active,
+.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a:hover {
+.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:hover {
   background-color: #1693a5;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
+}
+.page-my-courses-upcoming ul.courses li.course .course-content .actions .style-primary-button {
+  font-size: 13px;
+  margin-right: 10px;
+  padding: 4px 15px;
+}
+.page-my-courses-upcoming ul.courses li.course .course-content .actions-student {
+  margin-top: 9px;
 }
 .page-my-courses-attended .courses-topics .head {
   color: #888;
@@ -1572,13 +1605,13 @@ body {
 .page-my-courses-attended ul.courses li.course {
   border-bottom: 1px solid #DDD;
   margin-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
-.page-my-courses-attended ul.courses li.course .actions {
+.page-my-courses-attended ul.courses li.course .feedback {
   float: right;
   margin-top: 5px;
 }
-.page-my-courses-attended ul.courses li.course .actions a {
+.page-my-courses-attended ul.courses li.course .feedback a {
   font-size: 12px;
   margin-left: 10px;
   padding: 4px 25px;
@@ -1598,38 +1631,43 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-attended ul.courses li.course .teacher {
+.page-my-courses-attended ul.courses li.course .details {
   margin-top: 4px;
 }
-.page-my-courses-attended ul.courses li.course .teacher a {
+.page-my-courses-attended ul.courses li.course .details .caption {
+  color: #777;
+  font-size: 12px;
+  margin-right: 2px;
+}
+.page-my-courses-attended ul.courses li.course .details em {
   color: #555;
+  font-weight: bold;
 }
-.page-my-courses-attended ul.courses li.course .course-footer {
-  margin-top: 5px;
+.page-my-courses-attended ul.courses li.course .details a {
+  color: #555;
+  font-weight: bold;
 }
-.page-my-courses-attended ul.courses li.course .course-footer .links {
-  float: left;
+.page-my-courses-attended ul.courses li.course .details .teacher {
+  margin-right: 15px;
 }
-.page-my-courses-attended ul.courses li.course .course-footer .links a {
+.page-my-courses-attended ul.courses li.course .actions {
+  margin-top: 4px;
+}
+.page-my-courses-attended ul.courses li.course .actions a {
   font-size: 13px;
   margin-right: 10px;
 }
-.page-my-courses-attended ul.courses li.course .course-footer .links a:link,
-.page-my-courses-attended ul.courses li.course .course-footer .links a:active,
-.page-my-courses-attended ul.courses li.course .course-footer .links a:visited {
+.page-my-courses-attended ul.courses li.course .actions a:link,
+.page-my-courses-attended ul.courses li.course .actions a:active,
+.page-my-courses-attended ul.courses li.course .actions a:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-my-courses-attended ul.courses li.course .course-footer .links a:hover {
+.page-my-courses-attended ul.courses li.course .actions a:hover {
   background-color: #1693a5;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
-}
-.page-my-courses-attended ul.courses li.course .course-footer .datetime {
-  color: #888;
-  float: right;
-  font-size: 13px;
 }
 .page-my-courses-teaching .teaching-stats {
   margin-bottom: 25px;
@@ -1650,13 +1688,13 @@ body {
 }
 .page-my-courses-teaching .teaching-stats ul.stats li.stat .number {
   color: #555;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
   display: block;
   margin-top: 5px;
 }
 .page-my-courses-teaching .teaching-stats ul.stats li.stat .number .smaller {
-  font-size: 14px;
+  font-size: 13px;
 }
 .page-my-courses-teaching .teaching-courses ul.courses {
   margin: 15px 0 0;
@@ -1695,6 +1733,9 @@ body {
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .latest em.draft {
   background-color: #DDD;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .latest em.wait {
+  background-color: #FFC;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .latest em.public {
   background-color: #BEC;
@@ -2072,6 +2113,23 @@ body {
   color: #444;
   font-size: 16px;
   line-height: 25px;
+}
+.page-manage-classroom .backend-header h1 {
+  display: inline-block;
+}
+.page-manage-classroom .backend-header .class {
+  display: inline-block;
+  margin-left: 15px;
+  vertical-align: 2px;
+}
+.page-manage-classroom .backend-header .class .datetime {
+  background-color: #EEE;
+  border-radius: 4px;
+  color: #444;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 3px 15px;
 }
 .page-profile .profile-header {
   margin-top: 40px;

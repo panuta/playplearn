@@ -1,21 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'base_backend.html' %}
 
-{% block body_class %}page-classroom{% endblock %}
+{% block body_class %}{{ block.super }} page-manage-classroom{% endblock %}
 
-{% block body %}
-<div class="container">
-    <div class="classroom-header clearfix">
-        <div class="title">{{ course.title }}</div>
+{% block backend_header %}
+    <div class="parent"><a href="#">My teaching courses</a> <span class="separator">&#187;</span> <a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
+    <h1>Manage Course</h1>
+
+    {% comment %}
+    <div class="btn-group">
+        <button class="btn">Action</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <!-- dropdown menu links -->
+        </ul>
     </div>
-    <div class="classroom-body">
-        <div class="row">
-            <div class="span2 classroom-nav">
-                {% block classroom_nav %}{% endblock %}
-            </div>
-            <div class="span10 classroom-content">
-                {% block classroom_content %}{% endblock %}
-            </div>
+
+
+    <div class="class"><div class="datetime">Sunday, 30 Jun 2013 15:00</div></div>{% endcomment %}
+{% endblock %}
+
+{% block backend_container %}
+    <div class="backend-tabs">
+        <div class="container">
+            {% block classroom_nav %}{% endblock %}
         </div>
     </div>
-</div>
+    <div class="classroom-body">
+        <div class="container">
+            {% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
+            {% block classroom_content %}{% endblock %}
+        </div>
+    </div>
 {% endblock %}

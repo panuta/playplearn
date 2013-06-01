@@ -1,13 +1,14 @@
 # -*- encoding: utf-8 -*-
 
 import datetime
+from decimal import Decimal
 import pytz
 
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 
-from domain.models import UserAccount, CourseSchool, CourseTopic, Course, CourseSchedule, CourseEnrollment, Venue, CourseVenue
+from domain.models import UserAccount, CourseSchool, CourseTopic, Course, CourseSchedule, CourseReservation, Venue, UserAccountBalanceTransaction
 
 
 class Command(BaseCommand):
@@ -65,13 +66,47 @@ class Command(BaseCommand):
             # VENUES
 
             try:
-                venue1 = Venue.objects.get(name='House1')
+                venue1 = Venue.objects.get(name='Queen Sirikit National Convention Center')
             except Venue.DoesNotExist:
                 venue1 = Venue.objects.create(
-                    name='House1',
-                    address='123 Bangkok',
-                    province=10,
-                    latlng='13.7890538,100.590303',
+                    name='Queen Sirikit National Convention Center',
+                    code='QSNCC',
+                    address='60 New Rachadapisek Road, Klongtoey, Bangkok 10110',
+                    province_code='TH-10',
+                    country='TH',
+                    phone_number='+662-229-3000',
+                    direction='Go to Rachadapisek',
+                    latlng='13.729213,100.557818',
+                    is_userdefined=False,
+                )
+
+            try:
+                venue2 = Venue.objects.get(name='Hubba')
+            except Venue.DoesNotExist:
+                venue2 = Venue.objects.create(
+                    name='Hubba',
+                    code='HUBBA',
+                    address='19 Soi Ekkamai 4, Sukumvit 63 Rd. Prakanong Nua, Wattana Bangkok, Thailand 10110',
+                    province_code='TH-10',
+                    country='TH',
+                    phone_number='+662-714-3388',
+                    direction='Go to Ekkamai',
+                    latlng='13.725378,100.587645',
+                    is_userdefined=False,
+                )
+
+            try:
+                venue3 = Venue.objects.get(name='My Home')
+            except Venue.DoesNotExist:
+                venue3 = Venue.objects.create(
+                    name='My Home',
+                    address='233/235 Srinakarin Rd. Bang Muang, Muang, Samutprakarn 10270',
+                    province_code='TH-11',
+                    country='TH',
+                    phone_number='+6689-784-5282',
+                    direction='Go to Srinakarin',
+                    latlng='13.614947,100.626386',
+                    is_userdefined=True,
                 )
 
             # COURSES
@@ -82,8 +117,12 @@ class Command(BaseCommand):
             craftmanship_school, created = CourseSchool.objects.get_or_create(name='School of Craftmanship', slug='school_of_craftmanship')
 
             watercolor_topic, created = CourseTopic.objects.get_or_create(name='Watercolor Painting', slug='watercolor_painting')
+            computer_topic, created = CourseTopic.objects.get_or_create(name='Computer', slug='computer')
             programming_topic, created = CourseTopic.objects.get_or_create(name='Programming', slug='programming')
+            django_topic, created = CourseTopic.objects.get_or_create(name='Django', slug='django')
             ux_topic, created = CourseTopic.objects.get_or_create(name='User Experience', slug='user_experience')
+            web_design_topic, created = CourseTopic.objects.get_or_create(name='Web Design', slug='web_design')
+            cooking_topic, created = CourseTopic.objects.get_or_create(name='Cooking', slug='cooking')
             steak_topic, created = CourseTopic.objects.get_or_create(name='Steak Cooking', slug='steak_cooking')
             building_topic, created = CourseTopic.objects.get_or_create(name='Building', slug='building')
 
@@ -99,6 +138,7 @@ class Command(BaseCommand):
                     maximum_people=20,
                     level='ANY',
                     prerequisites='Body',
+                    venue=venue1,
 
                     teacher=user1,
                     credentials='I am smart',
@@ -107,16 +147,9 @@ class Command(BaseCommand):
                 )
 
                 course1.schools.add(cooking_school)
+                course1.topics.add(cooking_topic)
                 course1.topics.add(steak_topic)
                 course1.save()
-
-                CourseVenue.objects.create(
-                    course=course1,
-                    name='Grill House',
-                    address='555 Bangkok',
-                    province=10,
-                    latlng='13.9890538,100.390303',
-                )
 
                 course1_schedule1 = CourseSchedule.objects.create(
                     course=course1,
@@ -133,7 +166,7 @@ class Command(BaseCommand):
                 course1.next_schedule = course1_schedule2
                 course1.save()
 
-                CourseEnrollment.objects.get_or_create(
+                CourseReservation.objects.get_or_create(
                     code='ENROLL1_1',
                     student=user3,
                     schedule=course1_schedule1,
@@ -143,7 +176,7 @@ class Command(BaseCommand):
                     status='CONFIRMED',
                 )
 
-                CourseEnrollment.objects.get_or_create(
+                CourseReservation.objects.get_or_create(
                     code='ENROLL1_2',
                     student=user3,
                     schedule=course1_schedule2,
@@ -152,6 +185,9 @@ class Command(BaseCommand):
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                 )
+
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500.40'))
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500.50'))
 
             try:
                 course2 = Course.objects.get(uid='COURSE2')
@@ -165,6 +201,7 @@ class Command(BaseCommand):
                     maximum_people=10,
                     level='BEGINNER',
                     prerequisites='Python',
+                    venue=venue3,
 
                     teacher=user2,
                     credentials='I am a programmer',
@@ -173,10 +210,10 @@ class Command(BaseCommand):
                 )
 
                 course2.schools.add(engineering_school)
+                course2.topics.add(computer_topic)
                 course2.topics.add(programming_topic)
+                course2.topics.add(django_topic)
                 course2.save()
-
-                CourseVenue.objects.create(course=course2, venue=venue1)
 
                 course2_schedule1 = CourseSchedule.objects.create(
                     course=course2,
@@ -187,7 +224,7 @@ class Command(BaseCommand):
                 course2.next_schedule = course2_schedule1
                 course2.save()
 
-                CourseEnrollment.objects.get_or_create(
+                CourseReservation.objects.get_or_create(
                     code='ENROLL2',
                     student=user3,
                     schedule=course2_schedule1,
@@ -209,6 +246,7 @@ class Command(BaseCommand):
                     maximum_people=15,
                     level='BEGINNER',
                     prerequisites='Photoshop',
+                    venue=venue2,
 
                     teacher=user2,
                     credentials='I am a designer',
@@ -217,10 +255,10 @@ class Command(BaseCommand):
                 )
 
                 course3.schools.add(engineering_school)
+                course3.topics.add(computer_topic)
                 course3.topics.add(ux_topic)
+                course3.topics.add(web_design_topic)
                 course3.save()
-
-                CourseVenue.objects.create(course=course3, venue=venue1)
 
                 course3_schedule1 = CourseSchedule.objects.create(
                     course=course3,
@@ -231,9 +269,9 @@ class Command(BaseCommand):
                 course3.next_schedule = course3_schedule1
                 course3.save()
 
-                CourseEnrollment.objects.get_or_create(
+                CourseReservation.objects.get_or_create(
                     code='ENROLL3',
-                    student=user1,
+                    student=user3,
                     schedule=course3_schedule1,
                     price=2000,
                     total=2000,
@@ -253,6 +291,7 @@ class Command(BaseCommand):
                     maximum_people=4,
                     level='ADVANCED',
                     prerequisites='Saw',
+                    venue=venue1,
 
                     teacher=user1,
                     credentials='I am a carpenter',
@@ -264,14 +303,6 @@ class Command(BaseCommand):
                 course4.topics.add(building_topic)
                 course4.save()
 
-                CourseVenue.objects.create(
-                    course=course4,
-                    name='Wood House',
-                    address='999 Bangkok',
-                    province=10,
-                    latlng='100,14',
-                )
-
                 course4_schedule1 = CourseSchedule.objects.create(
                     course=course4,
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 30, 8, 0), is_dst=None),
@@ -280,4 +311,7 @@ class Command(BaseCommand):
 
                 course4.next_schedule = course4_schedule1
                 course4.save()
+
+
+
 

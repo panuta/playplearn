@@ -3,12 +3,13 @@
 import datetime
 import decimal
 import random
+from django.core.urlresolvers import reverse
 import shortuuid
 
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Sum
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.crypto import salted_hmac
@@ -62,10 +63,10 @@ class UserAccount(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True, db_index=True)
 
     name = models.CharField(max_length=300)
-    headline = models.CharField(max_length=300, null=True, blank=True, default='')
+    headline = models.CharField(max_length=300, blank=True)
     avatar = ThumbnailerImageField(upload_to=user_avatar_dir, blank=True, null=True)
-    phone_number = models.CharField(max_length=100, null=True, blank=True, default='')
-    website = models.CharField(max_length=255, null=True, blank=True, default='')
+    phone_number = models.CharField(max_length=100, blank=True)
+    website = models.CharField(max_length=255, blank=True)
 
     date_joined = models.DateTimeField(default=timezone.now())
     is_active = models.BooleanField(default=True)
@@ -153,7 +154,7 @@ class UserAccount(AbstractBaseUser):
         return CourseSchedule.objects \
             .filter(status='OPENING', start_datetime__gt=rightnow) \
             .filter((Q(course__teacher=self) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
-                    | Q(enrollments__student__in=(self,))).count()
+                    | Q(reservations__student__in=(self,))).count()
 
     def stats_courses_teaching(self):
         return Course.objects.filter(
@@ -161,19 +162,33 @@ class UserAccount(AbstractBaseUser):
             status='PUBLISHED'
         ).count()
 
+    def stats_classes_teaching(self):
+        return CourseSchedule.objects.filter(course__teacher=self, course__status='PUBLISHED', status='OPENING').count()
+
+    def stats_students_teaching(self):
+        return UserAccount.objects.filter(reservations__schedule__course__teacher=self, reservations__status='CONFIRMED', reservations__schedule__status='OPENING').distinct().count()
+
     def stats_courses_attended(self):
         rightnow = now()
         return Course.objects.filter(
             schedules__start_datetime__lte=rightnow,
-            schedules__enrollments__status='CONFIRMED',
-            schedules__enrollments__student=self,
+            schedules__reservations__status='CONFIRMED',
+            schedules__reservations__student=self,
         ).count()
 
-    def stats_reviews_received(self):
-        return CourseReview.objects.filter(enrollment__schedule__course__teacher=self).count()
+    def stats_feedbacks_received(self):
+        return CourseFeedback.objects.filter(reservation__schedule__course__teacher=self).count()
 
-    def stats_reviews_written(self):
-        return self.reviews.count()
+    def stats_positive_feedbacks_percentage(self):
+        total = self.stats_feedbacks_received()
+        return float(CourseFeedback.objects.filter(reservation__schedule__course__teacher=self, is_positive=True).count()) / float(total) * 100 if total else 0
+
+    def stats_feedbacks_given(self):
+        return self.feedbacks.count()
+
+    def stats_total_earning(self):
+        total_earning = UserAccountBalanceTransaction.objects.filter(transaction_type='RECEIVED').aggregate(Sum('amount'))['amount__sum']
+        return total_earning if total_earning else 0
 
 
 class UserRegistrationManager(models.Manager):
@@ -222,7 +237,7 @@ class UserAccountBalanceTransaction(models.Model):
     user = models.ForeignKey(UserAccount, related_name='balance_transactions')
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE_CHOICES)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    note = models.CharField(max_length=500, null=True, blank=True, default='')
+    note = models.CharField(max_length=500, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -230,9 +245,21 @@ class UserAccountBalanceTransaction(models.Model):
 
 class Venue(models.Model):
     name = models.CharField(max_length=500)
+    code = models.CharField(max_length=100, blank=True, db_index=True)
     address = models.CharField(max_length=1000)
-    province = models.SmallIntegerField(default=0)
+    province_code = models.CharField(max_length=100)
+    country = models.CharField(max_length=5)
+    phone_number = models.CharField(max_length=50, blank=True)
+    direction = models.TextField(blank=True)
     latlng = models.CharField(max_length=50)
+    is_userdefined = models.BooleanField()
+    is_visible = models.BooleanField(default=True)
+
+    @property
+    def venue_url(self):
+        if self.code:
+            return reverse('view_venue_info_by_code', args=(self.code,))
+        return reverse('view_venue_info_by_id', args=(self.id,))
 
 
 class VenueDetail(models.Model):
@@ -272,23 +299,24 @@ class Course(models.Model):
     uid = models.CharField(max_length=50, db_index=True)
     title = models.CharField(max_length=500)
     cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
-    description = models.TextField(null=True, blank=True, default='')
-    schools = models.ManyToManyField(CourseSchool, null=True, blank=True)
-    topics = models.ManyToManyField(CourseTopic, null=True, blank=True)
+    description = models.TextField(blank=True)
+    schools = models.ManyToManyField(CourseSchool, null=True)
+    topics = models.ManyToManyField(CourseTopic, null=True)
 
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    venue = models.ForeignKey(Venue, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     price_unit = models.CharField(max_length=20, default='THB', choices=CURRENCY_CHOICES)
-    duration = models.PositiveSmallIntegerField(null=True)
-    maximum_people = models.PositiveSmallIntegerField(null=True)
-    level = models.CharField(max_length=20, choices=COURSE_LEVEL_CHOICES, null=True, blank=True)
-    prerequisites = models.CharField(max_length=500, null=True, blank=True)
+    duration = models.PositiveSmallIntegerField(null=True, blank=True)
+    maximum_people = models.PositiveSmallIntegerField(null=True, blank=True)
+    level = models.CharField(max_length=20, choices=COURSE_LEVEL_CHOICES, blank=True)
+    prerequisites = models.CharField(max_length=500, blank=True)
 
     teacher = models.ForeignKey(UserAccount, related_name='courses')
-    credentials = models.CharField(max_length=2000, null=True, blank=True, default='')
+    credentials = models.CharField(max_length=2000, blank=True)
 
     next_schedule = models.ForeignKey('CourseSchedule', null=True, related_name='parent_course')
 
-    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='UNPUBLISHED')
+    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
     created = models.DateTimeField(auto_now_add=True)
     first_published = models.DateTimeField(null=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -322,48 +350,30 @@ class Course(models.Model):
             return get_thumbnailer(self.cover)['course_cover_small'].url
         return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_SMALL)
 
+    def status_name(self):
+        return COURSE_STATUS_MAP[self.status]['name']
+
     # PERMISSIONS ------------------------------------------------------------------------------------------------------
 
     def can_view(self, user):
         return (self.status == 'PUBLISHED') or (self.status == 'UNPUBLISHED' and user == self.teacher) or \
                (self.status == 'WAIT_FOR_APPROVAL' and (user == self.teacher or user.is_staff()))
 
+    def can_add_new_class(self):
+        rightnow = now()
+        return self.status == 'PUBLISHED' and self.next_schedule.start_datetime <= rightnow
+
     # STATS ------------------------------------------------------------------------------------------------------------
 
     def stats_attended_students(self):
-        return UserAccount.objects.filter(enrollments__schedule__course=self).distinct().count()
+        return UserAccount.objects.filter(reservations__schedule__course=self).distinct().count()
 
-    def stats_reviews(self):
-        return CourseReview.objects.filter(enrollment__schedule__course=self).count()
-
-
-class CourseVenue(models.Model):
-    course = models.OneToOneField(Course)
-    venue = models.ForeignKey(Venue, null=True)
-    name = models.CharField(max_length=500, null=True, blank=True, default='')
-    address = models.CharField(max_length=1000, null=True, blank=True, default='')
-    province = models.SmallIntegerField(default=0)
-    latlng = models.CharField(max_length=50, null=True, blank=True, default='')
-
-    # PROPERTIES -------------------------------------------------------------------------------------------------------
-
-    @property
-    def venue_name(self):
-        return self.venue.name if self.venue else self.name
-
-    @property
-    def venue_address(self):
-        return self.venue.address if self.venue else self.address
-
-    @property
-    def venue_latlng(self):
-        return self.venue.latlng if self.venue else self.latlng
-
-
+    def stats_feedbacks(self):
+        return CourseFeedback.objects.filter(reservation__schedule__course=self).count()
 
 
 class CourseOutline(models.Model):
-    course = models.ForeignKey(Course, related_name='venue')
+    course = models.ForeignKey(Course, related_name='outlines')
     title = models.CharField(max_length=500)
     description = models.CharField(max_length=1000, null=True, blank=True, default='')
 
@@ -399,31 +409,39 @@ class CourseSchedule(models.Model):
         rightnow = now()
         return self.status == 'OPENING' and self.start_datetime > rightnow
 
+    # STATS ############################################################################################################
+
+    def stats_seats_reserved(self):
+        return CourseReservation.objects.filter(schedule=self, status='CONFIRMED').count()
+
     def stats_seats_left(self):
-        return self.course.maximum_people - CourseEnrollment.objects.filter(schedule=self, status='CONFIRMED').count()
+        return self.course.maximum_people - self.stats_seats_reserved()
 
 
-class CourseEnrollment(models.Model):
+class CourseReservation(models.Model):
     code = models.CharField(max_length=20)
-    student = models.ForeignKey(UserAccount, related_name='enrollments')
-    schedule = models.ForeignKey(CourseSchedule, related_name='enrollments')
-    note = models.CharField(max_length=1000, blank=True, default='')
+    student = models.ForeignKey(UserAccount, related_name='reservations')
+    schedule = models.ForeignKey(CourseSchedule, related_name='reservations')
+    note = models.CharField(max_length=1000, blank=True)
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
     total = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_status = models.CharField(max_length=30, choices=COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES)
+    payment_status = models.CharField(max_length=30, choices=COURSE_RESERVATION_PAYMENT_STATUS_CHOICES)
 
-    status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
-    status_reason = models.CharField(max_length=100, null=True, blank=True, default='')
+    status = models.CharField(max_length=20, choices=COURSE_RESERVATION_STATUS_CHOICES)
+    status_reason = models.CharField(max_length=100, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-schedule__start_datetime']
 
+    def has_feedback(self):
+        return CourseFeedback.objects.filter(reservation=self).exists()
 
-class CourseReview(models.Model):
-    user = models.ForeignKey(UserAccount, related_name='reviews')
-    enrollment = models.OneToOneField('CourseEnrollment', related_name='review')
+
+class CourseFeedback(models.Model):
+    user = models.ForeignKey(UserAccount, related_name='feedbacks')
+    reservation = models.OneToOneField('CourseReservation', related_name='feedback')
     content = models.CharField(max_length=2000)
     is_positive = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)

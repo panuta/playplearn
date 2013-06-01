@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block head_title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width">
+
+    {% comment %}
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png" />
+    <link rel="icon" href="{{ STATIC_URL }}favicon.ico" />
+    {% endcomment %}
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.min.css">
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.print.css">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<div class="container">
+    <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.png" /></div>
+    {% block body %}{% endblock %}
+    <div class="footer"></div>
+</div>
+</body>
+</html>

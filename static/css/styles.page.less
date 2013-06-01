@@ -799,7 +799,7 @@
 
 .page-my-courses-upcoming {
     ul.courses li.course {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
 
         .course-countdown {
             background-color: @orangeColor;
@@ -840,7 +840,6 @@
         }
 
         .course-content {
-            //background-color: #F2F2F2;
             margin-left: 100px;
 
             .course-cover {
@@ -857,8 +856,6 @@
             }
 
             .title {
-                //padding-top: 8px;
-
                 a {
                     .content_link;
                     font-size: 16px;
@@ -876,11 +873,26 @@
                 }
             }
 
+            .teacher {
+                color: #444;
+                margin-top: 2px;
+
+                .caption {
+                    color: #777;
+                    font-size: 12px;
+                    margin-right: 2px;
+                }
+
+                a {
+                    color: #444;
+                }
+            }
+
             .schedule-location {
                 color: #444;
                 font-size: 14px;
                 font-weight: bold;
-                margin-top: 6px;
+                margin-top: 5px;
 
                 .schedule {
                     display: inline-block;
@@ -899,15 +911,36 @@
                 .location {
                     display: inline-block;
                 }
+
+                a {
+                    color: #444;
+                }
+            }
+
+            .attendance {
+                color: #666;
+                font-size: 13px;
+                margin-top: 5px;
             }
 
             .actions {
                 margin-top: 5px;
 
-                a {
+                a.link {
                     .grey_link;
                     font-size: 13px;
+                    margin-right: 10px;
                 }
+
+                .style-primary-button {
+                    font-size: 13px;
+                    margin-right: 10px;
+                    padding: 4px 15px;
+                }
+            }
+
+            .actions-student {
+                margin-top: 9px;
             }
         }
     }
@@ -984,9 +1017,9 @@
         li.course {
             border-bottom: 1px solid #DDD;
             margin-top: 20px;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
 
-            .actions {
+            .feedback {
                 float: right;
                 margin-top: 5px;
 
@@ -1004,31 +1037,37 @@
                 }
             }
 
-            .teacher {
+            .details {
                 margin-top: 4px;
+
+                .caption {
+                    color: #777;
+                    font-size: 12px;
+                    margin-right: 2px;
+                }
+
+                em {
+                    color: #555;
+                    font-weight: bold;
+                }
 
                 a {
                     color: #555;
+                    font-weight: bold;
+                }
+
+                .teacher {
+                    margin-right: 15px;
                 }
             }
 
-            .course-footer {
-                margin-top: 5px;
+            .actions {
+                margin-top: 4px;
 
-                .links {
-                    float: left;
-
-                    a {
-                        .grey_link;
-                        font-size: 13px;
-                        margin-right: 10px;
-                    }
-                }
-
-                .datetime {
-                    color: #888;
-                    float: right;
+                a {
+                    .grey_link;
                     font-size: 13px;
+                    margin-right: 10px;
                 }
             }
         }
@@ -1057,13 +1096,13 @@
 
                 .number {
                     color: #555;
-                    font-size: 17px;
+                    font-size: 16px;
                     font-weight: bold;
                     display: block;
                     margin-top: 5px;
 
                     .smaller {
-                        font-size: 14px;
+                        font-size: 13px;
                     }
                 }
             }
@@ -1100,6 +1139,10 @@
 
                         &.draft {
                             background-color: #DDD;
+                        }
+
+                        &.wait {
+                            background-color: #FFC;
                         }
 
                         &.public {
@@ -1589,8 +1632,29 @@
     }
 }
 
-.page-classroom {
+.page-manage-classroom {
+    .backend-header {
+        h1 {
+            display: inline-block;
+        }
 
+        .class {
+            display: inline-block;
+            margin-left: 15px;
+            vertical-align: 2px;
+
+            .datetime {
+                background-color: #EEE;
+                border-radius: 4px;
+                color: #444;
+                display: inline-block;
+                font-size: 13px;
+                font-weight: bold;
+
+                padding: 3px 15px;
+            }
+        }
+    }
 }
 
 .page-profile {

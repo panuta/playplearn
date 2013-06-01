@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs">
     <li {% if tab_name == 'upcoming' %} class="active"{% endif %}><a href="{% url 'view_my_courses_upcoming' %}">Upcoming{% if request.user.stats_upcoming_courses %} <i class="num">{{ request.user.stats_upcoming_courses }}</i>{% endif %}</a></li>
-    <li {% if tab_name == 'attended' %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">Attended Courses</a></li>
-    <li {% if tab_name == 'teaching' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' %}">Teaching Courses</a></li>
+    <li {% if tab_name == 'attended' %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">Attended courses</a></li>
+    <li {% if tab_name == 'teaching' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' %}">Teaching courses</a></li>
 </ul>

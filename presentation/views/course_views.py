@@ -2,7 +2,7 @@
 from django.http import Http404
 
 from django.shortcuts import render, get_object_or_404
-from domain.models import Course
+from domain.models import Course, CourseReservation
 
 
 def view_course_outline(request, course_uid):

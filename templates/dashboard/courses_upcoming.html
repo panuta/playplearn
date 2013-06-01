@@ -1,4 +1,5 @@
 {% extends 'dashboard/courses_base.html' %}
+{% load common_tags %}
 
 {% block head_title %}My Classes - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='upcoming' %}{% endblock %}
@@ -8,31 +9,56 @@
     {% if upcoming_schedules %}
     <ul class="courses">
         {% for schedule in upcoming_schedules %}
+        {% with course=schedule.course %}
         <li class="course clearfix">
-            <div class="course-countdown">START IN<em>94 DAYS</em></div>
+            <div class="course-countdown">START IN<em>{{ schedule.start_datetime|daysuntil }} DAYS</em></div>
             <div class="course-content clearfix">
-                <div class="course-cover"><!--<img src="{{ schedule.course.small_cover_url }}" />--><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></div>
+                <div class="course-cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" /></a></div>
                 <div class="right">
-                    <div class="title"><a href="#">{{ schedule.course.title }}</a>{% if schedule.course.teacher == request.user %}<span class="yours">Your Course</span>{% endif %}</div>
+                    <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a>{% if course.teacher == request.user %}<span class="yours">Your Course</span>{% endif %}</div>
+                    {% if course.teacher != request.user %}<div class="teacher"><span class="caption">By</span> <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>{% endif %}
                     <div class="schedule-location">
                         <div class="schedule"><span class="day">{{ schedule.start_datetime|date:'l,' }}</span> <span class="date">{{ schedule.start_datetime|date:'j M Y' }}</span> <span class="time">{{ schedule.start_datetime|date:'H:i' }}</span></div>
                         <div class="at">at</div>
-                        <div class="location">{{ schedule.course.coursevenue.venue_name }}</div>
+                        <div class="location"><a href="{{ course.venue.venue_url }}">{{ course.venue.name }}</a></div>
                     </div>
-                    <div class="actions">
-                        {% if schedule.course.teacher == request.user %}
-                            <a href="{% url 'manage_classroom_home' schedule.course.uid %}">Manage classroom</a>
+                    {% if course.teacher == request.user %}<div class="attendance"><span class="caption">Attendance:</span> 10/30 students</div>{% endif %}
+                    <div class="actions{% if course.teacher != request.user %} actions-student{% endif %}">
+                        {% if course.teacher == request.user %}
+                            <a href="{% url 'manage_course_overview' course.uid %}" class="link">Manage course</a>
                         {% else %}
-                            <a href="{% url 'view_course_enroll_receipt' %}">Enrollment details</a>
+                            <a href="{{ course.venue.venue_url }}" class="style-primary-button"><i class="icon-map-marker"></i> How to get there</a>
+                            <!-- TODO --><a href="#" class="link">Contact teacher</a>
+                            <a href="#modal-reservation-details" class="link" data-toggle="modal">Reservation details</a>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </li>
+        {% endwith %}
         {% endfor %}
     </ul>
     {% else %}
     <div class="no-course">No upcoming class</div>
     {% endif %}
+</div>
+
+<div class="modal hide" id="modal-reservation-details">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Reservation details</h3>
+    </div>
+    <div class="modal-body">
+        <!-- TODO -->
+        <!-- RESERVATION STATUS -->
+        <!-- RESERVATION PAYMENT STATUS -->
+        <!-- RESERVATION DATE -->
+        <!-- PRICE -->
+        <!-- SCHEDULE -->
+        <!-- COURSE -->
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="style-button" data-dismiss="modal">Close</a>
+    </div>
 </div>
 {% endblock %}

@@ -31,7 +31,7 @@ def teacher_or_student_only(function=None):
             except Course.DoesNotExist:
                 raise Http404
 
-            if course.teacher == request.user or course.schedules.filter(enrollments__student=request.user).exists():
+            if course.teacher == request.user or course.schedules.filter(reservations__student=request.user).exists():
                 return view_func(request, course, *args, **kwargs)
 
             raise Http404

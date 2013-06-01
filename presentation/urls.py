@@ -3,6 +3,9 @@ from django.conf.urls import patterns, url
 urlpatterns = patterns(
     'presentation.views.views',
     url(r'^$', 'view_homepage', name='view_homepage'),
+
+    url(r'^venue/id/(?P<venue_id>\d+)/$', 'view_venue_info_by_id', name='view_venue_info_by_id'),
+    url(r'^venue/(?P<venue_code>\w+)/$', 'view_venue_info_by_code', name='view_venue_info_by_code'),
 )
 
 urlpatterns += patterns(
@@ -30,14 +33,15 @@ urlpatterns += patterns(
     'presentation.views.dashboard_views',
     url(r'^my/courses/upcoming/$', 'view_my_courses_upcoming', name='view_my_courses_upcoming'),
     url(r'^my/courses/attended/$', 'view_my_courses_attended', name='view_my_courses_attended'),
+    url(r'^my/courses/attended/(?P<topic_slug>\w+)/$', 'view_my_courses_attended_in_topic', name='view_my_courses_attended_in_topic'),
     url(r'^my/courses/teaching/$', 'view_my_courses_teaching', name='view_my_courses_teaching'),
 
     url(r'^my/courses/new/$', 'create_course', name='create_course'),
+    url(r'^course/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),
 
-    url(r'^classroom/(?P<course_uid>\w+)/manage/$', 'manage_classroom_home', name='manage_classroom_home'),
-    url(r'^classroom/(?P<course_uid>\w+)/manage/students/$', 'manage_classroom_students', name='manage_classroom_students'),
-    url(r'^classroom/(?P<course_uid>\w+)/manage/calendar/$', 'manage_classroom_calendar', name='manage_classroom_calendar'),
-    url(r'^classroom/(?P<course_uid>\w+)/manage/feedback/$', 'manage_classroom_feedback', name='manage_classroom_feedback'),
+    url(r'^course/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
+    url(r'^course/(?P<course_uid>\w+)/manage/students/$', 'manage_course_students', name='manage_course_students'),
+    url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
 )
 
 urlpatterns += patterns(
