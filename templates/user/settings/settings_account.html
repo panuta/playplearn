@@ -3,14 +3,14 @@
 {% block settings_nav %}{% include 'user/settings/settings_base_nav.html' with tab_name='account' %}{% endblock %}
 
 {% block settings_content %}
-<h2 class="head2">Account settings</h2>
+<h2>Account settings</h2>
 
 <div class="backend-page-nav">
-    <em>Change email</em>
+    <a href="{% url 'edit_my_settings_account_email' %}" class="active">Change email</a>
     <a href="{% url 'edit_my_settings_account_password' %}">Change password</a>
 </div>
 
-<form method="post" action="." class="style-form">
+<form method="post" action="." class="form-horizontal style-form">
     <div class="control-group name-control">
         <label class="control-label" for="id_name">Email</label>
         <div class="controls">

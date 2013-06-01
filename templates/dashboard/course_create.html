@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'base_backend.html' %}
 
-{% block body_class %}page-backend page-course-form{% endblock %}
+{% block body_class %}{{ block.super }} page-course-modify{% endblock %}
 
 {% block scripts %}
 <script>
@@ -10,30 +10,22 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 
-{% block body %}
-<div class="backend-container">
-<div class="container">
-    <div class="form-header clearfix">
+{% block backend_header %}
+<div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
+<h1>Create new course</h1>
+{% endblock %}
 
-        <div class="icon">
-            {% if not course %}
-                <img src="{{ STATIC_URL }}images/page/course-form/icon-create.png" />
-            {% else %}
-            {% endif %}
-        </div>
-        <div class="right">
-            <div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
-            <div class="title">Create new course</div>
-        </div>
-    </div>
+{% block backend_container %}
+<div class="container">
     <form method="post" action=".">
     <div class="form-body">
         <div class="form-body-header clearfix">
             <div class="completeness">
+                <div class="head">Course Completeness <a href="#"><i class="icon-info-sign"></i></a></div>
                 <div class="progress">
                     <div class="bar" style="width: 50%;"></div>
                 </div>
-                <div class="percentage">50% Completed <a href="#"><i class="icon-info-sign"></i></a></div>
+                <div class="percentage">50%</div>
             </div>
             <div class="actions">
                 <span class="actions-info">
@@ -180,7 +172,6 @@ $(document).ready(function() {
 
     </div>
     </form>
-</div>
 </div>
 
 <div class="modal hide" id="modal-course-submitted">

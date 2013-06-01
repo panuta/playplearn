@@ -1150,52 +1150,34 @@
     }
 }
 
-.page-course-form {
-    .form-header {
-        margin-top: 25px;
-
-        .icon {
-            border-radius: 70px;
-            margin-top: 10px;
-            float: left;
-
-            img {
-                border-radius: 56px;
-            }
-        }
-
-        .right {
-            margin-left: 48px;
-        }
-
-        .parent {
-            color: #999;
-
-            a {
-                .grey_link;
-                font-size: 13px;
-            }
-        }
-
-        .title {
-            color: #555;
-            font-size: 20px;
-            font-weight: bold;
-            text-shadow: 1px 1px #FFF;
-            line-height: 31px;
-        }
-    }
-
+.page-course-modify {
     .form-body {
         margin-bottom: 40px;
     }
 
     .form-body-header {
-        margin: 15px 0 25px;
+        margin: 25px 0 25px;
 
         .completeness {
             float: left;
-            margin-top: 9px;
+
+            .head {
+                color: #555;
+                font-size: 16px;
+                margin-bottom: 3px;
+
+                a {
+                    color: #999;
+                    margin-left: 4px;
+                    text-shadow: 1px 1px #FFF;
+                    vertical-align: 1px;
+
+                    &:hover {
+                        color: @linkColor;
+                        text-decoration: none;
+                    }
+                }
+            }
 
             .progress {
                 background-color: #FFF;
@@ -1205,6 +1187,11 @@
                 margin: 0px;
                 vertical-align: middle;
                 width: 300px;
+
+                .bar {
+                    background-color: #666;
+                    background-image: linear-gradient(to bottom, #999, #666);
+                }
             }
 
             .percentage {
@@ -1216,17 +1203,7 @@
                 text-shadow: 1px 1px #FFF;
                 vertical-align: middle;
 
-                a {
-                    color: #999;
-                    margin-left: 6px;
-                    text-shadow: 1px 1px #FFF;
-                    vertical-align: 1px;
 
-                    &:hover {
-                        color: @linkColor;
-                        text-decoration: none;
-                    }
-                }
             }
         }
 
@@ -1789,11 +1766,15 @@
 }
 
 .page-user-settings {
-    h1.style-page-header {
-        background-image: url(../images/ui/header/settings.png);
+    h2 {
+        border-bottom: 1px solid #DDD;
+        margin: 20px 0 20px;
+        padding-bottom: 10px;
     }
 
     form {
+        margin-top: 25px;
+
         .name-control input {
             width: 300px;
         }
@@ -1810,6 +1791,4 @@
             width: 200px;
         }
     }
-
-
 }

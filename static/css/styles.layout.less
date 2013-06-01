@@ -166,6 +166,20 @@ html, body {
         background-color: @primaryColor;
         padding: 20px 0;
 
+        .parent {
+            margin-bottom: 5px;
+
+            a {
+                color: #EEE;
+                font-size: 13px;
+                text-decoration: underline;
+
+                &:hover {
+                    background-color: @linkColorLighter;
+                }
+            }
+        }
+
         h1 {
             color: #FFF;
             font-size: 24px;
@@ -269,27 +283,26 @@ html, body {
     }
 
     .backend-page-nav {
-        border-bottom: 5px solid #EEE;
-        margin-bottom: 30px;
-
-        em {
-            background-color: #EEE;
-            color: #555;
-            display: inline-block;
-            font-size: 13px;
-            font-style: normal;
-            margin-right: 10px;
-            padding: 5px 25px;
-            position: relative;
-        }
+        margin-bottom: 35px;
 
         a {
-            .grey_link;
-            color: #555;
+            color: #666;
             display: inline-block;
-            font-size: 13px;
-            margin-right: 10px;
-            padding: 5px 20px;
+            font-size: 14px;
+            margin-right: 15px;
+            padding: 0 3px 4px;
+
+            &.active {
+                border-bottom: 4px solid @linkColor;
+                color: #444;
+                font-weight: bold;
+            }
+
+            &:hover {
+                border-bottom: 4px solid @linkColor;
+                color: #444;
+                text-decoration: none;
+            }
         }
     }
 }

@@ -166,6 +166,7 @@ body.modal-open {
 .style-form .help-block {
   color: #777;
   font-size: 13px;
+  margin-top: 5px !important;
 }
 .style-form .form-actions .style-primary-button {
   font-size: 14px;
@@ -579,6 +580,17 @@ body {
   background-color: #1693a5;
   padding: 20px 0;
 }
+.page-backend .backend-header .parent {
+  margin-bottom: 5px;
+}
+.page-backend .backend-header .parent a {
+  color: #EEE;
+  font-size: 13px;
+  text-decoration: underline;
+}
+.page-backend .backend-header .parent a:hover {
+  background-color: #19a7bc;
+}
 .page-backend .backend-header h1 {
   color: #FFF;
   font-size: 24px;
@@ -668,37 +680,24 @@ body {
   border-left: 10px solid #C0392B;
 }
 .page-backend .backend-page-nav {
-  border-bottom: 5px solid #EEE;
-  margin-bottom: 30px;
-}
-.page-backend .backend-page-nav em {
-  background-color: #EEE;
-  color: #555;
-  display: inline-block;
-  font-size: 13px;
-  font-style: normal;
-  margin-right: 10px;
-  padding: 5px 25px;
-  position: relative;
+  margin-bottom: 35px;
 }
 .page-backend .backend-page-nav a {
-  color: #555;
+  color: #666;
   display: inline-block;
-  font-size: 13px;
-  margin-right: 10px;
-  padding: 5px 20px;
+  font-size: 14px;
+  margin-right: 15px;
+  padding: 0 3px 4px;
 }
-.page-backend .backend-page-nav a:link,
-.page-backend .backend-page-nav a:active,
-.page-backend .backend-page-nav a:visited {
-  color: #888;
-  text-decoration: underline;
+.page-backend .backend-page-nav a.active {
+  border-bottom: 4px solid #1693a5;
+  color: #444;
+  font-weight: bold;
 }
 .page-backend .backend-page-nav a:hover {
-  background-color: #1693a5;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
+  border-bottom: 4px solid #1693a5;
+  color: #444;
+  text-decoration: none;
 }
 .page-registration #body-header {
   border-bottom: 1px solid #E9E9E9;
@@ -1740,56 +1739,31 @@ body {
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-form .form-header {
-  margin-top: 25px;
-}
-.page-course-form .form-header .icon {
-  border-radius: 70px;
-  margin-top: 10px;
-  float: left;
-}
-.page-course-form .form-header .icon img {
-  border-radius: 56px;
-}
-.page-course-form .form-header .right {
-  margin-left: 48px;
-}
-.page-course-form .form-header .parent {
-  color: #999;
-}
-.page-course-form .form-header .parent a {
-  font-size: 13px;
-}
-.page-course-form .form-header .parent a:link,
-.page-course-form .form-header .parent a:active,
-.page-course-form .form-header .parent a:visited {
-  color: #888;
-  text-decoration: underline;
-}
-.page-course-form .form-header .parent a:hover {
-  background-color: #1693a5;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-course-form .form-header .title {
-  color: #555;
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 1px 1px #FFF;
-  line-height: 31px;
-}
-.page-course-form .form-body {
+.page-course-modify .form-body {
   margin-bottom: 40px;
 }
-.page-course-form .form-body-header {
-  margin: 15px 0 25px;
+.page-course-modify .form-body-header {
+  margin: 25px 0 25px;
 }
-.page-course-form .form-body-header .completeness {
+.page-course-modify .form-body-header .completeness {
   float: left;
-  margin-top: 9px;
 }
-.page-course-form .form-body-header .completeness .progress {
+.page-course-modify .form-body-header .completeness .head {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+.page-course-modify .form-body-header .completeness .head a {
+  color: #999;
+  margin-left: 4px;
+  text-shadow: 1px 1px #FFF;
+  vertical-align: 1px;
+}
+.page-course-modify .form-body-header .completeness .head a:hover {
+  color: #1693a5;
+  text-decoration: none;
+}
+.page-course-modify .form-body-header .completeness .progress {
   background-color: #FFF;
   background-image: linear-gradient(to bottom, #f9f9f9, #ffffff);
   display: inline-block;
@@ -1798,7 +1772,11 @@ body {
   vertical-align: middle;
   width: 300px;
 }
-.page-course-form .form-body-header .completeness .percentage {
+.page-course-modify .form-body-header .completeness .progress .bar {
+  background-color: #666;
+  background-image: linear-gradient(to bottom, #999999, #666666);
+}
+.page-course-modify .form-body-header .completeness .percentage {
   color: #555;
   display: inline-block;
   font-size: 14px;
@@ -1807,73 +1785,63 @@ body {
   text-shadow: 1px 1px #FFF;
   vertical-align: middle;
 }
-.page-course-form .form-body-header .completeness .percentage a {
-  color: #999;
-  margin-left: 6px;
-  text-shadow: 1px 1px #FFF;
-  vertical-align: 1px;
-}
-.page-course-form .form-body-header .completeness .percentage a:hover {
-  color: #1693a5;
-  text-decoration: none;
-}
-.page-course-form .form-body-header .actions {
+.page-course-modify .form-body-header .actions {
   float: right;
 }
-.page-course-form .form-body-header .actions .actions-info {
+.page-course-modify .form-body-header .actions .actions-info {
   display: inline-block;
   text-align: right;
   vertical-align: middle;
 }
-.page-course-form .form-body-header .actions .actions-info .status {
+.page-course-modify .form-body-header .actions .actions-info .status {
   color: #777;
   display: block;
   font-size: 13px;
   font-weight: bold;
   margin-bottom: 2px;
 }
-.page-course-form .form-body-header .actions .actions-info .status em {
+.page-course-modify .form-body-header .actions .actions-info .status em {
   color: #444;
   font-style: normal;
 }
-.page-course-form .form-body-header .actions .actions-info .autosave {
+.page-course-modify .form-body-header .actions .actions-info .autosave {
   color: #777;
   display: block;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-form .form-body-header .actions .actions-info .autosave em {
+.page-course-modify .form-body-header .actions .actions-info .autosave em {
   color: #444;
   font-style: normal;
 }
-.page-course-form .form-body-header .actions button {
+.page-course-modify .form-body-header .actions button {
   margin-left: 10px;
   vertical-align: middle;
 }
-.page-course-form .form-nav li.outline i {
+.page-course-modify .form-nav li.outline i {
   vertical-align: 0px;
 }
-.page-course-form .form-nav li.story i {
+.page-course-modify .form-nav li.story i {
   margin-left: 2px;
   vertical-align: 1px;
 }
-.page-course-form .form-nav li.details i {
+.page-course-modify .form-nav li.details i {
   margin-left: 2px;
   vertical-align: 0px;
 }
-.page-course-form .form-nav li.place i {
+.page-course-modify .form-nav li.place i {
   margin-left: 6px;
   vertical-align: 1px;
 }
-.page-course-form .form-content {
+.page-course-modify .form-content {
   border: 2px solid #EEE;
 }
-.page-course-form .form-content .form-content-inner {
+.page-course-modify .form-content .form-content-inner {
   background-color: #FFF;
   border: 1px solid #DDD;
   padding: 20px;
 }
-.page-course-form .form-content h2 {
+.page-course-modify .form-content h2 {
   border-bottom: 3px double #DDD;
   color: #1693a5;
   font-size: 26px;
@@ -1881,22 +1849,22 @@ body {
   margin: 0 0 25px 0;
   padding-bottom: 6px;
 }
-.page-course-form .form-content .control-group {
+.page-course-modify .form-content .control-group {
   margin-bottom: 20px;
 }
-.page-course-form .form-content .control-group .control-label {
+.page-course-modify .form-content .control-group .control-label {
   color: #555;
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 12px;
 }
-.page-course-form .form-content .control-group .controls-with-guide {
+.page-course-modify .form-content .control-group .controls-with-guide {
   clear: left;
   display: inline-block;
   vertical-align: top;
 }
-.page-course-form .form-content .control-group .control-guide {
+.page-course-modify .form-content .control-group .control-guide {
   background-color: #EEE;
   border: 1px solid #DDD;
   color: #555;
@@ -1906,13 +1874,13 @@ body {
   padding: 10px 15px;
   vertical-align: top;
 }
-.page-course-form .form-content .control-group .arrow_box {
+.page-course-modify .form-content .control-group .arrow_box {
   position: relative;
   background: #F9F9F9;
   border: 1px solid #ddd;
 }
-.page-course-form .form-content .control-group .arrow_box:after,
-.page-course-form .form-content .control-group .arrow_box:before {
+.page-course-modify .form-content .control-group .arrow_box:after,
+.page-course-modify .form-content .control-group .arrow_box:before {
   right: 100%;
   border: solid transparent;
   content: " ";
@@ -1921,56 +1889,56 @@ body {
   position: absolute;
   pointer-events: none;
 }
-.page-course-form .form-content .control-group .arrow_box:after {
+.page-course-modify .form-content .control-group .arrow_box:after {
   border-color: rgba(249, 249, 249, 0);
   border-right-color: #F9F9F9;
   border-width: 10px;
   top: 18px;
   margin-top: -10px;
 }
-.page-course-form .form-content .control-group .arrow_box:before {
+.page-course-modify .form-content .control-group .arrow_box:before {
   border-color: rgba(221, 221, 221, 0);
   border-right-color: #ddd;
   border-width: 11px;
   top: 18px;
   margin-top: -11px;
 }
-.page-course-form .form-content .title-control {
+.page-course-modify .form-content .title-control {
   margin-bottom: 30px;
 }
-.page-course-form .form-content .title-control input {
+.page-course-modify .form-content .title-control input {
   font-size: 16px;
   height: 30px;
   width: 95%;
 }
-.page-course-form .form-content .outline-control .controls ul {
+.page-course-modify .form-content .outline-control .controls ul {
   margin: 0;
 }
-.page-course-form .form-content .outline-control .controls ul li {
+.page-course-modify .form-content .outline-control .controls ul li {
   border: 1px solid #999;
   border-left: 5px solid #999;
   box-shadow: 2px 2px 0px #EEE;
   list-style: none;
   margin-bottom: 15px;
 }
-.page-course-form .form-content .outline-control .controls ul li .remove {
+.page-course-modify .form-content .outline-control .controls ul li .remove {
   display: block;
   float: right;
   line-height: normal;
   margin: 8px 9px 0 0;
 }
-.page-course-form .form-content .outline-control .controls ul li .remove i {
+.page-course-modify .form-content .outline-control .controls ul li .remove i {
   color: #AAA;
   font-size: 15px;
 }
-.page-course-form .form-content .outline-control .controls ul li .remove:hover {
+.page-course-modify .form-content .outline-control .controls ul li .remove:hover {
   text-decoration: none;
 }
-.page-course-form .form-content .outline-control .controls ul li .remove:hover i {
+.page-course-modify .form-content .outline-control .controls ul li .remove:hover i {
   color: #c30;
 }
-.page-course-form .form-content .outline-control .controls ul li i.icon-reorder,
-.page-course-form .form-content .outline-control .controls ul li i.icon-plus {
+.page-course-modify .form-content .outline-control .controls ul li i.icon-reorder,
+.page-course-modify .form-content .outline-control .controls ul li i.icon-plus {
   color: #AAA;
   cursor: move;
   display: inline-block;
@@ -1978,7 +1946,7 @@ body {
   padding: 0 14px;
   vertical-align: middle;
 }
-.page-course-form .form-content .outline-control .controls ul li input {
+.page-course-modify .form-content .outline-control .controls ul li input {
   border: none;
   box-shadow: none;
   font-size: 15px;
@@ -1988,93 +1956,93 @@ body {
   vertical-align: middle;
   width: 90%;
 }
-.page-course-form .form-content .outline-control .controls ul li.add {
+.page-course-modify .form-content .outline-control .controls ul li.add {
   border: 1px dashed #CCC;
   box-shadow: none;
   list-style: none;
   margin-bottom: 10px;
   padding-left: 4px;
 }
-.page-course-form .form-content .outline-control .controls ul li.add a {
+.page-course-modify .form-content .outline-control .controls ul li.add a {
   color: #666;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-form .form-content .story-control textarea {
+.page-course-modify .form-content .story-control textarea {
   width: 95%;
 }
-.page-course-form .form-content .topics-control select {
+.page-course-modify .form-content .topics-control select {
   width: 414px;
 }
-.page-course-form .form-content .topics-control .control-guide {
+.page-course-modify .form-content .topics-control .control-guide {
   width: 406px;
 }
-.page-course-form .form-content .level-control select {
+.page-course-modify .form-content .level-control select {
   font-size: 15px;
   padding: 4px;
 }
-.page-course-form .form-content .level-control select option {
+.page-course-modify .form-content .level-control select option {
   padding: 4px;
 }
-.page-course-form .form-content .level-control .control-guide {
+.page-course-modify .form-content .level-control .control-guide {
   width: 614px;
 }
-.page-course-form .form-content .tuition-control .controls input {
+.page-course-modify .form-content .tuition-control .controls input {
   font-size: 18px;
   height: 23px;
   text-align: center;
   width: 70px;
 }
-.page-course-form .form-content .tuition-control .controls span {
+.page-course-modify .form-content .tuition-control .controls span {
   color: #555;
   margin-left: 6px;
 }
-.page-course-form .form-content .tuition-control .control-guide {
+.page-course-modify .form-content .tuition-control .control-guide {
   width: 710px;
 }
-.page-course-form .form-content .duration-control .controls input {
+.page-course-modify .form-content .duration-control .controls input {
   font-size: 18px;
   height: 23px;
   text-align: center;
   width: 50px;
 }
-.page-course-form .form-content .duration-control .controls span {
+.page-course-modify .form-content .duration-control .controls span {
   color: #555;
   margin-left: 6px;
 }
-.page-course-form .form-content .capacity-control input {
+.page-course-modify .form-content .capacity-control input {
   width: 400px;
 }
-.page-course-form .form-content .capacity-control .control-info {
+.page-course-modify .form-content .capacity-control .control-info {
   margin-top: 4px;
   width: 414px;
 }
-.page-course-form .form-content .capacity-control .control-info .min {
+.page-course-modify .form-content .capacity-control .control-info .min {
   color: #999;
   float: left;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-form .form-content .capacity-control .control-info .max {
+.page-course-modify .form-content .capacity-control .control-info .max {
   color: #999;
   float: right;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-form .form-content .capacity-control .control-info .current {
+.page-course-modify .form-content .capacity-control .control-info .current {
   color: #444;
   font-size: 13px;
   font-weight: bold;
   text-align: center;
 }
-.page-course-form .form-content .capacity-control .control-guide {
+.page-course-modify .form-content .capacity-control .control-guide {
   width: 420px;
 }
-.page-course-form .form-content #content-place .choices {
+.page-course-modify .form-content #content-place .choices {
   margin-bottom: 20px;
   text-align: center;
 }
-.page-course-form .form-content #content-place .choices a {
+.page-course-modify .form-content #content-place .choices a {
   background-color: #EEE;
   color: #444;
   display: inline-block;
@@ -2084,23 +2052,23 @@ body {
   text-shadow: 1px 1px #FFF;
   width: 300px;
 }
-.page-course-form .form-content #content-place .choices a i {
+.page-course-modify .form-content #content-place .choices a i {
   color: #555;
   display: block;
   margin-bottom: 7px;
   text-shadow: 1px 1px #FFF;
 }
-.page-course-form .form-content #content-place .choices a:hover {
+.page-course-modify .form-content #content-place .choices a:hover {
   background-color: #1693a5;
   color: #FFF;
   text-decoration: none;
   text-shadow: -1px -1px #137f8e;
 }
-.page-course-form .form-content #content-place .choices a:hover i {
+.page-course-modify .form-content #content-place .choices a:hover i {
   color: #FFF;
   text-shadow: -1px -1px #137f8e;
 }
-.page-course-form #modal-course-submitted .head1 {
+.page-course-modify #modal-course-submitted .head1 {
   color: #444;
   font-size: 16px;
   line-height: 25px;
@@ -2242,8 +2210,13 @@ body {
   color: #444;
   font-weight: bold;
 }
-.page-user-settings h1.style-page-header {
-  background-image: url(../images/ui/header/settings.png);
+.page-user-settings h2 {
+  border-bottom: 1px solid #DDD;
+  margin: 20px 0 20px;
+  padding-bottom: 10px;
+}
+.page-user-settings form {
+  margin-top: 25px;
 }
 .page-user-settings form .name-control input {
   width: 300px;
