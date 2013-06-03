@@ -139,18 +139,19 @@ body.modal-open {
         padding: 0px 20px 15px;
     }
 
+    .modal-loading {
+        padding: 30px 0;
+        text-align: center;
+    }
+
     .modal-footer {
         background-color: #FCFCFC;
         border-top: 1px solid #EEE;
-        padding: 14px 20px 15px;
+        padding: 14px 20px 20px;
 
-        .btn {
-            font-size: 0.95em;
-        }
-
-        .btn-cancel {
-            color: #666;
-            font-size: 0.9em;
+        a {
+            font-size: 13px;
+            padding: 5px 20px;
         }
     }
 }
@@ -238,6 +239,15 @@ form {
 
 
 // COMMON USED STYLES ##################################################################################################
+
+.style-loading {
+    color: #666;
+    font-size: 14px;
+
+    img {
+        vertical-align: -3px;
+    }
+}
 
 .style-button-base() {
     border: none;

@@ -26,7 +26,7 @@
                         <span class="datetime"><span class="caption">When</span> <em>{{ reservation.schedule.start_datetime|date:'l, j M Y H:i' }}</em></span>
                     </div>
                     <div class="actions">
-                        <!-- TODO --><a href="#">Reservation details</a>
+                        <a href="#modal-reservation-details" class="link" data-code="{{ reservation.code }}">Reservation details</a>
                         <!-- TODO -->{% if reservation.has_feedback %}<a href="#">My feedback</a>{% endif %}
                     </div>
                 </li>
@@ -38,4 +38,6 @@
     <div class="no-course">No attended course</div>
     {% endif %}
 </div>
+
+{% include 'snippets/modal_reservation_details.html' %}
 {% endblock %}

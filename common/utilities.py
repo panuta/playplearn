@@ -4,9 +4,25 @@ import os
 
 from common.constants import datetime as datetime_constants
 
+from common.l10n import th
+
 
 # DATE & TIME ##########################################################################################################
 
+def format_full_datetime(datetime):
+    try:
+        return u'%s, %d %s %d เวลา %02d:%02d น.' % (
+            th.TH_WEEKDAY_NAME[datetime.isoweekday()],
+            datetime.day,
+            th.TH_MONTH_ABBR_NAME[datetime.month],
+            datetime.year + 543,
+            datetime.hour,
+            datetime.minute
+        )
+    except ValueError:
+        return ''
+
+"""
 def format_full_datetime(datetime):
     try:
         return u'%d %s %d เวลา %02d:%02d น.' % (datetime.day, datetime_constants.THAI_MONTH_NAME[datetime.month], datetime.year + 543, datetime.hour, datetime.minute)
@@ -33,7 +49,7 @@ def format_abbr_date(datetime):
         return u'%d %s %d' % (datetime.day, datetime_constants.THAI_MONTH_ABBR_NAME[datetime.month], datetime.year + 543)
     except:
         return ''
-
+"""
 
 # STORY ################################################################################################################
 

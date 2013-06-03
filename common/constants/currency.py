@@ -6,6 +6,6 @@ CURRENCY_CHOICES = (
 )
 
 CURRENCY_CODE_MAP = {
-    'THB': {'name': 'Thai Baht', 'symbol': '฿'},
+    'THB': {'name': 'Baht', 'symbol': '฿'},
     'USD': {'name': 'US Dollar', 'symbol': '$'},
 }

@@ -30,20 +30,27 @@ $.ajaxSetup({
     }
 });
 
-$(document).ready(function(){
-    $('form button').on('click', function(){
-        var f = $(this).get(0).form;
+$('form button').on('click', function(){
+    var f = $(this).get(0).form;
 
-        if (typeof(f) !== 'undefined') {
-            if (this.type && this.type != 'submit')
-                return;
+    if (typeof(f) !== 'undefined') {
+        if (this.type && this.type != 'submit')
+            return;
 
-            $("input[type='hidden'][name='"+this.name+"']", f).remove();
+        $("input[type='hidden'][name='"+this.name+"']", f).remove();
 
-            if (typeof(this.attributes.value) !== 'undefined')
-                $(f).append('<input name="'+this.name+'" value="'+this.attributes.value.value+'" type="hidden">');
+        if (typeof(this.attributes.value) !== 'undefined')
+            $(f).append('<input name="'+this.name+'" value="'+this.attributes.value.value+'" type="hidden">');
 
-            $(f).trigger('submit');
-        }
-    });
+        $(f).trigger('submit');
+    }
 });
+
+$('.modal').on('show', function() {
+    $(this).find('.modal-error').remove();
+});
+
+function _showModalErrorMessage(modal_id, message) {
+    $('#' + modal_id + ' .modal-error').remove();
+    $('#' + modal_id + ' .modal-header').after('<div class="modal-error"><i class="icon-exclamation-sign icon-white"></i> ' + message + '</div>');
+}

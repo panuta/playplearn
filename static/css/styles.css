@@ -112,17 +112,18 @@ body.modal-open {
 .modal .modal-body {
   padding: 0px 20px 15px;
 }
+.modal .modal-loading {
+  padding: 30px 0;
+  text-align: center;
+}
 .modal .modal-footer {
   background-color: #FCFCFC;
   border-top: 1px solid #EEE;
-  padding: 14px 20px 15px;
+  padding: 14px 20px 20px;
 }
-.modal .modal-footer .btn {
-  font-size: 0.95em;
-}
-.modal .modal-footer .btn-cancel {
-  color: #666;
-  font-size: 0.9em;
+.modal .modal-footer a {
+  font-size: 13px;
+  padding: 5px 20px;
 }
 .slider .slider-selection {
   background-color: #0E90D2;
@@ -190,6 +191,13 @@ form .avatar-control .tools .remove-avatar {
 form .avatar-control .errorlist {
   margin-left: 100px;
   margin-top: 5px;
+}
+.style-loading {
+  color: #666;
+  font-size: 14px;
+}
+.style-loading img {
+  vertical-align: -3px;
 }
 .style-button {
   border: none;
@@ -702,6 +710,56 @@ body {
   border-bottom: 4px solid #1693a5;
   color: #444;
   text-decoration: none;
+}
+#modal-reservation-details .head {
+  color: #1693a5;
+  font-size: 14px;
+  font-weight: bold;
+}
+#modal-reservation-details .details-course {
+  background-color: #EEE;
+  margin: 7px 0 20px;
+  padding: 10px 15px;
+}
+#modal-reservation-details .details-course .title {
+  color: #444;
+  font-size: 15px;
+  font-weight: bold;
+}
+#modal-reservation-details .details-course .details {
+  margin-top: 4px;
+}
+#modal-reservation-details .details-course .details .caption {
+  color: #777;
+  font-size: 12px;
+}
+#modal-reservation-details .details-course .details em {
+  color: #555;
+  font-size: 14px;
+}
+#modal-reservation-details .details-course .details .teacher {
+  margin-right: 15px;
+}
+#modal-reservation-details .details-reservation {
+  margin-top: 2px;
+}
+#modal-reservation-details .details-reservation .data {
+  display: inline-block;
+  margin-right: 25px;
+}
+#modal-reservation-details .details-reservation .data span {
+  color: #444;
+  font-size: 13px;
+}
+#modal-reservation-details .details-reservation .data em {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+}
+#modal-reservation-details .details-timestamp {
+  color: #777;
+  font-size: 13px;
+  margin-top: 7px;
 }
 .page-registration #body-header {
   border-bottom: 1px solid #E9E9E9;
@@ -1779,6 +1837,22 @@ body {
 .page-my-courses-teaching .teaching-activities .head {
   font-size: 13px;
   font-weight: bold;
+}
+.page-my-courses-teaching .no-teaching-course {
+  margin-top: 30px;
+  text-align: center;
+}
+.page-my-courses-teaching .no-teaching-course .head1 {
+  color: #444;
+  font-size: 24px;
+}
+.page-my-courses-teaching .no-teaching-course .head2 {
+  color: #555;
+  font-size: 16px;
+  margin-top: 12px;
+}
+.page-my-courses-teaching .no-teaching-course .call_to_action {
+  margin-top: 18px;
 }
 .page-course-modify .form-body {
   margin-bottom: 40px;

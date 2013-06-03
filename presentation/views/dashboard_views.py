@@ -4,9 +4,16 @@ import operator
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
+from django.views.decorators.http import require_GET
+from common.constants.course import COURSE_RESERVATION_STATUS_MAP, COURSE_RESERVATION_PAYMENT_STATUS_MAP
+from common.constants.currency import CURRENCY_CODE_MAP
+
 from common.decorators import teacher_only
+from common.shortcuts import response_json_success
+from common.utilities import format_full_datetime
 
 from domain.models import CourseReservation, CourseSchedule, Course, CourseTopic
 
@@ -81,6 +88,34 @@ def create_course(request):
 @login_required
 def edit_course(request, course_uid):
     pass
+
+
+@require_GET
+@login_required
+def ajax_view_reservation_details(request):
+    code = request.GET.get('code')
+
+    try:
+        reservation = CourseReservation.objects.get(code=code)
+    except CourseReservation.DoesNotExist:
+        raise Http404
+
+    course = reservation.schedule.course
+    return response_json_success({
+        'title': course.title,
+        'teacher_name': course.teacher.name,
+        'schedule_datetime': format_full_datetime(reservation.schedule.start_datetime),
+        'amount': '%.0f %s' % (reservation.total, CURRENCY_CODE_MAP[str(course.price_unit)]['name']),
+        'status': COURSE_RESERVATION_STATUS_MAP[str(reservation.status)]['name'],
+        'payment_status': COURSE_RESERVATION_PAYMENT_STATUS_MAP[str(reservation.payment_status)]['name'],
+        'reserved_on': format_full_datetime(reservation.created),
+        'print_url': '',
+    })
+
+
+def print_reservation(request, reservation_code):
+    reservation = get_object_or_404(CourseReservation, code=reservation_code)
+    return render(request, 'dashboard/reservation_print.html', {'reservation': reservation})
 
 
 # MANAGE CLASSROOM #####################################################################################################

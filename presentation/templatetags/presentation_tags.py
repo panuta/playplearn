@@ -3,7 +3,7 @@ from django import template
 from common.constants.course import COURSE_LEVEL_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 
-from domain.models import UserRegistration
+from domain.models import UserRegistration, CourseReservation
 
 register = template.Library()
 
@@ -15,7 +15,7 @@ def to_resend_registration(registering_email):
     return UserRegistration.objects.filter(email=registering_email).count()
 
 
-# COURSE INFORMATION #######
+# COURSE ###############################################################################################################
 
 @register.simple_tag
 def course_level(course):
@@ -26,3 +26,11 @@ def course_level(course):
 def course_full_price(course):
     unit = CURRENCY_CODE_MAP[course.price_unit]
     return '%s%d %s' % (unit['symbol'], course.price, unit['name'])
+
+# COURSE RESERVATION ###################################################################################################
+
+@register.assignment_tag
+def return_matching_reservation(user, schedule):
+    reservations = CourseReservation.objects.filter(student=user, schedule=schedule)
+    return reservations[0]
+

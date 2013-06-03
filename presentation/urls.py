@@ -42,6 +42,11 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
     url(r'^course/(?P<course_uid>\w+)/manage/students/$', 'manage_course_students', name='manage_course_students'),
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
+
+    url(r'^reservation/(?P<reservation_code>\w+)/print/$', 'print_reservation', name='print_reservation'),
+
+    url(r'^ajax/reservation/details/$', 'ajax_view_reservation_details', name='ajax_view_reservation_details'),
+
 )
 
 urlpatterns += patterns(

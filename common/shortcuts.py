@@ -11,11 +11,15 @@ def response_json(obj=None):
 
 
 def response_json_success(return_object={}):
-    return_object['status'] = 'success'
-    return HttpResponse(json.dumps(return_object))
+    return HttpResponse(json.dumps({
+        'status': 'success',
+        'data': return_object,
+    }))
 
 
 def response_json_error(error_code='', return_object={}):
-    return_object['status'] = 'error'
-    return_object['error'] = error_code
-    return HttpResponse(json.dumps(return_object))
+    return HttpResponse(json.dumps({
+        'status': 'error',
+        'error': error_code,
+        'data': return_object,
+    }))

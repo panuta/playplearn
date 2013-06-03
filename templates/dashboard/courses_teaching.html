@@ -5,61 +5,69 @@
 
 {% block courses_content %}
 <div class="page-my-courses-teaching">
-    <div class="row">
-        <div class="span9">
-            <div class="teaching-stats">
-                <ul class="stats">
-                    <li class="stat">
-                        <span class="caption">Total earning</span>
-                        <span class="number">{{ request.user.stats_total_earning|floatformat:-2|intcomma }} Baht</span>
-                    </li>
-                    <li class="stat">
-                        <span class="caption">Courses teaching</span>
-                        <span class="number">{{ request.user.stats_courses_teaching }} Course{{ request.user.stats_courses_teaching|pluralize }} <span class="smaller">/ {{ request.user.stats_classes_teaching }} Class{{ request.user.stats_classes_teaching|pluralize:'es' }}</span></span>
-                    </li>
-                    <li class="stat">
-                        <span class="caption">Total students</span>
-                        <span class="number">{{ request.user.stats_students_teaching }} Student{{ request.user.stats_students_teaching|pluralize }}</span>
-                    </li>
-                    <li class="stat">
-                        <span class="caption">Total feedback</span>
-                        <span class="number">{{ request.user.stats_feedbacks_received }} Feedback{{ request.user.stats_feedbacks_received|pluralize }} <span class="smaller">({{ request.user.stats_positive_feedbacks_percentage|floatformat:-2 }}% Positive Reviews)</span></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="teaching-courses">
-                <!-- TODO Sort by: Date Created, Latest schedule -->
-                <ul class="courses">
-                    {% for course in teaching_courses %}
-                    <li class="course clearfix">
-                        <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                        <div class="latest">
-                            {% if course.status == 'UNPUBLISHED' %}<em class="draft">{{ course.status_name }}</em>{% endif %}
-                            {% if course.status == 'WAIT_FOR_APPROVAL' %}<em class="wait">{{ course.status_name }}</em>{% endif %}
-                            {% if course.status == 'PUBLISHED' %}<em class="public">{{ course.status_name }}</em>{% endif %}
+    {% if teaching_courses %}
+        <div class="row">
+            <div class="span9">
+                <div class="teaching-stats">
+                    <ul class="stats">
+                        <li class="stat">
+                            <span class="caption">Total earning</span>
+                            <span class="number">{{ request.user.stats_total_earning|floatformat:-2|intcomma }} Baht</span>
+                        </li>
+                        <li class="stat">
+                            <span class="caption">Courses teaching</span>
+                            <span class="number">{{ request.user.stats_courses_teaching }} Course{{ request.user.stats_courses_teaching|pluralize }} <span class="smaller">/ {{ request.user.stats_classes_teaching }} Class{{ request.user.stats_classes_teaching|pluralize:'es' }}</span></span>
+                        </li>
+                        <li class="stat">
+                            <span class="caption">Total students</span>
+                            <span class="number">{{ request.user.stats_students_teaching }} Student{{ request.user.stats_students_teaching|pluralize }}</span>
+                        </li>
+                        <li class="stat">
+                            <span class="caption">Total feedback</span>
+                            <span class="number">{{ request.user.stats_feedbacks_received }} Feedback{{ request.user.stats_feedbacks_received|pluralize }} <span class="smaller">({{ request.user.stats_positive_feedbacks_percentage|floatformat:-2 }}% Positive Reviews)</span></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="teaching-courses">
+                    <!-- TODO Sort by: Date Created, Latest schedule -->
+                    <ul class="courses">
+                        {% for course in teaching_courses %}
+                            <li class="course clearfix">
+                                <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
+                                <div class="latest">
+                                    {% if course.status == 'UNPUBLISHED' %}<em class="draft">{{ course.status_name }}</em>{% endif %}
+                                    {% if course.status == 'WAIT_FOR_APPROVAL' %}<em class="wait">{{ course.status_name }}</em>{% endif %}
+                                    {% if course.status == 'PUBLISHED' %}<em class="public">{{ course.status_name }}</em>{% endif %}
 
-                            <span class="datetime"><span class="caption">{% if course.next_schedule.start_datetime|timepast %}Last{% else %}Upcoming{% endif %} class</span> {{ course.next_schedule.start_datetime|date:'l, j M Y H:i' }}</span>
-                            <span class="students"><span class="caption">Attendance</span> {{ course.next_schedule.stats_seats_reserved }}/{{ course.maximum_people }} students</span>
-                        </div>
-                        <div class="actions">
-                            <a href="{% url 'manage_course_overview' course.uid %}">Manage classroom</a>
-                            <a href="{% url 'edit_course' course.uid %}">Edit course</a>
-                            <!-- TODO -->{% if course.can_add_new_class %}<a href="#">Add new class</a>{% endif %}
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                                    <span class="datetime"><span class="caption">{% if course.next_schedule.start_datetime|timepast %}Last{% else %}Upcoming{% endif %} class</span> {{ course.next_schedule.start_datetime|date:'l, j M Y H:i' }}</span>
+                                    <span class="students"><span class="caption">Attendance</span> {{ course.next_schedule.stats_seats_reserved }}/{{ course.maximum_people }} students</span>
+                                </div>
+                                <div class="actions">
+                                    <a href="{% url 'manage_course_overview' course.uid %}">Manage classroom</a>
+                                    <a href="{% url 'edit_course' course.uid %}">Edit course</a>
+                                    <!-- TODO -->{% if course.can_add_new_class %}<a href="#">Add new class</a>{% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="span3 teaching-activities">
+                <div class="teaching-create">
+                    <a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create a new course</a>
+                </div>
+                <div class="teaching-activities">
+                    <div class="head">RECENT ACTIVITIES</div>
+                    <!-- TODO -->
+                </div>
             </div>
         </div>
-        <div class="span3 teaching-activities">
-            <div class="teaching-create">
-                <a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create a new course</a>
-            </div>
-            <div class="teaching-activities">
-                <div class="head">RECENT ACTIVITIES</div>
-                <!-- TODO -->
-            </div>
+    {% else %}
+        <div class="no-teaching-course">
+            <div class="head1">Do you have a passion on something?</div>
+            <div class="head2">Why don't you share that passion with others by giving a course to learn from you</div>
+            <div class="call_to_action"><a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create a new course</a></div>
         </div>
-    </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -419,7 +419,7 @@ class CourseSchedule(models.Model):
 
 
 class CourseReservation(models.Model):
-    code = models.CharField(max_length=20)
+    code = models.CharField(max_length=20, db_index=True)
     student = models.ForeignKey(UserAccount, related_name='reservations')
     schedule = models.ForeignKey(CourseSchedule, related_name='reservations')
     note = models.CharField(max_length=1000, blank=True)
