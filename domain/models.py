@@ -1,36 +1,45 @@
 # -*- encoding: utf-8 -*-
 
-import datetime
 import decimal
 import random
-from django.core.urlresolvers import reverse
-import shortuuid
+import time
 
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.core.files.base import ContentFile
+from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models import Q, Count, Sum
+from django.db.models import Q, Sum
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.crypto import salted_hmac
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
+import shortuuid
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.files import get_thumbnailer
+from taggit.managers import TaggableManager
 
-from common.constants.common import GENDER_CHOICES
 from common.constants.course import *
 from common.constants.currency import CURRENCY_CHOICES
 from common.constants.transaction import TRANSACTION_TYPE_CHOICES
 from common.email import send_registration_email
+from common.utilities import split_filepath
 
-SHORTUUID_ALPHABETS_FOR_ID = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-
+SHORTUUID_ALPHABETS_NUMBER_ONLY = '1234567890'
+SHORTUUID_ALPHABETS_CHARACTERS_NUMBER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 # ACCOUNT ##############################################################################################################
 
 class UserAccountManager(BaseUserManager):
+    def generate_user_uid(self):
+        shortuuid.set_alphabet(SHORTUUID_ALPHABETS_NUMBER_ONLY)
+        temp_uuid = shortuuid.uuid()[:10]
+        while self.filter(uid=temp_uuid).exists():
+            temp_uuid = shortuuid.uuid()[:10]
+        return temp_uuid
+
     def create_user(self, email, name, password=None):
         if not email:
             raise ValueError(_('Users must have an email address'))
@@ -79,20 +88,7 @@ class UserAccount(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         if not self.uid:
-            uuid = None
-
-            while not uuid:
-                shortuuid.set_alphabet(SHORTUUID_ALPHABETS_FOR_ID)
-                uuid = shortuuid.uuid()[:10]
-
-                try:
-                    UserAccount.objects.get(uid=uuid)
-                except UserAccount.DoesNotExist:
-                    pass
-                else:
-                    uuid = None
-
-            self.uid = uuid
+            self.uid = UserAccount.objects.generate_user_uid()
 
         models.Model.save(self, *args, **kwargs)
 
@@ -147,7 +143,7 @@ class UserAccount(AbstractBaseUser):
             return get_thumbnailer(self.avatar)['avatar_tiny'].url
         return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_TINY)
 
-    # Stats ------------------------------------------------------------------------------------------------------------
+    # STATS
 
     def stats_upcoming_courses(self):
         rightnow = now()
@@ -241,31 +237,39 @@ class UserAccountBalanceTransaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 
-# VENUE ################################################################################################################
+# PLACE ################################################################################################################
 
-class Venue(models.Model):
-    name = models.CharField(max_length=500)
+class BasePlace(models.Model):
+    name = models.CharField(max_length=500, blank=True)
     code = models.CharField(max_length=100, blank=True, db_index=True)
-    address = models.CharField(max_length=1000)
-    province_code = models.CharField(max_length=100)
-    country = models.CharField(max_length=5)
+    address = models.CharField(max_length=500, blank=True)
+    province_code = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=5, blank=True)
     phone_number = models.CharField(max_length=50, blank=True)
     direction = models.TextField(blank=True)
-    latlng = models.CharField(max_length=50)
+    latlng = models.CharField(max_length=50, blank=True)
     is_userdefined = models.BooleanField()
-    is_visible = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+
+class Place(BasePlace):
+    is_visible = models.BooleanField(default=True)  # Only applied to userdefined place
+
+    class Meta:
+        ordering = ['name']
 
     @property
-    def venue_url(self):
+    def place_url(self):
         if self.code:
-            return reverse('view_venue_info_by_code', args=(self.code,))
-        return reverse('view_venue_info_by_id', args=(self.id,))
+            return reverse('view_place_info_by_code', args=(self.code,))
+        return reverse('view_place_info_by_id', args=(self.id,))
 
 
-class VenueDetail(models.Model):
-    venue = models.ForeignKey(Venue, related_name='details')
-    detail_name = models.CharField(max_length=100)
-    detail_value = models.CharField(max_length=500)
+class EditingPlace(BasePlace):
+    course = models.OneToOneField('Course')
+    defined_place = models.ForeignKey(Place, null=True)
 
 
 # COURSE ###############################################################################################################
@@ -274,10 +278,8 @@ class CourseSchool(models.Model):
     slug = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
 
-
-class CourseTopic(models.Model):
-    slug = models.CharField(max_length=300)
-    name = models.CharField(max_length=300)
+    class Meta:
+        ordering = ['name']
 
 
 class CourseManager(models.Manager):
@@ -286,59 +288,40 @@ class CourseManager(models.Manager):
     def get_query_set(self):
         return super(CourseManager, self).get_query_set().exclude(status='DELETED')
 
+    def generate_course_uid(self):
+        shortuuid.set_alphabet(SHORTUUID_ALPHABETS_NUMBER_ONLY)
+        temp_uuid = shortuuid.uuid()[:10]
+        while self.filter(uid=temp_uuid).exists():
+            temp_uuid = shortuuid.uuid()[:10]
+        return temp_uuid
 
-def course_cover_dir(instance, filename):
-    return 'users/%s/courses/%s/%s' % (instance.teacher.uid, instance.uid, filename)
 
-
-def course_picture_dir(instance, filename):
-    return 'users/%s/courses/%s/%s' % (instance.teacher.uid, instance.uid, filename)
-
-
-class Course(models.Model):
-    uid = models.CharField(max_length=50, db_index=True)
+class BaseCourse(models.Model):
     title = models.CharField(max_length=500)
-    cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
     description = models.TextField(blank=True)
     schools = models.ManyToManyField(CourseSchool, null=True)
-    topics = models.ManyToManyField(CourseTopic, null=True)
-
-    venue = models.ForeignKey(Venue, null=True)
+    place = models.ForeignKey(Place, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     price_unit = models.CharField(max_length=20, default='THB', choices=CURRENCY_CHOICES)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)
     maximum_people = models.PositiveSmallIntegerField(null=True, blank=True)
     level = models.CharField(max_length=20, choices=COURSE_LEVEL_CHOICES, blank=True)
     prerequisites = models.CharField(max_length=500, blank=True)
-
-    teacher = models.ForeignKey(UserAccount, related_name='courses')
     credentials = models.CharField(max_length=2000, blank=True)
 
-    next_schedule = models.ForeignKey('CourseSchedule', null=True, related_name='parent_course')
+    tags = TaggableManager()
 
-    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
     created = models.DateTimeField(auto_now_add=True)
-    first_published = models.DateTimeField(null=True)
     last_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
+        abstract = True
         ordering = ['-created']
 
-    objects = CourseManager()
-
-    def save(self, *args, **kwargs):
-        shortuuid.set_alphabet('1234567890')
-        if not self.uid:
-            temp_uuid = shortuuid.uuid()[0:10]
-            while Course.objects.filter(uid=temp_uuid).exists():
-                temp_uuid = shortuuid.uuid()[0:10]
-            self.uid = temp_uuid
-        super(Course, self).save(*args, **kwargs)
-
-    # PROPERTIES -------------------------------------------------------------------------------------------------------
+    # PROPERTIES
 
     def cover_url(self):
         if self.cover:
@@ -350,10 +333,63 @@ class Course(models.Model):
             return get_thumbnailer(self.cover)['course_cover_small'].url
         return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_SMALL)
 
-    def status_name(self):
-        return COURSE_STATUS_MAP[self.status]['name']
 
-    # PERMISSIONS ------------------------------------------------------------------------------------------------------
+def course_cover_dir(instance, filename):
+    rightnow = now()
+    (head, root, ext) = split_filepath(filename)
+    return 'users/%s/courses/%s/cover-%d.%s' % (instance.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
+
+
+class Course(BaseCourse):
+    uid = models.CharField(max_length=50, db_index=True, unique=True)
+    cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
+    teacher = models.ForeignKey(UserAccount, related_name='courses')
+
+    next_schedule = models.ForeignKey('CourseSchedule', null=True, related_name='parent_course')
+
+    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
+    first_published = models.DateTimeField(null=True)
+
+    objects = CourseManager()
+
+    def save(self, *args, **kwargs):
+        if not self.uid:
+            self.uid = Course.objects.generate_course_uid()
+        super(Course, self).save(*args, **kwargs)
+
+    # PROPERTIES
+
+    def completeness(self):
+        from .functions import calculate_course_completeness
+        return calculate_course_completeness(self)
+
+    def status_name(self):
+        return COURSE_STATUS_MAP[str(self.status)]['name']
+
+    # DATA
+
+    def get_editing_outlines(self):
+        if self.pk:
+            return CourseOutline.objects.filter(course=self)
+        else:
+            return []
+
+    def get_editing_media(self):
+        if self.pk:
+            return CourseOutlineMedia.objects.filter(course=self)
+        else:
+            return []
+
+    def get_editing_media_ordering(self):
+        if self.pk:
+            return CourseOutlineMedia.objects.get_media_uid_ordering(self)
+        else:
+            return ''
+
+    def get_editing_place(self):
+        return self.place
+
+    # PERMISSIONS
 
     def can_view(self, user):
         return (self.status == 'PUBLISHED') or (self.status == 'UNPUBLISHED' and user == self.teacher) or \
@@ -363,7 +399,7 @@ class Course(models.Model):
         rightnow = now()
         return self.status == 'PUBLISHED' and self.next_schedule.start_datetime <= rightnow
 
-    # STATS ------------------------------------------------------------------------------------------------------------
+    # STATS
 
     def stats_attended_students(self):
         return UserAccount.objects.filter(reservations__schedule__course=self).distinct().count()
@@ -371,22 +407,189 @@ class Course(models.Model):
     def stats_feedbacks(self):
         return CourseFeedback.objects.filter(reservation__schedule__course=self).count()
 
+    # UTILS
 
-class CourseOutline(models.Model):
-    course = models.ForeignKey(Course, related_name='outlines')
+    def create_editing_course(self):
+        if self.cover:
+            editing_cover = ContentFile(self.cover.read())
+            editing_cover.name = editing_course_cover_dir(self, self.cover.name)
+        else:
+            editing_cover = None
+
+        editing_course = EditingCourse.objects.create(
+            course=self,
+            title=self.title,
+            description=self.description,
+            cover=editing_cover,
+            place=self.place,
+            price=self.price,
+            price_unit=self.price_unit,
+            duration=self.duration,
+            maximum_people=self.maximum_people,
+            level=self.level,
+            prerequisites=self.prerequisites,
+            credentials=self.credentials,
+        )
+
+        editing_course.schools.add(*self.schools.all())
+        editing_course.tags.add(*self.tags.all())
+
+        # Outlines
+        outline_bulk = []
+        for outline in self.outlines.all():
+            outline_bulk.append(EditingCourseOutline(
+                course=outline.course,
+                title=outline.title,
+                description=outline.description,
+                ordering=outline.ordering,
+            ))
+
+        EditingCourseOutline.objects.bulk_create(outline_bulk)
+
+        # Media
+        for media in self.outline_media.all():
+            editing_media = EditingCourseOutlineMedia.objects.create(
+                course=media.course,
+                uid=media.uid,
+                media_type=media.media_type,
+                description=media.description,
+                ordering=media.ordering,
+                is_new=False,
+            )
+
+            if media.media_type == 'PICTURE':
+                EditingCoursePicture.objects.create(
+                    editing_media=editing_media,
+                    image=media.coursepicture.image,
+                )
+
+            elif media.media_type == 'VIDEO_URL':
+                EditingCourseVideoURL.objects.create(
+                    editing_media=editing_media,
+                    url=media.url,
+                )
+
+        return editing_course
+
+
+def editing_course_cover_dir(instance, filename):
+    rightnow = now()
+    (head, root, ext) = split_filepath(filename)
+    return 'users/%s/courses/%s/editing-cover-%d.%s' % (instance.course.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
+
+
+class EditingCourse(BaseCourse):
+    course = models.OneToOneField(Course)
+    cover = ThumbnailerImageField(upload_to=editing_course_cover_dir, null=True)
+    is_dirty = models.BooleanField(default=False)
+
+    def get_editing_outlines(self):
+        return EditingCourseOutline.objects.filter(course=self.course)
+
+    def get_editing_media(self):
+        return EditingCourseOutlineMedia.objects.filter(course=self.course)
+
+    def get_editing_media_ordering(self):
+        return EditingCourseOutlineMedia.objects.get_media_uid_ordering(self.course)
+
+    def get_editing_place(self):
+        try:
+            return EditingPlace.objects.get(course=self)
+        except EditingPlace.DoesNotExist:
+            return None
+
+
+# Course Outline
+
+class BaseCourseOutline(models.Model):
     title = models.CharField(max_length=500)
-    description = models.CharField(max_length=1000, null=True, blank=True, default='')
+    description = models.CharField(max_length=1000, blank=True)
+    ordering = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        abstract = True
+        ordering = ['ordering']
 
 
-class CoursePicture(models.Model):
-    course = models.ForeignKey(Course, related_name='pictures')
-    image = ThumbnailerImageField(upload_to=course_picture_dir)
-    ordering = models.PositiveIntegerField(default=0)
+class CourseOutline(BaseCourseOutline):
+    course = models.ForeignKey(Course, related_name='outlines')
+
+
+class EditingCourseOutline(BaseCourseOutline):
+    course = models.ForeignKey(Course, related_name='editing_outlines')
+
+
+# Course Outline Media
+
+class CourseOutlineMediaManager(models.Manager):
+    def generate_media_uid(self):
+        shortuuid.set_alphabet(SHORTUUID_ALPHABETS_CHARACTERS_NUMBER)
+        temp_uuid = shortuuid.uuid()[0:10]
+        while CourseOutlineMedia.objects.filter(uid=temp_uuid).exists() or \
+                EditingCourseOutlineMedia.objects.filter(uid=temp_uuid).exists():
+            temp_uuid = shortuuid.uuid()[0:10]
+        return temp_uuid
+
+    def get_media_uid_ordering(self, course):
+        media_uid_ordering = [media.uid for media in self.filter(course=course).order_by('ordering')]
+        return ','.join(media_uid_ordering)
+
+
+class BaseCourseOutlineMedia(models.Model):
+    uid = models.CharField(max_length=50, db_index=True)
+    media_type = models.CharField(max_length=20, choices=COURSE_OUTLINE_MEDIA_CHOICES)
+    description = models.CharField(max_length=1000, blank=True)
+    ordering = models.PositiveSmallIntegerField(default=0)
     uploaded = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        abstract = True
         ordering = ['ordering']
 
+    objects = CourseOutlineMediaManager()
+
+    def save(self, *args, **kwargs):
+        if not self.uid:
+            self.uid = self.__class__.objects.generate_media_uid()
+        super(BaseCourseOutlineMedia, self).save(*args, **kwargs)
+
+
+class CourseOutlineMedia(BaseCourseOutlineMedia):
+    course = models.ForeignKey(Course, related_name='outline_media')
+
+
+class EditingCourseOutlineMedia(BaseCourseOutlineMedia):
+    course = models.ForeignKey(Course, related_name='editing_outline_media')
+    is_new = models.BooleanField(default=True)
+    mark_deleted = models.BooleanField(default=False)
+
+
+def course_picture_dir(instance, filename):
+    (head, root, ext) = split_filepath(filename)
+    return 'users/%s/courses/%s/%s.%s' % (instance.media.course.teacher.uid, instance.media.course.uid, instance.media.uid, ext)
+
+
+class CoursePicture(models.Model):
+    media = models.OneToOneField(CourseOutlineMedia)
+    image = ThumbnailerImageField(upload_to=course_picture_dir)
+
+
+class EditingCoursePicture(models.Model):
+    editing_media = models.OneToOneField(EditingCourseOutlineMedia)
+    image = ThumbnailerImageField(upload_to=course_picture_dir)
+
+
+class CourseVideoURL(models.Model):
+    media = models.OneToOneField(CourseOutlineMedia)
+    url = models.URLField()
+
+
+class EditingCourseVideoURL(models.Model):
+    editing_media = models.OneToOneField(EditingCourseOutlineMedia)
+    url = models.URLField()
+
+
+# Course Schedule
 
 class CourseScheduleManager(models.Manager):
     use_for_related_fields = True
@@ -409,7 +612,7 @@ class CourseSchedule(models.Model):
         rightnow = now()
         return self.status == 'OPENING' and self.start_datetime > rightnow
 
-    # STATS ############################################################################################################
+    # STATS
 
     def stats_seats_reserved(self):
         return CourseReservation.objects.filter(schedule=self, status='CONFIRMED').count()

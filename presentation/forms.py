@@ -3,10 +3,10 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from domain.models import UserAccount
+from domain.models import UserAccount, Place
 
 
-# User #################################################################################################################
+# USER #################################################################################################################
 
 class EditProfileForm(forms.Form):
     avatar = forms.ImageField(required=False, widget=forms.FileInput())
@@ -30,3 +30,4 @@ class EditAccountEmailForm(forms.Form):
             raise forms.ValidationError(_('This email has already been registered.'))
 
         return email
+

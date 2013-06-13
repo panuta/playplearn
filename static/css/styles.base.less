@@ -145,12 +145,14 @@ body.modal-open {
     }
 
     .modal-footer {
-        background-color: #FCFCFC;
-        border-top: 1px solid #EEE;
-        padding: 14px 20px 20px;
+        background-color: transparent;
+        border-top: none;
+        box-shadow: none;
+        padding: 10px 20px 20px;
 
-        a {
+        a, button {
             font-size: 13px;
+            margin-left: 15px;
             padding: 5px 20px;
         }
     }
@@ -265,6 +267,13 @@ form {
         margin-right: 3px;
         vertical-align: middle;
     }
+
+    &:disabled {
+        background-color: #D9D9D9 !important;
+        box-shadow: 0px 5px 0px #CCC !important;
+        color: #AAA !important;
+        cursor: default;
+    }
 }
 
 .style-button {
@@ -312,6 +321,64 @@ h1.style-page-header {
     margin: 20px 0;
     padding-left: 45px;
     text-shadow: 1px 1px #FFF;
+}
+
+.style-topbar-nav {
+    margin: 0;
+
+    li {
+        background-color: #EEE;
+        border: 1px solid #DDD;
+        border-right: none;
+        list-style: none;
+        float: left;
+
+        a {
+            border-left: 1px solid #FFF;
+            border-top: 1px solid #FFF;
+            color: #777;
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0 15px;
+            line-height: 36px;
+            text-decoration: none;
+            text-shadow: 1px 1px #FFF;
+
+            i {
+                font-size: 12px;
+                margin-right: 5px;
+                text-shadow: 1px 1px #FFF;
+                vertical-align: 2px;
+            }
+        }
+
+        &.last {
+            border-right: 1px solid #DDD;
+        }
+
+        &.active {
+            background-color: #FFF;
+
+            a {
+                color: #444;
+            }
+        }
+
+        a:hover {
+            background-color: @linkColor;
+            border-left: 1px solid @linkColor;
+            border-top: 1px solid @linkColor;
+            color: #FFF;
+            text-shadow: -1px -1px @linkColorDarker;
+
+            i {
+                color: #FFF;
+                text-decoration: none;
+                text-shadow: -1px -1px @linkColorDarker;
+            }
+        }
+    }
 }
 
 .style-sidebar-nav {

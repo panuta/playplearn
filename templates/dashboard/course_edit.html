@@ -1,0 +1,31 @@
+{% extends 'base_backend.html' %}
+{% load common_tags presentation_tags %}
+
+{% block body_class %}{{ block.super }} page-course-modify{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
+<script>
+    var _course_uid = '{{ course_uid }}';
+    $(document).ready(function() {
+        initCourseCreatePage();
+    });
+</script>
+{% endblock %}
+
+{% block backend_header %}
+<div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
+<h1>Edit course - <span>{{ course.title|default:'(No title)' }}</span></h1>
+<div class="completeness">
+    <div class="head">Course Completeness</div>
+    <div class="progress">
+        <div class="bar"></div>
+    </div>
+    <div class="percentage">0%</div>
+</div>
+{% endblock %}
+
+{% block backend_container %}
+
+
+{% endblock %}

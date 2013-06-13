@@ -117,12 +117,15 @@ body.modal-open {
   text-align: center;
 }
 .modal .modal-footer {
-  background-color: #FCFCFC;
-  border-top: 1px solid #EEE;
-  padding: 14px 20px 20px;
+  background-color: transparent;
+  border-top: none;
+  box-shadow: none;
+  padding: 10px 20px 20px;
 }
-.modal .modal-footer a {
+.modal .modal-footer a,
+.modal .modal-footer button {
   font-size: 13px;
+  margin-left: 15px;
   padding: 5px 20px;
 }
 .slider .slider-selection {
@@ -218,6 +221,12 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-button:disabled {
+  background-color: #D9D9D9 !important;
+  box-shadow: 0px 5px 0px #CCC !important;
+  color: #AAA !important;
+  cursor: default;
+}
 .style-button:hover,
 .style-button:focus {
   background-color: #E4E4E4;
@@ -243,6 +252,12 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-orange-button:disabled {
+  background-color: #D9D9D9 !important;
+  box-shadow: 0px 5px 0px #CCC !important;
+  color: #AAA !important;
+  cursor: default;
+}
 .style-orange-button:hover,
 .style-orange-button:focus {
   background-color: #eb732d;
@@ -267,6 +282,12 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-primary-button:disabled {
+  background-color: #D9D9D9 !important;
+  box-shadow: 0px 5px 0px #CCC !important;
+  color: #AAA !important;
+  cursor: default;
+}
 .style-primary-button:hover,
 .style-primary-button:focus {
   background-color: #19a7bc;
@@ -280,6 +301,55 @@ h1.style-page-header {
   margin: 20px 0;
   padding-left: 45px;
   text-shadow: 1px 1px #FFF;
+}
+.style-topbar-nav {
+  margin: 0;
+}
+.style-topbar-nav li {
+  background-color: #EEE;
+  border: 1px solid #DDD;
+  border-right: none;
+  list-style: none;
+  float: left;
+}
+.style-topbar-nav li a {
+  border-left: 1px solid #FFF;
+  border-top: 1px solid #FFF;
+  color: #777;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 15px;
+  line-height: 36px;
+  text-decoration: none;
+  text-shadow: 1px 1px #FFF;
+}
+.style-topbar-nav li a i {
+  font-size: 12px;
+  margin-right: 5px;
+  text-shadow: 1px 1px #FFF;
+  vertical-align: 2px;
+}
+.style-topbar-nav li.last {
+  border-right: 1px solid #DDD;
+}
+.style-topbar-nav li.active {
+  background-color: #FFF;
+}
+.style-topbar-nav li.active a {
+  color: #444;
+}
+.style-topbar-nav li a:hover {
+  background-color: #1693a5;
+  border-left: 1px solid #1693a5;
+  border-top: 1px solid #1693a5;
+  color: #FFF;
+  text-shadow: -1px -1px #137f8e;
+}
+.style-topbar-nav li a:hover i {
+  color: #FFF;
+  text-decoration: none;
+  text-shadow: -1px -1px #137f8e;
 }
 .style-sidebar-nav {
   margin: 0;
@@ -710,6 +780,9 @@ body {
   border-bottom: 4px solid #1693a5;
   color: #444;
   text-decoration: none;
+}
+#modal-error-message h3 {
+  color: #C30;
 }
 #modal-reservation-details .head {
   color: #1693a5;
@@ -1606,21 +1679,21 @@ body {
 .page-my-courses-upcoming ul.courses li.course .course-content .actions-student {
   margin-top: 9px;
 }
-.page-my-courses-attended .courses-topics .head {
+.page-my-courses-attended .courses-schools .head {
   color: #888;
   font-size: 12px;
   font-weight: bold;
   margin-bottom: 7px;
 }
-.page-my-courses-attended .courses-topics ul.topics {
+.page-my-courses-attended .courses-schools ul.schools {
   margin: 0;
 }
-.page-my-courses-attended .courses-topics ul.topics li.topic {
+.page-my-courses-attended .courses-schools ul.schools li.school {
   clear: both;
   list-style: none;
   margin-bottom: 7px;
 }
-.page-my-courses-attended .courses-topics ul.topics li.topic a {
+.page-my-courses-attended .courses-schools ul.schools li.school a {
   background-color: #F7F7F7;
   border-radius: 4px;
   color: #444;
@@ -1628,7 +1701,7 @@ body {
   font-weight: bold;
   padding: 8px 12px;
 }
-.page-my-courses-attended .courses-topics ul.topics li.topic a .counter {
+.page-my-courses-attended .courses-schools ul.schools li.school a .counter {
   background-color: #BBB;
   border-radius: 3px;
   color: #FFF;
@@ -1640,20 +1713,20 @@ body {
   padding: 1px 4px;
   vertical-align: 1px;
 }
-.page-my-courses-attended .courses-topics ul.topics li.topic a:hover {
+.page-my-courses-attended .courses-schools ul.schools li.school a:hover {
   background-color: #1693a5;
   color: #FFF;
   text-decoration: none;
 }
-.page-my-courses-attended .courses-topics ul.topics li.topic a:hover .counter {
+.page-my-courses-attended .courses-schools ul.schools li.school a:hover .counter {
   background-color: #FFF;
   color: #1693a5;
 }
-.page-my-courses-attended .courses-topics ul.topics li.active a {
+.page-my-courses-attended .courses-schools ul.schools li.active a {
   background-color: #777;
   color: #FFF;
 }
-.page-my-courses-attended .courses-topics ul.topics li.active a .counter {
+.page-my-courses-attended .courses-schools ul.schools li.active a .counter {
   background-color: #FFF;
   color: #777;
 }
@@ -1854,115 +1927,137 @@ body {
 .page-my-courses-teaching .no-teaching-course .call_to_action {
   margin-top: 18px;
 }
-.page-course-modify .form-body {
-  margin-bottom: 40px;
+.page-course-modify .backend-header h1 span {
+  font-size: 20px;
 }
-.page-course-modify .form-body-header {
-  margin: 25px 0 25px;
-}
-.page-course-modify .form-body-header .completeness {
+.page-course-modify .backend-header .completeness {
   float: left;
+  margin-top: 10px;
 }
-.page-course-modify .form-body-header .completeness .head {
-  color: #555;
-  font-size: 16px;
-  margin-bottom: 3px;
+.page-course-modify .backend-header .completeness .head {
+  color: #EEE;
+  display: inline-block;
+  font-size: 13px;
+  margin-right: 15px;
+  vertical-align: middle;
 }
-.page-course-modify .form-body-header .completeness .head a {
-  color: #999;
-  margin-left: 4px;
-  text-shadow: 1px 1px #FFF;
+.page-course-modify .backend-header .completeness .head a {
+  color: #EEE;
+  margin-left: 3px;
   vertical-align: 1px;
 }
-.page-course-modify .form-body-header .completeness .head a:hover {
+.page-course-modify .backend-header .completeness .head a:hover {
   color: #1693a5;
   text-decoration: none;
 }
-.page-course-modify .form-body-header .completeness .progress {
-  background-color: #FFF;
-  background-image: linear-gradient(to bottom, #f9f9f9, #ffffff);
+.page-course-modify .backend-header .completeness .progress {
+  background-color: #19a7bc;
+  background-image: linear-gradient(to bottom, #1693a5, #19a7bc);
   display: inline-block;
-  height: 15px;
+  height: 11px;
   margin: 0px;
   vertical-align: middle;
   width: 300px;
 }
-.page-course-modify .form-body-header .completeness .progress .bar {
-  background-color: #666;
-  background-image: linear-gradient(to bottom, #999999, #666666);
+.page-course-modify .backend-header .completeness .progress .bar {
+  background-color: #FFF;
+  background-image: linear-gradient(to bottom, #ffffff, #dddddd);
+  width: 0%;
 }
-.page-course-modify .form-body-header .completeness .percentage {
-  color: #555;
+.page-course-modify .backend-header .completeness .percentage {
+  color: #FFF;
   display: inline-block;
   font-size: 14px;
   font-weight: bold;
-  margin-left: 10px;
-  text-shadow: 1px 1px #FFF;
+  margin-left: 8px;
   vertical-align: middle;
 }
-.page-course-modify .form-body-header .actions {
-  float: right;
+.page-course-modify .form-message {
+  color: #555;
+  font-size: 16px;
+  margin-top: 40px;
+  text-align: center;
 }
-.page-course-modify .form-body-header .actions .actions-info {
-  display: inline-block;
+.page-course-modify .form-message p {
+  margin-bottom: 15px;
+}
+.page-course-modify .form-message .head1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.page-course-modify .form-message a:link,
+.page-course-modify .form-message a:active,
+.page-course-modify .form-message a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+.page-course-modify .form-message a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-modify .form-actions {
+  margin: 20px 0;
   text-align: right;
+}
+.page-course-modify .form-actions .loading {
   vertical-align: middle;
 }
-.page-course-modify .form-body-header .actions .actions-info .status {
-  color: #777;
-  display: block;
+.page-course-modify .form-actions .preview {
+  vertical-align: bottom;
+}
+.page-course-modify .form-actions .preview .link-preview {
   font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 2px;
 }
-.page-course-modify .form-body-header .actions .actions-info .status em {
-  color: #444;
-  font-style: normal;
+.page-course-modify .form-actions .preview .link-preview:link,
+.page-course-modify .form-actions .preview .link-preview:active,
+.page-course-modify .form-actions .preview .link-preview:visited {
+  color: #888;
+  text-decoration: underline;
 }
-.page-course-modify .form-body-header .actions .actions-info .autosave {
+.page-course-modify .form-actions .preview .link-preview:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-modify .form-actions .preview i {
   color: #777;
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 12px;
+  margin-right: 2px;
+  vertical-align: 0px;
 }
-.page-course-modify .form-body-header .actions .actions-info .autosave em {
+.page-course-modify .form-actions .message {
+  vertical-align: bottom;
+}
+.page-course-modify .form-actions .error-message {
+  background-color: #FCC;
   color: #444;
-  font-style: normal;
+  font-size: 13px;
 }
-.page-course-modify .form-body-header .actions button {
+.page-course-modify .form-actions button {
+  font-size: 13px;
   margin-left: 10px;
   vertical-align: middle;
 }
-.page-course-modify .form-nav li.outline i {
-  vertical-align: 0px;
+.page-course-modify .form-actions .button-submit {
+  font-weight: bold;
 }
-.page-course-modify .form-nav li.story i {
-  margin-left: 2px;
-  vertical-align: 1px;
+.page-course-modify .form-navigation li.outline i {
+  margin-left: 1px;
 }
-.page-course-modify .form-nav li.details i {
-  margin-left: 2px;
-  vertical-align: 0px;
+.page-course-modify .form-navigation li.story i {
+  margin-left: 3px;
 }
-.page-course-modify .form-nav li.place i {
-  margin-left: 6px;
-  vertical-align: 1px;
+.page-course-modify .form-navigation li.details i {
+  margin-left: 3px;
+}
+.page-course-modify .form-navigation li.place i {
+  margin-left: 7px;
 }
 .page-course-modify .form-content {
-  border: 2px solid #EEE;
-}
-.page-course-modify .form-content .form-content-inner {
-  background-color: #FFF;
-  border: 1px solid #DDD;
-  padding: 20px;
-}
-.page-course-modify .form-content h2 {
-  border-bottom: 3px double #DDD;
-  color: #1693a5;
-  font-size: 26px;
-  line-height: normal;
-  margin: 0 0 25px 0;
-  padding-bottom: 6px;
+  margin-top: 10px;
 }
 .page-course-modify .form-content .control-group {
   margin-bottom: 20px;
@@ -1980,43 +2075,43 @@ body {
   vertical-align: top;
 }
 .page-course-modify .form-content .control-group .control-guide {
-  background-color: #EEE;
-  border: 1px solid #DDD;
-  color: #555;
+  border-left: 1px solid #DDD;
+  color: #666;
   display: inline-block;
-  font-size: 13px;
+  font-size: 12.5px;
   margin-left: 50px;
-  padding: 10px 15px;
+  padding: 0 15px;
   vertical-align: top;
+  width: 400px;
 }
-.page-course-modify .form-content .control-group .arrow_box {
+.page-course-modify .form-content .control-group .controls-text input {
+  font-size: 18px;
+  height: 23px;
+  text-align: center;
+}
+.page-course-modify .form-content .control-group .controls-text input.error {
+  background-color: #FCC;
+}
+.page-course-modify .form-content .control-group .controls-text .unit {
+  color: #555;
+  margin-left: 6px;
+}
+.page-course-modify .form-content .control-group .fileinput-button {
+  margin-bottom: 10px;
+  overflow: hidden;
   position: relative;
-  background: #F9F9F9;
-  border: 1px solid #ddd;
 }
-.page-course-modify .form-content .control-group .arrow_box:after,
-.page-course-modify .form-content .control-group .arrow_box:before {
-  right: 100%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
+.page-course-modify .form-content .control-group .fileinput-button input {
   position: absolute;
-  pointer-events: none;
-}
-.page-course-modify .form-content .control-group .arrow_box:after {
-  border-color: rgba(249, 249, 249, 0);
-  border-right-color: #F9F9F9;
-  border-width: 10px;
-  top: 18px;
-  margin-top: -10px;
-}
-.page-course-modify .form-content .control-group .arrow_box:before {
-  border-color: rgba(221, 221, 221, 0);
-  border-right-color: #ddd;
-  border-width: 11px;
-  top: 18px;
-  margin-top: -11px;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
 }
 .page-course-modify .form-content .title-control {
   margin-bottom: 30px;
@@ -2024,44 +2119,42 @@ body {
 .page-course-modify .form-content .title-control input {
   font-size: 16px;
   height: 30px;
-  width: 95%;
+  width: 700px;
 }
-.page-course-modify .form-content .outline-control .controls ul {
+.page-course-modify .form-content .outline-control ul {
   margin: 0;
 }
-.page-course-modify .form-content .outline-control .controls ul li {
+.page-course-modify .form-content .outline-control ul li {
   border: 1px solid #999;
   border-left: 5px solid #999;
-  box-shadow: 2px 2px 0px #EEE;
   list-style: none;
   margin-bottom: 15px;
 }
-.page-course-modify .form-content .outline-control .controls ul li .remove {
+.page-course-modify .form-content .outline-control ul li .icon-remove {
+  color: #AAA;
+  cursor: pointer;
   display: block;
+  font-size: 15px;
   float: right;
   line-height: normal;
-  margin: 8px 9px 0 0;
+  padding: 11px 10px;
 }
-.page-course-modify .form-content .outline-control .controls ul li .remove i {
-  color: #AAA;
-  font-size: 15px;
-}
-.page-course-modify .form-content .outline-control .controls ul li .remove:hover {
-  text-decoration: none;
-}
-.page-course-modify .form-content .outline-control .controls ul li .remove:hover i {
+.page-course-modify .form-content .outline-control ul li .icon-remove:hover {
   color: #c30;
 }
-.page-course-modify .form-content .outline-control .controls ul li i.icon-reorder,
-.page-course-modify .form-content .outline-control .controls ul li i.icon-plus {
+.page-course-modify .form-content .outline-control ul li .icon-reorder,
+.page-course-modify .form-content .outline-control ul li .icon-plus {
   color: #AAA;
-  cursor: move;
   display: inline-block;
   line-height: 38px;
   padding: 0 14px;
   vertical-align: middle;
 }
-.page-course-modify .form-content .outline-control .controls ul li input {
+.page-course-modify .form-content .outline-control ul li .icon-reorder {
+  cursor: move;
+}
+.page-course-modify .form-content .outline-control ul li input {
+  background-color: transparent;
   border: none;
   box-shadow: none;
   font-size: 15px;
@@ -2071,26 +2164,159 @@ body {
   vertical-align: middle;
   width: 90%;
 }
-.page-course-modify .form-content .outline-control .controls ul li.add {
+.page-course-modify .form-content .outline-control ul li.ui-state-highlight {
+  border: 1px dashed #CCC;
+  height: 38px;
+}
+.page-course-modify .form-content .outline-control ul li.add {
   border: 1px dashed #CCC;
   box-shadow: none;
   list-style: none;
   margin-bottom: 10px;
   padding-left: 4px;
 }
-.page-course-modify .form-content .outline-control .controls ul li.add a {
+.page-course-modify .form-content .outline-control ul li.add a {
   color: #666;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-modify .form-content .story-control textarea {
+.page-course-modify .form-content .cover-control {
+  margin-bottom: 30px;
+}
+.page-course-modify .form-content .cover-control .cover {
+  border: 1px solid #DDD;
+  height: 100px;
+  margin-bottom: 15px;
+  width: 275px;
+}
+.page-course-modify .form-content .cover-control .cover .progress {
+  height: 20px;
+  margin: 40px auto 0;
+  width: 200px;
+}
+.page-course-modify .form-content .cover-control .cover .error {
+  color: #C30;
+  font-size: 13px;
+  margin-top: 40px;
+  text-align: center;
+}
+.page-course-modify .form-content .cover-control .help-block {
+  font-size: 13px;
+}
+.page-course-modify .form-content .pictures-control .pictures {
+  margin: 10px 0 0;
+}
+.page-course-modify .form-content .pictures-control .pictures li {
+  background-color: #FFF;
+  height: 117px;
+  list-style: none;
+  margin-bottom: 25px;
+  vertical-align: middle;
+}
+.page-course-modify .form-content .pictures-control .pictures .ui-state-highlight {
+  background-color: transparent;
+  border: 1px dashed #CCC;
+}
+.page-course-modify .form-content .pictures-control .pictures li.uploading {
+  border: 1px dashed #DDD;
+  height: 77px;
+  padding: 20px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.uploading em {
+  color: #777;
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.uploading .progress {
+  margin-top: 10px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture {
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .image {
+  cursor: move;
+  float: left;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .image .icon-reorder {
+  color: #999;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .image img {
+  border: 1px solid #CCC;
+  height: 115px;
+  margin-left: 5px;
+  width: 200px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .description {
+  margin-left: 245px;
+  padding-top: 5px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .description label {
+  color: #555;
+  font-size: 13px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .description label input {
+  display: block;
+  font-size: 16px;
+  height: 30px;
+  margin-top: 5px;
   width: 95%;
 }
-.page-course-modify .form-content .topics-control select {
-  width: 414px;
+.page-course-modify .form-content .pictures-control .pictures li.picture .description .delete {
+  font-size: 13px;
 }
-.page-course-modify .form-content .topics-control .control-guide {
-  width: 406px;
+.page-course-modify .form-content .pictures-control .pictures li.picture .description .delete:link,
+.page-course-modify .form-content .pictures-control .pictures li.picture .description .delete:active,
+.page-course-modify .form-content .pictures-control .pictures li.picture .description .delete:visited {
+  color: #888;
+  text-decoration: underline;
+}
+.page-course-modify .form-content .pictures-control .pictures li.picture .description .delete:hover {
+  background-color: #C30;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-modify .form-content .pictures-control .pictures li.error {
+  background: url(../images/page/course-form/picture_error.png) #ffffff 20px 20px no-repeat;
+  border: 1px dashed #DDD;
+  height: 117px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.error em {
+  color: #C30;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 30px 0 0 65px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.error .dismiss {
+  margin: 5px 0 0 65px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.error .dismiss a {
+  font-size: 13px;
+}
+.page-course-modify .form-content .pictures-control .pictures li.error .dismiss a:link,
+.page-course-modify .form-content .pictures-control .pictures li.error .dismiss a:active,
+.page-course-modify .form-content .pictures-control .pictures li.error .dismiss a:visited {
+  color: #888;
+  text-decoration: underline;
+}
+.page-course-modify .form-content .pictures-control .pictures li.error .dismiss a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-modify .form-content .school-control select {
+  font-size: 15px;
+  padding: 4px;
+}
+.page-course-modify .form-content .school-control select option {
+  padding: 4px;
+}
+.page-course-modify .form-content .topics-control input {
+  width: 400px;
 }
 .page-course-modify .form-content .level-control select {
   font-size: 15px;
@@ -2099,89 +2325,122 @@ body {
 .page-course-modify .form-content .level-control select option {
   padding: 4px;
 }
-.page-course-modify .form-content .level-control .control-guide {
-  width: 614px;
-}
 .page-course-modify .form-content .tuition-control .controls input {
-  font-size: 18px;
-  height: 23px;
-  text-align: center;
   width: 70px;
 }
-.page-course-modify .form-content .tuition-control .controls span {
-  color: #555;
-  margin-left: 6px;
-}
-.page-course-modify .form-content .tuition-control .control-guide {
-  width: 710px;
-}
 .page-course-modify .form-content .duration-control .controls input {
-  font-size: 18px;
-  height: 23px;
-  text-align: center;
   width: 50px;
 }
-.page-course-modify .form-content .duration-control .controls span {
-  color: #555;
-  margin-left: 6px;
+.page-course-modify .form-content .capacity-control .controls input {
+  width: 50px;
 }
-.page-course-modify .form-content .capacity-control input {
-  width: 400px;
-}
-.page-course-modify .form-content .capacity-control .control-info {
-  margin-top: 4px;
-  width: 414px;
-}
-.page-course-modify .form-content .capacity-control .control-info .min {
-  color: #999;
-  float: left;
-  font-size: 13px;
-  font-weight: bold;
-}
-.page-course-modify .form-content .capacity-control .control-info .max {
-  color: #999;
-  float: right;
-  font-size: 13px;
-  font-weight: bold;
-}
-.page-course-modify .form-content .capacity-control .control-info .current {
-  color: #444;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
-}
-.page-course-modify .form-content .capacity-control .control-guide {
-  width: 420px;
-}
-.page-course-modify .form-content #content-place .choices {
+.page-course-modify .form-content #content-place h2 {
   margin-bottom: 20px;
-  text-align: center;
 }
-.page-course-modify .form-content #content-place .choices a {
-  background-color: #EEE;
+.page-course-modify .form-content #content-place .place-choice {
+  margin-bottom: 35px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-label {
+  color: #444;
+  display: inline;
+  font-size: 15px;
+  font-weight: bold;
+}
+.page-course-modify .form-content #content-place .place-choice .place-label input {
+  margin-right: 5px;
+  vertical-align: 0px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body {
+  padding: 15px 0 0 22px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input {
+  margin-bottom: 25px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input .place-inline-input {
+  display: inline-block;
+  vertical-align: top;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body label {
   color: #444;
   display: inline-block;
-  font-size: 16px;
-  margin: 0px 15px;
-  padding: 30px 0px;
-  text-shadow: 1px 1px #FFF;
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body input,
+.page-course-modify .form-content #content-place .place-choice .place-input-body select,
+.page-course-modify .form-content #content-place .place-choice .place-input-body textarea {
+  margin: 0;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body .help-block {
+  color: #888;
+  font-size: 13px;
+  margin: 2px 0 0;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_name {
+  margin-right: 30px;
+  width: 306px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_phone {
   width: 300px;
 }
-.page-course-modify .form-content #content-place .choices a i {
+.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_address {
+  margin-right: 30px;
+  width: 400px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location {
+  margin-bottom: 25px;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location em,
+.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location a {
+  display: inline-block;
+  vertical-align: middle;
+}
+.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location .location_latlng {
+  background-color: #EEE;
   color: #555;
-  display: block;
-  margin-bottom: 7px;
-  text-shadow: 1px 1px #FFF;
+  font-size: 13px;
+  margin-right: 10px;
+  padding: 1px 10px;
 }
-.page-course-modify .form-content #content-place .choices a:hover {
-  background-color: #1693a5;
-  color: #FFF;
-  text-decoration: none;
-  text-shadow: -1px -1px #137f8e;
+.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_direction {
+  height: 60px;
+  width: 652px;
 }
-.page-course-modify .form-content #content-place .choices a:hover i {
+.page-course-modify #modal-place-map {
+  margin-left: -350px;
+  width: 700px;
+}
+.page-course-modify #modal-place-map .search button {
+  vertical-align: middle;
+}
+.page-course-modify #modal-place-map .search input {
+  margin: 0 7px 0 0;
+  vertical-align: middle;
+  width: 300px;
+}
+.page-course-modify #modal-place-map .map {
+  margin-top: 15px;
+}
+.page-course-modify #modal-place-map .map #map-canvas {
+  height: 300px;
+  width: 660px;
+}
+.page-course-modify #modal-place-map .map #map-canvas img {
+  max-width: none;
+}
+.page-course-modify #modal-place-map .modal-footer .note {
+  color: #444;
+  float: left;
+  font-size: 13px;
+  text-align: left;
+  width: 370px;
+}
+.page-course-modify #modal-place-map .modal-footer .note strong {
+  background-color: #666;
   color: #FFF;
-  text-shadow: -1px -1px #137f8e;
+  margin-right: 3px;
+  padding: 0 5px;
 }
 .page-course-modify #modal-course-submitted .head1 {
   color: #444;

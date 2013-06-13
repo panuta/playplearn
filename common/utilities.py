@@ -67,3 +67,18 @@ def split_filepath(path):
         ext = ext[1:]
 
     return head, root, ext
+
+
+def extract_request_object(request_data, startswith):
+    object = {}
+    for request_key in request_data.keys():
+        if request_key.startswith(startswith):
+            key = request_key[request_key.find('[')+1:request_key.find(']')]
+            data_key = request_key[request_key.rfind('[')+1:request_key.rfind(']')]
+
+            if key not in object:
+                object[key] = {}
+
+            object[key][data_key] = request_data[request_key]
+
+    return object

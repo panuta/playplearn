@@ -33,7 +33,7 @@
                     <ul class="courses">
                         {% for course in teaching_courses %}
                             <li class="course clearfix">
-                                <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
+                                <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title|default:'(No title)' }}</a></div>
                                 <div class="latest">
                                     {% if course.status == 'UNPUBLISHED' %}<em class="draft">{{ course.status_name }}</em>{% endif %}
                                     {% if course.status == 'WAIT_FOR_APPROVAL' %}<em class="wait">{{ course.status_name }}</em>{% endif %}

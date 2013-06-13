@@ -110,6 +110,7 @@ INSTALLED_APPS = (
 
     'easy_thumbnails',
     'social_auth',
+    'taggit',
 
     'accounts',
     'domain',
@@ -177,6 +178,10 @@ THUMBNAIL_ALIASES = {
 
         'course_cover_normal': {'size': (550, 200), 'crop': True},
         'course_cover_small': {'size': (275, 100), 'crop': True},
+
+        'course_picture_full': {'size': (870, 500), 'crop': True},
+        'course_picture_small': {'size': (200, 115), 'crop': True},
+        'course_picture_square': {'size': (160, 160), 'crop': True},
     },
 }
 
@@ -211,9 +216,15 @@ USER_AVATAR_DEFAULT_TINY = 'default/avatar/default_tiny.png'
 
 # COURSES
 
+COURSE_PRICE_MINIMUM = 50  # Baht
+
+COURSE_COVER_MAXIMUM_SIZE = 3000000
 COURSE_COVER_DEFAULT_NORMAL = 'default/course/default_cover_normal.png'
 COURSE_COVER_DEFAULT_SMALL = 'default/course/default_cover_small.png'
 
+COURSE_MEDIA_MAXIMUM_NUMBER = 10
+
+COURSE_PICTURE_MAXIMUM_SIZE = 5000000
 
 # LOCAL SETTINGS #######################################################################################################
 

@@ -6,12 +6,12 @@
 <div class="page-my-courses-attended">
     {% if reservations %}
     <div class="row">
-        <div class="span3 courses-topics">
-            <div class="head">TOPICS LEARNED</div>
-            <ul class="topics">
-                <li class="topic{% if not course_topic %} active{% endif %}"><a href="{% url 'view_my_courses_attended' %}">All Topics <span class="counter">{{ total_num_topics }}</span></a></li>
-                {% for topic_learned in topics_learned %}
-                <li class="topic{% if course_topic.id == topic_learned.topic.id %} active{% endif %}"><a href="{% url 'view_my_courses_attended_in_topic' topic_learned.topic.slug %}">{{ topic_learned.topic.name }} <span class="counter">{{ topic_learned.num_topics }}</span></a></li>
+        <div class="span3 courses-schools">
+            <div class="head">SCHOOLS ATTENDANCE</div>
+            <ul class="schools">
+                <li class="school{% if not course_school %} active{% endif %}"><a href="{% url 'view_my_courses_attended' %}">All Schools <span class="counter">{{ total_num_schools }}</span></a></li>
+                {% for school_learned in schools_learned %}
+                <li class="school{% if course_school.id == school_learned.school.id %} active{% endif %}"><a href="{% url 'view_my_courses_attended_in_school' school_learned.school.slug %}">{{ school_learned.school.name }} <span class="counter">{{ school_learned.num_schools }}</span></a></li>
                 {% endfor %}
             </ul>
         </div>

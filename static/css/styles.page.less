@@ -947,7 +947,7 @@
 }
 
 .page-my-courses-attended {
-    .courses-topics {
+    .courses-schools {
         .head {
             color: #888;
             font-size: 12px;
@@ -955,10 +955,10 @@
             margin-bottom: 7px;
         }
 
-        ul.topics {
+        ul.schools {
             margin: 0;
 
-            li.topic {
+            li.school {
                 clear: both;
                 list-style: none;
                 margin-bottom: 7px;
@@ -1214,25 +1214,25 @@
 }
 
 .page-course-modify {
-    .form-body {
-        margin-bottom: 40px;
-    }
-
-    .form-body-header {
-        margin: 25px 0 25px;
+    .backend-header {
+        h1 span {
+            font-size: 20px;
+        }
 
         .completeness {
             float: left;
+            margin-top: 10px;
 
             .head {
-                color: #555;
-                font-size: 16px;
-                margin-bottom: 3px;
+                color: #EEE;
+                display: inline-block;
+                font-size: 13px;
+                margin-right: 15px;
+                vertical-align: middle;
 
                 a {
-                    color: #999;
-                    margin-left: 4px;
-                    text-shadow: 1px 1px #FFF;
+                    color: #EEE;
+                    margin-left: 3px;
                     vertical-align: 1px;
 
                     &:hover {
@@ -1243,122 +1243,124 @@
             }
 
             .progress {
-                background-color: #FFF;
-                background-image: linear-gradient(to bottom, #F9F9F9, #FFF);
+                background-color: #19a7bc;
+                background-image: linear-gradient(to bottom, #1693a5, #19a7bc);
                 display: inline-block;
-                height: 15px;
+                height: 11px;
                 margin: 0px;
                 vertical-align: middle;
                 width: 300px;
 
                 .bar {
-                    background-color: #666;
-                    background-image: linear-gradient(to bottom, #999, #666);
+                    background-color: #FFF;
+                    background-image: linear-gradient(to bottom, #FFF, #DDD);
+                    width: 0%;
                 }
             }
 
             .percentage {
-                color: #555;
+                color: #FFF;
                 display: inline-block;
                 font-size: 14px;
                 font-weight: bold;
-                margin-left: 10px;
-                text-shadow: 1px 1px #FFF;
-                vertical-align: middle;
-
-
-            }
-        }
-
-        .actions {
-            float: right;
-
-            .actions-info {
-                display: inline-block;
-                text-align: right;
-                vertical-align: middle;
-
-                .status {
-                    color: #777;
-                    display: block;
-                    font-size: 13px;
-                    font-weight: bold;
-                    margin-bottom: 2px;
-
-                    em {
-                        color: #444;
-                        font-style: normal;
-                    }
-                }
-
-                .autosave {
-                    color: #777;
-                    display: block;
-                    font-size: 13px;
-                    font-weight: bold;
-
-                    em {
-                        color: #444;
-                        font-style: normal;
-                    }
-                }
-            }
-
-            button {
-                margin-left: 10px;
+                margin-left: 8px;
                 vertical-align: middle;
             }
         }
     }
 
-    .form-nav {
+    .form-message {
+        color: #555;
+        font-size: 16px;
+        margin-top: 40px;
+        text-align: center;
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .head1 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        a {
+            .content_link;
+        }
+    }
+
+    .form-actions {
+        margin: 20px 0;
+        text-align: right;
+
+        .loading {
+            vertical-align: middle;
+        }
+
+        .preview {
+            vertical-align: bottom;
+
+            .link-preview {
+                .grey_link;
+                font-size: 13px;
+
+            }
+
+            i {
+                color: #777;
+                font-size: 12px;
+                margin-right: 2px;
+                vertical-align: 0px;
+            }
+        }
+
+        .message {
+            vertical-align: bottom;
+        }
+
+        .error-message {
+            background-color: #FCC;
+            color: #444;
+            font-size: 13px;
+        }
+
+        button {
+            font-size: 13px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .button-submit {
+            font-weight: bold;
+        }
+    }
+
+    .form-navigation {
         li {
-            &.outline {
-                i {
-                    vertical-align: 0px;
-                }
+            &.outline i {
+                margin-left: 1px;
             }
 
-            &.story {
-                i {
-                    margin-left: 2px;
-                    vertical-align: 1px;
-                }
+            &.story i {
+                margin-left: 3px;
             }
 
-            &.details {
-                i {
-                    margin-left: 2px;
-                    vertical-align: 0px;
-                }
+            &.pictures i {
+
             }
 
-            &.place {
-                i {
-                    margin-left: 6px;
-                    vertical-align: 1px;
-                }
+            &.details i {
+                margin-left: 3px;
+            }
+
+            &.place i {
+                margin-left: 7px;
             }
         }
     }
 
     .form-content {
-        border: 2px solid #EEE;
-
-        .form-content-inner {
-            background-color: #FFF;
-            border: 1px solid #DDD;
-            padding: 20px;
-        }
-
-        h2 {
-            border-bottom: 3px double #DDD;
-            color: @primaryColor;
-            font-size: 26px;
-            line-height: normal;
-            margin: 0 0 25px 0;
-            padding-bottom: 6px;
-        }
+        margin-top: 10px;
 
         .control-group {
             margin-bottom: 20px;
@@ -1378,46 +1380,50 @@
             }
 
             .control-guide {
-                background-color: #EEE;
-                border: 1px solid #DDD;
-                color: #555;
+                border-left: 1px solid #DDD;
+                color: #666;
                 display: inline-block;
-                font-size: 13px;
+                font-size: 12.5px;
                 margin-left: 50px;
-                padding: 10px 15px;
+                padding: 0 15px;
                 vertical-align: top;
+                width: 400px;
             }
 
-            .arrow_box {
+            .controls-text {
+                input {
+                    font-size: 18px;
+                    height: 23px;
+                    text-align: center;
+
+                    &.error {
+                        background-color: #FCC;
+                    }
+                }
+
+                .unit {
+                    color: #555;
+                    margin-left: 6px;
+                }
+            }
+
+            .fileinput-button {
+                margin-bottom: 10px;
+                overflow: hidden;
                 position: relative;
-                background: #F9F9F9;
-                border: 1px solid #ddd;
             }
 
-            .arrow_box:after, .arrow_box:before {
-                right: 100%;
-                border: solid transparent;
-                content: " ";
-                height: 0;
-                width: 0;
+            .fileinput-button input {
                 position: absolute;
-                pointer-events: none;
-            }
-
-            .arrow_box:after {
-                border-color: rgba(249, 249, 249, 0);
-                border-right-color: #F9F9F9;
-                border-width: 10px;
-                top: 18px;
-                margin-top: -10px;
-            }
-
-            .arrow_box:before {
-                border-color: rgba(221, 221, 221, 0);
-                border-right-color: #ddd;
-                border-width: 11px;
-                top: 18px;
-                margin-top: -11px;
+                top: 0;
+                right: 0;
+                margin: 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                transform: translate(-300px, 0) scale(4);
+                font-size: 23px;
+                direction: ltr;
+                cursor: pointer;
             }
         }
 
@@ -1427,93 +1433,229 @@
             input {
                 font-size: 16px;
                 height: 30px;
-                width: 95%;
+                width: 700px;
             }
         }
 
         .outline-control {
-            .controls {
-                ul {
-                    margin: 0;
+            ul {
+                margin: 0;
 
-                    li {
-                        border: 1px solid #999;
-                        border-left: 5px solid #999;
-                        box-shadow: 2px 2px 0px #EEE;
-                        list-style: none;
-                        margin-bottom: 15px;
+                li {
+                    border: 1px solid #999;
+                    border-left: 5px solid #999;
+                    list-style: none;
+                    margin-bottom: 15px;
 
-                        .remove {
-                            display: block;
-                            float: right;
-                            line-height: normal;
-                            margin: 8px 9px 0 0;
+                    .icon-remove {
+                        color: #AAA;
+                        cursor: pointer;
+                        display: block;
+                        font-size: 15px;
+                        float: right;
+                        line-height: normal;
+                        padding: 11px 10px;
 
-                            i {
-                                color: #AAA;
-                                font-size: 15px;
-                            }
-
-                            &:hover {
-                                text-decoration: none;
-
-                                i {
-                                    color: #c30;
-                                }
-                            }
-                        }
-
-                        i.icon-reorder, i.icon-plus {
-                            color: #AAA;
-                            cursor: move;
-                            display: inline-block;
-                            line-height: 38px;
-                            padding: 0 14px;
-                            vertical-align: middle;
-                        }
-
-                        input {
-                            border: none;
-                            box-shadow: none;
-                            font-size: 15px;
-                            height: 26px;
-                            margin: 0px;
-                            padding: 5px 0px;
-                            vertical-align: middle;
-                            width: 90%;
+                        &:hover {
+                            color: #c30;
                         }
                     }
 
-                    li.add {
-                        border: 1px dashed #CCC;
-                        box-shadow: none;
-                        list-style: none;
-                        margin-bottom: 10px;
-                        padding-left: 4px;
+                    .icon-reorder, .icon-plus {
+                        color: #AAA;
+                        display: inline-block;
+                        line-height: 38px;
+                        padding: 0 14px;
+                        vertical-align: middle;
+                    }
 
-                        a {
-                            color: #666;
-                            font-size: 13px;
-                            font-weight: bold;
-                        }
+                    .icon-reorder {
+                        cursor: move;
+                    }
+
+                    input {
+                        background-color: transparent;
+                        border: none;
+                        box-shadow: none;
+                        font-size: 15px;
+                        height: 26px;
+                        margin: 0px;
+                        padding: 5px 0px;
+                        vertical-align: middle;
+                        width: 90%;
+                    }
+                }
+
+                li.ui-state-highlight {
+                    border: 1px dashed #CCC;
+                    height: 38px;
+                }
+
+                li.add {
+                    border: 1px dashed #CCC;
+                    box-shadow: none;
+                    list-style: none;
+                    margin-bottom: 10px;
+                    padding-left: 4px;
+
+                    a {
+                        color: #666;
+                        font-size: 13px;
+                        font-weight: bold;
                     }
                 }
             }
         }
 
         .story-control {
-            textarea {
-                width: 95%;
+
+        }
+
+        .cover-control {
+            margin-bottom: 30px;
+
+            .cover {
+                border: 1px solid #DDD;
+                height: 100px;
+                margin-bottom: 15px;
+                width: 275px;
+
+                .progress {
+                    height: 20px;
+                    margin: 40px auto 0;
+                    width: 200px;
+                }
+
+                .error {
+                    color: #C30;
+                    font-size: 13px;
+                    margin-top: 40px;
+                    text-align: center;
+                }
+            }
+
+            .help-block {
+                font-size: 13px;
+            }
+        }
+
+        .pictures-control {
+            .pictures {
+                margin: 10px 0 0;
+
+                li {
+                    background-color: #FFF;
+                    height: 117px;
+                    list-style: none;
+                    margin-bottom: 25px;
+                    vertical-align: middle;
+                }
+
+                .ui-state-highlight {
+                    background-color: transparent;
+                    border: 1px dashed #CCC;
+                }
+
+                li.uploading {
+                    border: 1px dashed #DDD;
+                    height: 77px;
+                    padding: 20px;
+
+                    em {
+                        color: #777;
+                        display: block;
+                        font-weight: bold;
+                        margin-top: 15px;
+                    }
+
+                    .progress {
+                        margin-top: 10px;
+                    }
+                }
+
+                li.picture {
+                    margin-left: 5px;
+                    vertical-align: middle;
+
+                    .image {
+                        cursor: move;
+                        float: left;
+
+                        .icon-reorder {
+                            color: #999;
+                        }
+
+                        img {
+                            border: 1px solid #CCC;
+                            height: 115px;
+                            margin-left: 5px;
+                            width: 200px;
+                        }
+                    }
+
+                    .description {
+                        margin-left: 245px;
+                        padding-top: 5px;
+
+                        label {
+                            color: #555;
+                            font-size: 13px;
+
+                            input {
+                                display: block;
+                                font-size: 16px;
+                                height: 30px;
+                                margin-top: 5px;
+                                width: 95%;
+                            }
+                        }
+
+                        .delete {
+                            .danger_link;
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                li.error {
+                    background: url(../images/page/course-form/picture_error.png) #FFF 20px 20px no-repeat;
+                    border: 1px dashed #DDD;
+                    height: 117px;
+
+                    em {
+                        color: #C30;
+                        display: block;
+                        font-size: 15px;
+                        font-weight: bold;
+                        margin: 30px 0 0 65px;
+                    }
+
+                    .dismiss {
+                        margin: 5px 0 0 65px;
+
+                        a {
+                            .grey_link;
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .school-control {
+            select {
+                font-size: 15px;
+                padding: 4px;
+
+                option {
+                    padding: 4px;
+                }
             }
         }
 
         .topics-control {
-            select {
-                width: 414px;
-            }
-
-            .control-guide {
-                width: 406px;
+            input {
+                width: 400px;
             }
         }
 
@@ -1526,119 +1668,157 @@
                     padding: 4px;
                 }
             }
-
-            .control-guide {
-                width: 614px;
-            }
         }
 
         .tuition-control {
-            .controls {
-                input {
-                    font-size: 18px;
-                    height: 23px;
-                    text-align: center;
-                    width: 70px;
-                }
-
-                span {
-                    color: #555;
-                    margin-left: 6px;
-                }
-            }
-
-            .control-guide {
-                width: 710px;
+            .controls input {
+                width: 70px;
             }
         }
 
         .duration-control {
-            .controls {
-                input {
-                    font-size: 18px;
-                    height: 23px;
-                    text-align: center;
-                    width: 50px;
-                }
-
-                span {
-                    color: #555;
-                    margin-left: 6px;
-                }
+            .controls input {
+                width: 50px;
             }
         }
 
         .capacity-control {
-            input {
-                width: 400px;
-            }
-
-            .control-info {
-                margin-top: 4px;
-                width: 414px; // Added slider handle size
-
-                .min {
-                    color: #999;
-                    float: left;
-                    font-size: 13px;
-                    font-weight: bold;
-                }
-
-                .max {
-                    color: #999;
-                    float: right;
-                    font-size: 13px;
-                    font-weight: bold;
-
-                }
-
-                .current {
-                    color: #444;
-                    font-size: 13px;
-                    font-weight: bold;
-                    text-align: center;
-                }
-            }
-
-            .control-guide {
-                width: 420px;
+            .controls input {
+                width: 50px;
             }
         }
 
         #content-place {
-            .choices {
+            h2 {
                 margin-bottom: 20px;
-                text-align: center;
+            }
 
-                a {
-                    background-color: #EEE;
+            .place-choice {
+                margin-bottom: 35px;
+
+                .place-label {
                     color: #444;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 0px 15px;
-                    padding: 30px 0px;
-                    text-shadow: 1px 1px #FFF;
-                    width: 300px;
+                    display: inline;
+                    font-size: 15px;
+                    font-weight: bold;
 
-                    i {
-                        color: #555;
-                        display: block;
-                        margin-bottom: 7px;
-                        text-shadow: 1px 1px #FFF;
-                    }
-
-                    &:hover {
-                        background-color: @linkColor;
-                        color: #FFF;
-                        text-decoration: none;
-                        text-shadow: -1px -1px @linkColorDarker;
-
-                        i {
-                            color: #FFF;
-                            text-shadow: -1px -1px @linkColorDarker;
-                        }
+                    input {
+                        margin-right: 5px;
+                        vertical-align: 0px;
                     }
                 }
+
+                .place-input-body {
+                    padding: 15px 0 0 22px;
+
+                    .place-input {
+                        margin-bottom: 25px;
+
+                        .place-inline-input {
+                            display: inline-block;
+                            vertical-align: top;
+                        }
+                    }
+
+                    label {
+                        color: #444;
+                        display: inline-block;
+                        font-size: 14px;
+                        font-weight: normal;
+                        margin-bottom: 5px;
+                    }
+
+                    input, select, textarea {
+                        margin: 0;
+                    }
+
+                    .help-block {
+                        color: #888;
+                        font-size: 13px;
+                        margin: 2px 0 0;
+                    }
+
+                    #id_place_name {
+                        margin-right: 30px;
+                        width: 306px;
+                    }
+
+                    #id_place_phone {
+                        width: 300px;
+                    }
+
+                    #id_place_address {
+                        margin-right: 30px;
+                        width: 400px;
+                    }
+
+                    .place-input-location {
+                        margin-bottom: 25px;
+
+                        em, a {
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+
+                        .location_latlng {
+                            background-color: #EEE;
+                            color: #555;
+                            font-size: 13px;
+                            margin-right: 10px;
+                            padding: 1px 10px;
+                        }
+                    }
+
+                    #id_place_direction {
+                        height: 60px;
+                        width: 652px;
+                    }
+                }
+            }
+        }
+    }
+
+    #modal-place-map {
+        margin-left: -350px;
+        width: 700px;
+
+        .search {
+            button {
+                vertical-align: middle;
+            }
+
+            input {
+                margin: 0 7px 0 0;
+                vertical-align: middle;
+                width: 300px;
+            }
+        }
+
+        .map {
+            margin-top: 15px;
+
+            #map-canvas {
+                height: 300px;
+                width: 660px;
+
+                img {
+                    max-width: none; // FIX: Google Maps conflicts with Twitter Bootstrap
+                }
+            }
+        }
+
+        .modal-footer .note {
+            color: #444;
+            float: left;
+            font-size: 13px;
+            text-align: left;
+            width: 370px;
+
+            strong {
+                background-color: #666;
+                color: #FFF;
+                margin-right: 3px;
+                padding: 0 5px;
             }
         }
     }

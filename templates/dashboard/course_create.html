@@ -1,9 +1,12 @@
 {% extends 'base_backend.html' %}
+{% load common_tags presentation_tags %}
 
 {% block body_class %}{{ block.super }} page-course-modify{% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
 <script>
+var _course_uid = '{{ course_uid }}';
 $(document).ready(function() {
     initCourseCreatePage();
 });
@@ -13,168 +16,465 @@ $(document).ready(function() {
 {% block backend_header %}
 <div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
 <h1>Create new course</h1>
+<div class="completeness">
+    <div class="head">Course Completeness</div>
+    <div class="progress">
+        <div class="bar"></div>
+    </div>
+    <div class="percentage">0%</div>
+</div>
 {% endblock %}
 
 {% block backend_container %}
 <div class="container">
+<form method="post" action=".">
+    <div class="form-actions">
+        <span class="message"></span>
+        <button class="style-button button-draft" disabled="disabled" type="submit" name="submit" value="save">Save as draft</button>
+        <button class="style-orange-button button-submit" disabled="disabled" type="submit" name="submit" value="submit">Submit for Approval</button>
+    </div>
+    <div class="row">
+        <div class="span2">
+            <div class="form-navigation">
+                <ul class="style-sidebar-nav">
+                    <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
+                    <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
+                    <li class="pictures"><a href="#content-pictures"><i class="icon-picture icon-large"></i> Cover & Pictures</a></li>
+                    <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Course Details</a></li>
+                    <li class="place last"><a href="#content-place"><i class="icon-map-marker icon-large"></i> Place</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span10">
+            <div class="form-content">
+                <div id="content-outline" class="hide form-content-panel">
+                    <div class="control-group title-control">
+                        <label class="control-label" for="id_title">Course Title</label>
+                        <div class="controls">
+                            <input type="text" id="id_title" placeholder="Title" value="{{ course.title }}">
+                            <div class="help-block">Title should be short, precise and convincing</div>
+                        </div>
+                    </div>
+                    <div class="control-group outline-control">
+                        <label class="control-label">Course Outline</label>
+                        <div class="controls">
+                            <ul id="control_outline_list">
+                                <li class="add"><i class="icon-plus"></i><a href="#" id="control_add_outline">Add course outline</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="content-story" class="hide form-content-panel">
+                    <div class="control-group story-control">
+                        <label class="control-label">Story</label>
+                        <div class="controls">
+                            <textarea id="id_story"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="content-pictures" class="form-content-panel">
+                    <div class="control-group cover-control">
+                        <label class="control-label" for="id_cover">Cover</label>
+                        <div class="controls">
+                            <div class="cover hide" id="upload-cover"></div>
+                            <span class="btn btn-small fileinput-button">
+                                <span>Upload cover image...</span>
+                                <input id="id_cover" type="file" name="cover">
+                            </span>
+                            <div class="help-block">Cover image will automatically be resize to <strong>550x200</strong> and <strong>272x100</strong> pixels</div>
+                            <input type="hidden" id="id_cover_filename" />
+                        </div>
+                    </div>
+                    <div class="control-group school-control">
+                        <label class="control-label" for="id_pictures">Pictures</label>
+                        <div class="controls pictures-control">
+                            <span class="btn btn-small fileinput-button">
+                                <span>Upload pictures...</span>
+                                <input id="id_pictures" type="file" name="pictures[]" multiple>
+                            </span>
+                            <ul class="pictures" id="upload-pictures">{% comment %}
+                                <li class="uploading"><em>Uploading...</em><div class="progress progress-striped"><div class="bar"></div></div></li>
+                                <li class="error">
+                                    <em>Error on something</em>
+                                    <div class="dismiss"><a href="#">Dismiss</a></div>
+                                </li>
+                                <li class="picture">
+                                    <div class="image">
+                                        <i class="icon-reorder"></i>
+                                        <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" />
+                                    </div>
+                                    <div class="description">
+                                        <label>Describe this picture <input type="text" /></label>
+                                        <a href="#" class="delete">Delete picture</a>
+                                    </div>
+                                </li>
+                            {% endcomment %}</ul>
+                            <input type="hidden" id="id_pictures_ordering" />
+                        </div>
+                    </div>
+                </div>
+                <div id="content-details" class="hide form-content-panel">
+                    <!-- School -->
+                    <div class="control-group school-control">
+                        <div><label class="control-label" for="id_school">School of</label></div>
+                        <div class="controls controls-with-guide">
+                            <select id="id_school">
+                                <option></option>
+                                {% course_school_options %}
+                            </select>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <div class="control-group topics-control">
+                        <div><label class="control-label" for="id_topics">Topics</label></div>
+                        <div class="controls controls-with-guide">
+                            <input type="hidden" id="id_topics" />
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <!-- Level / Prerequisites -->
+                    <div class="control-group level-control">
+                        <div><label class="control-label" for="id_level">Level of Student</label></div>
+                        <div class="controls controls-with-guide">
+                            <select id="id_level">
+                                <option></option>
+                                {% course_level_options %}
+                            </select>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <!-- Tuition Fee -->
+                    <div class="control-group tuition-control">
+                        <div><label class="control-label" for="id_price">Tuition Fee</label></div>
+                        <div class="controls controls-text controls-with-guide">
+                            <input type="number" id="id_price">
+                            <span class="unit">Baht</span>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <!-- Duration / Duration Unit -->
+                    <div class="control-group duration-control">
+                        <label class="control-label" for="id_duration">Duration</label>
+                        <div class="controls controls-text">
+                            <input type="number" id="id_duration">
+                            <span class="unit">Hours</span>
+                        </div>
+                    </div>
+
+                    <!-- Capacity -->
+                    <div class="control-group capacity-control">
+                        <div><label class="control-label" for="id_capacity">Class limit</label></div>
+                        <div class="controls controls-text controls-with-guide">
+                            <input type="number" id="id_capacity" />
+                            <span class="unit">People</span>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+                </div>
+                <div id="content-place" class="hide form-content-panel">
+                    <div class="control-group capacity-control">
+                        <label class="control-label">Place location</label>
+                        <div class="place-choice">
+                            <label class="place-label"><input type="radio" name="place" value="defined-place" /> Select from our list</label>
+                            <div class="place-input-body">
+                                <select id="id_place_defined">
+                                    <option></option>
+                                    {% course_place_options %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="place-choice">
+                            <label class="place-label"><input type="radio" name="place" value="userdefined-place" /> Choose your own place</label>
+                            <div class="place-input-body">
+                                <div class="place-input">
+                                    <div class="place-inline-input">
+                                        <label>Place name</label>
+                                        <div><input type="text" id="id_place_name" /></div>
+                                    </div>
+                                    <div class="place-inline-input">
+                                        <label>Contact number</label>
+                                        <div>
+                                            <input type="text" id="id_place_phone" />
+                                            <span class="help-block">e.g. 089-000-0000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="place-input">
+                                    <div class="place-inline-input">
+                                        <label>Address</label>
+                                        <div><input type="text" id="id_place_address" /></div>
+                                    </div>
+                                    <div class="place-inline-input">
+                                        <label>Province</label>
+                                        <div>
+                                            <select id="id_place_province">
+                                                <option></option>
+                                                {% province_options %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="place-input place-input-location">
+                                    <label>Location</label>
+                                    <div>
+                                        <input type="hidden" id="id_place_location" />
+                                        <em class="location_latlng">No location</em>
+                                        <a href="#modal-place-map" class="btn btn-mini" data-toggle="modal">Mark location from map</a>
+                                    </div>
+                                </div>
+
+                                <div class="place-input">
+                                    <label>How to get there</label>
+                                    <div>
+                                        <textarea id="id_place_direction"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+    {% comment %}
     <form method="post" action=".">
     <div class="form-body">
         <div class="form-body-header clearfix">
-            <div class="completeness">
-                <div class="head">Course Completeness <a href="#"><i class="icon-info-sign"></i></a></div>
-                <div class="progress">
-                    <div class="bar" style="width: 50%;"></div>
-                </div>
-                <div class="percentage">50%</div>
+            <div class="navigation">
+                <ul class="style-topbar-nav">
+                    <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
+                    <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
+                    <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Course Details</a></li>
+                    <li class="place last"><a href="#content-place"><i class="icon-map-marker icon-large"></i> Place</a></li>
+                </ul>
             </div>
             <div class="actions">
                 <span class="actions-info">
-                    <span class="status">Status: <em>UNPUBLISHED</em></span>
-                    <span class="autosave">Auto-saved: <em>Today, 11:00 AM</em></span>
+                    <span class="autosave">Saved on <em>Today, 11:00 AM</em></span>
                 </span>
-                <button class="style-button" type="submit" name="submit" value="save">Save</button>
+                <button class="style-button" type="submit" name="submit" value="save">Save as draft</button>
                 <button class="style-orange-button" type="submit" name="submit" value="submit">Submit for Approval</button>
             </div>
         </div>
-        <div class="row">
-            <div class="span2">
-                <div class="form-nav">
-                    <ul class="style-sidebar-nav">
-                        <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
-                        <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
-                        <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Course Details</a></li>
-                        <li class="place last"><a href="#content-place"><i class="icon-map-marker icon-large"></i> Place</a></li>
-                    </ul>
+
+        <div class="form-content">
+            <div class="form-content-inner">
+                <div id="content-outline" class="form-content-panel">
+                    <h2>Course Outline</h2>
+                    <div class="control-group title-control">
+                        <label class="control-label" for="id_title">Course Title</label>
+                        <div class="controls">
+                            <input type="text" id="id_title" placeholder="Title">
+                            <div class="help-block">Title should be short, precise and convincing</div>
+                        </div>
+                    </div>
+                    <div class="control-group outline-control">
+                        <label class="control-label">Course Outline</label>
+                        <div class="controls">
+                            <ul id="control_outline_list">
+                                <li class="add"><i class="icon-plus"></i><a href="#" id="control_add_outline">Add course outline</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="span10">
-                <div class="form-content">
-                    <div class="form-content-inner">
-                        <div id="content-outline" class="form-content-panel">
-                            <h2>Course Outline</h2>
-                            <div class="control-group title-control">
-                                <label class="control-label" for="id_title">Course Title</label>
-                                <div class="controls">
-                                    <input type="text" id="id_title" placeholder="Title">
-                                    <div class="help-block">Title should be short, precise and convincing</div>
-                                </div>
-                            </div>
-                            <div class="control-group outline-control">
-                                <label class="control-label" for="id_outline">Course Outline</label>
-                                <div class="controls">
-                                    <ul>
-                                        <li><a href="#" class="remove"><i class="icon-remove"></i></a><i class="icon-reorder"></i><input type="text" value="Course Outline 1"/></li>
-                                        <li><a href="#" class="remove"><i class="icon-remove"></i></a><i class="icon-reorder"></i><input type="text" value="Course Outline 1"/></li>
-                                        <li class="add"><i class="icon-plus"></i><a href="#">Add course outline</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div id="content-story" class="hide form-content-panel">
+                    <h2>Story</h2>
+                    <div class="control-group story-control">
+                        <div class="controls">
+                            <textarea id="id_story"></textarea>
                         </div>
-                        <div id="content-story" class="hide form-content-panel">
-                            <h2>Story</h2>
-                            <div class="control-group story-control">
-                                <div class="controls">
-                                    <textarea id="id_story"></textarea>
-                                </div>
-                            </div>
-
+                    </div>
+                </div>
+                <div id="content-details" class="hide form-content-panel">
+                    <h2>Course Details</h2>
+                    <!-- School -->
+                    <div class="control-group school-control">
+                        <div><label class="control-label" for="id_school">School of</label></div>
+                        <div class="controls controls-with-guide">
+                            <select id="id_school">
+                                <option></option>
+                                {% course_school_options %}
+                            </select>
                         </div>
-                        <div id="content-details" class="hide form-content-panel">
-                            <h2>Course Details</h2>
-                            <!-- Topics -->
-                            <div class="control-group topics-control">
-                                <div><label class="control-label" for="id_topics">Topics Covering</label></div>
-                                <div class="controls controls-with-guide">
-                                    <select multiple="multiple" id="id_topics">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                                <div class="control-guide arrow_box">
-                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
-                                </div>
-                            </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
 
-                            <!-- Level / Prerequisites -->
-                            <div class="control-group level-control">
-                                <div><label class="control-label" for="id_title">Level of Student</label></div>
-                                <div class="controls controls-with-guide">
-                                    <select>
-                                        <option value="ANY">Any level</option>
-                                        <option value="BEGINNER">Beginner</option>
-                                        <option value="INTERMEDIATE">Intermediate</option>
-                                        <option value="ADVANCED">Advanced</option>
-                                    </select>
-                                </div>
-                                <div class="control-guide arrow_box">
-                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
-                                </div>
-                            </div>
+                    <div class="control-group topics-control">
+                        <div><label class="control-label" for="id_topics">Topics</label></div>
+                        <div class="controls controls-with-guide">
+                            <input type="hidden" id="id_topics" />
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
 
-                            <!-- Tuition Fee -->
-                            <div class="control-group tuition-control">
-                                <div><label class="control-label" for="id_title">Tuition Fee</label></div>
-                                <div class="controls controls-with-guide">
-                                    <input type="number" id="id_title">
-                                    <span>Baht</span>
-                                </div>
-                                <div class="control-guide arrow_box">
-                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
-                                </div>
-                            </div>
+                    <!-- Level / Prerequisites -->
+                    <div class="control-group level-control">
+                        <div><label class="control-label" for="id_level">Level of Student</label></div>
+                        <div class="controls controls-with-guide">
+                            <select id="id_level">
+                                <option value="ANY">Any level</option>
+                                <option value="BEGINNER">Beginner</option>
+                                <option value="INTERMEDIATE">Intermediate</option>
+                                <option value="ADVANCED">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
 
-                            <!-- Duration / Duration Unit -->
-                            <div class="control-group duration-control">
-                                <label class="control-label" for="id_duration">Duration</label>
-                                <div class="controls">
-                                    <input type="number" id="id_duration">
-                                    <span>Hours</span>
-                                </div>
-                            </div>
+                    <!-- Tuition Fee -->
+                    <div class="control-group tuition-control">
+                        <div><label class="control-label" for="id_price">Tuition Fee</label></div>
+                        <div class="controls controls-text controls-with-guide">
+                            <input type="number" id="id_price">
+                            <span class="unit">Baht</span>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
 
-                            <!-- Min / Max People -->
-                            <div class="control-group capacity-control">
-                                <div><label class="control-label" for="id_title">Capacity</label></div>
-                                <div class="controls controls-with-guide">
-                                    <input type="text" value="" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="[1,10]" data-slider-tooltip="hide"/>
-                                    <div class="control-info">
-                                        <div class="min">0</div>
-                                        <div class="max">100</div>
-                                        <div class="current">1 - 10 people</div>
+                    <!-- Duration / Duration Unit -->
+                    <div class="control-group duration-control">
+                        <label class="control-label" for="id_duration">Duration</label>
+                        <div class="controls controls-text">
+                            <input type="number" id="id_duration">
+                            <span class="unit">Hours</span>
+                        </div>
+                    </div>
+
+                    <!-- Capacity -->
+                    <div class="control-group capacity-control">
+                        <div><label class="control-label" for="id_capacity">Class limit</label></div>
+                        <div class="controls controls-text controls-with-guide">
+                            <input type="number" id="id_capacity" />
+                            <span class="unit">People</span>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+                </div>
+                <div id="content-place" class="hide form-content-panel">
+                    <h2>Place</h2>
+
+                    <div class="place-choice">
+                        <label class="place-label"><input type="radio" name="place" value="defined-place" /> Select from our list</label>
+                        <div class="place-input-body">
+                            <select id="id_place_defined">
+                                <option></option>
+                                {% course_place_options %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="place-choice">
+                        <label class="place-label"><input type="radio" name="place" value="userdefined-place" /> Choose your own place</label>
+                        <div class="place-input-body">
+                            <div class="place-input">
+                                <div class="place-inline-input">
+                                    <label>Place name</label>
+                                    <div><input type="text" id="id_place_name" /></div>
+                                </div>
+                                <div class="place-inline-input">
+                                    <label>Contact number</label>
+                                    <div>
+                                        <input type="text" id="id_place_phone" />
+                                        <span class="help-block">e.g. 089-000-0000</span>
                                     </div>
                                 </div>
-                                <div class="control-guide arrow_box">
-                                    Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+
+                            </div>
+
+                            <div class="place-input">
+                                <div class="place-inline-input">
+                                    <label>Address</label>
+                                    <div><input type="text" id="id_place_address" /></div>
+                                </div>
+                                <div class="place-inline-input">
+                                    <label>Province</label>
+                                    <div>
+                                        <select id="id_place_province">
+                                            <option></option>
+                                            {% province_options %}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="content-place" class="hide form-content-panel">
-                            <h2>Place</h2>
 
-                            <div class="choices">
-                                <a href="#"><i class="icon-list icon-3x"></i> Choose from our list</a>
-                                <a href="#"><i class="icon-map-marker icon-3x"></i> Use your own place</a>
+                            <div class="place-input place-input-location">
+                                <label>Location</label>
+                                <div>
+                                    <input type="hidden" id="id_place_location" />
+                                    <em class="location_latlng">No location</em>
+                                    <a href="#modal-place-map" class="btn btn-mini" data-toggle="modal">Mark location from map</a>
+                                </div>
                             </div>
 
-                            <!-- LIST FILTER: Facilities, Province, Size -->
-                            <!-- LIST: Name, Address, Description, Photos -->
-
-                            <!-- USERDEFINED: Name, Address, Map Lat/Lng, How to get there -->
-
+                            <div class="place-input">
+                                <label>How to get there</label>
+                                <div>
+                                    <textarea id="id_place_direction"></textarea>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     </form>
+    {% endcomment %}
 </div>
 
-<div class="modal hide" id="modal-course-submitted">
+
+{% include 'snippets/modal_error_message.html' %}
+
+<div class="modal fade hide" id="modal-place-map">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Mark location from map</h3>
+    </div>
+    <div class="modal-body">
+        <div class="search">
+            <input type="text" placeholder="Search to nearest location" /> <button class="btn btn-small">Search</button>
+            <input type="hidden" id="id_place_location_temp" />
+        </div>
+        <div class="map"><div id="map-canvas"></div></div>
+    </div>
+    <div class="modal-footer">
+        <div class="note"><strong>How-to</strong> Search to nearest location, zoom in and drag the marker to a precise location</div>
+        <button class="style-button" data-dismiss="modal">Cancel</button>
+        <button class="style-primary-button button-set-location">Set location</button>
+    </div>
+</div>
+
+<div class="modal fade hide" id="modal-course-submitted">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>What's Next?</h3>

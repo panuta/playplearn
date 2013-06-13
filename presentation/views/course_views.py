@@ -28,3 +28,8 @@ def view_courses_explore(request):
 
 def view_course_teach(request):
     return render(request, 'course/course_teach.html', {})
+
+
+def search_course_topics(request):
+    print request
+    pass

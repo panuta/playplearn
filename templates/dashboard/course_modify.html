@@ -1,0 +1,296 @@
+{% extends 'base_backend.html' %}
+{% load common_tags presentation_tags thumbnail %}
+
+{% block body_class %}{{ block.super }} page-course-modify{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
+<script>
+var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}{% endif %}';
+$(document).ready(function() {
+    initCourseModifyPage();
+});
+</script>
+{% endblock %}
+
+{% block backend_header %}
+<div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
+<h1>{% if not course %}Create new course{% else %}Edit course - <span>{{ editing_course.title|default:'(No title)' }}</span>{% endif %}</h1>
+<div class="completeness">
+    <div class="head">Course Completeness</div>
+    <div class="progress"><div class="bar"{% if course %} style="width:{{ completeness }}%;"{% endif %}></div></div>
+    <div class="percentage">{% if not course %}0{% else %}{{ completeness }}{% endif %}%</div>
+</div>
+{% endblock %}
+
+{% block backend_container %}
+<div class="container">
+{% if course and course.status == 'WAIT_FOR_APPROVAL' %}
+    <div class="form-message">
+        <p class="head1">Editing course is not allowed while course information is being review.</p>
+        <p>Please wait for us to get back to you. Usually this process will not take more than 48 hours.</p>
+        <div><a href="{% url 'view_my_courses_teaching' %}">Go back to my teaching courses</a></div>
+    </div>
+{% else %}
+    <div class="form-actions">
+        <span class="message"></span>
+        {% if course and course.status == 'PUBLISHED' %}
+            <button class="style-button button-discard" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="save">Discard changes</button>
+            <button class="style-orange-button button-update" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Update</button>
+        {% else %}
+            <button class="style-button button-draft" disabled="disabled" type="submit" name="submit" value="save">Save as draft</button>
+            <button class="style-orange-button button-submit" {% if completeness != 100 %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Submit for Approval</button>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="span2">
+            <div class="form-navigation">
+                <ul class="style-sidebar-nav">
+                    <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
+                    <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
+                    <li class="pictures"><a href="#content-pictures"><i class="icon-picture icon-large"></i> Cover & Pictures</a></li>
+                    <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Course Details</a></li>
+                    <li class="place last"><a href="#content-place"><i class="icon-map-marker icon-large"></i> Place</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span10">
+            <div class="form-content">
+                <div id="content-outline" class="form-content-panel">
+                    <div class="control-group title-control">
+                        <label class="control-label" for="id_title">Course Title</label>
+                        <div class="controls">
+                            <input type="text" id="id_title" placeholder="Title" value="{{ editing_course.title }}">
+                            <div class="help-block">Title should be short, precise and convincing</div>
+                        </div>
+                    </div>
+                    <div class="control-group outline-control">
+                        <label class="control-label">Course Outline</label>
+                        <div class="controls">
+                            <ul id="control_outline_list">
+                                {% for outline in editing_course.get_editing_outlines %}
+                                    <li class="outline"><i class="icon-remove"></i><i class="icon-reorder"></i><input type="text" value="{{ outline.title }}"/></li>
+                                {% endfor %}
+                                <li class="add"><i class="icon-plus"></i><a href="#" id="control_add_outline">Add course outline</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="content-story" class="hide form-content-panel">
+                    <div class="control-group story-control">
+                        <label class="control-label">Story</label>
+                        <div class="controls">
+                            <textarea id="id_story">{{ editing_course.description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="content-pictures" class="hide form-content-panel">
+                    <div class="control-group cover-control">
+                        <label class="control-label" for="id_cover">Cover</label>
+                        <div class="controls">
+                            <div class="cover{% if not editing_course.cover %} hide{% endif %}" id="upload-cover">{% if editing_course.cover %}<img src="{{ editing_course.cover|thumbnail_url:'course_cover_small' }}" height="100" width="275" />{% endif %}</div>
+                            <span class="btn btn-small fileinput-button">
+                                <span>Upload cover image...</span>
+                                <input id="id_cover" type="file" name="cover">
+                            </span>
+                            <div class="help-block">Cover image will automatically be resize to <strong>550x200</strong> and <strong>272x100</strong> pixels</div>
+                            <input type="hidden" id="id_cover_filename" value="{{ editing_course.cover.name }}" />
+                        </div>
+                    </div>
+                    <div class="control-group school-control">
+                        <label class="control-label" for="id_pictures">Pictures</label>
+                        <div class="controls pictures-control">
+                            <span class="btn btn-small fileinput-button">
+                                <span>Upload pictures...</span>
+                                <input id="id_pictures" type="file" name="pictures[]" multiple>
+                            </span>
+                            <ul class="pictures" id="upload-pictures">
+                                {% for media in editing_course.get_editing_media %}
+                                    <li class="picture" media-uid="{{ media.uid }}">
+                                        <div class="image"><i class="icon-reorder"></i><img src="{{ media.coursepicture.image|thumbnail_url:'course_picture_small' }}" /></div>
+                                        <div class="description">
+                                            <label>Describe this picture <input type="text" value="{{ media.description }}" /></label>
+                                            <a href="#" class="delete">Delete picture</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <input type="hidden" id="id_pictures_ordering" value="{{ editing_course.get_editing_media_ordering }}" />
+                        </div>
+                    </div>
+                </div>
+                <div id="content-details" class="hide form-content-panel">
+                    <!-- School -->
+                    <div class="control-group school-control">
+                        <div><label class="control-label" for="id_school">School of</label></div>
+                        <div class="controls controls-with-guide">
+                            <select id="id_school">
+                                <option></option>
+                                {% course_school_options course %}
+                            </select>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <div class="control-group topics-control">
+                        <div><label class="control-label" for="id_topics">Topics</label></div>
+                        <div class="controls controls-with-guide">
+                            <input type="hidden" id="id_topics" value="{% course_topics_as_text course %}" />
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <!-- Level / Prerequisites -->
+                    <div class="control-group level-control">
+                        <div><label class="control-label" for="id_level">Level of Student</label></div>
+                        <div class="controls controls-with-guide">
+                            <select id="id_level">
+                                <option></option>
+                                {% course_level_options course %}
+                            </select>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <!-- Tuition Fee -->
+                    <div class="control-group tuition-control">
+                        <div><label class="control-label" for="id_price">Tuition Fee</label></div>
+                        <div class="controls controls-text controls-with-guide">
+                            <input type="number" id="id_price" value="{{ editing_course.price|floatformat:0 }}" />
+                            <span class="unit">Baht</span>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+
+                    <!-- Duration / Duration Unit -->
+                    <div class="control-group duration-control">
+                        <label class="control-label" for="id_duration">Duration</label>
+                        <div class="controls controls-text">
+                            <input type="number" id="id_duration" value="{{ editing_course.duration|default:'' }}" />
+                            <span class="unit">Hours</span>
+                        </div>
+                    </div>
+
+                    <!-- Capacity -->
+                    <div class="control-group capacity-control">
+                        <div><label class="control-label" for="id_capacity">Class limit</label></div>
+                        <div class="controls controls-text controls-with-guide">
+                            <input type="number" id="id_capacity" value="{{ editing_course.maximum_people|default:'' }}" />
+                            <span class="unit">People</span>
+                        </div>
+                        <div class="control-guide">
+                            Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
+                        </div>
+                    </div>
+                </div>
+                <div id="content-place" class="hide form-content-panel">
+                    <div class="control-group capacity-control">
+                        <label class="control-label">Place location</label>
+                        <div class="place-choice">
+                            <label class="place-label"><input type="radio" name="place" value="defined-place" {% if editing_place.pk and not editing_place.is_userdefined %}checked="checked"{% endif %} /> Select from our list</label>
+                            <div class="place-input-body">
+                                <select id="id_place_defined">
+                                    <option></option>
+                                    {% course_place_options course %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="place-choice">
+                            <label class="place-label"><input type="radio" name="place" value="userdefined-place" {% if editing_place.pk and editing_place.is_userdefined %}checked="checked"{% endif %} /> Choose your own place</label>
+                            <div class="place-input-body">
+                                {% get_course_undefined_place course as editing_userdefined_place %}
+                                <div class="place-input">
+                                    <div class="place-inline-input">
+                                        <label for="id_place_name">Place name</label>
+                                        <div><input type="text" id="id_place_name" value="{{ editing_userdefined_place.name }}" /></div>
+                                    </div>
+                                    <div class="place-inline-input">
+                                        <label for="id_place_phone">Contact number</label>
+                                        <div>
+                                            <input type="text" id="id_place_phone" value="{{ editing_userdefined_place.phone_number }}" />
+                                            <span class="help-block">e.g. 089-000-0000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="place-input">
+                                    <div class="place-inline-input">
+                                        <label for="id_place_address">Address</label>
+                                        <div><input type="text" id="id_place_address" value="{{ editing_userdefined_place.address }}" /></div>
+                                    </div>
+                                    <div class="place-inline-input">
+                                        <label for="id_place_province">Province</label>
+                                        <div>
+                                            <select id="id_place_province">
+                                                <option></option>
+                                                {% province_options editing_userdefined_place.province_code %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="place-input place-input-location">
+                                    <label>Location</label>
+                                    <div>
+                                        <input type="hidden" id="id_place_location" value="{{ editing_userdefined_place.latlng }}" />
+                                        <em class="location_latlng">{% if not editing_userdefined_place.latlng %}No location{% else %}{{ editing_userdefined_place.latlng }}{% endif %}</em>
+                                        <a href="#modal-place-map" class="btn btn-mini" data-toggle="modal">Mark location from map</a>
+                                    </div>
+                                </div>
+                                <div class="place-input">
+                                    <label for="id_place_direction">How to get there</label>
+                                    <div>
+                                        <textarea id="id_place_direction">{{ editing_userdefined_place.direction }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'snippets/modal_error_message.html' %}
+
+    <div class="modal fade hide" id="modal-place-map">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Mark location from map</h3>
+        </div>
+        <div class="modal-body">
+            <div class="search">
+                <input type="text" placeholder="Search to nearest location" /> <button class="btn btn-small">Search</button>
+                <input type="hidden" id="id_place_location_temp" />
+            </div>
+            <div class="map"><div id="map-canvas"></div></div>
+        </div>
+        <div class="modal-footer">
+            <div class="note"><strong>How-to</strong> Search to nearest location, zoom in and drag the marker to a precise location</div>
+            <button class="style-button" data-dismiss="modal">Cancel</button>
+            <button class="style-primary-button button-set-location">Set location</button>
+        </div>
+    </div>
+
+    <div class="modal fade hide" id="modal-course-submitted">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Your course is submitted</h3>
+        </div>
+        <div class="modal-body">
+            <p class="head1">Please wait for our staff to review your course information. Usually this will take no longer than 48 hours. You will be notified once the review process is finished.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{% url 'view_my_courses_teaching' %}" class="style-primary-button">Aye aye!</a>
+        </div>
+    </div>
+{% endif %}
+</div>
+{% endblock %}

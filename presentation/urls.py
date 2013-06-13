@@ -4,8 +4,10 @@ urlpatterns = patterns(
     'presentation.views.views',
     url(r'^$', 'view_homepage', name='view_homepage'),
 
-    url(r'^venue/id/(?P<venue_id>\d+)/$', 'view_venue_info_by_id', name='view_venue_info_by_id'),
-    url(r'^venue/(?P<venue_code>\w+)/$', 'view_venue_info_by_code', name='view_venue_info_by_code'),
+    url(r'^place/id/(?P<place_id>\d+)/$', 'view_place_info_by_id', name='view_place_info_by_id'),
+    url(r'^place/(?P<place_code>\w+)/$', 'view_place_info_by_code', name='view_place_info_by_code'),
+
+
 )
 
 urlpatterns += patterns(
@@ -16,6 +18,8 @@ urlpatterns += patterns(
 
     url(r'^courses/$', 'view_courses_explore', name='view_courses_explore'),
     url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
+
+    url(r'^ajax/course/topics/search/$', 'search_course_topics', name='search_course_topics'),
 )
 
 """
@@ -33,7 +37,7 @@ urlpatterns += patterns(
     'presentation.views.dashboard_views',
     url(r'^my/courses/upcoming/$', 'view_my_courses_upcoming', name='view_my_courses_upcoming'),
     url(r'^my/courses/attended/$', 'view_my_courses_attended', name='view_my_courses_attended'),
-    url(r'^my/courses/attended/(?P<topic_slug>\w+)/$', 'view_my_courses_attended_in_topic', name='view_my_courses_attended_in_topic'),
+    url(r'^my/courses/attended/(?P<school_slug>\w+)/$', 'view_my_courses_attended_in_school', name='view_my_courses_attended_in_school'),
     url(r'^my/courses/teaching/$', 'view_my_courses_teaching', name='view_my_courses_teaching'),
 
     url(r'^my/courses/new/$', 'create_course', name='create_course'),
@@ -45,8 +49,14 @@ urlpatterns += patterns(
 
     url(r'^reservation/(?P<reservation_code>\w+)/print/$', 'print_reservation', name='print_reservation'),
 
-    url(r'^ajax/reservation/details/$', 'ajax_view_reservation_details', name='ajax_view_reservation_details'),
+    url(r'^ajax/course/autosave/$', 'ajax_autosave_course', name='ajax_autosave_course'),
+    url(r'^ajax/course/cover/upload/$', 'ajax_upload_course_cover', name='ajax_upload_course_cover'),
+    url(r'^ajax/course/picture/upload/$', 'ajax_upload_course_picture', name='ajax_upload_course_picture'),
+    url(r'^ajax/course/picture/reorder/$', 'ajax_reorder_course_picture', name='ajax_reorder_course_picture'),
+    url(r'^ajax/course/picture/delete/$', 'ajax_delete_course_picture', name='ajax_delete_course_picture'),
+    url(r'^ajax/course/discard/$', 'ajax_discard_course_changes', name='ajax_discard_course_changes'),
 
+    url(r'^ajax/reservation/details/$', 'ajax_view_reservation_details', name='ajax_view_reservation_details'),
 )
 
 urlpatterns += patterns(

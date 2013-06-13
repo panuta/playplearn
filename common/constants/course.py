@@ -1,15 +1,17 @@
 
 # COURSE STATUS
 COURSE_STATUS_CHOICES = (
-    ('UNPUBLISHED', 'Draft'),
+    ('DRAFT', 'Draft'),
     ('WAIT_FOR_APPROVAL', 'Wait for Approval'),
+    ('READY_TO_PUBLISH', 'Ready to Publish'),
     ('PUBLISHED', 'Public'),
     ('DELETED', 'Deleted'),
 )
 
 COURSE_STATUS_MAP = {
-    'UNPUBLISHED': {'name': 'Draft'},
+    'DRAFT': {'name': 'Draft'},
     'WAIT_FOR_APPROVAL': {'name': 'Wait for Approval'},
+    'READY_TO_PUBLISH': {'name': 'Ready to Publish'},
     'PUBLISHED': {'name': 'Public'},
     'DELETED': {'name': 'Deleted'},
 }
@@ -27,6 +29,19 @@ COURSE_LEVEL_MAP = {
     'BEGINNER': {'name': 'Beginner'},
     'INTERMEDIATE': {'name': 'Intermediate'},
     'ADVANCED': {'name': 'Advanced'},
+}
+
+# COURSE OUTLINE MEDIA
+COURSE_OUTLINE_MEDIA_CHOICES = (
+    ('PICTURE', 'Picture'),
+    ('VIDEO_URL', 'Video URL'),
+    ('VIDEO_UPLOAD', 'Video Upload'),
+)
+
+COURSE_OUTLINE_MEDIA_MAP = {
+    'PICTURE': {'name': 'Picture'},
+    'VIDEO_URL': {'name': 'Video URL'},
+    'VIDEO_UPLOAD': {'name': 'Video Upload'},
 }
 
 # COURSE SCHEDULE STATUS

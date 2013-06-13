@@ -2,8 +2,10 @@
 
 from django import template
 from django.utils.timezone import now
+from common.constants.course import COURSE_LEVEL_CHOICES
 
 from common.l10n import th
+from common.l10n.th import PROVINCE_LIST
 
 register = template.Library()
 
@@ -14,7 +16,10 @@ def daysuntil(from_datetime):
 
 @register.filter
 def timepast(from_datetime):
-    return from_datetime < now()
+    if from_datetime:
+        return from_datetime < now()
+    else:
+        return ''
 
 
 @register.filter
@@ -30,3 +35,13 @@ def schedule_datetime(schedule):
         )
     except ValueError:
         return ''
+
+
+@register.simple_tag
+def province_options(selected_province=''):
+    options = []
+    for province_tuple in PROVINCE_LIST:
+        selected = ' selected="selected"' if selected_province == province_tuple[0] else ''
+        options.append('<option value="%s"%s>%s</option>' %(province_tuple[0], selected, province_tuple[1]))
+
+    return ''.join(options)

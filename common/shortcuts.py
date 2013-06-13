@@ -23,3 +23,13 @@ def response_json_error(error_code='', return_object={}):
         'error': error_code,
         'data': return_object,
     }))
+
+
+def response_json_error_with_message(error_code, error_dict, return_object={}):
+    message = error_dict[error_code]
+    return HttpResponse(json.dumps({
+        'status': 'error',
+        'error': error_code,
+        'message': message,
+        'data': return_object,
+    }))
