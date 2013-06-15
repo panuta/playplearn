@@ -128,6 +128,9 @@ body.modal-open {
   margin-left: 15px;
   padding: 5px 20px;
 }
+.modal .modal-footer .style-primary-button {
+  padding: 5px 30px;
+}
 .slider .slider-selection {
   background-color: #0E90D2;
   background-image: linear-gradient(to bottom, #149bdf, #0480be);
@@ -136,6 +139,148 @@ body.modal-open {
   background-color: #0E90D2;
   background-image: linear-gradient(to bottom, #149bdf, #0480be);
   opacity: 1;
+}
+.datepicker-inline {
+  width: auto;
+}
+.datepicker thead tr {
+  height: 30px;
+}
+.datepicker th.datepicker-switch {
+  color: #444;
+  cursor: default !important;
+  font-size: 16px;
+  font-weight: bold;
+}
+.datepicker .prev,
+.datepicker .next {
+  cursor: pointer;
+  overflow: hidden;
+  text-indent: -9999px;
+  vertical-align: middle;
+}
+.datepicker .prev i,
+.datepicker .next i {
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  display: block;
+  height: 16px;
+  width: 30px;
+}
+.datepicker .prev i {
+  background-image: url(../images/ui/calendar-left.png);
+  background-position: 0 0;
+}
+.datepicker .next i {
+  background-image: url(../images/ui/calendar-right.png);
+  background-position: right center;
+}
+.datepicker .dow {
+  color: #888;
+  padding: 7px 0;
+}
+.datepicker td {
+  border: 1px solid #DDD;
+  border-radius: 0;
+  color: #444;
+  font-size: 15px;
+  height: 39px;
+  outline: 0px;
+  padding: 0;
+  text-align: center;
+  width: 42px;
+}
+.datepicker td.today {
+  background-color: #FFC;
+}
+.datepicker td.new,
+.datepicker td.old {
+  background-color: #F9F9F9;
+  color: #444;
+}
+.datepicker td.day:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  cursor: pointer;
+}
+.datepicker td.active {
+  background-color: #1693a5;
+  color: #FFF;
+}
+.datepicker td.disabled {
+  color: #AAA;
+  font-size: 13px;
+  font-weight: normal;
+}
+.datepicker td.disabled:hover {
+  background-color: transparent;
+  color: #AAA;
+  cursor: default;
+}
+.yui3-calendar {
+  height: 316px;
+}
+.yui3-calendar .yui3-calendar-header {
+  line-height: 30px;
+  padding: 0 30px;
+}
+.yui3-calendar .yui3-calendarnav-prevmonth,
+.yui3-calendar .yui3-calendarnav-nextmonth {
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  overflow: hidden;
+  text-align: center;
+  text-indent: -9999px;
+  vertical-align: middle;
+  width: 30px;
+}
+.yui3-calendar .yui3-calendar-header-label {
+  color: #444;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+.yui3-calendar .yui3-calendarnav-prevmonth {
+  background-image: url(../images/ui/calendar-left.png);
+  background-position: 0 0;
+  margin-left: -30px;
+}
+.yui3-calendar .yui3-calendarnav-nextmonth {
+  background-image: url(../images/ui/calendar-right.png);
+  background-position: right center;
+  margin-right: -30px;
+}
+.yui3-calendar thead th {
+  color: #888;
+}
+.yui3-calendar td {
+  border: 1px solid #DDD;
+  height: 39px;
+  width: 42px;
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  outline: 0px;
+  padding: 0;
+  text-align: center;
+}
+.yui3-calendar td.ui-datepicker-other-month {
+  background-color: #F9F9F9;
+}
+.yui3-calendar td.ui-datepicker-unselectable .ui-state-default {
+  color: #AAA;
+  font-size: 13px;
+  font-weight: normal;
+}
+.yui3-calendar td.ui-datepicker-today .ui-state-default {
+  background-color: #FFC;
+}
+.yui3-calendar td:hover {
+  background-color: #1693a5 !important;
+  color: #FFF;
 }
 .style-form .control-group {
   margin-bottom: 25px;
@@ -1850,55 +1995,70 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status {
   margin-top: 10px;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest em {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .status_name {
   display: inline-block;
   font-size: 13px;
   font-weight: bold;
   line-height: normal;
   margin-right: 10px;
-  padding: 3px 15px 4px;
+  padding: 5px 15px;
   vertical-align: middle;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest em.draft {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .draft {
   background-color: #DDD;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest em.wait {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .wait {
   background-color: #FFC;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest em.public {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .ready {
   background-color: #BEC;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest .caption {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .published {
+  background-color: #BEC;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .caption {
   color: #777;
-  font-size: 12px;
+  font-size: 13px;
   margin-right: 4px;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest .datetime {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .datetime {
   display: inline-block;
+  font-size: 15px;
   margin-right: 10px;
   vertical-align: middle;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .latest .students {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .status .students {
   display: inline-block;
+  font-size: 15px;
   vertical-align: middle;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .actions {
   margin-top: 8px;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .actions a {
+  margin-right: 10px;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions .completeness {
+  font-size: 13px;
+  vertical-align: middle;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions .completeness em {
+  font-weight: bold;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a.link {
   font-size: 13px;
   margin-right: 10px;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a:link,
-.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a:active,
-.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a:visited {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a.link:link,
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a.link:active,
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a.link:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a:hover {
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions a.link:hover {
   background-color: #1693a5;
   color: #FFF;
   text-decoration: underline;
@@ -1926,6 +2086,74 @@ body {
 }
 .page-my-courses-teaching .no-teaching-course .call_to_action {
   margin-top: 18px;
+}
+.page-my-courses-teaching .schedule-modal {
+  margin-left: -300px;
+  width: 600px;
+}
+.page-my-courses-teaching .schedule-modal .schedule-date {
+  float: left;
+  padding: 15px 0 0 15px;
+}
+.page-my-courses-teaching .schedule-modal .schedule-date .note {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
+.page-my-courses-teaching .schedule-modal .schedule-time {
+  margin-left: 325px;
+  padding-top: 50px;
+}
+.page-my-courses-teaching .schedule-modal .schedule-time .head {
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 9px;
+  text-align: center;
+}
+.page-my-courses-teaching .schedule-modal .schedule-time select {
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 150px;
+}
+.page-my-courses-teaching .schedule-modal .schedule-time select option {
+  padding: 2px 5px;
+  text-align: center;
+}
+.page-my-courses-teaching #modal-publish-course {
+  margin-left: -300px;
+  width: 600px;
+}
+.page-my-courses-teaching #modal-publish-course #publish-date {
+  float: left;
+  padding: 15px 0 0 15px;
+}
+.page-my-courses-teaching #modal-publish-course #publish-date .note {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
+.page-my-courses-teaching #modal-publish-course #publish-time {
+  margin-left: 325px;
+  padding-top: 50px;
+}
+.page-my-courses-teaching #modal-publish-course #publish-time .head {
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 9px;
+  text-align: center;
+}
+.page-my-courses-teaching #modal-publish-course #publish-time select {
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 150px;
+}
+.page-my-courses-teaching #modal-publish-course #publish-time select option {
+  padding: 2px 5px;
+  text-align: center;
 }
 .page-course-modify .backend-header h1 span {
   font-size: 20px;

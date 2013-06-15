@@ -3,6 +3,128 @@
 
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='teaching' %}{% endblock %}
 
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    var publish_modal = $('#modal-publish-course');
+    var publish_date_datepicker = $('#id_publish_schedule_date').find('.calendar');
+
+    publish_date_datepicker.datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        startDate: '0',
+        endDate: '+60d',
+        language: 'th'
+    }).on('changeDate', function() {
+        publish_date_datepicker.data('is_dirty', true);
+        if($('#id_publish_schedule_time').find('option:selected').length) {
+            publish_modal.find('.modal-footer .button-submit').attr('disabled', false);
+        }
+    });
+
+    $('#id_publish_schedule_time').find('select').on('change', function() {
+        if(publish_date_datepicker.data('is_dirty')) {
+            publish_modal.find('.modal-footer .button-submit').attr('disabled', false);
+        }
+    });
+
+    $('.open-modal-publish-course').on('click', function() {
+        publish_modal.data('course-uid', $(this).closest('li.course').attr('data-course-uid'));
+
+        publish_date_datepicker.datepicker('setDate', new Date());
+        publish_date_datepicker.data('is_dirty', false);
+        $('#id_publish_schedule_time').find('option').attr('selected', false);
+
+        publish_modal.find('.modal-footer .button-submit').attr('disabled', true);
+        publish_modal.find('.modal-footer .button-cancel').attr('disabled', false);
+    });
+
+    publish_modal.find('.button-submit:not(.disabled)').on('click', function() {
+        publish_modal.find('.modal-footer button').attr('disabled', true);
+
+        var schedule_date = publish_date_datepicker.datepicker('getFormattedDate');
+        var schedule_time = $('#id_publish_schedule_time').find('option:selected').val();
+
+        var jqxhr = $.post('/ajax/course/publish/', {uid: publish_modal.data('course-uid'), schedule_date:schedule_date, schedule_time:schedule_time}, function(response) {
+            if(response.status == 'success') {
+                window.location = response.data.redirect_url;
+
+            } else {
+                if(response.message) {
+                    _showModalErrorMessage('modal-publish-course', response.message);
+                } else {
+                    _showModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _showModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
+        });
+    });
+
+    var add_schedule_modal = $('#modal-add-schedule');
+    var add_schedule_date_datepicker = $('#id_add_schedule_date').find('.calendar');
+
+    add_schedule_date_datepicker.datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        startDate: '0',
+        endDate: '+60d',
+        language: 'th'
+    }).on('changeDate', function() {
+        add_schedule_date_datepicker.data('is_dirty', true);
+        if($('#id_add_schedule_time').find('option:selected').length) {
+            add_schedule_modal.find('.modal-footer .button-submit').attr('disabled', false);
+        }
+    });
+
+    $('#id_add_schedule_time').find('select').on('change', function() {
+        if(add_schedule_date_datepicker.data('is_dirty')) {
+            add_schedule_modal.find('.modal-footer .button-submit').attr('disabled', false);
+        }
+    });
+
+    $('.open-modal-add-schedule').on('click', function() {
+        add_schedule_modal.data('course-uid', $(this).closest('li.course').attr('data-course-uid'));
+
+        add_schedule_date_datepicker.datepicker('update', new Date());
+        add_schedule_date_datepicker.data('is_dirty', false);
+        $('#id_add_schedule_time').find('option').attr('selected', false);
+
+        add_schedule_modal.find('.modal-footer .button-submit').attr('disabled', true);
+        add_schedule_modal.find('.modal-footer .button-cancel').attr('disabled', false);
+    });
+
+    add_schedule_modal.find('.button-submit:not(.disabled)').on('click', function() {
+        add_schedule_modal.find('.modal-footer button').attr('disabled', true);
+
+        var schedule_date = add_schedule_date_datepicker.datepicker('getFormattedDate');
+        var schedule_time = $('#id_add_schedule_time').find('option:selected').val();
+
+        var jqxhr = $.post('/ajax/course/schedule/add/', {uid: add_schedule_modal.data('course-uid'), schedule_date:schedule_date, schedule_time:schedule_time}, function(response) {
+            if(response.status == 'success') {
+                add_schedule_modal.modal('hide');
+
+                // TODO update view, show notification
+
+            } else {
+                if(response.message) {
+                    _showModalErrorMessage('modal-publish-course', response.message);
+                } else {
+                    _showModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _showModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
+        });
+    });
+});
+</script>
+{% endblock %}
+
 {% block courses_content %}
 <div class="page-my-courses-teaching">
     {% if teaching_courses %}
@@ -29,23 +151,37 @@
                     </ul>
                 </div>
                 <div class="teaching-courses">
-                    <!-- TODO Sort by: Date Created, Latest schedule -->
                     <ul class="courses">
                         {% for course in teaching_courses %}
-                            <li class="course clearfix">
+                            <li class="course clearfix" data-course-uid="{{ course.uid }}">
                                 <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title|default:'(No title)' }}</a></div>
-                                <div class="latest">
-                                    {% if course.status == 'UNPUBLISHED' %}<em class="draft">{{ course.status_name }}</em>{% endif %}
-                                    {% if course.status == 'WAIT_FOR_APPROVAL' %}<em class="wait">{{ course.status_name }}</em>{% endif %}
-                                    {% if course.status == 'PUBLISHED' %}<em class="public">{{ course.status_name }}</em>{% endif %}
-
-                                    <span class="datetime"><span class="caption">{% if course.next_schedule.start_datetime|timepast %}Last{% else %}Upcoming{% endif %} class</span> {{ course.next_schedule.start_datetime|date:'l, j M Y H:i' }}</span>
-                                    <span class="students"><span class="caption">Attendance</span> {{ course.next_schedule.stats_seats_reserved }}/{{ course.maximum_people }} students</span>
+                                <div class="status">
+                                    <span class="status_name {{ course.status_info.css_class }}">{{ course.status_info.name }}</span>
+                                    {% if course.status == 'PUBLISHED' %}
+                                        {% with latest_schedule=course.get_latest_schedule %}
+                                        {% if latest_schedule.start_datetime|timepast %}
+                                            <span class="datetime"><span class="caption">Last class</span> {{ latest_schedule.start_datetime|date:'l, j M Y H:i' }}</span>
+                                        {% else %}
+                                            <span class="datetime"><span class="caption">Upcoming class</span> {{ latest_schedule.start_datetime|date:'l, j M Y H:i' }}</span>
+                                            <span class="students"><span class="caption">Attendance</span> {{ latest_schedule.stats_seats_reserved }}/{{ course.maximum_people }} students</span>
+                                        {% endif %}
+                                        {% endwith %}
+                                    {% endif %}
                                 </div>
                                 <div class="actions">
-                                    <a href="{% url 'manage_course_overview' course.uid %}">Manage classroom</a>
-                                    <a href="{% url 'edit_course' course.uid %}">Edit course</a>
-                                    <!-- TODO -->{% if course.can_add_new_class %}<a href="#">Add new class</a>{% endif %}
+                                    {% if course.status == 'DRAFT' %}
+                                        <a href="{% url 'edit_course' course.uid %}" class="btn btn-small">Edit course</a>
+                                        <span class="completeness"><em>{{ course.completeness }}%</em> completeness</span>
+                                    {% elif course.status == 'WAIT_FOR_APPROVAL' %}
+                                        <a href="{% url 'edit_course' course.uid %}" class="btn btn-small">Edit course</a>
+                                    {% elif course.status == 'READY_TO_PUBLISH' %}
+                                        <a href="#" class="btn btn-small open-modal-publish-course" data-toggle="modal" data-target="#modal-publish-course"><strong>Publish this course</strong></a>
+                                        <a href="{% url 'edit_course' course.uid %}" class="btn btn-small">Edit course</a>
+                                    {% elif course.status == 'PUBLISHED' %}
+                                        <a href="{% url 'manage_course_overview' course.uid %}" class="link">Manage classroom</a>
+                                        <a href="{% url 'edit_course' course.uid %}" class="link">Edit course</a>
+                                        <a href="#" class="link open-modal-add-schedule" data-toggle="modal" data-target="#modal-add-schedule">Add new class</a>
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endfor %}
@@ -56,12 +192,57 @@
                 <div class="teaching-create">
                     <a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create a new course</a>
                 </div>
+                {% comment %}
                 <div class="teaching-activities">
                     <div class="head">RECENT ACTIVITIES</div>
                     <!-- TODO -->
                 </div>
+                {% endcomment %}
             </div>
         </div>
+
+        <div class="modal fade hide schedule-modal" id="modal-publish-course">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Set your class date and time</h3>
+            </div>
+            <div class="modal-body">
+                <div id="id_publish_schedule_date" class="schedule-date">
+                    <div class="calendar"></div>
+                    <div class="note">Now allow setting further than 2 months</div>
+                </div>
+                <div id="id_publish_schedule_time" class="schedule-time">
+                    <div class="head">Start time</div>
+                    <select size="10">{% time_options %}</select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="style-button button-cancel" data-dismiss="modal">Cancel</button>
+                <button class="style-primary-button button-submit">Publish</button>
+            </div>
+        </div>
+
+        <div class="modal fade hide schedule-modal" id="modal-add-schedule">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Add new class</h3>
+            </div>
+            <div class="modal-body">
+                <div id="id_add_schedule_date" class="schedule-date">
+                    <div class="calendar"></div>
+                    <div class="note">Now allow setting further than 2 months</div>
+                </div>
+                <div id="id_add_schedule_time" class="schedule-time">
+                    <div class="head">Start time</div>
+                    <select size="10">{% time_options %}</select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="style-button button-cancel" data-dismiss="modal">Cancel</button>
+                <button class="style-primary-button button-submit">Add class</button>
+            </div>
+        </div>
+
     {% else %}
         <div class="no-teaching-course">
             <div class="head1">Do you have a passion on something?</div>

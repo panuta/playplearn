@@ -155,6 +155,10 @@ body.modal-open {
             margin-left: 15px;
             padding: 5px 20px;
         }
+
+        .style-primary-button {
+            padding: 5px 30px;
+        }
     }
 }
 
@@ -170,6 +174,184 @@ body.modal-open {
         background-color: #0E90D2;
         background-image: linear-gradient(to bottom, #149BDF, #0480BE);
         opacity: 1;
+    }
+}
+
+// LIBS: JQUERY UI DATEPICKER ##########################################################################################
+
+.datepicker-inline {
+    width: auto;
+}
+
+.datepicker {
+    thead tr {
+        height: 30px;
+    }
+
+    th.datepicker-switch {
+        color: #444;
+        cursor: default !important;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .prev, .next {
+        cursor: pointer;
+        overflow: hidden;
+        text-indent: -9999px;
+        vertical-align: middle;
+
+        i {
+            background-repeat: no-repeat;
+            text-indent: -9999px;
+            display: block;
+            height: 16px;
+
+            width: 30px;
+        }
+    }
+
+    .prev i {
+        background-image: url(../images/ui/calendar-left.png);
+        background-position: 0 0;
+    }
+
+    .next i {
+        background-image: url(../images/ui/calendar-right.png);
+        background-position: right center;
+    }
+
+    .dow {
+        color: #888;
+        padding: 7px 0;
+    }
+
+    td {
+        border: 1px solid #DDD;
+        border-radius: 0;
+        color: #444;
+        font-size: 15px;
+        //font-weight: bold;
+        height: 39px;
+        outline: 0px;
+        padding: 0;
+        text-align: center;
+        width: 42px;
+
+        &.today {
+            background-color: #FFC;
+        }
+
+        &.new, &.old {
+            background-color: #F9F9F9;
+            color: #444;
+        }
+
+        &.day:hover {
+            background-color: @linkColor;
+            color: #FFF;
+            cursor: pointer;
+        }
+
+        &.active {
+            background-color: @linkColor;
+            color: #FFF;
+        }
+
+        &.disabled {
+            color: #AAA;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        &.disabled:hover {
+            background-color: transparent;
+            color: #AAA;
+            cursor: default;
+        }
+    }
+}
+
+
+.yui3-calendar {
+    height: 316px;
+    //width: 294px;
+
+    .yui3-calendar-header {
+        line-height: 30px;
+        padding: 0 30px;
+    }
+
+    .yui3-calendarnav-prevmonth, .yui3-calendarnav-nextmonth {
+        background-repeat: no-repeat;
+        cursor: pointer;
+        display: inline-block;
+        height: 16px;
+        overflow: hidden;
+        text-align: center;
+        text-indent: -9999px;
+        vertical-align: middle;
+        width: 30px;
+    }
+
+    .yui3-calendar-header-label {
+        color: #444;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .yui3-calendarnav-prevmonth {
+        background-image: url(../images/ui/calendar-left.png);
+        background-position: 0 0;
+        margin-left: -30px;
+    }
+
+    .yui3-calendarnav-nextmonth {
+        background-image: url(../images/ui/calendar-right.png);
+        background-position: right center;
+        margin-right: -30px;
+    }
+
+    thead th {
+        color: #888;
+    }
+
+    td {
+        border: 1px solid #DDD;
+        height: 39px;
+        width: 42px;
+
+        color: #555;
+        font-size: 14px;
+        font-weight: bold;
+        //line-height: 39px;
+        outline: 0px;
+        padding: 0;
+        text-align: center;
+
+
+
+
+        &.ui-datepicker-other-month  {
+            background-color: #F9F9F9;
+        }
+
+        &.ui-datepicker-unselectable .ui-state-default {
+            color: #AAA;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        &.ui-datepicker-today .ui-state-default {
+            background-color: #FFC;
+        }
+
+        &:hover {
+            background-color: @linkColor !important;
+            color: #FFF;
+        }
     }
 }
 

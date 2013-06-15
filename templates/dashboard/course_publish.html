@@ -1,0 +1,26 @@
+{% extends 'base_backend.html' %}
+
+{% block body_class %}{{ block.super }} page-course-publish{% endblock %}
+
+{% block scripts %}
+<script>
+var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}{% endif %}';
+$(document).ready(function() {
+
+});
+</script>
+{% endblock %}
+
+{% block backend_header %}
+<div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
+<h1>Publish course - <span>{{ course.title }}</span></h1>
+{% endblock %}
+
+{% block backend_container %}
+<div class="container">
+    <ol>
+        <li>Set a date</li>
+        <li>Promote</li>
+    </ol>
+</div>
+{% endblock %}

@@ -1,20 +1,22 @@
 # -*- encoding: utf-8 -*-
 
+import datetime
 import operator
-from django.conf import settings
 
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.db import transaction, IntegrityError
 from django.db.models import Q, Count
-from django.http import Http404, HttpResponseNotFound, HttpResponseForbidden
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 from django.views.decorators.http import require_GET, require_POST
+
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
-from common import errors
 
+from common import errors
 from common.constants.course import COURSE_RESERVATION_STATUS_MAP, COURSE_RESERVATION_PAYMENT_STATUS_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.decorators import teacher_only
@@ -131,6 +133,9 @@ def edit_course(request, course_uid):
 @require_POST
 @login_required
 def ajax_autosave_course(request):
+    if not request.is_ajax():
+        raise Http404
+
     course_uid = request.POST.get('uid')
 
     try:
@@ -174,6 +179,9 @@ def ajax_autosave_course(request):
 @require_POST
 @login_required
 def ajax_upload_course_cover(request):
+    if not request.is_ajax():
+        raise Http404
+
     course_uid = request.POST.get('uid')
 
     try:
@@ -279,6 +287,9 @@ def ajax_upload_course_picture(request):
 @require_POST
 @login_required
 def ajax_reorder_course_picture(request):
+    if not request.is_ajax():
+        raise Http404
+
     course_uid = request.POST.get('uid')
     course = get_object_or_404(Course, uid=course_uid)
 
@@ -316,6 +327,9 @@ def ajax_reorder_course_picture(request):
 @require_POST
 @login_required
 def ajax_delete_course_picture(request):
+    if not request.is_ajax():
+        raise Http404
+
     course_uid = request.POST.get('uid')
     course = get_object_or_404(Course, uid=course_uid)
 
@@ -357,6 +371,9 @@ def ajax_delete_course_picture(request):
 @require_POST
 @login_required
 def ajax_discard_course_changes(request):
+    if not request.is_ajax():
+        raise Http404
+
     course_uid = request.POST.get('uid')
     course = get_object_or_404(Course, uid=course_uid)
 
@@ -370,9 +387,83 @@ def ajax_discard_course_changes(request):
     })
 
 
+@require_POST
+@login_required
+def ajax_publish_course(request):
+    if not request.is_ajax():
+        raise Http404
+
+    course_uid = request.POST.get('uid')
+
+    course = get_object_or_404(Course, uid=course_uid)
+
+    if course.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    if course.status != 'READY_TO_PUBLISH':
+        return response_json_error_with_message('status-no-ready-to-publish', errors.COURSE_MODIFICATION_ERRORS)
+
+    try:
+        datetime_data = '%s-%s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time'))
+        schedule_datetime = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+    except ValueError:
+        return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
+
+    CourseSchedule.objects.create(course=course, start_datetime=schedule_datetime)
+
+    course.status = 'PUBLISHED'
+    course.last_scheduled = now()
+    course.save()
+
+    CourseOutlineMedia.objects.filter(course=course).update(is_visible=True)
+
+    if course.place.is_userdefined:
+        course.place.is_visible = True
+        course.place.save()
+
+    messages.success(request, 'Successfully publish your course. You can now promote the course here.')
+
+    return response_json_success({
+        'redirect_url': reverse('manage_course_promote', args=[course.uid]),
+    })
+
+
+@require_POST
+@login_required
+def ajax_add_course_schedule(request):
+    if not request.is_ajax():
+        raise Http404
+
+    course_uid = request.POST.get('uid')
+
+    course = get_object_or_404(Course, uid=course_uid)
+
+    if course.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    if course.status != 'PUBLISHED':
+        return response_json_error_with_message('status-no-ready-to-publish', errors.COURSE_MODIFICATION_ERRORS)
+
+    try:
+        datetime_data = '%s-%s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time'))
+        schedule_datetime = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+    except ValueError:
+        return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
+
+    CourseSchedule.objects.create(course=course, start_datetime=schedule_datetime)
+
+    course.last_scheduled = now()
+    course.save()
+
+    return response_json_success()
+
+
 @require_GET
 @login_required
 def ajax_view_reservation_details(request):
+    if not request.is_ajax():
+        raise Http404
+
     code = request.GET.get('code')
 
     try:
@@ -416,3 +507,9 @@ def manage_course_students(request, course, course_uid):
 @teacher_only
 def manage_course_feedback(request, course, course_uid):
     return render(request, 'dashboard/manage_course_feedback.html', {'course': course})
+
+
+@login_required
+@teacher_only
+def manage_course_promote(request, course, course_uid):
+    return render(request, 'dashboard/manage_course_promote.html', {'course': course})

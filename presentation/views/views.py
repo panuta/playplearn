@@ -5,7 +5,8 @@ from domain.models import Course, Place
 
 
 def view_homepage(request):
-    recent_courses = Course.objects.filter(status='PUBLISHED').order_by('-first_published')
+    # TODO Only show course with upcoming schedules
+    recent_courses = Course.objects.filter(status='PUBLISHED').order_by('-last_scheduled')
     return render(request, 'page/homepage.html', {'recent_courses': recent_courses})
 
 

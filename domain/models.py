@@ -345,10 +345,8 @@ class Course(BaseCourse):
     cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
     teacher = models.ForeignKey(UserAccount, related_name='courses')
 
-    next_schedule = models.ForeignKey('CourseSchedule', null=True, related_name='parent_course')
-
     status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
-    first_published = models.DateTimeField(null=True)
+    last_scheduled = models.DateTimeField(null=True)
 
     objects = CourseManager()
 
@@ -363,10 +361,16 @@ class Course(BaseCourse):
         from .functions import calculate_course_completeness
         return calculate_course_completeness(self)
 
+    def status_info(self):
+        return COURSE_STATUS_MAP[str(self.status)]
+
     def status_name(self):
         return COURSE_STATUS_MAP[str(self.status)]['name']
 
     # DATA
+
+    def get_latest_schedule(self):
+        return CourseSchedule.objects.filter(course=self, status='OPENING').order_by('-start_datetime')[0]
 
     def get_editing_outlines(self):
         if self.pk:
@@ -394,10 +398,6 @@ class Course(BaseCourse):
     def can_view(self, user):
         return (self.status == 'PUBLISHED') or (self.status == 'UNPUBLISHED' and user == self.teacher) or \
                (self.status == 'WAIT_FOR_APPROVAL' and (user == self.teacher or user.is_staff()))
-
-    def can_add_new_class(self):
-        rightnow = now()
-        return self.status == 'PUBLISHED' and self.next_schedule.start_datetime <= rightnow
 
     # STATS
 
@@ -556,6 +556,7 @@ class BaseCourseOutlineMedia(models.Model):
 
 class CourseOutlineMedia(BaseCourseOutlineMedia):
     course = models.ForeignKey(Course, related_name='outline_media')
+    is_visible = models.BooleanField(default=False)
 
 
 class EditingCourseOutlineMedia(BaseCourseOutlineMedia):

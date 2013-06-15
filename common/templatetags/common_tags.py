@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
+import datetime
 
 from django import template
 from django.utils.timezone import now
-from common.constants.course import COURSE_LEVEL_CHOICES
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST
@@ -43,5 +43,18 @@ def province_options(selected_province=''):
     for province_tuple in PROVINCE_LIST:
         selected = ' selected="selected"' if selected_province == province_tuple[0] else ''
         options.append('<option value="%s"%s>%s</option>' %(province_tuple[0], selected, province_tuple[1]))
+
+    return ''.join(options)
+
+
+@register.simple_tag
+def time_options(selected_datetime=''):
+    options = []
+    for hour in range(0, 24):
+        for minute in (0, 30):
+            selected = ' selected="selected"' if type(selected_datetime) is datetime.datetime and \
+                selected_datetime.hour == hour and \
+                selected_datetime.minute == minute else ''
+            options.append('<option value="%02d-%02d"%s>%02d:%02d</option>' %(hour, minute, selected, hour, minute))
 
     return ''.join(options)

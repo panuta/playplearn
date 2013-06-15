@@ -34,7 +34,7 @@ $(document).ready(function() {
 {% else %}
     <div class="form-actions">
         <span class="message"></span>
-        {% if course and course.status == 'PUBLISHED' %}
+        {% if course.status == 'WAIT_FOR_APPROVAL' or course.status == 'READY_TO_PUBLISH' or course.status == 'PUBLISHED' %}
             <button class="style-button button-discard" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="save">Discard changes</button>
             <button class="style-orange-button button-update" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Update</button>
         {% else %}

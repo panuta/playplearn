@@ -30,4 +30,3 @@ class EditAccountEmailForm(forms.Form):
             raise forms.ValidationError(_('This email has already been registered.'))
 
         return email
-

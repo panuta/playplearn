@@ -46,6 +46,7 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
     url(r'^course/(?P<course_uid>\w+)/manage/students/$', 'manage_course_students', name='manage_course_students'),
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
+    url(r'^course/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
 
     url(r'^reservation/(?P<reservation_code>\w+)/print/$', 'print_reservation', name='print_reservation'),
 
@@ -55,6 +56,8 @@ urlpatterns += patterns(
     url(r'^ajax/course/picture/reorder/$', 'ajax_reorder_course_picture', name='ajax_reorder_course_picture'),
     url(r'^ajax/course/picture/delete/$', 'ajax_delete_course_picture', name='ajax_delete_course_picture'),
     url(r'^ajax/course/discard/$', 'ajax_discard_course_changes', name='ajax_discard_course_changes'),
+    url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
+    url(r'^ajax/course/schedule/add/$', 'ajax_add_course_schedule', name='ajax_add_course_schedule'),
 
     url(r'^ajax/reservation/details/$', 'ajax_view_reservation_details', name='ajax_view_reservation_details'),
 )

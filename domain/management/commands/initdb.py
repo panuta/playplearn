@@ -149,7 +149,7 @@ class Command(BaseCommand):
                     teacher=user1,
                     credentials='I am smart',
                     status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                 )
 
                 course1.schools.add(culinary_arts_school)
@@ -167,9 +167,6 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 5, 11, 0), is_dst=None),
                     status='OPENING',
                 )
-
-                course1.next_schedule = course1_schedule2
-                course1.save()
 
                 CourseReservation.objects.get_or_create(
                     code='ENROLL1_1',
@@ -211,7 +208,7 @@ class Command(BaseCommand):
                     teacher=user2,
                     credentials='I am a programmer',
                     status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 9, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 9, 0), is_dst=None),
                 )
 
                 course2.schools.add(technology_school)
@@ -223,9 +220,6 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 30, 10, 0), is_dst=None),
                     status='OPENING',
                 )
-
-                course2.next_schedule = course2_schedule1
-                course2.save()
 
                 CourseReservation.objects.get_or_create(
                     code='ENROLL2',
@@ -254,7 +248,7 @@ class Command(BaseCommand):
                     teacher=user2,
                     credentials='I am a designer',
                     status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 10, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 10, 0), is_dst=None),
                 )
 
                 course3.schools.add(technology_school)
@@ -266,9 +260,6 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 9, 30), is_dst=None),
                     status='OPENING',
                 )
-
-                course3.next_schedule = course3_schedule1
-                course3.save()
 
                 CourseReservation.objects.get_or_create(
                     code='ENROLL3',
@@ -297,7 +288,7 @@ class Command(BaseCommand):
                     teacher=user1,
                     credentials='I am a carpenter',
                     status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 11, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 11, 0), is_dst=None),
                 )
 
                 course4.schools.add(craftmanship_school)
@@ -309,10 +300,3 @@ class Command(BaseCommand):
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 30, 8, 0), is_dst=None),
                     status='OPENING',
                 )
-
-                course4.next_schedule = course4_schedule1
-                course4.save()
-
-
-
-

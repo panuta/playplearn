@@ -86,6 +86,8 @@ $(document).ready(function($) {
             <div class="course-sidebar">
                 <div class="enrollment">
                     <div class="datetime clearfix">
+                        {% comment %}
+                        <!-- TODO Support multiple classes -->
                         {% with course.next_schedule.start_datetime as schedule_datetime %}
                         <span class="day_date">
                             <span class="day">{{ schedule_datetime|date:'l' }},</span>
@@ -93,6 +95,7 @@ $(document).ready(function($) {
                         </span>
                         <span class="time">{{ schedule_datetime|date:'H:i' }}</span>
                         {% endwith %}
+                        {% endcomment %}
                     </div>
                     <div class="enroll">
                         <a href="#" class="enroll-button style-orange-button">Enroll Now<em>{% course_full_price course  %}</em></a>

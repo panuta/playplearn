@@ -9,11 +9,11 @@ COURSE_STATUS_CHOICES = (
 )
 
 COURSE_STATUS_MAP = {
-    'DRAFT': {'name': 'Draft'},
-    'WAIT_FOR_APPROVAL': {'name': 'Wait for Approval'},
-    'READY_TO_PUBLISH': {'name': 'Ready to Publish'},
-    'PUBLISHED': {'name': 'Public'},
-    'DELETED': {'name': 'Deleted'},
+    'DRAFT': {'name': 'Draft', 'css_class': 'draft'},
+    'WAIT_FOR_APPROVAL': {'name': 'Wait for Approval', 'css_class': 'wait'},
+    'READY_TO_PUBLISH': {'name': 'Ready to Publish', 'css_class': 'ready'},
+    'PUBLISHED': {'name': 'Published', 'css_class': 'published'},
+    'DELETED': {'name': 'Deleted', 'css_class': 'deleted'},
 }
 
 # COURSE LEVEL
