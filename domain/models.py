@@ -30,6 +30,7 @@ from common.utilities import split_filepath
 SHORTUUID_ALPHABETS_NUMBER_ONLY = '1234567890'
 SHORTUUID_ALPHABETS_CHARACTERS_NUMBER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
+
 # ACCOUNT ##############################################################################################################
 
 class UserAccountManager(BaseUserManager):
@@ -333,6 +334,11 @@ class BaseCourse(models.Model):
             return get_thumbnailer(self.cover)['course_cover_small'].url
         return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_SMALL)
 
+    def get_school(self):
+        if self.schools:
+            return self.schools.all()[0]
+        return None
+
 
 def course_cover_dir(instance, filename):
     rightnow = now()
@@ -369,8 +375,14 @@ class Course(BaseCourse):
 
     # DATA
 
-    def get_latest_schedule(self):
-        return CourseSchedule.objects.filter(course=self, status='OPENING').order_by('-start_datetime')[0]
+    def get_upcoming_schedule(self):
+        rightnow = now()
+        schedules = CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__gte=rightnow).order_by('start_datetime')
+        return schedules[0] if schedules else None
+
+    def get_last_schedule(self):
+        rightnow = now()
+        return CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__lt=rightnow).order_by('-start_datetime')[0]
 
     def get_editing_outlines(self):
         if self.pk:

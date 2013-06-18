@@ -580,11 +580,10 @@ h1.style-page-header {
 .style-course-box .top {
   padding: 14px 20px 15px;
 }
-.style-course-box .title {
+.style-course-box .title a {
   font-size: 18px;
   font-weight: bold;
   line-height: 26px;
-  margin-bottom: 7px;
 }
 .style-course-box .title a:link,
 .style-course-box .title a:active,
@@ -598,18 +597,21 @@ h1.style-page-header {
   text-decoration: underline;
   text-shadow: none;
 }
-.style-course-box .at_glance .topic a {
+.style-course-box .at_glance {
+  color: #888;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.style-course-box .at_glance a {
   color: #666;
-  font-size: 13px;
   font-weight: bold;
 }
-.style-course-box .at_glance .separator {
-  color: #CCC;
-  margin: 0px 5px;
+.style-course-box .at_glance a:hover {
+  text-decoration: underline;
 }
-.style-course-box .at_glance .duration {
+.style-course-box .at_glance span {
   color: #666;
-  font-size: 13px;
+  font-weight: bold;
 }
 .style-course-box .cover {
   margin-top: 10px;
@@ -644,14 +646,18 @@ h1.style-page-header {
 }
 .style-course-box .next {
   border-top: 1px dashed #DDD;
-  color: #444;
+  color: #555;
   font-size: 13px;
-  font-weight: bold;
-  padding: 10px 20px;
+  padding: 14px 20px;
 }
 .style-course-box .next i {
   color: #C30;
   margin-right: 5px;
+  vertical-align: 0px;
+}
+.style-course-box .next .date,
+.style-course-box .next .time {
+  font-weight: bold;
 }
 .style-course-box .next a {
   margin-left: 6px;
@@ -668,9 +674,17 @@ h1.style-page-header {
   text-decoration: underline;
   text-shadow: none;
 }
+* {
+  margin: 0;
+}
 html,
 body {
   background-color: #FFF;
+  height: 100%;
+}
+.footer,
+.push {
+  height: 4em;
 }
 #body-header {
   height: 65px;
@@ -679,7 +693,9 @@ body {
   float: left;
   font-size: 26px;
   font-weight: bold;
-  padding: 12px 0;
+  height: 26px;
+  padding-top: 22px;
+  width: 169px;
 }
 #body-header .logo a {
   color: #3a71a9;
@@ -696,19 +712,16 @@ body {
   list-style: none;
 }
 #body-header .navigation ul li a {
-  border-left: 1px solid #EEE;
+  background-color: #F4F4F4;
+  border-radius: 4px;
   color: #555;
   display: inline-block;
   font-size: 14px;
-  font-weight: bold;
-  line-height: 65px;
-  padding: 0px 20px;
-}
-#body-header .navigation ul li a.teach {
-  border-right: 1px solid #EEE;
+  margin-right: 10px;
+  margin-top: 20px;
+  padding: 8px 30px;
 }
 #body-header .navigation ul li a i {
-  color: #3a71a9;
   margin-right: 5px;
   vertical-align: middle;
 }
@@ -717,12 +730,9 @@ body {
   vertical-align: 1px;
 }
 #body-header .navigation ul li a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
+  background-color: #EEE;
+  color: #444;
   text-decoration: none;
-}
-#body-header .navigation ul li a:hover i {
-  color: #FFF;
 }
 #body-header .navigation .search {
   display: inline-block;
@@ -736,7 +746,6 @@ body {
 }
 #body-header .account .registration a {
   font-size: 13.5px;
-  font-weight: bold;
   margin-left: 12px;
 }
 #body-header .account .registration a:link,
@@ -803,9 +812,80 @@ body {
 #body-header .account .user .btn-group.open .dropdown-toggle {
   box-shadow: none;
 }
+.wrapper {
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -86px;
+  min-height: 100%;
+}
+#body-footer,
+.push {
+  height: 56px;
+}
+#body-footer {
+  background-color: #777;
+  position: relative;
+  padding: 20px 0 10px;
+}
 #body-footer .website {
-  font-size: 13px;
+  color: #FFF;
+  font-size: 15px;
+  font-weight: bold;
   text-align: center;
+}
+#body-footer .page-links {
+  margin-left: 15px;
+}
+#body-footer .page-links a {
+  color: #EEE;
+  font-size: 13px;
+  margin-right: 7px;
+  text-decoration: underline;
+}
+#body-footer .copyright {
+  color: #DDD;
+  margin-top: 5px;
+}
+#body-footer .social-links {
+  margin-top: 7px;
+}
+#body-footer .social-links a {
+  background-image: url(../images/ui/social-icons.png);
+  border: 3px solid #777;
+  border-radius: 32px;
+  float: right;
+  height: 32px;
+  margin-left: 10px;
+  text-indent: -9999px;
+  width: 32px;
+}
+#body-footer .social-links a:hover {
+  background-color: #FFF;
+  border: 3px solid #FFF;
+}
+#body-footer .social-links .facebook {
+  background-position: 0 0;
+}
+#body-footer .social-links .facebook:hover {
+  background-position: 0 -32px;
+}
+#body-footer .social-links .twitter {
+  background-position: -32px 0;
+}
+#body-footer .social-links .twitter:hover {
+  background-position: -32px -32px;
+}
+#body-footer .social-links .rss {
+  background-position: -64px 0;
+}
+#body-footer .social-links .rss:hover {
+  background-position: -64px -32px;
+}
+#body-footer .social-links .email {
+  background-position: -96px 0;
+}
+#body-footer .social-links .email:hover {
+  background-position: -96px -32px;
 }
 .page-backend .backend-header {
   background-color: #3a71a9;
@@ -1356,9 +1436,8 @@ body {
   text-shadow: none;
 }
 .page-homepage .headline {
-  background: url(../images/ui/bg1.jpg) no-repeat center center;
-  border-bottom: 2px solid #CCC;
-  padding: 70px 0px 50px;
+  background-color: #FFF;
+  padding: 50px 0px;
 }
 .page-homepage .headline .image {
   float: left;
@@ -1367,24 +1446,22 @@ body {
   margin-left: 420px;
 }
 .page-homepage .headline .head1 {
-  color: #FFF;
+  color: #3a71a9;
   font-size: 38px;
   font-weight: bold;
-  margin-top: 15px;
-  text-shadow: -1px -1px #000000;
+  margin-top: 5px;
 }
 .page-homepage .headline .head2 {
-  color: #FFF;
-  font-size: 28px;
-  margin-top: 27px;
-  text-shadow: -1px -1px #000000;
+  color: #555;
+  font-size: 26px;
+  margin-left: 50px;
+  margin-top: 30px;
 }
 .page-homepage .headline p {
-  color: #FFF;
+  color: #555;
   font-size: 18px;
   line-height: 26px;
-  margin-top: 20px;
-  text-shadow: -1px -1px #000000;
+  margin-top: 40px;
 }
 .page-homepage .headline .action {
   margin-top: 20px;
@@ -1398,35 +1475,75 @@ body {
   margin-right: 6px;
   vertical-align: 0px;
 }
-.page-homepage .featured-courses {
-  background-color: #F7F7F7;
-  border-bottom: 1px solid #edede2;
-  border-top: 1px solid #edede2;
-  padding: 40px 0px;
-}
-.page-homepage .featured-courses .head {
-  margin-bottom: 30px;
+.page-homepage .become-teacher {
+  background-color: #3a71a9;
+  padding: 35px 0 40px;
   text-align: center;
 }
-.page-homepage .featured-courses .head h2 {
+.page-homepage .become-teacher .head {
+  color: #FFF;
+  font-size: 24px;
+  font-weight: bold;
+}
+.page-homepage .become-teacher .subhead {
+  color: #F7F7F7;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.page-homepage .become-teacher .signup {
   background-color: #EEE;
   border-radius: 4px;
-  color: #777;
+  margin: 25px auto 0;
+  padding: 15px 0;
+  width: 520px;
+}
+.page-homepage .become-teacher .signup .facebook {
+  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
   display: inline-block;
-  font-size: 16px;
-  font-weight: normal;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+  margin-right: 10px;
+}
+.page-homepage .become-teacher .signup .facebook:hover {
+  background-position: -230px 0px;
+}
+.page-homepage .become-teacher .signup .twitter {
+  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+  margin-left: 10px;
+}
+.page-homepage .become-teacher .signup .twitter:hover {
+  background-position: -230px -40px;
+}
+.page-homepage .latest-courses {
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #EEE;
+  border-top: 1px solid #EEE;
+  padding: 30px 0px;
+}
+.page-homepage .latest-courses .head {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.page-homepage .latest-courses .head h2 {
+  color: #777;
+  font-size: 24px;
+  font-weight: bold;
   line-height: normal;
   margin: 0;
-  padding: 12px 55px;
 }
-.page-homepage .featured-courses ul.courses {
+.page-homepage .latest-courses ul.courses {
   margin: 0;
 }
-.page-homepage .featured-courses ul.courses li.style-course-box {
+.page-homepage .latest-courses ul.courses li.style-course-box {
   float: left;
   margin-bottom: 40px;
 }
-.page-homepage .featured-courses ul.courses li.left-box {
+.page-homepage .latest-courses ul.courses li.left-box {
   margin-right: 62px;
 }
 .page-course-outline #body-header {

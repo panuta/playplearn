@@ -91,9 +91,8 @@
 
 .page-homepage {
     .headline {
-        background: url(../images/ui/bg1.jpg) no-repeat center center;
-        border-bottom: 2px solid #CCC;
-        padding: 70px 0px 50px;
+        background-color: #FFF;
+        padding: 50px 0px;
 
         .image {
             float: left;
@@ -104,26 +103,24 @@
         }
 
         .head1 {
-            color: #FFF;
+            color: @primaryColor;
             font-size: 38px;
             font-weight: bold;
-            margin-top: 15px;
-            text-shadow: -1px -1px #000;
+            margin-top: 5px;
         }
 
         .head2 {
-            color: #FFF;
-            font-size: 28px;
-            margin-top: 27px;
-            text-shadow: -1px -1px #000;
+            color: #555;
+            font-size: 26px;
+            margin-left: 50px;
+            margin-top: 30px;
         }
 
         p {
-            color: #FFF;
+            color: #555;
             font-size: 18px;
             line-height: 26px;
-            margin-top: 20px;
-            text-shadow: -1px -1px #000;
+            margin-top: 40px;
         }
 
         .action {
@@ -142,26 +139,58 @@
         }
     }
 
-    .featured-courses {
-        background-color: #F7F7F7;
-        border-bottom: 1px solid #edede2;
-        border-top: 1px solid #edede2;
-        padding: 40px 0px;
+    .become-teacher {
+        background-color: @primaryColor;
+        padding: 35px 0 40px;
+        text-align: center;
 
         .head {
-            margin-bottom: 30px;
+            color: #FFF;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .subhead {
+            color: #F7F7F7;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        .signup {
+            background-color: #EEE;
+            border-radius: 4px;
+            margin: 25px auto 0;
+            padding: 15px 0;
+            width: 520px;
+
+            .facebook {
+                .login_facebook_button;
+                margin-right: 10px;
+            }
+
+            .twitter {
+                .login_twitter_button;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .latest-courses {
+        background-color: #F7F7F7;
+        border-bottom: 1px solid #EEE;
+        border-top: 1px solid #EEE;
+        padding: 30px 0px;
+
+        .head {
+            margin-bottom: 40px;
             text-align: center;
 
             h2 {
-                background-color: #EEE;
-                border-radius: 4px;
                 color: #777;
-                display: inline-block;
-                font-size: 16px;
-                font-weight: normal;
+                font-size: 24px;
+                font-weight: bold;
                 line-height: normal;
                 margin: 0;
-                padding: 12px 55px;
             }
         }
 

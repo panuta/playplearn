@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load common_tags %}
 
 {% block head_title %}{{ settings.WEBSITE_NAME }} - Learn something new{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
@@ -9,22 +10,30 @@
         <div class="image"><img src="{{ STATIC_URL }}images/page/homepage/headline.png" /></div>
         <div class="right">
             <div class="head1">Learn Something New</div>
-            <div class="head2">From people who is passionate about it</div>
+            <div class="head2">from people who is passionate about it</div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla lectus eget tortor placerat ut egestas leo tempus.</p>
             <div class="action">
-                <a href="{% url 'view_courses_explore' %}" class="style-primary-button"><i class="icon-search icon-large"></i> Find your courses</a>
+                <a href="{% url 'view_courses_explore' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Testimonials -->
-<!-- Featured Schools -->
+{% if not user.is_authenticated %}
+<div class="become-teacher">
+    <div class="head">Anyone can teach</div>
+    <div class="subhead">Find what you are passionate about, professional or casual.</div>
+    <div class="signup">
+        <a href="#" class="facebook">Sign-in with Facebook</a>
+        <a href="#" class="twitter">Sign-in with Twitter</a>
+    </div>
+</div>
+{% endif %}
 
-<div class="featured-courses">
+<div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>Recent Courses</h2>
+            <h2>Latest courses</h2>
         </div>
         <ul class="courses">
             {% for course in recent_courses %}
@@ -33,9 +42,9 @@
                     <div class="top">
                         <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
                         <div class="at_glance">
-                            <span class="topic">{% for topic in course.topics.all %}<a href="{% url 'view_courses_explore' %}?topic={{ topic.slug }}">{{ topic.name }}</a>{% endfor %}</span>
-                            <span class="separator">|</span>
-                            <span class="duration">{{ course.duration }} Hours</span>
+                            Learn <a href="#" class="school">{{ course.get_school.name }}</a>
+                            in <span class="duration">{{ course.duration }} hour{{ course.duration|pluralize }}</span>
+                            with <span class="people">{{ course.maximum_people }} other {{ course.maximum_people|pluralize:'person,people' }}</span>
                         </div>
                         <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" /></a></div>
                         <div class="teacher clearfix">
@@ -43,11 +52,11 @@
                             <a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span>
                         </div>
                     </div>
-                    {% comment %}
-                    <div class="next">
-                        <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
-                    </div>
-                    {% endcomment %}
+                    {% with upcoming_schedule=course.get_upcoming_schedule %}
+                        {% if upcoming_schedule %}
+                            <div class="next"><i class="icon-bullhorn icon-large"></i> คลาสถัดไป {{ upcoming_schedule|schedule_datetime }}</div>
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </li>
             {% endfor %}

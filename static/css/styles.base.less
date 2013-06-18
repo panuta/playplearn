@@ -666,33 +666,31 @@ h1.style-page-header {
     }
 
     .title {
-        font-size: 18px;
-        font-weight: bold;
-        line-height: 26px;
-        margin-bottom: 7px;
-
         a {
             .content_link;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 26px;
         }
     }
 
     .at_glance {
-        .topic {
-            a {
-                color: #666;
-                font-size: 13px;
-                font-weight: bold;
+        color: #888;
+        font-size: 14px;
+        margin-top: 10px;
+
+        a {
+            color: #666;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
             }
         }
 
-        .separator {
-            color: #CCC;
-            margin: 0px 5px;
-        }
-
-        .duration {
+        span {
             color: #666;
-            font-size: 13px;
+            font-weight: bold;
         }
     }
 
@@ -736,14 +734,18 @@ h1.style-page-header {
 
     .next {
         border-top: 1px dashed #DDD;
-        color: #444;
+        color: #555;
         font-size: 13px;
-        font-weight: bold;
-        padding: 10px 20px;
+        padding: 14px 20px;
 
         i {
             color: #C30;
             margin-right: 5px;
+            vertical-align: 0px;
+        }
+
+        .date, .time {
+            font-weight: bold;
         }
 
         a {

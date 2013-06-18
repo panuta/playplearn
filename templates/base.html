@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/select2/select2.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/slider/css/slider.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/redactor/redactor.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery.fineuploader/fineuploader-3.5.0.css">
 
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/royalslider/royalslider.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/royalslider/skins/default/rs-default.css">
@@ -39,6 +38,7 @@
     <!--<script src="{{ STATIC_URL }}libs/modernizr-2.6.2-respond-1.1.0.min.js"></script> Firefox Don't Remember Scroll Position-->
 </head>
 <body class="{% block body_class %}{% endblock %}">
+<div class="wrapper">
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -47,13 +47,15 @@
 <div id="body-header">
     <div class="container">
         <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
+        {% comment %}
         <div class="navigation">
             <ul>
-                <li><a href="{% url 'view_courses_explore' %}" class="explore"><i class="icon-list icon-large"></i> Browse Courses</a></li>
-                <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Be a Teacher</a></li>
+                <li><a href="{% url 'view_courses_explore' %}" class="explore"><i class="icon-list icon-large"></i> Browse courses</a></li>
+                <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Be a teacher</a></li>
             </ul>
             <!--<div class="search"><input type="text" /></div>-->
         </div>
+        {% endcomment %}
         <div class="account">
             {% if user.is_authenticated %}
                 <div class="user">
@@ -84,10 +86,34 @@
     </div>
 </div>
 
-<div id="body-content">{% block body %}{% endblock %}</div>
-
+<div id="body-content">
+    {% block body %}{% endblock %}
+    <div class="push"></div>
+</div>
+</div>
 <div id="body-footer">
-    <!--<div class="website">Learning Wolf</div>-->
+    <div class="container">
+        <div class="clearfix">
+            <div class="pull-left">
+                <div>
+                    <a href="#" class="website">Learning Wolf</a>
+                    <span class="page-links">
+                        <a href="#">Blog</a>
+                        <a href="#">About us</a>
+                    </span>
+                </div>
+                <div class="copyright">© Copyright 2013</div>
+            </div>
+            <div class="pull-right">
+                <div class="social-links">
+                    <a href="#" class="rss">RSS Feed</a>
+                    <a href="#" class="email">Email</a>
+                    <a href="#" class="twitter">Twitter</a>
+                    <a href="http://www.facebook.com" class="facebook">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal hide" id="alert-modal">
@@ -237,7 +263,6 @@ $(document).ready(function() {
 <script type="text/javascript" src="{{ STATIC_URL }}libs/redactor/redactor.min.js"></script>
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.iframe-transport.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.fileupload.js"></script>
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/royalslider/jquery.royalslider.min.js"></script>
 

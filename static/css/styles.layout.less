@@ -1,5 +1,14 @@
+* {
+    margin: 0;
+}
+
 html, body {
     background-color: #FFF;
+    height: 100%;
+}
+
+.footer, .push {
+    height: 4em;
 }
 
 #body-header {
@@ -9,7 +18,9 @@ html, body {
         float: left;
         font-size: 26px;
         font-weight: bold;
-        padding: 12px 0;
+        height: 26px;
+        padding-top: 22px;
+        width: 169px;
 
         a {
             color: @linkColor;
@@ -28,20 +39,22 @@ html, body {
                 list-style: none;
 
                 a {
-                    border-left: 1px solid #EEE;
+                    background-color: #F4F4F4;
+                    border-radius: 4px;
+                    //border-left: 1px solid #EEE;
                     color: #555;
                     display: inline-block;
                     font-size: 14px;
-                    font-weight: bold;
-                    line-height: 65px;
-                    padding: 0px 20px;
+                    margin-right: 10px;
+                    margin-top: 20px;
+                    //line-height: 40px;
+                    padding: 8px 30px;
 
                     &.teach {
-                        border-right: 1px solid #EEE;
+                        //border-right: 1px solid #EEE;
                     }
 
                     i {
-                        color: @primaryColor;
                         margin-right: 5px;
                         vertical-align: middle;
 
@@ -52,13 +65,9 @@ html, body {
                     }
 
                     &:hover {
-                        background-color: @primaryColor;
-                        color: #FFF;
+                        background-color: #EEE;
+                        color: #444;
                         text-decoration: none;
-
-                        i {
-                            color: #FFF;
-                        }
                     }
                 }
             }
@@ -79,7 +88,6 @@ html, body {
             a {
                 .content_link;
                 font-size: 13.5px;
-                font-weight: bold;
                 margin-left: 12px;
             }
         }
@@ -154,10 +162,96 @@ html, body {
 
 }
 
+.wrapper {
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -86px;
+    min-height: 100%;
+}
+
+#body-footer, .push {
+    height: 56px;
+}
+
 #body-footer {
+    background-color: #777;
+    position: relative;
+    padding: 20px 0 10px;
+
     .website {
-        font-size: 13px;
+        color: #FFF;
+        font-size: 15px;
+        font-weight: bold;
         text-align: center;
+    }
+
+    .page-links {
+        margin-left: 15px;
+
+        a {
+            color: #EEE;
+            font-size: 13px;
+            margin-right: 7px;
+            text-decoration: underline;
+        }
+    }
+
+    .copyright {
+        color: #DDD;
+        margin-top: 5px;
+    }
+
+    .social-links {
+        margin-top: 7px;
+
+        a {
+            background-image: url(../images/ui/social-icons.png);
+            border: 3px solid #777;
+            border-radius: 32px;
+            float: right;
+            height: 32px;
+            margin-left: 10px;
+            text-indent: -9999px;
+            width: 32px;
+
+            &:hover {
+                background-color: #FFF;
+                border: 3px solid #FFF;
+            }
+        }
+
+        .facebook {
+            background-position: 0 0;
+
+            &:hover {
+                background-position: 0 -32px;
+            }
+        }
+
+        .twitter {
+            background-position: -32px 0;
+
+            &:hover {
+                background-position: -32px -32px;
+            }
+        }
+
+        .rss {
+            background-position: -64px 0;
+
+            &:hover {
+                background-position: -64px -32px;
+            }
+        }
+
+        .email {
+            background-position: -96px 0;
+
+            &:hover {
+                background-position: -96px -32px;
+            }
+        }
+
     }
 }
 
