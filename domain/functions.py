@@ -2,10 +2,13 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 
 from common.constants.course import COURSE_LEVEL_MAP
+from common.errors import CourseEnrollmentException
 from common.l10n.th import PROVINCE_MAP
 from common.utilities import extract_request_object
 from domain.models import EditingCourseOutline, CourseOutline, CourseSchool, CourseOutlineMedia, EditingCourse, EditingCourseOutlineMedia, EditingCoursePicture, EditingCourseVideoURL, course_cover_dir, CoursePicture, CourseVideoURL, Place, EditingPlace
 
+
+# COURSE DASHBOARD #####################################################################################################
 
 def calculate_course_completeness(course):
     has_changes = course.status == 'PUBLISHED' and EditingCourseOutline.objects.filter(course=course).exists()
@@ -544,3 +547,18 @@ def discard_course_changes(course):
             editing_media_video.delete()
 
         editing_media.delete()
+
+
+# COURSE ENROLLMENT ####################################################################################################
+
+def check_if_schedule_enrollable(schedule):
+    if schedule.course.status != 'PUBLISHED':
+        raise CourseEnrollmentException('course-notpublished')
+
+    if schedule.status != 'OPENING':
+        raise CourseEnrollmentException('schedule-notopening')
+
+    if not schedule.stats_seats_left():
+        raise CourseEnrollmentException('schedule-full')
+
+    return True

@@ -77,8 +77,7 @@
                 </div>
             {% else %}
                 <div class="registration">
-                    <a href="{% url 'view_signup' %}">New user?</a>
-                    <a href="{% url 'view_login' %}?next={{ request.path }}">Login</a>
+                    <a href="{% url 'view_user_login' %}?next={{ request.path }}">เข้าสู่ระบบ / สมัครสมาชิก</a>
                 </div>
             {% endif %}
         </div>
@@ -90,6 +89,140 @@
 <div id="body-footer">
     <!--<div class="website">Learning Wolf</div>-->
 </div>
+
+<div class="modal hide" id="alert-modal">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3></h3></div>
+    <div class="modal-body"></div>
+    <div class="modal-footer"><a href="#" class="style-button" data-dismiss="modal">Close</a></div>
+</div>
+
+{% if not user.is_authenticated %}
+<div class="modal hide" id="registration-modal">
+    <div class="modal-header clearfix">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>เข้าสู่ระบบ / สมัครสมาชิก</h3>
+    </div>
+    <div class="modal-body">
+        <div class="backend-social hide">
+            <a href="#" class="facebook">Sign up / login with Facebook</a>
+            <a href="#" class="twitter">Sign up / login with Twitter</a>
+            <div class="switch-to-email">
+                หรือ <a href="#" class="button-switch-backend">ใช้อีเมลในการเข้าสู่ระบบหรือสมัครสมาชิก</a>
+            </div>
+        </div>
+        <div class="backend-email">
+            <div class="clearfix">
+                <div class="email-login">
+                    <form action="{% url 'ajax_email_login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input">
+                            <label for="modal_login_email">อีเมล</label>
+                            <input type="email" id="modal_login_email" name="email" placeholder="อีเมล" />
+                        </div>
+                        <div class="input">
+                            <label for="modal_login_password">รหัสผ่าน</label>
+                            <input type="password" id="modal_login_password" name="password" placeholder="รหัสผ่าน" />
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="style-primary-button">เข้าสู่ระบบ</button>
+                            <a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="email-register">
+                    <div class="head">ยังไม่มีบัญชีผู้ใช้? สมัครสมาชิกได้ด้านล่างนี้</div>
+                    <form action="{% url 'ajax_email_register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input">
+                            <label for="modal_register_email">อีเมล</label>
+                            <input type="email" id="modal_register_email" name="email" placeholder="อีเมล" />
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="style-primary-button">สมัครสมาชิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="switch-to-social">
+                หรือ <a href="#" class="button-switch-backend">ใช้บัญชี social networks ในการเข้าสู่ระบบหรือสมัครสมาชิก</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    var registration_modal = $('#registration-modal');
+    //registration_modal.modal();
+
+    $('#body-header').find('.registration a').on('click', function() {
+        registration_modal.find('.backend-social').show();
+        registration_modal.find('.backend-email').hide();
+        registration_modal.find('.email-login .actions .error').remove();
+        registration_modal.find('.email-register .actions .error').remove();
+        registration_modal.modal();
+        return false;
+    });
+
+    registration_modal.find('.button-switch-backend').on('click', function() {
+        registration_modal.find('.backend-social').toggle();
+        registration_modal.find('.backend-email').toggle();
+        return false;
+    });
+
+    registration_modal.find('.email-login button').on('click', function() {
+        var email = registration_modal.find('.email-login input[name="email"]').val();
+        var password = registration_modal.find('.email-login input[name="password"]').val();
+
+        if(email && password) {
+            registration_modal.find('.email-login button').attr('disabled', true);
+            var jqxhr = $.post('/ajax/email/login/', {email:email, password:password}, function(response) {
+                registration_modal.find('.email-login button').attr('disabled', false);
+                if(response.status == 'success') {
+                    window.location.reload();
+                } else {
+                    registration_modal.find('.email-login .actions .error').remove();
+                    registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + response.message + '</div>');
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                registration_modal.find('.email-login button').attr('disabled', false);
+                registration_modal.find('.email-login .actions .error').remove();
+                registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + errorThrown + '</div>');
+            });
+        }
+
+        return false;
+    });
+
+    registration_modal.find('.email-register button').on('click', function() {
+        var email = registration_modal.find('.email-register input[name="email"]').val();
+
+        if(email) {
+            registration_modal.find('.email-register button').attr('disabled', true);
+            var jqxhr = $.post('/ajax/email/register/', {email:email}, function(response) {
+                registration_modal.find('.email-register button').attr('disabled', false);
+                if(response.status == 'success') {
+                    registration_modal.modal('hide');
+                    _alertModal('success', 'Register successful', 'Please confirm your email address from an email we sent to you.');
+                } else {
+                    registration_modal.find('.email-register .actions .error').remove();
+                    registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + response.message + '</div>');
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                registration_modal.find('.email-register button').attr('disabled', false);
+                registration_modal.find('.email-register .actions .error').remove();
+                registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + errorThrown + '</div>');
+            });
+        }
+
+        return false;
+    });
+});
+</script>
+{% endif %}
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>

@@ -1,7 +1,7 @@
-<div class="modal fade hide" id="modal-reservation-details">
+<div class="modal fade hide" id="modal-enrollment-details">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Reservation details</h3>
+        <h3>Enrollment details</h3>
     </div>
     <div class="modal-body">
         <div class="modal-loading"><div class="style-loading"><img src="{{ STATIC_URL }}images/ui/loading.gif"> Loading</div></div>
@@ -14,8 +14,8 @@
                     <span class="datetime"><span class="caption">When</span> <em></em></span>
                 </div>
             </div>
-            <div class="head">Reservation</div>
-            <div class="details-reservation">
+            <div class="head">Enrollment</div>
+            <div class="details-enrollment">
                 <div class="data price"><span>Amount</span><em></em></div>
                 <div class="data status"><span>Status</span><em></em></div>
                 <div class="data payment_status"><span>Payment</span><em></em></div>
@@ -24,14 +24,14 @@
         </div>
     </div>
     <div class="modal-footer">
-        <!--<a href="" class="style-button pull-left modal-button-print"><i class="icon-print"></i> Print reservation</a>-->
+        <!--<a href="" class="style-button pull-left modal-button-print"><i class="icon-print"></i> Print enrollment</a>-->
         <a href="#" class="style-primary-button" data-dismiss="modal">Close</a>
     </div>
 </div>
 <script>
 $(document).ready(function() {
-    var modal = $('#modal-reservation-details');
-    $('a[href="#modal-reservation-details"]').on('click', function() {
+    var modal = $('#modal-enrollment-details');
+    $('a[href="#modal-enrollment-details"]').on('click', function() {
         modal.modal();
         modal.find('.modal-loading').show();
         modal.find('.modal-content').hide();
@@ -39,15 +39,15 @@ $(document).ready(function() {
 
         var code = $(this).attr('data-code');
 
-        var jqxhr = $.get('{% url 'ajax_view_reservation_details' %}', {code:code}, function(response) {
+        var jqxhr = $.get('{% url 'ajax_view_enrollment_details' %}', {code:code}, function(response) {
             if(response.status == 'success') {
                 modal.find('.details-course .title').text(response.data.title);
                 modal.find('.details-course .teacher em').text(response.data.teacher_name);
                 modal.find('.details-course .datetime em').text(response.data.schedule_datetime);
 
-                modal.find('.details-reservation .price em').text(response.data.amount);
-                modal.find('.details-reservation .status em').text(response.data.status);
-                modal.find('.details-reservation .payment_status em').text(response.data.payment_status);
+                modal.find('.details-enrollment .price em').text(response.data.amount);
+                modal.find('.details-enrollment .status em').text(response.data.status);
+                modal.find('.details-enrollment .payment_status em').text(response.data.payment_status);
 
                 modal.find('.details-timestamp em').text(response.data.reserved_on);
 
@@ -57,12 +57,12 @@ $(document).ready(function() {
                 modal.find('.modal-content').show();
                 //modal.find('.modal-button-print').show();
             } else {
-                _showModalErrorMessage('modal-reservation-details', 'An error occurred while loading reservation details');
+                _addModalErrorMessage('modal-enrollment-details', 'An error occurred while loading enrollment details');
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _showModalErrorMessage('modal-reservation-details', 'An error occurred while loading reservation details');
+            _addModalErrorMessage('modal-enrollment-details', 'An error occurred while loading enrollment details');
         });
 
         return false;

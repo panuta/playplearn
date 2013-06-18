@@ -51,10 +51,18 @@ def format_abbr_date(datetime):
         return ''
 """
 
+
 # STORY ################################################################################################################
 
 def clean_content(content):
     return content
+
+
+# VALIDATION ###########################################################################################################
+
+def check_email_format(email):
+    from django.core.validators import email_re
+    return bool(email_re.match(email))
 
 
 # MISC #################################################################################################################

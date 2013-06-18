@@ -5,23 +5,44 @@
     }
 
     .registration-body {
-        .registration-box {
-            margin: 90px auto;
-            width: 500px;
-        }
-
         h1 {
             color: #444;
             font-size: 30px;
             font-weight: normal;
-            text-align: center;
+            margin: 40px 0 30px;
+        }
+
+        form {
+            margin: 0;
+
+            .control-group {
+                display: inline-block;
+                margin: 0 20px 0 0;
+                vertical-align: top;
+
+                .controls {
+                    input {
+                        width: 250px;
+                    }
+                }
+            }
+
+            .avatar-control {
+                display: block;
+                margin: 20px 0 40px;
+            }
+
+            .form-actions {
+                a {
+                    .grey_link;
+                    font-size: 13px;
+                    margin-left: 15px;
+                    vertical-align: middle;
+                }
+            }
         }
 
         .login-social {
-            border-bottom: 1px solid #EEE;
-            margin: 30px 0 10px;
-            padding-bottom: 30px;
-
             .facebook {
                 .login_facebook_button;
             }
@@ -30,65 +51,43 @@
                 .login_twitter_button;
                 margin-left: 20px;
             }
+
+            .use-email {
+                margin-top: 30px;
+
+                a {
+                    .grey_link;
+                    font-size: 13px;
+                }
+            }
         }
 
         .login-email {
-            text-align: center;
+            border-left: 7px solid #DDD;
+            margin-top: 40px;
+            padding-left: 20px;
 
-            .or {
-                color: #999;
-                margin-bottom: 15px;
+            .email-login {
+                margin-bottom: 40px;
             }
 
-            form {
-                margin: 0;
+            .head {
+                color: #444;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
 
-                .text-input {
-                    input {
-                        font-size: 15px;
-                        height: 30px;
-                        text-align: center;
-                        width: 280px;
-                    }
-                }
+        .page-message {
+            color: #444;
+            font-size: 18px;
 
-                .style-button {
-                    margin-top: 7px;
-                    padding: 9px 50px;
-                }
-
-                .forgot {
-                    margin-top: 10px;
-
-                    a {
-                        .grey_link;
-                        font-size: 13px;
-                    }
-                }
-
-                .button {
-                    margin-top: 5px;
-
-                    .btn {
-                        color: #555;
-                        font-size: 13px;
-                        height: 32px;
-                        vertical-align: middle;
-                        width: 140px;
-                    }
-
-                    a {
-                        color: #666;
-                        font-size: 13px;
-                        margin-left: 15px;
-                        vertical-align: bottom;
-                    }
-                }
+            a {
+                .content_link;
             }
         }
     }
 }
-
 
 .page-homepage {
     .headline {

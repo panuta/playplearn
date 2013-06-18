@@ -3,15 +3,13 @@ from django import template
 from common.constants.course import COURSE_LEVEL_MAP, COURSE_LEVEL_CHOICES
 from common.constants.currency import CURRENCY_CODE_MAP
 
-from domain.models import UserRegistration, CourseReservation, CourseSchool, Place, EditingPlace
+from domain.models import UserRegistration, CourseEnrollment, CourseSchool, Place, EditingPlace
 
 register = template.Library()
 
 
 @register.assignment_tag
 def to_resend_registration(registering_email):
-    print 'TEST %s' % registering_email
-    print UserRegistration.objects.filter(email=registering_email).count()
     return UserRegistration.objects.filter(email=registering_email).count()
 
 
@@ -81,10 +79,10 @@ def get_course_undefined_place(course):
         return Place()
 
 
-# COURSE RESERVATION ###################################################################################################
+# COURSE ENROLLMENT ####################################################################################################
 
 @register.assignment_tag
-def return_matching_reservation(user, schedule):
-    reservations = CourseReservation.objects.filter(student=user, schedule=schedule)
-    return reservations[0]
+def return_matching_enrollment(user, schedule):
+    enrollments = CourseEnrollment.objects.filter(student=user, schedule=schedule)
+    return enrollments[0]
 

@@ -367,7 +367,7 @@ body.modal-open {
         color: #555;
         display: inline-block;
         font-size: 14px;
-        font-weight: bold;
+        margin-bottom: 8px;
     }
 
     select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"],
@@ -394,6 +394,16 @@ body.modal-open {
 }
 
 form {
+    .errorlist {
+        margin: 0;
+
+        li {
+            color: #C30;
+            list-style: none;
+            margin-bottom: 8px;
+        }
+    }
+
     .avatar-control {
         img.avatar {
             border-radius: 50px;
@@ -461,12 +471,12 @@ form {
 .style-button {
     .style-button-base;
     background-color: #D9D9D9;
-    box-shadow: 0px 5px 0px #BBB;
+    box-shadow: 0px 3px 0px #BBB;
     color: #333;
 
     &:hover, &:focus {
         background-color: #E4E4E4;
-        box-shadow: 0px 5px 0px #CCC;
+        box-shadow: 0px 3px 0px #CCC;
         color: #333;
     }
 }
@@ -474,24 +484,24 @@ form {
 .style-orange-button {
     .style-button-base;
     background-color: #e4671f;
-    box-shadow: 0px 5px 0px #c45718;
+    box-shadow: 0px 3px 0px #c45718;
     color: #FFF;
 
     &:hover, &:focus {
         background-color: #eb732d;
-        box-shadow: 0px 5px 0px #d56321;
+        box-shadow: 0px 3px 0px #d56321;
     }
 }
 
 .style-primary-button {
     .style-button-base;
     background-color: @linkColor;
-    box-shadow: 0px 5px 0px @linkColorDarker;
+    box-shadow: 0px 3px 0px @linkColorDarker;
     color: #FFF;
 
     &:hover, &:focus {
         background-color: #19a7bc;
-        box-shadow: 0px 5px 0px @linkColor;
+        box-shadow: 0px 3px 0px @linkColor;
     }
 }
 

@@ -4,15 +4,18 @@ from django.views.generic import TemplateView
 
 urlpatterns = patterns(
     'accounts.views',
-    url(r'^login/$', 'view_login', name='view_login'),
-    url(r'^signup/$', 'view_signup', name='view_signup'),
-    url(r'^signup/resend/$', 'view_signup_resend', name='view_signup_resend'),
+    url(r'^login/$', 'view_user_login', {'action':'login'}, name='view_user_login'),
+    url(r'^login/signup/$', 'view_user_login', {'action':'signup'}, name='view_user_login_signup'),
+    url(r'^login/resend/$', 'view_user_login', {'action':'resend'}, name='view_user_login_resend'),
 
     url(r'^login/facebook/$', 'login_facebook', name='login_facebook'),
     url(r'^accounts/error/$', TemplateView.as_view(template_name="account/registration/registration_login_error.html"), name='view_user_login_error'),
     url(r'^signup/done/$', 'view_user_signup_done', name='view_user_signup_done'),
     url(r'^activate/(?P<key>\w+)/$', 'activate_email_user', name='activate_email_user'),
     url(r'^accounts/redirect/$', 'login_facebook_redirect', name='login_facebook_redirect'),
+
+    url(r'^ajax/email/login/$', 'ajax_email_login', name='ajax_email_login'),
+    url(r'^ajax/email/register/$', 'ajax_email_register', name='ajax_email_register'),
 )
 
 urlpatterns += patterns(

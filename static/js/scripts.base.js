@@ -50,7 +50,14 @@ $('.modal').on('show', function() {
     $(this).find('.modal-error').remove();
 });
 
-function _showModalErrorMessage(modal_id, message) {
+function _alertModal(type, title, message) {
+    var modal = $('#alert-modal');
+    modal.find('.modal-header h3').html(title)
+    modal.find('.modal-body').html('<p class="' + type + '">' + message + '</p>')
+    modal.modal();
+}
+
+function _addModalErrorMessage(modal_id, message) {
     $('#' + modal_id + ' .modal-error').remove();
     $('#' + modal_id + ' .modal-header').after('<div class="modal-error"><i class="icon-exclamation-sign icon-white"></i> ' + message + '</div>');
 }

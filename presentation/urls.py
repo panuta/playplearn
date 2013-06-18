@@ -12,14 +12,30 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
     'presentation.views.course_views',
-    url(r'^course/(?P<course_uid>\w+)/$', 'view_course_outline', name='view_course_outline'),
+
+    url(r'^course/(?P<course_uid>\w+)/$', 'view_course_outline', {'page_action': '', 'enrollment_code': ''}, name='view_course_outline'),
+    url(r'^course/(?P<course_uid>\w+)/payment/(?P<enrollment_code>\d+)/$', 'view_course_outline', {'page_action': 'payment'}, name='view_course_outline_with_payment'),
+
+    url(r'^ajax/course/enroll/$', 'enroll_course', name='enroll_course'),
+    url(r'^ajax/course/enroll/login/(?P<backend>[^/]+)/$', 'login_to_enroll_course', name='login_to_enroll_course'),
+
+
+
+
     url(r'^course/enroll/$', 'view_course_enroll', name='view_course_enroll'),
+
+
+
     url(r'^course/enroll/receipt/$', 'view_course_enroll_receipt', name='view_course_enroll_receipt'),
 
     url(r'^courses/$', 'view_courses_explore', name='view_courses_explore'),
     url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
 
     url(r'^ajax/course/topics/search/$', 'search_course_topics', name='search_course_topics'),
+
+
+
+
 )
 
 """
@@ -48,7 +64,7 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
     url(r'^course/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
 
-    url(r'^reservation/(?P<reservation_code>\w+)/print/$', 'print_reservation', name='print_reservation'),
+    url(r'^enrollment/(?P<enrollment_code>\w+)/print/$', 'print_enrollment', name='print_enrollment'),
 
     url(r'^ajax/course/autosave/$', 'ajax_autosave_course', name='ajax_autosave_course'),
     url(r'^ajax/course/cover/upload/$', 'ajax_upload_course_cover', name='ajax_upload_course_cover'),
@@ -59,7 +75,7 @@ urlpatterns += patterns(
     url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
     url(r'^ajax/course/schedule/add/$', 'ajax_add_course_schedule', name='ajax_add_course_schedule'),
 
-    url(r'^ajax/reservation/details/$', 'ajax_view_reservation_details', name='ajax_view_reservation_details'),
+    url(r'^ajax/enrollment/details/$', 'ajax_view_enrollment_details', name='ajax_view_enrollment_details'),
 )
 
 urlpatterns += patterns(

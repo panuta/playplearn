@@ -8,7 +8,203 @@
     }
 }
 
-#modal-reservation-details {
+#registration-modal {
+    margin-left: -300px;
+    width: 600px;
+
+    .modal-body {
+
+        .backend-social {
+            padding: 20px 0 10px;
+
+            .facebook {
+                .login_facebook_button;
+                margin-right: 15px;
+            }
+
+            .twitter {
+                .login_twitter_button;
+            }
+
+            .switch-to-email {
+                color: #999;
+                margin-top: 30px;
+            }
+        }
+
+        .button-switch-backend {
+            .grey_link;
+            font-size: 13px;
+            margin-left: 3px;
+        }
+
+        .backend-email {
+            padding-bottom: 10px;
+
+            form {
+                margin: 10px 0 25px;
+
+                .input {
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+
+                label {
+                    color: #444;
+                    font-size: 13px;
+                }
+
+                input {
+                    font-size: 15px;
+                    height: 25px;
+                    width: 230px;
+                }
+
+                .actions {
+                    margin-top: 2px;
+
+                    .error {
+                        color: #C30;
+                        font-size: 13px;
+                        margin-bottom: 8px;
+                    }
+
+                    button {
+                        font-size: 13px;
+                        padding: 5px 40px;
+                        vertical-align: middle;
+                    }
+
+                    a {
+                        .content_link;
+                        font-size: 13px;
+                        margin-left: 10px;
+                        vertical-align: middle;
+                    }
+                }
+            }
+
+            .email-login {
+                margin-bottom: 20px;
+            }
+
+            .email-register {
+                border-top: 1px dashed #DDD;
+                padding-top: 10px;
+
+                .head {
+                    color: #555;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+#modal-enrollment-login {
+    margin-left: -300px;
+    width: 600px;
+
+    .modal-body {
+        padding-top: 15px;
+    }
+
+    .why {
+        float: left;
+        width: 290px;
+
+        .head {
+            font-size: 19px;
+        }
+
+        ul {
+            li {
+                color: #555;
+                margin-top: 15px;
+
+                strong {
+                    color: #444;
+                    display: block;
+                    font-size: 15px;
+                    margin-bottom: 3px;
+                }
+            }
+        }
+    }
+
+    .registration {
+        margin-left: 315px;
+
+        .backend-social {
+            margin-top: 20px;
+
+            .facebook {
+                .login_facebook_button;
+                margin-bottom: 15px;
+            }
+
+            .twitter {
+                .login_twitter_button;
+            }
+
+            .email {
+                margin-top: 15px;
+                text-align: center;
+
+                a {
+                    .grey_link;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .backend-email {
+            .back {
+                .grey_link;
+                font-size: 13px;
+                margin-bottom: 5px;
+            }
+
+            form {
+                margin-top: 10px;
+                text-align: center;
+
+                input {
+                    font-size: 15px;
+                    height: 27px;
+                    width: 233px;
+                }
+
+                button {
+                    padding: 5px 30px;
+                }
+
+                .error {
+                    color: #C30;
+                    margin-bottom: 10px;
+                }
+
+                .success {
+                    color: #1ABC9C;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .signup {
+                margin-top: 10px;
+                text-align: center;
+
+                a {
+                    .content_link;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}
+
+#modal-enrollment-details {
     .head {
         color: @primaryColor;
         font-size: 14px;
@@ -45,7 +241,7 @@
         }
     }
 
-    .details-reservation {
+    .details-enrollment {
         margin-top: 2px;
 
         .data {

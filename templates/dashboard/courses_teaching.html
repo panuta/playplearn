@@ -51,15 +51,15 @@ $(document).ready(function() {
 
             } else {
                 if(response.message) {
-                    _showModalErrorMessage('modal-publish-course', response.message);
+                    _addModalErrorMessage('modal-publish-course', response.message);
                 } else {
-                    _showModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
+                    _addModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
                 }
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _showModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
+            _addModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
         });
     });
 
@@ -110,15 +110,15 @@ $(document).ready(function() {
 
             } else {
                 if(response.message) {
-                    _showModalErrorMessage('modal-publish-course', response.message);
+                    _addModalErrorMessage('modal-publish-course', response.message);
                 } else {
-                    _showModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
+                    _addModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
                 }
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _showModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
+            _addModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
         });
     });
 });

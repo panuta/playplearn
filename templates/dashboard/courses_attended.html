@@ -4,7 +4,7 @@
 
 {% block courses_content %}
 <div class="page-my-courses-attended">
-    {% if reservations %}
+    {% if enrollments %}
     <div class="row">
         <div class="span3 courses-schools">
             <div class="head">SCHOOLS ATTENDANCE</div>
@@ -17,17 +17,17 @@
         </div>
         <div class="span9">
             <ul class="courses">
-                {% for reservation in reservations %}
+                {% for enrollment in enrollments %}
                 <li class="course">
-                    <div class="feedback"><!-- TODO -->{% if not reservation.has_feedback %}<a href="#" class="style-orange-button">Give Feedback</a>{% endif %}</div>
-                    <div class="title"><a href="{% url 'view_course_outline' reservation.schedule.course.uid %}">{{ reservation.schedule.course.title }}</a></div>
+                    <div class="feedback"><!-- TODO -->{% if not enrollment.has_feedback %}<a href="#" class="style-orange-button">Give Feedback</a>{% endif %}</div>
+                    <div class="title"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}">{{ enrollment.schedule.course.title }}</a></div>
                     <div class="details">
-                        <span class="teacher"><span class="caption">By</span> <a href="{% url 'view_user_profile' reservation.schedule.course.teacher.uid %}">{{ reservation.schedule.course.teacher.name }}</a></span>
-                        <span class="datetime"><span class="caption">When</span> <em>{{ reservation.schedule.start_datetime|date:'l, j M Y H:i' }}</em></span>
+                        <span class="teacher"><span class="caption">By</span> <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}">{{ enrollment.schedule.course.teacher.name }}</a></span>
+                        <span class="datetime"><span class="caption">When</span> <em>{{ enrollment.schedule.start_datetime|date:'l, j M Y H:i' }}</em></span>
                     </div>
                     <div class="actions">
-                        <a href="#modal-reservation-details" class="link" data-code="{{ reservation.code }}">Reservation details</a>
-                        <!-- TODO -->{% if reservation.has_feedback %}<a href="#">My feedback</a>{% endif %}
+                        <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
+                        <!-- TODO -->{% if enrollment.has_feedback %}<a href="#">My feedback</a>{% endif %}
                     </div>
                 </li>
                 {% endfor %}
@@ -39,5 +39,5 @@
     {% endif %}
 </div>
 
-{% include 'snippets/modal_reservation_details.html' %}
+{% include 'snippets/modal_enrollment_details.html' %}
 {% endblock %}

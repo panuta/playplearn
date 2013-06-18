@@ -1,0 +1,117 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Please sign up or login to continue</h3>
+</div>
+<div class="modal-body">
+    <div class="why">
+        <div class="head">Why do we need your account?</div>
+        <ul>
+            <li><strong>Notification and announcement</strong> We will inform you any updates of the class you enrolled.</li>
+            <li><strong>Our value is a feedback from you</strong> You can write a feedback after you've taken a class.</li>
+        </ul>
+    </div>
+    <div class="registration">
+        <div class="backend-social">
+            <div class="social">
+                <a href="#" class="facebook">Sign up / login with Facebook</a>
+                <a href="#" class="twitter">Sign up / login with Twitter</a>
+            </div>
+            <div class="email">
+                <div class="or">or</div>
+                <a href="#" class="button-switch-backend">Use email to sign up or login</a>
+            </div>
+        </div>
+        <div class="backend-email hide">
+            <a href="#" class="back button-switch-backend">← Use social networks</a>
+            <div class="email_account_login">
+                <form action="{% url 'login_to_enroll_course' 'email_login' %}" method="post">
+                    <input type="email" name="email" placeholder="Email address" />
+                    <input type="password" name="password" placeholder="Password" />
+                    <button type="button" class="style-primary-button">Login</button>
+                </form>
+                <div class="signup">
+                    <a href="#" class="button-switch-email">Don't have account yet?</a>
+                </div>
+            </div>
+            <div class="email_account_signup hide">
+                <form action="{% url 'login_to_enroll_course' 'email_signup' %}" method="post">
+                    <input type="email" name="email" placeholder="Email address" />
+                    <button type="button" class="style-primary-button">Sign up</button>
+                </form>
+                <div class="signup">
+                    <a href="#" class="button-switch-email">Already have an account?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var schedule_id = '{{ schedule.id }}';
+
+var enrollment_modal = $('#modal-enrollment-login');
+enrollment_modal.find('.button-switch-backend').on('click', function() {
+    enrollment_modal.find('.backend-social').toggle();
+    enrollment_modal.find('.backend-email').toggle();
+    return false;
+});
+
+enrollment_modal.find('.button-switch-email').on('click', function() {
+    enrollment_modal.find('.email_account_login').toggle();
+    enrollment_modal.find('.email_account_signup').toggle();
+    return false;
+});
+
+enrollment_modal.find('.email_account_login button').on('click', function() {
+    var email = enrollment_modal.find('.email_account_login input[name="email"]').val();
+    var password = enrollment_modal.find('.email_account_login input[name="password"]').val();
+
+    if(email && password) {
+        enrollment_modal.find('.email_account_login button').attr('disabled', true);
+        var jqxhr = $.post('{% url 'login_to_enroll_course' 'email_login' %}', {email:email, password:password, schedule_id:schedule_id}, function(response) {
+            enrollment_modal.find('.email_account_login button').attr('disabled', false);
+            if(response.status == 'success') {
+                window.location = response.data.redirect_url;
+
+            } else {
+                enrollment_modal.find('.email_account_login .error').remove();
+                enrollment_modal.find('.email_account_login button').before('<div class="error">เข้าสู่ระบบไม่ได้ ' + response.message + '</div>');
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            enrollment_modal.find('.email_account_login button').attr('disabled', false);
+            enrollment_modal.find('.email_account_login .error').remove();
+            enrollment_modal.find('.email_account_login button').before('<div class="error">เข้าสู่ระบบไม่ได้ ' + response.message + '</div>');
+        });
+    }
+
+    return false;
+});
+
+enrollment_modal.find('.email_account_signup button').on('click', function() {
+    var email = enrollment_modal.find('.email_account_signup input[name="email"]').val();
+
+    if(email) {
+        enrollment_modal.find('.email_account_signup button').attr('disabled', true);
+        var jqxhr = $.post('{% url 'login_to_enroll_course' 'email_signup' %}', {email:email, schedule_id:schedule_id}, function(response) {
+            enrollment_modal.find('.email_account_signup button').attr('disabled', false);
+            if(response.status == 'success') {
+                enrollment_modal.find('.email_account_signup .error').remove();
+                enrollment_modal.find('.email_account_signup button').before('<div class="success">สมัครสมาชิกเรียบร้อย กรุณายืนยันอีเมลของคุณจากลิงก์ที่ทางเราส่งไปในอีเมล</div>');
+
+            } else {
+                enrollment_modal.find('.email_account_signup .error').remove();
+                enrollment_modal.find('.email_account_signup button').before('<div class="error">สมัครสมาชิกไม่ได้ ' + response.message + '</div>');
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            enrollment_modal.find('.email_account_signup button').attr('disabled', false);
+            enrollment_modal.find('.email_account_signup .error').remove();
+            enrollment_modal.find('.email_account_signup button').before('<div class="error">สมัครสมาชิกไม่ได้ ' + response.message + '</div>');
+        });
+    }
+
+    return false;
+});
+</script>

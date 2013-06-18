@@ -17,14 +17,14 @@ from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
 from common import errors
-from common.constants.course import COURSE_RESERVATION_STATUS_MAP, COURSE_RESERVATION_PAYMENT_STATUS_MAP
+from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.decorators import teacher_only
 from common.shortcuts import response_json_success, response_json_error, response_json_error_with_message
 from common.utilities import format_full_datetime
 
 from domain import functions as domain_function
-from domain.models import CourseReservation, CourseSchedule, Course, CourseSchool, CourseOutlineMedia, CoursePicture, EditingCourse, EditingCourseOutlineMedia, EditingCoursePicture
+from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseOutlineMedia, CoursePicture, EditingCourse, EditingCourseOutlineMedia, EditingCoursePicture
 
 # MY COURSES ###########################################################################################################
 
@@ -34,7 +34,7 @@ def view_my_courses_upcoming(request):
     upcoming_schedules = CourseSchedule.objects \
         .filter(status='OPENING', start_datetime__gt=rightnow) \
         .filter((Q(course__teacher=request.user) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
-                | Q(reservations__student__in=(request.user,)))
+                | Q(enrollments__student__in=(request.user,)))
 
     return render(request, 'dashboard/courses_upcoming.html', {'upcoming_schedules': upcoming_schedules})
 
@@ -52,18 +52,18 @@ def view_my_courses_attended_in_school(request, school_slug):
 
 def _view_my_courses_attended(request, course_school=None):
     rightnow = now()
-    total_reservations = CourseReservation.objects \
+    total_enrollments = CourseEnrollment.objects \
         .filter(schedule__start_datetime__lte=rightnow, student=request.user, status='CONFIRMED')
 
     if not course_school:
-        reservations = total_reservations
+        enrollments = total_enrollments
     else:
-        reservations = CourseReservation.objects.filter(schedule__course__schools__in=(course_school,),
+        enrollments = CourseEnrollment.objects.filter(schedule__course__schools__in=(course_school,),
                                                         schedule__start_datetime__lte=rightnow, student=request.user,
                                                         status='CONFIRMED')
 
     sorted_schools_learned = sorted(
-        total_reservations.values('schedule__course').values('schedule__course__schools__id').annotate(
+        total_enrollments.values('schedule__course').values('schedule__course__schools__id').annotate(
             num_schools=Count('schedule__course__id')).order_by(),
         key=operator.itemgetter('num_schools'), reverse=True)
 
@@ -78,7 +78,7 @@ def _view_my_courses_attended(request, course_school=None):
         total_num_schools = total_num_schools + school_learned['num_schools']
 
     return render(request, 'dashboard/courses_attended.html', {
-        'reservations': reservations,
+        'enrollments': enrollments,
         'schools_learned': schools_learned,
         'total_num_schools': total_num_schools,
         'course_school': course_school
@@ -460,33 +460,33 @@ def ajax_add_course_schedule(request):
 
 @require_GET
 @login_required
-def ajax_view_reservation_details(request):
+def ajax_view_enrollment_details(request):
     if not request.is_ajax():
         raise Http404
 
     code = request.GET.get('code')
 
     try:
-        reservation = CourseReservation.objects.get(code=code)
-    except CourseReservation.DoesNotExist:
+        enrollment = CourseEnrollment.objects.get(code=code)
+    except CourseEnrollment.DoesNotExist:
         raise Http404
 
-    course = reservation.schedule.course
+    course = enrollment.schedule.course
     return response_json_success({
         'title': course.title,
         'teacher_name': course.teacher.name,
-        'schedule_datetime': format_full_datetime(reservation.schedule.start_datetime),
-        'amount': '%.0f %s' % (reservation.total, CURRENCY_CODE_MAP[str(course.price_unit)]['name']),
-        'status': COURSE_RESERVATION_STATUS_MAP[str(reservation.status)]['name'],
-        'payment_status': COURSE_RESERVATION_PAYMENT_STATUS_MAP[str(reservation.payment_status)]['name'],
-        'reserved_on': format_full_datetime(reservation.created),
+        'schedule_datetime': format_full_datetime(enrollment.schedule.start_datetime),
+        'amount': '%.0f %s' % (enrollment.total, CURRENCY_CODE_MAP[str(course.price_unit)]['name']),
+        'status': COURSE_ENROLLMENT_STATUS_MAP[str(enrollment.status)]['name'],
+        'payment_status': COURSE_ENROLLMENT_PAYMENT_STATUS_MAP[str(enrollment.payment_status)]['name'],
+        'reserved_on': format_full_datetime(enrollment.created),
         'print_url': '',
     })
 
 
-def print_reservation(request, reservation_code):
-    reservation = get_object_or_404(CourseReservation, code=reservation_code)
-    return render(request, 'dashboard/reservation_print.html', {'reservation': reservation})
+def print_enrollment(request, enrollment_code):
+    enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code)
+    return render(request, 'dashboard/enrollment_print.html', {'enrollment': enrollment})
 
 
 # MANAGE CLASSROOM #####################################################################################################

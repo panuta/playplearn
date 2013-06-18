@@ -11,9 +11,9 @@ from domain.models import UserAccount, Place
 class EditProfileForm(forms.Form):
     avatar = forms.ImageField(required=False, widget=forms.FileInput())
     name = forms.CharField(max_length=100)
-    headline = forms.CharField(max_length=300)
+    headline = forms.CharField(required=False, max_length=300)
     website = forms.URLField(required=False, max_length=255)
-    phone_number = forms.CharField(max_length=50)
+    phone_number = forms.CharField(required=False, max_length=50)
 
 
 class EditAccountEmailForm(forms.Form):

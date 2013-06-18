@@ -74,7 +74,7 @@ class EmailSignupForm(forms.Form):
 class EmailSignupResendForm(forms.Form):
     email = forms.EmailField()
 
-    def clean_signup_email(self):
+    def clean_email(self):
         email = self.cleaned_data.get('email')
 
         if UserAccount.objects.filter(email=email).count():
@@ -89,6 +89,6 @@ class EmailSignupResendForm(forms.Form):
 
 
 class EmailUserActivationForm(forms.Form):
-    avatar = forms.ImageField(required=False, widget=forms.FileInput)
+    fullname = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100, widget=forms.PasswordInput)
-    name = forms.CharField(max_length=100)
+    avatar = forms.ImageField(required=False, widget=forms.FileInput)

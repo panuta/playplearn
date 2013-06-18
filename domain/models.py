@@ -150,7 +150,7 @@ class UserAccount(AbstractBaseUser):
         return CourseSchedule.objects \
             .filter(status='OPENING', start_datetime__gt=rightnow) \
             .filter((Q(course__teacher=self) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
-                    | Q(reservations__student__in=(self,))).count()
+                    | Q(enrollments__student__in=(self,))).count()
 
     def stats_courses_teaching(self):
         return Course.objects.filter(
@@ -162,22 +162,22 @@ class UserAccount(AbstractBaseUser):
         return CourseSchedule.objects.filter(course__teacher=self, course__status='PUBLISHED', status='OPENING').count()
 
     def stats_students_teaching(self):
-        return UserAccount.objects.filter(reservations__schedule__course__teacher=self, reservations__status='CONFIRMED', reservations__schedule__status='OPENING').distinct().count()
+        return UserAccount.objects.filter(enrollments__schedule__course__teacher=self, enrollments__status='CONFIRMED', enrollments__schedule__status='OPENING').distinct().count()
 
     def stats_courses_attended(self):
         rightnow = now()
         return Course.objects.filter(
             schedules__start_datetime__lte=rightnow,
-            schedules__reservations__status='CONFIRMED',
-            schedules__reservations__student=self,
+            schedules__enrollments__status='CONFIRMED',
+            schedules__enrollments__student=self,
         ).count()
 
     def stats_feedbacks_received(self):
-        return CourseFeedback.objects.filter(reservation__schedule__course__teacher=self).count()
+        return CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self).count()
 
     def stats_positive_feedbacks_percentage(self):
         total = self.stats_feedbacks_received()
-        return float(CourseFeedback.objects.filter(reservation__schedule__course__teacher=self, is_positive=True).count()) / float(total) * 100 if total else 0
+        return float(CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self, is_positive=True).count()) / float(total) * 100 if total else 0
 
     def stats_feedbacks_given(self):
         return self.feedbacks.count()
@@ -241,7 +241,7 @@ class UserAccountBalanceTransaction(models.Model):
 
 class BasePlace(models.Model):
     name = models.CharField(max_length=500, blank=True)
-    code = models.CharField(max_length=100, blank=True, db_index=True)
+    code = models.CharField(max_length=100, blank=True, db_index=True, unique=True)
     address = models.CharField(max_length=500, blank=True)
     province_code = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=5, blank=True)
@@ -402,10 +402,10 @@ class Course(BaseCourse):
     # STATS
 
     def stats_attended_students(self):
-        return UserAccount.objects.filter(reservations__schedule__course=self).distinct().count()
+        return UserAccount.objects.filter(enrollments__schedule__course=self).distinct().count()
 
     def stats_feedbacks(self):
-        return CourseFeedback.objects.filter(reservation__schedule__course=self).count()
+        return CourseFeedback.objects.filter(enrollment__schedule__course=self).count()
 
     # UTILS
 
@@ -536,7 +536,7 @@ class CourseOutlineMediaManager(models.Manager):
 
 
 class BaseCourseOutlineMedia(models.Model):
-    uid = models.CharField(max_length=50, db_index=True)
+    uid = models.CharField(max_length=50, db_index=True, unique=True)
     media_type = models.CharField(max_length=20, choices=COURSE_OUTLINE_MEDIA_CHOICES)
     description = models.CharField(max_length=1000, blank=True)
     ordering = models.PositiveSmallIntegerField(default=0)
@@ -616,36 +616,75 @@ class CourseSchedule(models.Model):
     # STATS
 
     def stats_seats_reserved(self):
-        return CourseReservation.objects.filter(schedule=self, status='CONFIRMED').count()
+        return CourseEnrollment.objects.filter(schedule=self, status='CONFIRMED').count()
 
     def stats_seats_left(self):
         return self.course.maximum_people - self.stats_seats_reserved()
 
 
-class CourseReservation(models.Model):
-    code = models.CharField(max_length=20, db_index=True)
-    student = models.ForeignKey(UserAccount, related_name='reservations')
-    schedule = models.ForeignKey(CourseSchedule, related_name='reservations')
-    note = models.CharField(max_length=1000, blank=True)
+# Course Enrollment
 
+class CourseEnrollmentManager(models.Manager):
+    def generate_enrollment_code(self):
+        shortuuid.set_alphabet(SHORTUUID_ALPHABETS_NUMBER_ONLY)
+        temp_uuid = shortuuid.uuid()[0:10]
+        while CourseEnrollment.objects.filter(code=temp_uuid).exists() or \
+                UnauthenticatedCourseEnrollment.objects.filter(code=temp_uuid).exists():
+            temp_uuid = shortuuid.uuid()[0:10]
+        return temp_uuid
+
+    def create_enrollment_from_unauthenticated(self, user, unauthenticated_enrollment):
+        return CourseEnrollment.objects.create(
+            student=user,
+            schedule=unauthenticated_enrollment.schedule,
+            price=unauthenticated_enrollment.price,
+            total=unauthenticated_enrollment.price,
+            status='PENDING',
+            payment_status='WAIT_FOR_PAYMENT',
+        )
+
+
+class BaseCourseEnrollment(models.Model):
+    code = models.CharField(max_length=20, db_index=True, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     total = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_status = models.CharField(max_length=30, choices=COURSE_RESERVATION_PAYMENT_STATUS_CHOICES)
-
-    status = models.CharField(max_length=20, choices=COURSE_RESERVATION_STATUS_CHOICES)
-    status_reason = models.CharField(max_length=100, blank=True)
+    note = models.CharField(max_length=1000, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+    objects = CourseEnrollmentManager()
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.__class__.objects.generate_enrollment_code()
+        super(BaseCourseEnrollment, self).save(*args, **kwargs)
+
+
+class CourseEnrollment(BaseCourseEnrollment):
+    student = models.ForeignKey(UserAccount, related_name='enrollments')
+    schedule = models.ForeignKey(CourseSchedule, related_name='enrollments')
+    payment_status = models.CharField(max_length=30, choices=COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES)
+
+    status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
+    status_reason = models.CharField(max_length=100, blank=True)
 
     class Meta:
         ordering = ['-schedule__start_datetime']
 
     def has_feedback(self):
-        return CourseFeedback.objects.filter(reservation=self).exists()
+        return CourseFeedback.objects.filter(enrollment=self).exists()
+
+
+class UnauthenticatedCourseEnrollment(BaseCourseEnrollment):
+    key = models.CharField(max_length=100, db_index=True, unique=True)
+    schedule = models.ForeignKey(CourseSchedule, related_name='unauthenticated_enrollments')
 
 
 class CourseFeedback(models.Model):
     user = models.ForeignKey(UserAccount, related_name='feedbacks')
-    reservation = models.OneToOneField('CourseReservation', related_name='feedback')
+    enrollment = models.OneToOneField('CourseEnrollment', related_name='feedback')
     content = models.CharField(max_length=2000)
     is_positive = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)

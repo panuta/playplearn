@@ -59,22 +59,22 @@ COURSE_SCHEDULE_STATUS_MAP = {
     'DELETED': {'name': 'Deleted'},
 }
 
-# COURSE RESERVATION STATUS
-COURSE_RESERVATION_STATUS_CHOICES = (
+# COURSE ENROLLMENT STATUS
+COURSE_ENROLLMENT_STATUS_CHOICES = (
     ('PENDING', 'Pending'),
     ('CONFIRMED', 'Confirmed'),
     ('CANCELLED', 'Cancelled'),
 )
 
-COURSE_RESERVATION_STATUS_MAP = {
+COURSE_ENROLLMENT_STATUS_MAP = {
     'PENDING': {'name': 'Pending'},
     'CONFIRMED': {'name': 'Confirmed'},
     'CANCELLED': {'name': 'Cancelled'},
 }
 
-# COURSE RESERVATION PAYMENT STATUS
-COURSE_RESERVATION_PAYMENT_STATUS_CHOICES = (
-    ('PENDING', 'Pending'),  # Reservation record is just created. Payment status is not available.
+# COURSE ENROLLMENT PAYMENT STATUS
+COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES = (
+    ('PENDING', 'Pending'),  # Enrollment record is just created. Payment status is not available.
     ('WAIT_FOR_PAYMENT', 'Wait for Payment'),
     ('PAYMENT_RECEIVED', 'Paid'),
     ('PAYMENT_RECEIVED_FAIL', 'Payment Failed'),
@@ -84,7 +84,7 @@ COURSE_RESERVATION_PAYMENT_STATUS_CHOICES = (
     ('CANCELLED', 'Cancelled'),
 )
 
-COURSE_RESERVATION_PAYMENT_STATUS_MAP = {
+COURSE_ENROLLMENT_PAYMENT_STATUS_MAP = {
     'PENDING': {'name': 'Pending'},
     'WAIT_FOR_PAYMENT': {'name': 'Wait for Payment'},
     'PAYMENT_RECEIVED': {'name': 'Paid'},

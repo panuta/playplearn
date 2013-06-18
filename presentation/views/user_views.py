@@ -90,7 +90,9 @@ def edit_my_settings_account_email(request):
             # TODO Send email change confirmation email
             messages.success(request, u'Please check our confirmation email from your inbox')
     else:
-        form = EditAccountEmailForm(request.user)
+        form = EditAccountEmailForm(request.user, initial={
+            'email': request.user.email,
+        })
 
     return render(request, 'user/settings/settings_account.html', {'form': form})
 

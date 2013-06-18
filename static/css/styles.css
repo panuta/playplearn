@@ -289,7 +289,7 @@ body.modal-open {
   color: #555;
   display: inline-block;
   font-size: 14px;
-  font-weight: bold;
+  margin-bottom: 8px;
 }
 .style-form select,
 .style-form textarea,
@@ -320,6 +320,14 @@ body.modal-open {
 .style-form .form-actions .style-primary-button {
   font-size: 14px;
   padding: 10px 50px;
+}
+form .errorlist {
+  margin: 0;
+}
+form .errorlist li {
+  color: #C30;
+  list-style: none;
+  margin-bottom: 8px;
 }
 form .avatar-control img.avatar {
   border-radius: 50px;
@@ -354,7 +362,7 @@ form .avatar-control .errorlist {
   font-size: 13.5px;
   padding: 7px 30px;
   background-color: #D9D9D9;
-  box-shadow: 0px 5px 0px #BBB;
+  box-shadow: 0px 3px 0px #BBB;
   color: #333;
 }
 .style-button:hover,
@@ -375,7 +383,7 @@ form .avatar-control .errorlist {
 .style-button:hover,
 .style-button:focus {
   background-color: #E4E4E4;
-  box-shadow: 0px 5px 0px #CCC;
+  box-shadow: 0px 3px 0px #CCC;
   color: #333;
 }
 .style-orange-button {
@@ -385,7 +393,7 @@ form .avatar-control .errorlist {
   font-size: 13.5px;
   padding: 7px 30px;
   background-color: #e4671f;
-  box-shadow: 0px 5px 0px #c45718;
+  box-shadow: 0px 3px 0px #c45718;
   color: #FFF;
 }
 .style-orange-button:hover,
@@ -406,7 +414,7 @@ form .avatar-control .errorlist {
 .style-orange-button:hover,
 .style-orange-button:focus {
   background-color: #eb732d;
-  box-shadow: 0px 5px 0px #d56321;
+  box-shadow: 0px 3px 0px #d56321;
 }
 .style-primary-button {
   border: none;
@@ -415,7 +423,7 @@ form .avatar-control .errorlist {
   font-size: 13.5px;
   padding: 7px 30px;
   background-color: #1693a5;
-  box-shadow: 0px 5px 0px #137f8e;
+  box-shadow: 0px 3px 0px #137f8e;
   color: #FFF;
 }
 .style-primary-button:hover,
@@ -436,7 +444,7 @@ form .avatar-control .errorlist {
 .style-primary-button:hover,
 .style-primary-button:focus {
   background-color: #19a7bc;
-  box-shadow: 0px 5px 0px #1693a5;
+  box-shadow: 0px 3px 0px #1693a5;
 }
 h1.style-page-header {
   background-position: left center;
@@ -929,52 +937,286 @@ body {
 #modal-error-message h3 {
   color: #C30;
 }
-#modal-reservation-details .head {
+#registration-modal {
+  margin-left: -300px;
+  width: 600px;
+}
+#registration-modal .modal-body .backend-social {
+  padding: 20px 0 10px;
+}
+#registration-modal .modal-body .backend-social .facebook {
+  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+  margin-right: 15px;
+}
+#registration-modal .modal-body .backend-social .facebook:hover {
+  background-position: -230px 0px;
+}
+#registration-modal .modal-body .backend-social .twitter {
+  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+}
+#registration-modal .modal-body .backend-social .twitter:hover {
+  background-position: -230px -40px;
+}
+#registration-modal .modal-body .backend-social .switch-to-email {
+  color: #999;
+  margin-top: 30px;
+}
+#registration-modal .modal-body .button-switch-backend {
+  font-size: 13px;
+  margin-left: 3px;
+}
+#registration-modal .modal-body .button-switch-backend:link,
+#registration-modal .modal-body .button-switch-backend:active,
+#registration-modal .modal-body .button-switch-backend:visited {
+  color: #888;
+  text-decoration: underline;
+}
+#registration-modal .modal-body .button-switch-backend:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+#registration-modal .modal-body .backend-email {
+  padding-bottom: 10px;
+}
+#registration-modal .modal-body .backend-email form {
+  margin: 10px 0 25px;
+}
+#registration-modal .modal-body .backend-email form .input {
+  display: inline-block;
+  margin-right: 20px;
+}
+#registration-modal .modal-body .backend-email form label {
+  color: #444;
+  font-size: 13px;
+}
+#registration-modal .modal-body .backend-email form input {
+  font-size: 15px;
+  height: 25px;
+  width: 230px;
+}
+#registration-modal .modal-body .backend-email form .actions {
+  margin-top: 2px;
+}
+#registration-modal .modal-body .backend-email form .actions .error {
+  color: #C30;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+#registration-modal .modal-body .backend-email form .actions button {
+  font-size: 13px;
+  padding: 5px 40px;
+  vertical-align: middle;
+}
+#registration-modal .modal-body .backend-email form .actions a {
+  font-size: 13px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+#registration-modal .modal-body .backend-email form .actions a:link,
+#registration-modal .modal-body .backend-email form .actions a:active,
+#registration-modal .modal-body .backend-email form .actions a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+#registration-modal .modal-body .backend-email form .actions a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+#registration-modal .modal-body .backend-email .email-login {
+  margin-bottom: 20px;
+}
+#registration-modal .modal-body .backend-email .email-register {
+  border-top: 1px dashed #DDD;
+  padding-top: 10px;
+}
+#registration-modal .modal-body .backend-email .email-register .head {
+  color: #555;
+  font-size: 15px;
+  font-weight: bold;
+}
+#modal-enrollment-login {
+  margin-left: -300px;
+  width: 600px;
+}
+#modal-enrollment-login .modal-body {
+  padding-top: 15px;
+}
+#modal-enrollment-login .why {
+  float: left;
+  width: 290px;
+}
+#modal-enrollment-login .why .head {
+  font-size: 19px;
+}
+#modal-enrollment-login .why ul li {
+  color: #555;
+  margin-top: 15px;
+}
+#modal-enrollment-login .why ul li strong {
+  color: #444;
+  display: block;
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+#modal-enrollment-login .registration {
+  margin-left: 315px;
+}
+#modal-enrollment-login .registration .backend-social {
+  margin-top: 20px;
+}
+#modal-enrollment-login .registration .backend-social .facebook {
+  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+  margin-bottom: 15px;
+}
+#modal-enrollment-login .registration .backend-social .facebook:hover {
+  background-position: -230px 0px;
+}
+#modal-enrollment-login .registration .backend-social .twitter {
+  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+}
+#modal-enrollment-login .registration .backend-social .twitter:hover {
+  background-position: -230px -40px;
+}
+#modal-enrollment-login .registration .backend-social .email {
+  margin-top: 15px;
+  text-align: center;
+}
+#modal-enrollment-login .registration .backend-social .email a {
+  font-size: 13px;
+}
+#modal-enrollment-login .registration .backend-social .email a:link,
+#modal-enrollment-login .registration .backend-social .email a:active,
+#modal-enrollment-login .registration .backend-social .email a:visited {
+  color: #888;
+  text-decoration: underline;
+}
+#modal-enrollment-login .registration .backend-social .email a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+#modal-enrollment-login .registration .backend-email .back {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+#modal-enrollment-login .registration .backend-email .back:link,
+#modal-enrollment-login .registration .backend-email .back:active,
+#modal-enrollment-login .registration .backend-email .back:visited {
+  color: #888;
+  text-decoration: underline;
+}
+#modal-enrollment-login .registration .backend-email .back:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+#modal-enrollment-login .registration .backend-email form {
+  margin-top: 10px;
+  text-align: center;
+}
+#modal-enrollment-login .registration .backend-email form input {
+  font-size: 15px;
+  height: 27px;
+  width: 233px;
+}
+#modal-enrollment-login .registration .backend-email form button {
+  padding: 5px 30px;
+}
+#modal-enrollment-login .registration .backend-email form .error {
+  color: #C30;
+  margin-bottom: 10px;
+}
+#modal-enrollment-login .registration .backend-email form .success {
+  color: #1ABC9C;
+  margin-bottom: 10px;
+}
+#modal-enrollment-login .registration .backend-email .signup {
+  margin-top: 10px;
+  text-align: center;
+}
+#modal-enrollment-login .registration .backend-email .signup a {
+  font-size: 13px;
+}
+#modal-enrollment-login .registration .backend-email .signup a:link,
+#modal-enrollment-login .registration .backend-email .signup a:active,
+#modal-enrollment-login .registration .backend-email .signup a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+#modal-enrollment-login .registration .backend-email .signup a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+#modal-enrollment-details .head {
   color: #1693a5;
   font-size: 14px;
   font-weight: bold;
 }
-#modal-reservation-details .details-course {
+#modal-enrollment-details .details-course {
   background-color: #EEE;
   margin: 7px 0 20px;
   padding: 10px 15px;
 }
-#modal-reservation-details .details-course .title {
+#modal-enrollment-details .details-course .title {
   color: #444;
   font-size: 15px;
   font-weight: bold;
 }
-#modal-reservation-details .details-course .details {
+#modal-enrollment-details .details-course .details {
   margin-top: 4px;
 }
-#modal-reservation-details .details-course .details .caption {
+#modal-enrollment-details .details-course .details .caption {
   color: #777;
   font-size: 12px;
 }
-#modal-reservation-details .details-course .details em {
+#modal-enrollment-details .details-course .details em {
   color: #555;
   font-size: 14px;
 }
-#modal-reservation-details .details-course .details .teacher {
+#modal-enrollment-details .details-course .details .teacher {
   margin-right: 15px;
 }
-#modal-reservation-details .details-reservation {
+#modal-enrollment-details .details-enrollment {
   margin-top: 2px;
 }
-#modal-reservation-details .details-reservation .data {
+#modal-enrollment-details .details-enrollment .data {
   display: inline-block;
   margin-right: 25px;
 }
-#modal-reservation-details .details-reservation .data span {
+#modal-enrollment-details .details-enrollment .data span {
   color: #444;
   font-size: 13px;
 }
-#modal-reservation-details .details-reservation .data em {
+#modal-enrollment-details .details-enrollment .data em {
   display: block;
   font-size: 15px;
   font-weight: bold;
 }
-#modal-reservation-details .details-timestamp {
+#modal-enrollment-details .details-timestamp {
   color: #777;
   font-size: 13px;
   margin-top: 7px;
@@ -982,20 +1224,43 @@ body {
 .page-registration #body-header {
   border-bottom: 1px solid #E9E9E9;
 }
-.page-registration .registration-body .registration-box {
-  margin: 90px auto;
-  width: 500px;
-}
 .page-registration .registration-body h1 {
   color: #444;
   font-size: 30px;
   font-weight: normal;
-  text-align: center;
+  margin: 40px 0 30px;
 }
-.page-registration .registration-body .login-social {
-  border-bottom: 1px solid #EEE;
-  margin: 30px 0 10px;
-  padding-bottom: 30px;
+.page-registration .registration-body form {
+  margin: 0;
+}
+.page-registration .registration-body form .control-group {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  vertical-align: top;
+}
+.page-registration .registration-body form .control-group .controls input {
+  width: 250px;
+}
+.page-registration .registration-body form .avatar-control {
+  display: block;
+  margin: 20px 0 40px;
+}
+.page-registration .registration-body form .form-actions a {
+  font-size: 13px;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+.page-registration .registration-body form .form-actions a:link,
+.page-registration .registration-body form .form-actions a:active,
+.page-registration .registration-body form .form-actions a:visited {
+  color: #888;
+  text-decoration: underline;
+}
+.page-registration .registration-body form .form-actions a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
 }
 .page-registration .registration-body .login-social .facebook {
   background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
@@ -1018,59 +1283,52 @@ body {
 .page-registration .registration-body .login-social .twitter:hover {
   background-position: -230px -40px;
 }
-.page-registration .registration-body .login-email {
-  text-align: center;
+.page-registration .registration-body .login-social .use-email {
+  margin-top: 30px;
 }
-.page-registration .registration-body .login-email .or {
-  color: #999;
-  margin-bottom: 15px;
-}
-.page-registration .registration-body .login-email form {
-  margin: 0;
-}
-.page-registration .registration-body .login-email form .text-input input {
-  font-size: 15px;
-  height: 30px;
-  text-align: center;
-  width: 280px;
-}
-.page-registration .registration-body .login-email form .style-button {
-  margin-top: 7px;
-  padding: 9px 50px;
-}
-.page-registration .registration-body .login-email form .forgot {
-  margin-top: 10px;
-}
-.page-registration .registration-body .login-email form .forgot a {
+.page-registration .registration-body .login-social .use-email a {
   font-size: 13px;
 }
-.page-registration .registration-body .login-email form .forgot a:link,
-.page-registration .registration-body .login-email form .forgot a:active,
-.page-registration .registration-body .login-email form .forgot a:visited {
+.page-registration .registration-body .login-social .use-email a:link,
+.page-registration .registration-body .login-social .use-email a:active,
+.page-registration .registration-body .login-social .use-email a:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-registration .registration-body .login-email form .forgot a:hover {
+.page-registration .registration-body .login-social .use-email a:hover {
   background-color: #1693a5;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
-.page-registration .registration-body .login-email form .button {
-  margin-top: 5px;
+.page-registration .registration-body .login-email {
+  border-left: 7px solid #DDD;
+  margin-top: 40px;
+  padding-left: 20px;
 }
-.page-registration .registration-body .login-email form .button .btn {
-  color: #555;
-  font-size: 13px;
-  height: 32px;
-  vertical-align: middle;
-  width: 140px;
+.page-registration .registration-body .login-email .email-login {
+  margin-bottom: 40px;
 }
-.page-registration .registration-body .login-email form .button a {
-  color: #666;
-  font-size: 13px;
-  margin-left: 15px;
-  vertical-align: bottom;
+.page-registration .registration-body .login-email .head {
+  color: #444;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.page-registration .registration-body .page-message {
+  color: #444;
+  font-size: 18px;
+}
+.page-registration .registration-body .page-message a:link,
+.page-registration .registration-body .page-message a:active,
+.page-registration .registration-body .page-message a:visited {
+  color: #1693a5;
+  text-decoration: underline;
+}
+.page-registration .registration-body .page-message a:hover {
+  background-color: #1693a5;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
 }
 .page-homepage .headline {
   background: url(../images/ui/bg1.jpg) no-repeat center center;

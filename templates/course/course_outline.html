@@ -7,11 +7,36 @@
 {% block scripts %}
 <script>
 $(document).ready(function($) {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         keyboardNavEnabled: true
     });
 
-    //$('#course-content-nav').find('a:first').tab('show');
+    $('.button-enroll').on('click', function() {
+        var schedule_id = $(this).attr('data-schedule-id');
+
+        var jqxhr = $.post('/ajax/course/enroll/', {schedule_id:schedule_id}, function(response) {
+            if(response.status == 'success') {
+                var modal;
+                if(response.data.enrollment_code) {
+                    $('#modal-enrollment-payment').html(response.data.modal_html).modal({backdrop: 'static'});
+                } else {
+                    $('#modal-enrollment-login').html(response.data.modal_html).modal({backdrop: 'static'});
+                }
+            } else {
+                if(response.message) {
+                    _alertModal('error', 'Error occurred', response.message);
+                } else {
+                    _alertModal('error', 'Error occurred', 'Unknown error');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _alertModal('error', 'Error occurred', errorThrown);
+        });
+
+        return false;
+    });
 });
 </script>
 {% endblock %}
@@ -86,6 +111,7 @@ $(document).ready(function($) {
             <div class="course-sidebar">
                 <div class="enrollment">
                     <div class="datetime clearfix">
+
                         {% comment %}
                         <!-- TODO Support multiple classes -->
                         {% with course.next_schedule.start_datetime as schedule_datetime %}
@@ -98,7 +124,7 @@ $(document).ready(function($) {
                         {% endcomment %}
                     </div>
                     <div class="enroll">
-                        <a href="#" class="enroll-button style-orange-button">Enroll Now<em>{% course_full_price course  %}</em></a>
+                        <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll Now<em>{% course_full_price course  %}</em></a>
                     </div>
                     <div class="availability">{% with course.next_schedule.stats_seats_left as seats_left  %}{{ seats_left }} seat{{ seats_left|pluralize }} left{% endwith %}</div>
                 </div>
@@ -161,6 +187,15 @@ $(document).ready(function($) {
     </div>
 </div>
 
-    <!-- Similar Courses -->
+<!-- Similar Courses -->
+
+<div class="modal fade hide" id="modal-enrollment-login"></div>
+
+<div class="modal hide" id="modal-enrollment-payment">
+{% if page_action == 'payment' and enrollment %}
+{% include 'snippets/modal_enrollment_payment.html' %}
+<script>$(document).ready(function($) {$('#modal-enrollment-payment').modal();});</script>
+{% endif %}
+</div>
 
 {% endblock %}

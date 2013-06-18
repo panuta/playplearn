@@ -3,6 +3,6 @@
 {% block email_content %}
     <h1 class="h1" style="{{ h1 }}">Confirm your registration</h1>
     <p>Please click on the link below to confirm your registration with PlayPlanet.</p>
-    <a href="{{ settings.WEBSITE_DOMAIN }}{% url 'activate_email_user' registration.registration_key %}">{{ settings.WEBSITE_DOMAIN }}{% url 'activate_email_user' registration.registration_key %}</a>
+    <a href="{{ settings.WEBSITE_URL }}{% url 'activate_email_user' registration.registration_key %}">{{ settings.WEBSITE_URL }}{% url 'activate_email_user' registration.registration_key %}</a>
     <p>If you haven't signed up for PlayPlanet website, please disregard this email.</p>
 {% endblock %}

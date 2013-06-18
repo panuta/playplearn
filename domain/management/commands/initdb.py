@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 
-from domain.models import UserAccount, CourseSchool, Course, CourseSchedule, CourseReservation, Place, UserAccountBalanceTransaction
+from domain.models import UserAccount, CourseSchool, Course, CourseSchedule, CourseEnrollment, Place, UserAccountBalanceTransaction
 
 
 class Command(BaseCommand):
@@ -168,7 +168,7 @@ class Command(BaseCommand):
                     status='OPENING',
                 )
 
-                CourseReservation.objects.get_or_create(
+                CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_1',
                     student=user3,
                     schedule=course1_schedule1,
@@ -178,7 +178,7 @@ class Command(BaseCommand):
                     status='CONFIRMED',
                 )
 
-                CourseReservation.objects.get_or_create(
+                CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_2',
                     student=user3,
                     schedule=course1_schedule2,
@@ -221,7 +221,7 @@ class Command(BaseCommand):
                     status='OPENING',
                 )
 
-                CourseReservation.objects.get_or_create(
+                CourseEnrollment.objects.get_or_create(
                     code='ENROLL2',
                     student=user3,
                     schedule=course2_schedule1,
@@ -261,7 +261,7 @@ class Command(BaseCommand):
                     status='OPENING',
                 )
 
-                CourseReservation.objects.get_or_create(
+                CourseEnrollment.objects.get_or_create(
                     code='ENROLL3',
                     student=user3,
                     schedule=course3_schedule1,

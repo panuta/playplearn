@@ -29,8 +29,8 @@
                         {% else %}
                             <a href="{{ course.venue.venue_url }}" class="style-primary-button"><i class="icon-map-marker"></i> How to get there</a>
                             <!-- TODO --><a href="#" class="link">Contact teacher</a>
-                            {% return_matching_reservation user schedule as reservation %}
-                            <a href="#modal-reservation-details" class="link" data-code="{{ reservation.code }}">Reservation details</a>
+                            {% return_matching_enrollment user schedule as enrollment %}
+                            <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
                         {% endif %}
                     </div>
                 </div>
@@ -44,5 +44,5 @@
     {% endif %}
 </div>
 
-{% include 'snippets/modal_reservation_details.html' %}
+{% include 'snippets/modal_enrollment_details.html' %}
 {% endblock %}
