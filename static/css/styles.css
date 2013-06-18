@@ -93,7 +93,7 @@ body.modal-open {
 }
 .modal .modal-header {
   border-bottom: 0px;
-  border-top: 7px solid #1693a5;
+  border-top: 7px solid #3a71a9;
   padding: 15px 20px;
 }
 .modal .modal-header h3 {
@@ -199,12 +199,12 @@ body.modal-open {
   color: #444;
 }
 .datepicker td.day:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   cursor: pointer;
 }
 .datepicker td.active {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
 }
 .datepicker td.disabled {
@@ -279,7 +279,7 @@ body.modal-open {
   background-color: #FFC;
 }
 .yui3-calendar td:hover {
-  background-color: #1693a5 !important;
+  background-color: #3a71a9 !important;
   color: #FFF;
 }
 .style-form .control-group {
@@ -422,8 +422,8 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
-  background-color: #1693a5;
-  box-shadow: 0px 3px 0px #137f8e;
+  background-color: #3a71a9;
+  box-shadow: 0px 3px 0px #2d5883;
   color: #FFF;
 }
 .style-primary-button:hover,
@@ -443,8 +443,8 @@ form .avatar-control .errorlist {
 }
 .style-primary-button:hover,
 .style-primary-button:focus {
-  background-color: #19a7bc;
-  box-shadow: 0px 3px 0px #1693a5;
+  background-color: #417ebc;
+  box-shadow: 0px 3px 0px #336496;
 }
 h1.style-page-header {
   background-position: left center;
@@ -493,16 +493,16 @@ h1.style-page-header {
   color: #444;
 }
 .style-topbar-nav li a:hover {
-  background-color: #1693a5;
-  border-left: 1px solid #1693a5;
-  border-top: 1px solid #1693a5;
+  background-color: #3a71a9;
+  border-left: 1px solid #3a71a9;
+  border-top: 1px solid #3a71a9;
   color: #FFF;
-  text-shadow: -1px -1px #137f8e;
+  text-shadow: -1px -1px #2d5883;
 }
 .style-topbar-nav li a:hover i {
   color: #FFF;
   text-decoration: none;
-  text-shadow: -1px -1px #137f8e;
+  text-shadow: -1px -1px #2d5883;
 }
 .style-sidebar-nav {
   margin: 0;
@@ -541,15 +541,15 @@ h1.style-page-header {
   color: #444;
 }
 .style-sidebar-nav li a:hover {
-  background-color: #1693a5;
-  border-top: 1px solid #1693a5;
+  background-color: #3a71a9;
+  border-top: 1px solid #3a71a9;
   color: #FFF;
-  text-shadow: -1px -1px #137f8e;
+  text-shadow: -1px -1px #2d5883;
 }
 .style-sidebar-nav li a:hover i {
   color: #FFF;
   text-decoration: none;
-  text-shadow: -1px -1px #137f8e;
+  text-shadow: -1px -1px #2d5883;
 }
 .style-container {
   border: 2px solid #EEE;
@@ -561,7 +561,7 @@ h1.style-page-header {
 }
 .style-container .container-inner h2.head2 {
   border-bottom: 3px double #EEE;
-  color: #1693a5;
+  color: #3a71a9;
   font-size: 22px;
   line-height: normal;
   margin: 0 0 25px 0;
@@ -589,11 +589,11 @@ h1.style-page-header {
 .style-course-box .title a:link,
 .style-course-box .title a:active,
 .style-course-box .title a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .style-course-box .title a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -659,11 +659,11 @@ h1.style-page-header {
 .style-course-box .next a:link,
 .style-course-box .next a:active,
 .style-course-box .next a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .style-course-box .next a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -682,7 +682,7 @@ body {
   padding: 12px 0;
 }
 #body-header .logo a {
-  color: #1693a5;
+  color: #3a71a9;
 }
 #body-header .navigation {
   float: left;
@@ -708,7 +708,7 @@ body {
   border-right: 1px solid #EEE;
 }
 #body-header .navigation ul li a i {
-  color: #1693a5;
+  color: #3a71a9;
   margin-right: 5px;
   vertical-align: middle;
 }
@@ -717,7 +717,7 @@ body {
   vertical-align: 1px;
 }
 #body-header .navigation ul li a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: none;
 }
@@ -742,11 +742,11 @@ body {
 #body-header .account .registration a:link,
 #body-header .account .registration a:active,
 #body-header .account .registration a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 #body-header .account .registration a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -776,7 +776,7 @@ body {
   margin-left: 5px;
 }
 #body-header .account .user .notification .has-alert {
-  background-color: #e46217;
+  background-color: #e67e22;
 }
 #body-header .account .user .menu {
   display: inline-block;
@@ -808,23 +808,49 @@ body {
   text-align: center;
 }
 .page-backend .backend-header {
-  background-color: #1693a5;
-  padding: 20px 0;
+  background-color: #3a71a9;
+  padding: 15px 0;
 }
 .page-backend .backend-header .parent {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .page-backend .backend-header .parent a {
   color: #EEE;
   font-size: 13px;
-  text-decoration: underline;
 }
 .page-backend .backend-header .parent a:hover {
-  background-color: #19a7bc;
+  text-decoration: underline;
+}
+.page-backend .backend-header .parent span {
+  color: #EEE;
+  font-size: 13px;
 }
 .page-backend .backend-header .parent .separator {
   color: #EEE;
+  font-size: 15px;
   margin: 0 6px;
+}
+.page-backend .backend-header .actions {
+  float: right;
+}
+.page-backend .backend-header .actions a {
+  background-color: #F7F7F7;
+  box-shadow: 0px 2px 0px #CCC;
+  border-radius: 4px;
+  color: #555;
+  display: inline-block;
+  font-size: 13px;
+  margin-left: 10px;
+  padding: 5px 25px;
+  text-decoration: none;
+}
+.page-backend .backend-header .actions a i {
+  margin-right: 2px;
+  vertical-align: 0px;
+}
+.page-backend .backend-header .actions a:hover {
+  background-color: #DDD;
+  box-shadow: 0px 2px 0px #AAA;
 }
 .page-backend .backend-header h1 {
   color: #FFF;
@@ -834,7 +860,7 @@ body {
   margin: 0;
 }
 .page-backend .backend-tabs {
-  background-color: #1693a5;
+  background-color: #3a71a9;
 }
 .page-backend .backend-tabs .nav {
   margin: 0;
@@ -846,21 +872,20 @@ body {
   margin: 0;
 }
 .page-backend .backend-tabs .nav-tabs > li > a {
-  background-color: #19a7bc;
+  background-color: #417ebc;
   border: 0;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   color: #FFF;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 14px;
   margin-right: 10px;
-  padding: 8px 20px 10px;
+  padding: 8px 30px 8px;
 }
 .page-backend .backend-tabs .nav-tabs > li > a:hover {
   background-color: #DDD;
 }
 .page-backend .backend-tabs .nav-tabs > li > a i.num {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   border-radius: 3px;
   color: #FFF;
   display: inline-block;
@@ -925,12 +950,12 @@ body {
   padding: 0 3px 4px;
 }
 .page-backend .backend-page-nav a.active {
-  border-bottom: 4px solid #1693a5;
+  border-bottom: 4px solid #3a71a9;
   color: #444;
   font-weight: bold;
 }
 .page-backend .backend-page-nav a:hover {
-  border-bottom: 4px solid #1693a5;
+  border-bottom: 4px solid #3a71a9;
   color: #444;
   text-decoration: none;
 }
@@ -980,7 +1005,7 @@ body {
   text-decoration: underline;
 }
 #registration-modal .modal-body .button-switch-backend:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1025,11 +1050,11 @@ body {
 #registration-modal .modal-body .backend-email form .actions a:link,
 #registration-modal .modal-body .backend-email form .actions a:active,
 #registration-modal .modal-body .backend-email form .actions a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 #registration-modal .modal-body .backend-email form .actions a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1111,7 +1136,7 @@ body {
   text-decoration: underline;
 }
 #modal-enrollment-login .registration .backend-social .email a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1127,7 +1152,7 @@ body {
   text-decoration: underline;
 }
 #modal-enrollment-login .registration .backend-email .back:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1162,17 +1187,17 @@ body {
 #modal-enrollment-login .registration .backend-email .signup a:link,
 #modal-enrollment-login .registration .backend-email .signup a:active,
 #modal-enrollment-login .registration .backend-email .signup a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 #modal-enrollment-login .registration .backend-email .signup a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
 #modal-enrollment-details .head {
-  color: #1693a5;
+  color: #3a71a9;
   font-size: 14px;
   font-weight: bold;
 }
@@ -1257,7 +1282,7 @@ body {
   text-decoration: underline;
 }
 .page-registration .registration-body form .form-actions a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1296,7 +1321,7 @@ body {
   text-decoration: underline;
 }
 .page-registration .registration-body .login-social .use-email a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1321,11 +1346,11 @@ body {
 .page-registration .registration-body .page-message a:link,
 .page-registration .registration-body .page-message a:active,
 .page-registration .registration-body .page-message a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-registration .registration-body .page-message a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1439,11 +1464,11 @@ body {
 .page-course-outline .course-header .teacher a:link,
 .page-course-outline .course-header .teacher a:active,
 .page-course-outline .course-header .teacher a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-course-outline .course-header .teacher a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1501,7 +1526,7 @@ body {
   padding: 12px 35px;
 }
 .page-course-outline .course-content ul.nav li.active a {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
 }
 .page-course-outline .course-content ul.nav-tabs {
@@ -1533,11 +1558,11 @@ body {
 .page-course-outline .course-content #course_story a:link,
 .page-course-outline .course-content #course_story a:active,
 .page-course-outline .course-content #course_story a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-course-outline .course-content #course_story a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1572,11 +1597,11 @@ body {
 .page-course-outline .course-teacher .name a:link,
 .page-course-outline .course-teacher .name a:active,
 .page-course-outline .course-teacher .name a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-course-outline .course-teacher .name a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1683,11 +1708,11 @@ body {
 .page-course-outline .course-sidebar .venue .minimap a:link,
 .page-course-outline .course-sidebar .venue .minimap a:active,
 .page-course-outline .course-sidebar .venue .minimap a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-course-outline .course-sidebar .venue .minimap a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1803,11 +1828,11 @@ body {
 .page-course-explorer ul.courses li.course .title a:link,
 .page-course-explorer ul.courses li.course .title a:active,
 .page-course-explorer ul.courses li.course .title a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-course-explorer ul.courses li.course .title a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1931,11 +1956,11 @@ body {
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:link,
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:active,
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1944,7 +1969,7 @@ body {
   margin-bottom: 30px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-countdown {
-  background-color: #e46217;
+  background-color: #e67e22;
   color: #FFF;
   display: block;
   float: left;
@@ -1997,11 +2022,11 @@ body {
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:link,
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:active,
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2069,7 +2094,7 @@ body {
   text-decoration: underline;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2117,13 +2142,13 @@ body {
   vertical-align: 1px;
 }
 .page-my-courses-attended .courses-schools ul.schools li.school a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: none;
 }
 .page-my-courses-attended .courses-schools ul.schools li.school a:hover .counter {
   background-color: #FFF;
-  color: #1693a5;
+  color: #3a71a9;
 }
 .page-my-courses-attended .courses-schools ul.schools li.active a {
   background-color: #777;
@@ -2156,11 +2181,11 @@ body {
 .page-my-courses-attended ul.courses li.course .title a:link,
 .page-my-courses-attended ul.courses li.course .title a:active,
 .page-my-courses-attended ul.courses li.course .title a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-my-courses-attended ul.courses li.course .title a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2198,7 +2223,7 @@ body {
   text-decoration: underline;
 }
 .page-my-courses-attended ul.courses li.course .actions a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2244,11 +2269,11 @@ body {
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:link,
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:active,
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2317,7 +2342,7 @@ body {
   text-decoration: underline;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .actions a.link:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2433,7 +2458,7 @@ body {
   vertical-align: 1px;
 }
 .page-course-modify .backend-header .completeness .head a:hover {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: none;
 }
 .page-course-modify .backend-header .completeness .progress {
@@ -2474,11 +2499,11 @@ body {
 .page-course-modify .form-message a:link,
 .page-course-modify .form-message a:active,
 .page-course-modify .form-message a:visited {
-  color: #1693a5;
+  color: #3a71a9;
   text-decoration: underline;
 }
 .page-course-modify .form-message a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2503,7 +2528,7 @@ body {
   text-decoration: underline;
 }
 .page-course-modify .form-actions .preview .link-preview:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2789,7 +2814,7 @@ body {
   text-decoration: underline;
 }
 .page-course-modify .form-content .pictures-control .pictures li.error .dismiss a:hover {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2933,15 +2958,15 @@ body {
   font-size: 16px;
   line-height: 25px;
 }
-.page-manage-classroom .backend-header h1 {
+.page-manage-course .backend-header h1 {
   display: inline-block;
 }
-.page-manage-classroom .backend-header .class {
+.page-manage-course .backend-header .class {
   display: inline-block;
   margin-left: 15px;
   vertical-align: 2px;
 }
-.page-manage-classroom .backend-header .class .datetime {
+.page-manage-course .backend-header .class .datetime {
   background-color: #EEE;
   border-radius: 4px;
   color: #444;
@@ -2949,6 +2974,197 @@ body {
   font-size: 13px;
   font-weight: bold;
   padding: 3px 15px;
+}
+.page-manage-course-overview .course-stats {
+  background-color: #F7F7F7;
+  border-bottom: 2px solid #EEE;
+  margin: 25px 0 25px;
+  padding: 10px 18px;
+}
+.page-manage-course-overview .course-stats ul.stats {
+  margin: 0;
+}
+.page-manage-course-overview .course-stats ul.stats li.stat {
+  display: inline-block;
+  list-style: none;
+  margin-right: 30px;
+}
+.page-manage-course-overview .course-stats ul.stats li.stat .caption {
+  color: #888;
+  font-size: 14px;
+}
+.page-manage-course-overview .course-stats ul.stats li.stat .number {
+  color: #555;
+  font-size: 16px;
+  display: block;
+  margin-top: 7px;
+}
+.page-manage-course-overview .course-stats ul.stats li.stat .number .smaller {
+  font-size: 13px;
+}
+.page-manage-course-overview .course-stats ul.stats li.stat .number em {
+  font-size: 24px;
+}
+.page-manage-course-overview .upcoming_classes .head {
+  color: #444;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.page-manage-course-overview .upcoming_classes ul li {
+  margin-bottom: 20px;
+}
+.page-manage-course-overview .upcoming_classes .datetime a {
+  font-weight: bold;
+}
+.page-manage-course-overview .upcoming_classes .datetime a:link,
+.page-manage-course-overview .upcoming_classes .datetime a:active,
+.page-manage-course-overview .upcoming_classes .datetime a:visited {
+  color: #3a71a9;
+  text-decoration: underline;
+}
+.page-manage-course-overview .upcoming_classes .datetime a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-manage-course-overview .upcoming_classes .students {
+  color: #666;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.page-manage-course-overview .upcoming_classes .students em {
+  color: #444;
+  font-size: 18px;
+}
+.page-manage-course-classes {
+  padding-top: 30px;
+}
+.page-manage-course-classes .classes-list .head {
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+.page-manage-course-classes .classes-list .head span {
+  color: #888;
+  font-size: 13px;
+  font-weight: normal;
+}
+.page-manage-course-classes .classes-list ul {
+  margin: 0 0 20px;
+}
+.page-manage-course-classes .classes-list ul li {
+  list-style: none;
+}
+.page-manage-course-classes .classes-list ul li.active a {
+  background-color: #666;
+  color: #FFF;
+}
+.page-manage-course-classes .classes-list ul li a {
+  background-color: #F4F4F4;
+  color: #444;
+  display: block;
+  margin-bottom: 10px;
+  padding: 7px 10px;
+  text-decoration: none;
+}
+.page-manage-course-classes .classes-list ul li a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+}
+.page-manage-course-classes .students-table th.date {
+  text-align: center;
+  width: 170px;
+}
+.page-manage-course-classes .students-table th.status {
+  text-align: center;
+  width: 100px;
+}
+.page-manage-course-classes .students-table th.payment {
+  text-align: center;
+  width: 120px;
+}
+.page-manage-course-classes .students-table th.actions {
+  text-align: center;
+  width: 70px;
+}
+.page-manage-course-classes .students-table td {
+  vertical-align: middle;
+}
+.page-manage-course-classes .students-table td.date {
+  text-align: center;
+}
+.page-manage-course-classes .students-table td.status {
+  text-align: center;
+}
+.page-manage-course-classes .students-table td.payment {
+  text-align: center;
+}
+.page-manage-course-classes .students-table td.actions {
+  text-align: center;
+}
+.page-manage-course-classes .classes {
+  margin: 25px 0 0;
+}
+.page-manage-course-classes .classes li {
+  list-style: none;
+  float: left;
+}
+.page-manage-course-classes .classes li.active a {
+  background-color: #666;
+  color: #FFF;
+}
+.page-manage-course-classes .classes li.active a .upcoming {
+  color: #EEE;
+}
+.page-manage-course-classes .classes li a {
+  background-color: #EEE;
+  border-right: 1px solid #DDD;
+  color: #444;
+  font-size: 13px;
+  display: block;
+  padding: 7px 15px;
+  text-decoration: none;
+  vertical-align: bottom;
+}
+.page-manage-course-classes .classes li a i {
+  vertical-align: 0px;
+}
+.page-manage-course-classes .classes li a .upcoming {
+  color: #777;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+}
+.page-manage-course-classes .classes li a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+}
+.page-manage-course-classes .classes li a:hover .upcoming {
+  color: #EEE;
+}
+.page-manage-course-classes .classes li a .time {
+  display: block;
+}
+.page-manage-course-classes .upcoming-classes .head,
+.page-manage-course-classes .past-classes .head {
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.page-manage-course-classes .upcoming-classes .head i,
+.page-manage-course-classes .past-classes .head i {
+  color: #999;
+  font-size: 15px;
+  font-weight: normal;
+  margin-right: 5px;
+  vertical-align: 0px;
+}
+.page-manage-course-classes .upcoming-classes {
+  margin-top: 30px;
 }
 .page-profile .profile-header {
   margin-top: 40px;
@@ -3040,7 +3256,7 @@ body {
   margin-bottom: 20px;
 }
 .page-profile .profile-courses .profile-courses-nav em {
-  background-color: #1693a5;
+  background-color: #3a71a9;
   border-radius: 4px;
   color: #FFF;
   display: inline-block;

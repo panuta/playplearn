@@ -164,24 +164,55 @@ html, body {
 .page-backend {
     .backend-header {
         background-color: @primaryColor;
-        padding: 20px 0;
+        padding: 15px 0;
 
         .parent {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
 
             a {
                 color: #EEE;
                 font-size: 13px;
-                text-decoration: underline;
 
                 &:hover {
-                    background-color: @linkColorLighter;
+                    text-decoration: underline;
                 }
+            }
+
+            span {
+                color: #EEE;
+                font-size: 13px;
             }
 
             .separator {
                 color: #EEE;
+                font-size: 15px;
                 margin: 0 6px;
+            }
+        }
+
+        .actions {
+            float: right;
+
+            a {
+                background-color: #F7F7F7;
+                box-shadow: 0px 2px 0px #CCC;
+                border-radius: 4px;
+                color: #555;
+                display: inline-block;
+                font-size: 13px;
+                margin-left: 10px;
+                padding: 5px 25px;
+                text-decoration: none;
+
+                i {
+                    margin-right: 2px;
+                    vertical-align: 0px;
+                }
+
+                &:hover {
+                    background-color: #DDD;
+                    box-shadow: 0px 2px 0px #AAA;
+                }
             }
         }
 
@@ -210,15 +241,14 @@ html, body {
         }
 
         .nav-tabs > li > a {
-            background-color: @primaryColorLighter;
+            background-color: @linkColorLight;
             border: 0;
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
             color: #FFF;
-            font-size: 15px;
-            font-weight: bold;
+            font-size: 14px;
             margin-right: 10px;
-            padding: 8px 20px 10px;
+            padding: 8px 30px 8px;
 
             &:hover {
                 background-color: #DDD;

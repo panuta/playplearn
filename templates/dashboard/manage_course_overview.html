@@ -3,16 +3,40 @@
 {% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='overview' %}{% endblock %}
 
 {% block classroom_content %}
-<div class="page-manage-classroom-overview">
-    CLASSROOM OVERVIEW
+<div class="page-manage-course-overview">
+    <div class="course-stats">
+        <ul class="stats">
+            <li class="stat">
+                <span class="caption">Total earning</span>
+                <span class="number"><em>500</em> baht</span>
+            </li>
+            <li class="stat">
+                <span class="caption">Total classes</span>
+                <span class="number"><em>4</em> classes</span>
+            </li>
+            <li class="stat">
+                <span class="caption">Total students</span>
+                <span class="number"><em>4</em> students</span>
+            </li>
+            <li class="stat">
+                <span class="caption">Total feedback</span>
+                <span class="number"><em>14</em> feedbacks <span class="smaller">(100% positive reviews)</span></span>
+            </li>
+        </ul>
+    </div>
 
-    <!-- SIMPLE STATS -->
-    <!-- RECENT ACTIVITIES -->
-    <!-- NEXT CLASS, Students, Print Student List, Announcement -->
-    <!--  -->
-    <!--  -->
-    <!--  -->
-
-
+    <div class="upcoming_classes">
+        <div class="head">Upcoming classes</div>
+        <ul>
+            <li>
+                <div class="datetime"><a href="#">Sunday, 16 February 2013 10:00 AM</a></div>
+                <div class="students"><em>14</em> / 30 students</div>
+            </li>
+            <li>
+                <div class="datetime"><a href="#">Sunday, 16 February 2013 10:00 AM</a></div>
+                <div class="students"><em>14</em> / 30 students</div>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

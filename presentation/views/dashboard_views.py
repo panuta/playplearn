@@ -499,8 +499,8 @@ def manage_course_overview(request, course, course_uid):
 
 @login_required
 @teacher_only
-def manage_course_students(request, course, course_uid):
-    return render(request, 'dashboard/manage_course_students.html', {'course': course})
+def manage_course_classes(request, course, course_uid):
+    return render(request, 'dashboard/manage_course_classes.html', {'course': course})
 
 
 @login_required

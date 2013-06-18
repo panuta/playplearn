@@ -1,24 +1,14 @@
 {% extends 'base_backend.html' %}
 
-{% block body_class %}{{ block.super }} page-manage-classroom{% endblock %}
+{% block body_class %}{{ block.super }} page-manage-course{% endblock %}
 
 {% block backend_header %}
-    <div class="parent"><a href="#">My teaching courses</a> <span class="separator">&#187;</span> <a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-    <h1>Manage Course</h1>
-
-    {% comment %}
-    <div class="btn-group">
-        <button class="btn">Action</button>
-        <button class="btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <!-- dropdown menu links -->
-        </ul>
+    <div class="parent"><a href="{% url 'view_my_courses_teaching' %}">My teaching courses</a> <span class="separator">&#187;</span> <span>{{ course.title }}</span></div>
+    <div class="actions">
+        <a href="#"><i class="icon-plus"></i> Add new class</a>
+        <a href="{% url 'edit_course' course.uid %}"><i class="icon-pencil"></i> Edit course</a>
     </div>
-
-
-    <div class="class"><div class="datetime">Sunday, 30 Jun 2013 15:00</div></div>{% endcomment %}
+    <h1>Manage Course</h1>
 {% endblock %}
 
 {% block backend_container %}

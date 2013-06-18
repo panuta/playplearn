@@ -31,14 +31,6 @@ def view_course_outline(request, course_uid, page_action, enrollment_code):
     })
 
 
-def view_course_enroll(request):
-    return render(request, 'course/course_enroll.html', {})
-
-
-def view_course_enroll_receipt(request):
-    return render(request, 'course/course_enroll_receipt.html', {})
-
-
 def view_courses_explore(request):
     return render(request, 'course/course_browse.html', {})
 

@@ -1936,7 +1936,7 @@
 
 }
 
-.page-manage-classroom {
+.page-manage-course {
     .backend-header {
         h1 {
             display: inline-block;
@@ -1959,6 +1959,260 @@
             }
         }
     }
+
+
+}
+
+.page-manage-course-overview {
+    .course-stats {
+        background-color: #F7F7F7;
+        border-bottom: 2px solid #EEE;
+        margin: 25px 0 25px;
+        padding: 10px 18px;
+
+        ul.stats {
+            margin: 0;
+
+            li.stat {
+                display: inline-block;
+                list-style: none;
+                margin-right: 30px;
+
+                .caption {
+                    color: #888;
+                    font-size: 14px;
+                }
+
+                .number {
+                    color: #555;
+                    font-size: 16px;
+                    display: block;
+                    margin-top: 7px;
+
+                    .smaller {
+                        font-size: 13px;
+                    }
+
+                    em {
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+    }
+
+    .upcoming_classes {
+        .head {
+            color: #444;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin-bottom: 20px;
+        }
+
+        .datetime {
+            a {
+                .content_link;
+                font-weight: bold;
+            }
+        }
+
+        .students {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+
+            em {
+                color: #444;
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+.page-manage-course-classes {
+    padding-top: 30px;
+
+    .classes-list {
+        .head {
+            color: #555;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+
+            span {
+                color: #888;
+                font-size: 13px;
+                font-weight: normal;
+            }
+        }
+
+        ul {
+            margin: 0 0 20px;
+
+            li {
+                list-style: none;
+
+                &.active a {
+                    background-color: #666;
+                    color: #FFF;
+                }
+
+                a {
+                    background-color: #F4F4F4;
+                    color: #444;
+                    display: block;
+                    margin-bottom: 10px;
+                    padding: 7px 10px;
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: @linkColor;
+                        color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+
+    .students-table {
+        th {
+            &.name {
+
+            }
+
+            &.date {
+                text-align: center;
+                width: 170px;
+            }
+
+            &.status {
+                text-align: center;
+                width: 100px;
+            }
+
+            &.payment {
+                text-align: center;
+                width: 120px;
+            }
+
+            &.actions {
+                text-align: center;
+                width: 70px;
+            }
+        }
+
+        td {
+            vertical-align: middle;
+
+            &.name {
+
+            }
+
+            &.date {
+                text-align: center;
+            }
+
+            &.status {
+                text-align: center;
+            }
+
+            &.payment {
+                text-align: center;
+            }
+
+            &.actions {
+                text-align: center;
+            }
+        }
+    }
+
+
+
+    .classes {
+        margin: 25px 0 0;
+
+        li {
+            list-style: none;
+            float: left;
+
+            &.active a {
+                background-color: #666;
+                color: #FFF;
+
+                .upcoming {
+                    color: #EEE;
+                }
+            }
+
+            a {
+                background-color: #EEE;
+                border-right: 1px solid #DDD;
+                color: #444;
+                font-size: 13px;
+                display: block;
+                padding: 7px 15px;
+                text-decoration: none;
+                vertical-align: bottom;
+
+                i {
+                    vertical-align: 0px;
+                }
+
+                .upcoming {
+                    color: #777;
+                    display: block;
+                    font-size: 11px;
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    background-color: @linkColor;
+                    color: #FFF;
+
+                    .upcoming {
+                        color: #EEE;
+                    }
+                }
+
+                .time {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .upcoming-classes, .past-classes {
+        .head {
+            color: #444;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+
+            i {
+                color: #999;
+                font-size: 15px;
+                font-weight: normal;
+                margin-right: 5px;
+                vertical-align: 0px;
+            }
+        }
+    }
+
+    .upcoming-classes {
+        margin-top: 30px;
+    }
+}
+
+.page-manage-course-feedback {
+
+}
+
+.page-manage-course-promote {
+
 }
 
 .page-profile {

@@ -19,15 +19,6 @@ urlpatterns += patterns(
     url(r'^ajax/course/enroll/$', 'enroll_course', name='enroll_course'),
     url(r'^ajax/course/enroll/login/(?P<backend>[^/]+)/$', 'login_to_enroll_course', name='login_to_enroll_course'),
 
-
-
-
-    url(r'^course/enroll/$', 'view_course_enroll', name='view_course_enroll'),
-
-
-
-    url(r'^course/enroll/receipt/$', 'view_course_enroll_receipt', name='view_course_enroll_receipt'),
-
     url(r'^courses/$', 'view_courses_explore', name='view_courses_explore'),
     url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
 
@@ -60,7 +51,7 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),
 
     url(r'^course/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
-    url(r'^course/(?P<course_uid>\w+)/manage/students/$', 'manage_course_students', name='manage_course_students'),
+    url(r'^course/(?P<course_uid>\w+)/manage/classes/$', 'manage_course_classes', name='manage_course_classes'),
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
     url(r'^course/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
 

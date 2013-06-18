@@ -1,0 +1,60 @@
+{% extends 'dashboard/manage_course_base.html' %}
+
+{% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='classes' %}{% endblock %}
+
+{% block classroom_content %}
+<div class="page-manage-course-classes">
+    <div class="row">
+        <div class="span3">
+            <div class="classes-list">
+                <div class="head">Upcoming classes <span>(5)</span></div>
+                <ul>
+                    <li class="active"><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
+                    <li><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
+                </ul>
+                <div class="head">Past classes <span>(5)</span></div>
+                <ul>
+                    <li><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
+                    <li><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            <table class="table students-table">
+                <thead>
+                    <tr>
+                        <th class="name">Student name</th>
+                        <th class="date">Date joined</th>
+                        <th class="status">Status</th>
+                        <th class="payment">Payment</th>
+                        <th class="actions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="name">Panu Tangchalermkul</td>
+                        <td class="date">10 Jan 2013 - 10:00</td>
+                        <td class="status">Confirmed</td>
+                        <td class="payment">Paid</td>
+                        <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
+                    </tr>
+                    <tr>
+                        <td class="name">Panu Tangchalermkul</td>
+                        <td class="date">10 Jan 2013 - 10:00</td>
+                        <td class="status">Confirmed</td>
+                        <td class="payment">Paid</td>
+                        <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
+                    </tr>
+                    <tr>
+                        <td class="name">Panu Tangchalermkul</td>
+                        <td class="date">10 Jan 2013 - 10:00</td>
+                        <td class="status">Confirmed</td>
+                        <td class="payment">Paid</td>
+                        <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

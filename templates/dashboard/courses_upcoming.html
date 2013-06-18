@@ -15,7 +15,7 @@
             <div class="course-content clearfix">
                 <div class="course-cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" /></a></div>
                 <div class="right">
-                    <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a>{% if course.teacher == request.user %}<span class="yours">Your Course</span>{% endif %}</div>
+                    <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a>{% if course.teacher == request.user %}<span class="yours">Teaching</span>{% endif %}</div>
                     {% if course.teacher != request.user %}<div class="teacher"><span class="caption">By</span> <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>{% endif %}
                     <div class="schedule-location">
                         <div class="schedule"><span class="day">{{ schedule.start_datetime|date:'l,' }}</span> <span class="date">{{ schedule.start_datetime|date:'j M Y' }}</span> <span class="time">{{ schedule.start_datetime|date:'H:i' }}</span></div>
