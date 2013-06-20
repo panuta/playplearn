@@ -568,14 +568,14 @@ h1.style-page-header {
   padding-bottom: 10px;
 }
 .style-course-box {
-  border: 2px solid #EEE;
+  border: 3px solid #F7F7F7;
   display: inline-block;
   list-style: none;
   width: 550px;
 }
 .style-course-box .course-box-inner {
   background-color: #FFF;
-  border: 1px solid #DDD;
+  border: 1px solid #E4E4E4;
 }
 .style-course-box .top {
   padding: 14px 20px 15px;
@@ -851,7 +851,7 @@ body {
 }
 #body-footer .social-links a {
   background-image: url(../images/ui/social-icons.png);
-  border: 3px solid #777;
+  border: 2px solid #777;
   border-radius: 32px;
   float: right;
   height: 32px;
@@ -861,7 +861,7 @@ body {
 }
 #body-footer .social-links a:hover {
   background-color: #FFF;
-  border: 3px solid #FFF;
+  border: 2px solid #FFF;
 }
 #body-footer .social-links .facebook {
   background-position: 0 0;
@@ -1520,9 +1520,8 @@ body {
   background-position: -230px -40px;
 }
 .page-homepage .latest-courses {
-  background-color: #F7F7F7;
-  border-bottom: 1px solid #EEE;
-  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #DDD;
+  border-top: 1px solid #DDD;
   padding: 30px 0px;
 }
 .page-homepage .latest-courses .head {
@@ -1544,7 +1543,7 @@ body {
   margin-bottom: 40px;
 }
 .page-homepage .latest-courses ul.courses li.left-box {
-  margin-right: 62px;
+  margin-right: 58px;
 }
 .page-course-outline #body-header {
   border-bottom: 1px solid #E9E9E9;
@@ -3284,12 +3283,22 @@ body {
   margin-top: 30px;
 }
 .page-profile .profile-header {
-  margin-top: 40px;
+  background-color: #3a71a9;
+  padding: 40px 0;
+  /*.container-inner {
+            padding: 0;
+
+            .box-header {
+                padding: 20px 25px;
+            }
+        }*/
+
 }
-.page-profile .profile-header .container-inner {
-  padding: 0;
+.page-profile .profile-header .profile-header-box {
+  background-color: #FFF;
+  border-radius: 4px;
 }
-.page-profile .profile-header .container-inner .box-header {
+.page-profile .profile-header .box-header {
   padding: 20px 25px;
 }
 .page-profile .profile-header .avatar {
@@ -3297,14 +3306,14 @@ body {
   float: left;
 }
 .page-profile .profile-header .avatar img {
-  border: 2px solid #DDD;
-  border-radius: 100px;
-  height: 100px;
-  padding: 4px;
-  width: 100px;
+  border: 1px solid #DDD;
+  border-radius: 70px;
+  height: 70px;
+  padding: 2px;
+  width: 70px;
 }
 .page-profile .profile-header .right {
-  margin-left: 140px;
+  margin-left: 100px;
 }
 .page-profile .profile-header .follow {
   float: right;
@@ -3321,20 +3330,7 @@ body {
   margin-top: 8px;
 }
 .page-profile .profile-header .stats {
-  background-color: #FAFAFA;
   border-top: 1px solid #E7E7E7;
-}
-.page-profile .profile-header .stats .role-stats {
-  float: left;
-}
-.page-profile .profile-header .stats .role-stats .head {
-  color: #888;
-  font-size: 11px;
-  padding: 5px 0;
-  text-align: center;
-}
-.page-profile .profile-header .stats .teaching-stats {
-  border-right: 1px solid #E7E7E7;
 }
 .page-profile .profile-header .stats ul {
   margin: 0;
@@ -3344,50 +3340,57 @@ body {
   display: block;
   float: left;
   list-style: none;
-  padding-bottom: 6px;
+  padding: 10px 0 12px;
   width: 215px;
   text-align: center;
 }
-.page-profile .profile-header .stats ul li em {
+.page-profile .profile-header .stats ul li .title {
+  color: #888;
+  font-size: 13.5px;
+}
+.page-profile .profile-header .stats ul li .number {
   color: #555;
-  display: block;
-  font-size: 18px;
-  font-style: normal;
+  font-size: 15px;
+  margin-top: 4px;
+}
+.page-profile .profile-header .stats ul li .number i {
+  color: #666;
+  font-size: 16px;
+  margin-right: 3px;
+  vertical-align: 0px;
+}
+.page-profile .profile-header .stats ul li .number em {
+  font-size: 20px;
   font-weight: bold;
-}
-.page-profile .profile-header .stats ul li .unit {
-  color: #666;
-  font-size: 13px;
-}
-.page-profile .profile-header .stats ul li .what {
-  color: #666;
-  font-size: 13px;
 }
 .page-profile .profile-header .stats ul li.last {
   border-right: none;
 }
-.page-profile .profile-courses {
-  margin-top: 40px;
-}
-.page-profile .profile-courses .profile-courses-nav {
-  margin-bottom: 20px;
-}
-.page-profile .profile-courses .profile-courses-nav em {
-  background-color: #3a71a9;
+.page-profile .profile-header .reputations {
+  background-color: #417EBC;
   border-radius: 4px;
-  color: #FFF;
-  display: inline-block;
-  font-size: 15px;
-  padding: 8px 25px;
+  padding: 10px 15px;
 }
-.page-profile .profile-courses .profile-courses-nav a {
-  color: #555;
-  display: inline-block;
-  font-size: 15px;
-  padding: 8px 25px;
+.page-profile .profile-header .reputations .head {
+  color: #FFF;
+  font-size: 13px;
+  font-weight: bold;
+}
+.page-profile .profile-header .reputations ul {
+  margin: 10px 0;
+}
+.page-profile .profile-header .reputations ul li {
+  color: #FFF;
+  font-size: 13px;
+  list-style: none;
+  margin-top: 7px;
+}
+.page-profile .profile-header .reputations ul li i {
+  margin-right: 5px;
+  vertical-align: 0px;
 }
 .page-profile .profile-courses ul.courses {
-  margin: 0;
+  margin: 40px 0;
 }
 .page-profile .profile-courses ul.courses li.course {
   list-style: none;
@@ -3402,7 +3405,8 @@ body {
   margin: 0;
 }
 .page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review {
-  border: 1px dashed #CCC;
+  background-color: #F4F4F4;
+  box-shadow: 3px 3px 0px #DDD;
   list-style: none;
   margin-bottom: 20px;
   padding: 10px 15px;
@@ -3419,6 +3423,26 @@ body {
 .page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .reviewer a {
   color: #444;
   font-weight: bold;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews .arrow_box {
+  position: relative;
+  background: #f4f4f4;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews .arrow_box:after {
+  right: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.page-profile .profile-courses ul.courses .course-reviews ul.reviews .arrow_box:after {
+  border-color: rgba(244, 244, 244, 0);
+  border-right-color: #f4f4f4;
+  border-width: 10px;
+  top: 30px;
+  margin-top: -10px;
 }
 .page-user-settings h2 {
   border-bottom: 1px solid #DDD;

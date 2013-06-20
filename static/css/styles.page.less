@@ -176,9 +176,8 @@
     }
 
     .latest-courses {
-        background-color: #F7F7F7;
-        border-bottom: 1px solid #EEE;
-        border-top: 1px solid #EEE;
+        border-bottom: 1px solid #DDD;
+        border-top: 1px solid #DDD;
         padding: 30px 0px;
 
         .head {
@@ -203,7 +202,7 @@
             }
 
             li.left-box {
-                margin-right: 62px;
+                margin-right: 58px;
             }
         }
     }
@@ -2246,14 +2245,24 @@
 
 .page-profile {
     .profile-header {
-        margin-top: 40px;
+        background-color: @primaryColor;
+        padding: 40px 0;
 
-        .container-inner {
+        /*.container-inner {
             padding: 0;
 
             .box-header {
                 padding: 20px 25px;
             }
+        }*/
+
+        .profile-header-box {
+            background-color: #FFF;
+            border-radius: 4px;
+        }
+
+        .box-header {
+            padding: 20px 25px;
         }
 
         .avatar {
@@ -2261,16 +2270,16 @@
             float: left;
 
             img {
-                border: 2px solid #DDD;
-                border-radius: 100px;
-                height: 100px;
-                padding: 4px;
-                width: 100px;
+                border: 1px solid #DDD;
+                border-radius: 70px;
+                height: 70px;
+                padding: 2px;
+                width: 70px;
             }
         }
 
         .right {
-            margin-left: 140px;
+            margin-left: 100px;
         }
 
         .follow {
@@ -2291,23 +2300,7 @@
         }
 
         .stats {
-            background-color: #FAFAFA;
             border-top: 1px solid #E7E7E7;
-
-            .role-stats {
-                float: left;
-
-                .head {
-                    color: #888;
-                    font-size: 11px;
-                    padding: 5px 0;
-                    text-align: center;
-                }
-            }
-
-            .teaching-stats {
-                border-right: 1px solid #E7E7E7;
-            }
 
             ul {
                 margin: 0;
@@ -2317,26 +2310,31 @@
                     display: block;
                     float: left;
                     list-style: none;
-                    padding-bottom: 6px;
+                    padding: 10px 0 12px;
                     width: 215px;
                     text-align: center;
 
-                    em {
+                    .title {
+                        color: #888;
+                        font-size: 13.5px;
+                    }
+
+                    .number {
                         color: #555;
-                        display: block;
-                        font-size: 18px;
-                        font-style: normal;
-                        font-weight: bold;
-                    }
+                        font-size: 15px;
+                        margin-top: 4px;
 
-                    .unit {
-                        color: #666;
-                        font-size: 13px;
-                    }
+                        i {
+                            color: #666;
+                            font-size: 16px;
+                            margin-right: 3px;
+                            vertical-align: 0px;
+                        }
 
-                    .what {
-                        color: #666;
-                        font-size: 13px;
+                        em {
+                            font-size: 20px;
+                            font-weight: bold;
+                        }
                     }
                 }
 
@@ -2345,33 +2343,39 @@
                 }
             }
         }
+
+        .reputations {
+            background-color: #417EBC;
+            border-radius: 4px;
+            padding: 10px 15px;
+
+            .head {
+                color: #FFF;
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            ul {
+                margin: 10px 0;
+
+                li {
+                    color: #FFF;
+                    font-size: 13px;
+                    list-style: none;
+                    margin-top: 7px;
+
+                    i {
+                        margin-right: 5px;
+                        vertical-align: 0px;
+                    }
+                }
+            }
+        }
     }
 
     .profile-courses {
-        margin-top: 40px;
-
-        .profile-courses-nav {
-            margin-bottom: 20px;
-
-            em {
-                background-color: @linkColor;
-                border-radius: 4px;
-                color: #FFF;
-                display: inline-block;
-                font-size: 15px;
-                padding: 8px 25px;
-            }
-
-            a {
-                color: #555;
-                display: inline-block;
-                font-size: 15px;
-                padding: 8px 25px;
-            }
-        }
-
         ul.courses {
-            margin: 0;
+            margin: 40px 0;
 
             li.course {
                 list-style: none;
@@ -2388,7 +2392,9 @@
                     margin: 0;
 
                     li.review {
-                        border: 1px dashed #CCC;
+                        //border: 1px dashed #CCC;
+                        background-color: #F4F4F4;
+                        box-shadow: 3px 3px 0px #DDD;
                         list-style: none;
                         margin-bottom: 20px;
                         padding: 10px 15px;
@@ -2409,6 +2415,29 @@
                             }
                         }
                     }
+
+                    .arrow_box {
+                        position: relative;
+                        background: #f4f4f4;
+                    }
+                    .arrow_box:after {
+                        right: 100%;
+                        border: solid transparent;
+                        content: " ";
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        pointer-events: none;
+                    }
+
+                    .arrow_box:after {
+                        border-color: rgba(244, 244, 244, 0);
+                        border-right-color: #f4f4f4;
+                        border-width: 10px;
+                        top: 30px;
+                        margin-top: -10px;
+                    }
+
                 }
             }
 

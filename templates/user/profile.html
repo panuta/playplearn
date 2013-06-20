@@ -4,14 +4,13 @@
 
 {% block body %}
 <div class="backend-container">
-<div class="container">
-    <div class="profile-header clearfix">
-        <div class="row">
-            <div class="span9">
-                <div class="profile-header-box style-container">
-                    <div class="container-inner">
+    <div class="profile-header">
+        <div class="container">
+            <div class="row">
+                <div class="span9">
+                    <div class="profile-header-box">
                         <div class="box-header clearfix">
-                            <div class="avatar"><img src="{{ context_user.normal_avatar_url }}" /></div>
+                            <div class="avatar"><img src="{{ context_user.small_avatar_url }}" /></div>
                             <div class="right">
                                 <div class="follow"><a href="#" class="style-orange-button">Follow</a></div>
                                 <div class="name">{{ context_user.name }}</div>
@@ -19,93 +18,81 @@
                             </div>
                         </div>
                         <div class="stats clearfix">
-                            <div class="role-stats teaching-stats">
-                                <div class="head">TEACHING</div>
-                                <ul>
-                                    <li><em>10</em> <span class="unit">Courses</span> <span class="what">teaching</span></li>
-                                    <li class="last"><em>10</em> <span class="unit">Reviews</span> <span class="what">received</span></li>
-                                </ul>
-                            </div>
-                            <div class="role-stats learning-stats">
-                                <div class="head">LEARNING</div>
-                                <ul>
-                                    <li><em>10</em> <span class="unit">Courses</span> <span class="what">attended</span></li>
-                                    <li class="last"><em>10</em> <span class="unit">Reviews</span> <span class="what">given</span></li>
-                                </ul>
-                            </div>
+                            <ul>
+                                <li><div class="title">Courses teaching</div><div class="number"><i class="icon-briefcase"></i> <em>10</em> courses</div></li>
+                                <li><div class="title">Feedback received</div><div class="number"><i class="icon-star"></i> <em>10</em> feedbacks</div></li>
+                                <li><div class="title">Courses attended</div><div class="number"><i class="icon-briefcase"></i> <em>10</em> courses</div></li>
+                                <li class="last"><div class="title">Feedback given</div><div class="number"><i class="icon-star"></i> <em>10</em> feedbacks</div></li>
+                            </ul>
                         </div>
-
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="reputations">
+                        <div class="head">Reputations & Trustworthiness</div>
+                        <ul>
+                            <li><div class="caption"><i class="icon-star"></i> 45 Positive feedbacks</div></li>
+                            <li><div class="caption"><i class="icon-facebook"></i> 321 Facebook friends</div></li>
+                            <li><div class="caption"><i class="icon-twitter"></i> 14 Twitter followers</div></li>
+                            <li><div class="caption"><i class="icon-phone"></i> Phone number is verified</div></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="span3">
-                <div class="reputations">
-                    <ul>
-                        <li>
-                            <div class="caption">Facebook</div>
-                        </li>
-                        <li>
-                            <div class="caption">Twitter</div>
-                        </li>
-                        <li>
-                            <div class="caption">Positive Reviews</div>
-                        </li>
-                        <li>
-                            <div class="caption">Phone Verified</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
-
-
-
     </div>
+
     <div class="profile-courses">
-        <div class="profile-courses-nav">
-            <em>Teaching Courses</em>
-            <a href="#">Learning Courses</a>
+        <div class="backend-tabs">
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#">Teaching courses</a></li>
+                    <li><a href="#">Attending courses</a></li>
+                </ul>
+            </div>
         </div>
-        <ul class="courses">
-            <li class="course clearfix">
-                <div class="style-course-box">
-                    <div class="course-box-inner">
-                        <div class="top">
-                            <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
-                            <div class="at_glance">
-                                <span class="topic"><a href="#">Public Speaking</a></span>
-                                <span class="separator">|</span>
-                                <span class="duration">6 Hours</span>
-                            </div>
+        <div class="container">
+            <div id="courses-teaching">
+                <ul class="courses">
+                    <li class="course clearfix">
+                        <div class="style-course-box">
+                            <div class="course-box-inner">
+                                <div class="top">
+                                    <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
+                                    <div class="at_glance">
+                                        <span class="topic"><a href="#">Public Speaking</a></span>
+                                        <span class="separator">|</span>
+                                        <span class="duration">6 Hours</span>
+                                    </div>
 
-                            <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></a></div>
+                                    <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></a></div>
+                                </div>
 
-                            <div class="teacher clearfix">
-                                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                                <a href="#" class="name">Panu Tangchalermkul</a> <span class="doing">Software Developer, Photographer</span>
+                                <div class="next">
+                                    <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="next">
-                            <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
+                        <div class="course-reviews">
+                            <ul class="reviews">
+                                <li class="review arrow_box">
+                                    <div class="body">Phasellus dolor felis, pretium sit amet gravida sit amet, molestie vel felis. Donec pulvinar ante et eros vehicula lacinia. Aenean quis nisi magna. Vestibulum consequat scelerisque est, at tempus purus consectetur ut. Morbi aliquet ante eget purus porttitor rhoncus a vitae nibh.</div>
+                                    <div class="reviewer">by <a href="#">Panu Tangchalermkul</a></div>
+                                </li>
+                                <li class="review arrow_box">
+                                    <div class="body">Phasellus dolor felis, pretium sit amet gravida sit amet, molestie vel felis. Donec pulvinar ante et eros vehicula lacinia. Aenean quis nisi magna. Vestibulum consequat scelerisque est, at tempus purus consectetur ut. Morbi aliquet ante eget purus porttitor rhoncus a vitae nibh.</div>
+                                    <div class="reviewer">by <a href="#">Panu Tangchalermkul</a></div>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="courses-attending">
 
-                <div class="course-reviews">
-                    <ul class="reviews">
-                        <li class="review">
-                            <div class="body">Phasellus dolor felis, pretium sit amet gravida sit amet, molestie vel felis. Donec pulvinar ante et eros vehicula lacinia. Aenean quis nisi magna. Vestibulum consequat scelerisque est, at tempus purus consectetur ut. Morbi aliquet ante eget purus porttitor rhoncus a vitae nibh.</div>
-                            <div class="reviewer">by <a href="#">Panu Tangchalermkul</a></div>
-                        </li>
-                        <li class="review">
-                            <div class="body">Phasellus dolor felis, pretium sit amet gravida sit amet, molestie vel felis. Donec pulvinar ante et eros vehicula lacinia. Aenean quis nisi magna. Vestibulum consequat scelerisque est, at tempus purus consectetur ut. Morbi aliquet ante eget purus porttitor rhoncus a vitae nibh.</div>
-                            <div class="reviewer">by <a href="#">Panu Tangchalermkul</a></div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 
 
@@ -116,6 +103,5 @@
 <!-- Social Credentials -->
 <!-- Member sinces -->
 
-</div>
 </div>
 {% endblock %}
