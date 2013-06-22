@@ -19,10 +19,10 @@
                         </div>
                         <div class="stats clearfix">
                             <ul>
-                                <li><div class="title">Courses teaching</div><div class="number"><i class="icon-briefcase"></i> <em>10</em> courses</div></li>
-                                <li><div class="title">Feedback received</div><div class="number"><i class="icon-star"></i> <em>10</em> feedbacks</div></li>
-                                <li><div class="title">Courses attended</div><div class="number"><i class="icon-briefcase"></i> <em>10</em> courses</div></li>
-                                <li class="last"><div class="title">Feedback given</div><div class="number"><i class="icon-star"></i> <em>10</em> feedbacks</div></li>
+                                <li><div class="title">Teaching course</div><div class="number"><i class="icon-briefcase"></i> <em>{{ context_user.stats_courses_teaching }}</em> course{{ context_user.stats_courses_teaching|pluralize }}</div></li>
+                                <li><div class="title">Feedback received</div><div class="number"><i class="icon-star"></i> <em>{{ context_user.stats_feedbacks_received }}</em> feedback{{ context_user.stats_feedbacks_received|pluralize }}</div></li>
+                                <li><div class="title">Attended course</div><div class="number"><i class="icon-briefcase"></i> <em>{{ context_user.stats_courses_attended }}</em> course{{ context_user.stats_courses_attended|pluralize }}</div></li>
+                                <li class="last"><div class="title">Feedback given</div><div class="number"><i class="icon-star"></i> <em>{{ context_user.stats_feedbacks_given }}</em> feedback{{ context_user.stats_feedbacks_given|pluralize }}</div></li>
                             </ul>
                         </div>
                     </div>
@@ -31,7 +31,12 @@
                     <div class="reputations">
                         <div class="head">Reputations & Trustworthiness</div>
                         <ul>
-                            <li><div class="caption"><i class="icon-star"></i> 45 Positive feedbacks</div></li>
+                            {% with positive_feedbacks_received=context_user.stats_positive_feedbacks_received %}
+                                {% if positive_feedbacks_received %}
+                                <li><div class="caption"><i class="icon-star"></i> {{ positive_feedbacks_received }} Positive feedback{{ positive_feedbacks_received|pluralize }}</div></li>
+                                {% endif %}
+                            {% endwith %}
+
                             <li><div class="caption"><i class="icon-facebook"></i> 321 Facebook friends</div></li>
                             <li><div class="caption"><i class="icon-twitter"></i> 14 Twitter followers</div></li>
                             <li><div class="caption"><i class="icon-phone"></i> Phone number is verified</div></li>
@@ -46,33 +51,17 @@
         <div class="backend-tabs">
             <div class="container">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#">Teaching courses</a></li>
-                    <li><a href="#">Attending courses</a></li>
+                    <li class="active"><a href="#">Teaching courses{% if context_user.stats_courses_teaching %} <i class="num">{{ context_user.stats_upcoming_courses }}</i>{% endif %}</a></li>
+                    <li><a href="#">Attended courses{% if context_user.stats_courses_attended %} <i class="num">{{ context_user.stats_courses_attended }}</i>{% endif %}</a></li>
                 </ul>
             </div>
         </div>
         <div class="container">
             <div id="courses-teaching">
                 <ul class="courses">
+                    {% for course in teaching_courses %}
                     <li class="course clearfix">
-                        <div class="style-course-box">
-                            <div class="course-box-inner">
-                                <div class="top">
-                                    <div class="title"><a href="#">Learn Public Speaker for Nervous Introverts who Does Not Want The World to Know</a></div>
-                                    <div class="at_glance">
-                                        <span class="topic"><a href="#">Public Speaking</a></span>
-                                        <span class="separator">|</span>
-                                        <span class="duration">6 Hours</span>
-                                    </div>
-
-                                    <div class="cover"><a href="#"><img src="{{ STATIC_URL }}images/sample/course1-cover.jpg" /></a></div>
-                                </div>
-
-                                <div class="next">
-                                    <i class="icon-bullhorn icon-large"></i> Next class is on Sunday, 14 February 2013 <a href="#">Enroll now</a>
-                                </div>
-                            </div>
-                        </div>
+                        {% include 'snippets/course_box.html' with hide_teacher=True %}
 
                         <div class="course-reviews">
                             <ul class="reviews">
@@ -87,6 +76,7 @@
                             </ul>
                         </div>
                     </li>
+                    {% endfor %}
                 </ul>
             </div>
             <div id="courses-attending">

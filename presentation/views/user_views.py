@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 from common.uploader import FileUploader
 from common.utilities import split_filepath
 
-from domain.models import UserAccount
+from domain.models import UserAccount, Course
 from presentation.forms import EditProfileForm, EditAccountEmailForm
 
 
@@ -28,7 +28,11 @@ def view_user_profile(request, user_uid):
 
 
 def _view_user_profile(request, user):
-    return render(request, 'user/profile.html', {'context_user': user})
+    teaching_courses = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
+    return render(request, 'user/profile.html', {
+        'context_user': user,
+        'teaching_courses': teaching_courses
+    })
 
 
 @login_required

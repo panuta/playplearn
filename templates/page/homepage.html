@@ -9,8 +9,8 @@
     <div class="container clearfix">
         <div class="image"><img src="{{ STATIC_URL }}images/page/homepage/headline.png" /></div>
         <div class="right">
-            <div class="head1">Learn Something New</div>
-            <div class="head2">from people who is passionate about it</div>
+            <div class="head1">Upgrade yourself!</div>
+            <div class="head2">Learn something new from people who is passionate about it</div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla lectus eget tortor placerat ut egestas leo tempus.</p>
             <div class="action">
                 <a href="{% url 'view_courses_explore' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
@@ -37,27 +37,8 @@
         </div>
         <ul class="courses">
             {% for course in recent_courses %}
-            <li class="style-course-box {% cycle 'left-box' 'right-box' %}">
-                <div class="course-box-inner">
-                    <div class="top">
-                        <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                        <div class="at_glance">
-                            Learn <a href="#" class="school">{{ course.get_school.name }}</a>
-                            in <span class="duration">{{ course.duration }} hour{{ course.duration|pluralize }}</span>
-                            with <span class="people">{{ course.maximum_people }} other {{ course.maximum_people|pluralize:'person,people' }}</span>
-                        </div>
-                        <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" /></a></div>
-                        <div class="teacher clearfix">
-                            <div class="avatar"><img src="{{ course.teacher.smaller_avatar_url }}" /></div>
-                            <a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span>
-                        </div>
-                    </div>
-                    {% with upcoming_schedule=course.get_upcoming_schedule %}
-                        {% if upcoming_schedule %}
-                            <div class="next"><i class="icon-bullhorn icon-large"></i> คลาสถัดไป {{ upcoming_schedule|schedule_datetime }}</div>
-                        {% endif %}
-                    {% endwith %}
-                </div>
+            <li class="course {% cycle 'left-box' 'right-box' %}">
+                {% include 'snippets/course_box.html' %}
             </li>
             {% endfor %}
         </ul>

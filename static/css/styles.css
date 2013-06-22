@@ -573,7 +573,7 @@ h1.style-page-header {
   list-style: none;
   width: 550px;
 }
-.style-course-box .course-box-inner {
+.style-course-box .box-inner {
   background-color: #FFF;
   border: 1px solid #E4E4E4;
 }
@@ -1454,14 +1454,13 @@ body {
 .page-homepage .headline .head2 {
   color: #555;
   font-size: 26px;
-  margin-left: 50px;
   margin-top: 30px;
 }
 .page-homepage .headline p {
   color: #555;
   font-size: 18px;
   line-height: 26px;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .page-homepage .headline .action {
   margin-top: 20px;
@@ -1538,8 +1537,9 @@ body {
 .page-homepage .latest-courses ul.courses {
   margin: 0;
 }
-.page-homepage .latest-courses ul.courses li.style-course-box {
+.page-homepage .latest-courses ul.courses li.course {
   float: left;
+  list-style: none;
   margin-bottom: 40px;
 }
 .page-homepage .latest-courses ul.courses li.left-box {
@@ -3394,6 +3394,7 @@ body {
 }
 .page-profile .profile-courses ul.courses li.course {
   list-style: none;
+  margin-bottom: 40px;
 }
 .page-profile .profile-courses ul.courses .style-course-box {
   float: left;

@@ -149,6 +149,7 @@ class Command(BaseCommand):
                     teacher=user1,
                     credentials='I am smart',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                 )
 
@@ -208,6 +209,7 @@ class Command(BaseCommand):
                     teacher=user2,
                     credentials='I am a programmer',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 9, 0), is_dst=None),
                 )
 
@@ -248,6 +250,7 @@ class Command(BaseCommand):
                     teacher=user2,
                     credentials='I am a designer',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 10, 0), is_dst=None),
                 )
 
@@ -288,6 +291,7 @@ class Command(BaseCommand):
                     teacher=user1,
                     credentials='I am a carpenter',
                     status='PUBLISHED',
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 11, 0), is_dst=None),
                 )
 

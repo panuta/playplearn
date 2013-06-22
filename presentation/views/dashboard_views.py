@@ -411,8 +411,11 @@ def ajax_publish_course(request):
 
     CourseSchedule.objects.create(course=course, start_datetime=schedule_datetime)
 
+    rightnow = now()
+
     course.status = 'PUBLISHED'
-    course.last_scheduled = now()
+    course.first_published = rightnow
+    course.last_scheduled = rightnow
     course.save()
 
     CourseOutlineMedia.objects.filter(course=course).update(is_visible=True)

@@ -176,6 +176,9 @@ class UserAccount(AbstractBaseUser):
     def stats_feedbacks_received(self):
         return CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self).count()
 
+    def stats_positive_feedbacks_received(self):
+        return CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self, is_positive=True).count()
+
     def stats_positive_feedbacks_percentage(self):
         total = self.stats_feedbacks_received()
         return float(CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self, is_positive=True).count()) / float(total) * 100 if total else 0
@@ -352,6 +355,7 @@ class Course(BaseCourse):
     teacher = models.ForeignKey(UserAccount, related_name='courses')
 
     status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
+    first_published = models.DateTimeField(null=True)
     last_scheduled = models.DateTimeField(null=True)
 
     objects = CourseManager()
