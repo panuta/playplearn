@@ -638,6 +638,7 @@ def manage_course_feedback(request, course, course_uid, category):
         'course': course,
         'feedbacks': feedbacks,
         'num_of_feedbacks': num_of_feedbacks,
+        'active_category': category,
     })
 
 

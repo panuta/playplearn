@@ -104,44 +104,47 @@ $(document).ready(function() {
 
 {% block classroom_content %}
 <div class="page-manage-course-feedback">
-    {% if feedbacks %}
-        <div class="row">
-            <div class="span2">
-                <div class="feedback-navigation">
-                    <ul class="style-sidebar-nav">
-                        <li class="outline active"><a href="#">All feedbacks <span class="number">{{ num_of_feedbacks.all }}</span></a></li>
-                        <li class="story"><a href="#">Promoted <span class="number">{{ num_of_feedbacks.promoted }}</span></a></li>
-                        <li class="story"><a href="#">Visible <span class="number">{{ num_of_feedbacks.visible }}</span></a></li>
-                        <li class="story"><a href="#">Invisible <span class="number">{{ num_of_feedbacks.invisible }}</span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="span10">
-                <div class="feedback-list">
-                    <div class="head">All feedbacks <span>(4 feedbacks)</span></div>
-                    <ul class="feedbacks">
-                        {% for feedback in feedbacks %}
-                            <li class="feedback clearfix" data-feedback-id="{{ feedback.id }}">
-                                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                                <div class="status">{% if feedback.is_public %}<span class="public">Visible to public</span>{% else %}<span class="not_public">Not visible to public</span>{% endif %}</div>
-                                <div class="right">
-                                    <div class="name"><i class="{% if feedback.is_positive %}icon-thumbs-up positive{% else %}icon-thumbs-down negative{% endif %}"></i> <a href="#">{{ feedback.enrollment.student.name }}</a></div>
-                                    <div class="content"><p>{{ feedback.content }}</p></div><!-- TODO Set paragraph -->
-                                    <div class="footer">
-                                        <a href="#" class="btn btn-small button-set-public">{% if feedback.is_public %}Hide from public{% else %}Set visible to public{% endif %}</a>
-                                        <a href="#" class="btn btn-small button-set-promote">{% if feedback.is_promoted %}Do not promote{% else %}Promote{% endif %}</a>
-                                        <span class="created">เขียนเมื่อวันที่ <em>{{ feedback.created|timestamp }}</em></span>
-                                        <span class="class">จากรอบวันที่ <em>{{ feedback.enrollment.schedule.start_datetime|timestamp }}</em></span>
-                                    </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+    <div class="row">
+        <div class="span2">
+            <div class="feedback-navigation">
+                <ul class="style-sidebar-nav">
+                    <li{% if active_category == 'all' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'all' %}">All feedbacks <span class="number">{{ num_of_feedbacks.all }}</span></a></li>
+                    <li{% if active_category == 'promoted' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'promoted' %}">Promoted <span class="number">{{ num_of_feedbacks.promoted }}</span></a></li>
+                    <li{% if active_category == 'visible' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'visible' %}">Visible <span class="number">{{ num_of_feedbacks.visible }}</span></a></li>
+                    <li{% if active_category == 'invisible' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'invisible' %}">Invisible <span class="number">{{ num_of_feedbacks.invisible }}</span></a></li>
+                </ul>
             </div>
         </div>
-    {% else %}
-        <div class="style-no-information">No feedbacks</div>
-    {% endif %}
+        <div class="span10">
+            <div class="feedback-list">
+                <div class="head">
+                    {% if active_category == 'all' %}All feedbacks{% elif active_category == 'promoted' %}Promoted feedbacks{% elif active_category == 'visible' %}Visible to public feedbacks{% elif active_category == 'invisible' %}Invisible to public feedbacks{% endif %}
+                    {% if feedbacks %}<span>({{ feedbacks|length }} feedback{{ feedbacks|pluralize }})</span>{% endif %}
+                </div>
+                {% if feedbacks %}
+                <ul class="feedbacks">
+                    {% for feedback in feedbacks %}
+                        <li class="feedback clearfix" data-feedback-id="{{ feedback.id }}">
+                            <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                            <div class="status">{% if feedback.is_public %}<span class="public">Visible to public</span>{% else %}<span class="not_public">Not visible to public</span>{% endif %}</div>
+                            <div class="right">
+                                <div class="name"><i class="{% if feedback.is_positive %}icon-thumbs-up positive{% else %}icon-thumbs-down negative{% endif %}"></i> <a href="#">{{ feedback.enrollment.student.name }}</a></div>
+                                <div class="content"><p>{{ feedback.content }}</p></div><!-- TODO Set paragraph -->
+                                <div class="footer">
+                                    <a href="#" class="btn btn-small button-set-public">{% if feedback.is_public %}Hide from public{% else %}Set visible to public{% endif %}</a>
+                                    <a href="#" class="btn btn-small button-set-promote">{% if feedback.is_promoted %}Do not promote{% else %}Promote{% endif %}</a>
+                                    <span class="created">เขียนเมื่อวันที่ <em>{{ feedback.created|timestamp }}</em></span>
+                                    <span class="class">จากรอบวันที่ <em>{{ feedback.enrollment.schedule.start_datetime|timestamp }}</em></span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <div class="style-no-information">No feedbacks</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
