@@ -177,7 +177,7 @@ body.modal-open {
     }
 }
 
-// LIBS: JQUERY UI DATEPICKER ##########################################################################################
+// LIBS: BOOTSTRAP DATEPICKER ##########################################################################################
 
 .datepicker-inline {
     width: auto;
@@ -272,89 +272,52 @@ body.modal-open {
     }
 }
 
+// LIBS: PNOTIFY #######################################################################################################
 
-.yui3-calendar {
-    height: 316px;
-    //width: 294px;
+.ui-pnotify.custom .ui-pnotify-container {
+    background-color: #404040;
+    background-image: none;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+}
 
-    .yui3-calendar-header {
-        line-height: 30px;
-        padding: 0 30px;
-    }
+.ui-pnotify.custom .ui-pnotify-title {
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 28px;
+    line-height: 18px;
+    margin: 5px 0 7px;
+    text-shadow: none;
+}
 
-    .yui3-calendarnav-prevmonth, .yui3-calendarnav-nextmonth {
-        background-repeat: no-repeat;
-        cursor: pointer;
-        display: inline-block;
-        height: 16px;
-        overflow: hidden;
-        text-align: center;
-        text-indent: -9999px;
-        vertical-align: middle;
-        width: 30px;
-    }
+.ui-pnotify.custom .ui-pnotify-text {
+    color: #EEE;
+    font-size: 13px;
+    text-shadow: none;
 
-    .yui3-calendar-header-label {
-        color: #444;
-        display: inline-block;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .yui3-calendarnav-prevmonth {
-        background-image: url(../images/ui/calendar-left.png);
-        background-position: 0 0;
-        margin-left: -30px;
-    }
-
-    .yui3-calendarnav-nextmonth {
-        background-image: url(../images/ui/calendar-right.png);
-        background-position: right center;
-        margin-right: -30px;
-    }
-
-    thead th {
-        color: #888;
-    }
-
-    td {
-        border: 1px solid #DDD;
-        height: 39px;
-        width: 42px;
-
-        color: #555;
-        font-size: 14px;
-        font-weight: bold;
-        //line-height: 39px;
-        outline: 0px;
-        padding: 0;
-        text-align: center;
-
-
-
-
-        &.ui-datepicker-other-month  {
-            background-color: #F9F9F9;
-        }
-
-        &.ui-datepicker-unselectable .ui-state-default {
-            color: #AAA;
-            font-size: 13px;
-            font-weight: normal;
-        }
-
-        &.ui-datepicker-today .ui-state-default {
-            background-color: #FFC;
-        }
-
-        &:hover {
-            background-color: @linkColor !important;
-            color: #FFF;
-        }
+    a {
+        color: #EEE;
+        text-decoration: underline;
+        text-shadow: none;
     }
 }
 
+.ui-pnotify.custom .alert-success {
+    background: url(../images/ui/alert_success.png) 15px 15px no-repeat;
+    background-color: #00956E;
+}
+
+.ui-pnotify.custom .alert-info {
+    background: url(../images/ui/alert_notice.png) 15px 15px no-repeat;
+    background-color: #666;
+}
+
+.ui-pnotify.custom .alert-error {
+    background: url(../images/ui/alert_error.png) 15px 15px no-repeat;
+    background-color: #C30;
+}
 
 // FORM ################################################################################################################
 
@@ -440,6 +403,20 @@ form {
 
     img {
         vertical-align: -3px;
+    }
+}
+
+.style-no-information {
+    border: 1px dashed #DDD;
+    color: #666;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 20px 0;
+    text-align: center;
+
+    i {
+        margin-right: 2px;
+        vertical-align: 0;
     }
 }
 

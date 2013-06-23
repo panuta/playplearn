@@ -47,7 +47,9 @@ $(document).ready(function() {
 
         var jqxhr = $.post('/ajax/course/publish/', {uid: publish_modal.data('course-uid'), schedule_date:schedule_date, schedule_time:schedule_time}, function(response) {
             if(response.status == 'success') {
-                window.location = response.data.redirect_url;
+                //window.location = response.data.redirect_url;
+
+                // TODO Show modal to choose between redirect to promote or stay here
 
             } else {
                 if(response.message) {
@@ -63,63 +65,9 @@ $(document).ready(function() {
         });
     });
 
-    var add_schedule_modal = $('#modal-add-schedule');
-    var add_schedule_date_datepicker = $('#id_add_schedule_date').find('.calendar');
-
-    add_schedule_date_datepicker.datepicker({
-        format: 'yyyy-mm-dd',
-        todayHighlight: true,
-        startDate: '0',
-        endDate: '+60d',
-        language: 'th'
-    }).on('changeDate', function() {
-        add_schedule_date_datepicker.data('is_dirty', true);
-        if($('#id_add_schedule_time').find('option:selected').length) {
-            add_schedule_modal.find('.modal-footer .button-submit').attr('disabled', false);
-        }
-    });
-
-    $('#id_add_schedule_time').find('select').on('change', function() {
-        if(add_schedule_date_datepicker.data('is_dirty')) {
-            add_schedule_modal.find('.modal-footer .button-submit').attr('disabled', false);
-        }
-    });
-
-    $('.open-modal-add-schedule').on('click', function() {
-        add_schedule_modal.data('course-uid', $(this).closest('li.course').attr('data-course-uid'));
-
-        add_schedule_date_datepicker.datepicker('update', new Date());
-        add_schedule_date_datepicker.data('is_dirty', false);
-        $('#id_add_schedule_time').find('option').attr('selected', false);
-
-        add_schedule_modal.find('.modal-footer .button-submit').attr('disabled', true);
-        add_schedule_modal.find('.modal-footer .button-cancel').attr('disabled', false);
-    });
-
-    add_schedule_modal.find('.button-submit:not(.disabled)').on('click', function() {
-        add_schedule_modal.find('.modal-footer button').attr('disabled', true);
-
-        var schedule_date = add_schedule_date_datepicker.datepicker('getFormattedDate');
-        var schedule_time = $('#id_add_schedule_time').find('option:selected').val();
-
-        var jqxhr = $.post('/ajax/course/schedule/add/', {uid: add_schedule_modal.data('course-uid'), schedule_date:schedule_date, schedule_time:schedule_time}, function(response) {
-            if(response.status == 'success') {
-                add_schedule_modal.modal('hide');
-
-                // TODO update view, show notification
-
-            } else {
-                if(response.message) {
-                    _addModalErrorMessage('modal-publish-course', response.message);
-                } else {
-                    _addModalErrorMessage('modal-publish-course', 'Cannot publish: unknown error occurred');
-                }
-            }
-        }, 'json');
-
-        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _addModalErrorMessage('modal-publish-course', 'Cannot publish: ' + errorThrown);
-        });
+    $('.open-modal-add-class').on('click', function() {
+        var modal = $('#modal-add-class');
+        modal.data('course-uid', $(this).closest('li.course').attr('data-course-uid'));
     });
 });
 </script>
@@ -180,7 +128,7 @@ $(document).ready(function() {
                                     {% elif course.status == 'PUBLISHED' %}
                                         <a href="{% url 'manage_course_overview' course.uid %}" class="link">Manage classroom</a>
                                         <a href="{% url 'edit_course' course.uid %}" class="link">Edit course</a>
-                                        <a href="#" class="link open-modal-add-schedule" data-toggle="modal" data-target="#modal-add-schedule">Add new class</a>
+                                        <a href="#" class="link open-modal-add-class">Add new class</a>
                                     {% endif %}
                                 </div>
                             </li>
@@ -222,26 +170,7 @@ $(document).ready(function() {
             </div>
         </div>
 
-        <div class="modal fade hide schedule-modal" id="modal-add-schedule">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Add new class</h3>
-            </div>
-            <div class="modal-body">
-                <div id="id_add_schedule_date" class="schedule-date">
-                    <div class="calendar"></div>
-                    <div class="note">Now allow setting further than 2 months</div>
-                </div>
-                <div id="id_add_schedule_time" class="schedule-time">
-                    <div class="head">Start time</div>
-                    <select size="10">{% time_options %}</select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="style-button button-cancel" data-dismiss="modal">Cancel</button>
-                <button class="style-primary-button button-submit">Add class</button>
-            </div>
-        </div>
+        {% include 'snippets/modal_add_class.html' with trigger='.open-modal-add-class' %}
 
     {% else %}
         <div class="no-teaching-course">

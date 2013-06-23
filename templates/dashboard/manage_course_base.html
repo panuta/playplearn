@@ -2,25 +2,36 @@
 
 {% block body_class %}{{ block.super }} page-manage-course{% endblock %}
 
+{% block scripts %}
+<script>
+$('.button-add-new-class').on('click', function() {
+    var modal = $('#modal-add-class');
+    modal.data('course-uid', '{{ course.uid }}');
+    return false;
+});
+</script>
+{% endblock %}
+
 {% block backend_header %}
-    <div class="parent"><a href="{% url 'view_my_courses_teaching' %}">My teaching courses</a> <span class="separator">&#187;</span> <span>{{ course.title }}</span></div>
+    <div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
     <div class="actions">
-        <a href="#"><i class="icon-plus"></i> Add new class</a>
+        <a href="#" class="button-add-new-class"><i class="icon-plus"></i> Add new class</a>
         <a href="{% url 'edit_course' course.uid %}"><i class="icon-pencil"></i> Edit course</a>
     </div>
-    <h1>Manage Course</h1>
+    <h1>Manage <span>- {{ course.title }}</span></h1>
 {% endblock %}
 
 {% block backend_container %}
-    <div class="backend-tabs">
-        <div class="container">
-            {% block classroom_nav %}{% endblock %}
-        </div>
+<div class="backend-tabs">
+    <div class="container">
+        {% block classroom_nav %}{% endblock %}
     </div>
-    <div class="classroom-body">
-        <div class="container">
-            {% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
-            {% block classroom_content %}{% endblock %}
-        </div>
-    </div>
+</div>
+
+<div class="container">
+    {% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
+    {% block classroom_content %}{% endblock %}
+</div>
+
+{% include 'snippets/modal_add_class.html' with trigger='.button-add-new-class' %}
 {% endblock %}

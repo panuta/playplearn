@@ -36,7 +36,7 @@ LANGUAGE_CODE = 'th'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
+USE_TZ = False
 
 MEDIA_ROOT = os.path.join(base_path, 'media')
 MEDIA_URL = '/media/'
@@ -226,6 +226,10 @@ COURSE_COVER_DEFAULT_SMALL = 'default/course/default_cover_small.png'
 COURSE_MEDIA_MAXIMUM_NUMBER = 10
 
 COURSE_PICTURE_MAXIMUM_SIZE = 5000000
+
+# COURSE SCHEDULE
+
+SCHEDULE_ADD_DAYS_IN_ADVANCE = 60
 
 # LOCAL SETTINGS #######################################################################################################
 

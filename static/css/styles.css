@@ -217,70 +217,43 @@ body.modal-open {
   color: #AAA;
   cursor: default;
 }
-.yui3-calendar {
-  height: 316px;
+.ui-pnotify.custom .ui-pnotify-container {
+  background-color: #404040;
+  background-image: none;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
 }
-.yui3-calendar .yui3-calendar-header {
-  line-height: 30px;
-  padding: 0 30px;
-}
-.yui3-calendar .yui3-calendarnav-prevmonth,
-.yui3-calendar .yui3-calendarnav-nextmonth {
-  background-repeat: no-repeat;
-  cursor: pointer;
-  display: inline-block;
-  height: 16px;
-  overflow: hidden;
-  text-align: center;
-  text-indent: -9999px;
-  vertical-align: middle;
-  width: 30px;
-}
-.yui3-calendar .yui3-calendar-header-label {
-  color: #444;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
-.yui3-calendar .yui3-calendarnav-prevmonth {
-  background-image: url(../images/ui/calendar-left.png);
-  background-position: 0 0;
-  margin-left: -30px;
-}
-.yui3-calendar .yui3-calendarnav-nextmonth {
-  background-image: url(../images/ui/calendar-right.png);
-  background-position: right center;
-  margin-right: -30px;
-}
-.yui3-calendar thead th {
-  color: #888;
-}
-.yui3-calendar td {
-  border: 1px solid #DDD;
-  height: 39px;
-  width: 42px;
-  color: #555;
+.ui-pnotify.custom .ui-pnotify-title {
+  color: #FFF;
   font-size: 14px;
   font-weight: bold;
-  outline: 0px;
-  padding: 0;
-  text-align: center;
+  padding-left: 28px;
+  line-height: 18px;
+  margin: 5px 0 7px;
+  text-shadow: none;
 }
-.yui3-calendar td.ui-datepicker-other-month {
-  background-color: #F9F9F9;
-}
-.yui3-calendar td.ui-datepicker-unselectable .ui-state-default {
-  color: #AAA;
+.ui-pnotify.custom .ui-pnotify-text {
+  color: #EEE;
   font-size: 13px;
-  font-weight: normal;
+  text-shadow: none;
 }
-.yui3-calendar td.ui-datepicker-today .ui-state-default {
-  background-color: #FFC;
+.ui-pnotify.custom .ui-pnotify-text a {
+  color: #EEE;
+  text-decoration: underline;
+  text-shadow: none;
 }
-.yui3-calendar td:hover {
-  background-color: #3a71a9 !important;
-  color: #FFF;
+.ui-pnotify.custom .alert-success {
+  background: url(../images/ui/alert_success.png) 15px 15px no-repeat;
+  background-color: #00956E;
+}
+.ui-pnotify.custom .alert-info {
+  background: url(../images/ui/alert_notice.png) 15px 15px no-repeat;
+  background-color: #666;
+}
+.ui-pnotify.custom .alert-error {
+  background: url(../images/ui/alert_error.png) 15px 15px no-repeat;
+  background-color: #C30;
 }
 .style-form .control-group {
   margin-bottom: 25px;
@@ -354,6 +327,18 @@ form .avatar-control .errorlist {
 }
 .style-loading img {
   vertical-align: -3px;
+}
+.style-no-information {
+  border: 1px dashed #DDD;
+  color: #666;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 20px 0;
+  text-align: center;
+}
+.style-no-information i {
+  margin-right: 2px;
+  vertical-align: 0;
 }
 .style-button {
   border: none;
@@ -1325,6 +1310,40 @@ body {
   color: #777;
   font-size: 13px;
   margin-top: 7px;
+}
+#modal-add-class {
+  margin-left: -300px;
+  width: 600px;
+}
+#modal-add-class .class-date {
+  float: left;
+  padding: 15px 0 0 15px;
+}
+#modal-add-class .class-date .note {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
+#modal-add-class .class-time {
+  margin-left: 325px;
+  padding-top: 16px;
+}
+#modal-add-class .class-time .head {
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 9px;
+  text-align: center;
+}
+#modal-add-class .class-time select {
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 150px;
+}
+#modal-add-class .class-time select option {
+  padding: 2px 5px;
+  text-align: center;
 }
 .page-registration #body-header {
   border-bottom: 1px solid #E9E9E9;
@@ -3074,8 +3093,9 @@ body {
   font-size: 16px;
   line-height: 25px;
 }
-.page-manage-course .backend-header h1 {
-  display: inline-block;
+.page-manage-course .backend-header h1 span {
+  font-size: 20px;
+  font-weight: normal;
 }
 .page-manage-course .backend-header .class {
   display: inline-block;
@@ -3093,21 +3113,22 @@ body {
 }
 .page-manage-course-overview .course-stats {
   background-color: #F7F7F7;
-  border-bottom: 2px solid #EEE;
+  border-bottom: 2px solid #DDD;
   margin: 25px 0 25px;
-  padding: 10px 18px;
+  padding: 6px 0;
 }
 .page-manage-course-overview .course-stats ul.stats {
   margin: 0;
 }
 .page-manage-course-overview .course-stats ul.stats li.stat {
+  border-right: 1px solid #DDD;
   display: inline-block;
   list-style: none;
-  margin-right: 30px;
+  padding: 0 20px;
 }
 .page-manage-course-overview .course-stats ul.stats li.stat .caption {
-  color: #888;
-  font-size: 14px;
+  color: #777;
+  font-size: 13px;
 }
 .page-manage-course-overview .course-stats ul.stats li.stat .number {
   color: #555;
@@ -3119,7 +3140,8 @@ body {
   font-size: 13px;
 }
 .page-manage-course-overview .course-stats ul.stats li.stat .number em {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .page-manage-course-overview .upcoming_classes .head {
   color: #444;
@@ -3127,11 +3149,22 @@ body {
   font-weight: bold;
   margin-bottom: 20px;
 }
+.page-manage-course-overview .upcoming_classes .head span {
+  color: #666;
+  font-size: 16px;
+  margin-left: 4px;
+}
+.page-manage-course-overview .upcoming_classes ul {
+  margin: 0;
+}
 .page-manage-course-overview .upcoming_classes ul li {
-  margin-bottom: 20px;
+  border: 1px solid #DDD;
+  list-style: none;
+  margin-bottom: 15px;
+  padding: 10px 15px;
 }
 .page-manage-course-overview .upcoming_classes .datetime a {
-  font-weight: bold;
+  font-size: 15px;
 }
 .page-manage-course-overview .upcoming_classes .datetime a:link,
 .page-manage-course-overview .upcoming_classes .datetime a:active,
@@ -3145,40 +3178,45 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-manage-course-overview .upcoming_classes .students {
-  color: #666;
-  font-size: 13px;
-  margin-top: 8px;
+.page-manage-course-overview .upcoming_classes .details {
+  margin-top: 5px;
 }
-.page-manage-course-overview .upcoming_classes .students em {
+.page-manage-course-overview .upcoming_classes .details .students {
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
+  font-weight: bold;
 }
-.page-manage-course-classes {
+.page-manage-course-overview .upcoming_classes .details .students em {
+  font-weight: bold;
+}
+.page-manage-course-overview .upcoming_classes .details .students .max {
+  color: #666;
+  font-weight: normal;
+}
+.page-manage-course-class {
   padding-top: 30px;
 }
-.page-manage-course-classes .classes-list .head {
+.page-manage-course-class .classes-list .head {
   color: #555;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 7px;
 }
-.page-manage-course-classes .classes-list .head span {
+.page-manage-course-class .classes-list .head span {
   color: #888;
-  font-size: 13px;
   font-weight: normal;
 }
-.page-manage-course-classes .classes-list ul {
+.page-manage-course-class .classes-list ul {
   margin: 0 0 20px;
 }
-.page-manage-course-classes .classes-list ul li {
+.page-manage-course-class .classes-list ul li {
   list-style: none;
 }
-.page-manage-course-classes .classes-list ul li.active a {
+.page-manage-course-class .classes-list ul li.active a {
   background-color: #666;
   color: #FFF;
 }
-.page-manage-course-classes .classes-list ul li a {
+.page-manage-course-class .classes-list ul li a {
   background-color: #F4F4F4;
   color: #444;
   display: block;
@@ -3186,56 +3224,56 @@ body {
   padding: 7px 10px;
   text-decoration: none;
 }
-.page-manage-course-classes .classes-list ul li a:hover {
+.page-manage-course-class .classes-list ul li a:hover {
   background-color: #3a71a9;
   color: #FFF;
 }
-.page-manage-course-classes .students-table th.date {
+.page-manage-course-class .students-table th.date {
   text-align: center;
   width: 170px;
 }
-.page-manage-course-classes .students-table th.status {
+.page-manage-course-class .students-table th.status {
   text-align: center;
   width: 100px;
 }
-.page-manage-course-classes .students-table th.payment {
+.page-manage-course-class .students-table th.payment {
   text-align: center;
   width: 120px;
 }
-.page-manage-course-classes .students-table th.actions {
+.page-manage-course-class .students-table th.actions {
   text-align: center;
   width: 70px;
 }
-.page-manage-course-classes .students-table td {
+.page-manage-course-class .students-table td {
   vertical-align: middle;
 }
-.page-manage-course-classes .students-table td.date {
+.page-manage-course-class .students-table td.date {
   text-align: center;
 }
-.page-manage-course-classes .students-table td.status {
+.page-manage-course-class .students-table td.status {
   text-align: center;
 }
-.page-manage-course-classes .students-table td.payment {
+.page-manage-course-class .students-table td.payment {
   text-align: center;
 }
-.page-manage-course-classes .students-table td.actions {
+.page-manage-course-class .students-table td.actions {
   text-align: center;
 }
-.page-manage-course-classes .classes {
+.page-manage-course-class .classes {
   margin: 25px 0 0;
 }
-.page-manage-course-classes .classes li {
+.page-manage-course-class .classes li {
   list-style: none;
   float: left;
 }
-.page-manage-course-classes .classes li.active a {
+.page-manage-course-class .classes li.active a {
   background-color: #666;
   color: #FFF;
 }
-.page-manage-course-classes .classes li.active a .upcoming {
+.page-manage-course-class .classes li.active a .upcoming {
   color: #EEE;
 }
-.page-manage-course-classes .classes li a {
+.page-manage-course-class .classes li a {
   background-color: #EEE;
   border-right: 1px solid #DDD;
   color: #444;
@@ -3245,41 +3283,41 @@ body {
   text-decoration: none;
   vertical-align: bottom;
 }
-.page-manage-course-classes .classes li a i {
+.page-manage-course-class .classes li a i {
   vertical-align: 0px;
 }
-.page-manage-course-classes .classes li a .upcoming {
+.page-manage-course-class .classes li a .upcoming {
   color: #777;
   display: block;
   font-size: 11px;
   font-weight: bold;
 }
-.page-manage-course-classes .classes li a:hover {
+.page-manage-course-class .classes li a:hover {
   background-color: #3a71a9;
   color: #FFF;
 }
-.page-manage-course-classes .classes li a:hover .upcoming {
+.page-manage-course-class .classes li a:hover .upcoming {
   color: #EEE;
 }
-.page-manage-course-classes .classes li a .time {
+.page-manage-course-class .classes li a .time {
   display: block;
 }
-.page-manage-course-classes .upcoming-classes .head,
-.page-manage-course-classes .past-classes .head {
+.page-manage-course-class .upcoming-classes .head,
+.page-manage-course-class .past-classes .head {
   color: #444;
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 20px;
 }
-.page-manage-course-classes .upcoming-classes .head i,
-.page-manage-course-classes .past-classes .head i {
+.page-manage-course-class .upcoming-classes .head i,
+.page-manage-course-class .past-classes .head i {
   color: #999;
   font-size: 15px;
   font-weight: normal;
   margin-right: 5px;
   vertical-align: 0px;
 }
-.page-manage-course-classes .upcoming-classes {
+.page-manage-course-class .upcoming-classes {
   margin-top: 30px;
 }
 .page-profile .profile-header {

@@ -22,6 +22,20 @@ def format_full_datetime(datetime):
     except ValueError:
         return ''
 
+
+def format_datetime_string(datetime):
+    try:
+        return '%d_%02d_%02d_%02d_%02d' % (
+            datetime.year,
+            datetime.month,
+            datetime.day,
+            datetime.hour,
+            datetime.minute,
+        )
+    except ValueError:
+        return ''
+
+
 """
 def format_full_datetime(datetime):
     try:

@@ -1,60 +1,63 @@
 {% extends 'dashboard/manage_course_base.html' %}
+{% load common_tags %}
 
 {% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='classes' %}{% endblock %}
 
 {% block classroom_content %}
-<div class="page-manage-course-classes">
-    <div class="row">
-        <div class="span3">
-            <div class="classes-list">
-                <div class="head">Upcoming classes <span>(5)</span></div>
-                <ul>
-                    <li class="active"><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
-                    <li><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
-                </ul>
-                <div class="head">Past classes <span>(5)</span></div>
-                <ul>
-                    <li><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
-                    <li><a href="#"><span class="date">Sunday, 14 Feb 2013</span> <span class="time">14:00</span></a></li>
-                </ul>
+<div class="page-manage-course-class">
+    {% if schedule %}
+        <div class="row">
+            <div class="span3">
+                <div class="classes-list">
+                    {% if upcoming_classes %}
+                    <div class="head">Upcoming class <span>({{ upcoming_classes|length }} class{{ upcoming_classes|pluralize:'es' }})</span></div>
+                    <ul>
+                        {% for upcoming_schedule in upcoming_classes %}
+                            <li{% if upcoming_schedule.id == schedule.id %} class="active"{% endif %}><a href="{% url 'manage_course_class' course.uid upcoming_schedule.start_datetime|datetime_string %}">{{ upcoming_schedule|schedule_datetime }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% if past_classes %}
+                    <div class="head">Past class <span>({{ past_classes|length }} class{{ past_classes|pluralize:'es' }})</span></div>
+                    <ul>
+                        {% for past_schedule in past_classes %}
+                            <li{% if past_schedule.id == schedule.id %} class="active"{% endif %}><a href="{% url 'manage_course_class' course.uid past_schedule.start_datetime|datetime_string %}">{{ past_schedule|schedule_datetime }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="span9">
+                {% if enrollments %}
+                    <table class="table students-table">
+                        <thead>
+                        <tr>
+                            <th class="name">Student name</th>
+                            <th class="date">Date joined</th>
+                            <th class="status">Status</th>
+                            <th class="payment">Payment</th>
+                            <th class="actions"></th><!-- TODO -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for enrollment in enrollments %}
+                            <tr>
+                                <td class="name">{{ enrollment.student.name }}</td>
+                                <td class="date">{{ enrollment.created|timestamp }}</td>
+                                <td class="status">{{ enrollment|enrollment_status }}</td>
+                                <td class="payment">{{ enrollment|enrollment_payment_status }}</td>
+                                <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="style-no-information">No students</div>
+                {% endif %}
             </div>
         </div>
-        <div class="span9">
-            <table class="table students-table">
-                <thead>
-                    <tr>
-                        <th class="name">Student name</th>
-                        <th class="date">Date joined</th>
-                        <th class="status">Status</th>
-                        <th class="payment">Payment</th>
-                        <th class="actions"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="name">Panu Tangchalermkul</td>
-                        <td class="date">10 Jan 2013 - 10:00</td>
-                        <td class="status">Confirmed</td>
-                        <td class="payment">Paid</td>
-                        <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
-                    </tr>
-                    <tr>
-                        <td class="name">Panu Tangchalermkul</td>
-                        <td class="date">10 Jan 2013 - 10:00</td>
-                        <td class="status">Confirmed</td>
-                        <td class="payment">Paid</td>
-                        <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
-                    </tr>
-                    <tr>
-                        <td class="name">Panu Tangchalermkul</td>
-                        <td class="date">10 Jan 2013 - 10:00</td>
-                        <td class="status">Confirmed</td>
-                        <td class="payment">Paid</td>
-                        <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {% else %}
+        <div class="style-no-information"><i class="icon-info-sign"></i> No classes</div>
+    {% endif %}
 </div>
 {% endblock %}

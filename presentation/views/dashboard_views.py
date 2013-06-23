@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
+from django.utils.dateparse import parse_datetime
 from django.utils.timezone import now
 from django.views.decorators.http import require_GET, require_POST
 
@@ -21,7 +22,7 @@ from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLM
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.decorators import teacher_only
 from common.shortcuts import response_json_success, response_json_error, response_json_error_with_message
-from common.utilities import format_full_datetime
+from common.utilities import format_full_datetime, format_datetime_string
 
 from domain import functions as domain_function
 from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseOutlineMedia, CoursePicture, EditingCourse, EditingCourseOutlineMedia, EditingCoursePicture
@@ -448,17 +449,28 @@ def ajax_add_course_schedule(request):
         return response_json_error_with_message('status-no-ready-to-publish', errors.COURSE_MODIFICATION_ERRORS)
 
     try:
-        datetime_data = '%s-%s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time'))
-        schedule_datetime = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+        schedule_datetime = parse_datetime('%s %s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time')))
     except ValueError:
         return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
 
-    CourseSchedule.objects.create(course=course, start_datetime=schedule_datetime)
+    rightnow = now()
 
-    course.last_scheduled = now()
+    if schedule_datetime < rightnow:
+        return response_json_error_with_message('schedule-past', errors.COURSE_MODIFICATION_ERRORS)
+    elif (schedule_datetime - rightnow).days > settings.SCHEDULE_ADD_DAYS_IN_ADVANCE:
+        return response_json_error_with_message('schedule-future', errors.COURSE_MODIFICATION_ERRORS)
+
+    schedule, created = CourseSchedule.objects.get_or_create(course=course, start_datetime=schedule_datetime)
+
+    if not created:
+        return response_json_error_with_message('schedule-duplicated', errors.COURSE_MODIFICATION_ERRORS)
+
+    course.last_scheduled = rightnow
     course.save()
 
-    return response_json_success()
+    return response_json_success({
+        'manage_class_url': reverse('manage_course_class', args=[course.uid, format_datetime_string(schedule.start_datetime)])
+    })
 
 
 @require_GET
@@ -497,13 +509,54 @@ def print_enrollment(request, enrollment_code):
 @login_required
 @teacher_only
 def manage_course_overview(request, course, course_uid):
-    return render(request, 'dashboard/manage_course_overview.html', {'course': course})
+    rightnow = now()
+    upcoming_schedules = CourseSchedule.objects.filter(
+        course=course,
+        start_datetime__gt=rightnow,
+        status='OPENING'
+    ).order_by('start_datetime')
+
+    return render(request, 'dashboard/manage_course_overview.html', {
+        'course': course,
+        'upcoming_schedules': upcoming_schedules
+    })
 
 
 @login_required
 @teacher_only
-def manage_course_classes(request, course, course_uid):
-    return render(request, 'dashboard/manage_course_classes.html', {'course': course})
+def manage_course_class(request, course, course_uid, datetime_string):
+    rightnow = now()
+
+    upcoming_classes = CourseSchedule.objects.filter(course=course, start_datetime__gt=rightnow, status='OPENING').order_by('start_datetime')
+    past_classes = CourseSchedule.objects.filter(course=course, start_datetime__lte=rightnow, status='OPENING').order_by('-start_datetime')
+
+    if not datetime_string:
+        if upcoming_classes:
+            schedule = upcoming_classes[0]
+        else:
+            schedule = past_classes[0]
+    else:
+        schedule_datetime = datetime.datetime.strptime(datetime_string, '%Y_%m_%d_%H_%M')
+        schedule = get_object_or_404(CourseSchedule, course=course, start_datetime=schedule_datetime)
+
+    if not schedule:
+        return render(request, 'dashboard/manage_course_classes.html', {
+            'course': course,
+            'schedule': schedule,
+        })
+
+    if schedule.status != 'OPENING':
+        raise Http404
+
+    enrollments = CourseEnrollment.objects.filter(schedule=schedule).order_by('-created')
+
+    return render(request, 'dashboard/manage_course_classes.html', {
+        'course': course,
+        'schedule': schedule,
+        'enrollments': enrollments,
+        'upcoming_classes': upcoming_classes,
+        'past_classes': past_classes,
+    })
 
 
 @login_required

@@ -417,11 +417,27 @@ class Course(BaseCourse):
 
     # STATS
 
-    def stats_attended_students(self):
-        return UserAccount.objects.filter(enrollments__schedule__course=self).distinct().count()
+    def stats_opening_classes(self):
+        return CourseSchedule.objects.filter(course=self, status='OPENING').count()
+
+    def stats_students(self):
+        return CourseEnrollment.objects.filter(
+            status='CONFIRMED',
+            payment_status='PAYMENT_RECEIVED',
+            schedule__status='OPENING',
+            schedule__course=self
+        ).count()
 
     def stats_feedbacks(self):
         return CourseFeedback.objects.filter(enrollment__schedule__course=self).count()
+
+    def stats_positive_feedbacks_percentage(self):
+        total = self.stats_feedbacks()
+        return float(CourseFeedback.objects.filter(enrollment__schedule__course=self, is_positive=True).count()) / float(total) * 100 if total else 0
+
+    def stats_total_earning(self):
+        total_earning = CourseEnrollment.objects.filter(schedule__course=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
+        return total_earning if total_earning else 0
 
     # UTILS
 
@@ -682,7 +698,6 @@ class CourseEnrollment(BaseCourseEnrollment):
     student = models.ForeignKey(UserAccount, related_name='enrollments')
     schedule = models.ForeignKey(CourseSchedule, related_name='enrollments')
     payment_status = models.CharField(max_length=30, choices=COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES)
-
     status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
     status_reason = models.CharField(max_length=100, blank=True)
 

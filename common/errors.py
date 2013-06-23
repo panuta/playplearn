@@ -32,6 +32,9 @@ COURSE_MODIFICATION_ERRORS = {
     'file-type-invalid': u'File format is invalid',
     'file-number-exceeded': u'Too many files',
     'file-size-exceeded': u'File is too large',
+    'schedule-duplicated': u'Duplicated schedule',
+    'schedule-past': u'Schedule is already past',
+    'schedule-future': u'Schedule is too long',
 }
 
 COURSE_ENROLLMENT_ERRORS = {

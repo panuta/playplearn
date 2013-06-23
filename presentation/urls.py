@@ -51,7 +51,8 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),
 
     url(r'^course/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
-    url(r'^course/(?P<course_uid>\w+)/manage/classes/$', 'manage_course_classes', name='manage_course_classes'),
+    url(r'^course/(?P<course_uid>\w+)/manage/class/$', 'manage_course_class', {'datetime_string': ''}, name='manage_course_latest_class'),
+    url(r'^course/(?P<course_uid>\w+)/manage/class/(?P<datetime_string>\w+)/$', 'manage_course_class', name='manage_course_class'),
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
     url(r'^course/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
 

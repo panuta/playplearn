@@ -1,14 +1,20 @@
 # -*- encoding: utf-8 -*-
 import datetime
+import pytz
 
 from django import template
 from django.template.defaultfilters import safe
 from django.utils.timezone import now
+from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST
+from common.utilities import format_datetime_string
 
 register = template.Library()
+
+
+# DATE & TIME ##########################################################################################################
 
 @register.filter
 def daysuntil(from_datetime):
@@ -20,6 +26,20 @@ def timepast(from_datetime):
     if from_datetime:
         return from_datetime < now()
     else:
+        return ''
+
+
+@register.filter
+def timestamp(datetime):
+    try:
+        return safe(u'%d %s %d เวลา %02d:%02d' % (
+            datetime.day,
+            th.TH_MONTH_ABBR_NAME[datetime.month],
+            datetime.year + 543,
+            datetime.hour,
+            datetime.minute
+        ))
+    except ValueError:
         return ''
 
 
@@ -38,6 +58,26 @@ def schedule_datetime(schedule):
         return ''
 
 
+@register.filter
+def datetime_string(datetime):
+    return format_datetime_string(datetime)
+
+
+@register.simple_tag
+def time_options(selected_datetime=''):
+    options = []
+    for hour in range(0, 24):
+        for minute in (0, 30):
+            selected = ' selected="selected"' if type(selected_datetime) is datetime.datetime and \
+                                                 selected_datetime.hour == hour and \
+                                                 selected_datetime.minute == minute else ''
+            options.append('<option value="%02d:%02d"%s>%02d:%02d</option>' %(hour, minute, selected, hour, minute))
+
+    return ''.join(options)
+
+
+# DATA #################################################################################################################
+
 @register.simple_tag
 def province_options(selected_province=''):
     options = []
@@ -48,14 +88,13 @@ def province_options(selected_province=''):
     return ''.join(options)
 
 
-@register.simple_tag
-def time_options(selected_datetime=''):
-    options = []
-    for hour in range(0, 24):
-        for minute in (0, 30):
-            selected = ' selected="selected"' if type(selected_datetime) is datetime.datetime and \
-                selected_datetime.hour == hour and \
-                selected_datetime.minute == minute else ''
-            options.append('<option value="%02d-%02d"%s>%02d:%02d</option>' %(hour, minute, selected, hour, minute))
+# COURSE STATUS ########################################################################################################
 
-    return ''.join(options)
+@register.filter
+def enrollment_status(enrollment):
+    return COURSE_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
+
+
+@register.filter
+def enrollment_payment_status(enrollment):
+    return COURSE_ENROLLMENT_PAYMENT_STATUS_MAP[enrollment.payment_status]['name']

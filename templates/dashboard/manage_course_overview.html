@@ -1,4 +1,5 @@
 {% extends 'dashboard/manage_course_base.html' %}
+{% load common_tags %}
 
 {% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='overview' %}{% endblock %}
 
@@ -8,35 +9,37 @@
         <ul class="stats">
             <li class="stat">
                 <span class="caption">Total earning</span>
-                <span class="number"><em>500</em> baht</span>
+                <span class="number"><em>{{ course.stats_total_earning }}</em> baht</span>
             </li>
             <li class="stat">
-                <span class="caption">Total classes</span>
-                <span class="number"><em>4</em> classes</span>
+                <span class="caption">Total class</span>
+                <span class="number"><em>{{ course.stats_opening_classes }}</em> class{{ course.stats_opening_classes|pluralize:'es' }}</span>
             </li>
             <li class="stat">
-                <span class="caption">Total students</span>
-                <span class="number"><em>4</em> students</span>
+                <span class="caption">Total student</span>
+                <span class="number"><em>{{ course.stats_students }}</em> student{{ course.stats_students|pluralize }}</span>
             </li>
             <li class="stat">
                 <span class="caption">Total feedback</span>
-                <span class="number"><em>14</em> feedbacks <span class="smaller">(100% positive reviews)</span></span>
+                <span class="number"><em>{{ course.stats_feedbacks }}</em> feedback{{ course.stats_feedbacks|pluralize }} {% if course.stats_feedbacks %}<span class="smaller">/ {{ course.stats_positive_feedbacks_percentage }}% positive</span>{% endif %}</span>
             </li>
         </ul>
     </div>
 
     <div class="upcoming_classes">
-        <div class="head">Upcoming classes</div>
-        <ul>
-            <li>
-                <div class="datetime"><a href="#">Sunday, 16 February 2013 10:00 AM</a></div>
-                <div class="students"><em>14</em> / 30 students</div>
-            </li>
-            <li>
-                <div class="datetime"><a href="#">Sunday, 16 February 2013 10:00 AM</a></div>
-                <div class="students"><em>14</em> / 30 students</div>
-            </li>
-        </ul>
+        <div class="head">Upcoming classes{% if upcoming_schedules %} <span>({{ upcoming_schedules|length }} class{{ upcoming_schedules|pluralize:'es' }})</span>{% endif %}</div>
+        {% if upcoming_schedules %}
+            <ul>
+                {% for schedule in upcoming_schedules %}
+                <li>
+                    <div class="datetime"><a href="{% url 'manage_course_class' course.uid schedule.start_datetime|datetime_string %}">{{ schedule|schedule_datetime }}</a></div>
+                    <div class="details"><span class="students"><em>{{ schedule.stats_seats_reserved }} student{{ schedule.stats_seats_reserved|pluralize }}</em> <span class="max">(Max. {{ course.maximum_people }} {{ course.maximum_people|pluralize:'person,people' }})</span></span></div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="style-no-information">No upcoming classes</div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
