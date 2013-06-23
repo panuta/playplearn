@@ -53,7 +53,8 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
     url(r'^course/(?P<course_uid>\w+)/manage/class/$', 'manage_course_class', {'datetime_string': ''}, name='manage_course_latest_class'),
     url(r'^course/(?P<course_uid>\w+)/manage/class/(?P<datetime_string>\w+)/$', 'manage_course_class', name='manage_course_class'),
-    url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', name='manage_course_feedback'),
+    url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', {'category': 'all'}, name='manage_course_all_feedback'),
+    url(r'^course/(?P<course_uid>\w+)/manage/feedback/(?P<category>\w+)/$', 'manage_course_feedback', name='manage_course_feedback'),
     url(r'^course/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
 
     url(r'^enrollment/(?P<enrollment_code>\w+)/print/$', 'print_enrollment', name='print_enrollment'),
@@ -66,6 +67,8 @@ urlpatterns += patterns(
     url(r'^ajax/course/discard/$', 'ajax_discard_course_changes', name='ajax_discard_course_changes'),
     url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
     url(r'^ajax/course/schedule/add/$', 'ajax_add_course_schedule', name='ajax_add_course_schedule'),
+    url(r'^ajax/course/feedback/set_public/$', 'ajax_set_course_feedback_public', name='ajax_set_course_feedback_public'),
+    url(r'^ajax/course/feedback/set_promoted/$', 'ajax_set_course_feedback_promoted', name='ajax_set_course_feedback_promoted'),
 
     url(r'^ajax/enrollment/details/$', 'ajax_view_enrollment_details', name='ajax_view_enrollment_details'),
 )

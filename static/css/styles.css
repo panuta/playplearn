@@ -245,7 +245,7 @@ body.modal-open {
 }
 .ui-pnotify.custom .alert-success {
   background: url(../images/ui/alert_success.png) 15px 15px no-repeat;
-  background-color: #00956E;
+  background-color: #00ac71;
 }
 .ui-pnotify.custom .alert-info {
   background: url(../images/ui/alert_notice.png) 15px 15px no-repeat;
@@ -516,6 +516,19 @@ h1.style-page-header {
   text-shadow: 1px 1px #FFF;
   vertical-align: 2px;
 }
+.style-sidebar-nav li a .number {
+  background-color: #999;
+  border-radius: 3px;
+  color: #FFF;
+  display: inline-block;
+  float: right;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: normal;
+  margin: 12px 7px 0 0;
+  padding: 1px 4px;
+  text-shadow: none;
+}
 .style-sidebar-nav li.last a {
   border-bottom: none;
 }
@@ -667,7 +680,7 @@ body {
   background-color: #FFF;
   height: 100%;
 }
-.footer,
+#body-footer,
 .push {
   height: 4em;
 }
@@ -3319,6 +3332,115 @@ body {
 }
 .page-manage-course-class .upcoming-classes {
   margin-top: 30px;
+}
+.page-manage-course-feedback {
+  padding-top: 30px;
+}
+.page-manage-course-feedback .feedback_number {
+  color: #555;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+.page-manage-course-feedback .feedback-list .head {
+  color: #444;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.page-manage-course-feedback .feedback-list .head span {
+  color: #666;
+  font-size: 16px;
+  margin-left: 4px;
+}
+.page-manage-course-feedback ul.feedbacks {
+  margin: 0;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback {
+  border-bottom: 1px solid #DDD;
+  list-style: none;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .avatar {
+  float: left;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .avatar img {
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .status {
+  float: right;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .status span {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 12px;
+  padding: 1px 15px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .status span.public {
+  background-color: #00ac71;
+  color: #FFF;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .status span.not_public {
+  background-color: #DDD;
+  color: #555;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right {
+  margin-left: 68px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name i {
+  font-size: 20px;
+  float: left;
+  margin-right: 10px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name i.positive {
+  color: #00ac71;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name i.negative {
+  color: #cc3300;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name a {
+  font-size: 15px;
+  font-weight: bold;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name a:link,
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name a:active,
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name a:visited {
+  color: #3a71a9;
+  text-decoration: underline;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .name a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .content {
+  color: #444;
+  border: 1px dashed #DDD;
+  font-size: 15px;
+  margin-top: 15px;
+  padding: 10px 15px 0 15px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .content p {
+  margin: 0;
+  padding-bottom: 12px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .footer {
+  color: #888;
+  font-size: 13px;
+  margin-top: 15px;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .footer a,
+.page-manage-course-feedback ul.feedbacks li.feedback .right .footer span {
+  margin-right: 10px;
+  vertical-align: bottom;
+}
+.page-manage-course-feedback ul.feedbacks li.feedback .right .footer em {
+  color: #666;
+  font-weight: bold;
 }
 .page-profile .profile-header {
   background-color: #3a71a9;

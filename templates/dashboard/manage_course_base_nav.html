@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
     <li {% if tab_name == 'overview' %} class="active"{% endif %}><a href="{% url 'manage_course_overview' course.uid %}">Overview</a></li>
     <li {% if tab_name == 'classes' %} class="active"{% endif %}><a href="{% url 'manage_course_latest_class' course.uid %}">Classes / Students</a></li>
-    <li {% if tab_name == 'feedback' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid %}">Feedback</a></li>
+    <li {% if tab_name == 'feedback' %} class="active"{% endif %}><a href="{% url 'manage_course_all_feedback' course.uid %}">Feedback</a></li>
     <li {% if tab_name == 'promote' %} class="active"{% endif %}><a href="{% url 'manage_course_promote' course.uid %}">Promote</a></li>
 </ul>

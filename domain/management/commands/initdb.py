@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 
-from domain.models import UserAccount, CourseSchool, Course, CourseSchedule, CourseEnrollment, Place, UserAccountBalanceTransaction
+from domain.models import UserAccount, CourseSchool, Course, CourseSchedule, CourseEnrollment, Place, UserAccountBalanceTransaction, CourseFeedback
 
 
 class Command(BaseCommand):
@@ -169,7 +169,7 @@ class Command(BaseCommand):
                     status='OPENING',
                 )
 
-                CourseEnrollment.objects.get_or_create(
+                enrollment1, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_1',
                     student=user3,
                     schedule=course1_schedule1,
@@ -179,9 +179,9 @@ class Command(BaseCommand):
                     status='CONFIRMED',
                 )
 
-                CourseEnrollment.objects.get_or_create(
+                enrollment2, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_2',
-                    student=user3,
+                    student=user2,
                     schedule=course1_schedule2,
                     price=500,
                     total=500,
@@ -190,7 +190,19 @@ class Command(BaseCommand):
                 )
 
                 UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500.40'))
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500.50'))
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('500.50'))
+
+                CourseFeedback.objects.get_or_create(
+                    enrollment=enrollment1,
+                    content='It was awesome',
+                    is_positive=True,
+                )
+
+                CourseFeedback.objects.get_or_create(
+                    enrollment=enrollment2,
+                    content='It was ok',
+                    is_positive=False,
+                )
 
             try:
                 course2 = Course.objects.get(uid='COURSE2')

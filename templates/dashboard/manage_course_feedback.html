@@ -1,9 +1,147 @@
 {% extends 'dashboard/manage_course_base.html' %}
+{% load common_tags %}
 
 {% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='feedback' %}{% endblock %}
 
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    $('.button-set-public:not(.disabled)').on('click', function() {
+        var button = $(this);
+        button.addClass('disabled');
+
+        var feedback_id = button.closest('li.feedback').attr('data-feedback-id');
+
+        var jqxhr = $.post('/ajax/course/feedback/set_public/', {feedback_id: feedback_id}, function(response) {
+            button.removeClass('disabled');
+            if(response.status == 'success') {
+                var status = '';
+                if(response.data.is_public) {
+                    button.text('Hide from public');
+                    button.closest('li.feedback').find('.status span').removeClass().addClass('public').text('Visible to public');
+                    status = 'visible to public';
+
+                } else {
+                    button.text('Set visible to public');
+                    button.closest('li.feedback').find('.status span').removeClass().addClass('not_public').text('Not visible to public');
+                    status = 'invisible from public';
+                }
+
+                $.pnotify({
+                    addclass:'custom',
+                    animation: 'none',
+                    history: false,
+                    icon:false,
+                    sticker: false,
+                    text:'Set feedback to be '+ status,
+                    title: 'Successful',
+                    type:'success'
+                });
+
+            } else {
+                if(response.message) {
+                    _alertModal('error', 'Cannot set property', response.message);
+                } else {
+                    _alertModal('error', 'Cannot set property', 'Unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _alertModal('error', 'Cannot set property', errorThrown);
+        });
+
+        return false;
+    });
+
+    $('.button-set-promote:not(.disabled)').on('click', function() {
+        var button = $(this);
+        button.addClass('disabled');
+
+        var feedback_id = button.closest('li.feedback').attr('data-feedback-id');
+
+        var jqxhr = $.post('/ajax/course/feedback/set_promoted/', {feedback_id: feedback_id}, function(response) {
+            button.removeClass('disabled');
+            if(response.status == 'success') {
+                var status = '';
+                if(response.data.is_promoted) {
+                    button.text('Do not promote');
+                    status = 'promoted';
+                } else {
+                    button.text('Promote');
+                    status = 'demoted';
+                }
+
+                $.pnotify({
+                    addclass:'custom',
+                    animation: 'none',
+                    history: false,
+                    icon:false,
+                    sticker: false,
+                    text: 'Feedback is ' + status,
+                    title: 'Successful',
+                    type:'success'
+                });
+
+            } else {
+                if(response.message) {
+                    _alertModal('error', 'Cannot set property', response.message);
+                } else {
+                    _alertModal('error', 'Cannot set property', 'Unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _alertModal('error', 'Cannot set property', errorThrown);
+        });
+
+        return false;
+    });
+});
+</script>
+{% endblock %}
+
 {% block classroom_content %}
 <div class="page-manage-course-feedback">
-
+    {% if feedbacks %}
+        <div class="row">
+            <div class="span2">
+                <div class="feedback-navigation">
+                    <ul class="style-sidebar-nav">
+                        <li class="outline active"><a href="#">All feedbacks <span class="number">{{ num_of_feedbacks.all }}</span></a></li>
+                        <li class="story"><a href="#">Promoted <span class="number">{{ num_of_feedbacks.promoted }}</span></a></li>
+                        <li class="story"><a href="#">Visible <span class="number">{{ num_of_feedbacks.visible }}</span></a></li>
+                        <li class="story"><a href="#">Invisible <span class="number">{{ num_of_feedbacks.invisible }}</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="span10">
+                <div class="feedback-list">
+                    <div class="head">All feedbacks <span>(4 feedbacks)</span></div>
+                    <ul class="feedbacks">
+                        {% for feedback in feedbacks %}
+                            <li class="feedback clearfix" data-feedback-id="{{ feedback.id }}">
+                                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                                <div class="status">{% if feedback.is_public %}<span class="public">Visible to public</span>{% else %}<span class="not_public">Not visible to public</span>{% endif %}</div>
+                                <div class="right">
+                                    <div class="name"><i class="{% if feedback.is_positive %}icon-thumbs-up positive{% else %}icon-thumbs-down negative{% endif %}"></i> <a href="#">{{ feedback.enrollment.student.name }}</a></div>
+                                    <div class="content"><p>{{ feedback.content }}</p></div><!-- TODO Set paragraph -->
+                                    <div class="footer">
+                                        <a href="#" class="btn btn-small button-set-public">{% if feedback.is_public %}Hide from public{% else %}Set visible to public{% endif %}</a>
+                                        <a href="#" class="btn btn-small button-set-promote">{% if feedback.is_promoted %}Do not promote{% else %}Promote{% endif %}</a>
+                                        <span class="created">เขียนเมื่อวันที่ <em>{{ feedback.created|timestamp }}</em></span>
+                                        <span class="class">จากรอบวันที่ <em>{{ feedback.enrollment.schedule.start_datetime|timestamp }}</em></span>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="style-no-information">No feedbacks</div>
+    {% endif %}
 </div>
 {% endblock %}

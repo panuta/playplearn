@@ -184,7 +184,7 @@ class UserAccount(AbstractBaseUser):
         return float(CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self, is_positive=True).count()) / float(total) * 100 if total else 0
 
     def stats_feedbacks_given(self):
-        return self.feedbacks.count()
+        return CourseFeedback.objects.filter(enrollment__student=self).count()
 
     def stats_total_earning(self):
         total_earning = UserAccountBalanceTransaction.objects.filter(transaction_type='RECEIVED').aggregate(Sum('amount'))['amount__sum']
@@ -421,12 +421,12 @@ class Course(BaseCourse):
         return CourseSchedule.objects.filter(course=self, status='OPENING').count()
 
     def stats_students(self):
-        return CourseEnrollment.objects.filter(
-            status='CONFIRMED',
-            payment_status='PAYMENT_RECEIVED',
-            schedule__status='OPENING',
-            schedule__course=self
-        ).count()
+        return UserAccount.objects.filter(
+            enrollments__schedule__course=self,
+            enrollments__status='CONFIRMED',
+            enrollments__payment_status='PAYMENT_RECEIVED',
+            enrollments__schedule__status='OPENING'
+        ).distinct().count()
 
     def stats_feedbacks(self):
         return CourseFeedback.objects.filter(enrollment__schedule__course=self).count()
@@ -714,9 +714,9 @@ class UnauthenticatedCourseEnrollment(BaseCourseEnrollment):
 
 
 class CourseFeedback(models.Model):
-    user = models.ForeignKey(UserAccount, related_name='feedbacks')
     enrollment = models.OneToOneField('CourseEnrollment', related_name='feedback')
     content = models.CharField(max_length=2000)
     is_positive = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
-
+    is_public = models.BooleanField(default=False)
+    is_promoted = models.BooleanField(default=False)

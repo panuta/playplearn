@@ -2260,7 +2260,126 @@
 }
 
 .page-manage-course-feedback {
+    padding-top: 30px;
 
+    .feedback_number {
+        color: #555;
+        font-size: 15px;
+        font-weight: bold;
+        margin: 20px 0 10px;
+    }
+
+    .feedback-list {
+        .head {
+            color: #444;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+
+            span {
+                color: #666;
+                font-size: 16px;
+                margin-left: 4px;
+            }
+        }
+    }
+
+    ul.feedbacks {
+        margin: 0;
+
+        li.feedback {
+            border-bottom: 1px solid #DDD;
+            list-style: none;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+
+            .avatar {
+                float: left;
+
+                img {
+                    border-radius: 50px;
+                    height: 50px;
+                    width: 50px;
+                }
+            }
+
+            .status {
+                float: right;
+
+                span {
+                    border-radius: 4px;
+                    display: inline-block;
+                    font-size: 12px;
+                    padding: 1px 15px;
+
+                    &.public {
+                        background-color: @alertGreenColor;
+                        color: #FFF;
+                    }
+
+                    &.not_public {
+                        background-color: #DDD;
+                        color: #555;
+                    }
+                }
+            }
+
+            .right {
+                margin-left: 68px;
+
+                .name {
+                    i {
+                        font-size: 20px;
+                        float: left;
+                        margin-right: 10px;
+
+                        &.positive {
+                            color: @alertGreenColor;
+                        }
+
+                        &.negative {
+                            color: @alertRedColor;
+                        }
+                    }
+
+                    a {
+                        .content_link;
+                        font-size: 15px;
+                        font-weight: bold;
+                    }
+                }
+
+                .content {
+                    color: #444;
+                    border: 1px dashed #DDD;
+                    font-size: 15px;
+                    margin-top: 15px;
+                    padding: 10px 15px 0 15px;
+
+                    p {
+                        margin: 0;
+                        padding-bottom: 12px;
+                    }
+                }
+
+                .footer {
+                    color: #888;
+                    font-size: 13px;
+                    margin-top: 15px;
+
+                    a, span {
+                        margin-right: 10px;
+                        vertical-align: bottom;
+                    }
+
+                    em {
+                        color: #666;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .page-manage-course-promote {

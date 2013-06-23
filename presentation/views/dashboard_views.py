@@ -25,7 +25,7 @@ from common.shortcuts import response_json_success, response_json_error, respons
 from common.utilities import format_full_datetime, format_datetime_string
 
 from domain import functions as domain_function
-from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseOutlineMedia, CoursePicture, EditingCourse, EditingCourseOutlineMedia, EditingCoursePicture
+from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseOutlineMedia, CoursePicture, EditingCourse, EditingCourseOutlineMedia, EditingCoursePicture, CourseFeedback
 
 # MY COURSES ###########################################################################################################
 
@@ -473,6 +473,46 @@ def ajax_add_course_schedule(request):
     })
 
 
+@require_POST
+@login_required
+def ajax_set_course_feedback_public(request):
+    if not request.is_ajax():
+        raise Http404
+
+    feedback_id = request.POST.get('feedback_id')
+    feedback = get_object_or_404(CourseFeedback, pk=feedback_id)
+
+    if feedback.enrollment.schedule.course.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    feedback.is_public = not feedback.is_public
+    feedback.save()
+
+    return response_json_success({
+        'is_public': feedback.is_public,
+    })
+
+
+@require_POST
+@login_required
+def ajax_set_course_feedback_promoted(request):
+    if not request.is_ajax():
+        raise Http404
+
+    feedback_id = request.POST.get('feedback_id')
+    feedback = get_object_or_404(CourseFeedback, pk=feedback_id)
+
+    if feedback.enrollment.schedule.course.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    feedback.is_promoted = not feedback.is_promoted
+    feedback.save()
+
+    return response_json_success({
+        'is_promoted': feedback.is_promoted,
+    })
+
+
 @require_GET
 @login_required
 def ajax_view_enrollment_details(request):
@@ -561,8 +601,44 @@ def manage_course_class(request, course, course_uid, datetime_string):
 
 @login_required
 @teacher_only
-def manage_course_feedback(request, course, course_uid):
-    return render(request, 'dashboard/manage_course_feedback.html', {'course': course})
+def manage_course_feedback(request, course, course_uid, category):
+    if not category:
+        category = 'all'
+
+    if category == 'all':
+        feedbacks = CourseFeedback.objects.filter(
+            enrollment__schedule__course=course
+        ).order_by('-created')
+    elif category == 'promoted':
+        feedbacks = CourseFeedback.objects.filter(
+            enrollment__schedule__course=course,
+            is_promoted=True
+        ).order_by('-created')
+    elif category == 'visible':
+        feedbacks = CourseFeedback.objects.filter(
+            enrollment__schedule__course=course,
+            is_public=True
+        ).order_by('-created')
+    elif category == 'invisible':
+        feedbacks = CourseFeedback.objects.filter(
+            enrollment__schedule__course=course,
+            is_public=False
+        ).order_by('-created')
+    else:
+        raise Http404
+
+    num_of_feedbacks = {
+        'all': CourseFeedback.objects.filter(enrollment__schedule__course=course).count(),
+        'promoted': CourseFeedback.objects.filter(enrollment__schedule__course=course, is_promoted=True).count(),
+        'visible': CourseFeedback.objects.filter(enrollment__schedule__course=course, is_public=True).count(),
+        'invisible': CourseFeedback.objects.filter(enrollment__schedule__course=course, is_public=False).count(),
+    }
+
+    return render(request, 'dashboard/manage_course_feedback.html', {
+        'course': course,
+        'feedbacks': feedbacks,
+        'num_of_feedbacks': num_of_feedbacks,
+    })
 
 
 @login_required
