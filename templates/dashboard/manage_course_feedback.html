@@ -107,7 +107,7 @@ $(document).ready(function() {
     <div class="row">
         <div class="span2">
             <div class="feedback-navigation">
-                <ul class="style-sidebar-nav">
+                <ul class="style-sidebar-navigation">
                     <li{% if active_category == 'all' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'all' %}">All feedbacks <span class="number">{{ num_of_feedbacks.all }}</span></a></li>
                     <li{% if active_category == 'promoted' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'promoted' %}">Promoted <span class="number">{{ num_of_feedbacks.promoted }}</span></a></li>
                     <li{% if active_category == 'visible' %} class="active"{% endif %}><a href="{% url 'manage_course_feedback' course.uid 'visible' %}">Visible <span class="number">{{ num_of_feedbacks.visible }}</span></a></li>

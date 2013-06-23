@@ -45,7 +45,8 @@ urlpatterns += patterns(
     url(r'^my/courses/upcoming/$', 'view_my_courses_upcoming', name='view_my_courses_upcoming'),
     url(r'^my/courses/attended/$', 'view_my_courses_attended', name='view_my_courses_attended'),
     url(r'^my/courses/attended/(?P<school_slug>\w+)/$', 'view_my_courses_attended_in_school', name='view_my_courses_attended_in_school'),
-    url(r'^my/courses/teaching/$', 'view_my_courses_teaching', name='view_my_courses_teaching'),
+    url(r'^my/courses/teaching/$', 'view_my_courses_teaching', {'category': 'all'}, name='view_all_my_courses_teaching'),
+    url(r'^my/courses/teaching/(?P<category>\w+)/$', 'view_my_courses_teaching', name='view_my_courses_teaching'),
 
     url(r'^my/courses/new/$', 'create_course', name='create_course'),
     url(r'^course/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),

@@ -620,6 +620,59 @@ h1.style-page-header {
     }
 }
 
+.style-sidebar-navigation {
+    margin: 0;
+
+    li {
+        list-style: none;
+        margin-bottom: 3px;
+
+        a {
+            background-color: #EEE;
+            color: #555;
+            display: block;
+            font-size: 14px;
+            padding: 10px 10px 10px 15px;
+            text-decoration: none;
+
+            i {
+                font-size: 12px;
+                margin-right: 5px;
+                vertical-align: 2px;
+            }
+
+            .number {
+                background-color: #999;
+                border-radius: 3px;
+                color: #FFF;
+                display: inline-block;
+                float: right;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: normal;
+                margin-top: 2px;
+                padding: 1px 4px;
+                text-shadow: none;
+            }
+        }
+
+        &.active a, a:hover {
+            background-color: @primaryColor;
+            color: #FFF;
+
+            i {
+                color: #FFF;
+                text-decoration: none;
+            }
+
+            .number {
+                background-color: #FFF;
+                color: #555;
+            }
+        }
+    }
+}
+
 .style-container {
     border: 2px solid #EEE;
 
@@ -635,6 +688,44 @@ h1.style-page-header {
             line-height: normal;
             margin: 0 0 25px 0;
             padding-bottom: 10px;
+        }
+    }
+}
+
+.style-stats-bar {
+    background-color: #F7F7F7;
+    border-bottom: 2px solid #DDD;
+    padding: 6px 0 8px;
+
+    ul.stats {
+        margin: 0;
+
+        li.stat {
+            border-right: 1px solid #DDD;
+            display: inline-block;
+            list-style: none;
+            padding: 0 20px;
+
+            .caption {
+                color: #777;
+                font-size: 13px;
+            }
+
+            .number {
+                color: #555;
+                font-size: 16px;
+                display: block;
+                margin-top: 5px;
+
+                .smaller {
+                    font-size: 13px;
+                }
+
+                em {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
         }
     }
 }

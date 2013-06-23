@@ -14,7 +14,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block backend_header %}
-<div class="parent"><a href="{% url 'view_my_courses_teaching' %}">← My teaching courses</a></div>
+<div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← My teaching courses</a></div>
 <h1>{% if not course %}Create new course{% else %}Edit course - <span>{{ editing_course.title|default:'(No title)' }}</span>{% endif %}</h1>
 <div class="completeness">
     <div class="head">Course Completeness</div>
@@ -29,7 +29,7 @@ $(document).ready(function() {
     <div class="form-message">
         <p class="head1">Editing course is not allowed while course information is being review.</p>
         <p>Please wait for us to get back to you. Usually this process will not take more than 48 hours.</p>
-        <div><a href="{% url 'view_my_courses_teaching' %}">Go back to my teaching courses</a></div>
+        <div><a href="{% url 'view_all_my_courses_teaching' %}">Go back to my teaching courses</a></div>
     </div>
 {% else %}
     <div class="form-actions">
@@ -288,7 +288,7 @@ $(document).ready(function() {
             <p class="head1">Please wait for our staff to review your course information. Usually this will take no longer than 48 hours. You will be notified once the review process is finished.</p>
         </div>
         <div class="modal-footer">
-            <a href="{% url 'view_my_courses_teaching' %}" class="style-primary-button">Aye aye!</a>
+            <a href="{% url 'view_all_my_courses_teaching' %}" class="style-primary-button">Aye aye!</a>
         </div>
     </div>
 {% endif %}

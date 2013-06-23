@@ -1,7 +1,7 @@
 {% extends 'dashboard/courses_base.html' %}
 {% load common_tags presentation_tags %}
 
-{% block head_title %}My Classes - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block head_title %}My upcoming course - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='upcoming' %}{% endblock %}
 
 {% block courses_content %}
@@ -11,24 +11,23 @@
         {% for schedule in upcoming_schedules %}
         {% with course=schedule.course %}
         <li class="course clearfix">
-            <div class="course-countdown">START IN<em>{{ schedule.start_datetime|daysuntil }} DAYS</em></div>
+            <div class="course-countdown">เริ่ม{% if course.teacher == request.user %}สอน{% else %}เรียน{% endif %}ในอีก<em>{{ schedule.start_datetime|daysuntil }} วัน</em></div>
             <div class="course-content clearfix">
                 <div class="course-cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" /></a></div>
                 <div class="right">
-                    <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a>{% if course.teacher == request.user %}<span class="yours">Teaching</span>{% endif %}</div>
-                    {% if course.teacher != request.user %}<div class="teacher"><span class="caption">By</span> <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>{% endif %}
+                    <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
                     <div class="schedule-location">
-                        <div class="schedule"><span class="day">{{ schedule.start_datetime|date:'l,' }}</span> <span class="date">{{ schedule.start_datetime|date:'j M Y' }}</span> <span class="time">{{ schedule.start_datetime|date:'H:i' }}</span></div>
-                        <div class="at">at</div>
-                        <div class="location"><a href="{{ course.venue.venue_url }}">{{ course.venue.name }}</a></div>
+                        <span class="schedule">{{ schedule|schedule_datetime }}</span>
+                        <span class="at">สถานที่</span>
+                        <span class="location"><a href="{{ course.place.place_url }}">{{ course.place.name }}</a></span>
                     </div>
-                    {% if course.teacher == request.user %}<div class="attendance"><span class="caption">Attendance:</span> 10/30 students</div>{% endif %}
-                    <div class="actions{% if course.teacher != request.user %} actions-student{% endif %}">
+                    {% if course.teacher == request.user %}<div class="students"><em>นักเรียน {{ schedule.stats_seats_reserved }} คน</em> (จำกัด {{ course.maximum_people }} คน)</div>{% endif %}
+                    <div class="actions">
                         {% if course.teacher == request.user %}
-                            <a href="{% url 'manage_course_overview' course.uid %}" class="link">Manage course</a>
+                            <a href="{% url 'manage_course_overview' course.uid %}" class="btn btn-small">Manage course</a>
                         {% else %}
-                            <a href="{{ course.venue.venue_url }}" class="style-primary-button"><i class="icon-map-marker"></i> How to get there</a>
-                            <!-- TODO --><a href="#" class="link">Contact teacher</a>
+                            <a href="{{ course.place.place_url }}" class="btn btn-small"><i class="icon-map-marker"></i> How to get there</a>
+                            <!-- TODO --><a href="#" class="btn btn-small"><i class="icon-comment"></i> Contact teacher</a>
                             {% return_matching_enrollment user schedule as enrollment %}
                             <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
                         {% endif %}
@@ -40,7 +39,7 @@
         {% endfor %}
     </ul>
     {% else %}
-    <div class="no-course">No upcoming class</div>
+    <div class="style-no-information">No upcoming classes</div>
     {% endif %}
 </div>
 

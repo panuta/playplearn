@@ -1,5 +1,6 @@
 {% extends 'dashboard/courses_base.html' %}
 
+{% block head_title %}My attended course - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='attended' %}{% endblock %}
 
 {% block courses_content %}
@@ -35,7 +36,7 @@
         </div>
     </div>
     {% else %}
-    <div class="no-course">No attended course</div>
+    <div class="style-no-information">No attended courses</div>
     {% endif %}
 </div>
 
