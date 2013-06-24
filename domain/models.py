@@ -166,6 +166,8 @@ class UserAccount(AbstractBaseUser):
         return UserAccount.objects.filter(enrollments__schedule__course__teacher=self, enrollments__status='CONFIRMED', enrollments__schedule__status='OPENING').distinct().count()
 
     def stats_courses_attended(self):
+        # TODO distinct
+
         rightnow = now()
         return Course.objects.filter(
             schedules__start_datetime__lte=rightnow,
@@ -173,15 +175,16 @@ class UserAccount(AbstractBaseUser):
             schedules__enrollments__student=self,
         ).count()
 
+    def stats_courses_attended_and_attending(self):
+        # TODO distinct
+
+        return Course.objects.filter(
+            schedules__enrollments__status='CONFIRMED',
+            schedules__enrollments__student=self,
+        ).count()
+
     def stats_feedbacks_received(self):
         return CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self).count()
-
-    def stats_positive_feedbacks_received(self):
-        return CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self, is_positive=True).count()
-
-    def stats_positive_feedbacks_percentage(self):
-        total = self.stats_feedbacks_received()
-        return float(CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self, is_positive=True).count()) / float(total) * 100 if total else 0
 
     def stats_feedbacks_given(self):
         return CourseFeedback.objects.filter(enrollment__student=self).count()
@@ -409,6 +412,9 @@ class Course(BaseCourse):
     def get_editing_place(self):
         return self.place
 
+    def get_promoted_feedbacks(self):
+        return CourseFeedback.objects.filter(enrollment__schedule__course=self, is_promoted=True).order_by('-created')
+
     # PERMISSIONS
 
     def can_view(self, user):
@@ -430,10 +436,6 @@ class Course(BaseCourse):
 
     def stats_feedbacks(self):
         return CourseFeedback.objects.filter(enrollment__schedule__course=self).count()
-
-    def stats_positive_feedbacks_percentage(self):
-        total = self.stats_feedbacks()
-        return float(CourseFeedback.objects.filter(enrollment__schedule__course=self, is_positive=True).count()) / float(total) * 100 if total else 0
 
     def stats_total_earning(self):
         total_earning = CourseEnrollment.objects.filter(schedule__course=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
@@ -697,6 +699,7 @@ class BaseCourseEnrollment(models.Model):
 class CourseEnrollment(BaseCourseEnrollment):
     student = models.ForeignKey(UserAccount, related_name='enrollments')
     schedule = models.ForeignKey(CourseSchedule, related_name='enrollments')
+    is_public = models.BooleanField(default=False)
     payment_status = models.CharField(max_length=30, choices=COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES)
     status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
     status_reason = models.CharField(max_length=100, blank=True)

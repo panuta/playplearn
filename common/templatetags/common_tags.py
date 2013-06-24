@@ -6,7 +6,7 @@ from django import template
 from django.template.defaultfilters import safe
 from django.utils.timezone import now
 from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
-from common.constants.feedback import FEEDBACK_FEELING_CHOICES
+from common.constants.feedback import FEEDBACK_FEELING_CHOICES, FEEDBACK_FEELING_MAP
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST
@@ -89,18 +89,6 @@ def province_options(selected_province=''):
     return ''.join(options)
 
 
-@register.simple_tag
-def feedback_feeling_checkboxes(feelings=''):
-    feeling_list = feelings.split(',')
-
-    li = []
-    for feeling_tuple in FEEDBACK_FEELING_CHOICES:
-        checked = ' checked="checked"' if feeling_tuple[0] in feeling_list else ''
-        li.append('<li><label><input type="checkbox" value="%s"%s/> %s</label></li>' %(feeling_tuple[0], checked, feeling_tuple[1]))
-
-    return ''.join(li)
-
-
 # COURSE STATUS ########################################################################################################
 
 @register.filter
@@ -111,3 +99,27 @@ def enrollment_status(enrollment):
 @register.filter
 def enrollment_payment_status(enrollment):
     return COURSE_ENROLLMENT_PAYMENT_STATUS_MAP[enrollment.payment_status]['name']
+
+
+# COURSE FEEDBACK ######################################################################################################
+
+@register.filter
+def feelings(feedback):
+    feelings = []
+    for feeling in feedback.feelings.split(','):
+        if feeling in FEEDBACK_FEELING_MAP:
+            feelings.append('<span class="%s">%s</span> ' % (feeling, FEEDBACK_FEELING_MAP[feeling]['name']))
+
+    return safe(''.join(feelings))
+
+
+@register.simple_tag
+def feedback_feeling_checkboxes(feelings=''):
+    feeling_list = feelings.split(',')
+
+    li = []
+    for feeling_tuple in FEEDBACK_FEELING_CHOICES:
+        checked = ' checked="checked"' if feeling_tuple[0] in feeling_list else ''
+        li.append('<li><label><input type="checkbox" value="%s"%s/> %s</label></li>' %(feeling_tuple[0], checked, feeling_tuple[1]))
+
+    return ''.join(li)

@@ -177,14 +177,14 @@ body.modal-open {
 }
 .datepicker .dow {
   color: #888;
-  padding: 7px 0;
+  padding: 5px 0 4px;
 }
 .datepicker td {
   border: 1px solid #DDD;
   border-radius: 0;
   color: #444;
-  font-size: 15px;
-  height: 39px;
+  font-size: 14px;
+  height: 35px;
   outline: 0px;
   padding: 0;
   text-align: center;
@@ -440,55 +440,6 @@ h1.style-page-header {
   padding-left: 45px;
   text-shadow: 1px 1px #FFF;
 }
-.style-topbar-nav {
-  margin: 0;
-}
-.style-topbar-nav li {
-  background-color: #EEE;
-  border: 1px solid #DDD;
-  border-right: none;
-  list-style: none;
-  float: left;
-}
-.style-topbar-nav li a {
-  border-left: 1px solid #FFF;
-  border-top: 1px solid #FFF;
-  color: #777;
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 0 15px;
-  line-height: 36px;
-  text-decoration: none;
-  text-shadow: 1px 1px #FFF;
-}
-.style-topbar-nav li a i {
-  font-size: 12px;
-  margin-right: 5px;
-  text-shadow: 1px 1px #FFF;
-  vertical-align: 2px;
-}
-.style-topbar-nav li.last {
-  border-right: 1px solid #DDD;
-}
-.style-topbar-nav li.active {
-  background-color: #FFF;
-}
-.style-topbar-nav li.active a {
-  color: #444;
-}
-.style-topbar-nav li a:hover {
-  background-color: #3a71a9;
-  border-left: 1px solid #3a71a9;
-  border-top: 1px solid #3a71a9;
-  color: #FFF;
-  text-shadow: -1px -1px #2d5883;
-}
-.style-topbar-nav li a:hover i {
-  color: #FFF;
-  text-decoration: none;
-  text-shadow: -1px -1px #2d5883;
-}
 .style-sidebar-nav {
   margin: 0;
   border: 1px solid #DDD;
@@ -548,6 +499,59 @@ h1.style-page-header {
   color: #FFF;
   text-decoration: none;
   text-shadow: -1px -1px #2d5883;
+}
+.style-tab-navigation {
+  background-color: #3a71a9;
+}
+.style-tab-navigation .nav {
+  margin: 0;
+}
+.style-tab-navigation .nav-tabs {
+  border: 0;
+}
+.style-tab-navigation .nav-tabs > li {
+  margin: 0;
+}
+.style-tab-navigation .nav-tabs > li > a {
+  background-color: #417ebc;
+  border: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  color: #FFF;
+  font-size: 14px;
+  margin-right: 10px;
+  padding: 12px 30px;
+}
+.style-tab-navigation .nav-tabs > li > a:hover {
+  background-color: #DDD;
+}
+.style-tab-navigation .nav-tabs > li > a i.num {
+  background-color: #3a71a9;
+  border-radius: 3px;
+  color: #FFF;
+  display: inline-block;
+  font-size: 12px;
+  font-style: normal;
+  line-height: normal;
+  margin-left: 3px;
+  padding: 0px 5px 1px;
+  text-shadow: none;
+}
+.style-tab-navigation .nav-tabs > li > a:hover,
+.style-tab-navigation .nav-tabs > .active > a,
+.style-tab-navigation .nav-tabs > .active > a:hover,
+.style-tab-navigation .nav-tabs > .active > a:focus {
+  background-color: #FFF;
+  border: 0;
+  color: #444;
+  cursor: pointer;
+}
+.style-tab-navigation .nav-tabs > li > a:hover i.num,
+.style-tab-navigation .nav-tabs > .active > a i.num,
+.style-tab-navigation .nav-tabs > .active > a:hover i.num,
+.style-tab-navigation .nav-tabs > .active > a:focus i.num {
+  background-color: #999;
+  color: #FFF;
 }
 .style-sidebar-navigation {
   margin: 0;
@@ -3434,14 +3438,6 @@ body {
 .page-profile .profile-header {
   background-color: #3a71a9;
   padding: 40px 0;
-  /*.container-inner {
-            padding: 0;
-
-            .box-header {
-                padding: 20px 25px;
-            }
-        }*/
-
 }
 .page-profile .profile-header .profile-header-box {
   background-color: #FFF;
@@ -3451,18 +3447,15 @@ body {
   padding: 20px 25px;
 }
 .page-profile .profile-header .avatar {
-  border-radius: 70px;
   float: left;
 }
 .page-profile .profile-header .avatar img {
-  border: 1px solid #DDD;
   border-radius: 70px;
   height: 70px;
-  padding: 2px;
   width: 70px;
 }
 .page-profile .profile-header .right {
-  margin-left: 100px;
+  margin-left: 95px;
 }
 .page-profile .profile-header .follow {
   float: right;
@@ -3476,7 +3469,7 @@ body {
 .page-profile .profile-header .headline {
   color: #666;
   font-size: 15px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 .page-profile .profile-header .stats {
   border-top: 1px solid #E7E7E7;
@@ -3489,7 +3482,7 @@ body {
   display: block;
   float: left;
   list-style: none;
-  padding: 10px 0 12px;
+  padding: 8px 0 10px;
   width: 215px;
   text-align: center;
 }
@@ -3500,7 +3493,7 @@ body {
 .page-profile .profile-header .stats ul li .number {
   color: #555;
   font-size: 15px;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 .page-profile .profile-header .stats ul li .number i {
   color: #666;
@@ -3538,47 +3531,98 @@ body {
   margin-right: 5px;
   vertical-align: 0px;
 }
-.page-profile .profile-courses ul.courses {
+.page-profile .profile-courses .style-no-information {
+  margin-top: 30px;
+}
+.page-profile .profile-teaching-courses {
+  padding-bottom: 30px;
+}
+.page-profile .profile-teaching-courses ul.courses {
   margin: 40px 0;
 }
-.page-profile .profile-courses ul.courses li.course {
+.page-profile .profile-teaching-courses ul.courses li.course {
   list-style: none;
   margin-bottom: 40px;
 }
-.page-profile .profile-courses ul.courses .style-course-box {
+.page-profile .profile-teaching-courses ul.courses .style-course-box {
   float: left;
 }
-.page-profile .profile-courses ul.courses .course-reviews {
-  float: right;
+.page-profile .profile-teaching-courses ul.courses .course-right {
+  margin-left: 590px;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews {
+.page-profile .profile-teaching-courses ul.courses .course-stats ul {
   margin: 0;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review {
+.page-profile .profile-teaching-courses ul.courses .course-stats ul li {
+  display: inline-block;
+  list-style: none;
+  margin-right: 30px;
+}
+.page-profile .profile-teaching-courses ul.courses .course-stats ul .caption {
+  color: #555;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  float: left;
+  line-height: normal;
+  margin-left: 9px;
+}
+.page-profile .profile-teaching-courses ul.courses .course-stats ul .caption span {
+  color: #777;
+  display: block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+}
+.page-profile .profile-teaching-courses ul.courses .course-stats ul .number {
+  color: #555;
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+  float: left;
+  margin-top: 9px;
+}
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks {
+  margin-top: 12px;
+}
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks {
+  margin: 0;
+}
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback {
   background-color: #F4F4F4;
   box-shadow: 3px 3px 0px #DDD;
   list-style: none;
   margin-bottom: 20px;
   padding: 10px 15px;
+  position: relative;
   width: 550px;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .body {
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback .feelings {
+  margin-bottom: 10px;
+}
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback .feelings span {
+  background-color: #DDD;
+  color: #444;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: normal;
+  margin-right: 7px;
+  padding: 1px 10px;
+}
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback .content {
   font-size: 13px;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .reviewer {
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback .student {
   color: #777;
   font-size: 13px;
   margin-top: 7px;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews li.review .reviewer a {
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback .student a {
   color: #444;
   font-weight: bold;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews .arrow_box {
-  position: relative;
-  background: #f4f4f4;
-}
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews .arrow_box:after {
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback:after {
   right: 100%;
   border: solid transparent;
   content: " ";
@@ -3587,12 +3631,78 @@ body {
   position: absolute;
   pointer-events: none;
 }
-.page-profile .profile-courses ul.courses .course-reviews ul.reviews .arrow_box:after {
+.page-profile .profile-teaching-courses ul.courses .course-feedbacks .feedbacks li.feedback:after {
   border-color: rgba(244, 244, 244, 0);
   border-right-color: #f4f4f4;
   border-width: 10px;
-  top: 30px;
+  top: 20px;
   margin-top: -10px;
+}
+.page-profile .profile-attending-courses {
+  padding-bottom: 30px;
+}
+.page-profile .profile-attending-courses h2 {
+  font-size: 20px;
+  margin-top: 15px;
+}
+.page-profile .profile-attending-courses ul.attending {
+  margin: 0;
+}
+.page-profile .profile-attending-courses ul.attended {
+  margin: 0;
+}
+.page-profile .profile-attending-courses li.course {
+  list-style: none;
+  margin-bottom: 30px;
+}
+.page-profile .profile-attending-courses li.course .course-cover {
+  float: left;
+}
+.page-profile .profile-attending-courses li.course .course-cover img {
+  height: 100px;
+  width: 275px;
+}
+.page-profile .profile-attending-courses li.course .right {
+  margin-left: 295px;
+}
+.page-profile .profile-attending-courses li.course .title a {
+  font-size: 16px;
+  line-height: 24px;
+}
+.page-profile .profile-attending-courses li.course .title a:link,
+.page-profile .profile-attending-courses li.course .title a:active,
+.page-profile .profile-attending-courses li.course .title a:visited {
+  color: #3a71a9;
+  text-decoration: underline;
+}
+.page-profile .profile-attending-courses li.course .title a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-profile .profile-attending-courses li.course .details {
+  color: #777;
+  font-size: 14px;
+  margin-top: 6px;
+}
+.page-profile .profile-attending-courses li.course .details .teacher {
+  margin-right: 15px;
+}
+.page-profile .profile-attending-courses li.course .details a {
+  font-weight: bold;
+}
+.page-profile .profile-attending-courses li.course .details a:link,
+.page-profile .profile-attending-courses li.course .details a:active,
+.page-profile .profile-attending-courses li.course .details a:visited {
+  color: #444;
+}
+.page-profile .profile-attending-courses li.course .details a:hover {
+  text-decoration: underline;
+}
+.page-profile .profile-attending-courses li.course .details em {
+  color: #444;
+  font-weight: bold;
 }
 .page-user-settings h2 {
   border-bottom: 1px solid #DDD;

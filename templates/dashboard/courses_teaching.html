@@ -96,7 +96,7 @@ $(document).ready(function() {
                 </li>
                 <li class="stat">
                     <span class="caption">Total feedback</span>
-                    <span class="number"><em>{{ request.user.stats_feedbacks_received }}</em> feedback{{ request.user.stats_feedbacks_received|pluralize }} <span class="smaller">({{ request.user.stats_positive_feedbacks_percentage|floatformat:-2 }}% Positive Reviews)</span></span>
+                    <span class="number"><em>{{ request.user.stats_feedbacks_received }}</em> feedback{{ request.user.stats_feedbacks_received|pluralize }}</span>
                 </li>
             </ul>
         </div>
@@ -161,8 +161,7 @@ $(document).ready(function() {
                     <div class="note">Not allow setting further than 2 months</div>
                 </div>
                 <div id="id_publish_schedule_time" class="schedule-time">
-                    <div class="head">Start time</div>
-                    <select size="10">{% time_options %}</select>
+                    <select size="11">{% time_options %}</select>
                 </div>
             </div>
             <div class="modal-footer">

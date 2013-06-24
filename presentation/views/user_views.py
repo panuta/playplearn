@@ -1,38 +1,114 @@
 # -*- encoding: utf-8 -*-
-import os
-from django.conf import settings
+from operator import itemgetter
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponse
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.utils.timezone import now
 
-from common.uploader import FileUploader
 from common.utilities import split_filepath
 
-from domain.models import UserAccount, Course
+from domain.models import UserAccount, Course, CourseEnrollment
 from presentation.forms import EditProfileForm, EditAccountEmailForm
 
 
 @login_required
-def view_my_profile(request):
-    return _view_user_profile(request, request.user)
+def view_my_profile(request, show):
+    return _view_user_profile(request, request.user, show)
 
 
-def view_user_profile(request, user_uid):
+def view_user_profile(request, user_uid, show):
     user = get_object_or_404(UserAccount, uid=user_uid)
-    return _view_user_profile(request, user)
+    return _view_user_profile(request, user, show)
 
 
-def _view_user_profile(request, user):
-    teaching_courses = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
-    return render(request, 'user/profile.html', {
+def _view_user_profile(request, user, show):
+
+    """
+    if not show:
+        if user.is_teaching:
+            show teaching
+        else:
+            show attending
+    else:
+        if show == 'teaching':
+            if user.is_teaching:
+                show teaching
+            else:
+                redirect to not show
+        elif show == 'attending':
+            if user.is_teaching:
+                show attending
+            else:
+                redirect to not show
+    """
+
+    user_is_teaching = user.stats_courses_teaching()
+
+    if not show:
+        if user_is_teaching:
+            show = 'teaching'
+        else:
+            show = 'attending'
+    else:
+        if show == 'attending' and not user_is_teaching:
+            if user == request.user:
+                return redirect('view_my_profile')
+            else:
+                return redirect('view_user_profile', user_uid=user.uid)
+
+    context = {
         'context_user': user,
-        'teaching_courses': teaching_courses
-    })
+        'user_is_teaching': user_is_teaching,
+        'show': show,
+    }
+
+    if show == 'teaching':
+        teaching_courses = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
+
+        return render(request, 'user/profile_courses_teaching.html', dict(context.items() + {
+            'teaching_courses': teaching_courses
+        }.items()))
+
+    elif show == 'attending':
+        rightnow = now()
+
+        sorting_attending_courses = {}
+        sorting_attended_courses = {}
+        for enrollment in CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED'):
+            course = enrollment.schedule.course
+
+            if enrollment.schedule.start_datetime <= rightnow:
+                sorting_courses = sorting_attended_courses
+            else:
+                sorting_courses = sorting_attending_courses
+
+            if course.uid in sorting_courses:
+                attend_tuple = sorting_courses[course.uid]
+                attend_tuple[2].append(enrollment)
+
+                if attend_tuple[1] < enrollment.schedule.start_datetime:
+                    attend_tuple[1] = enrollment.schedule.start_datetime
+
+            else:
+                sorting_courses[course.uid] = (
+                    enrollment.schedule.course,
+                    enrollment.schedule.start_datetime,
+                    [enrollment]
+                )
+
+        attending_courses = sorted(sorting_attending_courses.values(), key=itemgetter(1), reverse=True)
+        attended_courses = sorted(sorting_attended_courses.values(), key=itemgetter(1), reverse=True)
+
+        return render(request, 'user/profile_courses_attending.html', dict(context.items() + {
+            'attending_courses': attending_courses,
+            'attended_courses': attended_courses,
+        }.items()))
+
+    else:
+        raise Http404
 
 
 @login_required

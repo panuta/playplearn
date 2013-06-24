@@ -2195,14 +2195,6 @@
         background-color: @primaryColor;
         padding: 40px 0;
 
-        /*.container-inner {
-            padding: 0;
-
-            .box-header {
-                padding: 20px 25px;
-            }
-        }*/
-
         .profile-header-box {
             background-color: #FFF;
             border-radius: 4px;
@@ -2213,20 +2205,17 @@
         }
 
         .avatar {
-            border-radius: 70px;
             float: left;
 
             img {
-                border: 1px solid #DDD;
                 border-radius: 70px;
                 height: 70px;
-                padding: 2px;
                 width: 70px;
             }
         }
 
         .right {
-            margin-left: 100px;
+            margin-left: 95px;
         }
 
         .follow {
@@ -2243,7 +2232,7 @@
         .headline {
             color: #666;
             font-size: 15px;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .stats {
@@ -2257,7 +2246,7 @@
                     display: block;
                     float: left;
                     list-style: none;
-                    padding: 10px 0 12px;
+                    padding: 8px 0 10px;
                     width: 215px;
                     text-align: center;
 
@@ -2269,7 +2258,7 @@
                     .number {
                         color: #555;
                         font-size: 15px;
-                        margin-top: 4px;
+                        margin-top: 3px;
 
                         i {
                             color: #666;
@@ -2321,6 +2310,14 @@
     }
 
     .profile-courses {
+        .style-no-information {
+            margin-top: 30px;
+        }
+    }
+
+    .profile-teaching-courses {
+        padding-bottom: 30px;
+
         ul.courses {
             margin: 40px 0;
 
@@ -2333,26 +2330,84 @@
                 float: left;
             }
 
-            .course-reviews {
-                float: right;
+            .course-right {
+                margin-left: 590px;
+            }
 
-                ul.reviews {
+            .course-stats {
+                ul {
                     margin: 0;
 
-                    li.review {
-                        //border: 1px dashed #CCC;
+                    li {
+                        display: inline-block;
+                        list-style: none;
+                        margin-right: 30px;
+                    }
+
+                    .caption {
+                        color: #555;
+                        display: block;
+                        font-size: 15px;
+                        font-weight: bold;
+                        float: left;
+                        line-height: normal;
+                        margin-left: 9px;
+
+                        span {
+                            color: #777;
+                            display: block;
+                            font-size: 14px;
+                            font-weight: normal;
+                            line-height: normal;
+                        }
+                    }
+
+                    .number {
+                        color: #555;
+                        display: block;
+                        font-size: 30px;
+                        font-weight: bold;
+                        float: left;
+                        margin-top: 9px;
+                    }
+                }
+            }
+
+            .course-feedbacks {
+                margin-top: 12px;
+
+                .feedbacks {
+                    margin: 0;
+
+                    li.feedback {
                         background-color: #F4F4F4;
                         box-shadow: 3px 3px 0px #DDD;
                         list-style: none;
                         margin-bottom: 20px;
                         padding: 10px 15px;
+                        position: relative;
                         width: 550px;
 
-                        .body {
+                        .feelings {
+                            margin-bottom: 10px;
+
+                            span {
+                                background-color: #DDD;
+                                color: #444;
+                                display: inline-block;
+                                font-size: 12px;
+                                font-weight: bold;
+                                line-height: normal;
+                                margin-right: 7px;
+                                padding: 1px 10px;
+                            }
+                        }
+
+                        .content {
                             font-size: 13px;
                         }
 
-                        .reviewer {
+                        .student {
                             color: #777;
                             font-size: 13px;
                             margin-top: 7px;
@@ -2362,33 +2417,88 @@
                                 font-weight: bold;
                             }
                         }
-                    }
 
-                    .arrow_box {
-                        position: relative;
-                        background: #f4f4f4;
-                    }
-                    .arrow_box:after {
-                        right: 100%;
-                        border: solid transparent;
-                        content: " ";
-                        height: 0;
-                        width: 0;
-                        position: absolute;
-                        pointer-events: none;
-                    }
+                        &:after {
+                            right: 100%;
+                            border: solid transparent;
+                            content: " ";
+                            height: 0;
+                            width: 0;
+                            position: absolute;
+                            pointer-events: none;
+                        }
 
-                    .arrow_box:after {
-                        border-color: rgba(244, 244, 244, 0);
-                        border-right-color: #f4f4f4;
-                        border-width: 10px;
-                        top: 30px;
-                        margin-top: -10px;
+                        &:after {
+                            border-color: rgba(244, 244, 244, 0);
+                            border-right-color: #f4f4f4;
+                            border-width: 10px;
+                            top: 20px;
+                            margin-top: -10px;
+                        }
                     }
+                }
+            }
+        }
+    }
 
+    .profile-attending-courses {
+        padding-bottom: 30px;
+
+        h2 {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        ul.attending {
+            margin: 0;
+        }
+
+        ul.attended {
+            margin: 0;
+        }
+
+        li.course {
+            list-style: none;
+            margin-bottom: 30px;
+
+            .course-cover {
+                float: left;
+
+                img {
+                    height: 100px;
+                    width: 275px;
                 }
             }
 
+            .right {
+                margin-left: 295px;
+            }
+
+            .title a {
+                .content_link;
+                font-size: 16px;
+                line-height: 24px;
+            }
+
+            .details {
+                color: #777;
+                font-size: 14px;
+                margin-top: 6px;
+
+                .teacher {
+                    margin-right: 15px;
+                }
+
+                a {
+                    .black_link;
+                    font-weight: bold;
+                }
+
+                em {
+                    color: #444;
+                    font-weight: bold;
+                }
+            }
         }
     }
 }

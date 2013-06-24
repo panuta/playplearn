@@ -46,36 +46,24 @@
         <div class="style-tab-navigation">
             <div class="container">
                 {% if context_user == user %}
-                    {% url 'view_my_profile' as view_profile_teaching_url %}
+                    {% url 'view_my_profile' as view_profile_url %}
                     {% url 'view_my_profile_attending_courses' as view_profile_attending_url %}
                 {% else %}
-                    {% url 'view_user_profile' context_user.uid as view_profile_teaching_url %}
+                    {% url 'view_user_profile' context_user.uid as view_profile_url %}
                     {% url 'view_user_profile_attending_courses' context_user.uid as view_profile_attending_url %}
                 {% endif %}
 
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="{{ view_profile_teaching_url }}">Teaching courses{% if context_user.stats_courses_teaching %} <i class="num">{{ context_user.stats_upcoming_courses }}</i>{% endif %}</a></li>
-                    <li><a href="{{ view_profile_attending_url }}">Attended courses{% if context_user.stats_courses_attended %} <i class="num">{{ context_user.stats_courses_attended }}</i>{% endif %}</a></li>
-                </ul>
+                {% if user_is_teaching %}
+                    <ul class="nav nav-tabs">
+                        <li{% if show == 'teaching' %} class="active"{% endif %}><a href="{{ view_profile_url }}">Teaching courses{% if context_user.stats_courses_teaching %} <i class="num">{{ context_user.stats_courses_teaching }}</i>{% endif %}</a></li>
+                        <li{% if show == 'attending' %} class="active"{% endif %}><a href="{{ view_profile_attending_url }}">Attended courses{% if context_user.stats_courses_attended_and_attending %} <i class="num">{{ context_user.stats_courses_attended_and_attending }}</i>{% endif %}</a></li>
+                    </ul>
+                {% endif %}
             </div>
         </div>
         <div class="container">
-            <div id="courses-teaching">
-
-            </div>
-            <div id="courses-attending">
-
-            </div>
+            {% block profile_content %}{% endblock %}
         </div>
     </div>
-
-
-<!-- Name, Doing, Avatar -->
-<!-- Course Attended, Course Teaching, Reviews Received, Reviews Written -->
-<!-- Teaching Courses -->
-<!-- Follow Button -->
-<!-- Social Credentials -->
-<!-- Member sinces -->
-
 </div>
 {% endblock %}

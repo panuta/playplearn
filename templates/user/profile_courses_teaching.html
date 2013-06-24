@@ -1,0 +1,43 @@
+{% extends 'user/profile_base.html' %}
+{% load common_tags %}
+
+{% block profile_content %}
+<div class="profile-teaching-courses">
+    <ul class="courses">
+        {% for course in teaching_courses %}
+            <li class="course clearfix">
+                {% include 'snippets/course_box.html' with hide_teacher=True %}
+                <div class="course-right">
+                    <div class="course-stats">
+                        <ul>
+                            <li>
+                                <span class="number">{{ course.stats_opening_classes }}</span>
+                                <span class="caption">class{{ course.stats_opening_classes|pluralize:'es' }} <span>scheduled</span></span>
+                            </li>
+                            <li>
+                                <span class="number">{{ course.stats_students }}</span>
+                                <span class="caption">student{{ course.stats_students|pluralize }} <span>attended</span></span>
+                            </li>
+                            <li>
+                                <span class="number">{{ course.stats_feedbacks }}</span>
+                                <span class="caption">feedback{{ course.stats_feedbacks|pluralize }} <span>received</span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="course-feedbacks">
+                        <ul class="feedbacks">
+                            {% for feedback in course.get_promoted_feedbacks %}
+                                <li class="feedback">
+                                    <div class="feelings">{{ feedback|feelings }}</div>
+                                    <div class="content">{{ feedback.content }}</div>
+                                    <div class="student">by <a href="{% url 'view_user_profile' feedback.enrollment.student.uid %}">{{ feedback.enrollment.student.name }}</a></div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

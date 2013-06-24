@@ -77,8 +77,11 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     'presentation.views.user_views',
-    url(r'^my/profile/$', 'view_my_profile', name='view_my_profile'),
-    url(r'^profile/(?P<user_uid>\w+)/$', 'view_user_profile', name='view_user_profile'),
+    url(r'^my/profile/$', 'view_my_profile', {'show': 'teaching'}, name='view_my_profile'),
+    url(r'^my/profile/attending/$', 'view_my_profile', {'show': 'attending'}, name='view_my_profile_attending_courses'),
+
+    url(r'^profile/(?P<user_uid>\w+)/$', 'view_user_profile', {'show': ''}, name='view_user_profile'),
+    url(r'^profile/(?P<user_uid>\w+)/attending/$', 'view_user_profile', {'show': 'attending'}, name='view_user_profile_attending_courses'),
 
     url(r'^settings/profile/$', 'edit_my_settings_profile', name='edit_my_settings_profile'),
     url(r'^settings/social/$', 'edit_my_settings_social', name='edit_my_settings_social'),

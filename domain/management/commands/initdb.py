@@ -72,6 +72,14 @@ class Command(BaseCommand):
                 user3.phone_number = '333-3333'
                 user3.save()
 
+            try:
+                user4 = UserAccount.objects.get(email='user4@example.com')
+            except UserAccount.DoesNotExist:
+                user4 = UserAccount.objects.create_user('user4@example.com', 'User4 Lastname', '1q2w3e4r')
+                user4.headline = 'Lazy One'
+                user4.phone_number = '444-4444'
+                user4.save()
+
             # VENUES
 
             try:
@@ -192,19 +200,17 @@ class Command(BaseCommand):
                 UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500'))
                 UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500'))
 
-                """
                 CourseFeedback.objects.get_or_create(
                     enrollment=enrollment1,
                     content='It was awesome',
-                    is_positive=True,
+                    feelings='like,laugh',
                 )
 
                 CourseFeedback.objects.get_or_create(
                     enrollment=enrollment2,
                     content='It was ok',
-                    is_positive=False,
+                    feelings='laugh,inspiring',
                 )
-                """
 
             try:
                 course2 = Course.objects.get(uid='COURSE2')
@@ -233,20 +239,69 @@ class Command(BaseCommand):
 
                 course2_schedule1 = CourseSchedule.objects.create(
                     course=course2,
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 20, 10, 0), is_dst=None),
+                    status='OPENING',
+                )
+
+                course2_schedule2 = CourseSchedule.objects.create(
+                    course=course2,
                     start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 20, 10, 0), is_dst=None),
                     status='OPENING',
                 )
 
-                CourseEnrollment.objects.get_or_create(
-                    code='ENROLL2',
+                course2_schedule3 = CourseSchedule.objects.create(
+                    course=course2,
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 20, 10, 0), is_dst=None),
+                    status='OPENING',
+                )
+
+                enrollment1, _ = CourseEnrollment.objects.get_or_create(
+                    code='ENROLL2_1',
                     student=user1,
                     schedule=course2_schedule1,
                     price=800,
                     total=800,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
+                    is_public=True,
                 )
 
+                enrollment2, _ = CourseEnrollment.objects.get_or_create(
+                    code='ENROLL2_2',
+                    student=user1,
+                    schedule=course2_schedule2,
+                    price=800,
+                    total=800,
+                    payment_status='PAYMENT_RECEIVED',
+                    status='CONFIRMED',
+                    is_public=True,
+                )
+
+                enrollment3, _ = CourseEnrollment.objects.get_or_create(
+                    code='ENROLL2_3',
+                    student=user1,
+                    schedule=course2_schedule3,
+                    price=800,
+                    total=800,
+                    payment_status='PAYMENT_RECEIVED',
+                    status='CONFIRMED',
+                    is_public=True,
+                )
+
+                CourseFeedback.objects.get_or_create(
+                    enrollment=enrollment1,
+                    content='It was ok',
+                    is_public=True,
+                )
+
+                CourseFeedback.objects.get_or_create(
+                    enrollment=enrollment2,
+                    content='It was still ok',
+                    is_public=True,
+                )
+
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
                 UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
 
             try:
