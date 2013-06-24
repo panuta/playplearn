@@ -1,34 +1,55 @@
 {% extends 'dashboard/courses_base.html' %}
+{% load common_tags %}
 
 {% block head_title %}My attended course - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='attended' %}{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+    $(document).bind('feedbackadd', function(e, enrollment_code) {
+        var li = $('li.enrollment[data-enrollment-code="' + enrollment_code + '"]');
+        li.find('.feedback').text('');
+        li.find('.actions').append('<a href="#modal-view-feedback" class="link" data-code="' + enrollment_code + '">View my feedback</a>');
+    });
+
+    $(document).bind('feedbackdelete', function(e, enrollment_code) {
+        var li = $('li.enrollment[data-enrollment-code="' + enrollment_code + '"]');
+        li.find('.feedback').html('<a href="#modal-write-feedback" class="style-orange-button" data-code="' + enrollment_code + '"><i class="icon-pencil"></i> Write feedback</a>');
+        li.find('.actions a[href="#modal-view-feedback"]').remove();
+    });
+})();
+</script>
+{% endblock %}
 
 {% block courses_content %}
 <div class="page-my-courses-attended">
     {% if enrollments %}
     <div class="row">
-        <div class="span3 courses-schools">
-            <div class="head">SCHOOLS ATTENDANCE</div>
-            <ul class="schools">
-                <li class="school{% if not course_school %} active{% endif %}"><a href="{% url 'view_my_courses_attended' %}">All Schools <span class="counter">{{ total_num_schools }}</span></a></li>
-                {% for school_learned in schools_learned %}
-                <li class="school{% if course_school.id == school_learned.school.id %} active{% endif %}"><a href="{% url 'view_my_courses_attended_in_school' school_learned.school.slug %}">{{ school_learned.school.name }} <span class="counter">{{ school_learned.num_schools }}</span></a></li>
-                {% endfor %}
-            </ul>
+        <div class="span3">
+            <div class="attended-schools">
+                <div class="head">SCHOOLS ATTENDANCE</div>
+                <ul class="style-sidebar-navigation">
+                    <li{% if not course_school %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">All schools <span class="number">{{ total_num_schools }}</span></a></li>
+                    {% for school_learned in schools_learned %}
+                        <li{% if course_school.id == school_learned.school.id %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended_in_school' school_learned.school.slug %}">{{ school_learned.school.name }} <span class="number">{{ school_learned.num_schools }}</span></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
         <div class="span9">
-            <ul class="courses">
+            <ul class="enrollments">
                 {% for enrollment in enrollments %}
-                <li class="course">
-                    <div class="feedback"><!-- TODO -->{% if not enrollment.has_feedback %}<a href="#" class="style-orange-button">Give Feedback</a>{% endif %}</div>
+                <li class="enrollment" data-enrollment-code="{{ enrollment.code }}">
+                    <div class="feedback">{% if not enrollment.has_feedback %}<a href="#modal-write-feedback" class="style-orange-button" data-code="{{ enrollment.code }}"><i class="icon-pencil"></i> Write feedback</a>{% endif %}</div>
                     <div class="title"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}">{{ enrollment.schedule.course.title }}</a></div>
                     <div class="details">
-                        <span class="teacher"><span class="caption">By</span> <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}">{{ enrollment.schedule.course.teacher.name }}</a></span>
-                        <span class="datetime"><span class="caption">When</span> <em>{{ enrollment.schedule.start_datetime|date:'l, j M Y H:i' }}</em></span>
+                        <span class="teacher"><span class="caption">สอนโดย</span> <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}">{{ enrollment.schedule.course.teacher.name }}</a></span>
+                        <span class="datetime"><span class="caption">เมื่อวัน</span> <em>{{ enrollment.schedule|schedule_datetime }}</em></span>
                     </div>
                     <div class="actions">
                         <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
-                        <!-- TODO -->{% if enrollment.has_feedback %}<a href="#">My feedback</a>{% endif %}
+                        {% if enrollment.has_feedback %}<a href="#modal-view-feedback" class="link" data-code="{{ enrollment.code }}">View my feedback</a>{% endif %}
                     </div>
                 </li>
                 {% endfor %}
@@ -41,4 +62,6 @@
 </div>
 
 {% include 'snippets/modal_enrollment_details.html' %}
+{% include 'snippets/modal_write_feedback.html' %}
+{% include 'snippets/modal_view_feedback.html' %}
 {% endblock %}

@@ -37,6 +37,13 @@ COURSE_MODIFICATION_ERRORS = {
     'schedule-future': u'Schedule is too long',
 }
 
+COURSE_FEEDBACK_ERRORS = {
+    'unauthorized': u'Unauthorized action',
+    'existed': u'',
+    'empty': u'',
+    
+}
+
 COURSE_ENROLLMENT_ERRORS = {
     'course-notpublished': u'',
     'schedule-notopening': u'',

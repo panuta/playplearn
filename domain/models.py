@@ -713,10 +713,12 @@ class UnauthenticatedCourseEnrollment(BaseCourseEnrollment):
     schedule = models.ForeignKey(CourseSchedule, related_name='unauthenticated_enrollments')
 
 
+# COURSE FEEDBACK ######################################################################################################
+
 class CourseFeedback(models.Model):
     enrollment = models.OneToOneField('CourseEnrollment', related_name='feedback')
-    content = models.CharField(max_length=2000)
-    is_positive = models.BooleanField()
+    content = models.CharField(max_length=2000, blank=True)
+    feelings = models.CharField(max_length=500, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     is_public = models.BooleanField(default=False)
     is_promoted = models.BooleanField(default=False)

@@ -159,19 +159,19 @@ class Command(BaseCommand):
 
                 course1_schedule1 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 1, 11, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 11, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 course1_schedule2 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 5, 11, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 15, 11, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 enrollment1, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_1',
-                    student=user3,
+                    student=user2,
                     schedule=course1_schedule1,
                     price=500,
                     total=500,
@@ -181,17 +181,18 @@ class Command(BaseCommand):
 
                 enrollment2, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_2',
-                    student=user2,
-                    schedule=course1_schedule2,
+                    student=user3,
+                    schedule=course1_schedule1,
                     price=500,
                     total=500,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                 )
 
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500.40'))
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('500.50'))
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500'))
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500'))
 
+                """
                 CourseFeedback.objects.get_or_create(
                     enrollment=enrollment1,
                     content='It was awesome',
@@ -203,6 +204,7 @@ class Command(BaseCommand):
                     content='It was ok',
                     is_positive=False,
                 )
+                """
 
             try:
                 course2 = Course.objects.get(uid='COURSE2')
@@ -231,19 +233,21 @@ class Command(BaseCommand):
 
                 course2_schedule1 = CourseSchedule.objects.create(
                     course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 30, 10, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 20, 10, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 CourseEnrollment.objects.get_or_create(
                     code='ENROLL2',
-                    student=user3,
+                    student=user1,
                     schedule=course2_schedule1,
                     price=800,
                     total=800,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                 )
+
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
 
             try:
                 course3 = Course.objects.get(uid='COURSE3')
@@ -259,7 +263,7 @@ class Command(BaseCommand):
                     prerequisites='Photoshop',
                     place=place2,
 
-                    teacher=user2,
+                    teacher=user3,
                     credentials='I am a designer',
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
@@ -272,19 +276,21 @@ class Command(BaseCommand):
 
                 course3_schedule1 = CourseSchedule.objects.create(
                     course=course3,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 9, 30), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 20, 9, 30), is_dst=None),
                     status='OPENING',
                 )
 
                 CourseEnrollment.objects.get_or_create(
                     code='ENROLL3',
-                    student=user3,
+                    student=user1,
                     schedule=course3_schedule1,
                     price=2000,
                     total=2000,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                 )
+
+                UserAccountBalanceTransaction.objects.create(user=user3, transaction_type='RECEIVED', amount=Decimal('2000'))
 
             try:
                 course4 = Course.objects.get(uid='COURSE4')

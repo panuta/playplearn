@@ -1,0 +1,79 @@
+{% load common_tags %}
+<div class="modal hide" id="modal-write-feedback">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Write feedback</h3>
+    </div>
+    <div class="modal-body">
+        <div class="feedback-head">How do you feel after the class?</div>
+        <div class="feeling"><ul>{% feedback_feeling_checkboxes %}</ul></div>
+        <div class="feedback-head">Your experience</div>
+        <div class="content"><textarea name="content"></textarea></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="style-button" data-dismiss="modal">Cancel</button>
+        <button type="button" class="style-primary-button button-submit-feedback">Submit</button>
+    </div>
+</div>
+<script>
+(function() {
+    var modal = $('#modal-write-feedback');
+
+    $(document).on('click', 'a[href="#modal-write-feedback"]', function() {
+        modal.data('enrollment-code', $(this).attr('data-code'));
+        modal.modal();
+        return false;
+    });
+
+    modal.on('show', function() {
+        modal.find('.feeling input').attr('checked', false);
+        modal.find('textarea[name="content"]').val('');
+    });
+
+    $('.button-submit-feedback:not(.disabled)').on('click', function() {
+        modal.find('.modal-footer button').attr('disabled', true);
+
+        var enrollment_code = modal.data('enrollment-code');
+        var content = modal.find('textarea[name="content"]').val();
+
+        var feelings = [];
+        modal.find('.feeling input:checked').each(function() {
+            feelings.push($(this).val());
+        });
+
+        var jqxhr = $.post('{% url 'ajax_add_course_feedback' %}', {code:enrollment_code, feelings:feelings, content:content}, function(response) {
+            modal.find('.modal-footer button').attr('disabled', false);
+
+            if(response.status == 'success') {
+                $.pnotify({
+                    addclass:'custom',
+                    animation: 'none',
+                    history: false,
+                    icon:false,
+                    sticker: false,
+                    text:'Your feedback is submitted and appreciated',
+                    title: 'Successful',
+                    type:'success'
+                });
+
+                modal.modal('hide');
+                $(document).trigger('feedbackadd', [enrollment_code]);
+
+            } else {
+                if(response.message) {
+                    _addModalErrorMessage('modal-write-feedback', 'Cannot submit feedback: ' + response.message);
+                } else {
+                    _addModalErrorMessage('modal-write-feedback', 'Cannot submit feedback: Unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            modal.find('.modal-footer button').attr('disabled', false);
+            _addModalErrorMessage('modal-write-feedback', 'Cannot submit feedback: ' + errorThrown);
+        });
+
+        return false;
+    });
+})();
+</script>

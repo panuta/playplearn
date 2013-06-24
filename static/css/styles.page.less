@@ -874,75 +874,25 @@
 }
 
 .page-my-courses-attended {
-    .courses-schools {
+    .attended-schools {
         .head {
-            color: #888;
+            color: #777;
             font-size: 12px;
             font-weight: bold;
             margin-bottom: 7px;
         }
 
-        ul.schools {
-            margin: 0;
-
-            li.school {
-                clear: both;
-                list-style: none;
-                margin-bottom: 7px;
-
-                a {
-                    background-color: #F7F7F7;
-                    border-radius: 4px;
-                    color: #444;
-                    display: block;
-                    font-weight: bold;
-                    padding: 8px 12px;
-
-                    .counter {
-                        background-color: #BBB;
-                        border-radius: 3px;
-                        color: #FFF;
-                        display: inline-block;
-                        font-size: 11.5px;
-                        font-weight: normal;
-                        line-height: normal;
-                        margin-left: 7px;
-                        padding: 1px 4px;
-                        vertical-align: 1px;
-                    }
-
-                    &:hover {
-                        background-color: @linkColor;
-                        color: #FFF;
-                        text-decoration: none;
-
-                        .counter {
-                            background-color: #FFF;
-                            color: @linkColor;
-                        }
-                    }
-                }
-            }
-
-            li.active {
-                a {
-                    background-color: #777;
-                    color: #FFF;
-
-                    .counter {
-                        background-color: #FFF;
-                        color: #777;
-                    }
-                }
-            }
+        .style-sidebar-navigation {
+            margin-right: 15px;
         }
     }
 
-    ul.courses {
+    ul.enrollments {
         margin: 15px 0 0;
 
-        li.course {
+        li.enrollment {
             border-bottom: 1px solid #DDD;
+            list-style: none;
             margin-top: 20px;
             padding-bottom: 15px;
 
@@ -954,22 +904,26 @@
                     font-size: 12px;
                     margin-left: 10px;
                     padding: 4px 25px;
+
+                    i {
+                        vertical-align: 0px;
+                    }
                 }
             }
 
             .title {
                 a {
                     .content_link;
-                    font-size: 15px;
+                    font-size: 16px;
                 }
             }
 
             .details {
-                margin-top: 4px;
+                font-size: 13px;
+                margin-top: 8px;
 
                 .caption {
                     color: #777;
-                    font-size: 12px;
                     margin-right: 2px;
                 }
 
@@ -989,9 +943,9 @@
             }
 
             .actions {
-                margin-top: 4px;
+                margin-top: 10px;
 
-                a {
+                a.link {
                     .grey_link;
                     font-size: 13px;
                     margin-right: 10px;
@@ -1029,41 +983,6 @@
         }
     }
 
-/*
-    .teaching-stats {
-        margin-bottom: 25px;
-
-        ul.stats {
-            margin: 0;
-
-            li.stat {
-                border: 1px dashed #DDD;
-
-                display: inline-block;
-                list-style: none;
-                margin-right: 5px;
-                padding: 5px 12px 8px 12px;
-
-                .caption {
-                    color: #888;
-                    font-size: 13px;
-                }
-
-                .number {
-                    color: #555;
-                    font-size: 16px;
-                    font-weight: bold;
-                    display: block;
-                    margin-top: 5px;
-
-                    .smaller {
-                        font-size: 13px;
-                    }
-                }
-            }
-        }
-    }
-*/
     .teaching-courses {
         margin-top: 25px;
 
@@ -1072,8 +991,8 @@
 
             li.course {
                 border-bottom: 1px solid #DDD;
-                margin-bottom: 20px;
-                padding-bottom: 15px;
+                margin-bottom: 15px;
+                padding-bottom: 20px;
 
                 .title {
                     a {
@@ -1132,55 +1051,6 @@
                     }
                 }
 
-                .details {
-                    margin-top: 10px;
-
-                    .status_name {
-                        display: inline-block;
-                        font-size: 13px;
-                        font-weight: bold;
-                        line-height: normal;
-                        margin-right: 10px;
-                        padding: 5px 15px;
-                        vertical-align: middle;
-                    }
-
-                    .draft {
-                        background-color: #DDD;
-                    }
-
-                    .wait {
-                        background-color: #FFC;
-                    }
-
-                    .ready {
-                        background-color: #BEC;
-                    }
-
-                    .published {
-                        background-color: #BEC;
-                    }
-
-                    .caption {
-                        color: #777;
-                        font-size: 13px;
-                        margin-right: 4px;
-                    }
-
-                    .datetime {
-                        display: inline-block;
-                        font-size: 15px;
-                        margin-right: 10px;
-                        vertical-align: middle;
-                    }
-
-                    .students {
-                        display: inline-block;
-                        font-size: 15px;
-                        vertical-align: middle;
-                    }
-                }
-
                 .actions {
                     margin-top: 10px;
 
@@ -1204,17 +1074,6 @@
                     }
                 }
             }
-        }
-    }
-
-    .teaching-create {
-        margin-bottom: 20px;
-    }
-
-    .teaching-activities {
-        .head {
-            font-size: 13px;
-            font-weight: bold;
         }
     }
 

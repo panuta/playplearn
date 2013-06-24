@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 import datetime
-import pytz
+import re
 
 from django import template
 from django.template.defaultfilters import safe
 from django.utils.timezone import now
 from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
+from common.constants.feedback import FEEDBACK_FEELING_CHOICES
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST
@@ -86,6 +87,18 @@ def province_options(selected_province=''):
         options.append('<option value="%s"%s>%s</option>' %(province_tuple[0], selected, province_tuple[1]))
 
     return ''.join(options)
+
+
+@register.simple_tag
+def feedback_feeling_checkboxes(feelings=''):
+    feeling_list = feelings.split(',')
+
+    li = []
+    for feeling_tuple in FEEDBACK_FEELING_CHOICES:
+        checked = ' checked="checked"' if feeling_tuple[0] in feeling_list else ''
+        li.append('<li><label><input type="checkbox" value="%s"%s/> %s</label></li>' %(feeling_tuple[0], checked, feeling_tuple[1]))
+
+    return ''.join(li)
 
 
 # COURSE STATUS ########################################################################################################

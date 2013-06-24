@@ -1,0 +1,120 @@
+{% load common_tags %}
+<div class="modal hide" id="modal-view-feedback">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>My feedback</h3>
+    </div>
+    <div class="modal-body">
+        <div class="modal-loading"><div class="style-loading"><img src="{{ STATIC_URL }}images/ui/loading.gif"> Loading</div></div>
+        <div class="modal-content">
+            <div class="feelings">
+                <ul>
+                    <li>Like</li>
+                    <li>Love</li>
+                    <li>Crazy</li>
+                </ul>
+            </div>
+            <div class="content"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="button-delete-feedback">Delete feedback</a>
+        <button class="style-primary-button" data-dismiss="modal">Close</button>
+    </div>
+</div>
+<script>
+(function() {
+    var modal = $('#modal-view-feedback');
+
+    $(document).on('click', 'a[href="#modal-view-feedback"]', function() {
+        modal.modal();
+        modal.find('.modal-loading').show();
+        modal.find('.modal-content').hide();
+
+        var code = $(this).attr('data-code');
+        modal.data('enrollment-code', code);
+
+        var jqxhr = $.get('{% url 'ajax_view_course_feedback' %}', {code:code}, function(response) {
+            if(response.status == 'success') {
+                modal.find('.feelings ul li').remove();
+                for(var i=0; i<response.data.feelings.length; i++) {
+                    modal.find('.feelings ul').append('<li>' + response.data.feelings[i] + '</li>');
+                }
+
+                modal.find('.content').html(response.data.content);
+
+                modal.find('.modal-loading').hide();
+                modal.find('.modal-content').show();
+
+            } else {
+                if(response.message) {
+                    _addModalErrorMessage('modal-view-feedback', 'Cannot view feedback: ' + response.message);
+                } else {
+                    _addModalErrorMessage('modal-view-feedback', 'Cannot view feedback: Unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _addModalErrorMessage('modal-view-feedback', 'Cannot view feedback: ' + errorThrown);
+        });
+
+        return false;
+    });
+
+    var delete_feedback_button = $('.button-delete-feedback');
+    delete_feedback_button.popover({
+        html: true,
+        placement: 'right',
+        trigger: 'manual',
+        content: '<a href="#" class="btn btn-mini btn-danger button-feedback-delete">Confirm delete</a> <a href="#" class="btn btn-mini button-feedback-delete-cancel">Cancel</a>'
+    });
+
+    delete_feedback_button.on('click', function() {
+        delete_feedback_button.popover('show')
+
+        modal.find('.button-feedback-delete').on('click', function() {
+            var code = modal.data('enrollment-code');
+
+            var jqxhr = $.post('{% url 'ajax_delete_course_feedback' %}', {code:code}, function(response) {
+                if(response.status == 'success') {
+                    $.pnotify({
+                        addclass:'custom',
+                        animation: 'none',
+                        history: false,
+                        icon:false,
+                        sticker: false,
+                        text:'Your feedback is deleted',
+                        title: 'Successful',
+                        type:'success'
+                    });
+
+                    delete_feedback_button.popover('hide');
+                    modal.modal('hide');
+                    $(document).trigger('feedbackdelete', [code]);
+
+                } else {
+                    if(response.message) {
+                        _addModalErrorMessage('modal-view-feedback', 'Cannot delete feedback: ' + response.message);
+                    } else {
+                        _addModalErrorMessage('modal-view-feedback', 'Cannot delete feedback: Unknown error occurred');
+                    }
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                _addModalErrorMessage('modal-view-feedback', 'Cannot delete feedback: ' + errorThrown);
+            });
+
+            return false;
+        });
+
+        modal.find('.button-feedback-delete-cancel').on('click', function() {
+            delete_feedback_button.popover('hide');
+            return false;
+        });
+
+        return false;
+    });
+})();
+</script>

@@ -308,3 +308,95 @@
         }
     }
 }
+
+#modal-write-feedback {
+    .feedback-head {
+        color: @primaryColor;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    .feeling {
+        ul {
+            margin: 0 0 20px;
+
+            li {
+                background-color: #EEE;
+                display: inline-block;
+                list-style: none;
+                margin-right: 5px;
+
+                label {
+                    color: #444;
+                    font-size: 13px;
+                    line-height: 30px;
+                    margin: 0;
+                    padding: 0 10px;
+                    vertical-align: middle;
+                }
+
+                input {
+                    margin: 0 3px 0 0;
+                    vertical-align: 1px;
+                }
+            }
+        }
+    }
+
+    .content {
+        textarea {
+            height: 80px;
+            width: 95%;
+        }
+    }
+}
+
+#modal-view-feedback {
+    .modal-content {
+        background-color: #EEE;
+        padding: 10px;
+    }
+
+    .feelings {
+        margin-bottom: 15px;
+
+        ul {
+            margin: 0;
+
+            li {
+                background-color: #F7F7F7;
+                color: #555;
+                display: inline-block;
+                font-size: 13px;
+                font-weight: bold;
+                line-height: normal;
+                list-style: none;
+                margin-right: 5px;
+                padding: 4px 10px;
+            }
+        }
+    }
+
+    .content {
+        background-color: #EEE;
+    }
+
+    .button-delete-feedback {
+        .danger_link;
+        display: inline-block;
+        float: left;
+        margin: 8px 0 0;
+        padding: 0;
+    }
+
+    .modal-footer .popover-content .btn {
+        font-size: 12px;
+        margin: 0;
+        padding: 2px 10px;
+
+        .btn-danger {
+            margin-right: 10px;
+        }
+    }
+}

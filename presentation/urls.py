@@ -6,8 +6,6 @@ urlpatterns = patterns(
 
     url(r'^place/id/(?P<place_id>\d+)/$', 'view_place_info_by_id', name='view_place_info_by_id'),
     url(r'^place/(?P<place_code>\w+)/$', 'view_place_info_by_code', name='view_place_info_by_code'),
-
-
 )
 
 urlpatterns += patterns(
@@ -23,10 +21,6 @@ urlpatterns += patterns(
     url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
 
     url(r'^ajax/course/topics/search/$', 'search_course_topics', name='search_course_topics'),
-
-
-
-
 )
 
 """
@@ -57,8 +51,10 @@ urlpatterns += patterns(
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', {'category': 'all'}, name='manage_course_all_feedback'),
     url(r'^course/(?P<course_uid>\w+)/manage/feedback/(?P<category>\w+)/$', 'manage_course_feedback', name='manage_course_feedback'),
     url(r'^course/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
+)
 
-    url(r'^enrollment/(?P<enrollment_code>\w+)/print/$', 'print_enrollment', name='print_enrollment'),
+urlpatterns += patterns(
+    'presentation.views.dashboard_ajax_views',
 
     url(r'^ajax/course/autosave/$', 'ajax_autosave_course', name='ajax_autosave_course'),
     url(r'^ajax/course/cover/upload/$', 'ajax_upload_course_cover', name='ajax_upload_course_cover'),
@@ -67,7 +63,12 @@ urlpatterns += patterns(
     url(r'^ajax/course/picture/delete/$', 'ajax_delete_course_picture', name='ajax_delete_course_picture'),
     url(r'^ajax/course/discard/$', 'ajax_discard_course_changes', name='ajax_discard_course_changes'),
     url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
+
     url(r'^ajax/course/schedule/add/$', 'ajax_add_course_schedule', name='ajax_add_course_schedule'),
+
+    url(r'^ajax/course/feedback/view/$', 'ajax_view_course_feedback', name='ajax_view_course_feedback'),
+    url(r'^ajax/course/feedback/add/$', 'ajax_add_course_feedback', name='ajax_add_course_feedback'),
+    url(r'^ajax/course/feedback/delete/$', 'ajax_delete_course_feedback', name='ajax_delete_course_feedback'),
     url(r'^ajax/course/feedback/set_public/$', 'ajax_set_course_feedback_public', name='ajax_set_course_feedback_public'),
     url(r'^ajax/course/feedback/set_promoted/$', 'ajax_set_course_feedback_promoted', name='ajax_set_course_feedback_promoted'),
 
