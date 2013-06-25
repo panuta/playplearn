@@ -5,7 +5,7 @@
 
 {% block scripts %}
 <script>
-$(document).ready(function() {
+(function() {
     $('.button-set-public:not(.disabled)').on('click', function() {
         var button = $(this);
         button.addClass('disabled');
@@ -98,7 +98,7 @@ $(document).ready(function() {
 
         return false;
     });
-});
+})();
 </script>
 {% endblock %}
 

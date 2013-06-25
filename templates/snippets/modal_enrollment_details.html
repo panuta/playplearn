@@ -29,7 +29,7 @@
     </div>
 </div>
 <script>
-$(document).ready(function() {
+(function() {
     var modal = $('#modal-enrollment-details');
     $('a[href="#modal-enrollment-details"]').on('click', function() {
         modal.modal();
@@ -67,5 +67,5 @@ $(document).ready(function() {
 
         return false;
     });
-});
+})();
 </script>

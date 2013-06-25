@@ -649,17 +649,17 @@ h1.style-page-header {
   font-weight: bold;
 }
 .style-course-box {
-  border: 3px solid #F7F7F7;
+  background-color: #FFF;
+  border: 1px solid #CCC;
   display: inline-block;
   list-style: none;
   width: 550px;
 }
-.style-course-box .box-inner {
-  background-color: #FFF;
-  border: 1px solid #E4E4E4;
-}
 .style-course-box .top {
   padding: 14px 20px 15px;
+}
+.style-course-box .title {
+  text-align: center;
 }
 .style-course-box .title a {
   font-size: 18px;
@@ -681,7 +681,8 @@ h1.style-page-header {
 .style-course-box .at_glance {
   color: #888;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 8px;
+  text-align: center;
 }
 .style-course-box .at_glance a {
   color: #666;
@@ -697,21 +698,22 @@ h1.style-page-header {
 .style-course-box .cover {
   margin-top: 10px;
 }
-.style-course-box .cover img {
-  height: 200px;
-  width: 550px;
-}
 .style-course-box .teacher {
-  margin-top: 15px;
+  margin: -25px auto 0;
 }
 .style-course-box .teacher .avatar {
-  float: left;
-  margin-right: 10px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 .style-course-box .teacher .avatar img {
+  border: 4px solid #FFF;
   border-radius: 50px;
   height: 50px;
   width: 50px;
+}
+.style-course-box .teacher .teacher_name {
+  text-align: center;
 }
 .style-course-box .teacher .name {
   color: #444;
@@ -764,12 +766,12 @@ body {
   height: 100%;
 }
 #body-top {
-  background-color: #555;
+  background: url(../images/banner-bar-bg.gif) repeat;
   height: 32px;
 }
 #body-top .social {
-  border-left: 1px solid #444;
-  border-right: 1px solid #777;
+  border-left: 1px solid #474747;
+  border-right: 1px solid #7B7B7B;
   float: left;
   height: 32px;
 }
@@ -777,13 +779,13 @@ body {
   margin: 0;
 }
 #body-top .social ul li {
-  border-left: 1px solid #777;
-  border-right: 1px solid #444;
   display: inline-block;
   height: 32px;
   list-style: none;
 }
 #body-top .social ul li a {
+  border-left: 1px solid #7B7B7B;
+  border-right: 1px solid #474747;
   color: #DDD;
   display: block;
   font-size: 12px;
@@ -796,8 +798,17 @@ body {
 }
 #body-top .social ul li a:hover {
   background-color: #3a71a9;
+  border-right: 1px solid #2d5883;
   color: #FFF;
   text-decoration: none;
+}
+#body-top .social ul li.home a {
+  padding: 0 12px;
+}
+#body-top .social ul li.home a i {
+  font-size: 15px;
+  margin: 0;
+  vertical-align: -1px;
 }
 #body-top .account {
   float: right;
@@ -807,13 +818,13 @@ body {
   margin: 0;
 }
 #body-top .account ul.parent li.parent-item {
-  border-left: 1px solid #777;
-  border-right: 1px solid #444;
   display: inline-block;
   height: 32px;
   list-style: none;
 }
 #body-top .account ul.parent li.parent-item a.link {
+  border-left: 1px solid #7B7B7B;
+  border-right: 1px solid #474747;
   color: #DDD;
   display: block;
   font-size: 12px;
@@ -831,6 +842,7 @@ body {
 #body-top .account ul.parent li.parent-item a.link:active,
 #body-top .account ul.parent li.parent-item a.link:focus {
   background-color: #3a71a9;
+  border-right: 1px solid #2d5883;
   color: #FFF;
   text-decoration: none;
 }
@@ -849,17 +861,14 @@ body {
   vertical-align: 0;
 }
 #body-top .registration {
-  border-left: 1px solid #444;
-  border-right: 1px solid #777;
-}
-#body-top .user ul.parent li.parent-item.username {
-  border-left: none;
+  border-left: 1px solid #474747;
+  border-right: 1px solid #7B7B7B;
 }
 #body-top .user ul.parent li.parent-item.username a.link {
+  border-left: none;
   color: #EEE;
   font-weight: bold;
-  margin-right: 15px;
-  padding: 0;
+  padding-right: 15px;
 }
 #body-top .user ul.parent li.parent-item.username a.link:hover,
 #body-top .user ul.parent li.parent-item.username a.link:active {
@@ -879,19 +888,30 @@ body {
 .push {
   height: 4em;
 }
+#body-header-homepage .logo {
+  margin-top: 60px;
+}
+#body-header-homepage .logo a {
+  display: block;
+  height: 38px;
+  margin: 0 auto;
+  width: 400px;
+}
+#body-header-homepage .subtitle {
+  color: #666;
+  font-size: 30px;
+  font-weight: 100;
+  margin: 30px auto 0;
+  text-align: center;
+}
 #body-header {
   height: 65px;
 }
 #body-header .logo {
   float: left;
-  font-size: 26px;
-  font-weight: bold;
   height: 26px;
-  padding-top: 22px;
-  width: 169px;
-}
-#body-header .logo a {
-  color: #3a71a9;
+  margin-top: 24px;
+  width: 267px;
 }
 #body-header .navigation {
   float: left;
@@ -1008,7 +1028,7 @@ body {
 .wrapper {
   height: auto !important;
   height: 100%;
-  margin: 0 auto -86px;
+  margin: 0 auto -95px;
   min-height: 100%;
 }
 #body-footer,
@@ -1016,27 +1036,28 @@ body {
   height: 56px;
 }
 #body-footer {
-  background-color: #777;
+  background-color: #666;
   position: relative;
-  padding: 20px 0 10px;
+  padding-top: 15px;
+  height: 80px;
 }
-#body-footer .website {
-  color: #FFF;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
+#body-footer .logo {
+  margin-bottom: 5px;
 }
-#body-footer .page-links {
-  margin-left: 15px;
-}
-#body-footer .page-links a {
+#body-footer .links a {
   color: #EEE;
   font-size: 13px;
-  margin-right: 7px;
+}
+#body-footer .links a:hover {
   text-decoration: underline;
 }
-#body-footer .copyright {
+#body-footer .links .separator {
   color: #DDD;
+  margin: 0 6px;
+}
+#body-footer .copyright {
+  color: #CCC;
+  font-size: 12px;
   margin-top: 5px;
 }
 #body-footer .social-links {
@@ -1044,7 +1065,7 @@ body {
 }
 #body-footer .social-links a {
   background-image: url(../images/ui/social-icons.png);
-  border: 2px solid #777;
+  border: 2px solid #666;
   border-radius: 32px;
   float: right;
   height: 32px;
@@ -1743,6 +1764,22 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
+.page-homepage .call_to_action {
+  background: url(../images/page/homepage/headline1.png) top center repeat-x;
+  padding-top: 180px;
+  margin: 40px 0;
+  text-align: center;
+}
+.page-homepage .call_to_action a {
+  font-size: 15px;
+  font-weight: normal;
+  padding: 12px 45px;
+}
+.page-homepage .call_to_action a i {
+  font-size: 10px;
+  margin-right: 4px;
+  vertical-align: 2px;
+}
 .page-homepage .headline {
   background-color: #FFF;
   padding: 50px 0px;
@@ -1827,20 +1864,25 @@ body {
   background-position: -230px -40px;
 }
 .page-homepage .latest-courses {
-  border-bottom: 1px solid #DDD;
-  border-top: 1px solid #DDD;
   padding: 30px 0px;
 }
 .page-homepage .latest-courses .head {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   text-align: center;
 }
 .page-homepage .latest-courses .head h2 {
-  color: #777;
-  font-size: 24px;
-  font-weight: bold;
+  color: #666;
+  font-size: 28px;
+  font-weight: 100;
   line-height: normal;
   margin: 0;
+  padding: 5px 20px;
+}
+.page-homepage .latest-courses .head h2 i {
+  color: #AAA;
+  display: block;
+  font-size: 14px;
+  margin-top: 3px;
 }
 .page-homepage .latest-courses ul.courses {
   margin: 0;
@@ -1851,7 +1893,7 @@ body {
   margin-bottom: 40px;
 }
 .page-homepage .latest-courses ul.courses li.left-box {
-  margin-right: 58px;
+  margin-right: 66px;
 }
 .page-course-outline #body-header {
   border-bottom: 1px solid #E9E9E9;

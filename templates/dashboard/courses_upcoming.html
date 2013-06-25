@@ -42,6 +42,8 @@
     <div class="style-no-information">No upcoming classes</div>
     {% endif %}
 </div>
+{% endblock %}
 
-{% include 'snippets/modal_enrollment_details.html' %}
+{% block modals %}
+    {% include 'snippets/modal_enrollment_details.html' %}
 {% endblock %}

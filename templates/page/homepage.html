@@ -4,7 +4,22 @@
 {% block head_title %}{{ settings.WEBSITE_NAME }} - Learn something new{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
 
+{% block body_header %}
+<div id="body-header-homepage">
+    <div class="container">
+        <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
+        <div class="subtitle">Learn something new from people who is passionate about it</div>
+    </div>
+</div>
+{% endblock %}
+
 {% block body %}
+<div class="call_to_action">
+    <a href="{% url 'view_courses_explore' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
+</div>
+
+
+{% comment %}
 <div class="headline">
     <div class="container clearfix">
         <div class="image"><img src="{{ STATIC_URL }}images/page/homepage/headline.png" /></div>
@@ -29,11 +44,12 @@
     </div>
 </div>
 {% endif %}
+{% endcomment %}
 
 <div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>Latest courses</h2>
+            <h2>Latest courses<i class="icon-double-angle-down"></i></h2>
         </div>
         <ul class="courses">
             {% for course in recent_courses %}

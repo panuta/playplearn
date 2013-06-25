@@ -325,16 +325,13 @@ function initCourseModifyPage() {
                     _set_completeness(response.data.completeness);
 
                 } else {
+                    delete_actions.removeClass('disabled');
+                    delete_link.popover('hide');
+
                     if(response.message) {
-                        _modal_error_message('Delete error', response.message, function() {
-                            delete_actions.removeClass('disabled');
-                            delete_link.popover('hide');
-                        });
+                        _alertModal('error', 'Delete error', response.message);
                     } else {
-                        _modal_error_message('Delete error', 'Unknown error', function() {
-                            delete_actions.removeClass('disabled');
-                            delete_link.popover('hide');
-                        });
+                        _alertModal('error', 'Delete error', 'Unknown error');
                     }
                 }
 
@@ -342,10 +339,9 @@ function initCourseModifyPage() {
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                _modal_error_message('Cannot delete picture', 'Unexpected error occurred: ' + errorThrown, function() {
-                    delete_actions.removeClass('disabled');
-                    delete_link.popover('hide');
-                });
+                delete_actions.removeClass('disabled');
+                delete_link.popover('hide');
+                _alertModal('error', 'Delete error', 'Unexpected error occurred: ' + errorThrown);
             });
 
             return false;

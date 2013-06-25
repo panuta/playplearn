@@ -5,12 +5,12 @@
 
 {% block scripts %}
 <script>
-$(document).ready(function($) {
+(function() {
     $('.login-social .use-email a').on('click', function() {
         $('.login-email').show();
         $(this).remove();
     });
-});
+})();
 </script>
 {% endblock %}
 

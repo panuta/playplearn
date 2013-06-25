@@ -8,13 +8,13 @@ html, body {
 }
 
 #body-top {
-    background-color: #555;
-    //background: url(../images/banner-bar-bg.gif) repeat;
+    //background-color: #555;
+    background: url(../images/banner-bar-bg.gif) repeat;
     height: 32px;
 
     .social {
-        border-left: 1px solid #444;
-        border-right: 1px solid #777;
+        border-left: 1px solid #474747;
+        border-right: 1px solid #7B7B7B;
         float: left;
         height: 32px;
 
@@ -22,13 +22,14 @@ html, body {
             margin: 0;
 
             li {
-                border-left: 1px solid #777;
-                border-right: 1px solid #444;
+
                 display: inline-block;
                 height: 32px;
                 list-style: none;
 
                 a {
+                    border-left: 1px solid #7B7B7B;
+                    border-right: 1px solid #474747;
                     color: #DDD;
                     display: block;
                     font-size: 12px;
@@ -42,8 +43,21 @@ html, body {
 
                     &:hover {
                         background-color: @linkColor;
+                        border-right: 1px solid @linkColorDark;
                         color: #FFF;
                         text-decoration: none;
+                    }
+                }
+
+                &.home {
+                    a {
+                        padding: 0 12px;
+
+                        i {
+                            font-size: 15px;
+                            margin: 0;
+                            vertical-align: -1px;
+                        }
                     }
                 }
             }
@@ -58,13 +72,13 @@ html, body {
             margin: 0;
 
             li.parent-item {
-                border-left: 1px solid #777;
-                border-right: 1px solid #444;
                 display: inline-block;
                 height: 32px;
                 list-style: none;
 
                 a.link {
+                    border-left: 1px solid #7B7B7B;
+                    border-right: 1px solid #474747;
                     color: #DDD;
                     display: block;
                     font-size: 12px;
@@ -82,6 +96,7 @@ html, body {
 
                     &:hover, &:active, &:focus {
                         background-color: @linkColor;
+                        border-right: 1px solid @linkColorDark;
                         color: #FFF;
                         text-decoration: none;
                     }
@@ -109,20 +124,18 @@ html, body {
     }
 
     .registration {
-        border-left: 1px solid #444;
-        border-right: 1px solid #777;
+        border-left: 1px solid #474747;
+        border-right: 1px solid #7B7B7B;
     }
 
     .user {
         ul.parent li.parent-item {
             &.username {
-                border-left: none;
-
                 a.link {
+                    border-left: none;
                     color: #EEE;
                     font-weight: bold;
-                    margin-right: 15px;
-                    padding: 0;
+                    padding-right: 15px;
 
                     &:hover, &:active {
                         background-color: transparent;
@@ -156,20 +169,35 @@ html, body {
     height: 4em;
 }
 
+#body-header-homepage {
+    .logo {
+        margin-top: 60px;
+
+        a {
+            display: block;
+            height: 38px;
+            margin: 0 auto;
+            width: 400px;
+        }
+    }
+
+    .subtitle {
+        color: #666;
+        font-size: 30px;
+        font-weight: 100;
+        margin: 30px auto 0;
+        text-align: center;
+    }
+}
+
 #body-header {
     height: 65px;
 
     .logo {
         float: left;
-        font-size: 26px;
-        font-weight: bold;
         height: 26px;
-        padding-top: 22px;
-        width: 169px;
-
-        a {
-            color: @linkColor;
-        }
+        margin-top: 24px;
+        width: 267px;
     }
 
     .navigation {
@@ -310,7 +338,7 @@ html, body {
 .wrapper {
     height: auto !important;
     height: 100%;
-    margin: 0 auto -86px;
+    margin: 0 auto -95px;
     min-height: 100%;
 }
 
@@ -319,30 +347,34 @@ html, body {
 }
 
 #body-footer {
-    background-color: #777;
+    background-color: #666;
     position: relative;
-    padding: 20px 0 10px;
+    padding-top: 15px;
+    height: 80px;
 
-    .website {
-        color: #FFF;
-        font-size: 15px;
-        font-weight: bold;
-        text-align: center;
+    .logo {
+        margin-bottom: 5px;
     }
 
-    .page-links {
-        margin-left: 15px;
-
+    .links {
         a {
             color: #EEE;
             font-size: 13px;
-            margin-right: 7px;
-            text-decoration: underline;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .separator {
+            color: #DDD;
+            margin: 0 6px;
         }
     }
 
     .copyright {
-        color: #DDD;
+        color: #CCC;
+        font-size: 12px;
         margin-top: 5px;
     }
 
@@ -351,7 +383,7 @@ html, body {
 
         a {
             background-image: url(../images/ui/social-icons.png);
-            border: 2px solid #777;
+            border: 2px solid #666;
             border-radius: 32px;
             float: right;
             height: 32px;

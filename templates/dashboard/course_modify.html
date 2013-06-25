@@ -7,9 +7,9 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
 <script>
 var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}{% endif %}';
-$(document).ready(function() {
+(function() {
     initCourseModifyPage();
-});
+})();
 </script>
 {% endblock %}
 
@@ -261,8 +261,6 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
-
-    {% include 'snippets/modal_error_message.html' %}
 
     <div class="modal fade hide" id="modal-place-map">
         <div class="modal-header">

@@ -12,7 +12,8 @@
             {% if not hide_teacher %}
             <div class="teacher clearfix">
                 <div class="avatar"><img src="{{ course.teacher.smaller_avatar_url }}" /></div>
-                <a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span>
+                <div class="teacher_name"><a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span></div>
+
             </div>
             {% endif %}
         </div>

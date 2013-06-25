@@ -46,72 +46,74 @@
     </div>
 </div>
 <script>
-var schedule_id = '{{ schedule.id }}';
+(function() {
+    var schedule_id = '{{ schedule.id }}';
 
-var enrollment_modal = $('#modal-enrollment-login');
-enrollment_modal.find('.button-switch-backend').on('click', function() {
-    enrollment_modal.find('.backend-social').toggle();
-    enrollment_modal.find('.backend-email').toggle();
-    return false;
-});
+    var enrollment_modal = $('#modal-enrollment-login');
+    enrollment_modal.find('.button-switch-backend').on('click', function() {
+        enrollment_modal.find('.backend-social').toggle();
+        enrollment_modal.find('.backend-email').toggle();
+        return false;
+    });
 
-enrollment_modal.find('.button-switch-email').on('click', function() {
-    enrollment_modal.find('.email_account_login').toggle();
-    enrollment_modal.find('.email_account_signup').toggle();
-    return false;
-});
+    enrollment_modal.find('.button-switch-email').on('click', function() {
+        enrollment_modal.find('.email_account_login').toggle();
+        enrollment_modal.find('.email_account_signup').toggle();
+        return false;
+    });
 
-enrollment_modal.find('.email_account_login button').on('click', function() {
-    var email = enrollment_modal.find('.email_account_login input[name="email"]').val();
-    var password = enrollment_modal.find('.email_account_login input[name="password"]').val();
+    enrollment_modal.find('.email_account_login button').on('click', function() {
+        var email = enrollment_modal.find('.email_account_login input[name="email"]').val();
+        var password = enrollment_modal.find('.email_account_login input[name="password"]').val();
 
-    if(email && password) {
-        enrollment_modal.find('.email_account_login button').attr('disabled', true);
-        var jqxhr = $.post('{% url 'login_to_enroll_course' 'email_login' %}', {email:email, password:password, schedule_id:schedule_id}, function(response) {
-            enrollment_modal.find('.email_account_login button').attr('disabled', false);
-            if(response.status == 'success') {
-                window.location = response.data.redirect_url;
+        if(email && password) {
+            enrollment_modal.find('.email_account_login button').attr('disabled', true);
+            var jqxhr = $.post('{% url 'login_to_enroll_course' 'email_login' %}', {email:email, password:password, schedule_id:schedule_id}, function(response) {
+                enrollment_modal.find('.email_account_login button').attr('disabled', false);
+                if(response.status == 'success') {
+                    window.location = response.data.redirect_url;
 
-            } else {
+                } else {
+                    enrollment_modal.find('.email_account_login .error').remove();
+                    enrollment_modal.find('.email_account_login button').before('<div class="error">เข้าสู่ระบบไม่ได้ ' + response.message + '</div>');
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                enrollment_modal.find('.email_account_login button').attr('disabled', false);
                 enrollment_modal.find('.email_account_login .error').remove();
                 enrollment_modal.find('.email_account_login button').before('<div class="error">เข้าสู่ระบบไม่ได้ ' + response.message + '</div>');
-            }
-        }, 'json');
+            });
+        }
 
-        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            enrollment_modal.find('.email_account_login button').attr('disabled', false);
-            enrollment_modal.find('.email_account_login .error').remove();
-            enrollment_modal.find('.email_account_login button').before('<div class="error">เข้าสู่ระบบไม่ได้ ' + response.message + '</div>');
-        });
-    }
+        return false;
+    });
 
-    return false;
-});
+    enrollment_modal.find('.email_account_signup button').on('click', function() {
+        var email = enrollment_modal.find('.email_account_signup input[name="email"]').val();
 
-enrollment_modal.find('.email_account_signup button').on('click', function() {
-    var email = enrollment_modal.find('.email_account_signup input[name="email"]').val();
+        if(email) {
+            enrollment_modal.find('.email_account_signup button').attr('disabled', true);
+            var jqxhr = $.post('{% url 'login_to_enroll_course' 'email_signup' %}', {email:email, schedule_id:schedule_id}, function(response) {
+                enrollment_modal.find('.email_account_signup button').attr('disabled', false);
+                if(response.status == 'success') {
+                    enrollment_modal.find('.email_account_signup .error').remove();
+                    enrollment_modal.find('.email_account_signup button').before('<div class="success">สมัครสมาชิกเรียบร้อย กรุณายืนยันอีเมลของคุณจากลิงก์ที่ทางเราส่งไปในอีเมล</div>');
 
-    if(email) {
-        enrollment_modal.find('.email_account_signup button').attr('disabled', true);
-        var jqxhr = $.post('{% url 'login_to_enroll_course' 'email_signup' %}', {email:email, schedule_id:schedule_id}, function(response) {
-            enrollment_modal.find('.email_account_signup button').attr('disabled', false);
-            if(response.status == 'success') {
-                enrollment_modal.find('.email_account_signup .error').remove();
-                enrollment_modal.find('.email_account_signup button').before('<div class="success">สมัครสมาชิกเรียบร้อย กรุณายืนยันอีเมลของคุณจากลิงก์ที่ทางเราส่งไปในอีเมล</div>');
+                } else {
+                    enrollment_modal.find('.email_account_signup .error').remove();
+                    enrollment_modal.find('.email_account_signup button').before('<div class="error">สมัครสมาชิกไม่ได้ ' + response.message + '</div>');
+                }
+            }, 'json');
 
-            } else {
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                enrollment_modal.find('.email_account_signup button').attr('disabled', false);
                 enrollment_modal.find('.email_account_signup .error').remove();
                 enrollment_modal.find('.email_account_signup button').before('<div class="error">สมัครสมาชิกไม่ได้ ' + response.message + '</div>');
-            }
-        }, 'json');
+            });
+        }
 
-        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            enrollment_modal.find('.email_account_signup button').attr('disabled', false);
-            enrollment_modal.find('.email_account_signup .error').remove();
-            enrollment_modal.find('.email_account_signup button').before('<div class="error">สมัครสมาชิกไม่ได้ ' + response.message + '</div>');
-        });
-    }
-
-    return false;
-});
+        return false;
+    });
+})();
 </script>

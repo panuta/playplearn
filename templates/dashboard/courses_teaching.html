@@ -6,7 +6,7 @@
 
 {% block scripts %}
 <script>
-$(document).ready(function() {
+(function() {
     var publish_modal = $('#modal-publish-course');
     var publish_date_datepicker = $('#id_publish_schedule_date').find('.calendar');
 
@@ -70,7 +70,7 @@ $(document).ready(function() {
         var modal = $('#modal-add-class');
         modal.data('course-uid', $(this).closest('li.course').attr('data-course-uid'));
     });
-});
+})();
 </script>
 {% endblock %}
 
@@ -170,8 +170,6 @@ $(document).ready(function() {
             </div>
         </div>
 
-        {% include 'snippets/modal_add_class.html' with trigger='.open-modal-add-class' %}
-
     {% else %}
         <div class="no-teaching-course">
             <div class="head1">Do you have a passion on something?</div>
@@ -180,4 +178,10 @@ $(document).ready(function() {
         </div>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block modals %}
+    {% if num_of_courses.all %}
+        {% include 'snippets/modal_add_class.html' with trigger='.open-modal-add-class' %}
+    {% endif %}
 {% endblock %}

@@ -60,8 +60,10 @@
     <div class="style-no-information">No attended courses</div>
     {% endif %}
 </div>
+{% endblock %}
 
-{% include 'snippets/modal_enrollment_details.html' %}
-{% include 'snippets/modal_write_feedback.html' %}
-{% include 'snippets/modal_view_feedback.html' %}
+{% block modals %}
+    {% include 'snippets/modal_enrollment_details.html' %}
+    {% include 'snippets/modal_write_feedback.html' %}
+    {% include 'snippets/modal_view_feedback.html' %}
 {% endblock %}
