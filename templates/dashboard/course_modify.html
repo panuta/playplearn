@@ -15,38 +15,42 @@ $(document).ready(function() {
 
 {% block backend_header %}
 <div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← My teaching courses</a></div>
-<h1>{% if not course %}Create new course{% else %}Edit course - <span>{{ editing_course.title|default:'(No title)' }}</span>{% endif %}</h1>
-<div class="completeness">
-    <div class="head">Course Completeness</div>
-    <div class="progress"><div class="bar"{% if course %} style="width:{{ completeness }}%;"{% endif %}></div></div>
-    <div class="percentage">{% if not course %}0{% else %}{{ completeness }}{% endif %}%</div>
-</div>
+<h1>{% if not course %}Create new course{% else %}Edit course - <span class="title">{{ editing_course.title|default:'(No title)' }}</span>{% endif %}</h1>
 {% endblock %}
 
 {% block backend_container %}
 <div class="container">
-{% if course and course.status == 'WAIT_FOR_APPROVAL' %}
+    {% if course and course.status == 'WAIT_FOR_APPROVAL' %}
     <div class="form-message">
-        <p class="head1">Editing course is not allowed while course information is being review.</p>
-        <p>Please wait for us to get back to you. Usually this process will not take more than 48 hours.</p>
+        <p class="head1">Please be aware that our staff is reviewing this course information.</p>
+        <p>Any changes might not be seen by our staff and is subject to our decision to approve or reject this course. Usually our review process will not take more than 48 hours.</p>
         <div><a href="{% url 'view_all_my_courses_teaching' %}">Go back to my teaching courses</a></div>
     </div>
-{% else %}
-    <div class="form-actions">
-        <span class="message"></span>
-        {% if course.status == 'WAIT_FOR_APPROVAL' or course.status == 'READY_TO_PUBLISH' or course.status == 'PUBLISHED' %}
-            <button class="style-button button-discard" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="save">Discard changes</button>
-            <button class="style-orange-button button-update" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Update</button>
-        {% else %}
-            <button class="style-button button-draft" disabled="disabled" type="submit" name="submit" value="save">Save as draft</button>
-            <button class="style-orange-button button-submit" {% if completeness != 100 %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Submit for Approval</button>
-        {% endif %}
+    {% endif %}
+
+    <div class="form-header">
+        <div class="completeness">
+            <div class="head">Course Completeness</div>
+            <div class="progress"><div class="bar"{% if course %} style="width:{{ completeness }}%;"{% endif %}></div></div>
+            <div class="percentage">{% if not course %}0{% else %}{{ completeness }}{% endif %}%</div>
+        </div>
+
+        <div class="form-actions">
+            <span class="message"></span>
+            {% if course.status == 'WAIT_FOR_APPROVAL' or course.status == 'READY_TO_PUBLISH' or course.status == 'PUBLISHED' %}
+                <button class="style-button button-discard" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="save">Discard changes</button>
+                <button class="style-orange-button button-update" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Update</button>
+            {% else %}
+                <button class="style-button button-draft" disabled="disabled" type="submit" name="submit" value="save">Save as draft</button>
+                <button class="style-orange-button button-submit" {% if completeness != 100 %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Submit for Approval</button>
+            {% endif %}
+        </div>
     </div>
 
     <div class="row">
         <div class="span2">
             <div class="form-navigation">
-                <ul class="style-sidebar-nav">
+                <ul class="style-sidebar-navigation">
                     <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
                     <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
                     <li class="pictures"><a href="#content-pictures"><i class="icon-picture icon-large"></i> Cover & Pictures</a></li>
@@ -291,6 +295,5 @@ $(document).ready(function() {
             <a href="{% url 'view_all_my_courses_teaching' %}" class="style-primary-button">Aye aye!</a>
         </div>
     </div>
-{% endif %}
 </div>
 {% endblock %}

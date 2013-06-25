@@ -74,7 +74,7 @@ def course_place_options(course):
 def get_course_undefined_place(course):
     if course and course.pk:
         place = course.get_editing_place()
-        return place if place.is_userdefined else None
+        return place if place and place.is_userdefined else Place()
     else:
         return Place()
 

@@ -16,8 +16,6 @@
     <link rel="icon" href="{{ STATIC_URL }}favicon.ico" />
     {% endcomment %}
 
-
-
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.min.css">
@@ -35,23 +33,6 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/royalslider/skins/default/rs-default.css">
 
     <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css">
-
-
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.iframe-transport.js"></script>
-
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/locales/bootstrap-datepicker.th.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.progressbar/bootstrap-progressbar.min.js"></script>
-
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/pnotify/jquery.pnotify.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/select2/select2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/slider/js/bootstrap-slider.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/redactor/redactor.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}libs/royalslider/jquery.royalslider.min.js"></script>
-
 
     <!--<script src="{{ STATIC_URL }}libs/modernizr-2.6.2-respond-1.1.0.min.js"></script> Firefox Don't Remember Scroll Position-->
 </head>
@@ -237,10 +218,31 @@
         </div>
     </div>
 </div>
+{% endif %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.iframe-transport.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/locales/bootstrap-datepicker.th.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.progressbar/bootstrap-progressbar.min.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}libs/pnotify/jquery.pnotify.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/select2/select2.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/slider/js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/redactor/redactor.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/royalslider/jquery.royalslider.min.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/scripts.base.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
+
+{% if not user.is_authenticated %}
 <script>
-$(document).ready(function() {
+(function() {
     var registration_modal = $('#registration-modal');
-    //registration_modal.modal();
 
     $('#body-top').find('.registration .login').on('click', function() {
         registration_modal.find('.backend-social').show();
@@ -308,16 +310,12 @@ $(document).ready(function() {
 
         return false;
     });
-});
+})();
 </script>
 {% endif %}
 
-
-
-<script type="text/javascript" src="{{ STATIC_URL }}js/scripts.base.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
-
 {% block scripts %}{% endblock %}
+{% block modals %}{% endblock %}
 
 {% comment %}
 <script>
