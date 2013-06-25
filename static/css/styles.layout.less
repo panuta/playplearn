@@ -7,6 +7,151 @@ html, body {
     height: 100%;
 }
 
+#body-top {
+    background-color: #555;
+    //background: url(../images/banner-bar-bg.gif) repeat;
+    height: 32px;
+
+    .social {
+        border-left: 1px solid #444;
+        border-right: 1px solid #777;
+        float: left;
+        height: 32px;
+
+        ul {
+            margin: 0;
+
+            li {
+                border-left: 1px solid #777;
+                border-right: 1px solid #444;
+                display: inline-block;
+                height: 32px;
+                list-style: none;
+
+                a {
+                    color: #DDD;
+                    display: block;
+                    font-size: 12px;
+                    line-height: 32px;
+                    padding: 0 14px;
+
+                    i {
+                        margin-right: 2px;
+                        vertical-align: 0;
+                    }
+
+                    &:hover {
+                        background-color: @linkColor;
+                        color: #FFF;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .account {
+        float: right;
+        height: 32px;
+
+        ul.parent {
+            margin: 0;
+
+            li.parent-item {
+                border-left: 1px solid #777;
+                border-right: 1px solid #444;
+                display: inline-block;
+                height: 32px;
+                list-style: none;
+
+                a.link {
+                    color: #DDD;
+                    display: block;
+                    font-size: 12px;
+                    line-height: 32px;
+                    padding: 0 14px;
+
+                    i {
+                        margin-right: 2px;
+                        vertical-align: 0;
+
+                        &.icon-caret-down {
+                            margin-left: 1px;
+                        }
+                    }
+
+                    &:hover, &:active, &:focus {
+                        background-color: @linkColor;
+                        color: #FFF;
+                        text-decoration: none;
+                    }
+
+                    .num {
+                        background-color: #FFF;
+                        border-radius: 4px;
+                        color: #555;
+                        font-size: 11px;
+                        font-weight: bold;
+                        line-height: normal;
+                        margin-left: 6px;
+                        padding: 1px 5px;
+                    }
+                }
+
+                .dropdown-menu {
+                    i {
+                        margin-right: 1px;
+                        vertical-align: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .registration {
+        border-left: 1px solid #444;
+        border-right: 1px solid #777;
+    }
+
+    .user {
+        ul.parent li.parent-item {
+            &.username {
+                border-left: none;
+
+                a.link {
+                    color: #EEE;
+                    font-weight: bold;
+                    margin-right: 15px;
+                    padding: 0;
+
+                    &:hover, &:active {
+                        background-color: transparent;
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            &.messages {
+                a.link {
+                    padding: 0 11px;
+                }
+            }
+
+            &.settings {
+                a.link {
+                    padding: 0 12px;
+                }
+            }
+
+            &.logout {
+                a.link {
+                    padding: 0 10px;
+                }
+            }
+        }
+    }
+}
+
 #body-footer, .push {
     height: 4em;
 }

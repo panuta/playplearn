@@ -763,6 +763,118 @@ body {
   background-color: #FFF;
   height: 100%;
 }
+#body-top {
+  background-color: #555;
+  height: 32px;
+}
+#body-top .social {
+  border-left: 1px solid #444;
+  border-right: 1px solid #777;
+  float: left;
+  height: 32px;
+}
+#body-top .social ul {
+  margin: 0;
+}
+#body-top .social ul li {
+  border-left: 1px solid #777;
+  border-right: 1px solid #444;
+  display: inline-block;
+  height: 32px;
+  list-style: none;
+}
+#body-top .social ul li a {
+  color: #DDD;
+  display: block;
+  font-size: 12px;
+  line-height: 32px;
+  padding: 0 14px;
+}
+#body-top .social ul li a i {
+  margin-right: 2px;
+  vertical-align: 0;
+}
+#body-top .social ul li a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: none;
+}
+#body-top .account {
+  float: right;
+  height: 32px;
+}
+#body-top .account ul.parent {
+  margin: 0;
+}
+#body-top .account ul.parent li.parent-item {
+  border-left: 1px solid #777;
+  border-right: 1px solid #444;
+  display: inline-block;
+  height: 32px;
+  list-style: none;
+}
+#body-top .account ul.parent li.parent-item a.link {
+  color: #DDD;
+  display: block;
+  font-size: 12px;
+  line-height: 32px;
+  padding: 0 14px;
+}
+#body-top .account ul.parent li.parent-item a.link i {
+  margin-right: 2px;
+  vertical-align: 0;
+}
+#body-top .account ul.parent li.parent-item a.link i.icon-caret-down {
+  margin-left: 1px;
+}
+#body-top .account ul.parent li.parent-item a.link:hover,
+#body-top .account ul.parent li.parent-item a.link:active,
+#body-top .account ul.parent li.parent-item a.link:focus {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: none;
+}
+#body-top .account ul.parent li.parent-item a.link .num {
+  background-color: #FFF;
+  border-radius: 4px;
+  color: #555;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: normal;
+  margin-left: 6px;
+  padding: 1px 5px;
+}
+#body-top .account ul.parent li.parent-item .dropdown-menu i {
+  margin-right: 1px;
+  vertical-align: 0;
+}
+#body-top .registration {
+  border-left: 1px solid #444;
+  border-right: 1px solid #777;
+}
+#body-top .user ul.parent li.parent-item.username {
+  border-left: none;
+}
+#body-top .user ul.parent li.parent-item.username a.link {
+  color: #EEE;
+  font-weight: bold;
+  margin-right: 15px;
+  padding: 0;
+}
+#body-top .user ul.parent li.parent-item.username a.link:hover,
+#body-top .user ul.parent li.parent-item.username a.link:active {
+  background-color: transparent;
+  text-decoration: underline;
+}
+#body-top .user ul.parent li.parent-item.messages a.link {
+  padding: 0 11px;
+}
+#body-top .user ul.parent li.parent-item.settings a.link {
+  padding: 0 12px;
+}
+#body-top .user ul.parent li.parent-item.logout a.link {
+  padding: 0 10px;
+}
 #body-footer,
 .push {
   height: 4em;

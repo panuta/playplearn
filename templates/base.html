@@ -62,6 +62,49 @@
 <![endif]-->
 <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
 
+<div id="body-top">
+    <div class="container">
+        {% spaceless %}
+        <div class="social">
+            <ul>
+                <li><a href="#" class="facebook"><i class="icon-facebook-sign"></i> Facebook</a></li>
+                <li><a href="#" class="twitter"><i class="icon-twitter-sign"></i> Twitter</a></li>
+                <li><a href="#" class="blog"><i class="icon-rss-sign"></i> Blog</a></li>
+            </ul>
+        </div>
+        <div class="account">
+            {% if user.is_authenticated %}
+                <div class="user">
+                    <ul class="parent">
+                        <li class="parent-item username"><a href="{% url 'view_my_profile' %}" class="link">Panu Tangchalermkul</a></li>
+                        <li class="parent-item messages"><a href="#" class="link"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
+                        <li class="parent-item my_courses">
+                            <div class="dropdown">
+                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i> My courses <i class="icon-caret-down"></i><span class="num">4</span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming course</a></li>
+                                    <li><a href="{% url 'view_my_courses_attended' %}">Attended course</a></li>
+                                    <li><a href="{% url 'view_all_my_courses_teaching' %}">Teaching course</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus-sign"></i> Create new course</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="parent-item settings"><a href="{% url 'edit_my_settings_profile' %}" class="link"><i class="icon-gear"></i></a></li>
+                        <li class="parent-item logout"><a href="{% url 'auth_logout' %}" class="link">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="registration">
+                    <ul class="parent">
+                        <li class="parent-item login"><a href="{% url 'view_user_login' %}?next={{ request.path }}" class="link">เข้าสู่ระบบ / สมัครสมาชิก</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        {% endspaceless %}
+    </div>
+</div>
 <div id="body-header">
     <div class="container">
         <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.png" /></a></div>
@@ -73,7 +116,7 @@
             </ul>
             <!--<div class="search"><input type="text" /></div>-->
         </div>
-        {% endcomment %}
+
         <div class="account">
             {% if user.is_authenticated %}
                 <div class="user">
@@ -101,6 +144,7 @@
                 </div>
             {% endif %}
         </div>
+        {% endcomment %}
     </div>
 </div>
 
@@ -198,7 +242,7 @@ $(document).ready(function() {
     var registration_modal = $('#registration-modal');
     //registration_modal.modal();
 
-    $('#body-header').find('.registration a').on('click', function() {
+    $('#body-top').find('.registration .login').on('click', function() {
         registration_modal.find('.backend-social').show();
         registration_modal.find('.backend-email').hide();
         registration_modal.find('.email-login .actions .error').remove();
