@@ -26,12 +26,12 @@
     });
 
     modal.on('show', function() {
-        modal.find('.feeling input').attr('checked', false);
+        modal.find('.feeling input').prop('checked', false);
         modal.find('textarea[name="content"]').val('');
     });
 
     $('.button-submit-feedback:not(.disabled)').on('click', function() {
-        modal.find('.modal-footer button').attr('disabled', true);
+        modal.find('.modal-footer button').prop('disabled', true);
 
         var enrollment_code = modal.data('enrollment-code');
         var content = modal.find('textarea[name="content"]').val();
@@ -42,7 +42,7 @@
         });
 
         var jqxhr = $.post('{% url 'ajax_add_course_feedback' %}', {code:enrollment_code, feelings:feelings, content:content}, function(response) {
-            modal.find('.modal-footer button').attr('disabled', false);
+            modal.find('.modal-footer button').prop('disabled', false);
 
             if(response.status == 'success') {
                 $.pnotify({
@@ -69,7 +69,7 @@
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            modal.find('.modal-footer button').attr('disabled', false);
+            modal.find('.modal-footer button').prop('disabled', false);
             _addModalErrorMessage('modal-write-feedback', 'Cannot submit feedback: ' + errorThrown);
         });
 

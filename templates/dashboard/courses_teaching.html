@@ -19,13 +19,13 @@
     }).on('changeDate', function() {
         publish_date_datepicker.data('is_dirty', true);
         if($('#id_publish_schedule_time').find('option:selected').length) {
-            publish_modal.find('.modal-footer .button-submit').attr('disabled', false);
+            publish_modal.find('.modal-footer .button-submit').prop('disabled', false);
         }
     });
 
     $('#id_publish_schedule_time').find('select').on('change', function() {
         if(publish_date_datepicker.data('is_dirty')) {
-            publish_modal.find('.modal-footer .button-submit').attr('disabled', false);
+            publish_modal.find('.modal-footer .button-submit').prop('disabled', false);
         }
     });
 
@@ -34,14 +34,14 @@
 
         publish_date_datepicker.datepicker('setDate', new Date());
         publish_date_datepicker.data('is_dirty', false);
-        $('#id_publish_schedule_time').find('option').attr('selected', false);
+        $('#id_publish_schedule_time').find('option').prop('selected', false);
 
-        publish_modal.find('.modal-footer .button-submit').attr('disabled', true);
-        publish_modal.find('.modal-footer .button-cancel').attr('disabled', false);
+        publish_modal.find('.modal-footer .button-submit').prop('disabled', true);
+        publish_modal.find('.modal-footer .button-cancel').prop('disabled', false);
     });
 
     publish_modal.find('.button-submit:not(.disabled)').on('click', function() {
-        publish_modal.find('.modal-footer button').attr('disabled', true);
+        publish_modal.find('.modal-footer button').prop('disabled', true);
 
         var schedule_date = publish_date_datepicker.datepicker('getFormattedDate');
         var schedule_time = $('#id_publish_schedule_time').find('option:selected').val();

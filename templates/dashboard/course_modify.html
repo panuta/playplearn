@@ -21,12 +21,17 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
 {% block backend_container %}
 <div class="container">
     {% if course and course.status == 'WAIT_FOR_APPROVAL' %}
-    <div class="form-message">
-        <p class="head1">Please be aware that our staff is reviewing this course information.</p>
-        <p>Any changes might not be seen by our staff and is subject to our decision to approve or reject this course. Usually our review process will not take more than 48 hours.</p>
-        <div><a href="{% url 'view_all_my_courses_teaching' %}">Go back to my teaching courses</a></div>
+    <div class="approving-message">
+        <p class="head1">Our staff is reviewing this course</p>
+        <p>Any changes you are going to make might not be seen by our staff. Usually our review process will not take more than 48 hours.</p>
+        <div><a href="#">Cancel approval request (Revert status back to Draft)</a></div>
     </div>
     {% endif %}
+
+    <div class="form-errors hide">
+        <button type="button" class="close">&times;</button>
+        <p>There is an error</p>
+    </div>
 
     <div class="form-header">
         <div class="completeness">
@@ -36,13 +41,16 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
         </div>
 
         <div class="form-actions">
-            <span class="message"></span>
+            <span class="loading hide"><img src="{{ STATIC_URL }}images/ui/loading.gif" /></span>
+            <span class="link preview hide"><i class="icon-external-link-sign"></i> <a href="#" target="">See preview</a></span>
+
             {% if course.status == 'WAIT_FOR_APPROVAL' or course.status == 'READY_TO_PUBLISH' or course.status == 'PUBLISHED' %}
-                <button class="style-button button-discard" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="save">Discard changes</button>
-                <button class="style-orange-button button-update" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Update</button>
+                <span class="link discard hide"><i class="icon-undo"></i> <a href="#">Discard changes</a></span>
+                <button class="style-button button-draft" disabled="disabled" type="button">Save draft</button>
+                <button class="style-orange-button button-submit button-submit-changes" {% if not editing_course.is_dirty %}disabled="disabled"{% endif %} type="button">Submit changes</button>
             {% else %}
-                <button class="style-button button-draft" disabled="disabled" type="submit" name="submit" value="save">Save as draft</button>
-                <button class="style-orange-button button-submit" {% if completeness != 100 %}disabled="disabled"{% endif %} type="submit" name="submit" value="submit">Submit for Approval</button>
+                <button class="style-button button-draft" disabled="disabled" type="button">Save draft</button>
+                <button class="style-orange-button button-submit button-submit-approval" {% if completeness != 100 %}disabled="disabled"{% endif %} type="button">Submit for Approval</button>
             {% endif %}
         </div>
     </div>
@@ -98,8 +106,8 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                                 <span>Upload cover image...</span>
                                 <input id="id_cover" type="file" name="cover">
                             </span>
-                            <div class="help-block">Cover image will automatically be resize to <strong>550x200</strong> and <strong>272x100</strong> pixels</div>
-                            <input type="hidden" id="id_cover_filename" value="{{ editing_course.cover.name }}" />
+                            <div class="help-block">Cover image will automatically be resize to <strong>510x160</strong> and <strong>255x80</strong> pixels</div>
+                            <input type="hidden" id="id_cover_filename" value="{% if editing_course.cover %}{{ editing_course.cover.name }}{% endif %}" />
                         </div>
                     </div>
                     <div class="control-group school-control">
@@ -112,7 +120,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                             <ul class="pictures" id="upload-pictures">
                                 {% for media in editing_course.get_editing_media %}
                                     <li class="picture" media-uid="{{ media.uid }}">
-                                        <div class="image"><i class="icon-reorder"></i><img src="{{ media.coursepicture.image|thumbnail_url:'course_picture_small' }}" /></div>
+                                        <div class="image"><i class="icon-reorder"></i><img src="{{ media.get_source.image|thumbnail_url:'course_picture_small' }}" /></div>
                                         <div class="description">
                                             <label>Describe this picture <input type="text" value="{{ media.description }}" /></label>
                                             <a href="#" class="delete">Delete picture</a>

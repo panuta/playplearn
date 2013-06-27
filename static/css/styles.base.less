@@ -436,11 +436,17 @@ form {
         vertical-align: middle;
     }
 
-    &:disabled {
-        background-color: #D9D9D9 !important;
-        box-shadow: 0px 3px 0px #CCC !important;
-        color: #AAA !important;
+    &[disabled] {
+        background-color: #D9D9D9;
+        box-shadow: 0px 3px 0px #CCC;
+        color: #AAA;
         cursor: default;
+
+        &:hover, &:focus {
+            background-color: #D9D9D9;
+            box-shadow: 0px 3px 0px #CCC;
+            color: #AAA;
+        }
     }
 }
 

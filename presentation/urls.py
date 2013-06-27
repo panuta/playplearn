@@ -61,7 +61,9 @@ urlpatterns += patterns(
     url(r'^ajax/course/picture/upload/$', 'ajax_upload_course_picture', name='ajax_upload_course_picture'),
     url(r'^ajax/course/picture/reorder/$', 'ajax_reorder_course_picture', name='ajax_reorder_course_picture'),
     url(r'^ajax/course/picture/delete/$', 'ajax_delete_course_picture', name='ajax_delete_course_picture'),
+    url(r'^ajax/course/submit/$', 'ajax_submit_course', name='ajax_submit_course'),
     url(r'^ajax/course/discard/$', 'ajax_discard_course_changes', name='ajax_discard_course_changes'),
+
     url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
 
     url(r'^ajax/course/schedule/add/$', 'ajax_add_course_schedule', name='ajax_add_course_schedule'),

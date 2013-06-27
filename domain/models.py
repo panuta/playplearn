@@ -248,20 +248,20 @@ class UserAccountBalanceTransaction(models.Model):
 
 class BasePlace(models.Model):
     name = models.CharField(max_length=500, blank=True)
-    code = models.CharField(max_length=100, blank=True, db_index=True, unique=True)
+    code = models.CharField(max_length=100, blank=True, db_index=True)
     address = models.CharField(max_length=500, blank=True)
     province_code = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=5, blank=True)
     phone_number = models.CharField(max_length=50, blank=True)
     direction = models.TextField(blank=True)
     latlng = models.CharField(max_length=50, blank=True)
-    is_userdefined = models.BooleanField()
 
     class Meta:
         abstract = True
 
 
 class Place(BasePlace):
+    is_userdefined = models.BooleanField()
     is_visible = models.BooleanField(default=True)  # Only applied to userdefined place
 
     class Meta:
@@ -307,7 +307,6 @@ class BaseCourse(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True)
     schools = models.ManyToManyField(CourseSchool, null=True)
-    place = models.ForeignKey(Place, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     price_unit = models.CharField(max_length=20, default='THB', choices=CURRENCY_CHOICES)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -355,6 +354,7 @@ def course_cover_dir(instance, filename):
 class Course(BaseCourse):
     uid = models.CharField(max_length=50, db_index=True, unique=True)
     cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
+    place = models.ForeignKey(Place, null=True)
     teacher = models.ForeignKey(UserAccount, related_name='courses')
 
     status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
@@ -444,18 +444,10 @@ class Course(BaseCourse):
     # UTILS
 
     def create_editing_course(self):
-        if self.cover:
-            editing_cover = ContentFile(self.cover.read())
-            editing_cover.name = editing_course_cover_dir(self, self.cover.name)
-        else:
-            editing_cover = None
-
         editing_course = EditingCourse.objects.create(
             course=self,
             title=self.title,
             description=self.description,
-            cover=editing_cover,
-            place=self.place,
             price=self.price,
             price_unit=self.price_unit,
             duration=self.duration,
@@ -464,6 +456,15 @@ class Course(BaseCourse):
             prerequisites=self.prerequisites,
             credentials=self.credentials,
         )
+
+        if self.cover:
+            editing_cover = ContentFile(self.cover.read())
+            editing_cover.name = editing_course_cover_dir(editing_course, self.cover.name)
+        else:
+            editing_cover = None
+
+        editing_course.cover = editing_cover
+        editing_course.save()
 
         editing_course.schools.add(*self.schools.all())
         editing_course.tags.add(*self.tags.all())
@@ -493,15 +494,38 @@ class Course(BaseCourse):
 
             if media.media_type == 'PICTURE':
                 EditingCoursePicture.objects.create(
-                    editing_media=editing_media,
+                    media=editing_media,
                     image=media.coursepicture.image,
                 )
 
             elif media.media_type == 'VIDEO_URL':
                 EditingCourseVideoURL.objects.create(
-                    editing_media=editing_media,
+                    media=editing_media,
                     url=media.url,
                 )
+
+        # Place
+        if self.place.is_userdefined:
+            editing_place = EditingPlace.objects.create(
+                course=self,
+                name=self.place.name,
+                code=self.place.code,
+                address=self.place.address,
+                province_code=self.place.province_code,
+                country=self.place.country,
+                phone_number=self.place.phone_number,
+                direction=self.place.direction,
+                latlng=self.place.latlng,
+                is_userdefined=self.place.phone_number,
+            )
+        else:
+            editing_place = EditingPlace.objects.create(
+                course=self,
+                defined_place=self.place,
+            )
+
+        editing_course.place = editing_place
+        editing_course.save()
 
         return editing_course
 
@@ -509,12 +533,13 @@ class Course(BaseCourse):
 def editing_course_cover_dir(instance, filename):
     rightnow = now()
     (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/editing-cover-%d.%s' % (instance.course.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
+    return 'users/%s/courses/%s/editing-cover-%d.%s' % (instance.course.teacher.uid, instance.course.uid, time.mktime(rightnow.timetuple()), ext)
 
 
 class EditingCourse(BaseCourse):
     course = models.OneToOneField(Course)
     cover = ThumbnailerImageField(upload_to=editing_course_cover_dir, null=True)
+    place = models.ForeignKey(EditingPlace, null=True)
     is_dirty = models.BooleanField(default=False)
 
     def get_editing_outlines(self):
@@ -528,7 +553,7 @@ class EditingCourse(BaseCourse):
 
     def get_editing_place(self):
         try:
-            return EditingPlace.objects.get(course=self)
+            return EditingPlace.objects.get(course=self.course)
         except EditingPlace.DoesNotExist:
             return None
 
@@ -592,11 +617,27 @@ class CourseOutlineMedia(BaseCourseOutlineMedia):
     course = models.ForeignKey(Course, related_name='outline_media')
     is_visible = models.BooleanField(default=False)
 
+    def get_source(self):
+        if self.media_type == 'PICTURE':
+            return self.coursepicture
+        elif self.media_type == 'VIDEO_URL':
+            return self.coursevideourl
+        else:
+            return None
+
 
 class EditingCourseOutlineMedia(BaseCourseOutlineMedia):
     course = models.ForeignKey(Course, related_name='editing_outline_media')
     is_new = models.BooleanField(default=True)
     mark_deleted = models.BooleanField(default=False)
+
+    def get_source(self):
+        if self.media_type == 'PICTURE':
+            return self.editingcoursepicture
+        elif self.media_type == 'VIDEO_URL':
+            return self.editingcoursevideourl
+        else:
+            return None
 
 
 def course_picture_dir(instance, filename):
@@ -610,7 +651,7 @@ class CoursePicture(models.Model):
 
 
 class EditingCoursePicture(models.Model):
-    editing_media = models.OneToOneField(EditingCourseOutlineMedia)
+    media = models.OneToOneField(EditingCourseOutlineMedia)
     image = ThumbnailerImageField(upload_to=course_picture_dir)
 
 
@@ -620,7 +661,7 @@ class CourseVideoURL(models.Model):
 
 
 class EditingCourseVideoURL(models.Model):
-    editing_media = models.OneToOneField(EditingCourseOutlineMedia)
+    media = models.OneToOneField(EditingCourseOutlineMedia)
     url = models.URLField()
 
 

@@ -359,11 +359,17 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
-.style-button:disabled {
-  background-color: #D9D9D9 !important;
-  box-shadow: 0px 3px 0px #CCC !important;
-  color: #AAA !important;
+.style-button[disabled] {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
   cursor: default;
+}
+.style-button[disabled]:hover,
+.style-button[disabled]:focus {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
 }
 .style-button:hover,
 .style-button:focus {
@@ -390,11 +396,17 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
-.style-orange-button:disabled {
-  background-color: #D9D9D9 !important;
-  box-shadow: 0px 3px 0px #CCC !important;
-  color: #AAA !important;
+.style-orange-button[disabled] {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
   cursor: default;
+}
+.style-orange-button[disabled]:hover,
+.style-orange-button[disabled]:focus {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
 }
 .style-orange-button:hover,
 .style-orange-button:focus {
@@ -420,11 +432,17 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
-.style-primary-button:disabled {
-  background-color: #D9D9D9 !important;
-  box-shadow: 0px 3px 0px #CCC !important;
-  color: #AAA !important;
+.style-primary-button[disabled] {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
   cursor: default;
+}
+.style-primary-button[disabled]:hover,
+.style-primary-button[disabled]:focus {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
 }
 .style-primary-button:hover,
 .style-primary-button:focus {
@@ -762,7 +780,7 @@ h1.style-page-header {
 }
 html,
 body {
-  background-color: #FFF;
+  background-color: #F1F1F1;
   height: 100%;
 }
 #body-top {
@@ -887,22 +905,6 @@ body {
 #body-footer,
 .push {
   height: 4em;
-}
-#body-header-homepage .logo {
-  margin-top: 60px;
-}
-#body-header-homepage .logo a {
-  display: block;
-  height: 38px;
-  margin: 0 auto;
-  width: 400px;
-}
-#body-header-homepage .subtitle {
-  color: #666;
-  font-size: 30px;
-  font-weight: 100;
-  margin: 30px auto 0;
-  text-align: center;
 }
 #body-header {
   height: 65px;
@@ -1764,10 +1766,21 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
+.page-homepage #body-header-homepage .logo {
+  margin-top: 70px;
+  text-align: center;
+}
+.page-homepage #body-header-homepage .subtitle {
+  color: #666;
+  font-size: 30px;
+  font-weight: 100;
+  margin-top: 25px;
+  text-align: center;
+}
 .page-homepage .call_to_action {
   background: url(../images/page/homepage/headline1.png) top center repeat-x;
   padding-top: 180px;
-  margin: 40px 0;
+  margin: 60px 0;
   text-align: center;
 }
 .page-homepage .call_to_action a {
@@ -1894,9 +1907,6 @@ body {
 }
 .page-homepage .latest-courses ul.courses li.left-box {
   margin-right: 66px;
-}
-.page-course-outline #body-header {
-  border-bottom: 1px solid #E9E9E9;
 }
 .page-course-outline .course-header {
   background-position: left top;
@@ -2765,30 +2775,54 @@ body {
 .page-course-modify .backend-header h1 .title {
   font-size: 20px;
 }
-.page-course-modify .form-message {
+.page-course-modify .approving-message {
+  background-color: #FFD;
   color: #555;
-  font-size: 16px;
-  margin-top: 40px;
+  font-size: 14px;
+  margin-top: 30px;
+  padding: 20px 50px;
   text-align: center;
 }
-.page-course-modify .form-message p {
-  margin-bottom: 15px;
+.page-course-modify .approving-message p {
+  line-height: 27px;
+  margin-bottom: 2px;
 }
-.page-course-modify .form-message .head1 {
-  font-size: 18px;
+.page-course-modify .approving-message .head1 {
+  font-size: 16px;
   font-weight: bold;
 }
-.page-course-modify .form-message a:link,
-.page-course-modify .form-message a:active,
-.page-course-modify .form-message a:visited {
-  color: #3a71a9;
+.page-course-modify .approving-message a {
+  font-size: 13px;
+}
+.page-course-modify .approving-message a:link,
+.page-course-modify .approving-message a:active,
+.page-course-modify .approving-message a:visited {
+  color: #888;
   text-decoration: underline;
 }
-.page-course-modify .form-message a:hover {
+.page-course-modify .approving-message a:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
+}
+.page-course-modify .form-errors {
+  background-color: #FCC;
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 8px 0;
+  text-align: center;
+}
+.page-course-modify .form-errors .close {
+  margin: -2px 10px 0 0;
+}
+.page-course-modify .form-errors p {
+  margin: 0;
+}
+.page-course-modify .form-header {
+  margin: 20px 0;
 }
 .page-course-modify .form-header .completeness {
   float: left;
@@ -2821,31 +2855,28 @@ body {
   vertical-align: middle;
 }
 .page-course-modify .form-header .form-actions {
-  margin: 20px 0;
+  padding-top: 5px;
   text-align: right;
 }
-.page-course-modify .form-header .form-actions .loading {
-  vertical-align: middle;
-}
-.page-course-modify .form-header .form-actions .preview {
+.page-course-modify .form-header .form-actions .link {
   vertical-align: bottom;
 }
-.page-course-modify .form-header .form-actions .preview .link-preview {
+.page-course-modify .form-header .form-actions .link a {
   font-size: 13px;
 }
-.page-course-modify .form-header .form-actions .preview .link-preview:link,
-.page-course-modify .form-header .form-actions .preview .link-preview:active,
-.page-course-modify .form-header .form-actions .preview .link-preview:visited {
+.page-course-modify .form-header .form-actions .link a:link,
+.page-course-modify .form-header .form-actions .link a:active,
+.page-course-modify .form-header .form-actions .link a:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-course-modify .form-header .form-actions .preview .link-preview:hover {
+.page-course-modify .form-header .form-actions .link a:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
-.page-course-modify .form-header .form-actions .preview i {
+.page-course-modify .form-header .form-actions .link i {
   color: #777;
   font-size: 12px;
   margin-right: 2px;
@@ -2884,6 +2915,7 @@ body {
 }
 .page-course-modify .form-content {
   margin-top: 10px;
+  padding-bottom: 30px;
 }
 .page-course-modify .form-content .control-group {
   margin-bottom: 20px;
@@ -3011,9 +3043,9 @@ body {
 }
 .page-course-modify .form-content .cover-control .cover {
   border: 1px solid #DDD;
-  height: 100px;
+  height: 80px;
   margin-bottom: 15px;
-  width: 275px;
+  width: 255px;
 }
 .page-course-modify .form-content .cover-control .cover .progress {
   height: 20px;

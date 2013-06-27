@@ -271,9 +271,9 @@
         var password = registration_modal.find('.email-login input[name="password"]').val();
 
         if(email && password) {
-            registration_modal.find('.email-login button').attr('disabled', true);
+            registration_modal.find('.email-login button').prop('disabled', true);
             var jqxhr = $.post('/ajax/email/login/', {email:email, password:password}, function(response) {
-                registration_modal.find('.email-login button').attr('disabled', false);
+                registration_modal.find('.email-login button').prop('disabled', false);
                 if(response.status == 'success') {
                     window.location.reload();
                 } else {
@@ -283,7 +283,7 @@
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                registration_modal.find('.email-login button').attr('disabled', false);
+                registration_modal.find('.email-login button').prop('disabled', false);
                 registration_modal.find('.email-login .actions .error').remove();
                 registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + errorThrown + '</div>');
             });
@@ -296,9 +296,9 @@
         var email = registration_modal.find('.email-register input[name="email"]').val();
 
         if(email) {
-            registration_modal.find('.email-register button').attr('disabled', true);
+            registration_modal.find('.email-register button').prop('disabled', true);
             var jqxhr = $.post('/ajax/email/register/', {email:email}, function(response) {
-                registration_modal.find('.email-register button').attr('disabled', false);
+                registration_modal.find('.email-register button').prop('disabled', false);
                 if(response.status == 'success') {
                     registration_modal.modal('hide');
                     _alertModal('success', 'Register successful', 'Please confirm your email address from an email we sent to you.');
@@ -309,7 +309,7 @@
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                registration_modal.find('.email-register button').attr('disabled', false);
+                registration_modal.find('.email-register button').prop('disabled', false);
                 registration_modal.find('.email-register .actions .error').remove();
                 registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + errorThrown + '</div>');
             });

@@ -33,13 +33,13 @@
     }).on('changeDate', function() {
         datepicker_obj.data('is_dirty', true);
         if(modal.find('.time option:selected').length) {
-            modal.find('.modal-footer .button-submit').attr('disabled', false);
+            modal.find('.modal-footer .button-submit').prop('disabled', false);
         }
     });
 
     modal.find('.time').on('change', function() {
         if(datepicker_obj.data('is_dirty')) {
-            modal.find('.modal-footer .button-submit').attr('disabled', false);
+            modal.find('.modal-footer .button-submit').prop('disabled', false);
         }
     });
 
@@ -51,17 +51,17 @@
     $(trigger).on('click', function() {
         datepicker_obj.datepicker('setDate', new Date());
         datepicker_obj.data('is_dirty', false);
-        modal.find('.time option').attr('selected', false);
+        modal.find('.time option').prop('selected', false);
 
-        modal.find('.modal-footer .button-submit').attr('disabled', true);
-        modal.find('.modal-footer .button-cancel').attr('disabled', false);
+        modal.find('.modal-footer .button-submit').prop('disabled', true);
+        modal.find('.modal-footer .button-cancel').prop('disabled', false);
 
         modal.modal();
         return false;
     });
 
     modal.find('.button-submit:not(.disabled)').on('click', function() {
-        modal.find('.modal-footer button').attr('disabled', true);
+        modal.find('.modal-footer button').prop('disabled', true);
 
         var schedule_date = datepicker_obj.datepicker('getFormattedDate');
         var schedule_time = modal.find('.time option:selected').val();
@@ -82,7 +82,7 @@
                 modal.modal('hide');
 
             } else {
-                modal.find('.modal-footer button').attr('disabled', false);
+                modal.find('.modal-footer button').prop('disabled', false);
 
                 if(response.message) {
                     _addModalErrorMessage('modal-add-class', response.message);
@@ -93,7 +93,7 @@
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            modal.find('.modal-footer button').attr('disabled', false);
+            modal.find('.modal-footer button').prop('disabled', false);
             _addModalErrorMessage('modal-add-class', 'Error: ' + errorThrown);
         });
     });

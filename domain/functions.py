@@ -11,6 +11,7 @@ from domain.models import EditingCourseOutline, CourseOutline, CourseSchool, Cou
 # COURSE DASHBOARD #####################################################################################################
 
 def calculate_course_completeness(course):
+    # TODO return which one is incomplete
     has_changes = course.status == 'PUBLISHED' and EditingCourseOutline.objects.filter(course=course).exists()
 
     percentage = 0
@@ -21,12 +22,12 @@ def calculate_course_completeness(course):
         percentage += 20 if course.description else 0
 
         percentage += 10 if course.cover else 0
-        percentage += 10 if CourseOutlineMedia.objects.filter(course=course).exclude(description='').exists() else 0
+        percentage += 10 if CourseOutlineMedia.objects.filter(course=course).exists() else 0
 
         percentage += 5 if course.schools.exists() else 0
         percentage += 5 if course.tags.exists() else 0
         percentage += 5 if course.level else 0
-        percentage += 5 if course.price else 0
+        percentage += 5 if course.price and course.price >= settings.COURSE_PRICE_MINIMUM else 0
         percentage += 5 if course.duration else 0
         percentage += 5 if course.maximum_people else 0
 
@@ -40,12 +41,12 @@ def calculate_course_completeness(course):
         percentage += 20 if editing_course.description else 0
 
         percentage += 10 if editing_course.cover else 0
-        percentage += 10 if EditingCourseOutlineMedia.objects.filter(course=course).exclude(description='').exists() else 0
+        percentage += 10 if EditingCourseOutlineMedia.objects.filter(course=course).exists() else 0
 
         percentage += 5 if editing_course.schools.exists() else 0
         percentage += 5 if editing_course.tags.exists() else 0
         percentage += 5 if editing_course.level else 0
-        percentage += 5 if editing_course.price else 0
+        percentage += 5 if editing_course.price and editing_course.price >= settings.COURSE_PRICE_MINIMUM else 0
         percentage += 5 if editing_course.duration else 0
         percentage += 5 if editing_course.maximum_people else 0
 
@@ -447,8 +448,8 @@ def persist_course_changes(course):
                 ordering=editing_outline.ordering,
             ))
 
-        EditingCourseOutline.objects.bulk_create(bulk)
-        CourseOutline.objects.filter(course=course).delete()
+        CourseOutline.objects.bulk_create(bulk)
+        EditingCourseOutline.objects.filter(course=course).delete()
 
     if EditingCourseOutlineMedia.objects.filter(course=course).exists():
         for editing_media in EditingCourseOutlineMedia.objects.filter(course=course):
@@ -475,7 +476,7 @@ def persist_course_changes(course):
                         url=editing_media.coursevideourl.url,
                     )
 
-            elif not editing_media.is_new and editing_media.marked_deleted:
+            elif not editing_media.is_new and editing_media.mark_deleted:
                 # Remove old file
 
                 try:
@@ -492,8 +493,8 @@ def persist_course_changes(course):
 
                     media.delete()
 
-        EditingCoursePicture.objects.filter(editing_media__course=course).delete()
-        EditingCourseVideoURL.objects.filter(editing_media__course=course).delete()
+        EditingCoursePicture.objects.filter(media__course=course).delete()
+        EditingCourseVideoURL.objects.filter(media__course=course).delete()
         EditingCourseOutlineMedia.objects.filter(course=course).delete()
 
     try:
@@ -501,7 +502,7 @@ def persist_course_changes(course):
     except EditingPlace.DoesNotExist:
         pass
     else:
-        if editing_place.is_userdefined:
+        if not editing_place.defined_place:
             if not course.place.is_userdefined:
                 course.place = Place.objects.create(
                     is_userdefined=True,
@@ -529,6 +530,8 @@ def persist_course_changes(course):
             course.place = editing_place.defined_place
             course.save()
 
+        editing_place.delete()
+
 
 def discard_course_changes(course):
     EditingCourse.objects.filter(course=course).delete()
@@ -536,14 +539,14 @@ def discard_course_changes(course):
 
     for editing_media in EditingCourseOutlineMedia.objects.filter(course=course):
         if editing_media.media_type == 'PICTURE':
-            editing_media_picture = EditingCoursePicture.objects.get(editing_media=editing_media)
+            editing_media_picture = EditingCoursePicture.objects.get(media=editing_media)
 
             if editing_media.is_new:
                 editing_media_picture.image.delete()
 
             editing_media_picture.delete()
         elif editing_media.media_type == 'VIDEO_URL':
-            editing_media_video = EditingCourseVideoURL.objects.get(editing_media=editing_media)
+            editing_media_video = EditingCourseVideoURL.objects.get(media=editing_media)
             editing_media_video.delete()
 
         editing_media.delete()

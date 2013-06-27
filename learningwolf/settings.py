@@ -23,7 +23,7 @@ DATABASES = {
         }
 }
 
-WEBSITE_NAME = 'Learning Wolf'
+WEBSITE_NAME = 'Little Big Skills'
 WEBSITE_URL = 'http://127.0.0.1:8000'
 WEBSITE_DOMAIN = '127.0.0.1:8000'
 

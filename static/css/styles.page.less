@@ -90,10 +90,25 @@
 }
 
 .page-homepage {
+    #body-header-homepage {
+        .logo {
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 30px;
+            font-weight: 100;
+            margin-top: 25px;
+            text-align: center;
+        }
+    }
+
     .call_to_action {
         background: url(../images/page/homepage/headline1.png) top center repeat-x;
         padding-top: 180px;
-        margin: 40px 0;
+        margin: 60px 0;
         text-align: center;
 
         a {
@@ -235,7 +250,7 @@
 
 .page-course-outline {
     #body-header {
-        border-bottom: 1px solid #E9E9E9;
+        //border-bottom: 1px solid #E9E9E9;
     }
 
     .course-header {
@@ -1212,27 +1227,51 @@
         }
     }
 
-    .form-message {
+    .approving-message {
+        background-color: #FFD;
         color: #555;
-        font-size: 16px;
-        margin-top: 40px;
+        font-size: 14px;
+        margin-top: 30px;
+        padding: 20px 50px;
         text-align: center;
 
         p {
-            margin-bottom: 15px;
+            line-height: 27px;
+            margin-bottom: 2px;
         }
 
         .head1 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
         }
 
         a {
-            .content_link;
+            .grey_link;
+            font-size: 13px;
+        }
+    }
+
+    .form-errors {
+        background-color: #FCC;
+        color: #444;
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 20px;
+        padding: 8px 0;
+        text-align: center;
+
+        .close {
+            margin: -2px 10px 0 0;
+        }
+
+        p {
+            margin: 0;
         }
     }
 
     .form-header {
+        margin: 20px 0;
+
         .completeness {
             float: left;
 
@@ -1269,20 +1308,15 @@
         }
 
         .form-actions {
-            margin: 20px 0;
+            padding-top: 5px;
             text-align: right;
 
-            .loading {
-                vertical-align: middle;
-            }
-
-            .preview {
+            .link {
                 vertical-align: bottom;
 
-                .link-preview {
+                a {
                     .grey_link;
                     font-size: 13px;
-
                 }
 
                 i {
@@ -1341,6 +1375,7 @@
 
     .form-content {
         margin-top: 10px;
+        padding-bottom: 30px;
 
         .control-group {
             margin-bottom: 20px;
@@ -1496,9 +1531,9 @@
 
             .cover {
                 border: 1px solid #DDD;
-                height: 100px;
+                height: 80px;
                 margin-bottom: 15px;
-                width: 275px;
+                width: 255px;
 
                 .progress {
                     height: 20px;

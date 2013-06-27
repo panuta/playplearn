@@ -23,48 +23,60 @@ function initCourseModifyPage() {
         }
     });*/
 
-    // Form Actions
+    // BINDING FORM ACTIONS
+
     $('.form-actions .button-draft').on('click', function() {
         _is_dirty = true;
         _is_very_dirty = true;
-        autosave('', function(response) {
-            window.location = response.data.edit_url;
-        });
+        autosave();
         return false;
     });
 
-    $('.form-actions .button-submit').on('click', function() {
+    $('.form-actions .button-submit-approval').on('click', function() {
         _is_dirty = true;
         _is_very_dirty = true;
-        autosave('submit', function(response) {
+
+        $('.form-actions').one('submitted', function(e, response) {
             $('#modal-course-submitted').modal();
         });
+
+        submit();
         return false;
     });
 
-    $('.form-actions .button-discard').on('click', function() {
+    $('.form-actions .button-submit-changes').on('click', function() {
+        _is_dirty = true;
+        _is_very_dirty = true;
+
+        $('.form-actions').one('submitted', function(e, response) {
+            window.location = '/my/courses/teaching/';
+        });
+
+        submit();
+        return false;
+    });
+
+    $(document).on('click', '.form-actions .discard a', function() {
         var jqxhr = $.post('/ajax/course/discard/', {uid:_course_uid}, function(response) {
             if(response.status == 'success') {
                 window.location = response.data.edit_url;
             } else {
                 if(response.message) {
-                    _autosave_error('Cannot save: ' + response.message);
+                    _show_form_error('Cannot save: ' + response.message);
                 } else {
-                    _autosave_error('Cannot save: Unknown error');
+                    _show_form_error('Cannot save: Unknown error');
                 }
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _autosave_error('Cannot save: ' + errorThrown);
+            _show_form_error('Cannot save: ' + errorThrown);
         });
+        return false;
     });
 
-    $('.form-actions .button-update').on('click', function() {
-        _is_dirty = true;
-        _is_very_dirty = true;
-        autosave('update');
-        return false;
+    $('.form-errors .close').on('click', function() {
+        $('.form-errors').hide();
     });
 
     // Initialize Course Outline
@@ -145,7 +157,7 @@ function initCourseModifyPage() {
             url: '/ajax/course/cover/upload/',
             formData: function (form) {return [{name:'uid', value:_course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}];},
             add: function (e, data) {
-                $('.form-actions button').attr('disabled', true);
+                $('.form-actions button').prop('disabled', true);
 
                 var file = data.files[0];
 
@@ -155,7 +167,7 @@ function initCourseModifyPage() {
                     upload_cover.html('<div class="error">Image file size is too large<br/>(Max 3 megabytes)</div>').show();
                 } else {
                     upload_cover.html('<div class="progress progress-striped"><div class="bar"></div></div>').show();
-                    cover_form.attr('disabled', true);
+                    cover_form.prop('disabled', true);
                     data.submit();
                 }
             },
@@ -168,14 +180,14 @@ function initCourseModifyPage() {
                 upload_cover.find('.bar').attr('data-percentage', 100);
                 upload_cover.find('.bar').progressbar({display_text: 1});
 
-                cover_form.attr('disabled', false);
+                cover_form.prop('disabled', false);
 
                 var response = data.result;
 
                 if(response.status == 'success') {
                     upload_cover.html('<img src="' + response.data.cover_url + '" height="100" width="275" />');
                     $('#id_cover_filename').val(response.data.cover_filename);
-                    _set_completeness(response.data.completeness)
+
 
                 } else if(response.status == 'error') {
                     if(response.message) {
@@ -185,14 +197,14 @@ function initCourseModifyPage() {
                     }
                 }
 
-                _reset_action_buttons();
+                _reset_form_header();
             },
             fail: function (e, data) {
                 upload_cover.html('<div class="error">Upload error</div>')
-                _reset_action_buttons();
+                _reset_form_header();
             }
         });
-        cover_form.attr('disabled', false);
+        cover_form.prop('disabled', false);
 
         var upload_pictures = $('#upload-pictures');
         var upload_pictures_ordering = $('#id_pictures_ordering');
@@ -202,7 +214,7 @@ function initCourseModifyPage() {
             sequentialUploads: true,
             formData: function (form) {return [{name:'uid', value:_course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}, {name:'ordering', value: upload_pictures_ordering.val()}];},
             add: function (e, data) {
-                $('.form-actions button').attr('disabled', true);
+                $('.form-actions button').prop('disabled', true);
 
                 var file = data.files[0];
                 var errorObject = null;
@@ -246,7 +258,6 @@ function initCourseModifyPage() {
                     data.context.attr('media-uid', response.data.media_uid);
 
                     _set_picture_events(data.context);
-                    _set_completeness(response.data.completeness)
 
                 } else if(response.status == 'error') {
                     data.context.removeClass('uploading').addClass('error');
@@ -258,7 +269,7 @@ function initCourseModifyPage() {
                     }
                 }
 
-                _reset_action_buttons();
+                _reset_form_header();
             },
             fail: function (e, data) {
                 if (data.errorThrown == 'abort') {
@@ -267,7 +278,7 @@ function initCourseModifyPage() {
                     data.context.removeClass('uploading').addClass('error');
                     data.context.html('<em>Upload error</em><div class="dismiss"><a href="#">Dismiss</a></div>');
                 }
-                _reset_action_buttons();
+                _reset_form_header();
             }
         });
 
@@ -305,7 +316,7 @@ function initCourseModifyPage() {
         });
 
         $(document).on('click', '.button-picture-remove', function() {
-            $('.form-actions button').attr('disabled', true);
+            $('.form-actions button').prop('disabled', true);
 
             if($(this).hasClass('disabled')) {
                 return false;
@@ -322,8 +333,6 @@ function initCourseModifyPage() {
                     upload_pictures.find('li[media-uid=' + media_uid + ']').fadeOut(function() {
                         $(this).remove();
                     });
-                    _set_completeness(response.data.completeness);
-
                 } else {
                     delete_actions.removeClass('disabled');
                     delete_link.popover('hide');
@@ -335,7 +344,7 @@ function initCourseModifyPage() {
                     }
                 }
 
-                _reset_action_buttons();
+                _reset_form_header();
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
@@ -440,12 +449,10 @@ function initCourseModifyPage() {
         });
     }
 
-    //$('#modal-course-submitted').modal();
-
     var form_title = $('#id_title');
     var form_outline = $('#control_outline_list');
     var form_story = $('#id_story');
-    var form_cover = $('#cover_filename');
+    var form_cover = $('#id_cover_filename');
     var form_pictures = $('#upload-pictures');
     var form_pictures_ordering = $('#id_pictures_ordering');
     var form_school = $('#id_school');
@@ -461,12 +468,7 @@ function initCourseModifyPage() {
     var _is_dirty = false;
     var autosave_timer = null;
 
-    function autosave(next_action, callback) {
-        _is_saving = true;
-        $('.form-actions .message').html('<span class="loading"><img src="/static/images/ui/loading.gif" /></span>');
-        $('.form-actions button').attr('disabled', true);
-
-        _is_dirty = false;
+    function collect_data() {
         var data = {};
 
         if(form_title.data('dirty') || _is_very_dirty) {
@@ -570,105 +572,147 @@ function initCourseModifyPage() {
             if(data.hasOwnProperty(key)) is_data_empty = false;
         }
 
-        if(!is_data_empty) {
+        if(is_data_empty) {
+            return null;
+        } else {
             data['uid'] = _course_uid;
+            return data;
+        }
+    }
 
-            if(next_action != undefined) {
-                data['next_action'] = next_action;
-            }
+    function autosave() {
+        _is_saving = true;
+        $('.form-actions .loading').show();
+        $('.form-actions button').prop('disabled', true);
+        $('.form-actions .discard').hide();
 
+        var data = collect_data();
+
+        if(data) {
             var jqxhr = $.post('/ajax/course/autosave/', data, function(response) {
+                $('.form-actions .loading').hide();
+
                 if(response.status == 'success') {
-                    $('.form-actions .message').html('<span class="preview"><i class="icon-external-link-sign"></i> <a href="' + response.preview_url + '" class="link-preview">See preview</a></span>');
+                    $('.form-actions .discard').show();
+                    $('.form-actions .preview a').attr('href', response.data.preview_url).attr('target', 'course-preview-' + response.data.course_uid).show();
                 } else {
                     if(response.message) {
-                        _autosave_error('Cannot save: ' + response.message);
+                        _show_form_error('Cannot save: ' + response.message);
                     } else {
-                        _autosave_error('Cannot save: Unknown error');
+                        _show_form_error('Cannot save: Unknown error');
                     }
                 }
+                _is_saving = false;
+                _is_dirty = false;
+                _is_very_dirty = false;
+                _reset_form_header();
 
-                if(callback != undefined) {
-                    callback(response);
-                } else {
-                    _after_autosave(response);
-                }
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                _autosave_error('Cannot save: ' + errorThrown);
-
-                if(callback == undefined) {
-                    _after_autosave();
-                }
+                $('.form-actions .loading').hide();
+                _show_form_error('Cannot save: ' + errorThrown);
+                _is_saving = false;
+                _is_dirty = false;
+                _is_very_dirty = false;
+                _reset_form_header();
             });
         }
-        _is_very_dirty = false;
     }
 
-    function _autosave_error(message) {
-        $('.form-actions .message').html('<span class="error-message">' + message + '</span>');
-    }
+    function submit() {
+        _is_saving = true;
+        $('.form-actions .loading').show();
+        $('.form-actions button').prop('disabled', true);
+        $('.form-actions .discard').hide();
 
-    function _set_completeness(completeness) {
-        $('.completeness .bar').css('width', completeness + '%');
-        $('.completeness .percentage').text(completeness + '%');
-    }
+        var data = collect_data();
 
-    function _reset_action_buttons() {
-        $('.form-actions .button-draft').attr('disabled', false);
-        $('.form-actions .button-submit').attr('disabled', !is_publishable());
-        $('.form-actions .button-discard').attr('disabled', false);
-        $('.form-actions .button-update').attr('disabled', !is_publishable());
-    }
+        if(data) {
+            var jqxhr = $.post('/ajax/course/submit/', data, function(response) {
+                $('.form-actions .loading').hide();
 
-    function _after_autosave(response) {
-        if(response && response.data && response.data.completeness) {
-            _set_completeness(response.data.completeness);
+                if(response.status == 'success') {
+                    $('.form-actions .discard').show();
+                    $('.form-actions .preview a').attr('href', response.data.preview_url).attr('target', 'course-preview-' + response.data.course_uid).show();
+                    $('.form-actions').trigger('submitted');
+                } else {
+                    if(response.message) {
+                        _show_form_error('Cannot save: ' + response.message);
+                    } else {
+                        _show_form_error('Cannot save: Unknown error');
+                    }
+                }
+                _is_saving = false;
+                _is_dirty = false;
+                _is_very_dirty = false;
+                _reset_form_header();
+
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                $('.form-actions .loading').hide();
+                _show_form_error('Cannot save: ' + errorThrown);
+                _is_saving = false;
+                _is_dirty = false;
+                _is_very_dirty = false;
+                _reset_form_header();
+            });
         }
-
-        _reset_action_buttons();
-        _is_saving = false;
     }
 
-    function is_publishable() {
-        var publishable = true;
-        if(!form_title.val().trim()) publishable = false;
+    function _show_form_error(message) {
+        $('.form-errors').show().find('p').html(message);
+    }
 
-        var has_value = false;
+    function _calculate_completeness() {
+        var percentage = 0;
+        if(form_title.val().trim()) percentage += 10;
+
+        var has_outline_value = false;
         form_outline.find('input').each(function() {
-            if($(this).val().trim()) has_value = true;
+            if($(this).val().trim()) has_outline_value = true;
         });
-        publishable = has_value;
 
-        if(!form_story.redactor('get')) publishable = false;
+        if(has_outline_value) percentage += 10;
 
-        if(!form_cover.val()) publishable = false;
-        if(!form_pictures.find('li.picture').length) publishable = false;
+        if(form_story.redactor('get')) percentage += 20;
 
-        if(!form_school.val().trim()) publishable = false;
-        if(!form_topics.val().trim()) publishable = false;
-        if(!form_level.val().trim()) publishable = false;
-        if(!$.isNumeric(form_price.val())) publishable = false;
-        if(!$.isNumeric(form_duration.val())) publishable = false;
-        if(!$.isNumeric(form_capacity.val())) publishable = false;
+        if(form_cover.val()) percentage += 10;
+        if(form_pictures.find('li.picture').length) percentage += 10;
+
+        if(form_school.val().trim()) percentage += 5;
+        if(form_topics.val().trim()) percentage += 5;
+        if(form_level.val().trim()) percentage += 5;
+        if($.isNumeric(form_price.val())) percentage += 5;
+        if($.isNumeric(form_duration.val())) percentage += 5;
+        if($.isNumeric(form_capacity.val())) percentage += 5;
 
         var place_choice = form_place.find('.place-label input:checked').val();
-        if(!place_choice.trim()) publishable = false;
-
         if(place_choice == 'defined-place') {
-            if(!$('#id_place_defined').find('option:selected').val().trim()) publishable = false;
-
+            if($('#id_place_defined').find('option:selected').val().trim()) percentage += 10;
         } else if(place_choice == 'userdefined-place') {
-            if(!$('#id_place_name').val().trim()) publishable = false;
-            if(!$('#id_place_phone').val().trim()) publishable = false;
-            if(!$('#id_place_address').val().trim()) publishable = false;
-            if(!$('#id_place_province').find('option:selected').val().trim()) publishable = false;
-            if(!$('#id_place_location').val().trim()) publishable = false;
-            if(!$('#id_place_direction').val().trim()) publishable = false;
+            if($('#id_place_name').val().trim() &&
+                    $('#id_place_phone').val().trim() &&
+                    $('#id_place_address').val().trim() &&
+                    $('#id_place_province').find('option:selected').val().trim() &&
+                    $('#id_place_location').val().trim() &&
+                    $('#id_place_direction').val().trim()) {
+                percentage += 10;
+            }
         }
+        return percentage;
+    }
 
-        return publishable;
+    function _reset_form_header() {
+        var percentage = _calculate_completeness();
+        console.log(percentage!=100);
+        $('.completeness .bar').css('width', percentage + '%');
+        $('.completeness .percentage').text(percentage + '%');
+
+        $('.form-actions .button-draft').prop('disabled', !_is_dirty);
+        //$('.form-actions .button-submit').prop('disabled', percentage!=100);
+        $('.form-actions .button-submit').prop('disabled', percentage!=100);
     }
 
     function _start_autosave_timer() {
@@ -684,7 +728,7 @@ function initCourseModifyPage() {
 
     function set_dirty() {
         _is_dirty = true;
-        _reset_action_buttons();
+        _reset_form_header();
 
         if(!autosave_timer) {
             autosave();
@@ -740,6 +784,8 @@ function initCourseModifyPage() {
     form_price.on('change', function() {
         form_price.removeClass('error');
         if(!$.isNumeric(form_price.val())) {
+            form_price.addClass('error');
+        } else if(parseInt(form_price.val(), 10) < 50) {
             form_price.addClass('error');
         } else {
             form_price.data('dirty', true);

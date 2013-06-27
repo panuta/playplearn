@@ -50,21 +50,8 @@ def ajax_autosave_course(request):
     elif course.status == 'PUBLISHED':
         domain_function.save_course_changes(course, request.POST)
 
-    next_action = request.POST.get('next_action')
-    if next_action == 'submit' and course.status == 'DRAFT':
-        if domain_function.calculate_course_completeness(course) == 100:
-            course.status = 'WAIT_FOR_APPROVAL'
-            course.save()
-        else:
-            return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
-
-    elif next_action == 'update' and course.status == 'PUBLISHED':
-        if domain_function.calculate_course_completeness(course) == 100:
-            domain_function.persist_course_changes(course)
-        else:
-            return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
-
     return response_json_success({
+        'course_uid': course.uid,
         'completeness': domain_function.calculate_course_completeness(course),
         'preview_url': reverse('view_course_outline', args=[course.uid]),
         'edit_url': reverse('edit_course', args=[course.uid]),
@@ -260,6 +247,53 @@ def ajax_delete_course_picture(request):
     return response_json_success({
         'completeness': domain_function.calculate_course_completeness(course),
         'ordering': media_class.objects.get_media_uid_ordering(course),
+    })
+
+
+@require_POST
+@login_required
+def ajax_submit_course(request):
+    if not request.is_ajax():
+        raise Http404
+
+    course_uid = request.POST.get('uid')
+
+    try:
+        course = Course.objects.get(uid=course_uid)
+    except Course.DoesNotExist:
+        course = Course.objects.create(
+            uid=course_uid,
+            teacher=request.user,
+            status='DRAFT',
+        )
+    else:
+        if course.teacher != request.user:
+            return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        domain_function.persist_course(course, request.POST)
+
+        if course.status == 'DRAFT':
+            if domain_function.calculate_course_completeness(course) == 100:
+                course.status = 'WAIT_FOR_APPROVAL'
+                course.save()
+            else:
+                return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
+
+    elif course.status == 'PUBLISHED':
+        domain_function.save_course_changes(course, request.POST)
+
+        if domain_function.calculate_course_completeness(course) == 100:
+            domain_function.persist_course_changes(course)
+            messages.success(request, 'Changes is saved successfully')
+        else:
+            return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
+
+    return response_json_success({
+        'course_uid': course.uid,
+        'completeness': domain_function.calculate_course_completeness(course),
+        'preview_url': reverse('view_course_outline', args=[course.uid]),
+        'edit_url': reverse('edit_course', args=[course.uid]),
     })
 
 
