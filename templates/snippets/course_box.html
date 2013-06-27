@@ -4,7 +4,7 @@
         <div class="top">
             <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
             <div class="at_glance">
-                Learn <a href="#" class="school">{{ course.get_school.name }}</a>
+                <a href="#" class="school">{{ course.get_school.name }}</a> learning
                 in <span class="duration">{{ course.duration }} hour{{ course.duration|pluralize }}</span>
                 with <span class="people">{{ course.maximum_people }} other {{ course.maximum_people|pluralize:'person,people' }}</span>
             </div>

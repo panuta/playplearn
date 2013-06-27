@@ -249,94 +249,347 @@
 }
 
 .page-course-outline {
-    #body-header {
-        //border-bottom: 1px solid #E9E9E9;
-    }
+    .course-information {
+        background-color: #FFF;
+        padding: 25px 0 20px;
 
-    .course-header {
-        background-position: left top;
-        margin-top: 35px;
+        .course-header {
+            padding: 0 30px;
 
-        .avatar {
-            float: left;
-            margin-right: 10px;
+            .avatar {
+                float: left;
+                text-align: center;
 
-            img {
-                border: 1px solid #DDD;
-                border-radius: 50px;
-                padding: 3px;
+                img {
+                    border: 1px solid #DDD;
+                    border-radius: 70px;
+                    padding: 3px;
+                }
+            }
+
+            .course-title {
+                margin-left: 137px;
+
+                .teacher {
+                    margin-top: 10px;
+
+                    .name {
+                        display: inline;
+
+                        a {
+                            color: #666;
+                            font-size: 18px;
+                            font-weight: 300;
+                        }
+                    }
+                }
+
+                h1 {
+                    color: @primaryColor;
+                    font-size: 36px;
+                    font-weight: 300;
+                    line-height: normal;
+                    margin: 0;
+                }
+
+                .details {
+                    margin-top: 12px;
+                }
+
+                .schools {
+                    border-right: 1px solid #DDD;
+                    margin-right: 15px;
+
+                    a {
+                        color: #555;
+                        font-size: 13px;
+                        font-weight: bold;
+                        line-height: normal;
+                        padding-right: 15px;
+                    }
+                }
+
+                .course-numbers {
+                    .item {
+                        margin-right: 15px;
+
+                        .caption {
+                            color: #999;
+                            font-size: 11px;
+                            margin-bottom: 0px;
+                            margin-right: 3px;
+                        }
+
+                        .number {
+                            color: #555;
+                            font-size: 15px;
+
+                            em {
+                                color: #555;
+                                font-size: 15px;
+                                font-style: normal;
+                                font-weight: bold;
+                                margin-right: 3px;
+
+                                &.nobold {
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        .right {
-            margin-left: 80px;
+        .course-reputation {
+            background-color: #bfd3e8;
+            margin: 30px 30px 0;
+            padding: 8px 25px;
+
+            ul {
+                margin: 0;
+
+                li {
+                    border-right: 1px solid #9abadb;
+                    color: @primaryColor;
+                    display: inline-block;
+                    font-size: 14px;
+                    line-height: 30px;
+                    margin-right: 15px;
+                    padding-right: 15px;
+
+                    i {
+                        color: @primaryColor;
+                        font-size: 16px;
+                        margin-right: 3px;
+                        vertical-align: 0px;
+                    }
+
+                    em {
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                }
+            }
         }
 
-        .title {
-            color: #444;
-            font-size: 24px;
-            font-weight: bold;
-            padding-top: 5px;
-        }
+        .course-description {
+            margin-top: 25px;
+            padding: 0 30px;
 
-        .teacher {
-            margin-top: 12px;
-
-            a {
-                .content_link;
-                font-size: 15px;
-                font-weight: bold;
-            }
-
-            .doing {
-                color: #777;
-                font-size: 15px;
-                margin-left: 10px;
-            }
-        }
-    }
-
-    .course-numbers {
-        margin: 20px 0 30px;
-
-        .item {
-            background-color: #F7F7F7;
-            float: left;
-            margin-right: 5px;
-            padding: 5px 30px 5px 10px;
-
-            .caption {
-                color: #999;
-                display: block;
-                font-size: 12px;
-                margin-bottom: 3px;
-            }
-
-            .number {
+            p {
                 color: #555;
                 font-size: 16px;
+                font-weight: 300;
+                line-height: 32px;
+                margin-bottom: 20px;
+            }
+        }
 
-                em {
-                    color: #555;
-                    font-size: 15px;
-                    font-style: normal;
-                    font-weight: bold;
-                    margin-right: 3px;
+        .course-pictures {
+            float: right;
+            padding: 10px 0 10px 30px;
 
-                    &.nobold {
-                        font-weight: normal;
+            #pictures-slider {
+                width: 600px;
+                height: 400px;
+            }
+
+            .rsNav {
+                background-color: transparent;
+                bottom: -20px;
+
+                .rsBullet {
+                    cursor: pointer;
+                }
+
+                .rsBullet span {
+                    background-color: #777;
+                }
+
+                .rsBullet.rsNavSelected span {
+                    background-color: #444;
+                }
+            }
+        }
+    }
+
+    .course-enrollment {
+        border: 1px dashed #CCC;
+        margin: 30px 0 0;
+        padding: 25px 30px;
+
+        .enroll-calendar {
+            float: left;
+        }
+
+        .enroll-list {
+            margin-left: 330px;
+
+            ul {
+                margin: 0;
+
+                li {
+                    background-color: #FFF;
+                    box-shadow: 2px 2px 0px #CCC;
+                    list-style: none;
+                    margin-bottom: 20px;
+                    padding: 15px 17px 17px;
+
+                    i {
+                        color: #BBB;
+                        display: inline-block;
+                        margin: 3px 5px 0 0;
+                        vertical-align: top;
+                    }
+
+                    .right {
+                        display: inline-block;
+                    }
+
+                    .schedule {
+                        border-right: 1px solid #EEE;
+                        color: #444;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin-right: 10px;
+                        padding-right: 20px;
+                        vertical-align: top;
+
+                        .schedule-date {
+                            display: block;
+
+                        }
+
+                        .schedule-time {
+                            display: block;
+                            margin-top: 5px;
+                        }
+                    }
+
+                    .availability {
+                        color: #444;
+                        display: inline-block;
+                        font-size: 16px;
+                        font-weight: 300;
+                        vertical-align: top;
+
+                        .available {
+                            display: block;
+                        }
+
+                        .maximum {
+                            color: #777;
+                            display: block;
+                            font-size: 14px;
+                            margin-left: 2px;
+                            margin-top: 4px;
+                        }
+                    }
+
+
+                    .button-enroll {
+
+                    }
+
+                    .enroll {
+                        float: right;
+
+                        .price {
+                            color: #C30;
+                            display: inline-block;
+                            font-size: 18px;
+                            font-weight: 300;
+                            margin-right: 10px;
+                            vertical-align: middle;
+                        }
+
+                        a {
+                            font-size: 16px;
+                            font-weight: 300;
+                            padding: 10px 40px;
+                        }
                     }
                 }
             }
         }
     }
 
-    .course-pictures {
-        margin-bottom: 40px;
+    .course-feedbacks {
+        margin-top: 30px;
+        padding-bottom: 60px;
 
-        .royalSlider {
-            width: 870px;
-            height: 500px;
+        h2 {
+            color: #555;
+            font-size: 30px;
+            font-weight: 300;
+            line-height: normal;
+            margin-bottom: 15px;
+        }
+
+        ul.feedbacks {
+            margin: 0;
+
+            li.feedback {
+                background-color: #FFF;
+                float: left;
+                list-style: none;
+                margin-bottom: 30px;
+                padding: 15px;
+                width: 520px;
+
+                &.left-side {
+                    margin-right: 70px;
+                }
+
+                .avatar {
+                    float: left;
+
+                    img {
+                        border: 1px solid #DDD;
+                        border-radius: 50px;
+                        height: 50px;
+                        padding: 2px;
+                        width: 50px;
+                    }
+                }
+
+                .right {
+                    margin-left: 70px;
+                }
+
+                .name {
+                    font-weight: bold;
+                }
+
+                .feelings {
+                    margin-top: 8px;
+
+                    ul {
+                        margin: 0;
+
+                        li {
+                            background-color: #87ADD4;
+                            border-radius: 3px;
+                            color: #FFF;
+                            display: inline-block;
+                            font-size: 13px;
+                            line-height: normal;
+                            list-style: none;
+                            margin-right: 7px;
+                            padding: 2px 10px;
+                        }
+                    }
+                }
+
+                .content {
+                    margin-top: 8px;
+
+                    p {
+                        line-height: 22px;
+                    }
+                }
+            }
         }
     }
 
@@ -402,6 +655,7 @@
         }
     }
 
+    /*
     .course-teacher {
         background-color: #F9F9F9;
         border: 1px solid #E9E9E9;
@@ -452,7 +706,7 @@
                 margin-bottom: 15px;
             }
         }
-    }
+    }*/
 
     .course-sidebar {
         .enrollment {
