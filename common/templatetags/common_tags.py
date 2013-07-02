@@ -3,16 +3,25 @@ import datetime
 import re
 
 from django import template
+from django.conf import settings
 from django.template.defaultfilters import safe
 from django.utils.timezone import now
 from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.feedback import FEEDBACK_FEELING_CHOICES, FEEDBACK_FEELING_MAP
 
 from common.l10n import th
-from common.l10n.th import PROVINCE_LIST
+from common.l10n.th import PROVINCE_LIST, PROVINCE_MAP
 from common.utilities import format_datetime_string
 
 register = template.Library()
+
+
+# HTML ##########################################################################################################
+
+@register.simple_tag
+def thumbnail_img_size(thumbnail_name):
+    (width, height) = settings.THUMBNAIL_ALIASES[''][thumbnail_name]['size']
+    return 'width="%d" height="%d"' % (width, height)
 
 
 # DATE & TIME ##########################################################################################################
@@ -60,6 +69,20 @@ def schedule_datetime(schedule):
 
 
 @register.filter
+def schedule_datetime_no_weekday(schedule):
+    try:
+        return safe(u'<span class="date">%d %s %d</span> <span class="time">เวลา %02d:%02d น.</span>' % (
+            schedule.start_datetime.day,
+            th.TH_MONTH_ABBR_NAME[schedule.start_datetime.month],
+            schedule.start_datetime.year + 543,
+            schedule.start_datetime.hour,
+            schedule.start_datetime.minute
+        ))
+    except ValueError:
+        return ''
+
+
+@register.filter
 def datetime_string(datetime):
     return format_datetime_string(datetime)
 
@@ -87,6 +110,11 @@ def province_options(selected_province=''):
         options.append('<option value="%s"%s>%s</option>' %(province_tuple[0], selected, province_tuple[1]))
 
     return ''.join(options)
+
+
+@register.filter
+def province_name(province_code):
+    return PROVINCE_MAP.get(province_code)
 
 
 # COURSE STATUS ########################################################################################################

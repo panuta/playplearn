@@ -58,17 +58,17 @@
             {% if user.is_authenticated %}
                 <div class="user">
                     <ul class="parent">
-                        <li class="parent-item username"><a href="{% url 'view_my_profile' %}" class="link">Panu Tangchalermkul</a></li>
+                        <li class="parent-item username"><a href="{% url 'view_my_profile' %}" class="link">{{ user.name }}</a></li>
                         <li class="parent-item messages"><a href="#" class="link"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
-                        <li class="parent-item my_courses">
+                        <li class="parent-item my_workshops">
                             <div class="dropdown">
-                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i> My courses <i class="icon-caret-down"></i><span class="num">4</span></a>
+                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i> Workshops <i class="icon-caret-down"></i><span class="num">4</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming course</a></li>
-                                    <li><a href="{% url 'view_my_courses_attended' %}">Attended course</a></li>
-                                    <li><a href="{% url 'view_all_my_courses_teaching' %}">Teaching course</a></li>
+                                    <li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming events</a></li>
+                                    <li><a href="{% url 'view_my_courses_attended' %}">Attended workshop</a></li>
+                                    <li><a href="{% url 'view_all_my_courses_teaching' %}">Teaching</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus-sign"></i> Create new course</a></li>
+                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus-sign"></i> Create new workshop</a></li>
                                 </ul>
                             </div>
                         </li>

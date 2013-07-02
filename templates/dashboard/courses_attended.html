@@ -1,7 +1,8 @@
 {% extends 'dashboard/courses_base.html' %}
 {% load common_tags %}
 
-{% block head_title %}My attended course - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block head_title %}Attended workshops - Workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block workshops_title %}Attended workshops{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='attended' %}{% endblock %}
 
 {% block scripts %}
@@ -28,9 +29,9 @@
     <div class="row">
         <div class="span3">
             <div class="attended-schools">
-                <div class="head">SCHOOLS ATTENDANCE</div>
+                <div class="head">TOPICS COVERED</div>
                 <ul class="style-sidebar-navigation">
-                    <li{% if not course_school %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">All schools <span class="number">{{ total_num_schools }}</span></a></li>
+                    <li{% if not course_school %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">All topics <span class="number">{{ total_num_schools }}</span></a></li>
                     {% for school_learned in schools_learned %}
                         <li{% if course_school.id == school_learned.school.id %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended_in_school' school_learned.school.slug %}">{{ school_learned.school.name }} <span class="number">{{ school_learned.num_schools }}</span></a></li>
                     {% endfor %}
@@ -45,7 +46,7 @@
                     <div class="title"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}">{{ enrollment.schedule.course.title }}</a></div>
                     <div class="details">
                         <span class="teacher"><span class="caption">สอนโดย</span> <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}">{{ enrollment.schedule.course.teacher.name }}</a></span>
-                        <span class="datetime"><span class="caption">เมื่อวัน</span> <em>{{ enrollment.schedule|schedule_datetime }}</em></span>
+                        <span class="datetime"><span class="caption">เมื่อวันที่</span> <em>{{ enrollment.schedule|schedule_datetime_no_weekday }}</em></span>
                     </div>
                     <div class="actions">
                         <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
@@ -57,7 +58,7 @@
         </div>
     </div>
     {% else %}
-    <div class="style-no-information">No attended courses</div>
+    <div class="style-no-information">No attended workshops</div>
     {% endif %}
 </div>
 {% endblock %}

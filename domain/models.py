@@ -423,6 +423,10 @@ class Course(BaseCourse):
 
     # STATS
 
+    def stats_upcoming_classes(self):
+        rightnow = now()
+        return CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__gte=rightnow).count()
+
     def stats_opening_classes(self):
         return CourseSchedule.objects.filter(course=self, status='OPENING').count()
 

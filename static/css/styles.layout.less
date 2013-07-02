@@ -38,7 +38,6 @@ html, body {
 
                     i {
                         margin-right: 2px;
-                        vertical-align: 0;
                     }
 
                     &:hover {
@@ -88,7 +87,6 @@ html, body {
 
                     i {
                         margin-right: 2px;
-                        vertical-align: 0;
 
                         &.icon-caret-down {
                             margin-left: 1px;
@@ -114,10 +112,14 @@ html, body {
                     }
                 }
 
+                &.settings a i {
+                    font-size: 14px;
+                    margin: 0;
+                }
+
                 .dropdown-menu {
                     i {
                         margin-right: 1px;
-                        vertical-align: 0;
                     }
                 }
             }
@@ -171,6 +173,7 @@ html, body {
 }
 
 #body-header {
+    background-color: #FFF;
     height: 65px;
 
     .logo {
@@ -415,7 +418,7 @@ html, body {
 .page-backend {
     .backend-header {
         background-color: @primaryColor;
-        padding: 15px 0;
+        padding: 25px 0;
 
         .parent {
             margin-bottom: 6px;
@@ -457,7 +460,6 @@ html, body {
 
                 i {
                     margin-right: 2px;
-                    vertical-align: 0px;
                 }
 
                 &:hover {
@@ -469,10 +471,15 @@ html, body {
 
         h1 {
             color: #FFF;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 32px;
+            font-weight: 100;
             line-height: normal;
             margin: 0;
+
+            span {
+                color: #EEE;
+                font-size: 26px;
+            }
         }
     }
 

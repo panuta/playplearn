@@ -1,10 +1,10 @@
 {% extends 'dashboard/manage_course_base.html' %}
 {% load common_tags %}
 
-{% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='classes' %}{% endblock %}
+{% block manage_workshop_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='classes' %}{% endblock %}
 
-{% block classroom_content %}
-<div class="page-manage-course-class">
+{% block manage_workshop_content %}
+<div class="page-manage-workshop-class">
     {% if schedule %}
         <div class="row">
             <div class="span3">

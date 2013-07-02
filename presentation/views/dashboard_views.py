@@ -22,7 +22,7 @@ def view_my_courses_upcoming(request):
     upcoming_schedules = CourseSchedule.objects \
         .filter(status='OPENING', start_datetime__gt=rightnow) \
         .filter((Q(course__teacher=request.user) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
-                | Q(enrollments__student__in=(request.user,)))
+                | Q(enrollments__student__in=(request.user,))).order_by('start_datetime')
 
     return render(request, 'dashboard/courses_upcoming.html', {'upcoming_schedules': upcoming_schedules})
 

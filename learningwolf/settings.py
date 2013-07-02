@@ -180,7 +180,7 @@ THUMBNAIL_ALIASES = {
         'course_cover_normal': {'size': (510, 260), 'crop': True},
         'course_cover_small': {'size': (255, 130), 'crop': True},
 
-        'course_picture_full': {'size': (870, 500), 'crop': True},
+        'course_picture_full': {'size': (910, 500), 'crop': True},
         'course_picture_small': {'size': (200, 115), 'crop': True},
         'course_picture_square': {'size': (160, 160), 'crop': True},
     },

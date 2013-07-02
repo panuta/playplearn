@@ -10,7 +10,7 @@ em {
 }
 
 [class^="icon-"], [class*=" icon-"] {
-    vertical-align: -2px;
+    vertical-align: 0px;
 }
 
 select,
@@ -416,7 +416,6 @@ form {
 
     i {
         margin-right: 2px;
-        vertical-align: 0;
     }
 }
 
@@ -785,19 +784,31 @@ h1.style-page-header {
     }
 
     .course-details {
-        background-color: #F4F4F4;
-        color: #555;
-        font-size: 13px;
-        margin: 15px 0 0;
-        padding: 8px 15px;
+        color: #666;
+        margin: 20px 0 0;
 
         span {
-            margin-right: 10px;
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            display: inline-block;
+            font-size: 13px;
+            margin-right: 7px;
+            padding: 4px 10px;
+
+            em {
+                font-size: 14px;
+                font-weight: bold;
+            }
         }
 
         i {
-            color: #666;
-            vertical-align: 0;
+            color: #777;
+            font-size: 15px;
+            margin-right: 2px;
+
+            &.icon-comment {
+                vertical-align: 1px;
+            }
         }
     }
 
@@ -843,7 +854,6 @@ h1.style-page-header {
         i {
             color: #C30;
             margin-right: 5px;
-            vertical-align: 0px;
         }
 
         .date, .time {

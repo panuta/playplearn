@@ -125,54 +125,6 @@
         }
     }
 
-    .headline {
-        background-color: #FFF;
-        padding: 50px 0px;
-
-        .image {
-            float: left;
-        }
-
-        .right {
-            margin-left: 420px;
-        }
-
-        .head1 {
-            color: @primaryColor;
-            font-size: 38px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        .head2 {
-            color: #555;
-            font-size: 26px;
-            margin-top: 30px;
-        }
-
-        p {
-            color: #555;
-            font-size: 18px;
-            line-height: 26px;
-            margin-top: 30px;
-        }
-
-        .action {
-            margin-top: 20px;
-
-            a {
-                font-size: 15px;
-                font-weight: normal;
-                padding: 14px 45px;
-
-                i {
-                    margin-right: 6px;
-                    vertical-align: 0px;
-                }
-            }
-        }
-    }
-
     .become-teacher {
         background-color: @primaryColor;
         padding: 35px 0 40px;
@@ -259,14 +211,12 @@
             text-align: center;
 
             img {
-                border: 1px solid #DDD;
                 border-radius: 70px;
-                padding: 3px;
             }
         }
 
         .course-title {
-            margin-left: 137px;
+            margin-left: 130px;
 
             h1 {
                 color: @primaryColor;
@@ -291,15 +241,17 @@
             }
 
             .schools {
-                border-right: 1px solid #DDD;
                 margin-right: 15px;
 
                 a {
+                    background-color: #EEE;
                     color: #555;
-                    font-size: 13px;
+                    display: inline-block;
+                    font-size: 14px;
                     font-weight: bold;
                     line-height: normal;
                     padding-right: 15px;
+                    padding: 5px 15px;
                 }
             }
 
@@ -309,18 +261,17 @@
 
                     .caption {
                         color: #999;
-                        font-size: 11px;
+                        font-size: 12px;
                         margin-bottom: 0px;
                         margin-right: 3px;
                     }
 
                     .number {
                         color: #555;
-                        font-size: 15px;
+                        font-size: 16px;
 
                         em {
                             color: #555;
-                            font-size: 15px;
                             font-style: normal;
                             font-weight: bold;
                             margin-right: 1px;
@@ -337,10 +288,10 @@
 
     .course-pictures {
         margin-top: 30px;
-        margin-left: 137px;
+        margin-left: 130px;
 
         #pictures-slider {
-            width: 896px;
+            width: 910px;
             height: 500px;
         }
 
@@ -411,7 +362,6 @@
             i {
                 color: @primaryColor;
                 margin-right: 2px;
-                vertical-align: 0;
             }
         }
 
@@ -448,7 +398,6 @@
 
                 i {
                     color: #777;
-                    vertical-align: 0;
                 }
             }
 
@@ -476,7 +425,6 @@
             i {
                 color: @primaryColor;
                 margin-right: 2px;
-                vertical-align: 0;
             }
         }
 
@@ -596,7 +544,6 @@
             i {
                 color: @primaryColor;
                 margin-right: 4px;
-                vertical-align: 0;
             }
         }
 
@@ -1003,7 +950,6 @@
 
                             input {
                                 margin-right: 7px;
-                                vertical-align: 0px;
                             }
                         }
                     }
@@ -1081,7 +1027,7 @@
     }
 
     .courses-body {
-        margin: 25px 0px 35px;
+        margin: 30px 0px 35px;
 
         ul.courses {
             margin: 0;
@@ -1147,13 +1093,18 @@
             padding: 10px 0px;
             position: relative;
             text-align: center;
-            width: 100px;
+            width: 80px;
 
             em {
                 display: block;
                 font-size: 15px;
-                font-weight: bold;
                 margin-top: 2px;
+
+                i {
+                    font-size: 26px;
+                    font-style: normal;
+                    font-weight: 100;
+                }
             }
 
             &:after {
@@ -1176,25 +1127,26 @@
         }
 
         .course-content {
-            margin-left: 120px;
+            margin-left: 100px;
 
             .course-cover {
                 float: left;
-
-                img {
-                    height: 100px;
-                    width: 275px;
-                }
             }
 
             .right {
-                margin-left: 295px;
+                margin-left: 275px;
             }
 
             .title a {
                 .content_link;
                 font-size: 16px;
                 line-height: 24px;
+            }
+
+            .teacher {
+                color: #555;
+                font-size: 15px;
+                margin-top: 5px;
             }
 
             .schedule-location {
@@ -1235,7 +1187,6 @@
 
                     i {
                         margin-right: 3px;
-                        vertical-align: 0px;
                     }
                 }
 
@@ -1263,12 +1214,12 @@
     }
 
     ul.enrollments {
-        margin: 15px 0 0;
+        margin: 0;
 
         li.enrollment {
             border-bottom: 1px solid #DDD;
             list-style: none;
-            margin-top: 20px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
 
             .feedback {
@@ -1279,10 +1230,6 @@
                     font-size: 12px;
                     margin-left: 10px;
                     padding: 4px 25px;
-
-                    i {
-                        vertical-align: 0px;
-                    }
                 }
             }
 
@@ -1338,23 +1285,12 @@
         }
     }
 
-    .teaching-courses-filter {
-
-        margin: 20px 0 0;
-
-        a {
-            color: #888;
-
-
-            &.active {
-                color: #444;
-                font-weight: bold;
-            }
-        }
-
-        .separator {
-            color: #AAA;
-            margin: 0 6px;
+    .teaching-status {
+        .head {
+            color: #777;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 7px;
         }
     }
 
@@ -1388,7 +1324,6 @@
                             color: #AAA;
                             font-size: 16px;
                             margin-right: 3px;
-                            vertical-align: 0px;
 
                             &.icon-light {
                                 font-size: 10px;
@@ -1658,7 +1593,6 @@
                     color: #777;
                     font-size: 12px;
                     margin-right: 2px;
-                    vertical-align: 0px;
                 }
             }
 
@@ -2054,7 +1988,6 @@
 
                     input {
                         margin-right: 5px;
-                        vertical-align: 0px;
                     }
                 }
 
@@ -2186,35 +2119,13 @@
 
 }
 
-.page-manage-course {
-    .backend-header {
-        h1 {
-            span {
-                font-size: 20px;
-                font-weight: normal;
-            }
-        }
-
-        .class {
-            display: inline-block;
-            margin-left: 15px;
-            vertical-align: 2px;
-
-            .datetime {
-                background-color: #EEE;
-                border-radius: 4px;
-                color: #444;
-                display: inline-block;
-                font-size: 13px;
-                font-weight: bold;
-
-                padding: 3px 15px;
-            }
-        }
+.page-manage-workshop {
+    .manage-workshop-content {
+        margin-bottom: 40px;
     }
 }
 
-.page-manage-course-overview {
+.page-manage-workshop-overview {
     .style-stats-bar {
         margin: 25px 0 25px;
     }
@@ -2273,7 +2184,7 @@
     }
 }
 
-.page-manage-course-class {
+.page-manage-workshop-class {
     padding-top: 30px;
 
     .classes-list {
@@ -2369,8 +2280,6 @@
         }
     }
 
-
-
     .classes {
         margin: 25px 0 0;
 
@@ -2396,10 +2305,6 @@
                 padding: 7px 15px;
                 text-decoration: none;
                 vertical-align: bottom;
-
-                i {
-                    vertical-align: 0px;
-                }
 
                 .upcoming {
                     color: #777;
@@ -2436,7 +2341,6 @@
                 font-size: 15px;
                 font-weight: normal;
                 margin-right: 5px;
-                vertical-align: 0px;
             }
         }
     }
@@ -2446,7 +2350,7 @@
     }
 }
 
-.page-manage-course-feedback {
+.page-manage-workshop-feedback {
     padding-top: 30px;
 
     .feedback_number {
@@ -2569,7 +2473,7 @@
     }
 }
 
-.page-manage-course-promote {
+.page-manage-workshop-promote {
 
 }
 
@@ -2641,17 +2545,17 @@
                     .number {
                         color: #555;
                         font-size: 15px;
+                        font-weight: bold;
                         margin-top: 3px;
 
                         i {
                             color: #666;
                             font-size: 16px;
                             margin-right: 3px;
-                            vertical-align: 0px;
                         }
 
                         em {
-                            font-size: 20px;
+                            font-size: 18px;
                             font-weight: bold;
                         }
                     }
@@ -2685,7 +2589,6 @@
 
                     i {
                         margin-right: 5px;
-                        vertical-align: 0px;
                     }
                 }
             }
@@ -2698,7 +2601,7 @@
         }
     }
 
-    .profile-teaching-courses {
+    #teaching-workshops {
         padding-bottom: 30px;
 
         ul.courses {
@@ -2824,7 +2727,7 @@
         }
     }
 
-    .profile-attending-courses {
+    #attended-workshops {
         padding-bottom: 30px;
 
         h2 {
@@ -2846,15 +2749,10 @@
 
             .course-cover {
                 float: left;
-
-                img {
-                    height: 100px;
-                    width: 275px;
-                }
             }
 
             .right {
-                margin-left: 295px;
+                margin-left: 280px;
             }
 
             .title a {

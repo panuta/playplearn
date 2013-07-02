@@ -15,100 +15,53 @@ from presentation.forms import EditProfileForm, EditAccountEmailForm
 
 
 @login_required
-def view_my_profile(request, show):
-    return _view_user_profile(request, request.user, show)
+def view_my_profile(request):
+    return _view_user_profile(request, request.user)
 
 
-def view_user_profile(request, user_uid, show):
+def view_user_profile(request, user_uid):
     user = get_object_or_404(UserAccount, uid=user_uid)
-    return _view_user_profile(request, user, show)
+    return _view_user_profile(request, user)
 
 
-def _view_user_profile(request, user, show):
+def _view_user_profile(request, user):
+    rightnow = now()
 
-    """
-    if not show:
-        if user.is_teaching:
-            show teaching
+    teaching_workshops = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
+
+    sorting_attending_workshops = {}
+    sorting_attended_workshops = {}
+    for enrollment in CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED'):
+        course = enrollment.schedule.course
+
+        if enrollment.schedule.start_datetime <= rightnow:
+            sorting_workshops = sorting_attended_workshops
         else:
-            show attending
-    else:
-        if show == 'teaching':
-            if user.is_teaching:
-                show teaching
-            else:
-                redirect to not show
-        elif show == 'attending':
-            if user.is_teaching:
-                show attending
-            else:
-                redirect to not show
-    """
+            sorting_workshops = sorting_attending_workshops
 
-    user_is_teaching = user.stats_courses_teaching()
+        if course.uid in sorting_workshops:
+            attend_tuple = sorting_workshops[course.uid]
+            attend_tuple[2].append(enrollment)
 
-    if not show:
-        if user_is_teaching:
-            show = 'teaching'
+            if attend_tuple[1] < enrollment.schedule.start_datetime:
+                attend_tuple[1] = enrollment.schedule.start_datetime
+
         else:
-            show = 'attending'
-    else:
-        if show == 'attending' and not user_is_teaching:
-            if user == request.user:
-                return redirect('view_my_profile')
-            else:
-                return redirect('view_user_profile', user_uid=user.uid)
+            sorting_workshops[course.uid] = (
+                enrollment.schedule.course,
+                enrollment.schedule.start_datetime,
+                [enrollment]
+            )
 
-    context = {
+    attending_workshops = sorted(sorting_attending_workshops.values(), key=itemgetter(1), reverse=True)
+    attended_workshops = sorted(sorting_attended_workshops.values(), key=itemgetter(1), reverse=True)
+
+    return render(request, 'user/profile.html', {
         'context_user': user,
-        'user_is_teaching': user_is_teaching,
-        'show': show,
-    }
-
-    if show == 'teaching':
-        teaching_courses = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
-
-        return render(request, 'user/profile_courses_teaching.html', dict(context.items() + {
-            'teaching_courses': teaching_courses
-        }.items()))
-
-    elif show == 'attending':
-        rightnow = now()
-
-        sorting_attending_courses = {}
-        sorting_attended_courses = {}
-        for enrollment in CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED'):
-            course = enrollment.schedule.course
-
-            if enrollment.schedule.start_datetime <= rightnow:
-                sorting_courses = sorting_attended_courses
-            else:
-                sorting_courses = sorting_attending_courses
-
-            if course.uid in sorting_courses:
-                attend_tuple = sorting_courses[course.uid]
-                attend_tuple[2].append(enrollment)
-
-                if attend_tuple[1] < enrollment.schedule.start_datetime:
-                    attend_tuple[1] = enrollment.schedule.start_datetime
-
-            else:
-                sorting_courses[course.uid] = (
-                    enrollment.schedule.course,
-                    enrollment.schedule.start_datetime,
-                    [enrollment]
-                )
-
-        attending_courses = sorted(sorting_attending_courses.values(), key=itemgetter(1), reverse=True)
-        attended_courses = sorted(sorting_attended_courses.values(), key=itemgetter(1), reverse=True)
-
-        return render(request, 'user/profile_courses_attending.html', dict(context.items() + {
-            'attending_courses': attending_courses,
-            'attended_courses': attended_courses,
-        }.items()))
-
-    else:
-        raise Http404
+        'teaching_workshops': teaching_workshops,
+        'attending_workshops': attending_workshops,
+        'attended_workshops': attended_workshops,
+    })
 
 
 @login_required

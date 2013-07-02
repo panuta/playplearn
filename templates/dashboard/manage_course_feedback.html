@@ -1,7 +1,7 @@
 {% extends 'dashboard/manage_course_base.html' %}
 {% load common_tags %}
 
-{% block classroom_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='feedback' %}{% endblock %}
+{% block manage_workshop_nav %}{% include 'dashboard/manage_course_base_nav.html' with tab_name='feedback' %}{% endblock %}
 
 {% block scripts %}
 <script>
@@ -102,8 +102,8 @@
 </script>
 {% endblock %}
 
-{% block classroom_content %}
-<div class="page-manage-course-feedback">
+{% block manage_workshop_content %}
+<div class="page-manage-workshop-feedback">
     <div class="row">
         <div class="span2">
             <div class="feedback-navigation">

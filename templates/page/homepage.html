@@ -15,7 +15,7 @@
 
 {% block body %}
 <div class="call_to_action">
-    <a href="{% url 'view_courses_browse' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
+    <a href="{% url 'view_courses_browse' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse workshops</a>
 </div>
 
 
@@ -49,7 +49,7 @@
 <div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>Latest courses<i class="icon-double-angle-down"></i></h2>
+            <h2>Latest workshops<i class="icon-double-angle-down"></i></h2>
         </div>
         <ul class="courses">
             {% for course in recent_courses %}

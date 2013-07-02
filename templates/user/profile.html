@@ -1,81 +1,160 @@
 {% extends 'base.html' %}
+{% load common_tags %}
 
 {% block body_class %}page-profile{% endblock %}
 
+{% block scripts %}
+<script>
+(function() {
+    $('.profile-courses .nav a').on('click', function() {
+        $('.profile-courses .nav li').removeClass('active');
+        $('.profile-courses .nav-container').hide();
+
+        $(this).closest('li').addClass('active');
+        $($(this).attr('href')).show();
+
+        return false;
+    });
+})();
+</script>
+{% endblock %}
+
 {% block body %}
-<div class="backend-container">
-    <div class="profile-header">
-        <div class="container">
-            <div class="row">
-                <div class="span9">
-                    <div class="profile-header-box">
-                        <div class="box-header clearfix">
-                            <div class="avatar"><img src="{{ context_user.small_avatar_url }}" /></div>
-                            <div class="right">
-                                {% comment %}<div class="follow"><a href="#" class="style-orange-button">Follow</a></div>{% endcomment %}
-                                <div class="name">{{ context_user.name }}</div>
-                                <div class="headline">{{ context_user.headline }}</div>
+    <div class="backend-container">
+        <div class="profile-header">
+            <div class="container">
+                <div class="row">
+                    <div class="span9">
+                        <div class="profile-header-box">
+                            <div class="box-header clearfix">
+                                <div class="avatar"><img src="{{ context_user.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></div>
+                                <div class="right">
+                                    {% comment %}<div class="follow"><a href="#" class="style-orange-button">Follow</a></div>{% endcomment %}
+                                    <div class="name">{{ context_user.name }}</div>
+                                    <div class="headline">{{ context_user.headline }}</div>
+                                </div>
+                            </div>
+                            <div class="stats clearfix">
+                                <ul>
+                                    <li><div class="title">Teaching</div><div class="number"><em>{{ context_user.stats_courses_teaching }}</em> workshop{{ context_user.stats_courses_teaching|pluralize }}</div></li>
+                                    <li><div class="title">Feedback received</div><div class="number"><em>{{ context_user.stats_feedbacks_received }}</em> feedback{{ context_user.stats_feedbacks_received|pluralize }}</div></li>
+                                    <li><div class="title">Attended</div><div class="number"><em>{{ context_user.stats_courses_attended }}</em> workshop{{ context_user.stats_courses_attended|pluralize }}</div></li>
+                                    <li class="last"><div class="title">Feedback given</div><div class="number"><em>{{ context_user.stats_feedbacks_given }}</em> feedback{{ context_user.stats_feedbacks_given|pluralize }}</div></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="stats clearfix">
+                    </div>
+                    <div class="span3">
+                        <div class="reputations">
+                            <div class="head">Reputations & Trustworthiness</div>
                             <ul>
-                                <li><div class="title">Teaching course</div><div class="number"><i class="icon-briefcase"></i> <em>{{ context_user.stats_courses_teaching }}</em> course{{ context_user.stats_courses_teaching|pluralize }}</div></li>
-                                <li><div class="title">Feedback received</div><div class="number"><i class="icon-star"></i> <em>{{ context_user.stats_feedbacks_received }}</em> feedback{{ context_user.stats_feedbacks_received|pluralize }}</div></li>
-                                <li><div class="title">Attended course</div><div class="number"><i class="icon-briefcase"></i> <em>{{ context_user.stats_courses_attended }}</em> course{{ context_user.stats_courses_attended|pluralize }}</div></li>
-                                <li class="last"><div class="title">Feedback given</div><div class="number"><i class="icon-star"></i> <em>{{ context_user.stats_feedbacks_given }}</em> feedback{{ context_user.stats_feedbacks_given|pluralize }}</div></li>
+                                {% if user.stats_feedbacks_received %}<li><div class="caption"><i class="icon-star"></i> {{ user.stats_feedbacks_received }} feedback{{ user.stats_feedbacks_received|pluralize }} received</div></li>{% endif %}
+                                <li><div class="caption"><i class="icon-facebook"></i> 321 Facebook friends</div></li>
+                                <li><div class="caption"><i class="icon-twitter"></i> 14 Twitter followers</div></li>
+                                <li><div class="caption"><i class="icon-phone"></i> Phone number is verified</div></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="span3">
-                    <div class="reputations">
-                        <div class="head">Reputations & Trustworthiness</div>
-                        <ul>
-                            {% if user.stats_feedbacks_received %}<li><div class="caption"><i class="icon-star"></i> {{ user.stats_feedbacks_received }} feedback{{ user.stats_feedbacks_received|pluralize }} received</div></li>{% endif %}
-                            <li><div class="caption"><i class="icon-facebook"></i> 321 Facebook friends</div></li>
-                            <li><div class="caption"><i class="icon-twitter"></i> 14 Twitter followers</div></li>
-                            <li><div class="caption"><i class="icon-phone"></i> Phone number is verified</div></li>
+            </div>
+        </div>
+
+        <div class="profile-courses">
+            {% if teaching_workshops or attending_workshops or attended_workshops %}
+                <div class="style-tab-navigation">
+                    <div class="container">
+                        <ul class="nav nav-tabs">
+                            {% if teaching_workshops %}<li class="active"><a href="#teaching-workshops">Teaching courses{% if context_user.stats_courses_teaching %} <i class="num">{{ context_user.stats_courses_teaching }}</i>{% endif %}</a></li>{% endif %}
+                            <li{% if not teaching_workshops %} class="active"{% endif %}><a href="#attended-workshops">Attended courses{% if context_user.stats_courses_attended_and_attending %} <i class="num">{{ context_user.stats_courses_attended_and_attending }}</i>{% endif %}</a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
+                <div class="container">
+                    {% if teaching_workshops %}
+                    <div class="nav-container" id="teaching-workshops">
+                        <ul class="courses">
+                            {% for course in teaching_workshops %}
+                                <li class="course clearfix">
+                                    {% include 'snippets/course_box.html' with hide_teacher=True %}
+                                    <div class="course-right">
+                                        <div class="course-stats">
+                                            <ul>
+                                                <li>
+                                                    <span class="number">{{ course.stats_opening_classes }}</span>
+                                                    <span class="caption">class{{ course.stats_opening_classes|pluralize:'es' }} <span>scheduled</span></span>
+                                                </li>
+                                                <li>
+                                                    <span class="number">{{ course.stats_students }}</span>
+                                                    <span class="caption">student{{ course.stats_students|pluralize }} <span>attended</span></span>
+                                                </li>
+                                                <li>
+                                                    <span class="number">{{ course.stats_feedbacks }}</span>
+                                                    <span class="caption">feedback{{ course.stats_feedbacks|pluralize }} <span>received</span></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="course-feedbacks">
+                                            <ul class="feedbacks">
+                                                {% for feedback in course.get_promoted_feedbacks %}
+                                                    <li class="feedback">
+                                                        <div class="feelings">{{ feedback|feelings }}</div>
+                                                        <div class="content">{{ feedback.content }}</div>
+                                                        <div class="student">by <a href="{% url 'view_user_profile' feedback.enrollment.student.uid %}">{{ feedback.enrollment.student.name }}</a></div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="nav-container{% if teaching_workshops %} hide{% endif %}" id="attended-workshops">
+                        {% if attending_workshops or attended_workshops %}
+                            {% if attending_workshops %}
+                                <h2>Attending</h2>
+                                <ul class="attending">
+                                    {% for tuple in attending_workshops %}
+                                        <li class="course clearfix">
+                                            <div class="course-cover"><a href="{% url 'view_course_outline' tuple.0.uid %}"><img src="{{ tuple.0.small_cover_url }}" {% thumbnail_img_size 'course_cover_small' %} /></a></div>
+                                            <div class="right">
+                                                <div class="title"><a href="{% url 'view_course_outline' tuple.0.uid %}">{{ tuple.0.title }}</a></div>
+                                                <div class="details">
+                                                    <span class="teacher">สอนโดย <a href="#">{{ tuple.0.teacher.name }}</a></span>
+                                                    <span class="schedule">วันที่ <em>{{ tuple.2.0.schedule|schedule_datetime_no_weekday }}</em></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if attended_workshops %}
+                                <h2>Previous workshops</h2>
+                                <ul class="attended">
+                                    {% for tuple in attended_workshops %}
+                                        <li class="course clearfix">
+                                            <div class="course-cover"><a href="{% url 'view_course_outline' tuple.0.uid %}"><img src="{{ tuple.0.small_cover_url }}" {% thumbnail_img_size 'course_cover_small' %} /></a></div>
+                                            <div class="right">
+                                                <div class="title"><a href="{% url 'view_course_outline' tuple.0.uid %}">{{ tuple.0.title }}</a></div>
+                                                <div class="details">
+                                                    <span class="teacher">สอนโดย <a href="#">{{ tuple.0.teacher.name }}</a></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% else %}
+                            <div class="style-no-information">No workshops attended</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="container">
+                    <div class="style-no-information">No workshop activities</div>
+                </div>
+            {% endif %}
         </div>
     </div>
-
-    <div class="profile-courses">
-        <div class="style-tab-navigation">
-            <div class="container">
-                {% if context_user == user %}
-                    {% url 'view_my_profile' as view_profile_teaching_url %}
-                    {% url 'view_my_profile_attending_courses' as view_profile_attending_url %}
-                {% else %}
-                    {% url 'view_user_profile' context_user.uid as view_profile_teaching_url %}
-                    {% url 'view_user_profile_attending_courses' context_user.uid as view_profile_attending_url %}
-                {% endif %}
-
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="{{ view_profile_teaching_url }}">Teaching courses{% if context_user.stats_courses_teaching %} <i class="num">{{ context_user.stats_upcoming_courses }}</i>{% endif %}</a></li>
-                    <li><a href="{{ view_profile_attending_url }}">Attended courses{% if context_user.stats_courses_attended %} <i class="num">{{ context_user.stats_courses_attended }}</i>{% endif %}</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="container">
-            <div id="courses-teaching">
-
-            </div>
-            <div id="courses-attending">
-
-            </div>
-        </div>
-    </div>
-
-
-<!-- Name, Doing, Avatar -->
-<!-- Course Attended, Course Teaching, Reviews Received, Reviews Written -->
-<!-- Teaching Courses -->
-<!-- Follow Button -->
-<!-- Social Credentials -->
-<!-- Member sinces -->
-
-</div>
 {% endblock %}

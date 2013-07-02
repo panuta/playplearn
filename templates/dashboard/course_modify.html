@@ -14,8 +14,8 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
 {% endblock %}
 
 {% block backend_header %}
-<div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← My teaching courses</a></div>
-<h1>{% if not course %}Create new course{% else %}Edit course - <span class="title">{{ editing_course.title|default:'(No title)' }}</span>{% endif %}</h1>
+<div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← Teaching workshops</a></div>
+<h1>{% if not course %}Create new workshop{% else %}Edit workshop - <span class="title">{{ editing_course.title|default:'(No title)' }}</span>{% endif %}</h1>
 {% endblock %}
 
 {% block backend_container %}
@@ -35,7 +35,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
 
     <div class="form-header">
         <div class="completeness">
-            <div class="head">Course Completeness</div>
+            <div class="head">Completeness</div>
             <div class="progress"><div class="bar"{% if course %} style="width:{{ completeness }}%;"{% endif %}></div></div>
             <div class="percentage">{% if not course %}0{% else %}{{ completeness }}{% endif %}%</div>
         </div>
@@ -59,10 +59,10 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
         <div class="span2">
             <div class="form-navigation">
                 <ul class="style-sidebar-navigation">
-                    <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Course Outline</a></li>
+                    <li class="outline active"><a href="#content-outline"><i class="icon-th-list icon-large"></i> Outline</a></li>
                     <li class="story"><a href="#content-story"><i class="icon-pencil icon-large"></i> Story</a></li>
                     <li class="pictures"><a href="#content-pictures"><i class="icon-picture icon-large"></i> Cover & Pictures</a></li>
-                    <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Course Details</a></li>
+                    <li class="details"><a href="#content-details"><i class="icon-info-sign icon-large"></i> Details</a></li>
                     <li class="place last"><a href="#content-place"><i class="icon-map-marker icon-large"></i> Place</a></li>
                 </ul>
             </div>
@@ -71,20 +71,20 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
             <div class="form-content">
                 <div id="content-outline" class="form-content-panel">
                     <div class="control-group title-control">
-                        <label class="control-label" for="id_title">Course Title</label>
+                        <label class="control-label" for="id_title">Workshop title</label>
                         <div class="controls">
                             <input type="text" id="id_title" placeholder="Title" value="{{ editing_course.title }}">
                             <div class="help-block">Title should be short, precise and convincing</div>
                         </div>
                     </div>
                     <div class="control-group outline-control">
-                        <label class="control-label">Course Outline</label>
+                        <label class="control-label">Workshop outline</label>
                         <div class="controls">
                             <ul id="control_outline_list">
                                 {% for outline in editing_course.get_editing_outlines %}
                                     <li class="outline"><i class="icon-remove"></i><i class="icon-reorder"></i><input type="text" value="{{ outline.title }}"/></li>
                                 {% endfor %}
-                                <li class="add"><i class="icon-plus"></i><a href="#" id="control_add_outline">Add course outline</a></li>
+                                <li class="add"><i class="icon-plus"></i><a href="#" id="control_add_outline">Add workshop outline</a></li>
                             </ul>
                         </div>
                     </div>

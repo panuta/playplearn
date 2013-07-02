@@ -1,7 +1,8 @@
 {% extends 'dashboard/courses_base.html' %}
 {% load common_tags presentation_tags %}
 
-{% block head_title %}My upcoming course - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block head_title %}Upcoming events - Workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block workshops_title %}Upcoming events{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='upcoming' %}{% endblock %}
 
 {% block courses_content %}
@@ -11,23 +12,23 @@
         {% for schedule in upcoming_schedules %}
         {% with course=schedule.course %}
         <li class="course clearfix">
-            <div class="course-countdown">เริ่ม{% if course.teacher == request.user %}สอน{% else %}เรียน{% endif %}ในอีก<em>{{ schedule.start_datetime|daysuntil }} วัน</em></div>
+            <div class="course-countdown"><em><i>{{ schedule.start_datetime|daysuntil }}</i> วัน</em>เริ่ม{% if course.teacher == request.user %}สอน{% else %}เรียน{% endif %}</div>
             <div class="course-content clearfix">
                 <div class="course-cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" /></a></div>
                 <div class="right">
                     <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
+                    {% if course.teacher != request.user %}<div class="teacher">{{ course.teacher.name }}</div>{% endif %}
                     <div class="schedule-location">
                         <span class="schedule">{{ schedule|schedule_datetime }}</span>
                         <span class="at">สถานที่</span>
-                        <span class="location"><a href="{{ course.place.place_url }}">{{ course.place.name }}</a></span>
+                        <!-- TODO Open place popup --><span class="location"><a href="{{ course.place.place_url }}">{{ course.place.name }}</a></span>
                     </div>
                     {% if course.teacher == request.user %}<div class="students"><em>นักเรียน {{ schedule.stats_seats_reserved }} คน</em> (จำกัด {{ course.maximum_people }} คน)</div>{% endif %}
                     <div class="actions">
                         {% if course.teacher == request.user %}
-                            <a href="{% url 'manage_course_overview' course.uid %}" class="btn btn-small">Manage course</a>
+                            <a href="{% url 'manage_course_overview' course.uid %}" class="btn btn-small"><i class="icon-book"></i> Manage workshop</a>
                         {% else %}
-                            <a href="{{ course.place.place_url }}" class="btn btn-small"><i class="icon-map-marker"></i> How to get there</a>
-                            <!-- TODO --><a href="#" class="btn btn-small"><i class="icon-comment"></i> Contact teacher</a>
+                            <!-- TODO --><a href="#" class="btn btn-small"><i class="icon-comments"></i> Talk to teacher</a>
                             {% return_matching_enrollment user schedule as enrollment %}
                             <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
                         {% endif %}
@@ -39,7 +40,7 @@
         {% endfor %}
     </ul>
     {% else %}
-    <div class="style-no-information">No upcoming classes</div>
+    <div class="style-no-information">No upcoming workshops</div>
     {% endif %}
 </div>
 {% endblock %}

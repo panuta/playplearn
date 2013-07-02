@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load presentation_tags %}
+{% load thumbnail common_tags presentation_tags %}
 
 {% block head_title %}{{ course.title }} - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}page-course-outline{% endblock %}
@@ -62,27 +62,16 @@
 {% block body %}
 <div class="container">
     <div class="course-header">
-        <!--<div class="avatar"><img src="{{ course.teacher.small_avatar_url }}" /></div>-->
-        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user8.jpg" width="100" height="100" /></div>
+        <div class="avatar"><img src="{{ course.teacher.normal_avatar_url }}" {% thumbnail_img_size 'avatar_normal' %} /></div>
         <div class="course-title">
             <h1>{{ course.title }}</h1>
             <div class="teacher"><a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-
             <div class="details">
-                <span class="schools"><a href="#">Craftmanship</a></span>
+                <span class="schools"><a href="#">{{ course.get_school.name }}</a></span>
                 <span class="course-numbers">
-                    <span class="item">
-                        <span class="caption">DURATION</span>
-                        <span class="number"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span>
-                    </span>
-                    <span class="item">
-                        <span class="caption">CLASS OF</span>
-                        <span class="number"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span>
-                    </span>
-                    <span class="item">
-                        <span class="caption">INTENDED FOR</span>
-                        <span class="number"><em class="nobold">{% course_level course %} student</em></span>
-                    </span>
+                    <span class="item"><span class="caption">DURATION</span> <span class="number"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span></span>
+                    <span class="item"><span class="caption">CLASS OF</span> <span class="number"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span></span>
+                    <span class="item"><span class="caption">UPCOMNG CLASS</span> <span class="number"><em>{{ course.stats_upcoming_classes }}</em> class{{ course.stats_upcoming_classes|pluralize:'es' }}</span></span>
                 </span>
             </div>
         </div>
@@ -90,8 +79,11 @@
 
     <div class="course-pictures">
         <div id="pictures-slider" class="royalSlider rsDefault">
-            <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" alt="This is caption text" />
-            <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" alt="This is caption text 2" />
+            {% for media in course.outline_media.all %}
+                {% if media.media_type == 'PICTURE' %}
+                    <img src="{{ media.coursepicture.image|thumbnail_url:'course_picture_full' }}" alt="{{ media.description }}" />
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 
@@ -125,21 +117,7 @@
         </div>
     </div>
 
-    <div class="course-information">
-
-<!--
-        <div class="course-reputation">
-            <ul>
-                <li><i class="icon-user"></i> <em>15</em> total students</li>
-                <li><i class="icon-star"></i> <em>10</em> feedbacks</li>
-            </ul>
-        </div>
--->
-
-
-        <!-- Social networks -->
-
-    </div>
+    <!-- Social networks -->
 </div>
 
 <div class="course-enrollment">

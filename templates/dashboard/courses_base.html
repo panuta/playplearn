@@ -3,15 +3,15 @@
 {% block body_class %}{{ block.super }} page-my-courses{% endblock %}
 
 {% block backend_header %}
-<h1>My courses</h1>
-<div class="stats">
+<h1>Workshops <span>- {% block workshops_title %}{% endblock %}</span></h1>
+<!--<div class="stats">
     <ul>
-        <li>{{ request.user.stats_courses_attended }} Courses attended</li>
+        <li>{{ request.user.stats_courses_attended }} workshops attended</li>
         <li>{{ request.user.stats_feedbacks_given }} Feedbacks given</li>
-        <li>{{ request.user.stats_courses_teaching }} Courses teaching</li>
+        <li>{{ request.user.stats_courses_teaching }} workshops teaching</li>
         <li>{{ request.user.stats_feedbacks_received }} Feedbacks received</li>
     </ul>
-</div>
+</div>-->
 {% endblock %}
 
 {% block backend_container %}
@@ -20,7 +20,6 @@
         {% block courses_content_nav %}{% endblock %}
     </div>
 </div>
-
 <div class="courses-body">
     <div class="container">
         {% block courses_content %}{% endblock %}

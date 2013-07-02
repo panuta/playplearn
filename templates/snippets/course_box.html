@@ -4,21 +4,19 @@
         <div class="top">
             <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
             <div class="at_glance">
-                <a href="#" class="school">{{ course.get_school.name }}</a> class
+                <a href="#" class="school">{{ course.get_school.name }}</a> workshop
                 in <span class="duration">{{ course.duration }} hour{{ course.duration|pluralize }}</span>
                 with <span class="people">{{ course.maximum_people }} other {{ course.maximum_people|pluralize:'person,people' }}</span>
             </div>
-            <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" /></a></div>
+            <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" {% thumbnail_img_size 'course_cover_normal' %} /></a></div>
             {% if not hide_teacher %}
             <div class="teacher clearfix">
-                <div class="avatar"><img src="{{ course.teacher.smaller_avatar_url }}" /></div>
+                <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
                 <div class="teacher_name"><a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span></div>
             </div>
             {% endif %}
             <div class="course-details">
-                <span class="schedules"><i class="icon-time"></i> 2</span>
-                <span class="feedbacks"><i class="icon-star"></i> 20</span>
-                <span class="place"><i class="icon-map-marker"></i> Somewhere</span>
+                <span class="schedules"><i class="icon-time"></i> <em>{{ course.stats_upcoming_classes }}</em></span><span class="feedbacks"><i class="icon-comment"></i> <em>{{ course.stats_feedbacks }}</em></span><span class="place"><i class="icon-map-marker"></i> {{ course.place.province_code|province_name }}</span>
             </div>
         </div>
         {% if not hide_footnote %}
