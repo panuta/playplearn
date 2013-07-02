@@ -17,7 +17,10 @@ urlpatterns += patterns(
     url(r'^ajax/course/enroll/$', 'enroll_course', name='enroll_course'),
     url(r'^ajax/course/enroll/login/(?P<backend>[^/]+)/$', 'login_to_enroll_course', name='login_to_enroll_course'),
 
-    url(r'^courses/$', 'view_courses_explore', name='view_courses_explore'),
+    url(r'^courses/$', 'view_courses_browse', {'browse_by': ''}, name='view_courses_browse'),
+    url(r'^courses/school/(?P<school_slug>\w+)/$', 'view_courses_browse_by_school', name='view_courses_browse_by_school'),
+    url(r'^courses/(?P<browse_by>\w+)/$', 'view_courses_browse', name='view_courses_browse_by_category'),
+
     url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
 
     url(r'^ajax/course/topics/search/$', 'search_course_topics', name='search_course_topics'),

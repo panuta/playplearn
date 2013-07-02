@@ -1,12 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 from django.shortcuts import render, get_object_or_404
+from django.utils.timezone import now
 from domain.models import Course, Place
 
 
 def view_homepage(request):
-    # TODO Only show course with upcoming schedules
-    recent_courses = Course.objects.filter(status='PUBLISHED').order_by('-last_scheduled')
+    rightnow = now()
+    recent_courses = Course.objects.filter(status='PUBLISHED', schedules__start_datetime__gt=rightnow).order_by('-first_published')
     return render(request, 'page/homepage.html', {'recent_courses': recent_courses})
 
 

@@ -7,7 +7,7 @@
 {% block body_header %}
 <div id="body-header-homepage">
     <div class="container">
-        <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.png" /></div>
+        <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.big.png" /></div>
         <div class="subtitle">Learn something new from people who is passionate about it</div>
     </div>
 </div>
@@ -15,7 +15,7 @@
 
 {% block body %}
 <div class="call_to_action">
-    <a href="{% url 'view_courses_explore' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
+    <a href="{% url 'view_courses_browse' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
 </div>
 
 

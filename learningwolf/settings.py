@@ -177,8 +177,8 @@ THUMBNAIL_ALIASES = {
         'avatar_smaller': {'size': (50, 50), 'crop': True},
         'avatar_tiny': {'size': (30, 30), 'crop': True},
 
-        'course_cover_normal': {'size': (510, 160), 'crop': True},
-        'course_cover_small': {'size': (255, 80), 'crop': True},
+        'course_cover_normal': {'size': (510, 260), 'crop': True},
+        'course_cover_small': {'size': (255, 130), 'crop': True},
 
         'course_picture_full': {'size': (870, 500), 'crop': True},
         'course_picture_small': {'size': (200, 115), 'crop': True},

@@ -49,177 +49,218 @@
 
         return false;
     });
+
+    $('.course-feedbacks .feedbacks').masonry({
+        columnWidth: 570,
+        gutter: 30,
+        itemSelector: '.feedback'
+    });
 })();
 </script>
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <div class="course-information">
-        <div class="course-header">
-            <!--<div class="avatar"><img src="{{ course.teacher.small_avatar_url }}" /></div>-->
-            <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user8.jpg" width="100" height="100" /></div>
-            <div class="course-title">
-                <h1>{{ course.title }}</h1>
-                <div class="teacher">
-                    <div class="name"><a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-                </div>
+    <div class="course-header">
+        <!--<div class="avatar"><img src="{{ course.teacher.small_avatar_url }}" /></div>-->
+        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user8.jpg" width="100" height="100" /></div>
+        <div class="course-title">
+            <h1>{{ course.title }}</h1>
+            <div class="teacher"><a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
 
-                <div class="details">
-                    <span class="schools"><a href="#">Craftmanship</a></span>
-
-                    <span class="course-numbers">
-                        <span class="item">
-                            <span class="caption">DURATION</span>
-                            <span class="number"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span>
-                        </span>
-                        <span class="item">
-                            <span class="caption">CLASS OF</span>
-                            <span class="number"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span>
-                        </span>
-                        <span class="item">
-                            <span class="caption">INTENDED FOR</span>
-                            <span class="number"><em class="nobold">{% course_level course %} student</em></span>
-                        </span>
+            <div class="details">
+                <span class="schools"><a href="#">Craftmanship</a></span>
+                <span class="course-numbers">
+                    <span class="item">
+                        <span class="caption">DURATION</span>
+                        <span class="number"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span>
                     </span>
+                    <span class="item">
+                        <span class="caption">CLASS OF</span>
+                        <span class="number"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span>
+                    </span>
+                    <span class="item">
+                        <span class="caption">INTENDED FOR</span>
+                        <span class="number"><em class="nobold">{% course_level course %} student</em></span>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="course-pictures">
+        <div id="pictures-slider" class="royalSlider rsDefault">
+            <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" alt="This is caption text" />
+            <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" alt="This is caption text 2" />
+        </div>
+    </div>
+
+    <div class="course-description">
+        <div class="outlines">
+            <div class="head">Activities</div>
+            <ul>
+                <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+                <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+                <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+            </ul>
+        </div>
+        <div class="description">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id, porttitor et sem. Proin interdum tempor orci vitae vulputate. Etiam quis urna mi. Nulla a rhoncus justo. Sed viverra dictum justo, sed tincidunt dolor auctor sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque sit amet interdum odio, pulvinar congue elit. Suspendisse at augue risus. Praesent a ornare orci, vel euismod est.</p>
+            <p>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt, bibendum tellus a, vehicula quam. Sed aliquam massa vel facilisis convallis. Maecenas eu hendrerit odio. Ut et tempor felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at feugiat diam. Pellentesque tempor at velit non feugiat. Pellentesque egestas congue odio et varius.</p>
+        </div>
+    </div>
+
+    <div class="course-place">
+        <div class="head"><i class="icon-map-marker"></i> Place</div>
+        <div class="clearfix">
+            <div class="map"><a href="#"><img src="{{ STATIC_URL }}images/sample/map1.png" /></a></div>
+            <div class="place">
+                <div class="name">Place Name</div>
+                <div class="address">233/235 Srinakarin rd. Bang Muang</div>
+                <div class="phone"><i class="icon-phone-sign"></i> 089-784-5282</div>
+                <div class="direction">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id.</p>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="course-information">
+
+<!--
         <div class="course-reputation">
             <ul>
                 <li><i class="icon-user"></i> <em>15</em> total students</li>
                 <li><i class="icon-star"></i> <em>10</em> feedbacks</li>
             </ul>
         </div>
+-->
 
-        <div class="course-description">
-            <div class="course-pictures">
-                <div id="pictures-slider" class="royalSlider rsDefault">
-                    <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" alt="This is caption text" />
-                    <img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" alt="This is caption text 2" />
+
+        <!-- Social networks -->
+
+    </div>
+</div>
+
+<div class="course-enrollment">
+    <div class="container">
+        <div class="head"><i class="icon-signin"></i> Enrollment</div>
+        <div class="enrollment clearfix">
+            <div class="enroll-calendar">
+                <div id="enrollment-calendar"></div>
+            </div>
+            <div class="enroll-list">
+                <ul>
+                    <li>
+                        <div class="enroll">
+                            <span class="price">$40 USD</span>
+                            <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll</a>
+                        </div>
+                        <div class="schedule">
+                            <i class="icon-time"></i>
+                            <div class="right">
+                                <span class="schedule-date"><em>Sunday,</em> 14 February 2013</span>
+                                <span class="schedule-time">6:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="availability">
+                            <i class="icon-group"></i>
+                            <div class="right">
+                                <span class="available">10 slots available</span>
+                                <span class="maximum">Limit at 20 students</span>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="enroll">
+                            <span class="price">$40 USD</span>
+                            <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll</a>
+                        </div>
+                        <div class="schedule">
+                            <i class="icon-time"></i>
+                            <div class="right">
+                                <span class="schedule-date"><em>Sunday,</em> 14 February 2013</span>
+                                <span class="schedule-time">6:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="availability">
+                            <i class="icon-group"></i>
+                            <div class="right">
+                                <span class="available">10 slots available</span>
+                                <span class="maximum">Limit at 20 students</span>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="course-feedbacks">
+        <h2><i class="icon-comment"></i> Feedbacks</h2>
+
+        <div class="feedbacks">
+            <div class="feedback left-feedback">
+                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                <div class="right">
+                    <div class="name">Panu Tangchalermkul</div>
+                    <div class="feelings">
+                        <ul>
+                            <li class="like">Like</li><li class="love">Love</li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                    </div>
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id, porttitor et sem. Proin interdum tempor orci vitae vulputate. Etiam quis urna mi. Nulla a rhoncus justo. Sed viverra dictum justo, sed tincidunt dolor auctor sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque sit amet interdum odio, pulvinar congue elit. Suspendisse at augue risus. Praesent a ornare orci, vel euismod est.</p>
-            <p>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt, bibendum tellus a, vehicula quam. Sed aliquam massa vel facilisis convallis. Maecenas eu hendrerit odio. Ut et tempor felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at feugiat diam. Pellentesque tempor at velit non feugiat. Pellentesque egestas congue odio et varius.</p>
-            <p>Curabitur eu luctus tellus. Curabitur non augue velit. Sed elit arcu, gravida sed sagittis at, laoreet ac purus. Sed sit amet malesuada augue, nec tempus purus. Praesent mollis tellus eu metus iaculis ornare. Praesent sed turpis turpis. Vivamus sodales, sapien non vestibulum ullamcorper, eros neque fringilla neque, at tristique mauris nulla eu diam. Nunc in rutrum nisi, faucibus semper justo. Pellentesque placerat pretium est a egestas. Mauris suscipit leo in sapien dignissim, malesuada adipiscing nulla venenatis. In hac habitasse platea dictumst. Donec ac erat in turpis lobortis tincidunt et quis orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam elementum at augue id mattis. Nullam sagittis arcu et leo ullamcorper, vel accumsan odio ornare. Praesent ullamcorper lorem at ultricies pharetra.</p>
+            <div class="feedback right-feedback">
+                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                <div class="right">
+                    <div class="name">Panu Tangchalermkul</div>
+                    <div class="feelings">
+                        <ul>
+                            <li class="like">Like</li><li class="love">Love</li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feedback left-feedback">
+                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                <div class="right">
+                    <div class="name">Panu Tangchalermkul</div>
+                    <div class="feelings">
+                        <ul>
+                            <li class="like">Like</li><li class="love">Love</li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feedback right-feedback">
+                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+                <div class="right">
+                    <div class="name">Panu Tangchalermkul</div>
+                    <div class="feelings">
+                        <ul>
+                            <li class="like">Like</li><li class="love">Love</li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="course-enrollment clearfix">
-        <div class="enroll-calendar">
-            <div id="enrollment-calendar"></div>
-        </div>
-        <div class="enroll-list">
-            <ul>
-                <li>
-                    <div class="enroll">
-                        <span class="price">$40 USD</span>
-                        <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll</a>
-                    </div>
-                    <div class="schedule">
-                        <i class="icon-time"></i>
-                        <div class="right">
-                            <span class="schedule-date"><em>Sunday,</em> 14 February 2013</span>
-                            <span class="schedule-time">6:00 PM</span>
-                        </div>
-                    </div>
-                    <div class="availability">
-                        <i class="icon-group"></i>
-                        <div class="right">
-                            <span class="available">10 slots available</span>
-                            <span class="maximum">Limit at 20 students</span>
-                        </div>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="enroll">
-                        <span class="price">$40 USD</span>
-                        <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll</a>
-                    </div>
-                    <div class="schedule">
-                        <i class="icon-time"></i>
-                        <div class="right">
-                            <span class="schedule-date"><em>Sunday,</em> 14 February 2013</span>
-                            <span class="schedule-time">6:00 PM</span>
-                        </div>
-                    </div>
-                    <div class="availability">
-                        <i class="icon-group"></i>
-                        <div class="right">
-                            <span class="available">10 slots available</span>
-                            <span class="maximum">Limit at 20 students</span>
-                        </div>
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="course-feedbacks">
-        <h2>Feedbacks</h2>
-
-        <ul class="feedbacks clearfix">
-            <li class="feedback left-side clearfix">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="feedback right-side clearfix">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="feedback left-side clearfix">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="feedback right-side clearfix">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
     </div>
 </div>
 

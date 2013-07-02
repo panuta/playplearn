@@ -1,4 +1,5 @@
 from django import template
+from django.core.urlresolvers import reverse
 
 from common.constants.course import COURSE_LEVEL_MAP, COURSE_LEVEL_CHOICES
 from common.constants.currency import CURRENCY_CODE_MAP
@@ -49,6 +50,16 @@ def course_school_options(course):
         options.append('<option value="%s"%s>%s</option>' %(school.slug, selected, school.name))
 
     return ''.join(options)
+
+
+@register.simple_tag
+def course_school_li_list(selected_school_slug):
+    li = []
+    for school in CourseSchool.objects.all():
+        active = ' class="active"' if school.slug == selected_school_slug else ''
+        li.append('<li%s><a href="%s">%s</a></li>' % (active, reverse('view_courses_browse_by_school', args=[school.slug]), school.name))
+
+    return ''.join(li)
 
 
 @register.simple_tag

@@ -1,45 +1,44 @@
 {% extends 'base.html' %}
+{% load presentation_tags %}
 
-{% block body_class %}page-backend page-course-explorer{% endblock %}
+{% block body_class %}page-course-browse{% endblock %}
 
 {% block body %}
-<div class="backend-container">
 <div class="container">
-    <h1 class="style-page-header">Browse Courses</h1>
+    <h1>Browse Courses</h1>
     <div class="row">
         <div class="span3">
-            <div class="explorer-nav">
-                <ul class="filters">
-                    <li class="filter">
-                        <div class="filter-title">SCHOOL</div>
-                        <div class="filter-controls school-filter-controls">
-                            <ul>
-                                <li><input type="checkbox" id="filter_school_business"/><label for="filter_school_business">School of Business</label></li>
-                                <li><input type="checkbox" id="filter_school_engineer"/><label for="filter_school_engineer">School of Engineer</label></li>
-                                <li><input type="checkbox" id="filter_school_craftmanship"/><label for="filter_school_craftmanship">School of Craftmanship</label></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>Keyword</li>
-                    <li>Topics</li>
-                    <li>Location</li>
-                    <li>Date</li>
+            <div class="nav-main">
+                <ul>
+                    <li><a href="{% url 'view_courses_browse_by_category' 'recent' %}">Most recent</a></li>
+                    <li><a href="{% url 'view_courses_browse_by_category' 'popular' %}">Most popular</a></li>
+                </ul>
+            </div>
+            <div class="nav-schools">
+                <div class="head">School of</div>
+                <ul>
+                    {% course_school_li_list school_slug %}
                 </ul>
             </div>
         </div>
         <div class="span9">
-            <div class="explorer-courses">
+            <div class="browse-courses">
                 <ul class="courses">
                     <li class="course">
-                        <div class="course-inner">
-                            <div class="title"><a href="#">This is a course title</a></div>
-                            <!-- School, Topics, Duration, Teacher, Reviews, Next Schedule -->
+                        <div class="cover"></div>
+                        <div class="right">
+                            <div class="title"><a href="#">This is a title</a></div>
+                            <div class="schedule-location">
+                                <span class="schedule">เสาร์, 20 ก.ค. 2556 เวลา 17:00 น.</span>
+                                <span class="at">สถานที่</span>
+                                <span class="location"><a href="#"> My Home</a></span>
+                            </div>
                         </div>
+                        <!-- School, Topics, Duration, Teacher, Reviews, Next Schedule -->
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}

@@ -13,7 +13,7 @@ from common.errors import CourseEnrollmentException, ACCOUNT_REGISTRATION_ERRORS
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
 from domain import functions as domain_functions
-from domain.models import Course, CourseEnrollment, CourseSchedule, UnauthenticatedCourseEnrollment
+from domain.models import Course, CourseEnrollment, CourseSchedule, UnauthenticatedCourseEnrollment, CourseSchool
 
 
 def view_course_outline(request, course_uid, page_action, enrollment_code):
@@ -31,8 +31,32 @@ def view_course_outline(request, course_uid, page_action, enrollment_code):
     })
 
 
-def view_courses_explore(request):
-    return render(request, 'course/course_browse.html', {})
+def view_courses_browse(request, browse_by):
+    if not browse_by:
+        browse_by = 'recent'
+
+    if browse_by == 'recent':
+        courses = Course.objects.filter(status='PUBLISHED').order_by('-first_published')
+    elif browse_by == 'popular':
+        courses = []
+    else:
+        raise Http404
+
+    return render(request, 'course/course_browse.html', {
+        'courses': courses,
+        'browse_by': browse_by,
+    })
+
+
+def view_courses_browse_by_school(request, school_slug):
+    school = get_object_or_404(CourseSchool, slug=school_slug)
+    courses = Course.objects.filter(schools__in=(school, ))
+
+    return render(request, 'course/course_browse.html', {
+        'courses': courses,
+        'browse_by': 'school',
+        'school_slug': school_slug,
+    })
 
 
 def view_course_teach(request):
