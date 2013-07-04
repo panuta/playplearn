@@ -203,96 +203,98 @@
 
 .page-course-outline {
     .course-header {
-        margin-top: 25px;
+        background: @headerBackground;
+        border-top: 1px solid @headerLightBorder;
+        padding: 30px 0 10px;
 
-        .avatar {
-            float: left;
-            margin-top: 10px;
-            text-align: center;
+        .enroll {
+            background-color: #FFF;
+            border-radius: 5px;
+            float: right;
+            margin: 20px 0 0;
+            padding: 4px 4px 7px;
 
-            img {
-                border-radius: 70px;
+            a {
+                font-size: 15px;
+                font-weight: 300;
             }
         }
 
-        .course-title {
-            margin-left: 130px;
+        h1 {
+            color: #FFF;
+            font-size: 36px;
+            font-weight: 100;
+            line-height: normal;
+            margin: 0;
+        }
 
-            h1 {
-                color: @primaryColor;
-                font-size: 36px;
-                font-weight: 300;
-                line-height: normal;
-                margin: 0;
-            }
+        .teacher {
+            margin-top: 20px;
+            position: relative;
 
-            .teacher {
-                margin-top: 8px;
+            .avatar {
+                position: absolute;
+                left: 0;
+                bottom: -49px;
 
-                a {
-                    color: #666;
-                    font-size: 18px;
-                    font-weight: 300;
+                img {
+                    border: 4px solid #FFF;
+                    border-radius: 70px;
                 }
             }
 
-            .details {
-                margin-top: 12px;
-            }
-
-            .schools {
-                margin-right: 15px;
+            .name {
+                color: #EEE;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 200;
+                margin-left: 90px;
 
                 a {
-                    background-color: #EEE;
+                    color: #FFF;
+                    font-size: 22px;
+                    font-weight: 100;
+                    margin-left: 3px;
+                }
+            }
+        }
+    }
+
+    .course-details {
+        margin: 15px 0 0 90px;
+
+        .details {
+            margin-right: 15px;
+
+            .caption {
+                color: #999;
+                font-size: 12px;
+                margin-bottom: 0px;
+                margin-right: 3px;
+            }
+
+            .value {
+                color: #555;
+                font-size: 16px;
+                font-weight: bold;
+
+                em {
+                    margin-right: 1px;
+                }
+
+                a {
                     color: #555;
-                    display: inline-block;
-                    font-size: 14px;
-                    font-weight: bold;
-                    line-height: normal;
-                    padding-right: 15px;
-                    padding: 5px 15px;
-                }
-            }
-
-            .course-numbers {
-                .item {
-                    margin-right: 15px;
-
-                    .caption {
-                        color: #999;
-                        font-size: 12px;
-                        margin-bottom: 0px;
-                        margin-right: 3px;
-                    }
-
-                    .number {
-                        color: #555;
-                        font-size: 16px;
-
-                        em {
-                            color: #555;
-                            font-style: normal;
-                            font-weight: bold;
-                            margin-right: 1px;
-
-                            &.nobold {
-                                font-weight: normal;
-                            }
-                        }
-                    }
                 }
             }
         }
     }
 
     .course-pictures {
-        margin-top: 30px;
-        margin-left: 130px;
+        margin-top: 40px;
 
         #pictures-slider {
-            width: 910px;
-            height: 500px;
+            width: 770px;
+            height: 450px;
         }
 
         .rsNav {
@@ -313,33 +315,30 @@
         }
     }
 
-    .course-description {
-        margin-top: 45px;
+    .course-activities {
+        background-color: #F7F7F7;
+        margin-top: 40px;
+        padding: 15px 20px;
 
-        .outlines {
-            background-color: #F7F7F7;
-            float: right;
-            margin: 10px 0 10px 10px;
-            padding: 10px 20px;
-            width: 400px;
+        .head {
+            color: #555;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-
-            .head {
+        ul {
+            li {
                 color: #555;
                 font-size: 15px;
-                font-weight: bold;
+                font-weight: 300;
                 margin-bottom: 10px;
             }
-
-            ul {
-                li {
-                    color: #555;
-                    font-size: 15px;
-                    font-weight: 300;
-                    margin-bottom: 10px;
-                }
-            }
         }
+    }
+
+    .course-description {
+        margin-top: 40px;
 
         p {
             color: #555;
@@ -357,7 +356,7 @@
             color: #444;
             font-size: 20px;
             font-weight: 300;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
 
             i {
                 color: @primaryColor;
@@ -381,29 +380,30 @@
 
             .name {
                 color: #444;
-                font-size: 16px;
+                font-size: 18px;
                 font-weight: bold;
             }
 
             .address {
                 color: #777;
-                font-size: 13px;
-                margin-top: 4px;
+                font-size: 14px;
+                margin-top: 7px;
             }
 
             .phone {
                 color: #555;
-                font-size: 14px;
-                margin-top: 5px;
+                font-size: 16px;
+                margin-top: 7px;
 
                 i {
                     color: #777;
+                    font-size: 13px;
                 }
             }
 
             .direction {
                 color: #555;
-                margin-top: 10px;
+                margin-top: 7px;
 
                 p {
                     line-height: 24px;
@@ -500,11 +500,6 @@
                             margin-left: 2px;
                             margin-top: 4px;
                         }
-                    }
-
-
-                    .button-enroll {
-
                     }
 
                     .enroll {

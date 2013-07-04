@@ -2,14 +2,16 @@
 
 {% block body_class %}page-backend{% endblock %}
 
+{% block body_header %}{% endblock %}
+
 {% block body %}
-<div class="backend-header">
+<div id="backend-header">
     <div class="container">
         {% block backend_header %}{% endblock %}
     </div>
 </div>
 
-<div class="backend-container">
+<div id="backend-container">
     {% block backend_container %}{% endblock %}
 </div>
 {% endblock %}

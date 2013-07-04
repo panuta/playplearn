@@ -7,7 +7,6 @@
 {% block scripts %}
 <script>
 (function() {
-
     $('#enrollment-calendar').datepicker({
         format: 'yyyy-mm-dd',
         todayHighlight: true,
@@ -16,12 +15,14 @@
         language: 'th'
     })
 
+    {% if course.outline_media.exists %}
     $('#pictures-slider').royalSlider({
         controlsInside: false,
         globalCaption: true,
         imageScaleMode: 'fill',
         keyboardNavEnabled: true
     });
+    {% endif %}
 
     $('.button-enroll').on('click', function() {
         var schedule_id = $(this).attr('data-schedule-id');
@@ -59,47 +60,66 @@
 </script>
 {% endblock %}
 
+{% block body_header %}
+{% endblock %}
+
 {% block body %}
+<div class="course-header">
+    <div class="container">
+        <div class="enroll"><a href="#course-enrollment" class="style-orange-button"><i class="icon-signin"></i> Enroll this workshop</a></div>
+        <h1>{{ course.title }}</h1>
+        <div class="teacher">
+            <div class="avatar"><img src="{{ course.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></div>
+            <div class="name">by <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
+        </div>
+    </div>
+</div>
 <div class="container">
-    <div class="course-header">
-        <div class="avatar"><img src="{{ course.teacher.normal_avatar_url }}" {% thumbnail_img_size 'avatar_normal' %} /></div>
-        <div class="course-title">
-            <h1>{{ course.title }}</h1>
-            <div class="teacher"><a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-            <div class="details">
-                <span class="schools"><a href="#">{{ course.get_school.name }}</a></span>
-                <span class="course-numbers">
-                    <span class="item"><span class="caption">DURATION</span> <span class="number"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span></span>
-                    <span class="item"><span class="caption">CLASS OF</span> <span class="number"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span></span>
-                    <span class="item"><span class="caption">UPCOMNG CLASS</span> <span class="number"><em>{{ course.stats_upcoming_classes }}</em> class{{ course.stats_upcoming_classes|pluralize:'es' }}</span></span>
-                </span>
+    <div class="course-details">
+        <span class="details">
+            <span class="caption">TOPIC</span>
+            <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
+        </span>
+        <span class="details">
+            <span class="caption">DURATION</span>
+            <span class="value"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span>
+        </span>
+        <span class="details">
+            <span class="caption">CLASS OF</span>
+            <span class="value"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span>
+        </span>
+        <span class="details">
+            <span class="caption">UPCOMNG CLASS</span>
+            <span class="value"><em>{{ course.stats_upcoming_classes }}</em> class{{ course.stats_upcoming_classes|pluralize:'es' }}</span>
+        </span>
+    </div>
+    <div class="row">
+        <div class="span8">
+            <div class="course-pictures">
+                <div id="pictures-slider" class="royalSlider rsDefault">
+                    {% for media in course.outline_media.all %}
+                        {% if media.media_type == 'PICTURE' %}
+                            <img src="{{ media.coursepicture.image|thumbnail_url:'course_picture_full' }}" alt="{{ media.description }}" />
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="course-activities">
+                <div class="head">Activities</div>
+                <ul>
+                    <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+                    <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+                    <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div class="course-pictures">
-        <div id="pictures-slider" class="royalSlider rsDefault">
-            {% for media in course.outline_media.all %}
-                {% if media.media_type == 'PICTURE' %}
-                    <img src="{{ media.coursepicture.image|thumbnail_url:'course_picture_full' }}" alt="{{ media.description }}" />
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-
     <div class="course-description">
-        <div class="outlines">
-            <div class="head">Activities</div>
-            <ul>
-                <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
-                <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
-                <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
-            </ul>
-        </div>
-        <div class="description">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id, porttitor et sem. Proin interdum tempor orci vitae vulputate. Etiam quis urna mi. Nulla a rhoncus justo. Sed viverra dictum justo, sed tincidunt dolor auctor sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque sit amet interdum odio, pulvinar congue elit. Suspendisse at augue risus. Praesent a ornare orci, vel euismod est.</p>
-            <p>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt, bibendum tellus a, vehicula quam. Sed aliquam massa vel facilisis convallis. Maecenas eu hendrerit odio. Ut et tempor felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at feugiat diam. Pellentesque tempor at velit non feugiat. Pellentesque egestas congue odio et varius.</p>
-        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id, porttitor et sem. Proin interdum tempor orci vitae vulputate. Etiam quis urna mi. Nulla a rhoncus justo. Sed viverra dictum justo, sed tincidunt dolor auctor sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque sit amet interdum odio, pulvinar congue elit. Suspendisse at augue risus. Praesent a ornare orci, vel euismod est.</p>
+        <p>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt, bibendum tellus a, vehicula quam. Sed aliquam massa vel facilisis convallis. Maecenas eu hendrerit odio. Ut et tempor felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at feugiat diam. Pellentesque tempor at velit non feugiat. Pellentesque egestas congue odio et varius.</p>
     </div>
 
     <div class="course-place">
@@ -116,11 +136,10 @@
             </div>
         </div>
     </div>
-
-    <!-- Social networks -->
 </div>
 
 <div class="course-enrollment">
+    <a name="course-enrollment"></a>
     <div class="container">
         <div class="head"><i class="icon-signin"></i> Enrollment</div>
         <div class="enrollment clearfix">
@@ -148,7 +167,6 @@
                                 <span class="maximum">Limit at 20 students</span>
                             </div>
                         </div>
-
                     </li>
                     <li>
                         <div class="enroll">
@@ -176,6 +194,7 @@
         </div>
     </div>
 </div>
+
 <div class="container">
     <div class="course-feedbacks">
         <h2><i class="icon-comment"></i> Feedbacks</h2>
@@ -241,6 +260,11 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+
+{% block body1 %}
 
 <!-- Similar Courses -->
 

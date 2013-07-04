@@ -802,12 +802,13 @@ body {
   height: 100%;
 }
 #body-top {
-  background: url(../images/banner-bar-bg.gif) repeat;
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
+  border-bottom: 1px solid #4585c8;
   height: 32px;
 }
 #body-top .social {
-  border-left: 1px solid #474747;
-  border-right: 1px solid #7B7B7B;
+  border-left: 1px solid #4585c8;
+  border-right: 1px solid #87add4;
   float: left;
   height: 32px;
 }
@@ -820,9 +821,9 @@ body {
   list-style: none;
 }
 #body-top .social ul li a {
-  border-left: 1px solid #7B7B7B;
-  border-right: 1px solid #474747;
-  color: #DDD;
+  border-left: 1px solid #87add4;
+  border-right: 1px solid #4585c8;
+  color: #FFF;
   display: block;
   font-size: 12px;
   line-height: 32px;
@@ -833,7 +834,6 @@ body {
 }
 #body-top .social ul li a:hover {
   background-color: #3a71a9;
-  border-right: 1px solid #2d5883;
   color: #FFF;
   text-decoration: none;
 }
@@ -850,7 +850,7 @@ body {
   height: 32px;
 }
 #body-top .account ul.parent {
-  border-right: 1px solid #7B7B7B;
+  border-right: 1px solid #87add4;
   margin: 0;
 }
 #body-top .account ul.parent li.parent-item {
@@ -859,9 +859,9 @@ body {
   list-style: none;
 }
 #body-top .account ul.parent li.parent-item a.link {
-  border-left: 1px solid #7B7B7B;
-  border-right: 1px solid #474747;
-  color: #DDD;
+  border-left: 1px solid #87add4;
+  border-right: 1px solid #4585c8;
+  color: #FFF;
   display: block;
   font-size: 12px;
   line-height: 32px;
@@ -877,7 +877,6 @@ body {
 #body-top .account ul.parent li.parent-item a.link:active,
 #body-top .account ul.parent li.parent-item a.link:focus {
   background-color: #3a71a9;
-  border-right: 1px solid #2d5883;
   color: #FFF;
   text-decoration: none;
 }
@@ -899,12 +898,12 @@ body {
   margin-right: 1px;
 }
 #body-top .registration {
-  border-left: 1px solid #474747;
-  border-right: 1px solid #7B7B7B;
+  border-left: 1px solid #4585c8;
+  border-right: 1px solid #87add4;
 }
 #body-top .user ul.parent li.parent-item.username a.link {
   border-left: none;
-  color: #EEE;
+  color: #FFF;
   font-weight: bold;
   padding-right: 15px;
 }
@@ -935,118 +934,6 @@ body {
   height: 26px;
   margin-top: 24px;
   width: 267px;
-}
-#body-header .navigation {
-  float: left;
-  margin-left: 130px;
-}
-#body-header .navigation ul {
-  margin: 0;
-}
-#body-header .navigation ul li {
-  float: left;
-  list-style: none;
-}
-#body-header .navigation ul li a {
-  background-color: #F4F4F4;
-  border-radius: 4px;
-  color: #555;
-  display: inline-block;
-  font-size: 14px;
-  margin-right: 10px;
-  margin-top: 20px;
-  padding: 8px 30px;
-}
-#body-header .navigation ul li a i {
-  margin-right: 5px;
-  vertical-align: middle;
-}
-#body-header .navigation ul li a i.icon-search {
-  margin-right: 3px;
-  vertical-align: 1px;
-}
-#body-header .navigation ul li a:hover {
-  background-color: #EEE;
-  color: #444;
-  text-decoration: none;
-}
-#body-header .navigation .search {
-  display: inline-block;
-  vertical-align: middle;
-}
-#body-header .account {
-  float: right;
-}
-#body-header .account .registration {
-  padding: 23px 0px 15px;
-}
-#body-header .account .registration a {
-  font-size: 13.5px;
-  margin-left: 12px;
-}
-#body-header .account .registration a:link,
-#body-header .account .registration a:active,
-#body-header .account .registration a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
-}
-#body-header .account .registration a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-#body-header .account .user {
-  padding-top: 15px;
-}
-#body-header .account .user .notification {
-  display: inline-block;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-#body-header .account .user .notification a {
-  background-color: #DDD;
-  border-radius: 4px;
-  color: #FFF;
-  display: inline-block;
-  padding: 4px 10px;
-  text-decoration: none;
-}
-#body-header .account .user .notification a i {
-  vertical-align: middle;
-}
-#body-header .account .user .notification a .number {
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 5px;
-}
-#body-header .account .user .notification .has-alert {
-  background-color: #ff874a;
-}
-#body-header .account .user .menu {
-  display: inline-block;
-  vertical-align: middle;
-}
-#body-header .account .user .menu .dropdown-toggle {
-  display: inline-block;
-  padding: 5px 5px 5px 8px;
-  text-decoration: none;
-}
-#body-header .account .user .menu .dropdown-toggle img {
-  border-radius: 30px;
-}
-#body-header .account .user .menu .dropdown-toggle i {
-  color: #797979;
-  font-size: 15px;
-  margin-left: 7px;
-  vertical-align: middle;
-}
-#body-header .account .user .menu .dropdown-toggle:hover {
-  background-color: #EEE;
-  border-radius: 4px;
-}
-#body-header .account .user .btn-group.open .dropdown-toggle {
-  box-shadow: none;
 }
 .wrapper {
   height: auto !important;
@@ -1124,33 +1011,35 @@ body {
 #body-footer .social-links .email:hover {
   background-position: -96px -32px;
 }
-.page-backend .backend-header {
-  background-color: #3a71a9;
+.page-backend #backend-header {
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
+  border-top: 1px solid #87add4;
   padding: 25px 0;
 }
-.page-backend .backend-header .parent {
+.page-backend #backend-header .parent {
   margin-bottom: 6px;
 }
-.page-backend .backend-header .parent a {
-  color: #EEE;
+.page-backend #backend-header .parent a {
+  color: #FFF;
   font-size: 13px;
 }
-.page-backend .backend-header .parent a:hover {
+.page-backend #backend-header .parent a:hover {
   text-decoration: underline;
 }
-.page-backend .backend-header .parent span {
-  color: #EEE;
+.page-backend #backend-header .parent span {
+  color: #FFF;
   font-size: 13px;
 }
-.page-backend .backend-header .parent .separator {
-  color: #EEE;
+.page-backend #backend-header .parent .separator {
+  color: #FFF;
   font-size: 15px;
   margin: 0 6px;
 }
-.page-backend .backend-header .actions {
+.page-backend #backend-header .actions {
   float: right;
+  margin-top: 5px;
 }
-.page-backend .backend-header .actions a {
+.page-backend #backend-header .actions a {
   background-color: #F7F7F7;
   box-shadow: 0px 2px 0px #CCC;
   border-radius: 4px;
@@ -1161,26 +1050,26 @@ body {
   padding: 5px 25px;
   text-decoration: none;
 }
-.page-backend .backend-header .actions a i {
+.page-backend #backend-header .actions a i {
   margin-right: 2px;
 }
-.page-backend .backend-header .actions a:hover {
+.page-backend #backend-header .actions a:hover {
   background-color: #DDD;
   box-shadow: 0px 2px 0px #AAA;
 }
-.page-backend .backend-header h1 {
+.page-backend #backend-header h1 {
   color: #FFF;
   font-size: 32px;
   font-weight: 100;
   line-height: normal;
   margin: 0;
 }
-.page-backend .backend-header h1 span {
-  color: #EEE;
+.page-backend #backend-header h1 span {
+  color: #FFF;
   font-size: 26px;
 }
 .page-backend .backend-tabs {
-  background-color: #3a71a9;
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
 }
 .page-backend .backend-tabs .nav {
   margin: 0;
@@ -1232,11 +1121,11 @@ body {
   background-color: #BBB;
   color: #FFF;
 }
-.page-backend .backend-container {
+.page-backend #backend-container {
   background-color: #FFF;
   padding-bottom: 30px;
 }
-.page-backend .backend-container .alert {
+.page-backend #backend-container .alert {
   border: none;
   border-radius: 0;
   color: #FFF;
@@ -1244,18 +1133,18 @@ body {
   padding: 15px 35px 15px 56px;
   text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 }
-.page-backend .backend-container .alert p {
+.page-backend #backend-container .alert p {
   margin: 0;
 }
-.page-backend .backend-container .alert-success {
+.page-backend #backend-container .alert-success {
   background: url(../images/ui/messages.png) #1abc9c 15px 13px no-repeat;
   border-left: 10px solid #16A085;
 }
-.page-backend .backend-container .alert-warning {
+.page-backend #backend-container .alert-warning {
   background: url(../images/ui/messages.png) #f1c40f 15px -48px no-repeat;
   border-left: 10px solid #F39C12;
 }
-.page-backend .backend-container .alert-error {
+.page-backend #backend-container .alert-error {
   background: url(../images/ui/messages.png) #e74c3c 18px -108px no-repeat;
   border-left: 10px solid #C0392B;
 }
@@ -1950,79 +1839,83 @@ body {
 
 }
 .page-course-outline .course-header {
-  margin-top: 25px;
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
+  border-top: 1px solid #87add4;
+  padding: 30px 0 10px;
 }
-.page-course-outline .course-header .avatar {
-  float: left;
-  margin-top: 10px;
-  text-align: center;
+.page-course-outline .course-header .enroll {
+  background-color: #FFF;
+  border-radius: 5px;
+  float: right;
+  margin: 20px 0 0;
+  padding: 4px 4px 7px;
 }
-.page-course-outline .course-header .avatar img {
-  border-radius: 70px;
-}
-.page-course-outline .course-header .course-title {
-  margin-left: 130px;
-}
-.page-course-outline .course-header .course-title h1 {
-  color: #3a71a9;
-  font-size: 36px;
+.page-course-outline .course-header .enroll a {
+  font-size: 15px;
   font-weight: 300;
+}
+.page-course-outline .course-header h1 {
+  color: #FFF;
+  font-size: 36px;
+  font-weight: 100;
   line-height: normal;
   margin: 0;
 }
-.page-course-outline .course-header .course-title .teacher {
-  margin-top: 8px;
+.page-course-outline .course-header .teacher {
+  margin-top: 20px;
+  position: relative;
 }
-.page-course-outline .course-header .course-title .teacher a {
-  color: #666;
-  font-size: 18px;
-  font-weight: 300;
+.page-course-outline .course-header .teacher .avatar {
+  position: absolute;
+  left: 0;
+  bottom: -49px;
 }
-.page-course-outline .course-header .course-title .details {
-  margin-top: 12px;
+.page-course-outline .course-header .teacher .avatar img {
+  border: 4px solid #FFF;
+  border-radius: 70px;
 }
-.page-course-outline .course-header .course-title .schools {
-  margin-right: 15px;
-}
-.page-course-outline .course-header .course-title .schools a {
-  background-color: #EEE;
-  color: #555;
+.page-course-outline .course-header .teacher .name {
+  color: #EEE;
   display: inline-block;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: normal;
-  padding-right: 15px;
-  padding: 5px 15px;
+  font-size: 16px;
+  font-weight: 200;
+  margin-left: 90px;
 }
-.page-course-outline .course-header .course-title .course-numbers .item {
+.page-course-outline .course-header .teacher .name a {
+  color: #FFF;
+  font-size: 22px;
+  font-weight: 100;
+  margin-left: 3px;
+}
+.page-course-outline .course-details {
+  margin: 15px 0 0 90px;
+}
+.page-course-outline .course-details .details {
   margin-right: 15px;
 }
-.page-course-outline .course-header .course-title .course-numbers .item .caption {
+.page-course-outline .course-details .details .caption {
   color: #999;
   font-size: 12px;
   margin-bottom: 0px;
   margin-right: 3px;
 }
-.page-course-outline .course-header .course-title .course-numbers .item .number {
+.page-course-outline .course-details .details .value {
   color: #555;
   font-size: 16px;
-}
-.page-course-outline .course-header .course-title .course-numbers .item .number em {
-  color: #555;
-  font-style: normal;
   font-weight: bold;
+}
+.page-course-outline .course-details .details .value em {
   margin-right: 1px;
 }
-.page-course-outline .course-header .course-title .course-numbers .item .number em.nobold {
-  font-weight: normal;
+.page-course-outline .course-details .details .value a {
+  color: #555;
 }
 .page-course-outline .course-pictures {
-  margin-top: 30px;
-  margin-left: 130px;
+  margin-top: 40px;
 }
 .page-course-outline .course-pictures #pictures-slider {
-  width: 910px;
-  height: 500px;
+  width: 770px;
+  height: 450px;
 }
 .page-course-outline .course-pictures .rsNav {
   background-color: transparent;
@@ -2037,27 +1930,25 @@ body {
 .page-course-outline .course-pictures .rsNav .rsBullet.rsNavSelected span {
   background-color: #444;
 }
-.page-course-outline .course-description {
-  margin-top: 45px;
-}
-.page-course-outline .course-description .outlines {
+.page-course-outline .course-activities {
   background-color: #F7F7F7;
-  float: right;
-  margin: 10px 0 10px 10px;
-  padding: 10px 20px;
-  width: 400px;
+  margin-top: 40px;
+  padding: 15px 20px;
 }
-.page-course-outline .course-description .outlines .head {
+.page-course-outline .course-activities .head {
   color: #555;
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 10px;
 }
-.page-course-outline .course-description .outlines ul li {
+.page-course-outline .course-activities ul li {
   color: #555;
   font-size: 15px;
   font-weight: 300;
   margin-bottom: 10px;
+}
+.page-course-outline .course-description {
+  margin-top: 40px;
 }
 .page-course-outline .course-description p {
   color: #555;
@@ -2073,7 +1964,7 @@ body {
   color: #444;
   font-size: 20px;
   font-weight: 300;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 .page-course-outline .course-place .head i {
   color: #3a71a9;
@@ -2093,25 +1984,26 @@ body {
 }
 .page-course-outline .course-place .place .name {
   color: #444;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 }
 .page-course-outline .course-place .place .address {
   color: #777;
-  font-size: 13px;
-  margin-top: 4px;
+  font-size: 14px;
+  margin-top: 7px;
 }
 .page-course-outline .course-place .place .phone {
   color: #555;
-  font-size: 14px;
-  margin-top: 5px;
+  font-size: 16px;
+  margin-top: 7px;
 }
 .page-course-outline .course-place .place .phone i {
   color: #777;
+  font-size: 13px;
 }
 .page-course-outline .course-place .place .direction {
   color: #555;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 .page-course-outline .course-place .place .direction p {
   line-height: 24px;

@@ -8,13 +8,13 @@ html, body {
 }
 
 #body-top {
-    //background-color: #555;
-    background: url(../images/banner-bar-bg.gif) repeat;
+    background: @headerBackground;
+    border-bottom: 1px solid @headerDarkBorder;
     height: 32px;
 
     .social {
-        border-left: 1px solid #474747;
-        border-right: 1px solid #7B7B7B;
+        border-left: 1px solid @headerDarkBorder;
+        border-right: 1px solid @headerLightBorder;
         float: left;
         height: 32px;
 
@@ -22,15 +22,14 @@ html, body {
             margin: 0;
 
             li {
-
                 display: inline-block;
                 height: 32px;
                 list-style: none;
 
                 a {
-                    border-left: 1px solid #7B7B7B;
-                    border-right: 1px solid #474747;
-                    color: #DDD;
+                    border-left: 1px solid @headerLightBorder;
+                    border-right: 1px solid @headerDarkBorder;
+                    color: #FFF;
                     display: block;
                     font-size: 12px;
                     line-height: 32px;
@@ -42,7 +41,6 @@ html, body {
 
                     &:hover {
                         background-color: @linkColor;
-                        border-right: 1px solid @linkColorDark;
                         color: #FFF;
                         text-decoration: none;
                     }
@@ -68,7 +66,7 @@ html, body {
         height: 32px;
 
         ul.parent {
-            border-right: 1px solid #7B7B7B;
+            border-right: 1px solid @headerLightBorder;
             margin: 0;
 
             li.parent-item {
@@ -77,9 +75,9 @@ html, body {
                 list-style: none;
 
                 a.link {
-                    border-left: 1px solid #7B7B7B;
-                    border-right: 1px solid #474747;
-                    color: #DDD;
+                    border-left: 1px solid @headerLightBorder;
+                    border-right: 1px solid @headerDarkBorder;
+                    color: #FFF;
                     display: block;
                     font-size: 12px;
                     line-height: 32px;
@@ -95,7 +93,6 @@ html, body {
 
                     &:hover, &:active, &:focus {
                         background-color: @linkColor;
-                        border-right: 1px solid @linkColorDark;
                         color: #FFF;
                         text-decoration: none;
                     }
@@ -127,8 +124,8 @@ html, body {
     }
 
     .registration {
-        border-left: 1px solid #474747;
-        border-right: 1px solid #7B7B7B;
+        border-left: 1px solid @headerDarkBorder;
+        border-right: 1px solid @headerLightBorder;
     }
 
     .user {
@@ -136,7 +133,7 @@ html, body {
             &.username {
                 a.link {
                     border-left: none;
-                    color: #EEE;
+                    color: #FFF;
                     font-weight: bold;
                     padding-right: 15px;
 
@@ -181,136 +178,6 @@ html, body {
         height: 26px;
         margin-top: 24px;
         width: 267px;
-    }
-
-    .navigation {
-        float: left;
-        margin-left: 130px;
-
-        ul {
-            margin: 0;
-
-            li {
-                float: left;
-                list-style: none;
-
-                a {
-                    background-color: #F4F4F4;
-                    border-radius: 4px;
-                    //border-left: 1px solid #EEE;
-                    color: #555;
-                    display: inline-block;
-                    font-size: 14px;
-                    margin-right: 10px;
-                    margin-top: 20px;
-                    //line-height: 40px;
-                    padding: 8px 30px;
-
-                    &.teach {
-                        //border-right: 1px solid #EEE;
-                    }
-
-                    i {
-                        margin-right: 5px;
-                        vertical-align: middle;
-
-                        &.icon-search {
-                            margin-right: 3px;
-                            vertical-align: 1px;
-                        }
-                    }
-
-                    &:hover {
-                        background-color: #EEE;
-                        color: #444;
-                        text-decoration: none;
-                    }
-                }
-            }
-        }
-
-        .search {
-            display: inline-block;
-            vertical-align: middle;
-        }
-    }
-
-    .account {
-        float: right;
-
-        .registration {
-            padding: 23px 0px 15px;
-
-            a {
-                .content_link;
-                font-size: 13.5px;
-                margin-left: 12px;
-            }
-        }
-
-        .user {
-            padding-top: 15px;
-
-            .notification {
-                display: inline-block;
-                margin-right: 10px;
-                vertical-align: middle;
-
-                a {
-                    background-color: #DDD;
-                    border-radius: 4px;
-                    color: #FFF;
-                    display: inline-block;
-                    padding: 4px 10px;
-                    text-decoration: none;
-
-                    i {
-                        vertical-align: middle;
-                    }
-
-                    .number {
-                        font-size: 14px;
-                        font-weight: bold;
-                        margin-left: 5px;
-                    }
-                }
-
-                .has-alert {
-                    background-color: @orangeColor;
-                }
-            }
-
-            .menu {
-                display: inline-block;
-                vertical-align: middle;
-
-                .dropdown-toggle {
-                    display: inline-block;
-                    padding: 5px 5px 5px 8px;
-                    text-decoration: none;
-
-                    img {
-                        border-radius: 30px;
-                    }
-
-                    i {
-                        color: #797979;
-                        font-size: 15px;
-                        margin-left: 7px;
-                        vertical-align: middle;
-                    }
-
-                    &:hover {
-                        background-color: #EEE;
-                        border-radius: 4px;
-                    }
-                }
-            }
-
-            .btn-group.open .dropdown-toggle {
-                box-shadow: none;
-            }
-        }
     }
 }
 
@@ -411,20 +278,20 @@ html, body {
                 background-position: -96px -32px;
             }
         }
-
     }
 }
 
 .page-backend {
-    .backend-header {
-        background-color: @primaryColor;
+    #backend-header {
+        background: @headerBackground;
+        border-top: 1px solid @headerLightBorder;
         padding: 25px 0;
 
         .parent {
             margin-bottom: 6px;
 
             a {
-                color: #EEE;
+                color: #FFF;
                 font-size: 13px;
 
                 &:hover {
@@ -433,12 +300,12 @@ html, body {
             }
 
             span {
-                color: #EEE;
+                color: #FFF;
                 font-size: 13px;
             }
 
             .separator {
-                color: #EEE;
+                color: #FFF;
                 font-size: 15px;
                 margin: 0 6px;
             }
@@ -446,6 +313,7 @@ html, body {
 
         .actions {
             float: right;
+            margin-top: 5px;
 
             a {
                 background-color: #F7F7F7;
@@ -477,14 +345,14 @@ html, body {
             margin: 0;
 
             span {
-                color: #EEE;
+                color: #FFF;
                 font-size: 26px;
             }
         }
     }
 
     .backend-tabs {
-        background-color: @primaryColor;
+        background: url('../images/ui/100-95-3.png') repeat #6C9FD4;
 
         .nav {
             margin: 0;
@@ -542,7 +410,7 @@ html, body {
         }
     }
 
-    .backend-container {
+    #backend-container {
         background-color: #FFF;
         padding-bottom: 30px;
 

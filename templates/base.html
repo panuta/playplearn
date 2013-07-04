@@ -48,7 +48,7 @@
         {% spaceless %}
         <div class="social">
             <ul>
-                <li class="home"><a href="/"><i class="icon-home"></i></a></li>
+                <li class="home"><a href="/"><i class="icon-home"></i> {{ settings.WEBSITE_NAME }}</a></li>
                 <li class="facebook"><a href="#"><i class="icon-facebook-sign"></i> Facebook</a></li>
                 <li class="twitter"><a href="#"><i class="icon-twitter-sign"></i> Twitter</a></li>
                 <li class="blog"><a href="#"><i class="icon-rss-sign"></i> Blog</a></li>
@@ -92,43 +92,6 @@
 <div id="body-header">
     <div class="container">
         <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.small.png" /></a></div>
-        {% comment %}
-    <div class="navigation">
-        <ul>
-            <li><a href="{% url 'view_courses_explore' %}" class="explore"><i class="icon-list icon-large"></i> Browse courses</a></li>
-            <li><a href="{% url 'view_course_teach' %}" class="teach"><i class="icon-microphone icon-large"></i> Be a teacher</a></li>
-        </ul>
-        <!--<div class="search"><input type="text" /></div>-->
-    </div>
-
-    <div class="account">
-        {% if user.is_authenticated %}
-            <div class="user">
-                <div class="notification notify-courses">
-                    <a href="#"><i class="icon-briefcase icon-light"></i></a>
-                </div>
-                <div class="notification notify-news">
-                    <a href="#" class="has-alert"><i class="icon-bell-alt icon-light"></i><span class="number">10</span></a>
-                </div>
-                <div class="menu btn-group">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="{{ user.tiny_avatar_url }}" /> <i class="icon-chevron-down"></i></a>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="{% url 'view_my_profile' %}">โปรไฟล์</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{% url 'view_my_courses_upcoming' %}">My Courses</a></li>
-                        <li><a href="{% url 'edit_my_settings_profile' %}">Settings</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
-                    </ul>
-                </div>
-            </div>
-        {% else %}
-            <div class="registration">
-                <a href="{% url 'view_user_login' %}?next={{ request.path }}">เข้าสู่ระบบ / สมัครสมาชิก</a>
-            </div>
-        {% endif %}
-    </div>
-    {% endcomment %}
     </div>
 </div>
 {% endblock %}
