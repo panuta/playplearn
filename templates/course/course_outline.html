@@ -7,6 +7,15 @@
 {% block scripts %}
 <script>
 (function() {
+    {% if course.outline_media.exists %}
+        $('#pictures-slider').royalSlider({
+            controlsInside: false,
+            globalCaption: true,
+            imageScaleMode: 'fill',
+            keyboardNavEnabled: true
+        });
+    {% endif %}
+
     $('#enrollment-calendar').datepicker({
         format: 'yyyy-mm-dd',
         todayHighlight: true,
@@ -15,14 +24,7 @@
         language: 'th'
     })
 
-    {% if course.outline_media.exists %}
-    $('#pictures-slider').royalSlider({
-        controlsInside: false,
-        globalCaption: true,
-        imageScaleMode: 'fill',
-        keyboardNavEnabled: true
-    });
-    {% endif %}
+
 
     $('.button-enroll').on('click', function() {
         var schedule_id = $(this).attr('data-schedule-id');
@@ -66,31 +68,31 @@
 {% block body %}
 <div class="course-header">
     <div class="container">
-        <div class="enroll"><a href="#course-enrollment" class="style-orange-button"><i class="icon-signin"></i> Enroll this workshop</a></div>
+        <div class="enroll"><a href="#course-enrollment" class="style-orange-button"><i class="icon-signin"></i> ลงทะเบียน</a></div>
         <h1>{{ course.title }}</h1>
         <div class="teacher">
-            <div class="avatar"><img src="{{ course.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></div>
-            <div class="name">by <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
+            <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></a></div>
+            <div class="name">โดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="course-details">
         <span class="details">
-            <span class="caption">TOPIC</span>
+            <span class="caption">หัวข้อ</span>
             <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
         </span>
         <span class="details">
-            <span class="caption">DURATION</span>
-            <span class="value"><em>{{ course.duration }}</em> hour{{ course.duration|pluralize }}</span>
+            <span class="caption">ระยะเวลา</span>
+            <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
         </span>
         <span class="details">
-            <span class="caption">CLASS OF</span>
-            <span class="value"><em>{{ course.maximum_people }}</em> {{ course.maximum_people|pluralize:'person,people' }}</span>
+            <span class="caption">จำนวนคนในกลุ่ม</span>
+            <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
         </span>
         <span class="details">
-            <span class="caption">UPCOMNG CLASS</span>
-            <span class="value"><em>{{ course.stats_upcoming_classes }}</em> class{{ course.stats_upcoming_classes|pluralize:'es' }}</span>
+            <span class="caption">จำนวนครั้งที่จะจัด</span>
+            <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
         </span>
     </div>
     <div class="row">
@@ -107,31 +109,37 @@
         </div>
         <div class="span4">
             <div class="course-activities">
-                <div class="head">Activities</div>
+                <div class="head">กิจกรรม</div>
                 <ul>
-                    <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
-                    <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
-                    <li>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt.</li>
+                    {% for outline in course.outlines.all %}
+                    <li>{{ outline.title }}</li>
+                    {% endfor %}
                 </ul>
+            </div>
+            <div class="course-tools">
+                <div class="head">Tools for teacher</div>
+                <div>
+                    <a href="{% url 'edit_course' course.uid %}" class="style-button"><i class="icon-pencil"></i> Edit workshop</a>
+                    <a href="{% url 'manage_course_overview' course.uid %}" class="style-button"><i class="icon-book"></i> Manage workshop</a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="course-description">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id, porttitor et sem. Proin interdum tempor orci vitae vulputate. Etiam quis urna mi. Nulla a rhoncus justo. Sed viverra dictum justo, sed tincidunt dolor auctor sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque sit amet interdum odio, pulvinar congue elit. Suspendisse at augue risus. Praesent a ornare orci, vel euismod est.</p>
-        <p>Duis sollicitudin ipsum ut mi luctus sollicitudin. Mauris ut nisl tincidunt, bibendum tellus a, vehicula quam. Sed aliquam massa vel facilisis convallis. Maecenas eu hendrerit odio. Ut et tempor felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at feugiat diam. Pellentesque tempor at velit non feugiat. Pellentesque egestas congue odio et varius.</p>
+        {{ course.description|safe }}
     </div>
 
     <div class="course-place">
-        <div class="head"><i class="icon-map-marker"></i> Place</div>
+        <div class="head"><i class="icon-map-marker"></i> สถานที่</div>
         <div class="clearfix">
             <div class="map"><a href="#"><img src="{{ STATIC_URL }}images/sample/map1.png" /></a></div>
             <div class="place">
-                <div class="name">Place Name</div>
-                <div class="address">233/235 Srinakarin rd. Bang Muang</div>
-                <div class="phone"><i class="icon-phone-sign"></i> 089-784-5282</div>
+                <div class="name">{{ course.place.name }}</div>
+                <div class="address">{{ course.place.address }}</div>
+                <div class="phone"><i class="icon-phone-sign"></i> {{ course.place.phone_number }}</div>
                 <div class="direction">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit, metus at ornare sollicitudin, sapien nibh ultricies eros, eget auctor ipsum magna nec sapien. Mauris ac tempus ligula. Duis purus sem, faucibus vitae tempus id.</p>
+                    {{ course.place.direction|linebreaks }}
                 </div>
             </div>
         </div>
@@ -141,7 +149,7 @@
 <div class="course-enrollment">
     <a name="course-enrollment"></a>
     <div class="container">
-        <div class="head"><i class="icon-signin"></i> Enrollment</div>
+        <div class="head"><i class="icon-signin"></i> ลงทะเบียน</div>
         <div class="enrollment clearfix">
             <div class="enroll-calendar">
                 <div id="enrollment-calendar"></div>
@@ -187,7 +195,6 @@
                                 <span class="maximum">Limit at 20 students</span>
                             </div>
                         </div>
-
                     </li>
                 </ul>
             </div>
@@ -197,7 +204,7 @@
 
 <div class="container">
     <div class="course-feedbacks">
-        <h2><i class="icon-comment"></i> Feedbacks</h2>
+        <h2><i class="icon-comment"></i> การตอบรับ</h2>
         {% if feedbacks %}
             <div class="feedbacks">
                 {% for feedback in feedbacks %}

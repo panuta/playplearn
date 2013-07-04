@@ -1181,6 +1181,7 @@ body {
   border-radius: 0;
   color: #FFF;
   font-size: 15px;
+  margin: 25px 0 0;
   padding: 15px 35px 15px 56px;
   text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 }
@@ -1843,12 +1844,13 @@ body {
   background-color: #FFF;
   border-radius: 5px;
   float: right;
-  margin: 20px 0 0;
+  margin: 17px 0 0;
   padding: 4px 4px 7px;
 }
 .page-course-outline .course-header .enroll a {
   font-size: 15px;
   font-weight: 300;
+  padding: 10px 30px;
 }
 .page-course-outline .course-header h1 {
   color: #FFF;
@@ -1871,10 +1873,10 @@ body {
   border-radius: 70px;
 }
 .page-course-outline .course-header .teacher .name {
-  color: #EEE;
+  color: #FFF;
   display: inline-block;
   font-size: 16px;
-  font-weight: 200;
+  font-weight: 100;
   margin-left: 90px;
 }
 .page-course-outline .course-header .teacher .name a {
@@ -1891,12 +1893,12 @@ body {
 }
 .page-course-outline .course-details .details .caption {
   color: #999;
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 0px;
   margin-right: 3px;
 }
 .page-course-outline .course-details .details .value {
-  color: #555;
+  color: #666;
   font-size: 16px;
   font-weight: bold;
 }
@@ -1904,7 +1906,25 @@ body {
   margin-right: 1px;
 }
 .page-course-outline .course-details .details .value a {
+  color: #666;
+}
+.page-course-outline .course-tools {
+  margin-top: 25px;
+}
+.page-course-outline .course-tools .head {
   color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.page-course-outline .course-tools .style-button {
+  color: #555;
+  font-size: 13px;
+  margin-right: 10px;
+  padding: 5px 15px;
+}
+.page-course-outline .course-tools .style-button i {
+  vertical-align: 0px;
 }
 .page-course-outline .course-pictures {
   margin-top: 40px;
