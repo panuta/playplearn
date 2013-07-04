@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 from common.constants.course import COURSE_LEVEL_MAP, COURSE_LEVEL_CHOICES
 from common.constants.currency import CURRENCY_CODE_MAP
+from common.constants.feedback import FEEDBACK_FEELING_MAP
 
 from domain.models import UserRegistration, CourseEnrollment, CourseSchool, Place, EditingPlace
 
@@ -17,7 +18,7 @@ def to_resend_registration(registering_email):
 # COURSE ###############################################################################################################
 
 @register.simple_tag
-def course_topics_as_text(course):
+def course_topics_as_comma_separated(course):
     return ','.join([tag.name for tag in course.tags.all()]) if course else ''
 
 
@@ -43,7 +44,7 @@ def course_full_price(course):
 
 
 @register.simple_tag
-def course_school_options(course):
+def course_school_as_option(course):
     options = []
     for school in CourseSchool.objects.all():
         selected = ' selected="selected"' if course and school in course.schools.all() else ''
@@ -53,7 +54,7 @@ def course_school_options(course):
 
 
 @register.simple_tag
-def course_school_li_list(selected_school_slug):
+def course_school_as_li(selected_school_slug):
     li = []
     for school in CourseSchool.objects.all():
         active = ' class="active"' if school.slug == selected_school_slug else ''
@@ -63,7 +64,7 @@ def course_school_li_list(selected_school_slug):
 
 
 @register.simple_tag
-def course_place_options(course):
+def course_place_as_option(course):
     if course and course.pk:
         editing_place = course.get_editing_place()
 
@@ -97,3 +98,15 @@ def return_matching_enrollment(user, schedule):
     enrollments = CourseEnrollment.objects.filter(student=user, schedule=schedule)
     return enrollments[0]
 
+
+# COURSE FEEDBACK ######################################################################################################
+
+@register.simple_tag
+def feedback_feelings_as_li(feedback):
+    li = []
+    for feeling in feedback.feelings.split(','):
+        feeling_name = FEEDBACK_FEELING_MAP.get(feeling)
+        if feeling_name:
+            li.append('<li>%s</li>' % feeling_name)
+
+    return ''.join(li)

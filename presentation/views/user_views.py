@@ -29,32 +29,8 @@ def _view_user_profile(request, user):
 
     teaching_workshops = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
 
-    sorting_attending_workshops = {}
-    sorting_attended_workshops = {}
-    for enrollment in CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED'):
-        course = enrollment.schedule.course
-
-        if enrollment.schedule.start_datetime <= rightnow:
-            sorting_workshops = sorting_attended_workshops
-        else:
-            sorting_workshops = sorting_attending_workshops
-
-        if course.uid in sorting_workshops:
-            attend_tuple = sorting_workshops[course.uid]
-            attend_tuple[2].append(enrollment)
-
-            if attend_tuple[1] < enrollment.schedule.start_datetime:
-                attend_tuple[1] = enrollment.schedule.start_datetime
-
-        else:
-            sorting_workshops[course.uid] = (
-                enrollment.schedule.course,
-                enrollment.schedule.start_datetime,
-                [enrollment]
-            )
-
-    attending_workshops = sorted(sorting_attending_workshops.values(), key=itemgetter(1), reverse=True)
-    attended_workshops = sorted(sorting_attended_workshops.values(), key=itemgetter(1), reverse=True)
+    attending_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__gt=rightnow)
+    attended_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__lte=rightnow)
 
     return render(request, 'user/profile.html', {
         'context_user': user,

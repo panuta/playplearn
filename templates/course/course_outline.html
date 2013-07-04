@@ -54,7 +54,7 @@
     $('.course-feedbacks .feedbacks').masonry({
         columnWidth: 570,
         gutter: 30,
-        itemSelector: '.feedback'
+        itemSelector: '.style-course-feedback'
     });
 })();
 </script>
@@ -198,66 +198,15 @@
 <div class="container">
     <div class="course-feedbacks">
         <h2><i class="icon-comment"></i> Feedbacks</h2>
-
-        <div class="feedbacks">
-            <div class="feedback left-feedback">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
+        {% if feedbacks %}
+            <div class="feedbacks">
+                {% for feedback in feedbacks %}
+                    {% include 'snippets/course_feedback_box.html' %}
+                {% endfor %}
             </div>
-            <div class="feedback right-feedback">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="feedback left-feedback">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="feedback right-feedback">
-                <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-                <div class="right">
-                    <div class="name">Panu Tangchalermkul</div>
-                    <div class="feelings">
-                        <ul>
-                            <li class="like">Like</li><li class="love">Love</li>
-                        </ul>
-                    </div>
-                    <div class="content">
-                        <p>Maecenas id enim diam, vel hendrerit metus. Praesent fermentum nibh ut nulla congue mollis. In nibh velit, posuere vel gravida ut, tempus nec dui.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% else %}
+            <div class="style-no-information">No feedback yet</div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -165,10 +165,6 @@ html, body {
     }
 }
 
-#body-footer, .push {
-    height: 4em;
-}
-
 #body-header {
     background-color: #FFF;
     height: 65px;
@@ -185,22 +181,25 @@ html, body {
 
 }
 
+@footerHeight: 80px;
+@footerTopPadding: 15px;
+
 .wrapper {
     height: auto !important;
     height: 100%;
-    margin: 0 auto -95px;
+    margin: 0 auto -(@footerHeight + @footerTopPadding);
     min-height: 100%;
 }
 
-#body-footer, .push {
-    height: 56px;
+.push {
+    height: (@footerHeight + @footerTopPadding);
 }
 
 #body-footer {
     background-color: #666;
     position: relative;
-    padding-top: 15px;
-    height: 80px;
+    padding-top: @footerTopPadding;
+    height: @footerHeight;
 
     .logo {
         margin-bottom: 5px;

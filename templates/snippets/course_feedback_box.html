@@ -1,0 +1,11 @@
+{% load common_tags presentation_tags %}
+<div class="style-course-feedback">
+    {% if not hide_user %}<div class="feedback-avatar"><img src="{{ feedback.enrollment.student.small_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></div>{% endif %}
+    <div class="feedback-right{% if not hide_user %} with_avatar{% endif %}">
+        {% if not hide_user %}<div class="feedback-from"><a href="{% url 'view_user_profile' feedback.enrollment.student.uid %}">{{ feedback.enrollment.student.name }}</a></div>{% endif %}
+        {% if feedback.feelings %}<ul class="feedback-feelings">{% feedback_feelings_as_li feedback %}</ul>{% endif %}
+        <div class="feedback-content">
+            {{ feedback.content|linebreaks }}
+        </div>
+    </div>
+</div>

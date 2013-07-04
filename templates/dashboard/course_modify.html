@@ -139,7 +139,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                         <div class="controls controls-with-guide">
                             <select id="id_school">
                                 <option></option>
-                                {% course_school_options course %}
+                                {% course_school_as_option course %}
                             </select>
                         </div>
                         <div class="control-guide">
@@ -150,7 +150,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                     <div class="control-group topics-control">
                         <div><label class="control-label" for="id_topics">Topics</label></div>
                         <div class="controls controls-with-guide">
-                            <input type="hidden" id="id_topics" value="{% course_topics_as_text course %}" />
+                            <input type="hidden" id="id_topics" value="{% course_topics_as_comma_separated course %}" />
                         </div>
                         <div class="control-guide">
                             Curabitur orci nulla, luctus eu accumsan vitae, mattis sit amet eros. Phasellus semper lacus et massa pretium pellentesque lobortis velit vulputate. Donec condimentum elit sit amet sem placerat vitae dictum diam scelerisque. Donec id lectus at velit sagittis molestie commodo sit amet eros.
@@ -212,7 +212,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                             <div class="place-input-body">
                                 <select id="id_place_defined">
                                     <option></option>
-                                    {% course_place_options course %}
+                                    {% course_place_as_option course %}
                                 </select>
                             </div>
                         </div>
