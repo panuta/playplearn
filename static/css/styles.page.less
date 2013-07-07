@@ -1140,17 +1140,15 @@
 }
 
 .page-course-modify {
-    .backend-header {
-        h1 .title {
-            font-size: 20px;
-        }
+    #backend-container {
+        background: @headerBackground;
     }
 
     .approving-message {
         background-color: #FFD;
         color: #555;
         font-size: 14px;
-        margin-top: 30px;
+        margin-bottom: 20px;
         padding: 20px 50px;
         text-align: center;
 
@@ -1188,122 +1186,40 @@
         }
     }
 
-    .form-header {
-        margin: 20px 0;
-
-        .completeness {
-            float: left;
-
-            .head {
-                color: #555;
-                font-size: 14px;
-                margin-bottom: 1px;
-                margin-right: 15px;
-                vertical-align: middle;
-            }
-
-            .progress {
-                display: inline-block;
-                height: 11px;
-                margin: 0px;
-                vertical-align: middle;
-                width: 300px;
-
-                .bar {
-                    background-color: @alertGreenColor;
-                    background-image: linear-gradient(to bottom, #00c682, @alertGreenColor);
-                    width: 0%;
-                }
-            }
-
-            .percentage {
-                color: #444;
-                display: inline-block;
-                font-size: 14px;
-                font-weight: bold;
-                margin-left: 8px;
-                vertical-align: middle;
-            }
-        }
-
-        .form-actions {
-            padding-top: 5px;
-            text-align: right;
-
-            .link {
-                vertical-align: bottom;
-
-                a {
-                    .grey_link;
-                    font-size: 13px;
-                }
-
-                i {
-                    color: #777;
-                    font-size: 12px;
-                    margin-right: 2px;
-                }
-            }
-
-            .message {
-                vertical-align: bottom;
-            }
-
-            .error-message {
-                background-color: #FCC;
-                color: #444;
-                font-size: 13px;
-            }
-
-            button {
-                font-size: 13px;
-                margin-left: 10px;
-                vertical-align: middle;
-            }
-
-            .button-submit {
-                font-weight: bold;
-            }
-        }
-    }
-
-    .form-navigation {
-        li {
-            &.outline i {
-                margin: 0 7px 0 1px;
-            }
-
-            &.story i {
-                margin: 0 8px 0 2px;
-            }
-
-            &.pictures i {
-                margin: 0 6px 0 1px;
-            }
-
-            &.details i {
-                margin: 0 9px 0 2px;
-            }
-
-            &.place i {
-                margin: 0 9px 0 5px;
-            }
-        }
-    }
-
     .form-content {
-        margin-top: 10px;
-        padding-bottom: 30px;
+        background-color: #FFF;
+        border: 2px solid #93b9e0;
+        padding: 40px 50px 15px;
+
+        h3 {
+            background-color: #bfd3e8;
+            color: @primaryColor;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: normal;
+            margin: 35px 0 25px;
+            padding: 12px 18px;
+
+            i {
+                margin-right: 6px;
+            }
+        }
 
         .control-group {
             margin-bottom: 20px;
 
             .control-label {
-                color: #555;
+                color: #666;
                 display: inline-block;
                 font-size: 16px;
                 font-weight: bold;
-                margin-bottom: 12px;
+                margin-bottom: 10px;
+
+                i {
+                    color: #6c9fd4;
+                    font-weight: normal;
+                    margin-right: 3px;
+                }
             }
 
             .controls-with-guide {
@@ -1321,6 +1237,10 @@
                 padding: 0 15px;
                 vertical-align: top;
                 width: 400px;
+            }
+
+            input, select {
+                margin: 0;
             }
 
             .controls-text {
@@ -1358,19 +1278,43 @@
                 direction: ltr;
                 cursor: pointer;
             }
+
+            .help-block {
+                color: #777;
+                font-size: 13px;
+                margin-top: 6px;
+            }
+        }
+
+        .control-row {
+            margin-bottom: 10px;
+
+            .control-group {
+                display: inline-block;
+                margin-right: 60px;
+                vertical-align: top;
+            }
+        }
+
+        .row-for-cover-pictures, .row-for-place {
+            .span6 {
+                width: 665px;
+            }
         }
 
         .title-control {
             margin-bottom: 30px;
 
             input {
-                font-size: 16px;
-                height: 30px;
-                width: 700px;
+                font-size: 20px;
+                height: 40px;
+                width: 1054px; // 1066px -12px
             }
         }
 
-        .outline-control {
+        .activities-control {
+            margin-bottom: 30px;
+
             ul {
                 margin: 0;
 
@@ -1441,16 +1385,16 @@
         }
 
         .story-control {
-
+            margin-bottom: 30px;
         }
 
         .cover-control {
-            margin-bottom: 30px;
+            margin-bottom: 0;
 
             .cover {
-                border: 1px solid #DDD;
-                height: 80px;
-                margin-bottom: 15px;
+                border: 1px solid #CCC;
+                height: 130px;
+                margin-bottom: 20px;
                 width: 255px;
 
                 .progress {
@@ -1469,6 +1413,7 @@
 
             .help-block {
                 font-size: 13px;
+                margin-top: 0;
             }
         }
 
@@ -1621,93 +1566,170 @@
             }
         }
 
-        #content-place {
-            h2 {
-                margin-bottom: 20px;
+        .place-control {
+            .place-label {
+                color: #444;
+                display: inline-block;
+                font-size: 15px;
+                font-weight: bold;
+                margin-bottom: 10px;
+
+                input {
+                    margin-right: 5px;
+                    vertical-align: 1px;
+                }
             }
 
-            .place-choice {
-                margin-bottom: 35px;
+            select.places {
+                margin: 0;
+                width: 340px;
+            }
 
-                .place-label {
-                    color: #444;
-                    display: inline;
-                    font-size: 15px;
+            .place-form {
+                background-color: #F7F7F7;
+                border: 1px solid #EEE;
+                padding: 15px 20px 0 20px;
+            }
+
+            .place-form-loading {
+                color: #555;
+                font-size: 13px;
+
+                img {
+                    margin-right: 5px;
+                }
+            }
+
+            .place-row {
+                .place-input {
+                    display: inline-block;
+                    vertical-align: top;
+                }
+            }
+
+            .head {
+                color: @primaryColor;
+                font-size: 15px;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+
+            .place-input {
+                margin-bottom: 20px;
+
+                label {
+                    color: #666;
+                    display: inline-block;
+                    font-size: 13px;
                     font-weight: bold;
+                    margin-bottom: 3px;
+                }
 
-                    input {
-                        margin-right: 5px;
+                input, select {
+                    margin: 0;
+                }
+
+                .new_location {
+                    .or {
+                        color: #777;
+                        font-size: 13px;
+                        margin: 0 6px;
                     }
                 }
 
-                .place-input-body {
-                    padding: 15px 0 0 22px;
+                #id_place_name {
+                    width: 365px;
+                }
 
-                    .place-input {
-                        margin-bottom: 25px;
+                #id_place_address {
+                    height: 50px;
+                    margin: 0 20px 0 0;
+                    width: 365px;
+                }
 
-                        .place-inline-input {
-                            display: inline-block;
-                            vertical-align: top;
-                        }
+                #id_place_direction {
+                    height: 80px;
+                    margin-right: 25px;
+                    width: 300px;
+                }
+            }
+
+            .place-input-location {
+                .minimap {
+                    background-color: #F9F9F9;
+                    border: 1px solid #EEE;
+                    height: 182px;
+                    padding: 3px;
+                    text-align: center;
+                    width: 272px;
+
+                    img {
+                        border: 1px solid #DDDDDD;
+                        height: 180px;
+                        width: 270px;
                     }
+                }
 
-                    label {
-                        color: #444;
-                        display: inline-block;
-                        font-size: 14px;
-                        font-weight: normal;
-                        margin-bottom: 5px;
-                    }
+                .button-input-latlng {
+                    margin-top: 5px;
+                    padding: 2px 15px;
+                }
 
-                    input, select, textarea {
-                        margin: 0;
-                    }
+                em, a {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
 
-                    .help-block {
-                        color: #888;
-                        font-size: 13px;
-                        margin: 2px 0 0;
-                    }
-
-                    #id_place_name {
-                        margin-right: 30px;
-                        width: 306px;
-                    }
-
-                    #id_place_phone {
-                        width: 300px;
-                    }
-
-                    #id_place_address {
-                        margin-right: 30px;
-                        width: 400px;
-                    }
-
-                    .place-input-location {
-                        margin-bottom: 25px;
-
-                        em, a {
-                            display: inline-block;
-                            vertical-align: middle;
-                        }
-
-                        .location_latlng {
-                            background-color: #EEE;
-                            color: #555;
-                            font-size: 13px;
-                            margin-right: 10px;
-                            padding: 1px 10px;
-                        }
-                    }
-
-                    #id_place_direction {
-                        height: 60px;
-                        width: 652px;
-                    }
+                .place_latlng {
+                    background-color: #EEE;
+                    color: #555;
+                    font-size: 13px;
+                    margin-right: 10px;
+                    padding: 1px 10px;
                 }
             }
         }
+    }
+
+    #form-footer-container {
+        margin-top: 30px;
+        min-height: 65px;
+
+        .form-footer {
+            button {
+                margin-right: 15px;
+            }
+
+            .button-submit {
+                font-weight: bold;
+            }
+
+            .link {
+                vertical-align: bottom;
+
+                a {
+                    .grey_link;
+                    font-size: 13px;
+                }
+
+                i {
+                    color: #777;
+                    font-size: 12px;
+                    margin-right: 2px;
+                }
+            }
+        }
+    }
+
+    .form-footer-floating {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-top: 1px solid #EEE;
+        bottom: 0px;
+        height: 35px;
+        left: 0px;
+        padding: 15px 50px;
+        position: fixed;
+        width: 100%;
     }
 
     #modal-place-map {
@@ -1762,10 +1784,6 @@
             line-height: 25px;
         }
     }
-}
-
-.page-course-publish {
-
 }
 
 .page-manage-workshop {

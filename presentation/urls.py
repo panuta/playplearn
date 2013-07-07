@@ -59,13 +59,11 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'presentation.views.dashboard_ajax_views',
 
-    url(r'^ajax/course/autosave/$', 'ajax_autosave_course', name='ajax_autosave_course'),
+    url(r'^ajax/course/save/$', 'ajax_save_course', name='ajax_save_course'),
     url(r'^ajax/course/cover/upload/$', 'ajax_upload_course_cover', name='ajax_upload_course_cover'),
     url(r'^ajax/course/picture/upload/$', 'ajax_upload_course_picture', name='ajax_upload_course_picture'),
-    url(r'^ajax/course/picture/reorder/$', 'ajax_reorder_course_picture', name='ajax_reorder_course_picture'),
     url(r'^ajax/course/picture/delete/$', 'ajax_delete_course_picture', name='ajax_delete_course_picture'),
-    url(r'^ajax/course/submit/$', 'ajax_submit_course', name='ajax_submit_course'),
-    url(r'^ajax/course/discard/$', 'ajax_discard_course_changes', name='ajax_discard_course_changes'),
+    url(r'^ajax/course/place/get/$', 'ajax_get_course_place', name='ajax_get_course_place'),
 
     url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
 

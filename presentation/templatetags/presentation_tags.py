@@ -1,11 +1,10 @@
 from django import template
 from django.core.urlresolvers import reverse
 
-from common.constants.course import COURSE_LEVEL_MAP, COURSE_LEVEL_CHOICES
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 
-from domain.models import UserRegistration, CourseEnrollment, CourseSchool, Place, EditingPlace
+from domain.models import UserRegistration, CourseEnrollment, CourseSchool, Place, CoursePicture
 
 register = template.Library()
 
@@ -16,26 +15,6 @@ def to_resend_registration(registering_email):
 
 
 # COURSE ###############################################################################################################
-
-@register.simple_tag
-def course_topics_as_comma_separated(course):
-    return ','.join([tag.name for tag in course.tags.all()]) if course else ''
-
-
-@register.simple_tag
-def course_level(course):
-    return COURSE_LEVEL_MAP[course.level]['name']
-
-
-@register.simple_tag
-def course_level_options(course):
-    options = []
-    for level_tuple in COURSE_LEVEL_CHOICES:
-        selected = ' selected="selected"' if course and course.level == level_tuple[0] else ''
-        options.append('<option value="%s"%s>%s</option>' %(level_tuple[0], selected, level_tuple[1]))
-
-    return ''.join(options)
-
 
 @register.simple_tag
 def course_full_price(course):
@@ -63,21 +42,37 @@ def course_school_as_li(selected_school_slug):
     return ''.join(li)
 
 
+@register.assignment_tag
+def is_user_defined_place(user):
+    return Place.objects.filter(is_userdefined=True, created_by=user).exists()
+
+
+@register.assignment_tag
+def is_display_place_form(user, course):
+    has_userdefined_places = Place.objects.filter(is_userdefined=True, created_by=user).exists()
+
+    if not course and not has_userdefined_places:
+        return True
+    elif course and course.place and course.place.is_userdefined:
+        return True
+
+    return False
+
+
 @register.simple_tag
-def course_place_as_option(course):
-    if course and course.pk:
-        editing_place = course.get_editing_place()
-
-        if isinstance(editing_place, EditingPlace):
-            editing_place = editing_place.defined_place
-
+def course_place_as_option(place_type, teacher, course=None):
+    if place_type == 'system':
+        places = Place.objects.filter(is_userdefined=False, is_visible=True)
+    elif place_type == 'userdefined':
+        places = Place.objects.filter(is_userdefined=True, created_by=teacher)
     else:
-        editing_place = None
+        places = []
 
     options = []
-    for place in Place.objects.filter(is_userdefined=False, is_visible=True):
-        selected = ' selected="selected"' if editing_place == place else ''
-        options.append('<option value="%s"%s>%s</option>' %(place.id, selected, place.name))
+    for place in places:
+        selected = ' selected="selected"' if course and course.place == place else ''
+        place_name = place.name if place.name else '(No name)'
+        options.append('<option value="%s"%s>%s</option>' %(place.id, selected, place_name))
 
     return ''.join(options)
 
@@ -89,6 +84,11 @@ def get_course_undefined_place(course):
         return place if place and place.is_userdefined else Place()
     else:
         return Place()
+
+
+@register.simple_tag
+def course_picture_ordering_as_comma_separated(course):
+    return ','.join([picture.uid for picture in CoursePicture.objects.filter(course=course, mark_deleted=False)])
 
 
 # COURSE ENROLLMENT ####################################################################################################

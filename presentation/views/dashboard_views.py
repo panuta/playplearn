@@ -10,8 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 from common.decorators import teacher_only
 
-from domain import functions as domain_function
-from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, EditingCourse, CourseFeedback
+from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseFeedback, CoursePicture
 
 
 # MY COURSES ###########################################################################################################
@@ -110,11 +109,8 @@ def view_my_courses_teaching(request, category):
 @login_required
 def create_course(request):
     course_uid = Course.objects.generate_course_uid()
-    editing_course = Course()
     return render(request, 'dashboard/course_modify.html', {
         'course_uid': course_uid,
-        'editing_course': editing_course,
-        'editing_place': editing_course.get_editing_place(),
     })
 
 
@@ -125,23 +121,11 @@ def edit_course(request, course_uid):
     if course.teacher != request.user:
         raise Http404
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        editing_course = course
-    elif course.status == 'PUBLISHED':
-        try:
-            editing_course = EditingCourse.objects.get(course=course)
-        except EditingCourse.DoesNotExist:
-            editing_course = course.create_editing_course()
-    else:
-        raise Http404
+    course_pictures = CoursePicture.objects.filter(course=course, mark_deleted=False)
 
-    has_changes = domain_function.has_course_changes(course)
     return render(request, 'dashboard/course_modify.html', {
         'course': course,
-        'editing_course': editing_course,
-        'editing_place': editing_course.get_editing_place(),
-        'completeness': course.completeness(),
-        'has_changes': has_changes,
+        'course_pictures': course_pictures,
     })
 
 

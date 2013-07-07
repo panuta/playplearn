@@ -246,23 +246,18 @@ class UserAccountBalanceTransaction(models.Model):
 
 # PLACE ################################################################################################################
 
-class BasePlace(models.Model):
+class Place(models.Model):
     name = models.CharField(max_length=500, blank=True)
     code = models.CharField(max_length=100, blank=True, db_index=True)
     address = models.CharField(max_length=500, blank=True)
     province_code = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=5, blank=True)
-    phone_number = models.CharField(max_length=50, blank=True)
     direction = models.TextField(blank=True)
     latlng = models.CharField(max_length=50, blank=True)
 
-    class Meta:
-        abstract = True
-
-
-class Place(BasePlace):
     is_userdefined = models.BooleanField()
     is_visible = models.BooleanField(default=True)  # Only applied to userdefined place
+    created_by = models.ForeignKey(UserAccount, null=True)  # Only applied to userdefined place
 
     class Meta:
         ordering = ['name']
@@ -272,11 +267,6 @@ class Place(BasePlace):
         if self.code:
             return reverse('view_place_info_by_code', args=(self.code,))
         return reverse('view_place_info_by_id', args=(self.id,))
-
-
-class EditingPlace(BasePlace):
-    course = models.OneToOneField('Course')
-    defined_place = models.ForeignKey(Place, null=True)
 
 
 # COURSE ###############################################################################################################
@@ -303,7 +293,14 @@ class CourseManager(models.Manager):
         return temp_uuid
 
 
-class BaseCourse(models.Model):
+def course_cover_dir(instance, filename):
+    rightnow = now()
+    (head, root, ext) = split_filepath(filename)
+    return 'users/%s/courses/%s/cover-%d.%s' % (instance.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
+
+
+class Course(models.Model):
+    uid = models.CharField(max_length=50, db_index=True, unique=True)
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True)
     schools = models.ManyToManyField(CourseSchool, null=True)
@@ -311,21 +308,32 @@ class BaseCourse(models.Model):
     price_unit = models.CharField(max_length=20, default='THB', choices=CURRENCY_CHOICES)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)
     maximum_people = models.PositiveSmallIntegerField(null=True, blank=True)
-    level = models.CharField(max_length=20, choices=COURSE_LEVEL_CHOICES, blank=True)
     prerequisites = models.CharField(max_length=500, blank=True)
-    credentials = models.CharField(max_length=2000, blank=True)
+
+    cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
+    place = models.ForeignKey(Place, null=True)
+    teacher = models.ForeignKey(UserAccount, related_name='courses')
 
     tags = TaggableManager()
+    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
 
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    first_published = models.DateTimeField(null=True)
+    last_scheduled = models.DateTimeField(null=True)
+
+    objects = CourseManager()
+
+    class Meta:
+        ordering = ['-created']
+
+    def save(self, *args, **kwargs):
+        if not self.uid:
+            self.uid = Course.objects.generate_course_uid()
+        super(Course, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
-
-    class Meta:
-        abstract = True
-        ordering = ['-created']
 
     # PROPERTIES
 
@@ -344,36 +352,6 @@ class BaseCourse(models.Model):
             return self.schools.all()[0]
         return None
 
-
-def course_cover_dir(instance, filename):
-    rightnow = now()
-    (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/cover-%d.%s' % (instance.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
-
-
-class Course(BaseCourse):
-    uid = models.CharField(max_length=50, db_index=True, unique=True)
-    cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
-    place = models.ForeignKey(Place, null=True)
-    teacher = models.ForeignKey(UserAccount, related_name='courses')
-
-    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
-    first_published = models.DateTimeField(null=True)
-    last_scheduled = models.DateTimeField(null=True)
-
-    objects = CourseManager()
-
-    def save(self, *args, **kwargs):
-        if not self.uid:
-            self.uid = Course.objects.generate_course_uid()
-        super(Course, self).save(*args, **kwargs)
-
-    # PROPERTIES
-
-    def completeness(self):
-        from .functions import calculate_course_completeness
-        return calculate_course_completeness(self)
-
     def status_info(self):
         return COURSE_STATUS_MAP[str(self.status)]
 
@@ -390,27 +368,6 @@ class Course(BaseCourse):
     def get_last_schedule(self):
         rightnow = now()
         return CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__lt=rightnow).order_by('-start_datetime')[0]
-
-    def get_editing_outlines(self):
-        if self.pk:
-            return CourseOutline.objects.filter(course=self)
-        else:
-            return []
-
-    def get_editing_media(self):
-        if self.pk:
-            return CourseOutlineMedia.objects.filter(course=self)
-        else:
-            return []
-
-    def get_editing_media_ordering(self):
-        if self.pk:
-            return CourseOutlineMedia.objects.get_media_uid_ordering(self)
-        else:
-            return ''
-
-    def get_editing_place(self):
-        return self.place
 
     def get_promoted_feedbacks(self):
         return CourseFeedback.objects.filter(enrollment__schedule__course=self, is_promoted=True).order_by('-created')
@@ -445,228 +402,67 @@ class Course(BaseCourse):
         total_earning = CourseEnrollment.objects.filter(schedule__course=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
         return total_earning if total_earning else 0
 
-    # UTILS
-
-    def create_editing_course(self):
-        editing_course = EditingCourse.objects.create(
-            course=self,
-            title=self.title,
-            description=self.description,
-            price=self.price,
-            price_unit=self.price_unit,
-            duration=self.duration,
-            maximum_people=self.maximum_people,
-            level=self.level,
-            prerequisites=self.prerequisites,
-            credentials=self.credentials,
-        )
-
-        if self.cover:
-            editing_cover = ContentFile(self.cover.read())
-            editing_cover.name = editing_course_cover_dir(editing_course, self.cover.name)
-        else:
-            editing_cover = None
-
-        editing_course.cover = editing_cover
-        editing_course.save()
-
-        editing_course.schools.add(*self.schools.all())
-        editing_course.tags.add(*self.tags.all())
-
-        # Outlines
-        outline_bulk = []
-        for outline in self.outlines.all():
-            outline_bulk.append(EditingCourseOutline(
-                course=outline.course,
-                title=outline.title,
-                description=outline.description,
-                ordering=outline.ordering,
-            ))
-
-        EditingCourseOutline.objects.bulk_create(outline_bulk)
-
-        # Media
-        for media in self.outline_media.all():
-            editing_media = EditingCourseOutlineMedia.objects.create(
-                course=media.course,
-                uid=media.uid,
-                media_type=media.media_type,
-                description=media.description,
-                ordering=media.ordering,
-                is_new=False,
-            )
-
-            if media.media_type == 'PICTURE':
-                EditingCoursePicture.objects.create(
-                    media=editing_media,
-                    image=media.coursepicture.image,
-                )
-
-            elif media.media_type == 'VIDEO_URL':
-                EditingCourseVideoURL.objects.create(
-                    media=editing_media,
-                    url=media.url,
-                )
-
-        # Place
-        if self.place.is_userdefined:
-            editing_place = EditingPlace.objects.create(
-                course=self,
-                name=self.place.name,
-                code=self.place.code,
-                address=self.place.address,
-                province_code=self.place.province_code,
-                country=self.place.country,
-                phone_number=self.place.phone_number,
-                direction=self.place.direction,
-                latlng=self.place.latlng,
-                is_userdefined=self.place.phone_number,
-            )
-        else:
-            editing_place = EditingPlace.objects.create(
-                course=self,
-                defined_place=self.place,
-            )
-
-        editing_course.place = editing_place
-        editing_course.save()
-
-        return editing_course
-
 
 def editing_course_cover_dir(instance, filename):
     rightnow = now()
     (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/editing-cover-%d.%s' % (instance.course.teacher.uid, instance.course.uid, time.mktime(rightnow.timetuple()), ext)
+    return 'users/%s/courses/%s/cover-%d.%s' % (instance.course.teacher.uid, instance.course.uid, time.mktime(rightnow.timetuple()), ext)
 
 
-class EditingCourse(BaseCourse):
-    course = models.OneToOneField(Course)
+class EditingCourse(models.Model):
+    course = models.OneToOneField(Course, related_name='editing_course')
     cover = ThumbnailerImageField(upload_to=editing_course_cover_dir, null=True)
-    place = models.ForeignKey(EditingPlace, null=True)
-    is_dirty = models.BooleanField(default=False)
-
-    def get_editing_outlines(self):
-        return EditingCourseOutline.objects.filter(course=self.course)
-
-    def get_editing_media(self):
-        return EditingCourseOutlineMedia.objects.filter(course=self.course)
-
-    def get_editing_media_ordering(self):
-        return EditingCourseOutlineMedia.objects.get_media_uid_ordering(self.course)
-
-    def get_editing_place(self):
-        try:
-            return EditingPlace.objects.get(course=self.course)
-        except EditingPlace.DoesNotExist:
-            return None
 
 
-# Course Outline
+# Course Activities
 
-class BaseCourseOutline(models.Model):
+class CourseActivity(models.Model):
+    course = models.ForeignKey(Course, related_name='activities')
     title = models.CharField(max_length=500)
     description = models.CharField(max_length=1000, blank=True)
     ordering = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
-        abstract = True
         ordering = ['ordering']
 
 
-class CourseOutline(BaseCourseOutline):
-    course = models.ForeignKey(Course, related_name='outlines')
+# Course Pictures
+
+def course_picture_dir(instance, filename):
+    (head, root, ext) = split_filepath(filename)
+    return 'users/%s/courses/%s/%s.%s' % (instance.course.teacher.uid, instance.course.uid, instance.uid, ext)
 
 
-class EditingCourseOutline(BaseCourseOutline):
-    course = models.ForeignKey(Course, related_name='editing_outlines')
-
-
-# Course Outline Media
-
-class CourseOutlineMediaManager(models.Manager):
+class CoursePictureManager(models.Manager):
     def generate_media_uid(self):
         shortuuid.set_alphabet(SHORTUUID_ALPHABETS_CHARACTERS_NUMBER)
         temp_uuid = shortuuid.uuid()[0:10]
-        while CourseOutlineMedia.objects.filter(uid=temp_uuid).exists() or \
-                EditingCourseOutlineMedia.objects.filter(uid=temp_uuid).exists():
+        while CoursePicture.objects.filter(uid=temp_uuid).exists():
             temp_uuid = shortuuid.uuid()[0:10]
         return temp_uuid
 
-    def get_media_uid_ordering(self, course):
-        media_uid_ordering = [media.uid for media in self.filter(course=course).order_by('ordering')]
-        return ','.join(media_uid_ordering)
 
-
-class BaseCourseOutlineMedia(models.Model):
+class CoursePicture(models.Model):
+    course = models.ForeignKey(Course, related_name='pictures')
     uid = models.CharField(max_length=50, db_index=True, unique=True)
-    media_type = models.CharField(max_length=20, choices=COURSE_OUTLINE_MEDIA_CHOICES)
     description = models.CharField(max_length=1000, blank=True)
+    image = ThumbnailerImageField(upload_to=course_picture_dir)
     ordering = models.PositiveSmallIntegerField(default=0)
     uploaded = models.DateTimeField(auto_now_add=True)
+    is_visible = models.BooleanField(default=False)
+
+    mark_added = models.BooleanField(default=False)
+    mark_deleted = models.BooleanField(default=False)
 
     class Meta:
-        abstract = True
         ordering = ['ordering']
 
-    objects = CourseOutlineMediaManager()
+    objects = CoursePictureManager()
 
     def save(self, *args, **kwargs):
         if not self.uid:
             self.uid = self.__class__.objects.generate_media_uid()
-        super(BaseCourseOutlineMedia, self).save(*args, **kwargs)
-
-
-class CourseOutlineMedia(BaseCourseOutlineMedia):
-    course = models.ForeignKey(Course, related_name='outline_media')
-    is_visible = models.BooleanField(default=False)
-
-    def get_source(self):
-        if self.media_type == 'PICTURE':
-            return self.coursepicture
-        elif self.media_type == 'VIDEO_URL':
-            return self.coursevideourl
-        else:
-            return None
-
-
-class EditingCourseOutlineMedia(BaseCourseOutlineMedia):
-    course = models.ForeignKey(Course, related_name='editing_outline_media')
-    is_new = models.BooleanField(default=True)
-    mark_deleted = models.BooleanField(default=False)
-
-    def get_source(self):
-        if self.media_type == 'PICTURE':
-            return self.editingcoursepicture
-        elif self.media_type == 'VIDEO_URL':
-            return self.editingcoursevideourl
-        else:
-            return None
-
-
-def course_picture_dir(instance, filename):
-    (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/%s.%s' % (instance.media.course.teacher.uid, instance.media.course.uid, instance.media.uid, ext)
-
-
-class CoursePicture(models.Model):
-    media = models.OneToOneField(CourseOutlineMedia)
-    image = ThumbnailerImageField(upload_to=course_picture_dir)
-
-
-class EditingCoursePicture(models.Model):
-    media = models.OneToOneField(EditingCourseOutlineMedia)
-    image = ThumbnailerImageField(upload_to=course_picture_dir)
-
-
-class CourseVideoURL(models.Model):
-    media = models.OneToOneField(CourseOutlineMedia)
-    url = models.URLField()
-
-
-class EditingCourseVideoURL(models.Model):
-    media = models.OneToOneField(EditingCourseOutlineMedia)
-    url = models.URLField()
+        super(CoursePicture, self).save(*args, **kwargs)
 
 
 # Course Schedule

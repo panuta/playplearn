@@ -10,14 +10,22 @@ def response_json(obj=None):
         return HttpResponse('{}')
 
 
-def response_json_success(return_object={}):
+def response_json_success(return_object=None):
+    if return_object is None:
+        return_object = {}
+
+    print return_object
+
     return HttpResponse(json.dumps({
         'status': 'success',
         'data': return_object,
     }))
 
 
-def response_json_error(error_code='', return_object={}):
+def response_json_error(error_code='', return_object=None):
+    if return_object is None:
+        return_object = {}
+
     return HttpResponse(json.dumps({
         'status': 'error',
         'error': error_code,
@@ -25,7 +33,10 @@ def response_json_error(error_code='', return_object={}):
     }))
 
 
-def response_json_error_with_message(error_code, error_dict, return_object={}):
+def response_json_error_with_message(error_code, error_dict, return_object=None):
+    if return_object is None:
+        return_object = {}
+
     message = error_dict[error_code]
     return HttpResponse(json.dumps({
         'status': 'error',

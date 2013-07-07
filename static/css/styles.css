@@ -890,6 +890,7 @@ body {
 }
 #body-top .social ul li a:hover {
   background-color: #3a71a9;
+  border-left: 1px solid #336396;
   color: #FFF;
   text-decoration: none;
 }
@@ -933,6 +934,7 @@ body {
 #body-top .account ul.parent li.parent-item a.link:active,
 #body-top .account ul.parent li.parent-item a.link:focus {
   background-color: #3a71a9;
+  border-left: 1px solid #336396;
   color: #FFF;
   text-decoration: none;
 }
@@ -964,7 +966,8 @@ body {
   padding-right: 15px;
 }
 #body-top .user ul.parent li.parent-item.username a.link:hover,
-#body-top .user ul.parent li.parent-item.username a.link:active {
+#body-top .user ul.parent li.parent-item.username a.link:active,
+#body-top .user ul.parent li.parent-item.username a.link:focus {
   background-color: transparent;
   text-decoration: underline;
 }
@@ -1111,9 +1114,10 @@ body {
 .page-backend #backend-header h1 {
   color: #FFF;
   font-size: 32px;
-  font-weight: 100;
+  font-weight: bold;
   line-height: normal;
   margin: 0;
+  text-shadow: 2px 2px #3a71a9;
 }
 .page-backend #backend-header h1 span {
   color: #FFF;
@@ -2647,14 +2651,14 @@ body {
   padding: 2px 5px;
   text-align: center;
 }
-.page-course-modify .backend-header h1 .title {
-  font-size: 20px;
+.page-course-modify #backend-container {
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
 }
 .page-course-modify .approving-message {
   background-color: #FFD;
   color: #555;
   font-size: 14px;
-  margin-top: 30px;
+  margin-bottom: 20px;
   padding: 20px 50px;
   text-align: center;
 }
@@ -2696,110 +2700,37 @@ body {
 .page-course-modify .form-errors p {
   margin: 0;
 }
-.page-course-modify .form-header {
-  margin: 20px 0;
-}
-.page-course-modify .form-header .completeness {
-  float: left;
-}
-.page-course-modify .form-header .completeness .head {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 1px;
-  margin-right: 15px;
-  vertical-align: middle;
-}
-.page-course-modify .form-header .completeness .progress {
-  display: inline-block;
-  height: 11px;
-  margin: 0px;
-  vertical-align: middle;
-  width: 300px;
-}
-.page-course-modify .form-header .completeness .progress .bar {
-  background-color: #00ac71;
-  background-image: linear-gradient(to bottom, #00c682, #00ac71);
-  width: 0%;
-}
-.page-course-modify .form-header .completeness .percentage {
-  color: #444;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 8px;
-  vertical-align: middle;
-}
-.page-course-modify .form-header .form-actions {
-  padding-top: 5px;
-  text-align: right;
-}
-.page-course-modify .form-header .form-actions .link {
-  vertical-align: bottom;
-}
-.page-course-modify .form-header .form-actions .link a {
-  font-size: 13px;
-}
-.page-course-modify .form-header .form-actions .link a:link,
-.page-course-modify .form-header .form-actions .link a:active,
-.page-course-modify .form-header .form-actions .link a:visited {
-  color: #888;
-  text-decoration: underline;
-}
-.page-course-modify .form-header .form-actions .link a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-course-modify .form-header .form-actions .link i {
-  color: #777;
-  font-size: 12px;
-  margin-right: 2px;
-}
-.page-course-modify .form-header .form-actions .message {
-  vertical-align: bottom;
-}
-.page-course-modify .form-header .form-actions .error-message {
-  background-color: #FCC;
-  color: #444;
-  font-size: 13px;
-}
-.page-course-modify .form-header .form-actions button {
-  font-size: 13px;
-  margin-left: 10px;
-  vertical-align: middle;
-}
-.page-course-modify .form-header .form-actions .button-submit {
-  font-weight: bold;
-}
-.page-course-modify .form-navigation li.outline i {
-  margin: 0 7px 0 1px;
-}
-.page-course-modify .form-navigation li.story i {
-  margin: 0 8px 0 2px;
-}
-.page-course-modify .form-navigation li.pictures i {
-  margin: 0 6px 0 1px;
-}
-.page-course-modify .form-navigation li.details i {
-  margin: 0 9px 0 2px;
-}
-.page-course-modify .form-navigation li.place i {
-  margin: 0 9px 0 5px;
-}
 .page-course-modify .form-content {
-  margin-top: 10px;
-  padding-bottom: 30px;
+  background-color: #FFF;
+  border: 2px solid #93b9e0;
+  padding: 40px 50px 15px;
+}
+.page-course-modify .form-content h3 {
+  background-color: #bfd3e8;
+  color: #3a71a9;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: normal;
+  margin: 35px 0 25px;
+  padding: 12px 18px;
+}
+.page-course-modify .form-content h3 i {
+  margin-right: 6px;
 }
 .page-course-modify .form-content .control-group {
   margin-bottom: 20px;
 }
 .page-course-modify .form-content .control-group .control-label {
-  color: #555;
+  color: #666;
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+}
+.page-course-modify .form-content .control-group .control-label i {
+  color: #6c9fd4;
+  font-weight: normal;
+  margin-right: 3px;
 }
 .page-course-modify .form-content .control-group .controls-with-guide {
   clear: left;
@@ -2815,6 +2746,10 @@ body {
   padding: 0 15px;
   vertical-align: top;
   width: 400px;
+}
+.page-course-modify .form-content .control-group input,
+.page-course-modify .form-content .control-group select {
+  margin: 0;
 }
 .page-course-modify .form-content .control-group .controls-text input {
   font-size: 18px;
@@ -2845,24 +2780,44 @@ body {
   direction: ltr;
   cursor: pointer;
 }
+.page-course-modify .form-content .control-group .help-block {
+  color: #777;
+  font-size: 13px;
+  margin-top: 6px;
+}
+.page-course-modify .form-content .control-row {
+  margin-bottom: 10px;
+}
+.page-course-modify .form-content .control-row .control-group {
+  display: inline-block;
+  margin-right: 60px;
+  vertical-align: top;
+}
+.page-course-modify .form-content .row-for-cover-pictures .span6,
+.page-course-modify .form-content .row-for-place .span6 {
+  width: 665px;
+}
 .page-course-modify .form-content .title-control {
   margin-bottom: 30px;
 }
 .page-course-modify .form-content .title-control input {
-  font-size: 16px;
-  height: 30px;
-  width: 700px;
+  font-size: 20px;
+  height: 40px;
+  width: 1054px;
 }
-.page-course-modify .form-content .outline-control ul {
+.page-course-modify .form-content .activities-control {
+  margin-bottom: 30px;
+}
+.page-course-modify .form-content .activities-control ul {
   margin: 0;
 }
-.page-course-modify .form-content .outline-control ul li {
+.page-course-modify .form-content .activities-control ul li {
   border: 1px solid #999;
   border-left: 5px solid #999;
   list-style: none;
   margin-bottom: 15px;
 }
-.page-course-modify .form-content .outline-control ul li .icon-remove {
+.page-course-modify .form-content .activities-control ul li .icon-remove {
   color: #AAA;
   cursor: pointer;
   display: block;
@@ -2871,21 +2826,21 @@ body {
   line-height: normal;
   padding: 11px 10px;
 }
-.page-course-modify .form-content .outline-control ul li .icon-remove:hover {
+.page-course-modify .form-content .activities-control ul li .icon-remove:hover {
   color: #c30;
 }
-.page-course-modify .form-content .outline-control ul li .icon-reorder,
-.page-course-modify .form-content .outline-control ul li .icon-plus {
+.page-course-modify .form-content .activities-control ul li .icon-reorder,
+.page-course-modify .form-content .activities-control ul li .icon-plus {
   color: #AAA;
   display: inline-block;
   line-height: 38px;
   padding: 0 14px;
   vertical-align: middle;
 }
-.page-course-modify .form-content .outline-control ul li .icon-reorder {
+.page-course-modify .form-content .activities-control ul li .icon-reorder {
   cursor: move;
 }
-.page-course-modify .form-content .outline-control ul li input {
+.page-course-modify .form-content .activities-control ul li input {
   background-color: transparent;
   border: none;
   box-shadow: none;
@@ -2896,29 +2851,32 @@ body {
   vertical-align: middle;
   width: 90%;
 }
-.page-course-modify .form-content .outline-control ul li.ui-state-highlight {
+.page-course-modify .form-content .activities-control ul li.ui-state-highlight {
   border: 1px dashed #CCC;
   height: 38px;
 }
-.page-course-modify .form-content .outline-control ul li.add {
+.page-course-modify .form-content .activities-control ul li.add {
   border: 1px dashed #CCC;
   box-shadow: none;
   list-style: none;
   margin-bottom: 10px;
   padding-left: 4px;
 }
-.page-course-modify .form-content .outline-control ul li.add a {
+.page-course-modify .form-content .activities-control ul li.add a {
   color: #666;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-modify .form-content .cover-control {
+.page-course-modify .form-content .story-control {
   margin-bottom: 30px;
 }
+.page-course-modify .form-content .cover-control {
+  margin-bottom: 0;
+}
 .page-course-modify .form-content .cover-control .cover {
-  border: 1px solid #DDD;
-  height: 80px;
-  margin-bottom: 15px;
+  border: 1px solid #CCC;
+  height: 130px;
+  margin-bottom: 20px;
   width: 255px;
 }
 .page-course-modify .form-content .cover-control .cover .progress {
@@ -2934,6 +2892,7 @@ body {
 }
 .page-course-modify .form-content .cover-control .help-block {
   font-size: 13px;
+  margin-top: 0;
 }
 .page-course-modify .form-content .pictures-control .pictures {
   margin: 10px 0 0;
@@ -3066,77 +3025,146 @@ body {
 .page-course-modify .form-content .capacity-control .controls input {
   width: 50px;
 }
-.page-course-modify .form-content #content-place h2 {
-  margin-bottom: 20px;
-}
-.page-course-modify .form-content #content-place .place-choice {
-  margin-bottom: 35px;
-}
-.page-course-modify .form-content #content-place .place-choice .place-label {
+.page-course-modify .form-content .place-control .place-label {
   color: #444;
-  display: inline;
+  display: inline-block;
   font-size: 15px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-label input {
+.page-course-modify .form-content .place-control .place-label input {
+  margin-right: 5px;
+  vertical-align: 1px;
+}
+.page-course-modify .form-content .place-control select.places {
+  margin: 0;
+  width: 340px;
+}
+.page-course-modify .form-content .place-control .place-form {
+  background-color: #F7F7F7;
+  border: 1px solid #EEE;
+  padding: 15px 20px 0 20px;
+}
+.page-course-modify .form-content .place-control .place-form-loading {
+  color: #555;
+  font-size: 13px;
+}
+.page-course-modify .form-content .place-control .place-form-loading img {
   margin-right: 5px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body {
-  padding: 15px 0 0 22px;
-}
-.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input {
-  margin-bottom: 25px;
-}
-.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input .place-inline-input {
+.page-course-modify .form-content .place-control .place-row .place-input {
   display: inline-block;
   vertical-align: top;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body label {
-  color: #444;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: normal;
-  margin-bottom: 5px;
+.page-course-modify .form-content .place-control .head {
+  color: #3a71a9;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body input,
-.page-course-modify .form-content #content-place .place-choice .place-input-body select,
-.page-course-modify .form-content #content-place .place-choice .place-input-body textarea {
+.page-course-modify .form-content .place-control .place-input {
+  margin-bottom: 20px;
+}
+.page-course-modify .form-content .place-control .place-input label {
+  color: #666;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.page-course-modify .form-content .place-control .place-input input,
+.page-course-modify .form-content .place-control .place-input select {
   margin: 0;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body .help-block {
-  color: #888;
+.page-course-modify .form-content .place-control .place-input .new_location .or {
+  color: #777;
   font-size: 13px;
-  margin: 2px 0 0;
+  margin: 0 6px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_name {
-  margin-right: 30px;
-  width: 306px;
+.page-course-modify .form-content .place-control .place-input #id_place_name {
+  width: 365px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_phone {
+.page-course-modify .form-content .place-control .place-input #id_place_address {
+  height: 50px;
+  margin: 0 20px 0 0;
+  width: 365px;
+}
+.page-course-modify .form-content .place-control .place-input #id_place_direction {
+  height: 80px;
+  margin-right: 25px;
   width: 300px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_address {
-  margin-right: 30px;
-  width: 400px;
+.page-course-modify .form-content .place-control .place-input-location .minimap {
+  background-color: #F9F9F9;
+  border: 1px solid #EEE;
+  height: 182px;
+  padding: 3px;
+  text-align: center;
+  width: 272px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location {
-  margin-bottom: 25px;
+.page-course-modify .form-content .place-control .place-input-location .minimap img {
+  border: 1px solid #DDDDDD;
+  height: 180px;
+  width: 270px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location em,
-.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location a {
+.page-course-modify .form-content .place-control .place-input-location .button-input-latlng {
+  margin-top: 5px;
+  padding: 2px 15px;
+}
+.page-course-modify .form-content .place-control .place-input-location em,
+.page-course-modify .form-content .place-control .place-input-location a {
   display: inline-block;
   vertical-align: middle;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body .place-input-location .location_latlng {
+.page-course-modify .form-content .place-control .place-input-location .place_latlng {
   background-color: #EEE;
   color: #555;
   font-size: 13px;
   margin-right: 10px;
   padding: 1px 10px;
 }
-.page-course-modify .form-content #content-place .place-choice .place-input-body #id_place_direction {
-  height: 60px;
-  width: 652px;
+.page-course-modify #form-footer-container {
+  margin-top: 30px;
+  min-height: 65px;
+}
+.page-course-modify #form-footer-container .form-footer button {
+  margin-right: 15px;
+}
+.page-course-modify #form-footer-container .form-footer .button-submit {
+  font-weight: bold;
+}
+.page-course-modify #form-footer-container .form-footer .link {
+  vertical-align: bottom;
+}
+.page-course-modify #form-footer-container .form-footer .link a {
+  font-size: 13px;
+}
+.page-course-modify #form-footer-container .form-footer .link a:link,
+.page-course-modify #form-footer-container .form-footer .link a:active,
+.page-course-modify #form-footer-container .form-footer .link a:visited {
+  color: #888;
+  text-decoration: underline;
+}
+.page-course-modify #form-footer-container .form-footer .link a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-course-modify #form-footer-container .form-footer .link i {
+  color: #777;
+  font-size: 12px;
+  margin-right: 2px;
+}
+.page-course-modify .form-footer-floating {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #EEE;
+  bottom: 0px;
+  height: 35px;
+  left: 0px;
+  padding: 15px 50px;
+  position: fixed;
+  width: 100%;
 }
 .page-course-modify #modal-place-map {
   margin-left: -350px;

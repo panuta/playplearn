@@ -61,3 +61,30 @@ function _addModalErrorMessage(modal_id, message) {
     $('#' + modal_id + ' .modal-error').remove();
     $('#' + modal_id + ' .modal-header').after('<div class="modal-error"><i class="icon-exclamation-sign icon-white"></i> ' + message + '</div>');
 }
+
+function _notify(type, title, message) {
+    if(type == 'error') {
+        $.pnotify({
+            addclass: 'custom',
+            animation: 'none',
+            hide: false,
+            history: false,
+            icon: false,
+            sticker: false,
+            text: message,
+            title: title,
+            type: 'error'
+        });
+    } else {
+        $.pnotify({
+            addclass: 'custom',
+            animation: 'none',
+            history: false,
+            icon: false,
+            sticker: false,
+            text: message,
+            title: title,
+            type: type
+        });
+    }
+}

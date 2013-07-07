@@ -41,6 +41,7 @@ html, body {
 
                     &:hover {
                         background-color: @linkColor;
+                        border-left: 1px solid #336396;
                         color: #FFF;
                         text-decoration: none;
                     }
@@ -93,6 +94,7 @@ html, body {
 
                     &:hover, &:active, &:focus {
                         background-color: @linkColor;
+                        border-left: 1px solid #336396;
                         color: #FFF;
                         text-decoration: none;
                     }
@@ -137,7 +139,7 @@ html, body {
                     font-weight: bold;
                     padding-right: 15px;
 
-                    &:hover, &:active {
+                    &:hover, &:active, &:focus {
                         background-color: transparent;
                         text-decoration: underline;
                     }
@@ -339,9 +341,10 @@ html, body {
         h1 {
             color: #FFF;
             font-size: 32px;
-            font-weight: 100;
+            font-weight: bold;
             line-height: normal;
             margin: 0;
+            text-shadow: 2px 2px @primaryColor;
 
             span {
                 color: #FFF;

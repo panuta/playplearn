@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Max
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.dateparse import parse_datetime
@@ -20,14 +21,16 @@ from common.shortcuts import response_json_success, response_json_error_with_mes
 from common.utilities import format_full_datetime, format_datetime_string
 
 from domain import functions as domain_function
-from domain.models import CourseFeedback, CourseEnrollment, Course, CourseSchedule, CourseOutlineMedia, EditingCourse, CoursePicture, EditingCourseOutlineMedia, EditingCoursePicture
+from domain.models import CourseFeedback, CourseEnrollment, Course, CourseSchedule, CoursePicture, EditingCourse, Place
 
 
 # COURSE ###############################################################################################################
+from presentation.templatetags.presentation_tags import course_picture_ordering_as_comma_separated
+
 
 @require_POST
 @login_required
-def ajax_autosave_course(request):
+def ajax_save_course(request):
     if not request.is_ajax():
         raise Http404
 
@@ -45,14 +48,23 @@ def ajax_autosave_course(request):
         if course.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        domain_function.persist_course(course, request.POST)
-    elif course.status == 'PUBLISHED':
-        domain_function.save_course_changes(course, request.POST)
+    domain_function.save_course(course, request.POST)
+
+    submit_action = request.POST.get('submit')
+
+    if submit_action == 'approval':
+        if course.status == 'DRAFT':
+            if domain_function.is_course_outline_completed(course):
+                course.status = 'WAIT_FOR_APPROVAL'
+                course.save()
+            else:
+                return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
+        else:
+            return response_json_error_with_message('status-no-ready-to-submit', errors.COURSE_MODIFICATION_ERRORS)
 
     return response_json_success({
         'course_uid': course.uid,
-        'completeness': domain_function.calculate_course_completeness(course),
+        'is_completed': domain_function.is_course_outline_completed(course),
         'preview_url': reverse('view_course_outline', args=[course.uid]),
         'edit_url': reverse('edit_course', args=[course.uid]),
     })
@@ -83,12 +95,10 @@ def ajax_upload_course_cover(request):
     if cover_file.size > settings.COURSE_COVER_MAXIMUM_SIZE:
         return response_json_error('file-size-exceeded')
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+    if course.status == 'DRAFT':
         editing_course = course
-    elif course.status == 'PUBLISHED':
-        editing_course = EditingCourse.objects.get(course=course)
-        editing_course.is_dirty = True
-        editing_course.save()
+    elif course.status in ('PUBLISHED', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        editing_course, _ = EditingCourse.objects.get_or_create(course=course)
     else:
         return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
 
@@ -98,13 +108,12 @@ def ajax_upload_course_cover(request):
     try:
         editing_course.cover = cover_file
         editing_course.save()
-
         cover_url = get_thumbnailer(editing_course.cover)['course_cover_small'].url
     except InvalidImageFormatError:
         return response_json_error_with_message('file-type-invalid', errors.COURSE_MODIFICATION_ERRORS)
 
     return response_json_success({
-        'completeness': domain_function.calculate_course_completeness(course),
+        'is_completed': domain_function.is_course_outline_completed(course),
         'cover_url': cover_url,
         'cover_filename': editing_course.cover.name,
     })
@@ -127,20 +136,7 @@ def ajax_upload_course_picture(request):
         if course.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        media_class = CourseOutlineMedia
-        picture_media_class = CoursePicture
-    elif course.status == 'PUBLISHED':
-        media_class = EditingCourseOutlineMedia
-        picture_media_class = EditingCoursePicture
-
-        editing_course = EditingCourse.objects.get(course=course)
-        editing_course.is_dirty = True
-        editing_course.save()
-    else:
-        return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
-
-    if media_class.objects.filter(course=course).count() > settings.COURSE_MEDIA_MAXIMUM_NUMBER:
+    if CoursePicture.objects.filter(course=course).count() > settings.COURSE_PICTURE_MAXIMUM_NUMBER:
         return response_json_error_with_message('file-number-exceeded', errors.COURSE_MODIFICATION_ERRORS)
 
     image_file = request.FILES['pictures[]']
@@ -148,24 +144,43 @@ def ajax_upload_course_picture(request):
     if image_file.size > settings.COURSE_PICTURE_MAXIMUM_SIZE:
         return response_json_error_with_message('file-size-exceeded', errors.COURSE_MODIFICATION_ERRORS)
 
-    course_media = media_class.objects.create(course=course, media_type='PICTURE')
+    last_ordering = CoursePicture.objects.filter(course=course, mark_deleted=False) \
+        .aggregate(Max('ordering'))['ordering__max']
 
-    try:
-        course_picture = picture_media_class.objects.create(media=course_media, image=image_file)
-        course_picture_url = get_thumbnailer(course_picture.image)['course_picture_small'].url
-    except InvalidImageFormatError:
-        return response_json_error_with_message('file-type-invalid', errors.COURSE_MODIFICATION_ERRORS)
+    if not last_ordering:
+        last_ordering = 0
 
-    response_data = {
-        'completeness': domain_function.calculate_course_completeness(course),
-        'ordering': media_class.objects.get_media_uid_ordering(course),
-        'media_uid': course_media.uid,
+    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        course_picture = CoursePicture.objects.create(
+            course=course,
+            image=image_file,
+            ordering=last_ordering+1,
+            is_visible=True,
+        )
+
+    elif course.status == 'PUBLISHED':
+        course_picture = CoursePicture.objects.create(
+            course=course,
+            image=image_file,
+            ordering=last_ordering+1,
+            mark_added=True,
+            is_visible=False,
+        )
+
+    else:
+        return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
+
+    course_picture_url = get_thumbnailer(course_picture.image)['course_picture_small'].url
+
+    return response_json_success({
+        'is_completed': domain_function.is_course_outline_completed(course),
+        'ordering': course_picture_ordering_as_comma_separated(course),
+        'picture_uid': course_picture.uid,
         'picture_url': course_picture_url,
-    }
-
-    return response_json_success(response_data)
+    })
 
 
+"""
 @require_POST
 @login_required
 def ajax_reorder_course_picture(request):
@@ -178,32 +193,35 @@ def ajax_reorder_course_picture(request):
     if course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        media_class = CourseOutlineMedia
-    elif course.status == 'PUBLISHED':
-        media_class = EditingCourseOutlineMedia
+    ordering = 1
+    pictures_ordering = []
+    for picture_uid in request.POST.get('ordering').split(','):
+        try:
+            course_picture = CoursePicture.objects.get(course=course, uid=picture_uid)
+        except CoursePicture.DoesNotExist:
+            pass
+        else:
+            pictures_ordering.append({'picture': course_picture, 'ordering': ordering})
+            ordering += 1
 
-        editing_course = EditingCourse.objects.get(course=course)
-        editing_course.is_dirty = True
-        editing_course.save()
+    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        for picture_ordering in pictures_ordering:
+            picture_ordering['picture'].ordering = picture_ordering['ordering']
+            picture_ordering['picture'].save()
+
+    elif course.status == 'PUBLISHED':
+        CoursePictureEditingOrdering.objects.filter(picture__course=course).delete()
+        for picture_ordering in pictures_ordering:
+            CoursePictureEditingOrdering.objects.create(picture=picture_ordering['picture'], ordering=picture_ordering['ordering'])
+
     else:
         return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
 
-    ordering = 1
-    for media_uid in request.POST.get('ordering').split(','):
-        try:
-            media = media_class.objects.get(course=course, uid=media_uid)
-        except media_class.DoesNotExist:
-            pass
-        else:
-            media.ordering = ordering
-            media.save()
-            ordering += 1
-
     return response_json_success({
-        'completeness': domain_function.calculate_course_completeness(course),
-        'ordering': media_class.objects.get_media_uid_ordering(course),
+        'is_completed': domain_function.is_course_outline_completed(course),
+        'ordering': course_picture_ordering_as_comma_separated(course),
     })
+"""
 
 
 @require_POST
@@ -215,104 +233,51 @@ def ajax_delete_course_picture(request):
     course_uid = request.POST.get('uid')
     course = get_object_or_404(Course, uid=course_uid)
 
-    media_uid = request.POST.get('media_uid')
+    picture_uid = request.POST.get('picture_uid')
 
     if course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        media_class = CourseOutlineMedia
-        media = get_object_or_404(CourseOutlineMedia, uid=media_uid)
+    try:
+        course_picture = CoursePicture.objects.get(uid=picture_uid)
+    except CoursePicture.DoesNotExist:
+        return response_json_error_with_message('picture-notfound', errors.COURSE_MODIFICATION_ERRORS)
 
-        if media.media_type == 'PICTURE':
-            media_picture = media.coursepicture
-            media_picture.image.delete()
-            media_picture.delete()
-            media.delete()
+
+    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        course_picture.image.delete()
+        course_picture.delete()
 
     elif course.status == 'PUBLISHED':
-        media_class = EditingCourseOutlineMedia
-        media = get_object_or_404(EditingCourseOutlineMedia, uid=media_uid)
+        course_picture.mark_deleted = True
+        course_picture.save()
 
-        if media.media_type == 'PICTURE':
-            media.mark_deleted = True
-            media.save()
-
-        editing_course = EditingCourse.objects.get(course=course)
-        editing_course.is_dirty = True
-        editing_course.save()
     else:
         return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
 
     return response_json_success({
-        'completeness': domain_function.calculate_course_completeness(course),
-        'ordering': media_class.objects.get_media_uid_ordering(course),
+        'is_completed': domain_function.is_course_outline_completed(course),
+        'ordering': course_picture_ordering_as_comma_separated(course),
     })
 
 
-@require_POST
+@require_GET
 @login_required
-def ajax_submit_course(request):
-    if not request.is_ajax():
-        raise Http404
-
-    course_uid = request.POST.get('uid')
+def ajax_get_course_place(request):
+    place_id = request.GET.get('place_id')
 
     try:
-        course = Course.objects.get(uid=course_uid)
-    except Course.DoesNotExist:
-        course = Course.objects.create(
-            uid=course_uid,
-            teacher=request.user,
-            status='DRAFT',
-        )
-    else:
-        if course.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
-
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        domain_function.persist_course(course, request.POST)
-
-        if course.status == 'DRAFT':
-            if domain_function.calculate_course_completeness(course) == 100:
-                course.status = 'WAIT_FOR_APPROVAL'
-                course.save()
-            else:
-                return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
-
-    elif course.status == 'PUBLISHED':
-        domain_function.save_course_changes(course, request.POST)
-
-        if domain_function.calculate_course_completeness(course) == 100:
-            domain_function.persist_course_changes(course)
-            messages.success(request, 'Changes is saved successfully')
-        else:
-            return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
+        place = Place.objects.get(pk=place_id, created_by=request.user)
+    except Place.DoesNotExist:
+        return response_json_error_with_message('place-notfound', errors.COURSE_MODIFICATION_ERRORS)
 
     return response_json_success({
-        'course_uid': course.uid,
-        'completeness': domain_function.calculate_course_completeness(course),
-        'preview_url': reverse('view_course_outline', args=[course.uid]),
-        'edit_url': reverse('edit_course', args=[course.uid]),
-    })
-
-
-@require_POST
-@login_required
-def ajax_discard_course_changes(request):
-    if not request.is_ajax():
-        raise Http404
-
-    course_uid = request.POST.get('uid')
-    course = get_object_or_404(Course, uid=course_uid)
-
-    if course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
-
-    domain_function.discard_course_changes(course)
-
-    return response_json_success({
-        'edit_url': reverse('edit_course', args=[course.uid]),
+        'id': place.id,
+        'name': place.name,
+        'address': place.address,
+        'province_code': place.province_code,
+        'direction': place.direction,
+        'latlng': place.latlng,
     })
 
 

@@ -91,7 +91,6 @@ class Command(BaseCommand):
                     address='60 New Rachadapisek Road, Klongtoey, Bangkok 10110',
                     province_code='TH-10',
                     country='TH',
-                    phone_number='+662-229-3000',
                     direction='Go to Rachadapisek',
                     latlng='13.729213,100.557818',
                     is_userdefined=False,
@@ -106,7 +105,6 @@ class Command(BaseCommand):
                     address='19 Soi Ekkamai 4, Sukumvit 63 Rd. Prakanong Nua, Wattana Bangkok, Thailand 10110',
                     province_code='TH-10',
                     country='TH',
-                    phone_number='+662-714-3388',
                     direction='Go to Ekkamai',
                     latlng='13.725378,100.587645',
                     is_userdefined=False,
@@ -120,10 +118,10 @@ class Command(BaseCommand):
                     address='233/235 Srinakarin Rd. Bang Muang, Muang, Samutprakarn 10270',
                     province_code='TH-11',
                     country='TH',
-                    phone_number='+6689-784-5282',
                     direction='Go to Srinakarin',
                     latlng='13.614947,100.626386',
                     is_userdefined=True,
+                    created_by=user2,
                 )
 
             # COURSES
@@ -150,19 +148,16 @@ class Command(BaseCommand):
                     price=500,
                     duration=6,
                     maximum_people=20,
-                    level='ANY',
                     prerequisites='Body',
                     place=place1,
 
                     teacher=user1,
-                    credentials='I am smart',
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                 )
 
                 course1.schools.add(culinary_arts_school)
-                course1.tags.add('Steak')
                 course1.save()
 
                 course1_schedule1 = CourseSchedule.objects.create(
@@ -222,19 +217,16 @@ class Command(BaseCommand):
                     price=1000,
                     duration=10,
                     maximum_people=10,
-                    level='BEGINNER',
                     prerequisites='Python',
                     place=place3,
 
                     teacher=user2,
-                    credentials='I am a programmer',
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 9, 0), is_dst=None),
                 )
 
                 course2.schools.add(technology_school)
-                course2.tags.add('Django')
                 course2.save()
 
                 course2_schedule1 = CourseSchedule.objects.create(
@@ -314,19 +306,15 @@ class Command(BaseCommand):
                     price=2000,
                     duration=18,
                     maximum_people=15,
-                    level='BEGINNER',
-                    prerequisites='Photoshop',
                     place=place2,
 
                     teacher=user3,
-                    credentials='I am a designer',
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 10, 0), is_dst=None),
                 )
 
                 course3.schools.add(technology_school)
-                course3.tags.add('UX', 'Web Design')
                 course3.save()
 
                 course3_schedule1 = CourseSchedule.objects.create(
@@ -357,19 +345,16 @@ class Command(BaseCommand):
                     price=6000,
                     duration=24,
                     maximum_people=4,
-                    level='ADVANCED',
                     prerequisites='Saw',
                     place=place1,
 
                     teacher=user1,
-                    credentials='I am a carpenter',
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                     last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 11, 0), is_dst=None),
                 )
 
                 course4.schools.add(craftmanship_school)
-                course4.tags.add('House Building')
                 course4.save()
 
                 course4_schedule1 = CourseSchedule.objects.create(

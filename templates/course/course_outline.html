@@ -62,9 +62,6 @@
 </script>
 {% endblock %}
 
-{% block body_header %}
-{% endblock %}
-
 {% block body %}
 <div class="course-header">
     <div class="container">
@@ -116,6 +113,7 @@
                     {% endfor %}
                 </ul>
             </div>
+            {% if user.is_authenticated and user == course.teacher %}
             <div class="course-tools">
                 <div class="head">Tools for teacher</div>
                 <div>
@@ -123,6 +121,7 @@
                     <a href="{% url 'manage_course_overview' course.uid %}" class="style-button"><i class="icon-book"></i> Manage workshop</a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 

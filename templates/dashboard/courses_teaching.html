@@ -130,7 +130,7 @@
                                 <div class="actions">
                                     {% if course.status == 'DRAFT' %}
                                         <a href="{% url 'edit_course' course.uid %}" class="btn btn-small">Edit workshop</a>
-                                        <span class="completeness"><em>{{ course.completeness }}%</em> completeness</span>
+                                        <!-- TODO -->{% comment %}<span class="completeness"><em>{{ course.completeness }}%</em> completeness</span>{% endcomment %}
                                     {% elif course.status == 'WAIT_FOR_APPROVAL' %}
                                         <a href="{% url 'edit_course' course.uid %}" class="btn btn-small">Edit workshop</a>
                                     {% elif course.status == 'READY_TO_PUBLISH' %}
