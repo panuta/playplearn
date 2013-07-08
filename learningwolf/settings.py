@@ -206,7 +206,11 @@ SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 
 
-# LEARNING WOLF SETTINGS ###############################################################################################
+# LITTLE BIG SKILLS SETTINGS ###############################################################################################
+
+# DISPLAY SETTINGS
+
+DISPLAY_HOMEPAGE_COURSES = 20
 
 # USER AVATAR
 

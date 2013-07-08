@@ -49,10 +49,10 @@
 <div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>Latest workshops<i class="icon-double-angle-down"></i></h2>
+            <h2>Upcoming workshops<i class="icon-double-angle-down"></i></h2>
         </div>
         <ul class="courses">
-            {% for course in recent_courses %}
+            {% for course in upcoming_courses %}
             <li class="course {% cycle 'left-box' 'right-box' %}">
                 {% include 'snippets/course_box.html' %}
             </li>
