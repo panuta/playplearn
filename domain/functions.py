@@ -186,7 +186,8 @@ def save_course(course, request_data):
         pass
     else:
         if editing_course.cover:
-            course.cover.delete()
+            if course.cover:
+                course.cover.delete()
             course.cover = editing_course.cover
 
         editing_course.delete()

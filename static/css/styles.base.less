@@ -177,6 +177,110 @@ body.modal-open {
     }
 }
 
+// LIBS: JQUERY UI DATEPICKER ##########################################################################################
+
+.ui-datepicker {
+    padding: 0;
+    width: auto;
+
+    .ui-datepicker-header {
+        margin-bottom: 12px;
+
+        .ui-datepicker-prev, .ui-datepicker-next {
+            background-repeat: no-repeat;
+            cursor: pointer;
+            display: block;
+            height: 16px;
+            margin-top: 3px;
+            vertical-align: middle;
+            width: 30px;
+
+            span {
+                display: block;
+                height: 16px;
+                width: 16px;
+            }
+        }
+
+        .ui-datepicker-prev-hover {
+            left: 2px;
+            top: 2px;
+        }
+
+        .ui-datepicker-next-hover {
+            right: 2px;
+            top: 2px;
+        }
+
+        .ui-datepicker-prev span {
+            background-image: url(../images/ui/calendar-left.png);
+        }
+
+        .ui-datepicker-next span {
+            background-image: url(../images/ui/calendar-right.png);
+        }
+
+        .ui-datepicker-title {
+            color: #444;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: normal;
+        }
+    }
+
+    .ui-datepicker-calendar {
+        margin: 0;
+
+        th {
+            color: #777;
+            font-weight: normal;
+            padding: 0 0 3px;
+        }
+
+        td {
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 0;
+            height: 35px;
+            padding: 0;
+            outline: 0px;
+            text-align: center;
+            width: 42px;
+
+            a, span {
+                color: #444;
+                font-size: 14px;
+                text-align: center;
+            }
+
+            &.ui-datepicker-other-month {
+                background-color: #F8F8F8;
+                color: #444;
+            }
+
+            &.ui-state-disabled {
+                background-color: #F8F8F8;
+                color: #777;
+            }
+
+            &.ui-datepicker-today {
+                background-color: #FFC;
+            }
+
+            &.ui-datepicker-current-day {
+                background-color: @primaryColor;
+
+                a {
+                    color: #FFF;
+                }
+            }
+        }
+    }
+}
+
+
+
+
 // LIBS: BOOTSTRAP DATEPICKER ##########################################################################################
 
 .datepicker-inline {

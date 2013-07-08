@@ -8,6 +8,7 @@
         <div class="class-date">
             <div class="calendar"></div>
             <div class="note">Not allow setting further than 2 months</div>
+            <input type="hidden" value="" name="date" id="id_class_date" />
         </div>
         <div class="class-time">
             <select size="11" class="time">{% time_options %}</select>
@@ -25,15 +26,17 @@
     var datepicker_obj = modal.find('.calendar');
 
     datepicker_obj.datepicker({
-        format: 'yyyy-mm-dd',
-        todayHighlight: true,
-        startDate: '0',
-        endDate: '+60d',
-        language: 'th'
-    }).on('changeDate', function() {
-        datepicker_obj.data('is_dirty', true);
-        if(modal.find('.time option:selected').length) {
-            modal.find('.modal-footer .button-submit').prop('disabled', false);
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        minDate: 0,
+        maxDate: 60,
+        altField: '#id_class_date',
+        altFormat: 'yy-mm-dd',
+        onSelect: function() {
+            datepicker_obj.data('is_dirty', true);
+            if(modal.find('.time option:selected').length) {
+                modal.find('.modal-footer .button-submit').prop('disabled', false);
+            }
         }
     });
 
@@ -43,13 +46,12 @@
         }
     });
 
-    modal.on('show', function() {
-        modal.find('.calendar .active').removeClass('active');
-    });
-
     var trigger = '{{ trigger }}';
     $(trigger).on('click', function() {
-        datepicker_obj.datepicker('setDate', new Date());
+        datepicker_obj.datepicker('setDate', null );
+        $('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
+        $('#id_class_date').val('');
+
         datepicker_obj.data('is_dirty', false);
         modal.find('.time option').prop('selected', false);
 
@@ -63,7 +65,7 @@
     modal.find('.button-submit:not(.disabled)').on('click', function() {
         modal.find('.modal-footer button').prop('disabled', true);
 
-        var schedule_date = datepicker_obj.datepicker('getFormattedDate');
+        var schedule_date = $('#id_class_date').val();
         var schedule_time = modal.find('.time option:selected').val();
 
         var jqxhr = $.post('/ajax/course/schedule/add/', {uid: modal.data('course-uid'), schedule_date:schedule_date, schedule_time:schedule_time}, function(response) {

@@ -4,6 +4,7 @@ from django.http import Http404
 
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
+from django.utils.timezone import now
 from django.views.decorators.http import require_POST
 from accounts.forms import EmailAuthenticationForm
 from accounts.functions import ajax_login_email_user, ajax_register_email_user
@@ -13,7 +14,7 @@ from common.errors import CourseEnrollmentException, ACCOUNT_REGISTRATION_ERRORS
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
 from domain import functions as domain_functions
-from domain.models import Course, CourseEnrollment, CourseSchedule, UnauthenticatedCourseEnrollment, CourseSchool
+from domain.models import Course, CourseEnrollment, CourseSchedule, UnauthenticatedCourseEnrollment, CourseSchool, CoursePicture
 
 
 def view_course_outline(request, course_uid, page_action, enrollment_code):
@@ -22,10 +23,17 @@ def view_course_outline(request, course_uid, page_action, enrollment_code):
     if not course.can_view(request.user):
         raise Http404
 
+    rightnow = now()
+
+    pictures = CoursePicture.objects.filter(course=course, is_visible=True).order_by('ordering')
+    schedules = CourseSchedule.objects.filter(course=course, status='OPENING', start_datetime__gte=rightnow)
+
     enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code) if enrollment_code else None
 
     return render(request, 'course/course_outline.html', {
         'course': course,
+        'course_pictures': pictures,
+        'course_schedules': schedules,
         'page_action': page_action,
         'enrollment': enrollment,
     })

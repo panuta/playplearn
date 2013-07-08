@@ -91,6 +91,13 @@ def course_picture_ordering_as_comma_separated(course):
     return ','.join([picture.uid for picture in CoursePicture.objects.filter(course=course, mark_deleted=False)])
 
 
+# COURSE SCHEDULE ######################################################################################################
+
+@register.simple_tag
+def course_schedule_start_datetime_as_comma_separated(schedules):
+    return ','.join(['"%d/%d/%d"' % (schedule.start_datetime.year, schedule.start_datetime.month, schedule.start_datetime.day) for schedule in schedules])
+
+
 # COURSE ENROLLMENT ####################################################################################################
 
 @register.assignment_tag

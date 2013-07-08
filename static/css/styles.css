@@ -140,6 +140,90 @@ body.modal-open {
   background-image: linear-gradient(to bottom, #149bdf, #0480be);
   opacity: 1;
 }
+.ui-datepicker {
+  padding: 0;
+  width: auto;
+}
+.ui-datepicker .ui-datepicker-header {
+  margin-bottom: 12px;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: block;
+  height: 16px;
+  margin-top: 3px;
+  vertical-align: middle;
+  width: 30px;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-header .ui-datepicker-next span {
+  display: block;
+  height: 16px;
+  width: 16px;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-prev-hover {
+  left: 2px;
+  top: 2px;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-next-hover {
+  right: 2px;
+  top: 2px;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-prev span {
+  background-image: url(../images/ui/calendar-left.png);
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-next span {
+  background-image: url(../images/ui/calendar-right.png);
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-title {
+  color: #444;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: normal;
+}
+.ui-datepicker .ui-datepicker-calendar {
+  margin: 0;
+}
+.ui-datepicker .ui-datepicker-calendar th {
+  color: #777;
+  font-weight: normal;
+  padding: 0 0 3px;
+}
+.ui-datepicker .ui-datepicker-calendar td {
+  background-color: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 0;
+  height: 35px;
+  padding: 0;
+  outline: 0px;
+  text-align: center;
+  width: 42px;
+}
+.ui-datepicker .ui-datepicker-calendar td a,
+.ui-datepicker .ui-datepicker-calendar td span {
+  color: #444;
+  font-size: 14px;
+  text-align: center;
+}
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-other-month {
+  background-color: #F8F8F8;
+  color: #444;
+}
+.ui-datepicker .ui-datepicker-calendar td.ui-state-disabled {
+  background-color: #F8F8F8;
+  color: #777;
+}
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-today {
+  background-color: #FFC;
+}
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-current-day {
+  background-color: #3a71a9;
+}
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-current-day a {
+  color: #FFF;
+}
 .datepicker-inline {
   width: auto;
 }
@@ -1844,17 +1928,17 @@ body {
   border-top: 1px solid #87add4;
   padding: 30px 0 10px;
 }
-.page-course-outline .course-header .enroll {
+.page-course-outline .course-header .join {
   background-color: #FFF;
   border-radius: 5px;
   float: right;
-  margin: 17px 0 0;
+  margin: 23px 0 0;
   padding: 4px 4px 7px;
 }
-.page-course-outline .course-header .enroll a {
+.page-course-outline .course-header .join a {
   font-size: 15px;
   font-weight: 300;
-  padding: 10px 30px;
+  padding: 8px 40px;
 }
 .page-course-outline .course-header h1 {
   color: #FFF;
@@ -2023,103 +2107,194 @@ body {
 }
 .page-course-outline .course-place .place .direction {
   color: #555;
-  margin-top: 7px;
+  margin-top: 12px;
+}
+.page-course-outline .course-place .place .direction .direction_head {
+  color: #777;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: normal;
 }
 .page-course-outline .course-place .place .direction p {
   line-height: 24px;
 }
-.page-course-outline .course-enrollment {
+.page-course-outline .course-schedules {
   background-color: #bfd3e8;
   margin: 40px 0 0;
+  padding-bottom: 35px;
 }
-.page-course-outline .course-enrollment .head {
+.page-course-outline .course-schedules .head {
   color: #3a71a9;
   font-size: 24px;
   font-weight: 300;
   margin: 25px 0;
 }
-.page-course-outline .course-enrollment .head i {
+.page-course-outline .course-schedules .head i {
   color: #3a71a9;
   margin-right: 2px;
 }
-.page-course-outline .course-enrollment .enrollment {
-  margin-bottom: 35px;
-}
-.page-course-outline .course-enrollment .enrollment .enroll-calendar {
+.page-course-outline .course-schedules .schedules-calendar {
   background-color: #FFF;
-  border-radius: 5px;
   float: left;
-  padding: 15px;
+  padding: 15px 20px 15px;
 }
-.page-course-outline .course-enrollment .enroll-list {
-  margin-left: 360px;
+.page-course-outline .course-schedules .schedules-calendar .legend {
+  color: #555;
+  font-size: 13px;
+  margin-top: 10px;
 }
-.page-course-outline .course-enrollment .enroll-list ul {
+.page-course-outline .course-schedules .schedules-calendar .legend i {
+  background-color: #ffceb5;
+  display: inline-block;
+  height: 12px;
+  margin-right: 5px;
+  width: 12px;
+}
+.page-course-outline .course-schedules .ui-datepicker-calendar td.ui-state-disabled {
+  background-color: #FFF;
+  color: #444;
+}
+.page-course-outline .course-schedules .ui-datepicker-calendar td.ui-datepicker-other-month {
+  background-color: #F8F8F8;
+  color: #444;
+}
+.page-course-outline .course-schedules .ui-datepicker-calendar td.ui-datepicker-today {
+  background-color: #FFC;
+}
+.page-course-outline .course-schedules .ui-datepicker-calendar td.schedule-date {
+  background-color: #ffceb5;
+}
+.page-course-outline .course-schedules .ui-datepicker-calendar td.schedule-date span {
+  color: #333;
+  font-weight: bold;
+}
+.page-course-outline .course-schedules .schedules-list {
+  margin-left: 390px;
+}
+.page-course-outline .course-schedules .schedules-list ul {
   margin: 0;
 }
-.page-course-outline .course-enrollment .enroll-list ul li {
-  background-color: #FFF;
+.page-course-outline .course-schedules .schedules-list ul li {
   list-style: none;
-  margin-bottom: 20px;
-  padding: 15px 17px 17px;
+  margin-bottom: 30px;
 }
-.page-course-outline .course-enrollment .enroll-list ul li i {
-  color: #BBB;
-  display: inline-block;
-  margin: 3px 5px 0 0;
-  vertical-align: top;
+.page-course-outline .course-schedules .schedules-list ul li .join-top {
+  background-color: #FFF;
+  border: 2px solid #99b9db;
 }
-.page-course-outline .course-enrollment .enroll-list ul li .right {
-  display: inline-block;
+.page-course-outline .course-schedules .schedules-list ul li .join-bottom {
+  padding: 8px 0 0 5px;
 }
-.page-course-outline .course-enrollment .enroll-list ul li .schedule {
-  border-right: 1px solid #EEE;
-  color: #444;
+.page-course-outline .course-schedules .schedules-list ul li .ticket {
+  background-color: #99b9db;
   display: inline-block;
+  height: 65px;
+  line-height: 65px;
+  padding: 0 12px 0 11px;
+  position: relative;
+  vertical-align: middle;
+}
+.page-course-outline .course-schedules .schedules-list ul li .ticket .icon-ticket {
+  color: #FFF;
   font-size: 16px;
-  margin-right: 10px;
-  padding-right: 20px;
-  vertical-align: top;
 }
-.page-course-outline .course-enrollment .enroll-list ul li .schedule .schedule-date {
-  display: block;
+.page-course-outline .course-schedules .schedules-list ul li .ticket:after {
+  border: solid transparent;
+  border-color: rgba(153, 185, 219, 0);
+  border-left-color: #99b9db;
+  border-width: 10px;
+  content: " ";
+  height: 0;
+  left: 100%;
+  margin-top: -10px;
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  width: 0;
 }
-.page-course-outline .course-enrollment .enroll-list ul li .schedule .schedule-time {
-  display: block;
-  margin-top: 5px;
-}
-.page-course-outline .course-enrollment .enroll-list ul li .availability {
-  color: #444;
+.page-course-outline .course-schedules .schedules-list ul li .caption {
+  color: #555;
   display: inline-block;
-  font-size: 16px;
-  font-weight: 300;
-  vertical-align: top;
-}
-.page-course-outline .course-enrollment .enroll-list ul li .availability .available {
-  display: block;
-}
-.page-course-outline .course-enrollment .enroll-list ul li .availability .maximum {
-  color: #777;
-  display: block;
-  font-size: 14px;
-  margin-left: 2px;
-  margin-top: 4px;
-}
-.page-course-outline .course-enrollment .enroll-list ul li .enroll {
-  float: right;
-}
-.page-course-outline .course-enrollment .enroll-list ul li .enroll .price {
-  color: #C30;
-  display: inline-block;
-  font-size: 18px;
-  font-weight: 300;
+  font-size: 15px;
+  font-weight: bold;
   margin-right: 10px;
   vertical-align: middle;
 }
-.page-course-outline .course-enrollment .enroll-list ul li .enroll a {
-  font-size: 16px;
+.page-course-outline .course-schedules .schedules-list ul li .schedule {
+  border-right: 1px dashed #BFD3E8;
+  color: #444;
+  display: inline-block;
+  font-size: 15px;
+  height: 55px;
+  padding: 10px 0 0 20px;
+  vertical-align: middle;
+  width: 300px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule i {
+  color: #BBB;
+  font-size: 14px;
+  margin-right: 3px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule .datetime {
+  display: inline-block;
+  vertical-align: middle;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-date {
+  display: block;
+  margin-bottom: 5px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-time {
+  display: block;
+}
+.page-course-outline .course-schedules .schedules-list ul li .price {
+  border-right: 1px dashed #BFD3E8;
+  display: inline-block;
+  height: 45px;
+  padding: 20px 20px 0;
+  vertical-align: middle;
+}
+.page-course-outline .course-schedules .schedules-list ul li .price .number {
+  display: inline-block;
+  vertical-align: middle;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join {
+  float: right;
+  margin: 14px 16px 0 0;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join .button {
+  display: inline-block;
+  vertical-align: middle;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join .button a {
+  font-size: 15px;
   font-weight: 300;
-  padding: 10px 40px;
+  padding: 8px 35px 6px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join .button a i {
+  color: #FFF;
+}
+.page-course-outline .course-schedules .schedules-list ul li .availability {
+  color: #3a71a9;
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: top;
+}
+.page-course-outline .course-schedules .schedules-list ul li .availability i {
+  margin-right: 3px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .availability .available {
+  font-weight: bold;
+}
+.page-course-outline .course-schedules .schedules-list ul li .availability .maximum {
+  font-size: 13px;
+  margin-left: 4px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .viewall {
+  border: 1px solid #99b9db;
+  color: #3a71a9;
+  font-weight: bold;
+  display: inline-block;
+  padding: 5px 15px;
 }
 .page-course-outline .course-feedbacks {
   padding: 30px 0 60px;

@@ -14,8 +14,6 @@ def response_json_success(return_object=None):
     if return_object is None:
         return_object = {}
 
-    print return_object
-
     return HttpResponse(json.dumps({
         'status': 'success',
         'data': return_object,

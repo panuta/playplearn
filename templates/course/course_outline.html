@@ -7,7 +7,7 @@
 {% block scripts %}
 <script>
 (function() {
-    {% if course.outline_media.exists %}
+    {% if course_pictures %}
         $('#pictures-slider').royalSlider({
             controlsInside: false,
             globalCaption: true,
@@ -16,15 +16,21 @@
         });
     {% endif %}
 
-    $('#enrollment-calendar').datepicker({
-        format: 'yyyy-mm-dd',
-        todayHighlight: true,
-        startDate: '0',
-        endDate: '+60d',
-        language: 'th'
-    })
+    var scheduleArray = [{% course_schedule_start_datetime_as_comma_separated course_schedules %}]
 
+    $( "#enrollment-calendar" ).datepicker({
+        showOtherMonths: true,
+        beforeShowDay: function (date) {
+            var theday = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+            return [false, $.inArray(theday, scheduleArray) >=0 ? 'schedule-date' : ''];
+        }
+    });
 
+    $('.button-show-all-schedules').on('click', function() {
+        $('.schedules-list li').removeClass('hide');
+        $(this).closest('li').remove();
+        return false;
+    });
 
     $('.button-enroll').on('click', function() {
         var schedule_id = $(this).attr('data-schedule-id');
@@ -65,7 +71,7 @@
 {% block body %}
 <div class="course-header">
     <div class="container">
-        <div class="enroll"><a href="#course-enrollment" class="style-orange-button"><i class="icon-signin"></i> ลงทะเบียน</a></div>
+        <div class="join"><a href="#join-workshop" class="style-orange-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a></div>
         <h1>{{ course.title }}</h1>
         <div class="teacher">
             <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></a></div>
@@ -91,15 +97,17 @@
             <span class="caption">จำนวนครั้งที่จะจัด</span>
             <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
         </span>
+        <span class="details">
+            <span class="caption">ค่าใช้จ่าย</span>
+            <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
+        </span>
     </div>
     <div class="row">
         <div class="span8">
             <div class="course-pictures">
                 <div id="pictures-slider" class="royalSlider rsDefault">
-                    {% for media in course.outline_media.all %}
-                        {% if media.media_type == 'PICTURE' %}
-                            <img src="{{ media.coursepicture.image|thumbnail_url:'course_picture_full' }}" alt="{{ media.description }}" />
-                        {% endif %}
+                    {% for picture in course_pictures %}
+                        <img src="{{ picture.image|thumbnail_url:'course_picture_full' }}" alt="{{ picture.description }}" />
                     {% endfor %}
                 </div>
             </div>
@@ -108,8 +116,8 @@
             <div class="course-activities">
                 <div class="head">กิจกรรม</div>
                 <ul>
-                    {% for outline in course.outlines.all %}
-                    <li>{{ outline.title }}</li>
+                    {% for activity in course.activities.all %}
+                    <li>{{ activity.title }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -132,12 +140,12 @@
     <div class="course-place">
         <div class="head"><i class="icon-map-marker"></i> สถานที่</div>
         <div class="clearfix">
-            <div class="map"><a href="#"><img src="{{ STATIC_URL }}images/sample/map1.png" /></a></div>
+            <div class="map"><a href="http://maps.google.com/maps?q={{ course.place.latlng }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ course.place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ course.place.latlng }}&sensor=false" /></a></div>
             <div class="place">
                 <div class="name">{{ course.place.name }}</div>
                 <div class="address">{{ course.place.address }}</div>
-                <div class="phone"><i class="icon-phone-sign"></i> {{ course.place.phone_number }}</div>
                 <div class="direction">
+                    <div class="direction_head">Direction</div>
                     {{ course.place.direction|linebreaks }}
                 </div>
             </div>
@@ -145,56 +153,51 @@
     </div>
 </div>
 
-<div class="course-enrollment">
-    <a name="course-enrollment"></a>
+<div class="course-schedules">
+    <a name="join-workshop"></a>
     <div class="container">
-        <div class="head"><i class="icon-signin"></i> ลงทะเบียน</div>
-        <div class="enrollment clearfix">
-            <div class="enroll-calendar">
+        <div class="head"><i class="icon-calendar"></i> ตารางเวลา</div>
+        <div class="clearfix">
+            <div class="schedules-calendar">
                 <div id="enrollment-calendar"></div>
+                <div class="legend"><i class="available"></i> Available schedule</div>
             </div>
-            <div class="enroll-list">
+            <div class="schedules-list">
                 <ul>
-                    <li>
-                        <div class="enroll">
-                            <span class="price">$40 USD</span>
-                            <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll</a>
-                        </div>
-                        <div class="schedule">
-                            <i class="icon-time"></i>
-                            <div class="right">
-                                <span class="schedule-date"><em>Sunday,</em> 14 February 2013</span>
-                                <span class="schedule-time">6:00 PM</span>
+                    {% for schedule in course_schedules %}
+                        <li{% if forloop.counter > 3 %} class="hide"{% endif %}>
+                            <div class="join-top">
+                                <div class="ticket"><i class="icon-ticket"></i></div>
+                                <div class="schedule">
+                                    <span class="caption">วันที่</span>
+                                    <span class="datetime">
+                                        <span class="schedule-date"><i class="icon-calendar"></i> {{ schedule.start_datetime|date:'l, j F Y' }}</span>
+                                        <span class="schedule-time"><i class="icon-time"></i> {{ schedule.start_datetime|date:'H:i' }} น.</span>
+                                    </span>
+                                </div>
+                                <div class="price">
+                                    <span class="caption">ค่าใช้จ่าย</span>
+                                    <span class="number">{{ course.price|floatformat:0 }} บาท</span>
+                                </div>
+
+                                <div class="join">
+                                    <div class="button">
+                                        <a href="#" class="button-enroll style-orange-button" data-schedule-id="{{ schedule.id }}"><i class="icon-signin"></i> ลงชื่อ</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="availability">
-                            <i class="icon-group"></i>
-                            <div class="right">
-                                <span class="available">10 slots available</span>
-                                <span class="maximum">Limit at 20 students</span>
+                            <div class="join-bottom">
+                                <div class="availability">
+                                    <i class="icon-user"></i>
+                                    <span class="available">เหลือ {{ schedule.stats_seats_left }} ที่นั่ง</span>
+                                    <span class="maximum">(จำกัดที่นั่งทั้งหมด {{ course.maximum_people }} ที่นั่ง)</span>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="enroll">
-                            <span class="price">$40 USD</span>
-                            <a href="#" class="button-enroll style-orange-button" data-schedule-id="1">Enroll</a>
-                        </div>
-                        <div class="schedule">
-                            <i class="icon-time"></i>
-                            <div class="right">
-                                <span class="schedule-date"><em>Sunday,</em> 14 February 2013</span>
-                                <span class="schedule-time">6:00 PM</span>
-                            </div>
-                        </div>
-                        <div class="availability">
-                            <i class="icon-group"></i>
-                            <div class="right">
-                                <span class="available">10 slots available</span>
-                                <span class="maximum">Limit at 20 students</span>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                        {% if forloop.counter == 4 %}
+                            <li><a href="#" class="viewall button-show-all-schedules">View all schedules</a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
