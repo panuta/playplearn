@@ -944,21 +944,22 @@ body {
 #body-top {
   background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
   border-bottom: 1px solid #4585c8;
-  height: 32px;
+  height: 35px;
 }
 #body-top .social {
   border-left: 1px solid #4585c8;
   border-right: 1px solid #87add4;
   float: left;
-  height: 32px;
+  height: 35px;
 }
 #body-top .social ul {
   margin: 0;
 }
 #body-top .social ul li {
   display: inline-block;
-  height: 32px;
+  height: 35px;
   list-style: none;
+  vertical-align: middle;
 }
 #body-top .social ul li a {
   border-left: 1px solid #87add4;
@@ -966,10 +967,11 @@ body {
   color: #FFF;
   display: block;
   font-size: 12px;
-  line-height: 32px;
+  line-height: 35px;
   padding: 0 14px;
 }
 #body-top .social ul li a i {
+  font-size: 15px;
   margin-right: 2px;
 }
 #body-top .social ul li a:hover {
@@ -979,16 +981,12 @@ body {
   text-decoration: none;
 }
 #body-top .social ul li.home a {
-  padding: 0 12px;
-}
-#body-top .social ul li.home a i {
-  font-size: 16px;
-  margin: 0;
-  vertical-align: -1px;
+  font-size: 15px;
+  padding: 0 15px;
 }
 #body-top .account {
   float: right;
-  height: 32px;
+  height: 35px;
 }
 #body-top .account ul.parent {
   border-right: 1px solid #87add4;
@@ -996,7 +994,7 @@ body {
 }
 #body-top .account ul.parent li.parent-item {
   display: inline-block;
-  height: 32px;
+  height: 35px;
   list-style: none;
 }
 #body-top .account ul.parent li.parent-item a.link {
@@ -1005,7 +1003,7 @@ body {
   color: #FFF;
   display: block;
   font-size: 12px;
-  line-height: 32px;
+  line-height: 35px;
   padding: 0 14px;
 }
 #body-top .account ul.parent li.parent-item a.link i {
@@ -1824,28 +1822,28 @@ body {
   text-align: center;
 }
 .page-homepage .homepage-header .subtitle {
-  color: #555;
-  font-size: 28px;
-  font-weight: 300;
+  color: #6c9fd4;
+  font-size: 32px;
+  font-weight: 100;
   margin-top: 25px;
   text-align: center;
 }
 .page-homepage .homepage-header .call_to_action {
   background: url(../images/page/homepage/headline1.png) top center repeat-x;
   padding-top: 109px;
-  margin: 50px 0 20px;
+  margin: 60px 0 20px;
   height: 161px;
   text-align: center;
 }
 .page-homepage .homepage-header .call_to_action a {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: normal;
-  padding: 16px 55px;
+  padding: 14px 40px;
 }
 .page-homepage .homepage-header .call_to_action a i {
   font-size: 12px;
   margin-right: 4px;
-  vertical-align: 2px;
+  vertical-align: 3px;
 }
 .page-homepage .become-teacher {
   background-color: #3a71a9;
@@ -2178,14 +2176,14 @@ body {
 .page-course-outline .course-schedules .schedules-list ul li {
   background-color: #FFF;
   box-shadow: 3px 3px 0 #99B9DB;
-  height: 80px;
+  height: 70px;
   list-style: none;
   margin-bottom: 30px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .ticket {
   display: inline-block;
-  height: 80px;
-  line-height: 80px;
+  height: 70px;
+  line-height: 70px;
   padding-left: 18px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .ticket .icon-ticket {
@@ -2222,7 +2220,7 @@ body {
 }
 .page-course-outline .course-schedules .schedules-list ul li .join {
   float: right;
-  height: 80px;
+  height: 70px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .price {
   display: inline-block;
@@ -2246,8 +2244,8 @@ body {
   background-color: #FFF;
   border-left: 1px solid #BFD3E8;
   display: inline-block;
-  height: 60px;
-  padding: 20px 20px 0 20px;
+  height: 54px;
+  padding: 16px 20px 0 20px;
   vertical-align: middle;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .button a {
