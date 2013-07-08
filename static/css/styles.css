@@ -1942,13 +1942,14 @@ body {
 }
 .page-course-outline .course-header h1 {
   color: #FFF;
-  font-size: 36px;
-  font-weight: 100;
+  font-size: 32px;
+  font-weight: bold;
   line-height: normal;
   margin: 0;
+  text-shadow: 2px 2px #3A71A9;
 }
 .page-course-outline .course-header .teacher {
-  margin-top: 20px;
+  margin-top: 25px;
   position: relative;
 }
 .page-course-outline .course-header .teacher .avatar {
@@ -1964,14 +1965,14 @@ body {
   color: #FFF;
   display: inline-block;
   font-size: 16px;
-  font-weight: 100;
   margin-left: 90px;
+  text-shadow: 1px 1px #3A71A9;
 }
 .page-course-outline .course-header .teacher .name a {
   color: #FFF;
   font-size: 22px;
-  font-weight: 100;
   margin-left: 3px;
+  text-shadow: 1px 1px #3A71A9;
 }
 .page-course-outline .course-details {
   margin: 15px 0 0 90px;
@@ -2062,13 +2063,13 @@ body {
   margin-bottom: 20px;
 }
 .page-course-outline .course-place {
-  margin-top: 25px;
+  margin-top: 35px;
 }
 .page-course-outline .course-place .head {
   color: #444;
   font-size: 20px;
   font-weight: 300;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 .page-course-outline .course-place .head i {
   color: #3a71a9;
@@ -2175,60 +2176,37 @@ body {
   margin: 0;
 }
 .page-course-outline .course-schedules .schedules-list ul li {
+  background-color: #FFF;
+  box-shadow: 3px 3px 0 #99B9DB;
+  height: 80px;
   list-style: none;
   margin-bottom: 30px;
 }
-.page-course-outline .course-schedules .schedules-list ul li .join-top {
-  background-color: #FFF;
-  border: 2px solid #99b9db;
-}
-.page-course-outline .course-schedules .schedules-list ul li .join-bottom {
-  padding: 8px 0 0 5px;
-}
 .page-course-outline .course-schedules .schedules-list ul li .ticket {
-  background-color: #99b9db;
   display: inline-block;
-  height: 65px;
-  line-height: 65px;
-  padding: 0 12px 0 11px;
-  position: relative;
-  vertical-align: middle;
+  height: 80px;
+  line-height: 80px;
+  padding-left: 18px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .ticket .icon-ticket {
-  color: #FFF;
-  font-size: 16px;
-}
-.page-course-outline .course-schedules .schedules-list ul li .ticket:after {
-  border: solid transparent;
-  border-color: rgba(153, 185, 219, 0);
-  border-left-color: #99b9db;
-  border-width: 10px;
-  content: " ";
-  height: 0;
-  left: 100%;
-  margin-top: -10px;
-  position: absolute;
-  pointer-events: none;
-  top: 50%;
-  width: 0;
-}
-.page-course-outline .course-schedules .schedules-list ul li .caption {
-  color: #555;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: bold;
-  margin-right: 10px;
-  vertical-align: middle;
+  color: #6c9fd4;
+  font-size: 30px;
+  vertical-align: -5px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule {
-  border-right: 1px dashed #BFD3E8;
-  color: #444;
+  color: #666;
   display: inline-block;
   font-size: 15px;
-  height: 55px;
-  padding: 10px 0 0 20px;
+  margin-bottom: 2px;
+  padding-left: 13px;
   vertical-align: middle;
-  width: 300px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule .weekday {
+  color: #555;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  vertical-align: middle;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule i {
   color: #BBB;
@@ -2236,58 +2214,49 @@ body {
   margin-right: 3px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule .datetime {
-  display: inline-block;
+  margin-top: 7px;
   vertical-align: middle;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-date {
-  display: block;
-  margin-bottom: 5px;
-}
-.page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-time {
-  display: block;
-}
-.page-course-outline .course-schedules .schedules-list ul li .price {
-  border-right: 1px dashed #BFD3E8;
-  display: inline-block;
-  height: 45px;
-  padding: 20px 20px 0;
-  vertical-align: middle;
-}
-.page-course-outline .course-schedules .schedules-list ul li .price .number {
-  display: inline-block;
-  vertical-align: middle;
+  margin-right: 15px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join {
   float: right;
-  margin: 14px 16px 0 0;
+  height: 80px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join .price {
+  display: inline-block;
+  margin-right: 20px;
+  vertical-align: middle;
+  text-align: right;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join .price .number {
+  color: #555;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  vertical-align: middle;
+}
+.page-course-outline .course-schedules .schedules-list ul li .join .price .availability {
+  color: #777;
+  font-size: 13px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .button {
+  background-color: #FFF;
+  border-left: 1px solid #BFD3E8;
   display: inline-block;
+  height: 60px;
+  padding: 20px 20px 0 20px;
   vertical-align: middle;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .button a {
   font-size: 15px;
   font-weight: 300;
-  padding: 8px 35px 6px;
+  padding: 9px 35px 7px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .button a i {
   color: #FFF;
-}
-.page-course-outline .course-schedules .schedules-list ul li .availability {
-  color: #3a71a9;
-  display: inline-block;
-  font-size: 14px;
-  vertical-align: top;
-}
-.page-course-outline .course-schedules .schedules-list ul li .availability i {
-  margin-right: 3px;
-}
-.page-course-outline .course-schedules .schedules-list ul li .availability .available {
-  font-weight: bold;
-}
-.page-course-outline .course-schedules .schedules-list ul li .availability .maximum {
-  font-size: 13px;
-  margin-left: 4px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .viewall {
   border: 1px solid #99b9db;
@@ -3251,7 +3220,7 @@ body {
 .page-course-modify .form-content .place-control .place-input select {
   margin: 0;
 }
-.page-course-modify .form-content .place-control .place-input .new_location .or {
+.page-course-modify .form-content .place-control .place-input .or {
   color: #777;
   font-size: 13px;
   margin: 0 6px;
@@ -3332,7 +3301,7 @@ body {
   margin-right: 2px;
 }
 .page-course-modify .form-footer-floating {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-top: 1px solid #EEE;
   bottom: 0px;
   height: 35px;

@@ -607,8 +607,9 @@ function initCourseModifyPage(enable_autosave) {
 
                 if(response.status == 'success') {
                     $('.form-footer .preview').show();
-                    $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'course-preview-' + response.data.course_uid);
+                    $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'course-' + response.data.course_uid);
                     $('.form-content').trigger('saved');
+                    _notify('success', 'Saved successfully', 'All changes have been saved');
                 } else {
                     if(response.message) {
                         _notify('error', 'Cannot save', response.message);

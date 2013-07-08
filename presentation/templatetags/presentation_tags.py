@@ -43,15 +43,26 @@ def course_school_as_li(selected_school_slug):
 
 
 @register.assignment_tag
-def is_user_defined_place(user):
+def has_user_defined_place(user):
     return Place.objects.filter(is_userdefined=True, created_by=user).exists()
+
+
+@register.assignment_tag
+def get_user_defined_place(user, course):
+    if course and course.place and course.place.is_userdefined:
+        return course.place
+
+    if not course and not Place.objects.filter(is_userdefined=True, created_by=user).exists():
+        return Place()
+
+    return None
 
 
 @register.assignment_tag
 def is_display_place_form(user, course):
     has_userdefined_places = Place.objects.filter(is_userdefined=True, created_by=user).exists()
 
-    if not course and not has_userdefined_places:
+    if not course or not has_userdefined_places:
         return True
     elif course and course.place and course.place.is_userdefined:
         return True

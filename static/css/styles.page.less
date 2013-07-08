@@ -223,14 +223,15 @@
 
         h1 {
             color: #FFF;
-            font-size: 36px;
-            font-weight: 100;
+            font-size: 32px;
+            font-weight: bold;
             line-height: normal;
             margin: 0;
+            text-shadow: 2px 2px #3A71A9;
         }
 
         .teacher {
-            margin-top: 20px;
+            margin-top: 25px;
             position: relative;
 
             .avatar {
@@ -248,14 +249,14 @@
                 color: #FFF;
                 display: inline-block;
                 font-size: 16px;
-                font-weight: 100;
                 margin-left: 90px;
+                text-shadow: 1px 1px #3A71A9;
 
                 a {
                     color: #FFF;
                     font-size: 22px;
-                    font-weight: 100;
                     margin-left: 3px;
+                    text-shadow: 1px 1px #3A71A9;
                 }
             }
         }
@@ -373,13 +374,13 @@
     }
 
     .course-place {
-        margin-top: 25px;
+        margin-top: 35px;
 
         .head {
             color: #444;
             font-size: 20px;
             font-weight: 300;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
 
             i {
                 color: @primaryColor;
@@ -513,66 +514,40 @@
                 margin: 0;
 
                 li {
+                    background-color: #FFF;
+                    box-shadow: 3px 3px 0 #99B9DB;
+                    height: 80px;
                     list-style: none;
                     margin-bottom: 30px;
 
-                    .join-top {
-                        background-color: #FFF;
-                        border: 2px solid #99b9db;
-                    }
-
-                    .join-bottom {
-                        padding: 8px 0 0 5px;
-                    }
-
                     .ticket {
-                        background-color: #99b9db;
                         display: inline-block;
-                        height: 65px;
-                        line-height: 65px;
-                        padding: 0 12px 0 11px;
-                        position: relative;
-                        vertical-align: middle;
+                        height: 80px;
+                        line-height: 80px;
+                        padding-left: 18px;
 
                         .icon-ticket {
-                            color: #FFF;
-                            font-size: 16px;
+                            color: #6c9fd4;
+                            font-size: 30px;
+                            vertical-align: -5px;
                         }
                     }
 
-                    .ticket:after {
-                        border: solid transparent;
-                        border-color: rgba(153, 185, 219, 0);
-                        border-left-color: #99b9db;
-                        border-width: 10px;
-                        content: " ";
-                        height: 0;
-                        left: 100%;
-                        margin-top: -10px;
-                        position: absolute;
-                        pointer-events: none;
-                        top: 50%;
-                        width: 0;
-                    }
-
-                    .caption {
-                        color: #555;
-                        display: inline-block;
-                        font-size: 15px;
-                        font-weight: bold;
-                        margin-right: 10px;
-                        vertical-align: middle;
-                    }
-
                     .schedule {
-                        border-right: 1px dashed #BFD3E8;
-                        color: #444;
+                        color: #666;
                         display: inline-block;
                         font-size: 15px;
-                        height: 55px;
-                        padding: 10px 0 0 20px;
+                        margin-bottom: 2px;
+                        padding-left: 13px;
                         vertical-align: middle;
-                        width: 300px;
+
+                        .weekday {
+                            color: #555;
+                            font-size: 16px;
+                            font-weight: bold;
+                            margin-bottom: 6px;
+                            vertical-align: middle;
+                        }
 
                         i {
                             color: #BBB;
@@ -581,70 +556,60 @@
                         }
 
                         .datetime {
-                            display: inline-block;
+                            margin-top: 7px;
                             vertical-align: middle;
                         }
 
                         .schedule-date {
-                            display: block;
-                            margin-bottom: 5px;
+                            margin-right: 15px;
                         }
 
                         .schedule-time {
-                            display: block;
-                        }
-                    }
-
-                    .price {
-                        border-right: 1px dashed #BFD3E8;
-                        display: inline-block;
-                        height: 45px;
-                        padding: 20px 20px 0;
-                        vertical-align: middle;
-
-                        .number {
-                            display: inline-block;
-                            vertical-align: middle;
                         }
                     }
 
                     .join {
                         float: right;
-                        margin: 14px 16px 0 0;
+                        height: 80px;
+
+                        .price {
+                            display: inline-block;
+                            margin-right: 20px;
+                            vertical-align: middle;
+                            text-align: right;
+
+                            .number {
+                                color: #555;
+                                display: block;
+                                font-size: 16px;
+                                font-weight: bold;
+                                margin-bottom: 5px;
+                                vertical-align: middle;
+                            }
+
+                            .availability {
+                                color: #777;
+                                font-size: 13px;
+                            }
+                        }
 
                         .button {
+                            background-color: #FFF;
+                            border-left: 1px solid #BFD3E8;
                             display: inline-block;
+                            height: 60px;
+                            padding: 20px 20px 0 20px;
                             vertical-align: middle;
 
                             a {
                                 font-size: 15px;
                                 font-weight: 300;
-                                padding: 8px 35px 6px;
+                                padding: 9px 35px 7px;
 
                                 i {
                                     color: #FFF;
                                 }
                             }
-                        }
-                    }
-
-                    .availability {
-                        color: @primaryColor;
-                        display: inline-block;
-                        font-size: 14px;
-                        vertical-align: top;
-
-                        i {
-                            margin-right: 3px;
-                        }
-
-                        .available {
-                            font-weight: bold;
-                        }
-
-                        .maximum {
-                            font-size: 13px;
-                            margin-left: 4px;
                         }
                     }
 
@@ -1741,12 +1706,10 @@
                     margin: 0;
                 }
 
-                .new_location {
-                    .or {
-                        color: #777;
-                        font-size: 13px;
-                        margin: 0 6px;
-                    }
+                .or {
+                    color: #777;
+                    font-size: 13px;
+                    margin: 0 6px;
                 }
 
                 #id_place_name {
@@ -1834,7 +1797,7 @@
     }
 
     .form-footer-floating {
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.9);
         border-top: 1px solid #EEE;
         bottom: 0px;
         height: 35px;

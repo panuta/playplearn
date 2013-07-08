@@ -189,37 +189,42 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                 <div class="place-control">
                     <label class="place-label"><input type="radio" name="place" value="userdefined-place" {% if course and course.place and course.place.is_userdefined %}checked="checked"{% endif %} /> Your defined location</label>
 
-                    {% is_user_defined_place user as user_defined_place %}
-                    {% if user_defined_place %}
+                    {% has_user_defined_place user as user_defined_place %}
+
+                    {% if course or user_defined_place %}
                     <div class="place-input">
+                        {% if user_defined_place %}
                         <select class="places" id="id_place_userdefined">
                             <option></option>
                             {% course_place_as_option 'userdefined' user course %}
                         </select>
-                        <span class="new_location"><span class="or">or</span> <a href="#" class="btn btn-small button-new-location">Add new location</a></span>
+                        <span class="or">or</span>
+                        {% endif %}
+                        {% if course or user_defined_place %}<a href="#" class="btn btn-small button-new-location">Add new location</a>{% endif %}
                     </div>
                     {% endif %}
 
                     <div class="place-form-loading hide"><img src="{{ STATIC_URL }}images/ui/loading.gif" /> Loading place information</div>
 
-                    {% is_display_place_form user course as display_place_form %}
-                    <div class="place-form{% if not display_place_form %} hide{% endif %}">
-                        <div class="head">{% if course and course.place and course.place.is_userdefined %}Edit location{% else %}New location{% endif %}</div>
+                    {% get_user_defined_place user course as user_defined_place %}
+
+                    <div class="place-form{% if not user_defined_place %} hide{% endif %}">
+                        <div class="head">{% if user_defined_place.pk %}Edit location{% else %}New location{% endif %}</div>
                         <div class="place-input">
                             <label for="id_place_name">Location name</label>
-                            <div><input type="text" id="id_place_name" value="{{ course.place.name }}" /></div>
+                            <div><input type="text" id="id_place_name" value="{{ user_defined_place.name }}" /></div>
                         </div>
                         <div class="place-row">
                             <div class="place-input">
                                 <label for="id_place_address">Address</label>
-                                <div><textarea id="id_place_address">{{ course.place.address }}</textarea></div>
+                                <div><textarea id="id_place_address">{{ user_defined_place.address }}</textarea></div>
                             </div>
                             <div class="place-input">
                                 <label for="id_place_province">Province</label>
                                 <div>
                                     <select id="id_place_province">
                                         <option></option>
-                                        {% province_options course.place.province_code %}
+                                        {% province_options user_defined_place.province_code %}
                                     </select>
                                 </div>
                             </div>
@@ -228,15 +233,15 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                             <div class="place-input">
                                 <label for="id_place_direction">How to get there</label>
                                 <div>
-                                    <textarea id="id_place_direction">{{ course.place.direction }}</textarea>
+                                    <textarea id="id_place_direction">{{ user_defined_place.direction }}</textarea>
                                 </div>
                             </div>
                             <div class="place-input place-input-location">
                                 <label>Location on map</label>
                                 <div>
-                                    <input type="hidden" id="id_place_location" value="{{ course.place.latlng }}" />
-                                    {% if course and course.place and course.place.latlng %}
-                                        <div class="minimap"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ course.place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ course.place.latlng }}&sensor=false" /></div>
+                                    <input type="hidden" id="id_place_location" value="{{ user_defined_place.latlng }}" />
+                                    {% if user_defined_place.latlng %}
+                                        <div class="minimap"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ user_defined_place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ user_defined_place.latlng }}&sensor=false" /></div>
                                     {% else %}
                                         <div class="minimap hide"></div>
                                     {% endif %}
@@ -260,7 +265,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
                     {% endif %}
 
                     <span class="loading hide"><img src="{{ STATIC_URL }}images/ui/loading.gif" /></span>
-                    <span class="link preview hide"><i class="icon-external-link-sign"></i> <a href="#" target="">See preview</a></span>
+                    <span class="link preview {% if not course %}hide{% endif %}"><i class="icon-external-link-sign"></i> <a {% if course %}href="{% url 'view_course_outline' course.uid %}" target="course-{{ course.uid }}"{% else %}href="#"{% endif %}>See workshop page</a></span>
                 </div>
             </div>
         </div>

@@ -166,31 +166,21 @@
                 <ul>
                     {% for schedule in course_schedules %}
                         <li{% if forloop.counter > 3 %} class="hide"{% endif %}>
-                            <div class="join-top">
-                                <div class="ticket"><i class="icon-ticket"></i></div>
-                                <div class="schedule">
-                                    <span class="caption">วันที่</span>
-                                    <span class="datetime">
-                                        <span class="schedule-date"><i class="icon-calendar"></i> {{ schedule.start_datetime|date:'l, j F Y' }}</span>
-                                        <span class="schedule-time"><i class="icon-time"></i> {{ schedule.start_datetime|date:'H:i' }} น.</span>
-                                    </span>
-                                </div>
-                                <div class="price">
-                                    <span class="caption">ค่าใช้จ่าย</span>
-                                    <span class="number">{{ course.price|floatformat:0 }} บาท</span>
-                                </div>
-
-                                <div class="join">
-                                    <div class="button">
-                                        <a href="#" class="button-enroll style-orange-button" data-schedule-id="{{ schedule.id }}"><i class="icon-signin"></i> ลงชื่อ</a>
-                                    </div>
+                            <div class="ticket"><i class="icon-ticket"></i></div>
+                            <div class="schedule">
+                                <div class="weekday">วัน{{ schedule.start_datetime|date:'l' }}</div>
+                                <div class="datetime">
+                                    <span class="schedule-date"><i class="icon-calendar"></i> {{ schedule.start_datetime|date:'j F Y' }}</span>
+                                    <span class="schedule-time"><i class="icon-time"></i> {{ schedule.start_datetime|date:'H:i' }} น.</span>
                                 </div>
                             </div>
-                            <div class="join-bottom">
-                                <div class="availability">
-                                    <i class="icon-user"></i>
-                                    <span class="available">เหลือ {{ schedule.stats_seats_left }} ที่นั่ง</span>
-                                    <span class="maximum">(จำกัดที่นั่งทั้งหมด {{ course.maximum_people }} ที่นั่ง)</span>
+                            <div class="join">
+                                <div class="price">
+                                    <span class="number">{{ course.price|floatformat:0 }} บาท</span>
+                                    <span class="availability">เหลือที่ว่าง {{ schedule.stats_seats_left }} ที่นั่ง</span>
+                                </div>
+                                <div class="button">
+                                    <a href="#" class="button-enroll style-orange-button" data-schedule-id="{{ schedule.id }}"><i class="icon-signin"></i> ลงชื่อ</a>
                                 </div>
                             </div>
                         </li>
