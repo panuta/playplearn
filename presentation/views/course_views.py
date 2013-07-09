@@ -1,16 +1,17 @@
 # -*- encoding: utf-8 -*-
+
 from django.core.urlresolvers import reverse
 from django.http import Http404
-
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.http import require_POST
+
 from accounts.forms import EmailAuthenticationForm
 from accounts.functions import ajax_login_email_user, ajax_register_email_user
+
 from common import errors
 from common.errors import CourseEnrollmentException, ACCOUNT_REGISTRATION_ERRORS, UserRegistrationException
-
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
 from domain import functions as domain_functions
@@ -41,29 +42,33 @@ def view_course_outline(request, course_uid, page_action, enrollment_code):
 
 def view_courses_browse(request, browse_by):
     if not browse_by:
-        browse_by = 'recent'
+        browse_by = 'popular'
 
-    if browse_by == 'recent':
-        courses = Course.objects.filter(status='PUBLISHED').order_by('-first_published')
+    if browse_by == 'upcoming':
+        courses = domain_functions.get_upcoming_courses()
+        browse_title = 'Upcoming workshops'
     elif browse_by == 'popular':
         courses = []
+        browse_title = 'Popular workshops'
     else:
         raise Http404
 
     return render(request, 'course/course_browse.html', {
         'courses': courses,
         'browse_by': browse_by,
+        'browse_title': browse_title,
     })
 
 
-def view_courses_browse_by_school(request, school_slug):
-    school = get_object_or_404(CourseSchool, slug=school_slug)
-    courses = Course.objects.filter(schools__in=(school, ))
+def view_courses_browse_by_topic(request, topic_slug):
+    school = get_object_or_404(CourseSchool, slug=topic_slug)
+    courses = Course.objects.filter(status='PUBLISHED', schools__in=(school, ))
 
     return render(request, 'course/course_browse.html', {
         'courses': courses,
-        'browse_by': 'school',
-        'school_slug': school_slug,
+        'browse_by': 'topic',
+        'browse_title': '%s workshops' % school.name,
+        'topic_slug': topic_slug,
     })
 
 

@@ -1,29 +1,13 @@
 # -*- encoding: utf-8 -*-
 
-from django.conf import settings
 from django.shortcuts import render, get_object_or_404
-from django.utils.timezone import now
 
-from domain.models import Place, CourseSchedule
+from domain import functions as domain_functions
+from domain.models import Place
 
 
 def view_homepage(request):
-    rightnow = now()
-
-    upcoming_schedules = CourseSchedule.objects.filter(
-        course__status='PUBLISHED',
-        status='OPENING',
-        start_datetime__gt=rightnow
-    ).order_by('start_datetime')
-
-    upcoming_courses = []
-    for schedule in upcoming_schedules:
-        if schedule.course not in upcoming_courses:
-            upcoming_courses.append(schedule.course)
-
-        if len(upcoming_courses) > settings.DISPLAY_HOMEPAGE_COURSES:
-            break
-
+    upcoming_courses = domain_functions.get_upcoming_courses()
     return render(request, 'page/homepage.html', {'upcoming_courses': upcoming_courses})
 
 

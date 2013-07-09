@@ -1,9 +1,36 @@
 from django.conf import settings
+from django.utils.timezone import now
 
 from common.errors import CourseEnrollmentException
 from common.l10n.th import PROVINCE_MAP
 from common.utilities import extract_request_object
-from domain.models import CourseActivity, CourseSchool, Place, EditingCourse, CoursePicture
+from domain.models import CourseActivity, CourseSchool, Place, EditingCourse, CoursePicture, CourseSchedule
+
+
+# COURSE BROWSE ########################################################################################################
+
+def get_popular_courses():
+    pass
+
+
+def get_upcoming_courses():
+    rightnow = now()
+
+    upcoming_schedules = CourseSchedule.objects.filter(
+        course__status='PUBLISHED',
+        status='OPENING',
+        start_datetime__gt=rightnow
+    ).order_by('start_datetime')
+
+    upcoming_courses = []
+    for schedule in upcoming_schedules:
+        if schedule.course not in upcoming_courses:
+            upcoming_courses.append(schedule.course)
+
+        if len(upcoming_courses) > settings.DISPLAY_HOMEPAGE_COURSES:
+            break
+
+    return upcoming_courses
 
 
 # COURSE DASHBOARD #####################################################################################################

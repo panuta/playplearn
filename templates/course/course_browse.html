@@ -1,42 +1,59 @@
 {% extends 'base.html' %}
-{% load presentation_tags %}
+{% load common_tags presentation_tags %}
 
+{% block head_title %}Browse workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}page-course-browse{% endblock %}
 
 {% block body %}
+<div class="browse-header">
+    <div class="container">
+        <h1><i class="icon-search"></i> Browse workshops</h1>
+    </div>
+</div>
 <div class="container">
-    <h1>Browse Courses</h1>
     <div class="row">
         <div class="span3">
-            <div class="nav-main">
-                <ul>
-                    <li><a href="{% url 'view_courses_browse_by_category' 'recent' %}">Most recent</a></li>
-                    <li><a href="{% url 'view_courses_browse_by_category' 'popular' %}">Most popular</a></li>
-                </ul>
-            </div>
-            <div class="nav-schools">
-                <div class="head">School of</div>
-                <ul>
-                    {% course_school_as_li school_slug %}
-                </ul>
+            <div class="browse-nav">
+                <div class="browse-nav-main">
+                    <ul>
+                        <li><a href="{% url 'view_courses_browse_by_category' 'popular' %}">Popular workshops</a></li>
+                        <li><a href="{% url 'view_courses_browse_by_category' 'upcoming' %}">Upcoming workshops</a></li>
+                    </ul>
+                </div>
+                <div class="browse-nav-topics">
+                    <div class="head">Workshop topics</div>
+                    <ul>
+                        {% course_topics_as_li topic_slug %}
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="span9">
-            <div class="browse-courses">
+            <div class="browse-workshops">
+                <h2>{{ browse_title }}</h2>
+                {% if courses %}
                 <ul class="courses">
-                    <li class="course">
-                        <div class="cover"></div>
-                        <div class="right">
-                            <div class="title"><a href="#">This is a title</a></div>
-                            <div class="schedule-location">
-                                <span class="schedule">เสาร์, 20 ก.ค. 2556 เวลา 17:00 น.</span>
-                                <span class="at">สถานที่</span>
-                                <span class="location"><a href="#"> My Home</a></span>
+                    {% for course in courses %}
+                        <li class="course clearfix">
+                            <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" {% thumbnail_img_size 'course_cover_small' %} /></a></div>
+                            <div class="right">
+                                <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
+                                <div class="teacher">โดย <a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a></div>
+                                <div class="at_glance">
+                                    <a href="#" class="school">{{ course.get_school.name }}</a> workshop
+                                    in <span class="duration">{{ course.duration }} hour{{ course.duration|pluralize }}</span>
+                                    with <span class="people">{{ course.maximum_people }} other {{ course.maximum_people|pluralize:'person,people' }}</span>
+                                </div>
+                                <div class="course-details">
+                                    <span class="schedules"><i class="icon-time"></i> <em>{{ course.stats_upcoming_classes }}</em></span><span class="feedbacks"><i class="icon-comment"></i> <em>{{ course.stats_feedbacks }}</em></span><span class="place"><i class="icon-map-marker"></i> {{ course.place.province_code|province_name }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <!-- School, Topics, Duration, Teacher, Reviews, Next Schedule -->
-                    </li>
+                        </li>
+                    {% endfor %}
                 </ul>
+                {% else %}
+                    <div class="style-no-information">No workshops found</div>
+                {% endif %}
             </div>
         </div>
     </div>

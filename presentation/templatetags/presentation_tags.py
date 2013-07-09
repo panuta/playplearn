@@ -33,11 +33,11 @@ def course_school_as_option(course):
 
 
 @register.simple_tag
-def course_school_as_li(selected_school_slug):
+def course_topics_as_li(selected_topic_slug):
     li = []
     for school in CourseSchool.objects.all():
-        active = ' class="active"' if school.slug == selected_school_slug else ''
-        li.append('<li%s><a href="%s">%s</a></li>' % (active, reverse('view_courses_browse_by_school', args=[school.slug]), school.name))
+        active = ' class="active"' if school.slug == selected_topic_slug else ''
+        li.append('<li%s><a href="%s">%s</a></li>' % (active, reverse('view_courses_browse_by_topic', args=[school.slug]), school.name))
 
     return ''.join(li)
 
