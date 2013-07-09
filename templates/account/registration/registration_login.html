@@ -15,12 +15,70 @@
 {% endblock %}
 
 {% block registration_body %}
-<h1>เข้าสู่ระบบ</h1>
+
+<div class="style-registration-login">
+    <div class="backend-social">
+        <div class="head"><b>เข้าสู่ระบบ</b> หรือ <b>สมัครสมาชิก</b></div>
+        <a href="#" class="facebook">Sign up / login with Facebook</a>
+        <a href="#" class="twitter">Sign up / login with Twitter</a>
+    </div>
+    <div class="or">
+        <hr><span>หรือใช้อีเมล</span>
+    </div>
+    <div class="backend-email">
+        <div class="clearfix">
+            <div class="email-login">
+                <div class="head">เข้าสู่ระบบ</div>
+                <form action="{% url 'view_user_login' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    <div class="input">
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="input">
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                    </div>
+                    <div class="actions">
+                        <input type="hidden" value="{{ next }}" name="next" />
+                        <input type="submit" value="เข้าสู่ระบบ" class="style-button" />
+                    </div>
+                    <div class="forgot"><a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a></div>
+                </form>
+            </div>
+            <div class="email-register">
+                <div class="head">สมัครสมาชิก</div>
+                {% to_resend_registration signup_form.email.data as to_resend_registration %}
+                <form method="post" action="{% if to_resend_registration %}{% url 'view_user_login_resend' %}{% else %}{% url 'view_user_login_signup' %}{% endif %}">
+                    {% csrf_token %}
+                    {{ signup_form.non_field_errors }}
+                    <div class="input">
+                        {{ signup_form.email }}
+                        {{ signup_form.email.errors }}
+                    </div>
+                    <div class="actions">
+                        {% if to_resend_registration %}
+                            <input type="submit" value="ส่งอีเมลยืนยันอีกครั้ง" class="style-button" />
+                            <a href="{% url 'view_user_login_signup' %}" class="cancel">ยกเลิก</a>
+                        {% else %}
+                            <input type="submit" value="สมัครสมาชิก" class="style-button" />
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %}
 <div class="login-social">
     <a href="#" class="facebook">Sign-in with Facebook</a>
     <a href="#" class="twitter">Sign-in with Twitter</a>
     <div class="use-email"><a href="#">ใช้อีเมลในการเข้าสู่ระบบหรือสมัครสมาชิก</a></div>
 </div>
+
 <div class="login-email">
     <div class="email-login">
         <div class="head">เข้าสู่ระบบ</div>
@@ -72,6 +130,7 @@
         </form>
     </div>
 </div>
+{% endcomment %}
 {% endblock %}
 
 

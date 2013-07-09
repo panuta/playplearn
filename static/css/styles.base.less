@@ -107,6 +107,7 @@ body.modal-open {
 .modal {
     //border: 1px solid rgba(85, 85, 85, 0.3);
     border: none;
+    border-top: 7px solid @primaryColor;
     border-radius: 0px;
 
     form {
@@ -115,12 +116,16 @@ body.modal-open {
 
     .modal-header {
         border-bottom: 0px;
-        border-top: 7px solid @primaryColor;
         padding: 15px 20px;
 
         h3 {
             color: #555;
             font-size: 22px;
+        }
+
+        .close {
+            font-size: 26px;
+            margin: 0;
         }
     }
 
@@ -558,12 +563,12 @@ form {
     .style-button-base;
     background-color: #D9D9D9;
     box-shadow: 0px 3px 0px #BBB;
-    color: #333;
+    color: #444;
 
     &:hover, &:focus {
         background-color: #E4E4E4;
         box-shadow: 0px 3px 0px #CCC;
-        color: #333;
+        color: #444;
     }
 }
 
@@ -841,6 +846,129 @@ h1.style-page-header {
 }
 
 // COMPONENT ###########################################################################################################
+
+.style-registration-login {
+    width: 650px;
+    padding: 40px 25px 10px;
+
+    .head {
+        color: #888;
+        font-size: 22px;
+        margin-bottom: 30px;
+        text-align: center;
+
+        b {
+            color: #666;
+            font-weight: normal;
+        }
+    }
+
+    .backend-social {
+        text-align: center;
+
+        .facebook {
+            .login_facebook_button;
+            margin: 0 15px;
+        }
+
+        .twitter {
+            .login_twitter_button;
+            margin: 0 15px;
+        }
+    }
+
+    .or {
+        line-height: 12px;
+        margin: 35px auto 0px;
+        text-align: center;
+        width: 650px;
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #DDD;
+            margin: 5px 0px;
+        }
+
+        span {
+            background-color: #FFF;
+            color: #888;
+            font-size: 12.5px;
+            display: inline-block;
+            padding: 0 10px;
+            position: relative;
+            top: -13px;
+        }
+    }
+
+    .backend-email {
+        margin-top: 5px;
+
+        .head {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        form {
+            margin: 0;
+            text-align: center;
+
+            label {
+                color: #555;
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            input {
+                font-size: 15px;
+                height: 25px;
+                margin-bottom: 15px;
+                width: 230px;
+            }
+
+            .actions {
+                margin-top: 2px;
+
+                .error {
+                    color: #C30;
+                    font-size: 13px;
+                    margin-bottom: 8px;
+                }
+
+                .style-button {
+                    font-size: 13px;
+                    height: auto;
+                    margin: 0;
+                    padding: 5px 40px;
+                    width: auto;
+                }
+            }
+
+            .forgot {
+                margin-top: 7px;
+
+                a {
+                    .grey_link;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .email-login {
+            float: left;
+            margin-bottom: 20px;
+            vertical-align: top;
+            width: 325px;
+        }
+
+        .email-register {
+            float: left;
+            vertical-align: top;
+            width: 325px;
+        }
+    }
+}
+
 
 .style-course-box {
     background-color: white;

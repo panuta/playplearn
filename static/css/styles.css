@@ -86,6 +86,7 @@ body.modal-open {
 }
 .modal {
   border: none;
+  border-top: 7px solid #3a71a9;
   border-radius: 0px;
 }
 .modal form {
@@ -93,12 +94,15 @@ body.modal-open {
 }
 .modal .modal-header {
   border-bottom: 0px;
-  border-top: 7px solid #3a71a9;
   padding: 15px 20px;
 }
 .modal .modal-header h3 {
   color: #555;
   font-size: 22px;
+}
+.modal .modal-header .close {
+  font-size: 26px;
+  margin: 0;
 }
 .modal .modal-error {
   background-color: #e56068;
@@ -432,7 +436,7 @@ form .avatar-control .errorlist {
   padding: 7px 30px;
   background-color: #D9D9D9;
   box-shadow: 0px 3px 0px #BBB;
-  color: #333;
+  color: #444;
 }
 .style-button:hover,
 .style-button:focus {
@@ -459,7 +463,7 @@ form .avatar-control .errorlist {
 .style-button:focus {
   background-color: #E4E4E4;
   box-shadow: 0px 3px 0px #CCC;
-  color: #333;
+  color: #444;
 }
 .style-orange-button {
   border: none;
@@ -750,6 +754,126 @@ h1.style-page-header {
   font-size: 20px;
   font-weight: bold;
 }
+.style-registration-login {
+  width: 650px;
+  padding: 40px 25px 10px;
+}
+.style-registration-login .head {
+  color: #888;
+  font-size: 22px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.style-registration-login .head b {
+  color: #666;
+  font-weight: normal;
+}
+.style-registration-login .backend-social {
+  text-align: center;
+}
+.style-registration-login .backend-social .facebook {
+  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+  margin: 0 15px;
+}
+.style-registration-login .backend-social .twitter {
+  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
+  display: inline-block;
+  height: 40px;
+  text-indent: -9999px;
+  width: 230px;
+  margin: 0 15px;
+}
+.style-registration-login .or {
+  line-height: 12px;
+  margin: 35px auto 0px;
+  text-align: center;
+  width: 650px;
+}
+.style-registration-login .or hr {
+  border: none;
+  border-bottom: 1px solid #DDD;
+  margin: 5px 0px;
+}
+.style-registration-login .or span {
+  background-color: #FFF;
+  color: #888;
+  font-size: 12.5px;
+  display: inline-block;
+  padding: 0 10px;
+  position: relative;
+  top: -13px;
+}
+.style-registration-login .backend-email {
+  margin-top: 5px;
+}
+.style-registration-login .backend-email .head {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+.style-registration-login .backend-email form {
+  margin: 0;
+  text-align: center;
+}
+.style-registration-login .backend-email form label {
+  color: #555;
+  font-size: 13px;
+  font-weight: bold;
+}
+.style-registration-login .backend-email form input {
+  font-size: 15px;
+  height: 25px;
+  margin-bottom: 15px;
+  width: 230px;
+}
+.style-registration-login .backend-email form .actions {
+  margin-top: 2px;
+}
+.style-registration-login .backend-email form .actions .error {
+  color: #C30;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.style-registration-login .backend-email form .actions .style-button {
+  font-size: 13px;
+  height: auto;
+  margin: 0;
+  padding: 5px 40px;
+  width: auto;
+}
+.style-registration-login .backend-email form .forgot {
+  margin-top: 7px;
+}
+.style-registration-login .backend-email form .forgot a {
+  font-size: 12px;
+}
+.style-registration-login .backend-email form .forgot a:link,
+.style-registration-login .backend-email form .forgot a:active,
+.style-registration-login .backend-email form .forgot a:visited {
+  color: #888;
+  text-decoration: underline;
+}
+.style-registration-login .backend-email form .forgot a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.style-registration-login .backend-email .email-login {
+  float: left;
+  margin-bottom: 20px;
+  vertical-align: top;
+  width: 325px;
+}
+.style-registration-login .backend-email .email-register {
+  float: left;
+  vertical-align: top;
+  width: 325px;
+}
 .style-course-box {
   background-color: white;
   border: 1px solid #DDD;
@@ -932,6 +1056,195 @@ h1.style-page-header {
   color: #444;
   font-size: 13.5px;
   line-height: 21px;
+}
+@font-face {
+  font-family: 'QuarkBold';
+  src: url('../fonts/quark/quark-bold-webfont.eot');
+  src: url('../fonts/quark/quark-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/quark/quark-bold-webfont.woff') format('woff'), url('../fonts/quark/quark-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'QuarkLight';
+  src: url('../fonts/quark/quark-light-webfont.eot');
+  src: url('../fonts/quark/quark-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/quark/quark-light-webfont.woff') format('woff'), url('../fonts/quark/quark-light-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansLight';
+  src: url('../fonts/opensans/OpenSans-Light-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-Light-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-Light-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansLightItalic';
+  src: url('../fonts/opensans/OpenSans-LightItalic-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-LightItalic-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-LightItalic-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansItalic';
+  src: url('../fonts/opensans/OpenSans-Italic-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-Italic-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-Italic-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansSemibold';
+  src: url('../fonts/opensans/OpenSans-Semibold-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-Semibold-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-Semibold-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansSemiboldItalic';
+  src: url('../fonts/opensans/OpenSans-SemiboldItalic-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-SemiboldItalic-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-SemiboldItalic-webfont.svg#OpenSansSemiboldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansBold';
+  src: url('../fonts/opensans/OpenSans-Bold-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-Bold-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-Bold-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansBoldItalic';
+  src: url('../fonts/opensans/OpenSans-BoldItalic-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-BoldItalic-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-BoldItalic-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansExtrabold';
+  src: url('../fonts/opensans/OpenSans-ExtraBold-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-ExtraBold-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-ExtraBold-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-ExtraBold-webfont.svg#OpenSansExtrabold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSansExtraboldItalic';
+  src: url('../fonts/opensans/OpenSans-ExtraBoldItalic-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/opensans/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'), url('../fonts/opensans/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'), url('../fonts/opensans/OpenSans-ExtraBoldItalic-webfont.svg#OpenSansExtraboldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ChiangSaenBold';
+  src: url('../fonts/chiangsaen/tf_chiangsaen_bol-webfont.eot');
+  src: url('../fonts/chiangsaen/tf_chiangsaen_bol-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/chiangsaen/tf_chiangsaen_bol-webfont.woff') format('woff'), url('../fonts/chiangsaen/tf_chiangsaen_bol-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ChiangSaenItalic';
+  src: url('../fonts/chiangsaen/tf_chiangsaen_ita-webfont.eot');
+  src: url('../fonts/chiangsaen/tf_chiangsaen_ita-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/chiangsaen/tf_chiangsaen_ita-webfont.woff') format('woff'), url('../fonts/chiangsaen/tf_chiangsaen_ita-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ChiangSaenRegular';
+  src: url('../fonts/chiangsaen/tf_chiangsaen-webfont.eot');
+  src: url('../fonts/chiangsaen/tf_chiangsaen-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/chiangsaen/tf_chiangsaen-webfont.woff') format('woff'), url('../fonts/chiangsaen/tf_chiangsaen-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'CircularBold';
+  src: url('../fonts/circular/circularbold-webfont.eot');
+  src: url('../fonts/circular/circularbold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/circular/circularbold-webfont.woff') format('woff'), url('../fonts/circular/circularbold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'CircularRegular';
+  src: url('../fonts/circular/circular-webfont.eot');
+  src: url('../fonts/circular/circular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/circular/circular-webfont.woff') format('woff'), url('../fonts/circular/circular-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ThaiSansLiteRegular';
+  src: url('../fonts/thaisanslite/thaisanslite_r1-webfont.eot');
+  src: url('../fonts/thaisanslite/thaisanslite_r1-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/thaisanslite/thaisanslite_r1-webfont.woff') format('woff'), url('../fonts/thaisanslite/thaisanslite_r1-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PimpakarnRegular';
+  src: url('../fonts/pimpakarn/tf_pimpakarn-webfont.eot');
+  src: url('../fonts/pimpakarn/tf_pimpakarn-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/pimpakarn/tf_pimpakarn-webfont.woff') format('woff'), url('../fonts/pimpakarn/tf_pimpakarn-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PimpakarnBold';
+  src: url('../fonts/pimpakarn/tf_pimpakarn_bol-webfont.eot');
+  src: url('../fonts/pimpakarn/tf_pimpakarn_bol-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/pimpakarn/tf_pimpakarn_bol-webfont.woff') format('woff'), url('../fonts/pimpakarn/tf_pimpakarn_bol-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'UthongRegular';
+  src: url('../fonts/uthong/tf_uthong-webfont.eot');
+  src: url('../fonts/uthong/tf_uthong-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/uthong/tf_uthong-webfont.woff') format('woff'), url('../fonts/uthong/tf_uthong-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'UthongItalic';
+  src: url('../fonts/uthong/tf_uthong_ita-webfont.eot');
+  src: url('../fonts/uthong/tf_uthong_ita-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/uthong/tf_uthong_ita-webfont.woff') format('woff'), url('../fonts/uthong/tf_uthong_ita-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'UthongBold';
+  src: url('../fonts/uthong/tf_uthong_bol-webfont.eot');
+  src: url('../fonts/uthong/tf_uthong_bol-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/uthong/tf_uthong_bol-webfont.woff') format('woff'), url('../fonts/uthong/tf_uthong_bol-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SuperMarketRegular';
+  src: url('../fonts/supermarket/supermarket-webfont.eot');
+  src: url('../fonts/supermarket/supermarket-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/supermarket/supermarket-webfont.woff') format('woff'), url('../fonts/supermarket/supermarket-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KunlasatriBold';
+  src: url('../fonts/kunlasatri/kunlasatri-bold-webfont.eot');
+  src: url('../fonts/kunlasatri/kunlasatri-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/kunlasatri/kunlasatri-bold-webfont.woff') format('woff'), url('../fonts/kunlasatri/kunlasatri-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KunlasatriRegular';
+  src: url('../fonts/kunlasatri/kunlasatri-webfont.eot');
+  src: url('../fonts/kunlasatri/kunlasatri-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/kunlasatri/kunlasatri-webfont.woff') format('woff'), url('../fonts/kunlasatri/kunlasatri-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'KunlasatriLight';
+  src: url('../fonts/kunlasatri/kunlasatri-light-webfont.eot');
+  src: url('../fonts/kunlasatri/kunlasatri-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/kunlasatri/kunlasatri-light-webfont.woff') format('woff'), url('../fonts/kunlasatri/kunlasatri-light-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 * {
   margin: 0;
@@ -1310,113 +1623,11 @@ body {
   color: #C30;
 }
 #registration-modal {
-  margin-left: -300px;
-  width: 600px;
+  margin-left: -350px;
+  width: 700px;
 }
-#registration-modal .modal-body .backend-social {
-  padding: 20px 0 10px;
-}
-#registration-modal .modal-body .backend-social .facebook {
-  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
-  display: inline-block;
-  height: 40px;
-  text-indent: -9999px;
-  width: 230px;
-  margin-right: 15px;
-}
-#registration-modal .modal-body .backend-social .facebook:hover {
-  background-position: -230px 0px;
-}
-#registration-modal .modal-body .backend-social .twitter {
-  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
-  display: inline-block;
-  height: 40px;
-  text-indent: -9999px;
-  width: 230px;
-}
-#registration-modal .modal-body .backend-social .twitter:hover {
-  background-position: -230px -40px;
-}
-#registration-modal .modal-body .backend-social .switch-to-email {
-  color: #999;
-  margin-top: 30px;
-}
-#registration-modal .modal-body .button-switch-backend {
-  font-size: 13px;
-  margin-left: 3px;
-}
-#registration-modal .modal-body .button-switch-backend:link,
-#registration-modal .modal-body .button-switch-backend:active,
-#registration-modal .modal-body .button-switch-backend:visited {
-  color: #888;
-  text-decoration: underline;
-}
-#registration-modal .modal-body .button-switch-backend:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-#registration-modal .modal-body .backend-email {
-  padding-bottom: 10px;
-}
-#registration-modal .modal-body .backend-email form {
-  margin: 10px 0 25px;
-}
-#registration-modal .modal-body .backend-email form .input {
-  display: inline-block;
-  margin-right: 20px;
-}
-#registration-modal .modal-body .backend-email form label {
-  color: #444;
-  font-size: 13px;
-}
-#registration-modal .modal-body .backend-email form input {
-  font-size: 15px;
-  height: 25px;
-  width: 230px;
-}
-#registration-modal .modal-body .backend-email form .actions {
-  margin-top: 2px;
-}
-#registration-modal .modal-body .backend-email form .actions .error {
-  color: #C30;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-#registration-modal .modal-body .backend-email form .actions button {
-  font-size: 13px;
-  padding: 5px 40px;
-  vertical-align: middle;
-}
-#registration-modal .modal-body .backend-email form .actions a {
-  font-size: 13px;
-  margin-left: 10px;
-  vertical-align: middle;
-}
-#registration-modal .modal-body .backend-email form .actions a:link,
-#registration-modal .modal-body .backend-email form .actions a:active,
-#registration-modal .modal-body .backend-email form .actions a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
-}
-#registration-modal .modal-body .backend-email form .actions a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-#registration-modal .modal-body .backend-email .email-login {
-  margin-bottom: 20px;
-}
-#registration-modal .modal-body .backend-email .email-register {
-  border-top: 1px dashed #DDD;
-  padding-top: 10px;
-}
-#registration-modal .modal-body .backend-email .email-register .head {
-  color: #555;
-  font-size: 15px;
-  font-weight: bold;
+#registration-modal .modal-body {
+  padding: 40px 25px 10px;
 }
 #modal-enrollment-login {
   margin-left: -300px;
@@ -1456,18 +1667,12 @@ body {
   width: 230px;
   margin-bottom: 15px;
 }
-#modal-enrollment-login .registration .backend-social .facebook:hover {
-  background-position: -230px 0px;
-}
 #modal-enrollment-login .registration .backend-social .twitter {
   background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
   display: inline-block;
   height: 40px;
   text-indent: -9999px;
   width: 230px;
-}
-#modal-enrollment-login .registration .backend-social .twitter:hover {
-  background-position: -230px -40px;
 }
 #modal-enrollment-login .registration .backend-social .email {
   margin-top: 15px;
@@ -1708,114 +1913,108 @@ body {
 #modal-view-feedback .modal-footer .popover-content .btn .btn-danger {
   margin-right: 10px;
 }
+.page-registration {
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
+  /*
+    .registration-body {
+        border-top: 1px solid @headerLightBorder;
+        padding: 30px 0 10px;
+
+        h1 {
+            color: #444;
+            font-size: 30px;
+            font-weight: normal;
+            margin: 40px 0 30px;
+        }
+
+        form {
+            margin: 0;
+
+            .control-group {
+                display: inline-block;
+                margin: 0 20px 0 0;
+                vertical-align: top;
+
+                .controls {
+                    input {
+                        width: 250px;
+                    }
+                }
+            }
+
+            .avatar-control {
+                display: block;
+                margin: 20px 0 40px;
+            }
+
+            .form-actions {
+                a {
+                    .grey_link;
+                    font-size: 13px;
+                    margin-left: 15px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .login-social {
+            .facebook {
+                .login_facebook_button;
+            }
+
+            .twitter {
+                .login_twitter_button;
+                margin-left: 20px;
+            }
+
+            .use-email {
+                margin-top: 30px;
+
+                a {
+                    .grey_link;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .login-email {
+            border-left: 7px solid #DDD;
+            margin-top: 40px;
+            padding-left: 20px;
+
+            .email-login {
+                margin-bottom: 40px;
+            }
+
+            .head {
+                color: #444;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .page-message {
+            color: #444;
+            font-size: 18px;
+
+            a {
+                .content_link;
+            }
+        }
+    }
+*/
+
+}
 .page-registration #body-header {
   border-bottom: 1px solid #E9E9E9;
 }
-.page-registration .registration-body h1 {
-  color: #444;
-  font-size: 30px;
-  font-weight: normal;
-  margin: 40px 0 30px;
+.page-registration .registration-body {
+  border-top: 1px solid #87add4;
+  padding: 30px 0 40px;
 }
-.page-registration .registration-body form {
-  margin: 0;
-}
-.page-registration .registration-body form .control-group {
-  display: inline-block;
-  margin: 0 20px 0 0;
-  vertical-align: top;
-}
-.page-registration .registration-body form .control-group .controls input {
-  width: 250px;
-}
-.page-registration .registration-body form .avatar-control {
-  display: block;
-  margin: 20px 0 40px;
-}
-.page-registration .registration-body form .form-actions a {
-  font-size: 13px;
-  margin-left: 15px;
-  vertical-align: middle;
-}
-.page-registration .registration-body form .form-actions a:link,
-.page-registration .registration-body form .form-actions a:active,
-.page-registration .registration-body form .form-actions a:visited {
-  color: #888;
-  text-decoration: underline;
-}
-.page-registration .registration-body form .form-actions a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-registration .registration-body .login-social .facebook {
-  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
-  display: inline-block;
-  height: 40px;
-  text-indent: -9999px;
-  width: 230px;
-}
-.page-registration .registration-body .login-social .facebook:hover {
-  background-position: -230px 0px;
-}
-.page-registration .registration-body .login-social .twitter {
-  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
-  display: inline-block;
-  height: 40px;
-  text-indent: -9999px;
-  width: 230px;
-  margin-left: 20px;
-}
-.page-registration .registration-body .login-social .twitter:hover {
-  background-position: -230px -40px;
-}
-.page-registration .registration-body .login-social .use-email {
-  margin-top: 30px;
-}
-.page-registration .registration-body .login-social .use-email a {
-  font-size: 13px;
-}
-.page-registration .registration-body .login-social .use-email a:link,
-.page-registration .registration-body .login-social .use-email a:active,
-.page-registration .registration-body .login-social .use-email a:visited {
-  color: #888;
-  text-decoration: underline;
-}
-.page-registration .registration-body .login-social .use-email a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-registration .registration-body .login-email {
-  border-left: 7px solid #DDD;
-  margin-top: 40px;
-  padding-left: 20px;
-}
-.page-registration .registration-body .login-email .email-login {
-  margin-bottom: 40px;
-}
-.page-registration .registration-body .login-email .head {
-  color: #444;
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-.page-registration .registration-body .page-message {
-  color: #444;
-  font-size: 18px;
-}
-.page-registration .registration-body .page-message a:link,
-.page-registration .registration-body .page-message a:active,
-.page-registration .registration-body .page-message a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
-}
-.page-registration .registration-body .page-message a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
+.page-registration .style-registration-login {
+  background-color: #FFF;
+  margin: 30px auto 0;
 }
 .page-homepage .homepage-header .logo {
   margin-top: 70px;
@@ -1875,9 +2074,6 @@ body {
   width: 230px;
   margin-right: 10px;
 }
-.page-homepage .become-teacher .signup .facebook:hover {
-  background-position: -230px 0px;
-}
 .page-homepage .become-teacher .signup .twitter {
   background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
   display: inline-block;
@@ -1885,9 +2081,6 @@ body {
   text-indent: -9999px;
   width: 230px;
   margin-left: 10px;
-}
-.page-homepage .become-teacher .signup .twitter:hover {
-  background-position: -230px -40px;
 }
 .page-homepage .latest-courses {
   padding: 30px 0px;

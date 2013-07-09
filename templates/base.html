@@ -58,22 +58,22 @@
             {% if user.is_authenticated %}
                 <div class="user">
                     <ul class="parent">
-                        <li class="parent-item username"><a href="{% url 'view_my_profile' %}" class="link">{{ user.name }}</a></li>
+                        <li class="parent-item username"><a href="{% url 'view_my_profile' %}" class="link" title="ไปหน้าข้อมูลผู้ใช้">{{ user.name }}</a></li>
                         <li class="parent-item messages"><a href="#" class="link"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
                         <li class="parent-item my_workshops">
                             <div class="dropdown">
-                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i> Workshops <i class="icon-caret-down"></i><span class="num">4</span></a>
+                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="icon-list"></i> เวิร์กช็อป <i class="icon-caret-down"></i><span class="num">4</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming events</a></li>
-                                    <li><a href="{% url 'view_my_courses_attended' %}">Attended workshop</a></li>
+                                    <li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming</a></li>
+                                    <li><a href="{% url 'view_my_courses_attended' %}">Attended workshops</a></li>
                                     <li><a href="{% url 'view_all_my_courses_teaching' %}">Teaching</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus-sign"></i> Create new workshop</a></li>
+                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus"></i> Create new workshop</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="parent-item settings"><a href="{% url 'edit_my_settings_profile' %}" class="link"><i class="icon-gear"></i></a></li>
-                        <li class="parent-item logout"><a href="{% url 'auth_logout' %}" class="link">Logout</a></li>
+                        <li class="parent-item settings"><a href="{% url 'edit_my_settings_profile' %}" class="link" title="ตั้งค่าผู้ใช้"><i class="icon-gear"></i></a></li>
+                        <li class="parent-item logout"><a href="{% url 'auth_logout' %}" class="link">ออกจากระบบ</a></li>
                     </ul>
                 </div>
             {% else %}
@@ -139,53 +139,45 @@
 
 {% if not user.is_authenticated %}
 <div class="modal hide" id="registration-modal">
-    <div class="modal-header clearfix">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3>เข้าสู่ระบบ / สมัครสมาชิก</h3>
-    </div>
-    <div class="modal-body">
-        <div class="backend-social hide">
+    <div class="modal-body style-registration-login">
+        <div class="backend-social">
+            <div class="head"><b>เข้าสู่ระบบ</b> หรือ <b>สมัครสมาชิก</b></div>
             <a href="#" class="facebook">Sign up / login with Facebook</a>
             <a href="#" class="twitter">Sign up / login with Twitter</a>
-            <div class="switch-to-email">
-                หรือ <a href="#" class="button-switch-backend">ใช้อีเมลในการเข้าสู่ระบบหรือสมัครสมาชิก</a>
-            </div>
+        </div>
+        <div class="or">
+            <hr><span>หรือใช้อีเมล</span>
         </div>
         <div class="backend-email">
             <div class="clearfix">
                 <div class="email-login">
+                    <div class="head">เข้าสู่ระบบ</div>
                     <form action="{% url 'ajax_email_login' %}" method="post">
                         {% csrf_token %}
                         <div class="input">
-                            <label for="modal_login_email">อีเมล</label>
                             <input type="email" id="modal_login_email" name="email" placeholder="อีเมล" />
                         </div>
                         <div class="input">
-                            <label for="modal_login_password">รหัสผ่าน</label>
                             <input type="password" id="modal_login_password" name="password" placeholder="รหัสผ่าน" />
                         </div>
                         <div class="actions">
-                            <button type="button" class="style-primary-button">เข้าสู่ระบบ</button>
-                            <a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a>
+                            <button type="button" class="style-button">เข้าสู่ระบบ</button>
                         </div>
+                        <div class="forgot"><a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a></div>
                     </form>
                 </div>
                 <div class="email-register">
-                    <div class="head">ยังไม่มีบัญชีผู้ใช้? สมัครสมาชิกได้ด้านล่างนี้</div>
+                    <div class="head">สมัครสมาชิก</div>
                     <form action="{% url 'ajax_email_register' %}" method="post">
                         {% csrf_token %}
                         <div class="input">
-                            <label for="modal_register_email">อีเมล</label>
                             <input type="email" id="modal_register_email" name="email" placeholder="อีเมล" />
                         </div>
                         <div class="actions">
-                            <button type="button" class="style-primary-button">สมัครสมาชิก</button>
+                            <button type="button" class="style-button">สมัครสมาชิก</button>
                         </div>
                     </form>
                 </div>
-            </div>
-            <div class="switch-to-social">
-                หรือ <a href="#" class="button-switch-backend">ใช้บัญชี social networks ในการเข้าสู่ระบบหรือสมัครสมาชิก</a>
             </div>
         </div>
     </div>
@@ -200,6 +192,8 @@
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
 <!--<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/locales/bootstrap-datepicker.th.js"></script>-->
+
+<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.hover-dropdown/twitter-bootstrap-hover-dropdown.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.progressbar/bootstrap-progressbar.min.js"></script>
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/masonry.pkgd.min.js"></script>
@@ -218,17 +212,9 @@
     var registration_modal = $('#registration-modal');
 
     $('#body-top').find('.registration .login').on('click', function() {
-        registration_modal.find('.backend-social').show();
-        registration_modal.find('.backend-email').hide();
         registration_modal.find('.email-login .actions .error').remove();
         registration_modal.find('.email-register .actions .error').remove();
         registration_modal.modal();
-        return false;
-    });
-
-    registration_modal.find('.button-switch-backend').on('click', function() {
-        registration_modal.find('.backend-social').toggle();
-        registration_modal.find('.backend-email').toggle();
         return false;
     });
 
@@ -239,10 +225,10 @@
         if(email && password) {
             registration_modal.find('.email-login button').prop('disabled', true);
             var jqxhr = $.post('/ajax/email/login/', {email:email, password:password}, function(response) {
-                registration_modal.find('.email-login button').prop('disabled', false);
                 if(response.status == 'success') {
                     window.location.reload();
                 } else {
+                    registration_modal.find('.email-login button').prop('disabled', false);
                     registration_modal.find('.email-login .actions .error').remove();
                     registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + response.message + '</div>');
                 }

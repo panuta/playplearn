@@ -1,5 +1,6 @@
 Django==1.5.1
 Pillow==2.0.0
+https://bitbucket.org/psam/django-postman/get/tip.zip
 django-social-auth==0.7.23
 django-taggit==0.10a1
 easy-thumbnails==1.2
