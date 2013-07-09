@@ -234,7 +234,7 @@ class Message(models.Model):
     A message between a User and another User or an AnonymousUser.
     """
 
-    SUBJECT_MAX_LENGTH = 120
+    SUBJECT_MAX_LENGTH = 250  # CHANGED by Panu Tangchalermkul
 
     subject = models.CharField(_("subject"), max_length=SUBJECT_MAX_LENGTH)
     body = models.TextField(_("body"), blank=True)

@@ -44,11 +44,16 @@ COURSE_FEEDBACK_ERRORS = {
     'unauthorized': u'Unauthorized action',
     'existed': u'',
     'empty': u'',
-    
 }
 
 COURSE_ENROLLMENT_ERRORS = {
     'course-notpublished': u'',
     'schedule-notopening': u'',
     'schedule-full': u'',
+}
+
+MESSAGES_ERRORS = {
+    'recipient-notfound': u'Recipient not found',
+    'subject-empty': u'Subject is empty',
+    'body-empty': u'Message body is empty',
 }

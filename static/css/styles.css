@@ -1808,6 +1808,40 @@ body {
   font-size: 13px;
   margin-top: 7px;
 }
+#modal-message-write .modal-body {
+  padding-bottom: 0;
+}
+#modal-message-write .modal-body .recipient {
+  border-left: 5px solid #3a71a9;
+  background-color: #F7F7F7;
+  margin-bottom: 15px;
+  padding: 8px 12px;
+}
+#modal-message-write .modal-body .recipient i {
+  color: #BBB;
+  margin-right: 5px;
+}
+#modal-message-write .modal-body .recipient em {
+  font-weight: bold;
+  color: #555;
+}
+#modal-message-write .modal-body label {
+  color: #555;
+  font-size: 13px;
+  font-weight: bold;
+}
+#modal-message-write .modal-body .subject {
+  margin-bottom: 7px;
+}
+#modal-message-write .modal-body .subject input {
+  font-size: 16px;
+  height: 30px;
+  width: 97%;
+}
+#modal-message-write .modal-body .body textarea {
+  height: 80px;
+  width: 97%;
+}
 #modal-add-class {
   margin-left: -300px;
   width: 600px;

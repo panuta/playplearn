@@ -1,0 +1,88 @@
+{% load common_tags %}
+<div class="modal hide" id="modal-message-write">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Write message</h3>
+    </div>
+    <div class="modal-body">
+        <div class="recipient">
+            <i class="icon-user"></i> <em>Panu Tangchalermkul</em>
+        </div>
+        <div class="subject">
+            <label for="id_write_message_subject">Subject</label>
+            <input type="text" name="subject" id="id_write_message_subject"/>
+        </div>
+        <div class="body">
+            <label for="id_write_message_body">Message</label>
+            <textarea name="body" id="id_write_message_body"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="style-button" data-dismiss="modal">Cancel</button>
+        <button type="button" class="style-primary-button button-submit-message">Send message</button>
+    </div>
+</div>
+<script>
+(function() {
+    var modal = $('#modal-message-write');
+
+    $(document).on('click', '[data-toggle="message-modal"]', function(e) {
+        modal.data('recipient-id', $(this).attr('data-message-recipient'));
+        modal.find('.recipient em').text($(this).attr('data-message-recipient-name'));
+        modal.data('subject', $(this).attr('data-message-subject'));
+        modal.modal();
+        return false;
+    });
+
+    modal.on('shown', function() {
+        var subject_input = $('#id_write_message_subject');
+        if(modal.data('subject')) {
+            subject_input.val(modal.data('subject'));
+        } else {
+            subject_input.val('');
+        }
+        subject_input.focus().select();
+        $('#id_write_message_body').val('');
+        modal.find('.modal-footer button').prop('disabled', false);
+    });
+
+    $('.button-submit-message:not(.disabled)').on('click', function() {
+        modal.find('.modal-footer button').prop('disabled', true);
+
+        var recipient = modal.data('recipient-id');
+        var subject = $('#id_write_message_subject').val();
+        var body = $('#id_write_message_body').val();
+
+        var jqxhr = $.post('{% url 'ajax_send_message' %}', {recipient:recipient, subject:subject, body:body}, function(response) {
+            modal.find('.modal-footer button').prop('disabled', false);
+
+            if(response.status == 'success') {
+                $.pnotify({
+                    addclass:'custom',
+                    animation: 'none',
+                    history: false,
+                    icon:false,
+                    sticker: false,
+                    title: 'Message sent',
+                    type:'success'
+                });
+                modal.modal('hide');
+            } else {
+                if(response.message) {
+                    _addModalErrorMessage('modal-message-write', 'Cannot send message: ' + response.message);
+                } else {
+                    _addModalErrorMessage('modal-message-write', 'Cannot send message: Unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            modal.find('.modal-footer button').prop('disabled', false);
+            _addModalErrorMessage('modal-message-write', 'Cannot send message: ' + errorThrown);
+        });
+
+        return false;
+    });
+
+})();
+</script>

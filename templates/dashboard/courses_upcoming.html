@@ -28,7 +28,7 @@
                         {% if course.teacher == request.user %}
                             <a href="{% url 'manage_course_overview' course.uid %}" class="btn btn-small"><i class="icon-book"></i> Manage workshop</a>
                         {% else %}
-                            <!-- TODO --><a href="#" class="btn btn-small"><i class="icon-comments"></i> Talk to teacher</a>
+                            <!-- TODO --><a href="#" class="btn btn-small" data-toggle="message-modal" data-message-recipient="3" data-message-recipient-name="Panu Tangchalermkul"><i class="icon-comments"></i> Talk to teacher</a>
                             {% return_matching_enrollment user schedule as enrollment %}
                             <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
                         {% endif %}
@@ -47,4 +47,5 @@
 
 {% block modals %}
     {% include 'snippets/modal_enrollment_details.html' %}
+    {% include 'snippets/modal_message_write.html' %}
 {% endblock %}

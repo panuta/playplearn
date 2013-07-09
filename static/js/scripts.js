@@ -1,11 +1,12 @@
 
+/*
 $(document).ready(function() {
     $('.modal').on('shown', function(){
         $('body').css('overflow', 'hidden');
     }).on('hidden', function(){
         $('body').css('overflow', 'auto');
     });
-});
+});*/
 
 function initCourseModifyPage(enable_autosave) {
     // BINDING FORM ACTIONS
