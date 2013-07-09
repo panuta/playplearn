@@ -8,8 +8,11 @@ urlpatterns = patterns(
     '',
 
     url(r'', include('accounts.urls')),
+    url(r'^messages/', include('messages.urls')),
     url(r'', include('presentation.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'', include('postman.urls')),
 )
 
 

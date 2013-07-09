@@ -79,6 +79,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
 
+    'postman.context_processors.inbox',
+
     'learningwolf.context_processors.site_settings',
 )
 
@@ -110,6 +112,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'easy_thumbnails',
+    'mailer',
+    'notification',
+    'postman',
     'social_auth',
     'taggit',
 
@@ -206,7 +211,15 @@ SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 
 
-# LITTLE BIG SKILLS SETTINGS ###############################################################################################
+# DJANGO POSTMAN #######################################################################################################
+
+POSTMAN_DISALLOW_ANONYMOUS = True
+POSTMAN_AUTO_MODERATE_AS = True
+
+POSTMAN_SHOW_USER_AS = 'get_full_name'
+
+
+# LITTLE BIG SKILLS SETTINGS ###########################################################################################
 
 # DISPLAY SETTINGS
 
