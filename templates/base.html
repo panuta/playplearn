@@ -61,7 +61,7 @@
                         <li class="button alerts"><a href="#" class="top-button"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
                         <li class="button messages">
                             <div class="dropdown">
-                                <a href="{% url 'view_messages_inbox' %}" class="top-button dropdown-toggle"{% if postman_unread_count %} data-toggle="dropdown" data-hover="dropdown" data-delay="100"{% endif %}><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a>
+                                <a href="{% url 'postman_inbox' %}" class="top-button dropdown-toggle"{% if postman_unread_count %} data-toggle="dropdown" data-hover="dropdown" data-delay="100"{% endif %}><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a>
                                 {% if postman_unread_count %}
                                 <ul class="dropdown-menu pull-right">
                                     <li>Message 1</li>

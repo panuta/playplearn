@@ -1583,6 +1583,36 @@ body {
   color: #FFF;
   font-size: 26px;
 }
+.page-backend #backend-header .with_actions h1 {
+  display: inline-block;
+}
+.page-backend #backend-header .with_actions ul {
+  display: inline-block;
+  float: right;
+  margin: 10px 0 0;
+}
+.page-backend #backend-header .with_actions ul li {
+  display: inline-block;
+  list-style: none;
+  margin-left: 12px;
+}
+.page-backend #backend-header .with_actions ul li a {
+  background-color: #bbd3eb;
+  border-radius: 4px;
+  color: #3a71a9;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 15px;
+}
+.page-backend #backend-header .with_actions ul li a i {
+  margin-right: 3px;
+}
+.page-backend #backend-header .with_actions ul li a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: none;
+}
 .page-backend .backend-tabs {
   background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
 }
@@ -4444,4 +4474,169 @@ body {
 }
 .page-user-settings form .phone-control input {
   width: 200px;
+}
+.page-messages ul.nav-messages {
+  margin: 30px 0 0;
+}
+.page-messages ul.nav-messages li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+.page-messages ul.nav-messages li a {
+  background-color: #F7F7F7;
+  color: #666;
+  display: block;
+  font-size: 15px;
+  padding: 10px 10px;
+}
+.page-messages ul.nav-messages li a i {
+  margin-right: 3px;
+}
+.page-messages ul.nav-messages li.active a {
+  color: #555;
+  font-weight: bold;
+}
+.page-messages ul.nav-messages li a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: none;
+}
+.page-messages h2 {
+  border-bottom: 1px solid #EEE;
+  font-size: 34px;
+  font-weight: normal;
+  line-height: normal;
+  margin: 25px 0 0;
+  padding-bottom: 10px;
+}
+.page-messages h2 span {
+  color: #777;
+  font-size: 16px;
+  line-height: normal;
+  margin-left: 5px;
+}
+.page-messages h2.subject {
+  font-size: 20px;
+}
+.page-messages table.messages {
+  width: 100%;
+}
+.page-messages table.messages tr {
+  border-bottom: 1px solid #EEE;
+  cursor: pointer;
+}
+.page-messages table.messages td.avatar {
+  padding: 12px 10px;
+  vertical-align: middle;
+  width: 50px;
+}
+.page-messages table.messages td.avatar img {
+  border-radius: 50px;
+}
+.page-messages table.messages td.message {
+  padding: 12px 10px 12px 5px;
+  vertical-align: middle;
+}
+.page-messages table.messages td.message .sender {
+  color: #444;
+  font-size: 14px;
+}
+.page-messages table.messages td.message .subject {
+  margin-top: 5px;
+}
+.page-messages table.messages td.message .subject a {
+  color: #777;
+  font-size: 15px;
+}
+.page-messages table.messages td.message .subject a:hover,
+.page-messages table.messages td.message .subject a:active,
+.page-messages table.messages td.message .subject a:focus {
+  text-decoration: none;
+}
+.page-messages table.messages td.message .subject .label-unread {
+  background-color: #3a71a9;
+  border-radius: 4px;
+  color: #FFF;
+  display: inline-block;
+  font-size: 11px;
+  line-height: normal;
+  margin-right: 5px;
+  padding: 2px 5px;
+}
+.page-messages table.messages td.message .subject .icon-share-alt {
+  color: #777;
+  margin-right: 3px;
+}
+.page-messages table.messages td.message .preview {
+  color: #AAA;
+  font-size: 13px;
+  overflow: hidden;
+  height: 20px;
+  width: 724px;
+  margin-top: 5px;
+}
+.page-messages table.messages td.timestamp {
+  color: #777;
+  padding-right: 10px;
+  text-align: right;
+  vertical-align: middle;
+  width: 150px;
+}
+.page-messages table.messages tr.unread .subject a {
+  color: #555;
+  font-size: 15px;
+  font-weight: bold;
+}
+.page-messages table.messages tr.unread .preview {
+  color: #666;
+}
+.page-messages .message-actions {
+  margin: 30px 0 12px;
+}
+.page-messages ul.conversation {
+  margin: 20px 0 0;
+}
+.page-messages ul.conversation li {
+  list-style: none;
+  margin-bottom: 20px;
+}
+.page-messages ul.conversation li .avatar {
+  float: left;
+}
+.page-messages ul.conversation li .avatar img {
+  border-radius: 50px;
+}
+.page-messages ul.conversation li .box {
+  background-color: #F7F7F7;
+  border-radius: 4px;
+  margin-left: 60px;
+  padding: 10px 15px;
+}
+.page-messages ul.conversation li .box .name a {
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+}
+.page-messages ul.conversation li .box .body {
+  margin-top: 6px;
+}
+.page-messages ul.conversation li.mine .box {
+  background-color: #e2edf7;
+}
+.page-messages ul.conversation li.unread {
+  background-color: #FFD;
+  color: #444;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+.page-messages .reply {
+  margin-top: 30px;
+  padding-left: 60px;
+}
+.page-messages .reply textarea {
+  height: 80px;
+  width: 98%;
+}
+.page-messages .reply button {
+  padding: 6px 45px;
 }

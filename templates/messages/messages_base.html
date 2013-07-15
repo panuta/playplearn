@@ -1,0 +1,21 @@
+{% extends 'base_backend.html' %}
+
+{% block body_class %}{{ block.super }} page-messages{% endblock %}
+
+{% block backend_header %}
+    <div class="with_actions">
+        <h1>User messages</h1>
+        <ul>
+            <li><a href="#"><i class="icon-plus-sign"></i> New message</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block backend_container %}
+<div class="container">
+    <div class="row">
+        <div class="span2">{% block messages_nav %}{% endblock %}</div>
+        <div class="span10">{% block messages_content %}{% endblock %}</div>
+    </div>
+</div>
+{% endblock %}

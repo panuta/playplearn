@@ -2648,3 +2648,211 @@
         }
     }
 }
+
+.page-messages {
+    ul.nav-messages {
+        margin: 30px 0 0;
+
+        li {
+            list-style: none;
+            margin-bottom: 5px;
+
+            a {
+                background-color: #F7F7F7;
+                color: #666;
+                display: block;
+                font-size: 15px;
+                padding: 10px 10px;
+
+                i {
+                    margin-right: 3px;
+                }
+            }
+
+            &.active a {
+                color: #555;
+                font-weight: bold;
+            }
+
+            a:hover {
+                background-color: @linkColor;
+                color: #FFF;
+                text-decoration: none;
+            }
+        }
+    }
+
+    h2 {
+        border-bottom: 1px solid #EEE;
+        font-size: 34px;
+        font-weight: normal;
+        line-height: normal;
+        margin: 25px 0 0;
+        padding-bottom: 10px;
+
+        span {
+            color: #777;
+            font-size: 16px;
+            line-height: normal;
+            margin-left: 5px;
+        }
+
+        &.subject {
+            font-size: 20px;
+        }
+    }
+
+    table.messages {
+        width: 100%;
+
+        tr {
+            border-bottom: 1px solid #EEE;
+            cursor: pointer;
+        }
+
+        td.avatar {
+            padding: 12px 10px;
+            vertical-align: middle;
+            width: 50px;
+
+            img {
+                border-radius: 50px;
+            }
+        }
+
+        td.message {
+            padding: 12px 10px 12px 5px;
+            vertical-align: middle;
+
+            .sender {
+                color: #444;
+                font-size: 14px;
+            }
+
+            .subject {
+                margin-top: 5px;
+
+                a {
+                    color: #777;
+                    font-size: 15px;
+
+                    &:hover, &:active, &:focus {
+                        text-decoration: none;
+                    }
+                }
+
+                .label-unread {
+                    background-color: @primaryColor;
+                    border-radius: 4px;
+                    color: #FFF;
+                    display: inline-block;
+                    font-size: 11px;
+                    line-height: normal;
+                    margin-right: 5px;
+                    padding: 2px 5px;
+                }
+
+                .icon-share-alt {
+                    color: #777;
+                    margin-right: 3px;
+                }
+            }
+
+            .preview {
+                color: #AAA;
+                font-size: 13px;
+                overflow: hidden;
+                height: 20px;
+                width: 724px;
+                margin-top: 5px;
+            }
+        }
+
+        td.timestamp {
+            color: #777;
+            padding-right: 10px;
+            text-align: right;
+            vertical-align: middle;
+            width: 150px;
+        }
+
+        tr.unread {
+            .subject a {
+                color: #555;
+                font-size: 15px;
+                font-weight: bold;
+            }
+
+            .preview {
+                color: #666;
+            }
+        }
+    }
+
+    .message-actions {
+        margin: 30px 0 12px;
+    }
+
+    ul.conversation {
+        margin: 20px 0 0;
+
+        li {
+            list-style: none;
+            margin-bottom: 20px;
+
+            .avatar {
+                float: left;
+
+                img {
+                    border-radius: 50px;
+                }
+            }
+
+            .box {
+                background-color: #F7F7F7;
+                border-radius: 4px;
+                margin-left: 60px;
+                padding: 10px 15px;
+
+                .name {
+                    a {
+                        color: #444;
+                        font-size: 13px;
+                        font-weight: bold;
+                    }
+                }
+
+                .body {
+                    margin-top: 6px;
+                }
+            }
+
+            &.mine {
+                .box {
+                    background-color: #e2edf7;
+                }
+            }
+
+            &.unread {
+                background-color: #FFD;
+                color: #444;
+                font-weight: bold;
+                padding: 5px 10px;
+            }
+        }
+    }
+
+    .reply {
+        margin-top: 30px;
+        padding-left: 60px;
+
+        textarea {
+            height: 80px;
+            width: 98%;
+        }
+
+        button {
+            padding: 6px 45px;
+        }
+    }
+}

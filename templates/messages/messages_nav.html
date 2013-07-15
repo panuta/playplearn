@@ -1,0 +1,5 @@
+<ul class="nav-messages">
+    <li {% if tab_name == 'inbox' %} class="active"{% endif %}><a href="{% url 'postman_inbox' %}"><i class="icon-inbox"></i> Inbox</a></li>
+    <li {% if tab_name == 'sent' %} class="active"{% endif %}><a href="{% url 'postman_sent' %}"><i class="icon-share-alt"></i> Sent</a></li>
+    <li {% if tab_name == 'trash' %} class="active"{% endif %}><a href="{% url 'postman_trash' %}"><i class="icon-trash"></i> Trash</a></li>
+</ul>

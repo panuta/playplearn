@@ -1,0 +1,33 @@
+{% extends 'messages/messages_base.html' %}
+{% load postman_tags common_tags messages_tags %}
+
+{% block messages_nav %}{% include 'messages/messages_nav.html' %}{% endblock %}
+
+{% block messages_content %}
+<h2 class="subject">{{ pm_messages.0.subject }}</h2>
+<ul class="conversation">
+{% for message in pm_messages %}
+    {% ifchanged message|unread:user %}
+        {% if not forloop.first %}
+            <li class="unread"><i class="icon-chevron-down"></i> Unread message below</li>
+        {% endif %}
+    {% endifchanged %}
+    <li class="clearfix {% if message.sender == user %}mine{% endif %}">
+        <a name="message-{{ message.id }}"></a>
+        {% if forloop.last %}<a name="message-last"></a>{% endif %}
+        <div class="avatar"><a href="{% url 'view_user_profile' message.sender.uid %}"><img src="{{ message.sender.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
+        <div class="box">
+            <div class="name"><a href="{% url 'view_user_profile' message.sender.uid %}">{{ message.sender|name_or_me:user }}</a></div>
+            <div class="body">{{ message.body }}</div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+<div class="reply">
+    <form action="{% url 'postman_reply' reply_to_pk %}" method="post">
+        {% csrf_token %}
+        <div id="pm_reply">{{ form.body }}</div>
+        <button type="submit" class="btn btn-blue">Reply</button>
+    </form>
+</div>
+{% endblock %}

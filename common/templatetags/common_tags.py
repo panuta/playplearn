@@ -12,7 +12,7 @@ from common.constants.payment import BANK_ACCOUNT_LIST, BANK_ACCOUNT_MAP
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST, PROVINCE_MAP
-from common.utilities import format_datetime_string, format_date_string, format_abbr_date
+from common.utilities import format_datetime_string, format_date_string, format_abbr_date, get_excerpt
 
 register = template.Library()
 
@@ -139,6 +139,17 @@ def time_minute_as_option():
     return ''.join(options)
 
 
+# TEXT #################################################################################################################
+
+@register.filter
+def excerpt(content, limit):
+    excerpt, was_cut = get_excerpt(content, limit)
+
+    if was_cut:
+        return u'%s ...' % excerpt
+    else:
+        return excerpt
+
 # DATA #################################################################################################################
 
 @register.simple_tag
@@ -167,6 +178,16 @@ def bank_account_as_option():
     for bank_account_tuple in BANK_ACCOUNT_LIST:
         options.append('<option value="%s">%s</option>' %(bank_account_tuple[0], bank_account_tuple[1]))
     return ''.join(options)
+
+
+# USER #######
+
+@register.filter()
+def name_or_me(user, logged_in_user):
+    if logged_in_user.id == user.id:
+        return 'Me'
+    else:
+        return user.name
 
 
 # COURSE STATUS ########################################################################################################

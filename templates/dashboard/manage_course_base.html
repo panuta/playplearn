@@ -14,11 +14,13 @@ $('.button-add-new-class').on('click', function() {
 
 {% block backend_header %}
     <div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← Teaching workshops</a></div>
-    <div class="actions">
-        <a href="#" class="button-add-new-class"><i class="icon-plus"></i> Add new class</a>
-        <a href="{% url 'edit_course' course.uid %}"><i class="icon-pencil"></i> Edit workshop</a>
+    <div class="with_actions">
+        <h1>Manage <span>- {{ course.title }}</span></h1>
+        <ul>
+            <li><a href="#" class="button-add-new-class"><i class="icon-plus"></i> Add new class</a></li>
+            <li><a href="{% url 'edit_course' course.uid %}"><i class="icon-pencil"></i> Edit workshop</a></li>
+        </ul>
     </div>
-    <h1>Manage <span>- {{ course.title }}</span></h1>
 {% endblock %}
 
 {% block backend_container %}

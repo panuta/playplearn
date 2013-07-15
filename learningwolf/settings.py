@@ -20,7 +20,7 @@ DATABASES = {
         'PASSWORD': 'learningwolf',
         'HOST': '',
         'PORT': '',
-        }
+    }
 }
 
 WEBSITE_NAME = 'PlayPlearn'
@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'accounts',
     'domain',
     'common',
+    'messages',
     'presentation',
 )
 

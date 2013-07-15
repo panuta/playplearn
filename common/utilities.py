@@ -88,6 +88,26 @@ def format_abbr_date(datetime):
 """
 
 
+# TEXT #################################################################################################################
+
+def get_excerpt(full_content, limit):
+    excerpt = ''
+    blocks = full_content.split(' ')
+    for block in blocks:
+        if len(excerpt + block) > limit:
+            if limit - len(excerpt) > len(excerpt + block) - limit:
+                excerpt += block + ' '
+
+            return excerpt.strip(), full_content.strip() != excerpt.strip()
+        else:
+            excerpt += block + ' '
+
+    if excerpt:
+        return excerpt.strip(), full_content.strip() != excerpt.strip()
+
+    return full_content[0:limit], full_content.strip() != full_content[0:limit]
+
+
 # STORY ################################################################################################################
 
 def clean_content(content):
