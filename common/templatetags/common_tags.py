@@ -8,10 +8,11 @@ from django.template.defaultfilters import safe
 from django.utils.timezone import now
 from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.feedback import FEEDBACK_FEELING_CHOICES, FEEDBACK_FEELING_MAP
+from common.constants.payment import BANK_ACCOUNT_LIST, BANK_ACCOUNT_MAP
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST, PROVINCE_MAP
-from common.utilities import format_datetime_string
+from common.utilities import format_datetime_string, format_date_string, format_abbr_date
 
 register = template.Library()
 
@@ -91,12 +92,50 @@ def datetime_string(datetime):
 def time_options(selected_datetime=''):
     options = []
     for hour in range(0, 24):
-        for minute in (0, 30):
+        for minute in (0, 30):  # TODO Check if 30 number is correct?
             selected = ' selected="selected"' if type(selected_datetime) is datetime.datetime and \
                                                  selected_datetime.hour == hour and \
                                                  selected_datetime.minute == minute else ''
             options.append('<option value="%02d:%02d"%s>%02d:%02d</option>' %(hour, minute, selected, hour, minute))
 
+    return ''.join(options)
+
+
+@register.simple_tag
+def date_from_today_as_option():
+    rightnow = now()
+    options = [
+        u'<option value="%s">วันนี้ - %s</option>' % (
+            format_date_string(rightnow),
+            format_abbr_date(rightnow)
+        ),
+        u'<option value="%s">เมื่อวาน - %s</option>' % (
+            format_date_string(rightnow + datetime.timedelta(days=-1)),
+            format_abbr_date(rightnow + datetime.timedelta(days=-1))
+        ),
+    ]
+
+    for i in range(-2, -3, -1):
+        options.append(u'<option value="%s">%s</option>' % (
+            format_date_string(rightnow + datetime.timedelta(days=i)),
+            format_abbr_date(rightnow + datetime.timedelta(days=i))
+        ))
+
+    return ''.join(options)
+
+@register.simple_tag
+def time_hour_as_option():
+    options = []
+    for hour in range(0, 24):
+        options.append('<option value="%02d">%02d</option>' % (hour, hour))
+    return ''.join(options)
+
+
+@register.simple_tag
+def time_minute_as_option():
+    options = []
+    for minute in range(0, 60):
+        options.append('<option value="%02d">%02d</option>' % (minute, minute))
     return ''.join(options)
 
 
@@ -115,6 +154,19 @@ def province_options(selected_province=''):
 @register.filter
 def province_name(province_code):
     return PROVINCE_MAP.get(province_code)
+
+
+@register.assignment_tag
+def bank_account_assign():
+    return BANK_ACCOUNT_MAP.values()
+
+
+@register.simple_tag
+def bank_account_as_option():
+    options = []
+    for bank_account_tuple in BANK_ACCOUNT_LIST:
+        options.append('<option value="%s">%s</option>' %(bank_account_tuple[0], bank_account_tuple[1]))
+    return ''.join(options)
 
 
 # COURSE STATUS ########################################################################################################

@@ -1,0 +1,42 @@
+{% extends 'base_backend.html' %}
+{% load common_tags presentation_tags thumbnail %}
+
+{% block body_class %}{{ block.super }} page-enrollment-details{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+
+})();
+</script>
+{% endblock %}
+
+{% block backend_header %}
+    {% if enrollment.payment_status == 'WAIT_FOR_PAYMENT' %}
+        <div class="parent"><a href="{% url 'view_my_courses_payment' %}">← Return to waiting for payment workshops</a></div>
+    {% elif enrollment.start_datetime|timepast %}
+        <div class="parent"><a href="{% url 'view_my_courses_attended' %}">← Return to attended workshops</a></div>
+    {% else %}
+        <div class="parent"><a href="{% url 'view_my_courses_upcoming' %}">← Return to upcoming</a></div>
+    {% endif %}
+    <h1>Enrollment details <span>- #{{ enrollment.code }}</span></h1>
+{% endblock %}
+
+{% block backend_container %}
+    <div class="course">
+        <div class="cover"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}"><img src="{{ enrollment.schedule.course.small_cover_url }}" /></a></div>
+
+
+        <div class="right">
+            <div class="title"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}">{{ enrollment.schedule.course.title }}</a></div>
+            <div class="teacher">โดย <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}" class="name">{{ enrollment.schedule.course.teacher.name }}</a></div>
+            <div class="schedule">{{ enrollment.schedule|schedule_datetime }}</div>
+        </div>
+    </div>
+    <div class="payment"></div>
+{% endblock %}
+
+{% block modals %}
+{% if with_payment %}{% include 'snippets/modal_enrollment_payment.html' %}{% endif %}
+    {% include 'snippets/modal_payment_notify.html' %}
+{% endblock %}

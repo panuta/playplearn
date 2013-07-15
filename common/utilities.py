@@ -23,6 +23,17 @@ def format_full_datetime(datetime):
         return ''
 
 
+def format_abbr_date(datetime):
+    try:
+        return u'%d %s %d' % (
+            datetime.day,
+            th.TH_MONTH_ABBR_NAME[datetime.month],
+            datetime.year + 543,
+        )
+    except ValueError:
+        return ''
+
+
 def format_datetime_string(datetime):
     try:
         return '%d_%02d_%02d_%02d_%02d' % (
@@ -31,6 +42,17 @@ def format_datetime_string(datetime):
             datetime.day,
             datetime.hour,
             datetime.minute,
+        )
+    except ValueError:
+        return ''
+
+
+def format_date_string(datetime):
+    try:
+        return '%d-%02d-%02d' % (
+            datetime.year,
+            datetime.month,
+            datetime.day,
         )
     except ValueError:
         return ''

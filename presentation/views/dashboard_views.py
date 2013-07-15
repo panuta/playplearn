@@ -13,7 +13,18 @@ from common.decorators import teacher_only
 from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseFeedback, CoursePicture
 
 
-# MY COURSES ###########################################################################################################
+# MY WORKSHOPS #########################################################################################################
+
+@login_required
+def view_my_courses_payment(request):
+    waiting_enrollments = CourseEnrollment.objects.filter(
+        student=request.user,
+        status='PENDING',
+        payment_status='WAIT_FOR_PAYMENT'
+    ).order_by('-created')
+
+    return render(request, 'dashboard/courses_payments.html', {'waiting_enrollments': waiting_enrollments})
+
 
 @login_required
 def view_my_courses_upcoming(request):
@@ -232,3 +243,13 @@ def manage_course_feedback(request, course, course_uid, category):
 def manage_course_promote(request, course, course_uid):
     return render(request, 'dashboard/manage_course_promote.html', {'course': course})
 
+
+# ENROLLMENT ###########################################################################################################
+
+@login_required
+def view_enrollment_details(request, enrollment_code, with_payment):
+    enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code, student=request.user)
+    return render(request, 'dashboard/enrollment_details.html', {
+        'enrollment': enrollment,
+        'with_payment': with_payment
+    })

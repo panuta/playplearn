@@ -47,22 +47,21 @@
     <div class="container">
         {% spaceless %}
         <div class="social">
-            <ul>
-                <li class="home"><a href="/">Little <b>Big</b> Skills</a></li>
-                <li class="facebook"><a href="#"><i class="icon-facebook-sign"></i> Facebook</a></li>
-                <li class="twitter"><a href="#"><i class="icon-twitter-sign"></i> Twitter</a></li>
-                <li class="blog"><a href="#"><i class="icon-rss-sign"></i> Blog</a></li>
+            <ul class="buttons">
+                <li class="button home"><a href="/" class="top-button">PlayPlearn</a></li>
+                <li class="button facebook"><a href="#" class="top-button"><i class="icon-facebook-sign"></i> Facebook</a></li>
+                <li class="button twitter"><a href="#" class="top-button"><i class="icon-twitter-sign"></i> Twitter</a></li>
             </ul>
         </div>
         <div class="account">
             {% if user.is_authenticated %}
                 <div class="user">
-                    <ul class="parent">
-                        <li class="parent-item username"><a href="{% url 'view_my_profile' %}" class="link" title="ไปหน้าข้อมูลผู้ใช้">{{ user.name }}</a></li>
-                        <li class="parent-item alerts"><a href="#" class="link"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
-                        <li class="parent-item messages">
+                    <ul class="buttons">
+                        <li class="button username"><a href="{% url 'view_my_profile' %}" class="top-button" title="ไปหน้าข้อมูลผู้ใช้">{{ user.name }}</a></li>
+                        <li class="button alerts"><a href="#" class="top-button"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
+                        <li class="button messages">
                             <div class="dropdown">
-                                <a href="{% url 'view_messages_inbox' %}" class="link dropdown-toggle"{% if postman_unread_count %} data-toggle="dropdown" data-hover="dropdown" data-delay="100"{% endif %}><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a>
+                                <a href="{% url 'view_messages_inbox' %}" class="top-button dropdown-toggle"{% if postman_unread_count %} data-toggle="dropdown" data-hover="dropdown" data-delay="100"{% endif %}><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a>
                                 {% if postman_unread_count %}
                                 <ul class="dropdown-menu pull-right">
                                     <li>Message 1</li>
@@ -74,11 +73,12 @@
                                 {% endif %}
                             </div>
                         </li>
-                        <li class="parent-item my_workshops">
+                        <li class="button my_workshops">
                             <div class="dropdown">
-                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-list"></i> เวิร์กช็อป <i class="icon-caret-down"></i></a>
+                                <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-list"></i> เวิร์กช็อป <i class="icon-caret-down"></i></a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming</a></li>
+                                    {% if user.stats_waiting_for_payment_courses %}<li><a href="{% url 'view_my_courses_payment' %}">รอแจ้งการชำระเงิน <span class="number">{{ user.stats_waiting_for_payment_courses }}</span></a></li>{% endif %}
+                                    {% if user.stats_upcoming_courses %}<li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming <span class="number">{{ user.stats_upcoming_courses }}</span></a></li>{% endif %}
                                     <li><a href="{% url 'view_my_courses_attended' %}">Attended workshops</a></li>
                                     <li><a href="{% url 'view_all_my_courses_teaching' %}">Teaching</a></li>
                                     <li class="divider"></li>
@@ -86,9 +86,9 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="parent-item settings">
+                        <li class="button settings">
                             <div class="dropdown">
-                                <a href="#" class="link dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-gear"></i> <i class="icon-caret-down"></i></a>
+                                <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-gear"></i> <i class="icon-caret-down"></i></a>
                                 <ul class="dropdown-menu pull-right">
                                     <li><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าข้อมูลผู้ใช้</a>
                                     <li><a href="{% url 'edit_my_settings_notifications' %}">การแจ้งเตือน</a></li>
@@ -102,8 +102,8 @@
                 </div>
             {% else %}
                 <div class="registration">
-                    <ul class="parent">
-                        <li class="parent-item login"><a href="{% url 'view_user_login' %}?next={{ request.path }}" class="link">เข้าสู่ระบบ / สมัครสมาชิก</a></li>
+                    <ul class="buttons">
+                        <li class="button login"><a href="{% url 'view_user_login' %}?next={{ request.path }}" class="top-button">เข้าสู่ระบบ / สมัครสมาชิก</a></li>
                     </ul>
                 </div>
             {% endif %}
@@ -131,7 +131,7 @@
     <div class="container">
         <div class="clearfix">
             <div class="pull-left">
-                <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/ui/logo.tiny.png" /></a></div>
+                <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/ui/logo.small.png" /></a></div>
                 <div class="links">
                     <a href="#">About us</a>
                     <span class="separator">|</span>
@@ -207,6 +207,8 @@
     </div>
 </div>
 {% endif %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}libs/moment.min.js"></script>
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.js"></script>
@@ -297,8 +299,8 @@
 </script>
 {% endif %}
 
-{% block scripts %}{% endblock %}
 {% block modals %}{% endblock %}
+{% block scripts %}{% endblock %}
 
 {% comment %}
 <script>

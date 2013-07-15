@@ -1,7 +1,47 @@
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+{% load common_tags %}
+<div class="modal hide" id="modal-enrollment-payment">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Make payment</h3>
+    </div>
+    <div class="modal-body">
+        <div class="reserved"><i class="icon-ok"></i> We have reserved a seat for you</div>
+        <div class="step">
+            <div class="text"><em>1</em> Please make your payment within {{ settings.HOURS_BEFORE_CANCEL_PAYMENT }} hours to avoid cancellation</div>
+            <div class="step-panel">
+                <ul class="banks">
+                    {% bank_account_assign as banks %}
+                    {% for bank in banks %}
+                        <li class="kbank">
+                            <div class="bank">{{ bank.bank_name }} สาขา{{ bank.bank_branch }}</div>
+                            <div class="account-type">{{ bank.account_type }}</div>
+                            <div class="account-number">{{ bank.account_no }}</div>
+                            <div class="account-name">{{ bank.account_name }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="step">
+            <div class="text"><em>2</em> Notify us after you have paid</div>
+            <div class="step-panel">
+                <a href="#" class="btn btn-small button-notify-payment">แจ้งการชำระเงิน</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="modal-body">
-    <div>Payment</div>
-    CODE: {{ enrollment.code }}
-</div>
+<script>
+(function() {
+    var modal = $('#modal-enrollment-payment');
+    modal.modal({
+        backdrop: 'static'
+    });
+
+    modal.find('.button-notify-payment').on('click', function() {
+        modal.modal('hide');
+        var notify_modal = $('#modal-payment-notify');
+        notify_modal.modal();
+        return false;
+    });
+})();
+</script>

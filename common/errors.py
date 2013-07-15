@@ -50,6 +50,13 @@ COURSE_ENROLLMENT_ERRORS = {
     'course-notpublished': u'',
     'schedule-notopening': u'',
     'schedule-full': u'',
+    'people-invalid': u'',
+
+    'enrollment-notfound': u'',
+    'payment-notify-duplicate': u'',
+    'payment-notify-input-required': u'',
+    'payment-notify-bank-invalid': u'',
+    'payment-notify-amount-invalid': u'',
 }
 
 MESSAGES_ERRORS = {

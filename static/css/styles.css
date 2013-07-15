@@ -64,9 +64,29 @@ select:focus:invalid:focus {
 }
 .dropdown-menu li a {
   font-size: 0.9em;
+  padding: 4px 35px 4px 20px;
+}
+.dropdown-menu li a .number {
+  background-color: #6c9fd4;
+  border-radius: 4px;
+  color: #FFF;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  font-size: 11px;
+  line-height: 16px;
+  margin-top: 2px;
+  padding: 0px 5px;
 }
 .dropdown-menu li.divider {
   margin: 7px 1px;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  background-color: #3a71a9;
+  background-image: none;
 }
 .form-actions {
   background-color: transparent;
@@ -77,6 +97,38 @@ select:focus:invalid:focus {
   font-size: 13px;
   margin-right: 15px;
   padding: 8px 30px;
+}
+.btn-blue {
+  background-color: #2469b2 !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3c87d7", endColorstr="#2468b1");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#3c87d7), to(#2468b1));
+  background-image: -moz-linear-gradient(top, #3c87d7, #2468b1);
+  background-image: -ms-linear-gradient(top, #3c87d7, #2468b1);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3c87d7), color-stop(100%, #2468b1));
+  background-image: -webkit-linear-gradient(top, #3c87d7, #2468b1);
+  background-image: -o-linear-gradient(top, #3c87d7, #2468b1);
+  background-image: linear-gradient(#3c87d7, #2468b1);
+  border-color: #2468b1 #2468b1 #2261a5;
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.19);
+  -webkit-font-smoothing: antialiased;
+}
+.btn-orange {
+  background-color: #c1631a !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e38035", endColorstr="#c0621a");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#e38035), to(#c0621a));
+  background-image: -moz-linear-gradient(top, #e38035, #c0621a);
+  background-image: -ms-linear-gradient(top, #e38035, #c0621a);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e38035), color-stop(100%, #c0621a));
+  background-image: -webkit-linear-gradient(top, #e38035, #c0621a);
+  background-image: -o-linear-gradient(top, #e38035, #c0621a);
+  background-image: linear-gradient(#e38035, #c0621a);
+  border-color: #c0621a #c0621a #b45c18;
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.19);
+  -webkit-font-smoothing: antialiased;
 }
 .modal-backdrop {
   background-color: #333;
@@ -199,7 +251,7 @@ body.modal-open {
   background-color: #FFF;
   border: 1px solid #DDD;
   border-radius: 0;
-  height: 35px;
+  height: 38px;
   padding: 0;
   outline: 0px;
   text-align: center;
@@ -208,8 +260,12 @@ body.modal-open {
 .ui-datepicker .ui-datepicker-calendar td a,
 .ui-datepicker .ui-datepicker-calendar td span {
   color: #444;
-  font-size: 14px;
+  font-size: 13px;
+  height: 38px;
+  line-height: 38px;
+  padding: 0;
   text-align: center;
+  width: 42px;
 }
 .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-other-month {
   background-color: #F8F8F8;
@@ -409,6 +465,19 @@ form .avatar-control .tools .remove-avatar {
 form .avatar-control .errorlist {
   margin-left: 100px;
   margin-top: 5px;
+}
+.style-modal-form .control-group-inline .control-group {
+  display: inline-block;
+  margin-right: 40px;
+}
+.style-modal-form .control-group {
+  margin-bottom: 10px;
+}
+.style-modal-form .control-group label {
+  color: #3a71a9;
+  display: inline-block;
+  font-size: 13px;
+  margin-bottom: 3px;
 }
 .style-loading {
   color: #666;
@@ -1259,58 +1328,28 @@ body {
   border-bottom: 1px solid #4585c8;
   height: 35px;
 }
-#body-top .social {
+#body-top ul.buttons {
   border-left: 1px solid #4585c8;
   border-right: 1px solid #87add4;
-  float: left;
   height: 35px;
-}
-#body-top .social ul {
   margin: 0;
 }
-#body-top .social ul li {
+#body-top ul.buttons li.button {
   display: inline-block;
   height: 35px;
   list-style: none;
   vertical-align: middle;
 }
-#body-top .social ul li a {
-  border-left: 1px solid #87add4;
-  border-right: 1px solid #4585c8;
-  color: #FFF;
-  display: block;
-  font-size: 12px;
-  line-height: 35px;
-  padding: 0 12px;
-}
-#body-top .social ul li a i {
-  font-size: 15px;
-  margin-right: 2px;
-}
-#body-top .social ul li a:hover {
+#body-top ul.buttons li.button .open a.link {
   background-color: #3a71a9;
   border-left: 1px solid #336396;
   color: #FFF;
   text-decoration: none;
 }
-#body-top .social ul li.home a {
-  font-size: 15px;
-  padding: 0 20px;
+#body-top ul.buttons li.button .dropdown-menu i {
+  margin-right: 1px;
 }
-#body-top .account {
-  float: right;
-  height: 35px;
-}
-#body-top .account ul.parent {
-  border-right: 1px solid #87add4;
-  margin: 0;
-}
-#body-top .account ul.parent li.parent-item {
-  display: inline-block;
-  height: 35px;
-  list-style: none;
-}
-#body-top .account ul.parent li.parent-item a.link {
+#body-top a.top-button {
   border-left: 1px solid #87add4;
   border-right: 1px solid #4585c8;
   color: #FFF;
@@ -1319,28 +1358,25 @@ body {
   line-height: 35px;
   padding: 0 14px;
 }
-#body-top .account ul.parent li.parent-item a.link i {
+#body-top a.top-button i {
+  font-size: 15px;
   margin-right: 2px;
 }
-#body-top .account ul.parent li.parent-item a.link i.icon-caret-down {
-  margin-left: 1px;
-  margin-right: 0px;
-}
-#body-top .account ul.parent li.parent-item a.link:hover {
+#body-top a.top-button:hover {
   background-color: #3a71a9;
   border-left: 1px solid #336396;
   color: #FFF;
   text-decoration: none;
 }
-#body-top .account ul.parent li.parent-item a.link:active,
-#body-top .account ul.parent li.parent-item a.link:focus {
+#body-top a.top-button:active,
+#body-top a.top-button:focus {
   background-color: transparent;
   border-left: 1px solid #87add4;
   color: #FFF;
   outline: none;
   text-decoration: none;
 }
-#body-top .account ul.parent li.parent-item a.link .num {
+#body-top a.top-button .num {
   background-color: #3a71a9;
   border-radius: 4px;
   color: #EEE;
@@ -1350,40 +1386,59 @@ body {
   margin-left: 6px;
   padding: 1px 5px;
 }
-#body-top .account ul.parent li.parent-item.messages a i {
-  font-size: 14px;
+#body-top .social {
+  float: left;
+  height: 35px;
 }
-#body-top .account ul.parent li.parent-item.settings a i.icon-gear {
-  font-size: 14px;
-  margin: 0 6px 0 0;
+#body-top .social ul.buttons li.button a.top-button {
+  padding: 0 12px;
 }
-#body-top .account ul.parent li.parent-item .dropdown-menu i {
-  margin-right: 1px;
+#body-top .social ul.buttons li.button.home a.top-button {
+  font-size: 17px;
+  padding: 0 20px;
 }
-#body-top .registration {
-  border-left: 1px solid #4585c8;
-  border-right: 1px solid #87add4;
-}
-#body-top .user ul.parent li.parent-item.username a.link {
-  border-left: none;
+#body-top .social ul.buttons li.button.phone .phone-number {
+  border-left: 1px solid #87add4;
+  border-right: 1px solid #4585c8;
   color: #FFF;
+  display: block;
+  font-size: 14px;
+  line-height: 35px;
+  padding: 0 14px;
+}
+#body-top .social ul.buttons li.button.phone .phone-number i {
+  margin-right: 2px;
+}
+#body-top .account {
+  float: right;
+  height: 35px;
+}
+#body-top .user ul.buttons {
+  border-left: none;
+}
+#body-top .user ul.buttons li.button.username a.top-button {
+  border-left: none;
   font-weight: bold;
   padding-right: 15px;
 }
-#body-top .user ul.parent li.parent-item.username a.link:hover,
-#body-top .user ul.parent li.parent-item.username a.link:active,
-#body-top .user ul.parent li.parent-item.username a.link:focus {
+#body-top .user ul.buttons li.button.username a.top-button:hover,
+#body-top .user ul.buttons li.button.username a.top-button:active,
+#body-top .user ul.buttons li.button.username a.top-button:focus {
   background-color: transparent;
   text-decoration: underline;
 }
-#body-top .user ul.parent li.parent-item.messages a.link {
+#body-top .user ul.buttons li.button.messages a.top-button {
   padding: 0 11px;
 }
-#body-top .user ul.parent li.parent-item.settings a.link {
-  padding: 0 12px;
+#body-top .user ul.buttons li.button.messages a.top-button i {
+  font-size: 14px;
 }
-#body-top .user ul.parent li.parent-item.logout a.link {
-  padding: 0 10px;
+#body-top .user ul.buttons li.button.settings a.top-button {
+  padding: 0 10px 0 12px;
+}
+#body-top .user ul.buttons li.button.settings a.top-button i.icon-gear {
+  font-size: 14px;
+  margin: 0 6px 0 0;
 }
 #body-header {
   background-color: #FFF;
@@ -1405,7 +1460,7 @@ body {
   height: 95px;
 }
 #body-footer {
-  background-color: #666;
+  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
   position: relative;
   padding-top: 15px;
   height: 80px;
@@ -1414,7 +1469,7 @@ body {
   margin-bottom: 5px;
 }
 #body-footer .links a {
-  color: #EEE;
+  color: #FFF;
   font-size: 13px;
 }
 #body-footer .links a:hover {
@@ -1425,7 +1480,7 @@ body {
   margin: 0 6px;
 }
 #body-footer .copyright {
-  color: #CCC;
+  color: #EEE;
   font-size: 12px;
   margin-top: 5px;
 }
@@ -1434,7 +1489,7 @@ body {
 }
 #body-footer .social-links a {
   background-image: url(../images/ui/social-icons.png);
-  border: 2px solid #666;
+  border: 1px solid #6c9fd4;
   border-radius: 32px;
   float: right;
   height: 32px;
@@ -1444,7 +1499,7 @@ body {
 }
 #body-footer .social-links a:hover {
   background-color: #FFF;
-  border: 2px solid #FFF;
+  border: 1px solid #FFF;
 }
 #body-footer .social-links .facebook {
   background-position: 0 0;
@@ -1758,6 +1813,121 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
+#modal-enrollment-confirm .modal-body .schedule .title {
+  color: #3a71a9;
+  font-size: 16px;
+  font-weight: bold;
+}
+#modal-enrollment-confirm .modal-body .schedule .datetime {
+  color: #666;
+  margin-top: 5px;
+}
+#modal-enrollment-confirm .modal-body .amount {
+  border-bottom: 1px dashed #DDD;
+  border-top: 1px dashed #DDD;
+  margin-top: 18px;
+  padding: 11px 0;
+}
+#modal-enrollment-confirm .modal-body .amount .people {
+  display: inline-block;
+  vertical-align: bottom;
+}
+#modal-enrollment-confirm .modal-body .amount .people select {
+  margin: 0 10px 0 0;
+  width: 90px;
+}
+#modal-enrollment-confirm .modal-body .amount .price {
+  color: #888;
+  display: inline-block;
+  vertical-align: bottom;
+}
+#modal-enrollment-confirm .modal-body .amount .price em {
+  color: #555;
+  font-weight: bold;
+}
+#modal-enrollment-confirm .modal-body .amount .total {
+  color: #888;
+  float: right;
+  margin-top: 9px;
+}
+#modal-enrollment-confirm .modal-body .amount .total em {
+  color: #C30;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 3px;
+}
+#modal-enrollment-payment {
+  margin-left: -350px;
+  width: 700px;
+}
+#modal-enrollment-payment .modal-body {
+  padding-bottom: 35px;
+}
+#modal-enrollment-payment .modal-body .reserved {
+  background-color: #00ac71;
+  border-radius: 4px;
+  color: #FFF;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+}
+#modal-enrollment-payment .modal-body .reserved i {
+  font-size: 18px;
+  margin-right: 3px;
+}
+#modal-enrollment-payment .modal-body .step .text {
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+#modal-enrollment-payment .modal-body .step .text em {
+  background-color: #3a71a9;
+  border-radius: 26px;
+  color: #FFF;
+  display: inline-block;
+  height: 26px;
+  line-height: 26px;
+  margin-right: 10px;
+  text-align: center;
+  width: 26px;
+}
+#modal-enrollment-payment .modal-body .step .step-panel {
+  padding-left: 36px;
+}
+#modal-enrollment-payment .modal-body ul.banks {
+  margin: 0;
+}
+#modal-enrollment-payment .modal-body ul.banks li {
+  list-style: none;
+  margin-bottom: 20px;
+  padding-left: 145px;
+}
+#modal-enrollment-payment .modal-body ul.banks li .bank {
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+}
+#modal-enrollment-payment .modal-body ul.banks li .account-type {
+  color: #888;
+  font-size: 13px;
+}
+#modal-enrollment-payment .modal-body ul.banks li .account-number {
+  color: #444;
+  font-size: 18px;
+  margin-top: 5px;
+}
+#modal-enrollment-payment .modal-body ul.banks li .account-name {
+  color: #444;
+  font-size: 15px;
+  margin-top: 5px;
+}
+#modal-enrollment-payment .modal-body ul.banks li.kbank {
+  background: url(../images/banks/kbank.png) left 6px no-repeat;
+}
+#modal-enrollment-payment .modal-body .button-notify-payment {
+  font-size: 14px;
+  padding: 7px 35px 8px;
+}
 #modal-enrollment-details .head {
   color: #3a71a9;
   font-size: 14px;
@@ -1807,6 +1977,38 @@ body {
   color: #777;
   font-size: 13px;
   margin-top: 7px;
+}
+#modal-payment-notify .modal-body #id_modal_notified_bank {
+  font-size: 15px;
+  height: 34px;
+  width: 300px;
+}
+#modal-payment-notify .modal-body #id_modal_notified_bank option {
+  padding: 4px 6px;
+}
+#modal-payment-notify .modal-body #id_modal_notified_amount {
+  width: 80px;
+}
+#modal-payment-notify .modal-body #id_modal_notified_date {
+  width: 190px;
+}
+#modal-payment-notify .modal-body #id_modal_notified_time_hour,
+#modal-payment-notify .modal-body #id_modal_notified_time_minute {
+  font-size: 15px;
+  width: 60px;
+}
+#modal-payment-notify .modal-body #id_modal_notified_remark {
+  width: 480px;
+}
+#modal-payment-notify .modal-body .separator {
+  color: #777;
+  font-size: 16px;
+  margin: 0 3px;
+}
+#modal-payment-notify .modal-body .unit {
+  color: #666;
+  font-size: 13px;
+  margin-left: 7px;
 }
 #modal-message-write .modal-body {
   padding-bottom: 0;
@@ -2067,7 +2269,7 @@ body {
 .page-homepage .homepage-header .subtitle {
   color: #6c9fd4;
   font-size: 32px;
-  font-weight: 100;
+  font-weight: 300;
   margin-top: 25px;
   text-align: center;
 }
@@ -2171,7 +2373,7 @@ body {
   padding: 4px 4px 7px;
 }
 .page-course-outline .course-header .join a {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 300;
   padding: 8px 40px;
 }
@@ -2357,17 +2559,7 @@ body {
 .page-course-outline .course-schedules {
   background-color: #bfd3e8;
   margin: 40px 0 0;
-  padding-bottom: 35px;
-}
-.page-course-outline .course-schedules .head {
-  color: #3a71a9;
-  font-size: 24px;
-  font-weight: 300;
-  margin: 25px 0;
-}
-.page-course-outline .course-schedules .head i {
-  color: #3a71a9;
-  margin-right: 2px;
+  padding: 35px 0;
 }
 .page-course-outline .course-schedules .schedules-calendar {
   background-color: #FFF;
@@ -2380,7 +2572,7 @@ body {
   margin-top: 10px;
 }
 .page-course-outline .course-schedules .schedules-calendar .legend i {
-  background-color: #ffceb5;
+  background-color: #6392c3;
   display: inline-block;
   height: 12px;
   margin-right: 5px;
@@ -2397,12 +2589,14 @@ body {
 .page-course-outline .course-schedules .ui-datepicker-calendar td.ui-datepicker-today {
   background-color: #FFC;
 }
-.page-course-outline .course-schedules .ui-datepicker-calendar td.schedule-date {
-  background-color: #ffceb5;
-}
 .page-course-outline .course-schedules .ui-datepicker-calendar td.schedule-date span {
-  color: #333;
-  font-weight: bold;
+  background-color: #6392c3;
+  border-left: 1px solid #4f79a4;
+  border-top: 2px solid #4f79a4;
+  color: #FFF;
+  font-size: 15px;
+  height: 36px;
+  width: 41px;
 }
 .page-course-outline .course-schedules .schedules-list {
   margin-left: 390px;
@@ -2412,48 +2606,35 @@ body {
 }
 .page-course-outline .course-schedules .schedules-list ul li {
   background-color: #FFF;
-  box-shadow: 3px 3px 0 #99B9DB;
   height: 70px;
   list-style: none;
-  margin-bottom: 30px;
-}
-.page-course-outline .course-schedules .schedules-list ul li .ticket {
-  display: inline-block;
-  height: 70px;
-  line-height: 70px;
-  padding-left: 18px;
-}
-.page-course-outline .course-schedules .schedules-list ul li .ticket .icon-ticket {
-  color: #6c9fd4;
-  font-size: 30px;
-  vertical-align: -5px;
+  margin-bottom: 25px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule {
-  color: #666;
-  display: inline-block;
-  font-size: 15px;
-  margin-bottom: 2px;
-  padding-left: 13px;
-  vertical-align: middle;
-}
-.page-course-outline .course-schedules .schedules-list ul li .schedule .weekday {
+  border-left: 5px solid #6c9fd4;
   color: #555;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 6px;
+  float: left;
+  font-size: 15px;
+  height: 48px;
+  margin: 3px;
+  padding: 11px 0 4px 12px;
   vertical-align: middle;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule i {
   color: #BBB;
   font-size: 14px;
-  margin-right: 3px;
-}
-.page-course-outline .course-schedules .schedules-list ul li .schedule .datetime {
-  margin-top: 7px;
-  vertical-align: middle;
+  margin-right: 6px;
 }
 .page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-date {
-  margin-right: 15px;
+  display: block;
+  margin-bottom: 7px;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-date em {
+  font-weight: bold;
+}
+.page-course-outline .course-schedules .schedules-list ul li .schedule .schedule-time {
+  display: block;
+  font-weight: bold;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join {
   float: right;
@@ -2479,14 +2660,14 @@ body {
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .button {
   background-color: #FFF;
-  border-left: 1px solid #BFD3E8;
+  border-left: 1px dotted #6c9fd4;
   display: inline-block;
   height: 54px;
   padding: 16px 20px 0 20px;
   vertical-align: middle;
 }
 .page-course-outline .course-schedules .schedules-list ul li .join .button a {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 300;
   padding: 9px 35px 7px;
 }
@@ -2588,6 +2769,7 @@ body {
 }
 .page-course-browse .browse-workshops ul li .title a {
   font-size: 17px;
+  font-weight: bold;
   line-height: 26px;
 }
 .page-course-browse .browse-workshops ul li .title a:link,
@@ -2697,6 +2879,63 @@ body {
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
+}
+.page-my-courses-payments ul.enrollments {
+  margin: 0;
+}
+.page-my-courses-payments ul.enrollments li.enrollment {
+  list-style: none;
+  margin-bottom: 35px;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .cover {
+  float: left;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .right {
+  margin-left: 280px;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .title a {
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 26px;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .title a:link,
+.page-my-courses-payments ul.enrollments li.enrollment .title a:active,
+.page-my-courses-payments ul.enrollments li.enrollment .title a:visited {
+  color: #3a71a9;
+  text-decoration: underline;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .title a:hover {
+  background-color: #3a71a9;
+  color: #FFF;
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .teacher {
+  color: #888;
+  margin-top: 5px;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .teacher a {
+  color: #555;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .schedule {
+  color: #555;
+  font-size: 13px;
+  margin-top: 5px;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .actions {
+  margin-top: 10px;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .actions .price {
+  background-color: #ffe89b;
+  border: 1px solid #ffd54a;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 3px 10px;
+  vertical-align: middle;
+}
+.page-my-courses-payments ul.enrollments li.enrollment .actions a.btn {
+  margin-left: 10px;
+  vertical-align: middle;
 }
 .page-my-courses-upcoming ul.courses li.course {
   margin-bottom: 30px;

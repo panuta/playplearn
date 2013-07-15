@@ -23,7 +23,7 @@ DATABASES = {
         }
 }
 
-WEBSITE_NAME = 'Little Big Skills'
+WEBSITE_NAME = 'PlayPlearn'
 WEBSITE_URL = 'http://127.0.0.1:8000'
 WEBSITE_DOMAIN = '127.0.0.1:8000'
 
@@ -246,6 +246,15 @@ COURSE_PICTURE_MAXIMUM_SIZE = 5000000
 # COURSE SCHEDULE
 
 SCHEDULE_ADD_DAYS_IN_ADVANCE = 60
+
+# COURSE ENROLLMENT
+
+ENROLLMENT_PEOPLE_LIMIT = 5
+
+# PAYMENT
+
+HOURS_BEFORE_CANCEL_PAYMENT = 48
+
 
 # LOCAL SETTINGS #######################################################################################################
 

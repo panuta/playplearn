@@ -94,3 +94,15 @@ COURSE_ENROLLMENT_PAYMENT_STATUS_MAP = {
     'VOIDED_FAIL': {'name': 'Voided Failed'},
     'CANCELLED': {'name': 'Cancelled'},
 }
+
+COURSE_ENROLLMENT_PAYMENT_NOTIFY_STATUS_CHOICES = (
+    ('RECEIVE', 'Received'),
+    ('ACCEPT', 'Accepted'),
+    ('REJECT', 'Rejected'),
+)
+
+COURSE_ENROLLMENT_PAYMENT_NOTIFY_STATUS_MAP = {
+    'RECEIVE': {'name': 'Received'},
+    'ACCEPT': {'name': 'Accepted'},
+    'REJECT': {'name': 'Rejected'},
+}

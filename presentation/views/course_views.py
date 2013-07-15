@@ -27,7 +27,12 @@ def view_course_outline(request, course_uid, page_action, enrollment_code):
     rightnow = now()
 
     pictures = CoursePicture.objects.filter(course=course, is_visible=True).order_by('ordering')
-    schedules = CourseSchedule.objects.filter(course=course, status='OPENING', start_datetime__gte=rightnow)
+
+    schedules = CourseSchedule.objects.filter(
+        course=course,
+        status='OPENING',
+        start_datetime__gte=rightnow
+    ).order_by('start_datetime')
 
     enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code) if enrollment_code else None
 
@@ -81,8 +86,9 @@ def search_course_topics(request):
 
 
 @require_POST
-def enroll_course(request):
+def enroll_workshop(request):
     schedule_id = request.POST.get('schedule_id')
+    people = request.POST.get('people')
 
     try:
         schedule = CourseSchedule.objects.get(pk=schedule_id)
@@ -94,22 +100,30 @@ def enroll_course(request):
     except CourseEnrollmentException, e:
         return response_json_error_with_message(e.exception_code, errors.COURSE_ENROLLMENT_ERRORS)
 
+    try:
+        people = int(people)
+        if people <= 0:
+            raise ValueError
+    except ValueError:
+        return response_json_error_with_message('people-invalid', errors.COURSE_ENROLLMENT_ERRORS)
+
     if request.user.is_authenticated():
         enrollment = CourseEnrollment.objects.create(
             student=request.user,
             schedule=schedule,
             price=schedule.course.price,
+            people=people,
             total=schedule.course.price,
             status='PENDING',
             payment_status='WAIT_FOR_PAYMENT',
         )
 
         return response_json_success({
-            'enrollment_code': enrollment.code,
-            'modal_html': render_to_string('snippets/modal_enrollment_payment.html', {'enrollment': enrollment}),
+            'payment_url': reverse('view_enrollment_details_with_payment', args=[enrollment.code]),
         })
 
     else:
+        # TODO
         return response_json_success({
             'enrollment_code': '',
             'modal_html': render_to_string('snippets/modal_enrollment_login.html', {'schedule': schedule}),
@@ -117,7 +131,7 @@ def enroll_course(request):
 
 
 @require_POST
-def login_to_enroll_course(request, backend):
+def login_to_enroll_workshop(request, backend):
     if backend not in ('facebook', 'twitter', 'email_login', 'email_signup'):
         raise Http404
 

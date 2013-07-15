@@ -17,11 +17,12 @@ from common import errors
 from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
+from common.constants.payment import BANK_ACCOUNT_MAP
 from common.shortcuts import response_json_success, response_json_error_with_message, response_json_error
 from common.utilities import format_full_datetime, format_datetime_string
 
 from domain import functions as domain_function
-from domain.models import CourseFeedback, CourseEnrollment, Course, CourseSchedule, CoursePicture, EditingCourse, Place
+from domain.models import CourseFeedback, CourseEnrollment, Course, CourseSchedule, CoursePicture, EditingCourse, Place, CourseEnrollmentPaymentNotify
 
 
 # COURSE ###############################################################################################################
@@ -523,3 +524,53 @@ def ajax_view_enrollment_details(request):
         'reserved_on': format_full_datetime(enrollment.created),
         'print_url': '',
     })
+
+
+@require_POST
+@login_required
+def ajax_notify_enrollment_payment(request):
+    if not request.is_ajax():
+        raise Http404
+
+    code = request.POST.get('code')
+
+    try:
+        enrollment = CourseEnrollment.objects.get(code=code)
+    except CourseEnrollment.DoesNotExist:
+        return response_json_error_with_message('enrollment-notfound', errors.COURSE_ENROLLMENT_ERRORS)
+
+    if CourseEnrollmentPaymentNotify.objects.filter(enrollment=enrollment).exists():
+        return response_json_error_with_message('payment-notify-duplicate', errors.COURSE_ENROLLMENT_ERRORS)
+
+    bank = request.POST.get('bank', '')
+    amount = request.POST.get('amount', '')
+    date = request.POST.get('date', '')
+    time_hour = request.POST.get('time_hour', '')
+    time_minute = request.POST.get('time_minute', '')
+    remark = request.POST.get('remark', '')
+
+    if not bank or bank not in BANK_ACCOUNT_MAP:
+        return response_json_error_with_message('payment-notify-bank-invalid', errors.COURSE_ENROLLMENT_ERRORS)
+
+    try:
+        amount = int(amount)
+        if amount < 0:
+            raise ValueError
+    except ValueError:
+        return response_json_error_with_message('payment-notify-amount-invalid', errors.COURSE_ENROLLMENT_ERRORS)
+
+    try:
+        datetime_data = '%s-%s-%s' % (date, time_hour, time_minute)
+        transfered_on = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+    except ValueError:
+        return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
+
+    CourseEnrollmentPaymentNotify.objects.create(
+        enrollment=enrollment,
+        bank=bank,
+        amount=amount,
+        transfered_on=transfered_on,
+        remark=remark,
+    )
+
+    return response_json_success()

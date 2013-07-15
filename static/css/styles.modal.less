@@ -119,6 +119,153 @@
     }
 }
 
+#modal-enrollment-confirm {
+    .modal-body {
+        .schedule {
+            .title {
+                color: @primaryColor;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .datetime {
+                color: #666;
+                margin-top: 5px;
+            }
+        }
+
+        .amount {
+            border-bottom: 1px dashed #DDD;
+            border-top: 1px dashed #DDD;
+            margin-top: 18px;
+            padding: 11px 0;
+
+            .people {
+                display: inline-block;
+                vertical-align: bottom;
+
+                select {
+                    margin: 0 10px 0 0;
+                    width: 90px;
+                }
+            }
+
+            .price {
+                color: #888;
+                display: inline-block;
+                vertical-align: bottom;
+
+                em {
+                    color: #555;
+                    font-weight: bold;
+                }
+            }
+
+            .total {
+                color: #888;
+                float: right;
+                margin-top: 9px;
+
+                em {
+                    color: #C30;
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: 0 3px;
+                }
+            }
+        }
+    }
+}
+
+#modal-enrollment-payment {
+    margin-left: -350px;
+    width: 700px;
+
+    .modal-body {
+        padding-bottom: 35px;
+
+        .reserved {
+            background-color: @alertGreenColor;
+            border-radius: 4px;
+            color: #FFF;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+
+            i {
+                font-size: 18px;
+                margin-right: 3px;
+            }
+        }
+
+        .step {
+            .text {
+                color: #555;
+                font-weight: bold;
+                margin-bottom: 12px;
+
+                em {
+                    background-color: @primaryColor;
+                    border-radius: 26px;
+                    color: #FFF;
+                    display: inline-block;
+                    height: 26px;
+                    line-height: 26px;
+                    margin-right: 10px;
+                    text-align: center;
+                    width: 26px;
+                }
+            }
+
+            .step-panel {
+                padding-left: 36px;
+            }
+        }
+
+        ul.banks {
+            margin: 0;
+
+            li {
+                list-style: none;
+                margin-bottom: 20px;
+                padding-left: 145px;
+
+                .bank {
+                    color: #555;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                .account-type {
+                    color: #888;
+                    font-size: 13px;
+                }
+
+                .account-number {
+                    color: #444;
+                    font-size: 18px;
+                    margin-top: 5px;
+                }
+
+                .account-name {
+                    color: #444;
+                    font-size: 15px;
+                    margin-top: 5px;
+                }
+
+                &.kbank {
+                    background: url(../images/banks/kbank.png) left 6px no-repeat;
+                }
+            }
+        }
+
+        .button-notify-payment {
+            font-size: 14px;
+            padding: 7px 35px 8px;
+        }
+    }
+}
+
 #modal-enrollment-details {
     .head {
         color: @primaryColor;
@@ -180,6 +327,49 @@
         color: #777;
         font-size: 13px;
         margin-top: 7px;
+    }
+}
+
+#modal-payment-notify {
+    .modal-body {
+        #id_modal_notified_bank {
+            font-size: 15px;
+            height: 34px;
+            width: 300px;
+
+            option {
+                padding: 4px 6px;
+            }
+        }
+
+        #id_modal_notified_amount {
+            width: 80px;
+        }
+
+        #id_modal_notified_date {
+            width: 190px;
+        }
+
+        #id_modal_notified_time_hour, #id_modal_notified_time_minute {
+            font-size: 15px;
+            width: 60px;
+        }
+
+        #id_modal_notified_remark {
+            width: 480px;
+        }
+
+        .separator {
+            color: #777;
+            font-size: 16px;
+            margin: 0 3px;
+        }
+
+        .unit {
+            color: #666;
+            font-size: 13px;
+            margin-left: 7px;
+        }
     }
 }
 

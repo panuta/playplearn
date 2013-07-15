@@ -1,4 +1,8 @@
+# -*- encoding: utf-8 -*-
+
+from datetime import timedelta
 from django import template
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from common.constants.currency import CURRENCY_CODE_MAP
@@ -109,7 +113,26 @@ def course_schedule_start_datetime_as_comma_separated(schedules):
     return ','.join(['"%d/%d/%d"' % (schedule.start_datetime.year, schedule.start_datetime.month, schedule.start_datetime.day) for schedule in schedules])
 
 
+@register.filter
+def course_schedule_end_datetime(schedule):
+    return schedule.start_datetime + timedelta(hours=schedule.course.duration)
+
+
 # COURSE ENROLLMENT ####################################################################################################
+
+@register.simple_tag
+def course_enrollment_people_as_option(schedule):
+    seats_left = schedule.stats_seats_left()
+
+    options = []
+    for i in range(1, settings.ENROLLMENT_PEOPLE_LIMIT + 1):
+        if i > seats_left:
+            break
+
+        options.append(u'<option value="%d">%d คน</option>' % (i, i))
+
+    return ''.join(options)
+
 
 @register.assignment_tag
 def return_matching_enrollment(user, schedule):

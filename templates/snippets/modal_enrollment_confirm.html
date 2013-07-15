@@ -1,0 +1,75 @@
+{% load presentation_tags %}
+<div class="modal hide" id="modal-enrollment-confirm">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Confirm your enrollment</h3>
+    </div>
+    <div class="modal-body">
+        <div class="schedule">
+            <div class="title">{{ course.title }}</div>
+            <div class="datetime"></div>
+        </div>
+        <div class="amount">
+            <span class="people"><select name="people"></select></span>
+            <span class="price">x <em></em> บาท</span>
+            <span class="total">รวม <em></em> บาท</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="style-button button-cancel" data-dismiss="modal">Cancel</button>
+        <button class="style-primary-button button-enrollment-confirm">Confirm & Make payment</button>
+    </div>
+</div>
+<script>
+(function() {
+    var modal = $('#modal-enrollment-confirm');
+    $('a[href="#modal-enrollment-confirm"]').on('click', function() {
+        modal.modal();
+        modal.data('schedule-id', $(this).attr('data-schedule-id'));
+        modal.find('.schedule .datetime').html($(this).attr('data-schedule-text'));
+
+        var seats_left = $(this).attr('data-seats-left');
+        seats_left = parseInt(seats_left, 10);
+
+        var options = '';
+        for(var i=1; i<{{ settings.ENROLLMENT_PEOPLE_LIMIT }}+1; i++) {
+            if(i < seats_left) {
+                options = options + '<option value="' + i + '">' + i + ' คน</option>';
+            }
+        }
+        modal.find('select[name="people"]').html(options);
+        modal.find('.price em').text($(this).attr('data-price').replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        modal.find('.total em').text($(this).attr('data-price').replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        return false;
+    });
+
+    modal.find('select[name="people"]').on('change', function() {
+        var total = parseInt($(this).find('option:selected').val(), 10) * parseInt(modal.find('.price em').text(), 10);
+        modal.find('.total em').text(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    });
+
+    modal.find('.button-enrollment-confirm').on('click', function() {
+        modal.find('.modal-footer button').prop('disabled', false);
+
+        var schedule_id = modal.data('schedule-id');
+        var people = modal.find('select[name="people"] option:selected').val();
+        var jqxhr = $.post('{% url 'enroll_workshop' %}', {schedule_id:schedule_id, people:people}, function(response) {
+            if(response.status == 'success') {
+                window.location = response.data.payment_url;
+            } else {
+                modal.find('.modal-footer button').prop('disabled', false);
+                if(response.message) {
+                    _addModalErrorMessage('modal-enrollment-confirm', 'Enrollment error: ' + response.message);
+                } else {
+                    _addModalErrorMessage('modal-enrollment-confirm', 'Enrollment error: Unknown error');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            modal.find('.modal-footer button').prop('disabled', false);
+            _addModalErrorMessage('modal-enrollment-confirm', 'Enrollment error: ' + errorThrown);
+        });
+    });
+})();
+</script>

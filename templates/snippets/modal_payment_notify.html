@@ -1,0 +1,108 @@
+{% load common_tags %}
+<div class="modal hide" id="modal-payment-notify">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>แจ้งการชำระเงิน</h3>
+    </div>
+    <div class="modal-body">
+        <form method="post" action="" class="style-modal-form">
+            <div class="control-group-inline">
+                <div class="control-group">
+                    <label class="control-label" for="id_modal_notified_bank">ธนาคารที่โอนเข้า</label>
+                    <div class="controls">
+                        <select name="bank" id="id_modal_notified_bank">
+                            {% bank_account_as_option %}
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="id_modal_notified_amount">จำนวนเงิน</label>
+                    <div class="controls">
+                        <input type="text" name="amount" id="id_modal_notified_amount" />
+                        <span class="unit">บาท</span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group-inline">
+                <div class="control-group">
+                    <label class="control-label" for="id_modal_notified_date">วันที่โอน</label>
+                    <div class="controls">
+                        <select name="date" id="id_modal_notified_date">{% date_from_today_as_option %}</select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="id_modal_notified_time_hour">เวลาที่โอน</label>
+                    <div class="controls">
+                        <select name="time_hour" id="id_modal_notified_time_hour">{% time_hour_as_option %}</select>
+                        <span class="separator">:</span>
+                        <select name="time_minute" id="id_modal_notified_time_minute">{% time_minute_as_option %}</select>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="id_modal_notified_remark">หมายเหตุ</label>
+                <div class="controls">
+                    <input type="text" name="remark" id="id_modal_notified_remark"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn button-cancel" data-dismiss="modal">Cancel</button>
+        <button class="btn btn-blue button-confirm-notify">Confirm payment</button>
+    </div>
+</div>
+<script>
+(function() {
+    var modal = $('#modal-payment-notify');
+
+    $('a[href="#modal-payment-notify"]').on('click', function() {
+        modal.modal();
+        modal.data('enrollment-code', $(this).attr('data-enrollment-code'));
+        modal.data('enrollment-amount', $(this).attr('data-amount'));
+
+        $('#id_modal_notified_bank').find('option:first').prop('selected', true);
+        $('#id_modal_notified_amount').val($(this).attr('data-amount'));
+        $('#id_modal_notified_date').find('option:first').prop('selected', true);
+        $('#id_modal_notified_time_hour').find('option[value="' + moment().format('HH') + '"]').prop('selected', true);
+        $('#id_modal_notified_time_minute').find('option[value="' + moment().format('mm') + '"]').prop('selected', true);
+        $('#id_modal_notified_remark').val('');
+
+        return false;
+    });
+
+    modal.find('.button-confirm-notify').on('click', function() {
+        modal.find('.modal-footer button').prop('disabled', false);
+
+        var enrollment_code = modal.data('enrollment-code');
+        var bank = $('#id_modal_notified_bank').find('option:selected').val();
+        var amount = $('#id_modal_notified_amount').val();
+        var date = $('#id_modal_notified_date').find('option:selected').val();
+        var time_hour = $('#id_modal_notified_time_hour').find('option:selected').val();
+        var time_minute = $('#id_modal_notified_time_minute').find('option:selected').val();
+        var remark = $('#id_modal_notified_remark').val();
+
+        var jqxhr = $.post('{% url 'ajax_notify_enrollment_payment' %}', {code:enrollment_code, bank:bank, amount:amount, date:date, time_hour:time_hour, time_minute:time_minute, remark:remark}, function(response) {
+            modal.find('.modal-footer button').prop('disabled', false);
+
+            if(response.status == 'success') {
+                modal.modal('hide');
+                modal.trigger('success', [enrollment_code]);
+                _notify('success', 'Successfully notified', 'We will confirm your enrollment once we have checked the payment');
+
+            } else {
+                if(response.message) {
+                    _addModalErrorMessage('modal-payment-notify', 'Notify error: ' + response.message);
+                } else {
+                    _addModalErrorMessage('modal-payment-notify', 'Notify error: Unknown error');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            modal.find('.modal-footer button').prop('disabled', false);
+            _addModalErrorMessage('modal-payment-notify', 'Notify error: ' + errorThrown);
+        });
+    });
+})();
+</script>

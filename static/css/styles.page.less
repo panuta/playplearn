@@ -116,7 +116,7 @@
         .subtitle {
             color: #6c9fd4;
             font-size: 32px;
-            font-weight: 100;
+            font-weight: 300;
             margin-top: 25px;
             text-align: center;
         }
@@ -232,7 +232,7 @@
             padding: 4px 4px 7px;
 
             a {
-                font-size: 15px;
+                font-size: 14px;
                 font-weight: 300;
                 padding: 8px 40px;
             }
@@ -463,19 +463,7 @@
     .course-schedules {
         background-color: #bfd3e8;
         margin: 40px 0 0;
-        padding-bottom: 35px;
-
-        .head {
-            color: @primaryColor;
-            font-size: 24px;
-            font-weight: 300;
-            margin: 25px 0;
-
-            i {
-                color: @primaryColor;
-                margin-right: 2px;
-            }
-        }
+        padding: 35px 0;
 
         .schedules-calendar {
             background-color: #FFF;
@@ -488,7 +476,7 @@
                 margin-top: 10px;
 
                 i {
-                    background-color: #ffceb5;
+                    background-color: #6392c3;
                     display: inline-block;
                     height: 12px;
                     margin-right: 5px;
@@ -514,11 +502,15 @@
                 }
 
                 &.schedule-date {
-                    background-color: #ffceb5;
 
                     span {
-                        color: #333;
-                        font-weight: bold;
+                        background-color: #6392c3;
+                        border-left: 1px solid #4f79a4;
+                        border-top: 2px solid #4f79a4;
+                        color: #FFF;
+                        font-size: 15px;
+                        height: 36px;
+                        width: 41px;
                     }
                 }
             }
@@ -532,56 +524,38 @@
 
                 li {
                     background-color: #FFF;
-                    box-shadow: 3px 3px 0 #99B9DB;
                     height: 70px;
                     list-style: none;
-                    margin-bottom: 30px;
-
-                    .ticket {
-                        display: inline-block;
-                        height: 70px;
-                        line-height: 70px;
-                        padding-left: 18px;
-
-                        .icon-ticket {
-                            color: #6c9fd4;
-                            font-size: 30px;
-                            vertical-align: -5px;
-                        }
-                    }
+                    margin-bottom: 25px;
 
                     .schedule {
-                        color: #666;
-                        display: inline-block;
+                        border-left: 5px solid #6c9fd4;
+                        color: #555;
+                        float: left;
                         font-size: 15px;
-                        margin-bottom: 2px;
-                        padding-left: 13px;
+                        height: 48px;
+                        margin: 3px;
+                        padding: 11px 0 4px 12px;
                         vertical-align: middle;
-
-                        .weekday {
-                            color: #555;
-                            font-size: 16px;
-                            font-weight: bold;
-                            margin-bottom: 6px;
-                            vertical-align: middle;
-                        }
 
                         i {
                             color: #BBB;
                             font-size: 14px;
-                            margin-right: 3px;
-                        }
-
-                        .datetime {
-                            margin-top: 7px;
-                            vertical-align: middle;
+                            margin-right: 6px;
                         }
 
                         .schedule-date {
-                            margin-right: 15px;
+                            display: block;
+                            margin-bottom: 7px;
+
+                            em {
+                                font-weight: bold;
+                            }
                         }
 
                         .schedule-time {
+                            display: block;
+                            font-weight: bold;
                         }
                     }
 
@@ -612,14 +586,14 @@
 
                         .button {
                             background-color: #FFF;
-                            border-left: 1px solid #BFD3E8;
+                            border-left: 1px dotted #6c9fd4;
                             display: inline-block;
                             height: 54px;
                             padding: 16px 20px 0 20px;
                             vertical-align: middle;
 
                             a {
-                                font-size: 15px;
+                                font-size: 14px;
                                 font-weight: 300;
                                 padding: 9px 35px 7px;
 
@@ -752,6 +726,7 @@
                     a {
                         .content_link;
                         font-size: 17px;
+                        font-weight: bold;
                         line-height: 26px;
                     }
                 }
@@ -866,6 +841,67 @@
                             font-size: 13px;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+.page-my-courses-payments {
+    ul.enrollments {
+        margin: 0;
+
+        li.enrollment {
+            list-style: none;
+            margin-bottom: 35px;
+
+            .cover {
+                float: left;
+            }
+
+            .right {
+                margin-left: 280px;
+            }
+
+            .title {
+                a {
+                    .content_link;
+                    font-size: 17px;
+                    font-weight: bold;
+                    line-height: 26px;
+                }
+            }
+
+            .teacher {
+                color: #888;
+                margin-top: 5px;
+
+                a {
+                    color: #555;
+                }
+            }
+
+            .schedule {
+                color: #555;
+                font-size: 13px;
+                margin-top: 5px;
+            }
+
+            .actions {
+                margin-top: 10px;
+
+                .price {
+                    background-color: #ffe89b;
+                    border: 1px solid #ffd54a;
+                    border-radius: 4px;
+                    display: inline-block;
+                    padding: 3px 10px;
+                    vertical-align: middle;
+                }
+
+                a.btn {
+                    margin-left: 10px;
+                    vertical-align: middle;
                 }
             }
         }
@@ -2280,6 +2316,10 @@
 }
 
 .page-manage-workshop-promote {
+
+}
+
+.page-enrollment-details {
 
 }
 

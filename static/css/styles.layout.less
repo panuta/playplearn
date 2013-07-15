@@ -12,47 +12,106 @@ html, body {
     border-bottom: 1px solid @headerDarkBorder;
     height: 35px;
 
-    .social {
+    ul.buttons {
         border-left: 1px solid @headerDarkBorder;
         border-right: 1px solid @headerLightBorder;
+        height: 35px;
+        margin: 0;
+
+        li.button {
+            display: inline-block;
+            height: 35px;
+            list-style: none;
+            vertical-align: middle;
+
+            .open {
+                a.link {
+                    background-color: @linkColor;
+                    border-left: 1px solid #336396;
+                    color: #FFF;
+                    text-decoration: none;
+                }
+            }
+
+            .dropdown-menu {
+                i {
+                    margin-right: 1px;
+                }
+            }
+        }
+    }
+
+    a.top-button {
+        border-left: 1px solid @headerLightBorder;
+        border-right: 1px solid @headerDarkBorder;
+        color: #FFF;
+        display: block;
+        font-size: 12px;
+        line-height: 35px;
+        padding: 0 14px;
+
+        i {
+            font-size: 15px;
+            margin-right: 2px;
+        }
+
+        &:hover {
+            background-color: @linkColor;
+            border-left: 1px solid #336396;
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        &:active, &:focus {
+            background-color: transparent;
+            border-left: 1px solid @headerLightBorder;
+            color: #FFF;
+            outline: none;
+            text-decoration: none;
+        }
+
+        .num {
+            background-color: @primaryColor;
+            border-radius: 4px;
+            color: #EEE;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: normal;
+            margin-left: 6px;
+            padding: 1px 5px;
+        }
+    }
+
+    .social {
         float: left;
         height: 35px;
 
-        ul {
-            margin: 0;
-
-            li {
-                display: inline-block;
-                height: 35px;
-                list-style: none;
-                vertical-align: middle;
-
-                a {
-                    border-left: 1px solid @headerLightBorder;
-                    border-right: 1px solid @headerDarkBorder;
-                    color: #FFF;
-                    display: block;
-                    font-size: 12px;
-                    line-height: 35px;
+        ul.buttons {
+            li.button {
+                a.top-button {
                     padding: 0 12px;
-
-                    i {
-                        font-size: 15px;
-                        margin-right: 2px;
-                    }
-
-                    &:hover {
-                        background-color: @linkColor;
-                        border-left: 1px solid #336396;
-                        color: #FFF;
-                        text-decoration: none;
-                    }
                 }
 
                 &.home {
-                    a {
-                        font-size: 15px;
+                    a.top-button {
+                        font-size: 17px;
                         padding: 0 20px;
+                    }
+                }
+
+                &.phone {
+                    .phone-number {
+                        border-left: 1px solid @headerLightBorder;
+                        border-right: 1px solid @headerDarkBorder;
+                        color: #FFF;
+                        display: block;
+                        font-size: 14px;
+                        line-height: 35px;
+                        padding: 0 14px;
+
+                        i {
+                            margin-right: 2px;
+                        }
                     }
                 }
             }
@@ -62,115 +121,48 @@ html, body {
     .account {
         float: right;
         height: 35px;
-
-        ul.parent {
-            border-right: 1px solid @headerLightBorder;
-            margin: 0;
-
-            li.parent-item {
-                display: inline-block;
-                height: 35px;
-                list-style: none;
-
-                a.link {
-                    border-left: 1px solid @headerLightBorder;
-                    border-right: 1px solid @headerDarkBorder;
-                    color: #FFF;
-                    display: block;
-                    font-size: 12px;
-                    line-height: 35px;
-                    padding: 0 14px;
-
-                    i {
-                        margin-right: 2px;
-
-                        &.icon-caret-down {
-                            margin-left: 1px;
-                            margin-right: 0px;
-                        }
-                    }
-
-                    &:hover {
-                        background-color: @linkColor;
-                        border-left: 1px solid #336396;
-                        color: #FFF;
-                        text-decoration: none;
-                    }
-
-                    &:active, &:focus {
-                        background-color: transparent;
-                        border-left: 1px solid @headerLightBorder;
-                        color: #FFF;
-                        outline: none;
-                        text-decoration: none;
-                    }
-
-                    .num {
-                        background-color: @primaryColor;
-                        border-radius: 4px;
-                        color: #EEE;
-                        font-size: 11px;
-                        font-weight: bold;
-                        line-height: normal;
-                        margin-left: 6px;
-                        padding: 1px 5px;
-                    }
-                }
-
-                &.messages a i {
-                    font-size: 14px;
-                }
-
-                &.settings a i.icon-gear {
-                    font-size: 14px;
-                    margin: 0 6px 0 0;
-                }
-
-                .dropdown-menu {
-                    i {
-                        margin-right: 1px;
-                    }
-                }
-            }
-        }
     }
 
     .registration {
-        border-left: 1px solid @headerDarkBorder;
-        border-right: 1px solid @headerLightBorder;
     }
 
     .user {
-        ul.parent li.parent-item {
-            &.username {
-                a.link {
-                    border-left: none;
-                    color: #FFF;
-                    font-weight: bold;
-                    padding-right: 15px;
+        ul.buttons {
+            border-left: none;
 
-                    &:hover, &:active, &:focus {
-                        background-color: transparent;
-                        text-decoration: underline;
+            li.button {
+                &.username {
+                    a.top-button {
+                        border-left: none;
+                        font-weight: bold;
+                        padding-right: 15px;
+
+                        &:hover, &:active, &:focus {
+                            background-color: transparent;
+                            text-decoration: underline;
+                        }
                     }
                 }
-            }
 
-            &.messages {
-                a.link {
-                    padding: 0 11px;
+                &.messages {
+                    a.top-button {
+                        padding: 0 11px;
+
+                        i {
+                            font-size: 14px;
+                        }
+                    }
                 }
-            }
 
-            &.settings {
-                a.link {
-                    padding: 0 12px;
-                }
-            }
+                &.settings {
+                    a.top-button {
+                        padding: 0 10px 0 12px;
 
-            &.logout {
-                a.link {
-                    padding: 0 10px;
+                        i.icon-gear {
+                            font-size: 14px;
+                            margin: 0 6px 0 0;
+                        }
+                    }
                 }
             }
         }
@@ -208,7 +200,7 @@ html, body {
 }
 
 #body-footer {
-    background-color: #666;
+    background: @headerBackground;
     position: relative;
     padding-top: @footerTopPadding;
     height: @footerHeight;
@@ -219,7 +211,7 @@ html, body {
 
     .links {
         a {
-            color: #EEE;
+            color: #FFF;
             font-size: 13px;
 
             &:hover {
@@ -234,7 +226,7 @@ html, body {
     }
 
     .copyright {
-        color: #CCC;
+        color: #EEE;
         font-size: 12px;
         margin-top: 5px;
     }
@@ -244,7 +236,7 @@ html, body {
 
         a {
             background-image: url(../images/ui/social-icons.png);
-            border: 2px solid #666;
+            border: 1px solid #6c9fd4;
             border-radius: 32px;
             float: right;
             height: 32px;
@@ -254,7 +246,7 @@ html, body {
 
             &:hover {
                 background-color: #FFF;
-                border: 2px solid #FFF;
+                border: 1px solid #FFF;
             }
         }
 

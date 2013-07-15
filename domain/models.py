@@ -146,6 +146,11 @@ class UserAccount(AbstractBaseUser):
 
     # STATS
 
+    def stats_waiting_for_payment_courses(self):
+        return CourseEnrollment.objects.filter(
+            student=self, status='PENDING', payment_status='WAIT_FOR_PAYMENT'
+        ).count()
+
     def stats_upcoming_courses(self):
         rightnow = now()
         return CourseSchedule.objects \
@@ -522,6 +527,7 @@ class CourseEnrollmentManager(models.Manager):
 class BaseCourseEnrollment(models.Model):
     code = models.CharField(max_length=20, db_index=True, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    people = models.PositiveSmallIntegerField()
     total = models.DecimalField(max_digits=10, decimal_places=2)
     note = models.CharField(max_length=1000, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -555,6 +561,16 @@ class CourseEnrollment(BaseCourseEnrollment):
 class UnauthenticatedCourseEnrollment(BaseCourseEnrollment):
     key = models.CharField(max_length=100, db_index=True, unique=True)
     schedule = models.ForeignKey(CourseSchedule, related_name='unauthenticated_enrollments')
+
+
+class CourseEnrollmentPaymentNotify(models.Model):
+    enrollment = models.ForeignKey(CourseEnrollment)
+    bank = models.CharField(max_length=20)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    transfered_on = models.DateTimeField()
+    notified_on = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=30, default='RECEIVE', choices=COURSE_ENROLLMENT_PAYMENT_NOTIFY_STATUS_CHOICES)
+    remark = models.CharField(max_length=500)
 
 
 # COURSE FEEDBACK ######################################################################################################
