@@ -6,7 +6,10 @@
 {% block scripts %}
 <script>
 (function() {
-
+    var notify_modal = $('#modal-payment-notify');
+    notify_modal.on('success', function(e, enrollment_code) {
+        $('a[href="#modal-payment-notify"]').remove();
+    });
 })();
 </script>
 {% endblock %}
@@ -23,17 +26,38 @@
 {% endblock %}
 
 {% block backend_container %}
-    <div class="course">
-        <div class="cover"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}"><img src="{{ enrollment.schedule.course.small_cover_url }}" /></a></div>
-
-
-        <div class="right">
-            <div class="title"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}">{{ enrollment.schedule.course.title }}</a></div>
-            <div class="teacher">โดย <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}" class="name">{{ enrollment.schedule.course.teacher.name }}</a></div>
-            <div class="schedule">{{ enrollment.schedule|schedule_datetime }}</div>
+<div class="container">
+    <div class="enrollment-actions">
+        {% if enrollment.payment_status == 'WAIT_FOR_PAYMENT' and not enrollment.is_payment_notified %}<a href="#modal-payment-notify" class="btn btn-orange" data-enrollment-code="{{ enrollment.code }}" data-amount="{{ enrollment.total|floatformat:-2 }}">แจ้งชำระเงิน</a>{% endif %}
+        <a href="#" class="btn"><i class="icon-print"></i> พิมพ์ใบจอง</a>
+    </div>
+    <div class="enrollment-course">
+        <div class="course clearfix">
+            <div class="cover"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}"><img src="{{ enrollment.schedule.course.small_cover_url }}" /></a></div>
+            <div class="right">
+                <div class="title"><a href="{% url 'view_course_outline' enrollment.schedule.course.uid %}">{{ enrollment.schedule.course.title }}</a></div>
+                <div class="teacher">โดย <a href="{% url 'view_user_profile' enrollment.schedule.course.teacher.uid %}" class="name">{{ enrollment.schedule.course.teacher.name }}</a></div>
+                <div class="schedule">{{ enrollment.schedule|schedule_datetime }}</div>
+            </div>
+        </div>
+        <div class="enrollment">
+            <ul>
+                <li class="status">
+                    <div class="caption">สถานะ</div>
+                    <div class="value">{{ enrollment|enrollment_status_for_student }}</div>
+                </li>
+                <li class="total">
+                    <div class="caption">ราคารวม</div>
+                    <div class="value">{{ enrollment.total|floatformat:-2 }} บาท</div>
+                </li>
+                <li class="people">
+                    <div class="caption">จำนวนคน</div>
+                    <div class="value">{{ enrollment.people }} คน</div>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="payment"></div>
+</div>
 {% endblock %}
 
 {% block modals %}

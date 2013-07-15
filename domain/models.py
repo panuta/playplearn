@@ -557,6 +557,9 @@ class CourseEnrollment(BaseCourseEnrollment):
     def has_feedback(self):
         return CourseFeedback.objects.filter(enrollment=self).exists()
 
+    def is_payment_notified(self):
+        return CourseEnrollmentPaymentNotify.objects.filter(enrollment=self, status='RECEIVE').exists()
+
 
 class UnauthenticatedCourseEnrollment(BaseCourseEnrollment):
     key = models.CharField(max_length=100, db_index=True, unique=True)

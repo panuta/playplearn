@@ -172,6 +172,14 @@ def bank_account_as_option():
 # COURSE STATUS ########################################################################################################
 
 @register.filter
+def enrollment_status_for_student(enrollment):
+    if enrollment.payment_status == 'WAIT_FOR_PAYMENT':
+        return COURSE_ENROLLMENT_PAYMENT_STATUS_MAP['WAIT_FOR_PAYMENT']['name']
+
+    return COURSE_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
+
+
+@register.filter
 def enrollment_status(enrollment):
     return COURSE_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
 
