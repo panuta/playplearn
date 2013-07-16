@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load common_tags presentation_tags %}
+{% load i18n common_tags presentation_tags %}
 
-{% block head_title %}Browse workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block head_title %}ค้นหากิจกรรม - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}page-course-browse{% endblock %}
 
 {% block body %}
 <div class="browse-header">
     <div class="container">
-        <h1><i class="icon-search"></i> Browse workshops</h1>
+        <h1><i class="icon-search"></i> ค้นหากิจกรรม</h1>
     </div>
 </div>
 <div class="container">
@@ -16,12 +16,12 @@
             <div class="browse-nav">
                 <div class="browse-nav-main">
                     <ul>
-                        <li><a href="{% url 'view_courses_browse_by_category' 'popular' %}">Popular workshops</a></li>
-                        <li><a href="{% url 'view_courses_browse_by_category' 'upcoming' %}">Upcoming workshops</a></li>
+                        <li><a href="{% url 'view_courses_browse_by_category' 'popular' %}">{% trans 'Popular activities' %}</a></li>
+                        <li><a href="{% url 'view_courses_browse_by_category' 'upcoming' %}">{% trans 'Upcoming activities' %}</a></li>
                     </ul>
                 </div>
                 <div class="browse-nav-topics">
-                    <div class="head">Workshop topics</div>
+                    <div class="head">แยกตามหัวข้อ</div>
                     <ul>
                         {% course_topics_as_li topic_slug %}
                     </ul>

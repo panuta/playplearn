@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.timezone import now
+from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from accounts.forms import EmailAuthenticationForm
@@ -51,10 +52,10 @@ def view_courses_browse(request, browse_by):
 
     if browse_by == 'upcoming':
         courses = domain_functions.get_upcoming_courses()
-        browse_title = 'Upcoming workshops'
+        browse_title = _('Upcoming activities')
     elif browse_by == 'popular':
         courses = []
-        browse_title = 'Popular workshops'
+        browse_title = _('Popular activities')
     else:
         raise Http404
 

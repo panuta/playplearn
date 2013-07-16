@@ -30,8 +30,16 @@ WEBSITE_DOMAIN = '127.0.0.1:8000'
 ALLOWED_HOSTS = []
 
 TIME_ZONE = 'Asia/Bangkok'
-#LANGUAGE_CODE = 'en_US'
 LANGUAGE_CODE = 'th'
+
+LANGUAGES = (
+    ('th', 'Thai'),
+    ('en', 'English'),
+)
+
+LOCALE_PATHS = (
+    os.path.join(base_path, 'locale'),
+)
 
 SITE_ID = 1
 USE_I18N = True

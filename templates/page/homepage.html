@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load common_tags %}
+{% load i18n common_tags %}
 
 {% block head_title %}{{ settings.WEBSITE_NAME }} - เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่ได้สนุกเพลิดเพลิน{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
@@ -21,7 +21,7 @@
 <div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>กิจกรรมที่กำลังจะมีขึ้น<i class="icon-double-angle-down"></i></h2>
+            <h2>{% trans 'Upcoming activities' %}<i class="icon-double-angle-down"></i></h2>
         </div>
         <ul class="courses">
             {% for course in upcoming_courses %}
