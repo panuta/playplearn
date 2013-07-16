@@ -16,6 +16,7 @@
 
 {% block messages_content %}
 <h2>Inbox {% if postman_unread_count %}<span>{{ postman_unread_count }} Unread</span>{% endif %}</h2>
+{% if pm_messages %}
 <table class="messages">
     <tbody>
         {% for message in pm_messages %}
@@ -37,4 +38,7 @@
         {% endfor %}
     </tbody>
 </table>
+{% else %}
+    <div class="style-no-information">No messages</div>
+{% endif %}
 {% endblock %}

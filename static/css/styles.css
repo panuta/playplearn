@@ -534,6 +534,43 @@ form .avatar-control .errorlist {
   box-shadow: 0px 3px 0px #CCC;
   color: #444;
 }
+.style-white-button {
+  border: none;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13.5px;
+  padding: 7px 30px;
+  background-color: #F7F7F7;
+  box-shadow: 0px 3px 0px #DDD;
+  color: #444;
+}
+.style-white-button:hover,
+.style-white-button:focus {
+  color: #FFF;
+  text-decoration: none;
+}
+.style-white-button i {
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.style-white-button[disabled] {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
+  cursor: default;
+}
+.style-white-button[disabled]:hover,
+.style-white-button[disabled]:focus {
+  background-color: #D9D9D9;
+  box-shadow: 0px 3px 0px #CCC;
+  color: #AAA;
+}
+.style-white-button:hover,
+.style-white-button:focus {
+  background-color: #FFF;
+  box-shadow: 0px 3px 0px #DDD;
+  color: #444;
+}
 .style-orange-button {
   border: none;
   border-radius: 4px;
@@ -1394,7 +1431,6 @@ body {
   padding: 0 12px;
 }
 #body-top .social ul.buttons li.button.home a.top-button {
-  font-size: 17px;
   padding: 0 20px;
 }
 #body-top .social ul.buttons li.button.phone .phone-number {
@@ -2305,83 +2341,50 @@ body {
   background-color: #FFF;
   margin: 30px auto 0;
 }
-.page-homepage .homepage-header .logo {
-  margin-top: 70px;
+.page-homepage .homepage-header {
   text-align: center;
+}
+.page-homepage .homepage-header .logo {
+  margin-top: 50px;
 }
 .page-homepage .homepage-header .subtitle {
-  color: #6c9fd4;
-  font-size: 32px;
-  font-weight: 300;
-  margin-top: 25px;
-  text-align: center;
-}
-.page-homepage .homepage-header .call_to_action {
-  background: url(../images/page/homepage/headline1.png) top center repeat-x;
-  padding-top: 109px;
-  margin: 60px 0 20px;
-  height: 161px;
-  text-align: center;
-}
-.page-homepage .homepage-header .call_to_action a {
-  font-size: 16px;
+  color: #444;
+  font-family: 'KunlasatriBold', sans-serif;
+  font-size: 50px;
   font-weight: normal;
-  padding: 14px 40px;
+  margin-top: 45px;
 }
-.page-homepage .homepage-header .call_to_action a i {
-  font-size: 12px;
+.page-homepage .homepage-header .description {
+  color: #777;
+  font-family: 'KunlasatriLight', sans-serif;
+  font-size: 42px;
+  font-weight: normal;
+  margin-top: 40px;
+}
+.page-homepage .homepage-header .browse {
+  margin-top: 35px;
+}
+.page-homepage .homepage-header .browse a {
+  font-size: 15px;
+  padding: 12px 55px;
+}
+.page-homepage .homepage-header .browse a i {
+  font-size: 11px;
   margin-right: 4px;
-  vertical-align: 3px;
-}
-.page-homepage .become-teacher {
-  background-color: #3a71a9;
-  padding: 35px 0 40px;
-  text-align: center;
-}
-.page-homepage .become-teacher .head {
-  color: #FFF;
-  font-size: 24px;
-  font-weight: bold;
-}
-.page-homepage .become-teacher .subhead {
-  color: #F7F7F7;
-  font-size: 18px;
-  margin-top: 15px;
-}
-.page-homepage .become-teacher .signup {
-  background-color: #EEE;
-  border-radius: 4px;
-  margin: 25px auto 0;
-  padding: 15px 0;
-  width: 520px;
-}
-.page-homepage .become-teacher .signup .facebook {
-  background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
-  display: inline-block;
-  height: 40px;
-  text-indent: -9999px;
-  width: 230px;
-  margin-right: 10px;
-}
-.page-homepage .become-teacher .signup .twitter {
-  background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
-  display: inline-block;
-  height: 40px;
-  text-indent: -9999px;
-  width: 230px;
-  margin-left: 10px;
+  vertical-align: 2px;
 }
 .page-homepage .latest-courses {
-  padding: 30px 0px;
+  margin-top: 60px;
 }
 .page-homepage .latest-courses .head {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   text-align: center;
 }
 .page-homepage .latest-courses .head h2 {
   color: #666;
-  font-size: 28px;
-  font-weight: 100;
+  font-family: 'KunlasatriLight', sans-serif;
+  font-size: 34px;
+  font-weight: normal;
   line-height: normal;
   margin: 0;
   padding: 5px 20px;
@@ -2390,7 +2393,7 @@ body {
   color: #AAA;
   display: block;
   font-size: 14px;
-  margin-top: 3px;
+  margin-top: 1px;
 }
 .page-homepage .latest-courses ul.courses {
   margin: 0;
@@ -2402,6 +2405,28 @@ body {
 }
 .page-homepage .latest-courses ul.courses li.left-box {
   margin-right: 46px;
+}
+.page-homepage .homepage-teach {
+  background-color: #bbd3eb;
+  margin: 20px auto 50px;
+  padding: 40px 0;
+  text-align: center;
+}
+.page-homepage .homepage-teach .head1 {
+  color: #3a71a9;
+  font-family: 'KunlasatriLight', sans-serif;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+.page-homepage .homepage-teach .head2 {
+  color: #444;
+  font-family: 'KunlasatriBold', sans-serif;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+.page-homepage .homepage-teach .style-white-button {
+  font-size: 14px;
+  padding: 12px 40px;
 }
 .page-course-outline .course-header {
   background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
@@ -4652,4 +4677,7 @@ body {
 }
 .page-messages .reply button {
   padding: 6px 45px;
+}
+.page-messages .style-no-information {
+  margin-top: 30px;
 }

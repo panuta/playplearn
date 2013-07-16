@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load common_tags %}
 
-{% block head_title %}{{ settings.WEBSITE_NAME }} - Learning something new should be fun for everyone{% endblock %}
+{% block head_title %}{{ settings.WEBSITE_NAME }} - เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่ได้สนุกเพลิดเพลิน{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
 
 {% block body_header %}
@@ -9,47 +9,19 @@
 {% endblock %}
 
 {% block body %}
-<div class="homepage-header">
-    <div class="container">
-        <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.big.png" /></div>
-        <div class="subtitle">Learning something new is fun, everyone included</div>
-    </div>
-    <div class="call_to_action">
-        <a href="{% url 'view_courses_browse' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse workshops</a>
-    </div>
-</div>
-
-{% comment %}
-<div class="headline">
-    <div class="container clearfix">
-        <div class="image"><img src="{{ STATIC_URL }}images/page/homepage/headline.png" /></div>
-        <div class="right">
-            <div class="head1">Upgrade yourself!</div>
-            <div class="head2">Learn something new from people who is passionate about it</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla lectus eget tortor placerat ut egestas leo tempus.</p>
-            <div class="action">
-                <a href="{% url 'view_courses_explore' %}" class="style-orange-button"><i class="icon-search icon-large"></i> Browse courses</a>
-            </div>
-        </div>
+<div class="container">
+    <div class="homepage-header">
+        <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.homepage.png" /></div>
+        <div class="subtitle">เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่ได้สนุกเพลิดเพลิน</div>
+        <div class="description">เรียนรู้สิ่งใหม่โดยตรงจากคนที่หลงไหลในสิ่งเหล่านั้น</div>
+        <div class="browse"><a href="{% url 'view_courses_browse' %}" class="style-orange-button"><i class="icon-search icon-large"></i> ค้นหากิจกรรม</a></div>
     </div>
 </div>
-
-{% if not user.is_authenticated %}
-<div class="become-teacher">
-    <div class="head">Anyone can teach</div>
-    <div class="subhead">Find what you are passionate about, professional or casual.</div>
-    <div class="signup">
-        <a href="#" class="facebook">Sign-in with Facebook</a>
-        <a href="#" class="twitter">Sign-in with Twitter</a>
-    </div>
-</div>
-{% endif %}
-{% endcomment %}
 
 <div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>Upcoming workshops<i class="icon-double-angle-down"></i></h2>
+            <h2>กิจกรรมที่กำลังจะมีขึ้น<i class="icon-double-angle-down"></i></h2>
         </div>
         <ul class="courses">
             {% for course in upcoming_courses %}
@@ -60,4 +32,13 @@
         </ul>
     </div>
 </div>
+
+<div class="container">
+    <div class="homepage-teach">
+        <div class="head1">หากคุณมีความรู้และความหลงไหลในบางสิ่ง อยากถ่ายทอดให้คนอื่นได้รับ</div>
+        <div class="head2">เราเปิดพื้นที่นี้ให้คุณโดยเฉพาะ</div>
+        <div><a href="#" class="style-white-button">อะไรคือความหลงไหลของคุณ?</a></div>
+    </div>
+</div>
+
 {% endblock %}

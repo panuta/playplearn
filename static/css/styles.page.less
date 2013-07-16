@@ -108,87 +108,56 @@
 
 .page-homepage {
     .homepage-header {
+        text-align: center;
+
         .logo {
-            margin-top: 70px;
-            text-align: center;
+            margin-top: 50px;
         }
 
         .subtitle {
-            color: #6c9fd4;
-            font-size: 32px;
-            font-weight: 300;
-            margin-top: 25px;
-            text-align: center;
+            color: #444;
+            font-family: 'KunlasatriBold', sans-serif;
+            font-size: 50px;
+            font-weight: normal;
+            margin-top: 45px;
         }
 
-        .call_to_action {
-            background: url(../images/page/homepage/headline1.png) top center repeat-x;
-            padding-top: 109px;
-            margin: 60px 0 20px;
-            height: 161px;
-            text-align: center;
+        .description {
+            color: #777;
+            font-family: 'KunlasatriLight', sans-serif;
+            font-size: 42px;
+            font-weight: normal;
+            margin-top: 40px;
+        }
+
+        .browse {
+            margin-top: 35px;
 
             a {
-                font-size: 16px;
-                font-weight: normal;
-                padding: 14px 40px;
+                font-size: 15px;
+                padding: 12px 55px;
 
                 i {
-                    font-size: 12px;
+                    font-size: 11px;
                     margin-right: 4px;
-                    vertical-align: 3px;
+                    vertical-align: 2px;
                 }
             }
         }
     }
 
-    .become-teacher {
-        background-color: @primaryColor;
-        padding: 35px 0 40px;
-        text-align: center;
-
-        .head {
-            color: #FFF;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .subhead {
-            color: #F7F7F7;
-            font-size: 18px;
-            margin-top: 15px;
-        }
-
-        .signup {
-            background-color: #EEE;
-            border-radius: 4px;
-            margin: 25px auto 0;
-            padding: 15px 0;
-            width: 520px;
-
-            .facebook {
-                .login_facebook_button;
-                margin-right: 10px;
-            }
-
-            .twitter {
-                .login_twitter_button;
-                margin-left: 10px;
-            }
-        }
-    }
-
     .latest-courses {
-        padding: 30px 0px;
+        margin-top: 60px;
 
         .head {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
 
             h2 {
                 color: #666;
-                font-size: 28px;
-                font-weight: 100;
+                font-family: 'KunlasatriLight', sans-serif;
+                font-size: 34px;
+                font-weight: normal;
                 line-height: normal;
                 margin: 0;
                 padding: 5px 20px;
@@ -197,7 +166,7 @@
                     color: #AAA;
                     display: block;
                     font-size: 14px;
-                    margin-top: 3px;
+                    margin-top: 1px;
                 }
             }
         }
@@ -214,6 +183,32 @@
             li.left-box {
                 margin-right: 46px;
             }
+        }
+    }
+
+    .homepage-teach {
+        background-color: #bbd3eb;
+        margin: 20px auto 50px;
+        padding: 40px 0;
+        text-align: center;
+
+        .head1 {
+            color: @primaryColor;
+            font-family: 'KunlasatriLight', sans-serif;
+            font-size: 34px;
+            margin-bottom: 20px;
+        }
+
+        .head2 {
+            color: #444;
+            font-family: 'KunlasatriBold', sans-serif;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .style-white-button {
+            font-size: 14px;
+            padding: 12px 40px;
         }
     }
 }
@@ -2854,5 +2849,9 @@
         button {
             padding: 6px 45px;
         }
+    }
+
+    .style-no-information {
+        margin-top: 30px;
     }
 }
