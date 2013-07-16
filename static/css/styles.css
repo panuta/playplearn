@@ -1340,7 +1340,7 @@ body {
   list-style: none;
   vertical-align: middle;
 }
-#body-top ul.buttons li.button .open a.link {
+#body-top ul.buttons li.button .open a.top-button {
   background-color: #3a71a9;
   border-left: 1px solid #336396;
   color: #FFF;
@@ -1439,6 +1439,19 @@ body {
 #body-top .user ul.buttons li.button.settings a.top-button i.icon-gear {
   font-size: 14px;
   margin: 0 6px 0 0;
+}
+#body-top .messages .message {
+  height: 30px;
+  overflow: hidden;
+}
+#body-top .messages .message em {
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+}
+#body-top .messages .message b {
+  color: #555;
+  font-size: 12px;
 }
 #body-header {
   background-color: #FFF;

@@ -15,9 +15,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'learningwolf',
-        'USER': 'learningwolf',
-        'PASSWORD': 'learningwolf',
+        'NAME': 'playplearn',
+        'USER': 'playplearn',
+        'PASSWORD': 'playplearn',
         'HOST': '',
         'PORT': '',
     }
@@ -60,7 +60,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
-    'learningwolf.backends.EmailAuthenticationBackend',
+    'playplearn.backends.EmailAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -81,7 +81,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     'postman.context_processors.inbox',
 
-    'learningwolf.context_processors.site_settings',
+    'playplearn.context_processors.site_settings',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,9 +93,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'learningwolf.urls'
+ROOT_URLCONF = 'playplearn.urls'
 
-WSGI_APPLICATION = 'learningwolf.wsgi.application'
+WSGI_APPLICATION = 'playplearn.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(base_path, 'templates'),
@@ -158,15 +158,15 @@ LOGGING = {
 # EMAIL ################################################################################################################
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_DOMAIN = 'learningwolf.com'
+EMAIL_DOMAIN = 'playplearn.com'
 
 EMAIL_MAILBOXES = {
     'registration': {
-        'title': 'Learning Wolf',
+        'title': 'PlayPlearn',
         'address': 'registration@%s' % EMAIL_DOMAIN,
     },
     'message': {
-        'title': 'Message from a Wolf',
+        'title': 'Message from PlayPlearn',
         'address': 'reply@%s' % EMAIL_DOMAIN,
     },
 }
