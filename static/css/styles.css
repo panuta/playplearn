@@ -1398,6 +1398,7 @@ body {
 #body-top a.top-button i {
   font-size: 15px;
   margin-right: 2px;
+  vertical-align: -1px;
 }
 #body-top a.top-button:hover {
   background-color: #3a71a9;
@@ -1623,10 +1624,10 @@ body {
 .page-backend #backend-header h1 {
   color: #FFF;
   font-size: 32px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: normal;
   margin: 0;
-  text-shadow: 2px 2px #3a71a9;
+  text-shadow: 1px 1px #3a71a9;
 }
 .page-backend #backend-header h1 span {
   color: #FFF;
@@ -2779,7 +2780,7 @@ body {
   font-weight: normal;
   line-height: normal;
   margin: 0;
-  text-shadow: 2px 2px #3A71A9;
+  text-shadow: 1px 1px #3a71a9;
 }
 .page-course-browse .browse-header h1 i {
   font-size: 26px;
@@ -3007,8 +3008,8 @@ body {
   margin-bottom: 30px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-countdown {
-  background-color: #ff874a;
-  color: #FFF;
+  background-color: #cfdff1;
+  color: #444;
   display: block;
   float: left;
   font-size: 13px;
@@ -3021,17 +3022,17 @@ body {
 .page-my-courses-upcoming ul.courses li.course .course-countdown em {
   display: block;
   font-size: 15px;
-  margin-top: 2px;
+  font-weight: bold;
+  margin-bottom: 2px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-countdown em i {
-  font-size: 26px;
+  font-size: 18px;
   font-style: normal;
-  font-weight: 100;
 }
 .page-my-courses-upcoming ul.courses li.course .course-countdown:after {
   border: solid transparent;
-  border-color: rgba(230, 126, 34, 0);
-  border-left-color: #ff874a;
+  border-color: rgba(207, 223, 241, 0);
+  border-left-color: #cfdff1;
   border-width: 10px;
   content: " ";
   height: 0;
@@ -3052,8 +3053,9 @@ body {
   margin-left: 275px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .title a {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 25px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:link,
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:active,
@@ -3067,26 +3069,31 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .teacher {
+.page-my-courses-upcoming ul.courses li.course .course-content .organizer {
+  color: #999;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.page-my-courses-upcoming ul.courses li.course .course-content .organizer a {
   color: #555;
   font-size: 15px;
-  margin-top: 5px;
+  text-decoration: none;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location {
-  color: #777;
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 7px;
+  color: #999;
+  font-size: 13px;
+  margin-top: 8px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .schedule {
   color: #555;
+  font-size: 15px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .at {
-  font-weight: normal;
-  margin: 0 5px;
+  margin: 0 3px 0 15px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .location a {
   color: #555;
+  font-size: 15px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .students {
   color: #777;
@@ -3097,7 +3104,7 @@ body {
   color: #555;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .actions {
-  margin-top: 9px;
+  margin-top: 14px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .actions a {
   margin-right: 10px;

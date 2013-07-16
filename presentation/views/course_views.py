@@ -48,14 +48,11 @@ def view_course_outline(request, course_uid, page_action, enrollment_code):
 
 def view_courses_browse(request, browse_by):
     if not browse_by:
-        browse_by = 'popular'
+        browse_by = 'upcoming'
 
     if browse_by == 'upcoming':
         courses = domain_functions.get_upcoming_courses()
-        browse_title = _('Upcoming activities')
-    elif browse_by == 'popular':
-        courses = []
-        browse_title = _('Popular activities')
+        browse_title = _('Upcoming')
     else:
         raise Http404
 

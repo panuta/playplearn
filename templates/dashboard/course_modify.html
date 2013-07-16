@@ -1,5 +1,5 @@
 {% extends 'base_backend.html' %}
-{% load common_tags presentation_tags thumbnail %}
+{% load i18n common_tags presentation_tags thumbnail %}
 
 {% block body_class %}{{ block.super }} page-course-modify{% endblock %}
 
@@ -39,7 +39,7 @@ var _course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}
 
 {% block backend_header %}
     <div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← Teaching workshops</a></div>
-    <h1>{% if not course %}Create new workshop{% else %}Edit workshop - <span class="title">{{ course.title|default:'(No title)' }}</span>{% endif %}</h1>
+    <h1>{% if not course %}{% trans 'Organize new activity' %}{% else %}Edit workshop - <span class="title">{{ course.title|default:'(No title)' }}</span>{% endif %}</h1>
 {% endblock %}
 
 {% block backend_container %}

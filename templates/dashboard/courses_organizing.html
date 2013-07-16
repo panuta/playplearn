@@ -1,8 +1,8 @@
 {% extends 'dashboard/courses_base.html' %}
-{% load humanize common_tags %}
+{% load i18n humanize common_tags %}
 
-{% block head_title %}Teaching - Workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
-{% block workshops_title %}Teaching{% endblock %}
+{% block head_title %}{% trans 'Organizing activities' %} - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block workshops_title %}{% trans 'Organizing activities' %}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='teaching' %}{% endblock %}
 
 {% block scripts %}

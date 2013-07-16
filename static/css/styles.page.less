@@ -649,7 +649,7 @@
             font-weight: normal;
             line-height: normal;
             margin: 0;
-            text-shadow: 2px 2px #3A71A9;
+            text-shadow: 1px 1px @primaryColor;
 
             i {
                 font-size: 26px;
@@ -906,8 +906,8 @@
         margin-bottom: 30px;
 
         .course-countdown {
-            background-color: @orangeColor;
-            color: #FFF;
+            background-color: #cfdff1;
+            color: #444;
             display: block;
             float: left;
             font-size: 13px;
@@ -920,19 +920,19 @@
             em {
                 display: block;
                 font-size: 15px;
-                margin-top: 2px;
+                font-weight: bold;
+                margin-bottom: 2px;
 
                 i {
-                    font-size: 26px;
+                    font-size: 18px;
                     font-style: normal;
-                    font-weight: 100;
                 }
             }
 
             &:after {
                 border: solid transparent;
-                border-color: rgba(230, 126, 34, 0);
-                border-left-color: @orangeColor;
+                border-color: rgba(207, 223, 241, 0);
+                border-left-color: #cfdff1;
                 border-width: 10px;
                 content: " ";
                 height: 0;
@@ -956,35 +956,32 @@
                 margin-left: 275px;
             }
 
-            .title a {
-                .content_link;
-                font-size: 16px;
-                line-height: 24px;
+            .title {
+                .activity_title_in_list;
             }
 
-            .teacher {
-                color: #555;
-                font-size: 15px;
-                margin-top: 5px;
+            .organizer {
+                .activity_organizer_in_list;
+                margin-top: 8px;
             }
 
             .schedule-location {
-                color: #777;
-                font-size: 14px;
-                font-weight: bold;
-                margin-top: 7px;
+                color: #999;
+                font-size: 13px;
+                margin-top: 8px;
 
                 .schedule {
                     color: #555;
+                    font-size: 15px;
                 }
 
                 .at {
-                    font-weight: normal;
-                    margin: 0 5px;
+                    margin: 0 3px 0 15px;
                 }
 
                 .location a {
                     color: #555;
+                    font-size: 15px;
                 }
             }
 
@@ -999,7 +996,7 @@
             }
 
             .actions {
-                margin-top: 9px;
+                margin-top: 14px;
 
                 a {
                     margin-right: 10px;

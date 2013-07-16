@@ -13,7 +13,7 @@
     <div class="homepage-header">
         <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.homepage.png" /></div>
         <div class="subtitle">เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่ได้สนุกเพลิดเพลิน</div>
-        <div class="description">เรียนรู้สิ่งใหม่โดยตรงจากคนที่หลงไหลในสิ่งเหล่านั้น</div>
+        <div class="description">เรียนรู้สิ่งใหม่ๆ จากคนที่หลงไหลในสิ่งเหล่านั้น</div>
         <div class="browse"><a href="{% url 'view_courses_browse' %}" class="style-orange-button"><i class="icon-search icon-large"></i> ค้นหากิจกรรม</a></div>
     </div>
 </div>
@@ -21,7 +21,7 @@
 <div class="latest-courses">
     <div class="container clearfix">
         <div class="head">
-            <h2>{% trans 'Upcoming activities' %}<i class="icon-double-angle-down"></i></h2>
+            <h2>{% trans 'Upcoming' %}<i class="icon-double-angle-down"></i></h2>
         </div>
         <ul class="courses">
             {% for course in upcoming_courses %}
@@ -35,9 +35,9 @@
 
 <div class="container">
     <div class="homepage-teach">
-        <div class="head1">หากคุณมีความรู้และความหลงไหลในบางสิ่ง อยากถ่ายทอดให้คนอื่นได้รับ</div>
+        <div class="head1">หากคุณมีความรู้และความหลงไหลในบางสิ่ง อยากถ่ายทอดให้คนอื่นได้สัมผัสกับสิ่งนั้น</div>
         <div class="head2">เราเปิดพื้นที่นี้ให้คุณโดยเฉพาะ</div>
-        <div><a href="#" class="style-white-button">อะไรคือความหลงไหลของคุณ?</a></div>
+        <div><a href="#" class="style-white-button">บอกความหลงไหลของคุณ</a></div>
     </div>
 </div>
 

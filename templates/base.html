@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load i18n %}<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -60,16 +60,16 @@
                         <li class="button username"><a href="{% url 'view_my_profile' %}" class="top-button" title="ไปหน้าข้อมูลผู้ใช้">{{ user.name }}</a></li>
                         {% comment %}<li class="button alerts"><a href="#" class="top-button"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>{% endcomment %}
                         <li class="button messages"><a href="{% url 'postman_inbox' %}" class="top-button dropdown-toggle"><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a></li>
-                        <li class="button my_workshops">
+                        <li class="button activities">
                             <div class="dropdown">
-                                <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-list"></i> เวิร์กช็อป <i class="icon-caret-down"></i></a>
+                                <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-list"></i> {% trans 'Activities' %} <i class="icon-caret-down"></i></a>
                                 <ul class="dropdown-menu pull-right">
-                                    {% if user.stats_waiting_for_payment_courses %}<li><a href="{% url 'view_my_courses_payment' %}">รอแจ้งการชำระเงิน <span class="number">{{ user.stats_waiting_for_payment_courses }}</span></a></li>{% endif %}
-                                    {% if user.stats_upcoming_courses %}<li><a href="{% url 'view_my_courses_upcoming' %}">Upcoming <span class="number">{{ user.stats_upcoming_courses }}</span></a></li>{% endif %}
-                                    <li><a href="{% url 'view_my_courses_attended' %}">Attended workshops</a></li>
-                                    <li><a href="{% url 'view_all_my_courses_teaching' %}">Teaching</a></li>
+                                    {% if user.stats_waiting_for_payment_courses %}<li><a href="{% url 'view_my_courses_payment' %}">{% trans 'Waiting for payment' %} <span class="number">{{ user.stats_waiting_for_payment_courses }}</span></a></li>{% endif %}
+                                    {% if user.stats_upcoming_courses %}<li><a href="{% url 'view_my_courses_upcoming' %}">{% trans 'Upcoming activities' %} <span class="number">{{ user.stats_upcoming_courses }}</span></a></li>{% endif %}
+                                    <li><a href="{% url 'view_my_courses_attended' %}">{% trans 'Attended activities' %}</a></li>
+                                    {% if user.stats_total_activities_organizing %}<li><a href="{% url 'view_all_my_courses_teaching' %}">{% trans 'Organizing activities' %}</a></li>{% endif %}
                                     <li class="divider"></li>
-                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus"></i> Create new workshop</a></li>
+                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus"></i> {% trans 'Organize new activity' %}</a></li>
                                 </ul>
                             </div>
                         </li>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-16 17:06+0700\n"
+"POT-Creation-Date: 2013-07-16 20:19+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Users must have a name"
 msgstr ""
 
-#: domain/models.py:225
+#: domain/models.py:230
 msgid "LearningWolf Registration Confirmation"
 msgstr ""
 
@@ -667,12 +667,37 @@ msgstr ""
 msgid "This email has already been registered."
 msgstr ""
 
-#: presentation/views/course_views.py:55
-#: templates/course/course_browse.html:20 templates/page/homepage.html:24
+#: presentation/views/course_views.py:55 templates/base.html:70
+#: templates/dashboard/courses_base_nav.html:4
+#: templates/dashboard/courses_upcoming.html:4
+#: templates/dashboard/courses_upcoming.html:5
 msgid "Upcoming activities"
-msgstr "กิจกรรมล่าสุด"
+msgstr "กิจกรรมที่กำลังจะถึง"
 
-#: presentation/views/course_views.py:58
-#: templates/course/course_browse.html:19
-msgid "Popular activities"
-msgstr "กิจกรรมยอดนิยม"
+#: templates/base.html:67 templates/dashboard/courses_base.html:7
+msgid "Activities"
+msgstr "กิจกรรม"
+
+#: templates/base.html:69 templates/dashboard/courses_base_nav.html:3
+msgid "Waiting for payment"
+msgstr "รอแจ้งการชำระเงิน"
+
+#: templates/base.html:71 templates/dashboard/courses_attended.html:4
+#: templates/dashboard/courses_attended.html:5
+#: templates/dashboard/courses_base_nav.html:5
+msgid "Attended activities"
+msgstr "กิจกรรมที่ผ่านมา"
+
+#: templates/base.html:72 templates/dashboard/courses_base_nav.html:6
+#: templates/dashboard/courses_organizing.html:4
+#: templates/dashboard/courses_organizing.html:5
+msgid "Organizing activities"
+msgstr "กิจกรรมที่จัด"
+
+#: templates/base.html:74 templates/dashboard/course_modify.html:42
+msgid "Organize new activity"
+msgstr "กิจกรรมใหม่"
+
+#: templates/course/course_browse.html:19 templates/page/homepage.html:24
+msgid "Upcoming"
+msgstr "กิจกรรมล่าสุด"

@@ -108,7 +108,7 @@ def view_my_courses_teaching(request, category):
         'published': Course.objects.filter(teacher=request.user, status='PUBLISHED').count(),
     }
 
-    return render(request, 'dashboard/courses_teaching.html', {
+    return render(request, 'dashboard/courses_organizing.html', {
         'teaching_courses': teaching_courses,
         'num_of_courses': num_of_courses,
         'active_category': category,

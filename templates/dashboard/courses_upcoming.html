@@ -1,8 +1,8 @@
 {% extends 'dashboard/courses_base.html' %}
-{% load common_tags presentation_tags %}
+{% load i18n common_tags presentation_tags %}
 
-{% block head_title %}Upcoming - Workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
-{% block workshops_title %}Upcoming{% endblock %}
+{% block head_title %}{% trans 'Upcoming activities' %} - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block workshops_title %}{% trans 'Upcoming activities' %}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='upcoming' %}{% endblock %}
 
 {% block courses_content %}
@@ -17,8 +17,9 @@
                 <div class="course-cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" /></a></div>
                 <div class="right">
                     <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                    {% if course.teacher != request.user %}<div class="teacher">{{ course.teacher.name }}</div>{% endif %}
+                    {% if course.teacher != request.user %}<div class="organizer">จัดโดย <a href="#">{{ course.teacher.name }}</a></div>{% endif %}
                     <div class="schedule-location">
+                        วันเวลา
                         <span class="schedule">{{ schedule|schedule_datetime }}</span>
                         <span class="at">สถานที่</span>
                         <!-- TODO Open place popup --><span class="location"><a href="{{ course.place.place_url }}">{{ course.place.name }}</a></span>
@@ -28,9 +29,9 @@
                         {% if course.teacher == request.user %}
                             <a href="{% url 'manage_course_overview' course.uid %}" class="btn btn-small"><i class="icon-book"></i> Manage workshop</a>
                         {% else %}
-                            <!-- TODO --><a href="#" class="btn btn-small" data-toggle="message-modal" data-message-recipient="3" data-message-recipient-name="Panu Tangchalermkul"><i class="icon-comments"></i> Talk to teacher</a>
+                            <a href="#" class="btn btn-small" data-toggle="message-modal" data-message-recipient="{{ course.teacher.id }}" data-message-recipient-name="{{ course.teacher.name }}"><i class="icon-comments"></i> ส่งข้อความถึง {{ course.teacher.name }}</a>
                             {% return_matching_enrollment user schedule as enrollment %}
-                            <a href="#modal-enrollment-details" class="link" data-code="{{ enrollment.code }}">Enrollment details</a>
+                            <a href="#modal-enrollment-details" class="btn btn-small" data-code="{{ enrollment.code }}">ดูข้อมูลการจอง</a>
                         {% endif %}
                     </div>
                 </div>
@@ -40,7 +41,7 @@
         {% endfor %}
     </ul>
     {% else %}
-    <div class="style-no-information">No upcoming workshops</div>
+    <div class="style-no-information">No upcoming activities</div>
     {% endif %}
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
+{% load i18n %}
 <ul class="nav nav-tabs">
-    {% if user.stats_waiting_for_payment_courses %}<li {% if tab_name == 'payment' %} class="active"{% endif %}><a href="{% url 'view_my_courses_payment' %}">Waiting for payment <i class="num">{{ user.stats_waiting_for_payment_courses }}</i></a></li>{% endif %}
-    <li {% if tab_name == 'upcoming' %} class="active"{% endif %}><a href="{% url 'view_my_courses_upcoming' %}">Upcoming{% if user.stats_upcoming_courses %} <i class="num">{{ user.stats_upcoming_courses }}</i>{% endif %}</a></li>
-    <li {% if tab_name == 'attended' %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">Attended workshops</a></li>
-    <li {% if tab_name == 'teaching' %} class="active"{% endif %}><a href="{% url 'view_all_my_courses_teaching' %}">Teaching</a></li>
+    {% if user.stats_waiting_for_payment_courses %}<li {% if tab_name == 'payment' %} class="active"{% endif %}><a href="{% url 'view_my_courses_payment' %}">{% trans 'Waiting for payment' %} <i class="num">{{ user.stats_waiting_for_payment_courses }}</i></a></li>{% endif %}
+    <li {% if tab_name == 'upcoming' %} class="active"{% endif %}><a href="{% url 'view_my_courses_upcoming' %}">{% trans 'Upcoming activities' %}{% if user.stats_upcoming_courses %} <i class="num">{{ user.stats_upcoming_courses }}</i>{% endif %}</a></li>
+    <li {% if tab_name == 'attended' %} class="active"{% endif %}><a href="{% url 'view_my_courses_attended' %}">{% trans 'Attended activities' %}</a></li>
+    {% if user.stats_total_activities_organizing %}<li {% if tab_name == 'teaching' %} class="active"{% endif %}><a href="{% url 'view_all_my_courses_teaching' %}">{% trans 'Organizing activities' %}</a></li>{% endif %}
 </ul>

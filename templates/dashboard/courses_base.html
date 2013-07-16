@@ -1,9 +1,10 @@
 {% extends 'base_backend.html' %}
+{% load i18n %}
 
 {% block body_class %}{{ block.super }} page-my-courses{% endblock %}
 
 {% block backend_header %}
-<h1>Workshops <span>- {% block workshops_title %}{% endblock %}</span></h1>
+<h1>{% trans 'Activities' %} <span>- {% block workshops_title %}{% endblock %}</span></h1>
 {% endblock %}
 
 {% block backend_container %}

@@ -158,6 +158,11 @@ class UserAccount(AbstractBaseUser):
             .filter((Q(course__teacher=self) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
                     | Q(enrollments__student__in=(self,))).count()
 
+    def stats_total_activities_organizing(self):
+        return Course.objects.filter(
+            teacher=self
+        ).count()
+
     def stats_courses_teaching(self):
         return Course.objects.filter(
             teacher=self,

@@ -1,8 +1,8 @@
 {% extends 'dashboard/courses_base.html' %}
-{% load common_tags %}
+{% load i18n common_tags %}
 
-{% block head_title %}Attended workshops - Workshops - {{ settings.WEBSITE_NAME }}{% endblock %}
-{% block workshops_title %}Attended workshops{% endblock %}
+{% block head_title %}{% trans 'Attended activities' %} - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block workshops_title %}{% trans 'Attended activities' %}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='attended' %}{% endblock %}
 
 {% block scripts %}
