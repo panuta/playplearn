@@ -153,10 +153,18 @@ class UserAccount(AbstractBaseUser):
 
     def stats_upcoming_courses(self):
         rightnow = now()
-        return CourseSchedule.objects \
-            .filter(status='OPENING', start_datetime__gt=rightnow) \
-            .filter((Q(course__teacher=self) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
-                    | Q(enrollments__student__in=(self,))).count()
+
+        attending = CourseEnrollment.objects.filter(
+            student=self,
+            schedule__start_datetime__gt=rightnow,
+            status='CONFIRMED').count()
+
+        teaching = CourseSchedule.objects.filter(
+            status='OPENING',
+            start_datetime__gt=rightnow,
+            course__teacher=self).count()
+
+        return attending + teaching
 
     def stats_total_activities_organizing(self):
         return Course.objects.filter(

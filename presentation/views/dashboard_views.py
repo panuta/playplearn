@@ -46,7 +46,7 @@ def view_my_courses_upcoming(request):
     for schedule in CourseSchedule.objects.filter(
             status='OPENING',
             start_datetime__gt=rightnow,
-            course__teacher=request.user).order_by('start_datetime'):
+            course__teacher=request.user):
         upcoming_schedules.append({
             'schedule': schedule,
             'schedule_datetime': schedule.start_datetime,
