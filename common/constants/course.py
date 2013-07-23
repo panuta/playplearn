@@ -49,14 +49,12 @@ COURSE_SCHEDULE_STATUS_CHOICES = (
     ('PENDING', 'Pending'),
     ('OPENING', 'Opening'),
     ('CANCELLED', 'Cancelled'),
-    ('DELETED', 'Deleted'),
 )
 
 COURSE_SCHEDULE_STATUS_MAP = {
     'PENDING': {'name': 'Pending'},
     'OPENING': {'name': 'Opening'},
     'CANCELLED': {'name': 'Cancelled'},
-    'DELETED': {'name': 'Deleted'},
 }
 
 # COURSE ENROLLMENT STATUS

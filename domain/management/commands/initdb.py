@@ -222,9 +222,21 @@ class Command(BaseCommand):
                     status='CONFIRMED',
                 )
 
+                enrollment4, _ = CourseEnrollment.objects.get_or_create(
+                    code='ENROLL1_4',
+                    student=user4,
+                    schedule=course1_schedule2,
+                    price=200,
+                    people=1,
+                    total=200,
+                    payment_status='PAYMENT_RECEIVED',
+                    status='CONFIRMED',
+                )
+
                 UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment1)
                 UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('200'), enrollment=enrollment2)
                 UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('600'), enrollment=enrollment3)
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('200'), enrollment=enrollment4)
 
             try:
                 course2 = Course.objects.get(uid='2222222222')
@@ -259,6 +271,12 @@ class Command(BaseCommand):
                     status='CANCELLED',
                 )
 
+                course2_schedule2 = CourseSchedule.objects.create(
+                    course=course2,
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 30, 10, 0), is_dst=None),
+                    status='OPENING',
+                )
+
                 enrollment1, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL2_1',
                     student=user_panuta,
@@ -283,5 +301,18 @@ class Command(BaseCommand):
                     is_public=True,
                 )
 
+                enrollment3, _ = CourseEnrollment.objects.get_or_create(
+                    code='ENROLL2_3',
+                    student=user_panuta,
+                    schedule=course2_schedule2,
+                    price=400,
+                    people=1,
+                    total=400,
+                    payment_status='PAYMENT_RECEIVED',
+                    status='CONFIRMED',
+                    is_public=True,
+                )
+
                 UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'), enrollment=enrollment1)
                 UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment2)
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment3)

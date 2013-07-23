@@ -29,10 +29,31 @@ def view_my_courses_payment(request):
 @login_required
 def view_my_courses_upcoming(request):
     rightnow = now()
-    upcoming_schedules = CourseSchedule.objects \
-        .filter(status='OPENING', start_datetime__gt=rightnow) \
-        .filter((Q(course__teacher=request.user) & Q(course__status='PUBLISHED') & Q(status='OPENING'))
-                | Q(enrollments__student__in=(request.user,))).order_by('start_datetime')
+
+    upcoming_schedules = []
+
+    for enrollment in CourseEnrollment.objects.filter(
+            student=request.user,
+            schedule__start_datetime__gt=rightnow,
+            status='CONFIRMED'):
+        upcoming_schedules.append({
+            'schedule': enrollment.schedule,
+            'schedule_datetime': enrollment.schedule.start_datetime,
+            'type': 'student',
+            'enrollment': enrollment,
+        })
+
+    for schedule in CourseSchedule.objects.filter(
+            status='OPENING',
+            start_datetime__gt=rightnow,
+            course__teacher=request.user).order_by('start_datetime'):
+        upcoming_schedules.append({
+            'schedule': schedule,
+            'schedule_datetime': schedule.start_datetime,
+            'type': 'teacher',
+        })
+
+    upcoming_schedules = sorted(upcoming_schedules, key=operator.itemgetter('schedule_datetime'))
 
     return render(request, 'dashboard/courses_upcoming.html', {'upcoming_schedules': upcoming_schedules})
 
