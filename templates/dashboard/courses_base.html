@@ -4,7 +4,7 @@
 {% block body_class %}{{ block.super }} page-my-courses{% endblock %}
 
 {% block backend_header %}
-<h1>{% trans 'Activities' %} <span>- {% block workshops_title %}{% endblock %}</span></h1>
+<h1>{% block workshops_title %}{% endblock %}</h1>
 {% endblock %}
 
 {% block backend_container %}
