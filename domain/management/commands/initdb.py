@@ -34,14 +34,15 @@ class Command(BaseCommand):
 
             some_admin = user
 
-        craftmanship_school, created = CourseSchool.objects.get_or_create(name='Craftmanship', slug='craftmanship')
-        culinary_arts_school, created = CourseSchool.objects.get_or_create(name='Culinary Arts', slug='culinary_arts')
-        design_school, created = CourseSchool.objects.get_or_create(name='Design', slug='design')
-        entrepreneurship_school, created = CourseSchool.objects.get_or_create(name='Entrepreneurship', slug='entrepreneurship')
-        fashion_and_style_school, created = CourseSchool.objects.get_or_create(name='Fashion & Style', slug='fashion_and_style')
-        photography_school, created = CourseSchool.objects.get_or_create(name='Photography', slug='photography')
-        technology_school, created = CourseSchool.objects.get_or_create(name='Technology', slug='technology')
-        writing_school, created = CourseSchool.objects.get_or_create(name='Writing', slug='writing')
+        craftmanship_school, _ = CourseSchool.objects.get_or_create(name='Craftmanship', slug='craftmanship')
+        culinary_arts_school, _ = CourseSchool.objects.get_or_create(name='Culinary Arts', slug='culinary_arts')
+        design_school, _ = CourseSchool.objects.get_or_create(name='Design', slug='design')
+        entrepreneurship_school, _ = CourseSchool.objects.get_or_create(name='Entrepreneurship', slug='entrepreneurship')
+        fashion_and_style_school, _ = CourseSchool.objects.get_or_create(name='Fashion & Style', slug='fashion_and_style')
+        gardening_school, _ = CourseSchool.objects.get_or_create(name='Gardening', slug='gardening')
+        photography_school, _ = CourseSchool.objects.get_or_create(name='Photography', slug='photography')
+        technology_school, _ = CourseSchool.objects.get_or_create(name='Technology', slug='technology')
+        writing_school, _ = CourseSchool.objects.get_or_create(name='Writing', slug='writing')
 
         # DEVELOPMENT CODE #############################################################################################
 
@@ -49,43 +50,51 @@ class Command(BaseCommand):
 
             # USERS
             try:
+                user_panuta = UserAccount.objects.get(email='panuta@example.com')
+            except UserAccount.DoesNotExist:
+                user_panuta = UserAccount.objects.create_user('panuta@example.com', u'ภาณุ ตั้งเฉลิมกุล', '1q2w3e4r')
+                user_panuta.headline = u'ปัญหาของผมคือการอยากทำไปหมดซะทุกสิ่ง'
+                user_panuta.phone_number = '089-111-1111'
+                user_panuta.save()
+
+            try:
                 user1 = UserAccount.objects.get(email='user1@example.com')
             except UserAccount.DoesNotExist:
-                user1 = UserAccount.objects.create_user('user1@example.com', 'User1 Lastname', '1q2w3e4r')
-                user1.headline = 'Wood Carpenter'
-                user1.phone_number = '111-1111'
+                user1 = UserAccount.objects.create_user('user1@example.com', u'สมควร แก่การเรียน', '1q2w3e4r')
+                user1.headline = u'เด็กคอมสายแข็ง'
+                user1.phone_number = '085-222-2222'
                 user1.save()
 
             try:
                 user2 = UserAccount.objects.get(email='user2@example.com')
             except UserAccount.DoesNotExist:
-                user2 = UserAccount.objects.create_user('user2@example.com', 'User2 Lastname', '1q2w3e4r')
-                user2.headline = 'Computer Science Student'
-                user2.phone_number = '222-2222'
+                user2 = UserAccount.objects.create_user('user2@example.com', u'หญิงเล็ก ช่างจินตนาการ', '1q2w3e4r')
+                user2.headline = u'กราฟฟิคดีไซน์เนอร์'
+                user2.phone_number = '096-333-3333'
                 user2.save()
 
             try:
                 user3 = UserAccount.objects.get(email='user3@example.com')
             except UserAccount.DoesNotExist:
-                user3 = UserAccount.objects.create_user('user3@example.com', 'User3 Lastname', '1q2w3e4r')
-                user3.headline = 'Avid Learner'
-                user3.phone_number = '333-3333'
+                user3 = UserAccount.objects.create_user('user3@example.com', u'เด็กช่าง (สงสัย)', '1q2w3e4r')
+                user3.headline = u'คำถามสำคัญกว่าคำตอบ'
+                user3.phone_number = '084-444-4444'
                 user3.save()
 
             try:
                 user4 = UserAccount.objects.get(email='user4@example.com')
             except UserAccount.DoesNotExist:
-                user4 = UserAccount.objects.create_user('user4@example.com', 'User4 Lastname', '1q2w3e4r')
-                user4.headline = 'Lazy One'
-                user4.phone_number = '444-4444'
+                user4 = UserAccount.objects.create_user('user4@example.com', u'ผู้ใหญ่ใจดี', '1q2w3e4r')
+                user4.headline = u'ใจดีจริงๆ นะเด็กๆ'
+                user4.phone_number = '084-555-5555'
                 user4.save()
 
             # VENUES
 
             try:
-                place1 = Place.objects.get(name='Queen Sirikit National Convention Center')
+                qsncc_place = Place.objects.get(name='Queen Sirikit National Convention Center')
             except Place.DoesNotExist:
-                place1 = Place.objects.create(
+                qsncc_place = Place.objects.create(
                     name='Queen Sirikit National Convention Center',
                     code='QSNCC',
                     address='60 New Rachadapisek Road, Klongtoey, Bangkok 10110',
@@ -97,9 +106,9 @@ class Command(BaseCommand):
                 )
 
             try:
-                place2 = Place.objects.get(name='Hubba')
+                hubba_place = Place.objects.get(name='Hubba')
             except Place.DoesNotExist:
-                place2 = Place.objects.create(
+                hubba_place = Place.objects.create(
                     name='Hubba',
                     code='HUBBA',
                     address='19 Soi Ekkamai 4, Sukumvit 63 Rd. Prakanong Nua, Wattana Bangkok, Thailand 10110',
@@ -111,150 +120,151 @@ class Command(BaseCommand):
                 )
 
             try:
-                place3 = Place.objects.get(name='My Home')
+                home_place = Place.objects.get(name=u'บ้านเลขที่ 233/235')
             except Place.DoesNotExist:
-                place3 = Place.objects.create(
-                    name='My Home',
-                    address='233/235 Srinakarin Rd. Bang Muang, Muang, Samutprakarn 10270',
+                home_place = Place.objects.create(
+                    name=u'บ้านเลขที่ 233/235',
+                    address='233/235 หมู่บ้านนันทวัน ถ.ศรีนครินทร์ ต.บางเมือง อ.เมือง',
                     province_code='TH-11',
                     country='TH',
                     direction='Go to Srinakarin',
                     latlng='13.614947,100.626386',
                     is_userdefined=True,
-                    created_by=user2,
+                    created_by=user_panuta,
+                )
+
+            try:
+                od_place = Place.objects.get(name='Opendream')
+            except Place.DoesNotExist:
+                od_place = Place.objects.create(
+                    name='Opendream',
+                    address=u'299/92 ถ.สุทธิสารวินิจฉัย แขวงสามเสนนอก เขตห้วยขวาง',
+                    province_code='TH-10',
+                    country='TH',
+                    direction=u'จากถนนพระราม 9 เลี้ยวเข้ามารัชดาภิเษกทางที่จะไปลาดพร้าว ตรงมาเรื่อยๆ จนเจอสี่แยกสุทธิสาร เลี้ยวขวาแล้วขับตรงเข้ามาเรื่อยๆ',
+                    latlng='13.791149,100.5882',
+                    is_userdefined=True,
+                    created_by=user1,
                 )
 
             # COURSES
 
-            """
-            watercolor_topic, created = CourseTopic.objects.get_or_create(name='Watercolor Painting', slug='watercolor_painting')
-            computer_topic, created = CourseTopic.objects.get_or_create(name='Computer', slug='computer')
-            programming_topic, created = CourseTopic.objects.get_or_create(name='Programming', slug='programming')
-            django_topic, created = CourseTopic.objects.get_or_create(name='Django', slug='django')
-            ux_topic, created = CourseTopic.objects.get_or_create(name='User Experience', slug='user_experience')
-            web_design_topic, created = CourseTopic.objects.get_or_create(name='Web Design', slug='web_design')
-            cooking_topic, created = CourseTopic.objects.get_or_create(name='Cooking', slug='cooking')
-            steak_topic, created = CourseTopic.objects.get_or_create(name='Steak Cooking', slug='steak_cooking')
-            building_topic, created = CourseTopic.objects.get_or_create(name='Building', slug='building')
-            """
-
             try:
-                course1 = Course.objects.get(uid='COURSE1')
+                course1 = Course.objects.get(uid='1111111111')
             except Course.DoesNotExist:
                 course1 = Course.objects.create(
-                    uid='COURSE1',
-                    title='How to grill steak',
-                    description='I will show you how to grill steak',
-                    price=500,
+                    uid='1111111111',
+                    title=u'ถ่ายรูปและแต่งรูปอย่างไรให้อวดเพื่อนได้ไม่อายใคร',
+                    description='I will show you how to take a photo',
+                    price=200,
                     duration=6,
-                    maximum_people=20,
-                    prerequisites='Body',
-                    place=place1,
+                    maximum_people=8,
+                    prerequisites='a camera',
+                    place=hubba_place,
 
-                    teacher=user1,
+                    teacher=user_panuta,
                     status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
+                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 1, 8, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 23, 8, 0), is_dst=None),
                 )
 
-                course1.schools.add(culinary_arts_school)
+                course1.schools.add(photography_school)
                 course1.save()
 
                 course1_schedule1 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 11, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 15, 9, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 course1_schedule2 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 15, 11, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 1, 9, 0), is_dst=None),
+                    status='OPENING',
+                )
+
+                course1_schedule3 = CourseSchedule.objects.create(
+                    course=course1,
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 12, 9, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 enrollment1, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_1',
-                    student=user2,
+                    student=user4,
                     schedule=course1_schedule1,
-                    price=500,
-                    people=1,
-                    total=500,
+                    price=200,
+                    people=2,
+                    total=400,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                 )
 
                 enrollment2, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL1_2',
-                    student=user3,
-                    schedule=course1_schedule1,
-                    price=500,
+                    student=user2,
+                    schedule=course1_schedule2,
+                    price=200,
                     people=1,
-                    total=500,
+                    total=200,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                 )
 
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500'))
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('500'))
-
-                CourseFeedback.objects.get_or_create(
-                    enrollment=enrollment1,
-                    content='It was awesome',
-                    feelings='like,laugh',
+                enrollment3, _ = CourseEnrollment.objects.get_or_create(
+                    code='ENROLL1_3',
+                    student=user3,
+                    schedule=course1_schedule2,
+                    price=200,
+                    people=3,
+                    total=600,
+                    payment_status='PAYMENT_RECEIVED',
+                    status='CONFIRMED',
                 )
 
-                CourseFeedback.objects.get_or_create(
-                    enrollment=enrollment2,
-                    content='It was ok',
-                    feelings='laugh,inspiring',
-                )
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment1)
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('200'), enrollment=enrollment2)
+                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('600'), enrollment=enrollment3)
 
             try:
-                course2 = Course.objects.get(uid='COURSE2')
+                course2 = Course.objects.get(uid='2222222222')
             except Course.DoesNotExist:
                 course2 = Course.objects.create(
-                    uid='COURSE2',
-                    title='How to write Django application',
-                    description='I will show you how to write Django application',
-                    price=1000,
-                    duration=10,
+                    uid='2222222222',
+                    title=u'ทำสวนผักสำหรับคนเมือง',
+                    description='I will show you how to grow a plant',
+                    price=400,
+                    duration=8,
                     maximum_people=10,
-                    prerequisites='Python',
-                    place=place3,
+                    place=home_place,
 
                     teacher=user2,
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 9, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 9, 0), is_dst=None),
                 )
 
-                course2.schools.add(technology_school)
+                course2.schools.add(gardening_school)
                 course2.save()
 
                 course2_schedule1 = CourseSchedule.objects.create(
                     course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 20, 10, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 10, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 course2_schedule2 = CourseSchedule.objects.create(
                     course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 20, 10, 0), is_dst=None),
-                    status='OPENING',
-                )
-
-                course2_schedule3 = CourseSchedule.objects.create(
-                    course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 20, 10, 0), is_dst=None),
-                    status='OPENING',
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 1, 10, 0), is_dst=None),
+                    status='CANCELLED',
                 )
 
                 enrollment1, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL2_1',
-                    student=user1,
+                    student=user_panuta,
                     schedule=course2_schedule1,
-                    price=800,
-                    people=1,
+                    price=400,
+                    people=2,
                     total=800,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
@@ -263,108 +273,15 @@ class Command(BaseCommand):
 
                 enrollment2, _ = CourseEnrollment.objects.get_or_create(
                     code='ENROLL2_2',
-                    student=user1,
-                    schedule=course2_schedule2,
-                    price=800,
+                    student=user4,
+                    schedule=course2_schedule1,
+                    price=400,
                     people=1,
-                    total=800,
+                    total=400,
                     payment_status='PAYMENT_RECEIVED',
                     status='CONFIRMED',
                     is_public=True,
                 )
 
-                enrollment3, _ = CourseEnrollment.objects.get_or_create(
-                    code='ENROLL2_3',
-                    student=user1,
-                    schedule=course2_schedule3,
-                    price=800,
-                    people=1,
-                    total=800,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
-                    is_public=True,
-                )
-
-                CourseFeedback.objects.get_or_create(
-                    enrollment=enrollment1,
-                    content='It was ok',
-                    is_public=True,
-                )
-
-                CourseFeedback.objects.get_or_create(
-                    enrollment=enrollment2,
-                    content='It was still ok',
-                    is_public=True,
-                )
-
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'))
-
-            try:
-                course3 = Course.objects.get(uid='COURSE3')
-            except Course.DoesNotExist:
-                course3 = Course.objects.create(
-                    uid='COURSE3',
-                    title='How to design a website',
-                    description='I will show you how to design a website',
-                    price=2000,
-                    duration=18,
-                    maximum_people=15,
-                    place=place2,
-
-                    teacher=user3,
-                    status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 10, 0), is_dst=None),
-                )
-
-                course3.schools.add(technology_school)
-                course3.save()
-
-                course3_schedule1 = CourseSchedule.objects.create(
-                    course=course3,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 20, 9, 30), is_dst=None),
-                    status='OPENING',
-                )
-
-                CourseEnrollment.objects.get_or_create(
-                    code='ENROLL3',
-                    student=user1,
-                    schedule=course3_schedule1,
-                    price=2000,
-                    people=1,
-                    total=2000,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
-                )
-
-                UserAccountBalanceTransaction.objects.create(user=user3, transaction_type='RECEIVED', amount=Decimal('2000'))
-
-            try:
-                course4 = Course.objects.get(uid='COURSE4')
-            except Course.DoesNotExist:
-                course4 = Course.objects.create(
-                    uid='COURSE4',
-                    title='How to build a house',
-                    description='I will show you how to build a house',
-                    price=6000,
-                    duration=24,
-                    maximum_people=4,
-                    prerequisites='Saw',
-                    place=place1,
-
-                    teacher=user1,
-                    status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 11, 0), is_dst=None),
-                )
-
-                course4.schools.add(craftmanship_school)
-                course4.save()
-
-                course4_schedule1 = CourseSchedule.objects.create(
-                    course=course4,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 30, 8, 0), is_dst=None),
-                    status='OPENING',
-                )
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'), enrollment=enrollment1)
+                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment2)

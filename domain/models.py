@@ -250,6 +250,7 @@ class UserAccountBalanceTransaction(models.Model):
     user = models.ForeignKey(UserAccount, related_name='balance_transactions')
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE_CHOICES)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    enrollment = models.ForeignKey('CourseEnrollment', null=True)
     note = models.CharField(max_length=500, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
