@@ -34,15 +34,15 @@ class Command(BaseCommand):
 
             some_admin = user
 
-        craftmanship_school, _ = CourseSchool.objects.get_or_create(name='Craftmanship', slug='craftmanship')
-        culinary_arts_school, _ = CourseSchool.objects.get_or_create(name='Culinary Arts', slug='culinary_arts')
-        design_school, _ = CourseSchool.objects.get_or_create(name='Design', slug='design')
-        entrepreneurship_school, _ = CourseSchool.objects.get_or_create(name='Entrepreneurship', slug='entrepreneurship')
-        fashion_and_style_school, _ = CourseSchool.objects.get_or_create(name='Fashion & Style', slug='fashion_and_style')
-        gardening_school, _ = CourseSchool.objects.get_or_create(name='Gardening', slug='gardening')
-        photography_school, _ = CourseSchool.objects.get_or_create(name='Photography', slug='photography')
-        technology_school, _ = CourseSchool.objects.get_or_create(name='Technology', slug='technology')
-        writing_school, _ = CourseSchool.objects.get_or_create(name='Writing', slug='writing')
+        craftmanship_school, _ = CourseSchool.objects.get_or_create(name='Craftmanship', slug='craftmanship', description='Craftmanship is craftmanship')
+        culinary_arts_school, _ = CourseSchool.objects.get_or_create(name='Culinary Arts', slug='culinary_arts', description='Culinary Arts is culinary arts')
+        design_school, _ = CourseSchool.objects.get_or_create(name='Design', slug='design', description='Design is design')
+        entrepreneurship_school, _ = CourseSchool.objects.get_or_create(name='Entrepreneurship', slug='entrepreneurship', description='Entrepreneurship is entrepreneurship')
+        fashion_and_style_school, _ = CourseSchool.objects.get_or_create(name='Fashion & Style', slug='fashion_and_style', description='Fashion & Style is fashion & style')
+        gardening_school, _ = CourseSchool.objects.get_or_create(name='Gardening', slug='gardening', description='Gardening is gardening')
+        photography_school, _ = CourseSchool.objects.get_or_create(name='Photography', slug='photography', description='Photography is photography')
+        technology_school, _ = CourseSchool.objects.get_or_create(name='Technology', slug='technology', description='Technology is technology')
+        writing_school, _ = CourseSchool.objects.get_or_create(name='Writing', slug='writing', description='Writing is writing')
 
         # DEVELOPMENT CODE #############################################################################################
 

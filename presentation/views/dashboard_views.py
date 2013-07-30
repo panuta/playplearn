@@ -6,10 +6,13 @@ import operator
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.timezone import now
+from django.views.decorators.http import require_POST
+
 from common.decorators import teacher_only
 
+from domain import functions as domain_functions
 from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseFeedback, CoursePicture
 
 
@@ -143,6 +146,7 @@ def create_course(request):
     course_uid = Course.objects.generate_course_uid()
     return render(request, 'dashboard/course_modify.html', {
         'course_uid': course_uid,
+        'is_completed': False,
     })
 
 
@@ -158,7 +162,20 @@ def edit_course(request, course_uid):
     return render(request, 'dashboard/course_modify.html', {
         'course': course,
         'course_pictures': course_pictures,
+        'is_completed': domain_functions.is_course_outline_completed(course),
     })
+
+
+@require_POST
+@login_required
+def revert_approving_course(request, course_uid):
+    course = get_object_or_404(Course, uid=course_uid)
+
+    if course.teacher != request.user:
+        raise Http404
+
+    domain_functions.revert_approving_workshop(course)
+    return redirect('edit_course', course_uid=course_uid)
 
 
 # MANAGE CLASSROOM #####################################################################################################

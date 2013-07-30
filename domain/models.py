@@ -293,6 +293,7 @@ class Place(models.Model):
 class CourseSchool(models.Model):
     slug = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
+    description = models.CharField(max_length=1000)
 
     class Meta:
         ordering = ['name']

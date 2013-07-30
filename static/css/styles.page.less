@@ -1346,7 +1346,7 @@
         background-color: #FFD;
         color: #555;
         font-size: 14px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         padding: 20px 50px;
         text-align: center;
 
@@ -1360,9 +1360,12 @@
             font-weight: bold;
         }
 
-        a {
-            .grey_link;
-            font-size: 13px;
+        form {
+            margin: 0;
+        }
+
+        .btn {
+            margin-top: 10px;
         }
     }
 
@@ -1523,77 +1526,93 @@
         .activities-control {
             margin-bottom: 30px;
 
-            ul {
-                margin: 0;
+            .controls {
+                ul {
+                    margin: 0;
 
-                li {
-                    border: 1px solid #999;
-                    border-left: 5px solid #999;
-                    list-style: none;
-                    margin-bottom: 15px;
+                    li {
+                        border: 1px solid #999;
+                        border-left: 5px solid #999;
+                        list-style: none;
+                        margin-bottom: 15px;
 
-                    .icon-remove {
-                        color: #AAA;
-                        cursor: pointer;
-                        display: block;
-                        font-size: 15px;
-                        float: right;
-                        line-height: normal;
-                        padding: 11px 10px;
+                        .icon-remove {
+                            color: #AAA;
+                            cursor: pointer;
+                            display: block;
+                            font-size: 15px;
+                            float: right;
+                            line-height: normal;
+                            padding: 11px 10px;
 
-                        &:hover {
-                            color: #c30;
+                            &:hover {
+                                color: #c30;
+                            }
+                        }
+
+                        .icon-reorder, .icon-plus {
+                            color: #AAA;
+                            display: inline-block;
+                            line-height: 38px;
+                            padding: 0 14px;
+                            vertical-align: middle;
+                        }
+
+                        .icon-reorder {
+                            cursor: move;
+                        }
+
+                        input {
+                            background-color: transparent;
+                            border: none;
+                            box-shadow: none;
+                            font-size: 15px;
+                            height: 26px;
+                            margin: 0px;
+                            padding: 5px 0px;
+                            vertical-align: middle;
+                            width: 90%;
                         }
                     }
 
-                    .icon-reorder, .icon-plus {
-                        color: #AAA;
-                        display: inline-block;
-                        line-height: 38px;
-                        padding: 0 14px;
-                        vertical-align: middle;
+                    li.ui-state-highlight {
+                        border: 1px dashed #CCC;
+                        height: 38px;
                     }
 
-                    .icon-reorder {
-                        cursor: move;
-                    }
-
-                    input {
-                        background-color: transparent;
-                        border: none;
+                    li.add {
+                        border: 1px dashed #CCC;
                         box-shadow: none;
-                        font-size: 15px;
-                        height: 26px;
-                        margin: 0px;
-                        padding: 5px 0px;
-                        vertical-align: middle;
-                        width: 90%;
+                        list-style: none;
+                        margin-bottom: 10px;
+                        padding-left: 4px;
+
+                        a {
+                            color: #666;
+                            font-size: 13px;
+                            font-weight: bold;
+                        }
                     }
                 }
+            }
 
-                li.ui-state-highlight {
-                    border: 1px dashed #CCC;
-                    height: 38px;
-                }
-
-                li.add {
-                    border: 1px dashed #CCC;
-                    box-shadow: none;
-                    list-style: none;
-                    margin-bottom: 10px;
-                    padding-left: 4px;
-
-                    a {
-                        color: #666;
-                        font-size: 13px;
-                        font-weight: bold;
-                    }
+            .displays {
+                ul li {
+                    color: #444;
+                    font-size: 15px;
+                    line-height: 26px;
                 }
             }
         }
 
         .story-control {
             margin-bottom: 30px;
+
+            .displays {
+                background-color: #F7F7F7;
+                border: 1px solid #DDD;
+                padding: 15px 20px 0;
+            }
         }
 
         .cover-control {
@@ -1626,102 +1645,133 @@
         }
 
         .pictures-control {
-            .pictures {
-                margin: 10px 0 0;
+            .controls {
+                .pictures {
+                    margin: 10px 0 0;
 
-                li {
-                    background-color: #FFF;
-                    height: 117px;
-                    list-style: none;
-                    margin-bottom: 25px;
-                    vertical-align: middle;
-                }
-
-                .ui-state-highlight {
-                    background-color: transparent;
-                    border: 1px dashed #CCC;
-                }
-
-                li.uploading {
-                    border: 1px dashed #DDD;
-                    height: 77px;
-                    padding: 20px;
-
-                    em {
-                        color: #777;
-                        display: block;
-                        font-weight: bold;
-                        margin-top: 15px;
+                    li {
+                        background-color: #FFF;
+                        height: 117px;
+                        list-style: none;
+                        margin-bottom: 25px;
+                        vertical-align: middle;
                     }
 
-                    .progress {
-                        margin-top: 10px;
+                    .ui-state-highlight {
+                        background-color: transparent;
+                        border: 1px dashed #CCC;
                     }
-                }
 
-                li.picture {
-                    margin-left: 5px;
-                    vertical-align: middle;
+                    li.uploading {
+                        border: 1px dashed #DDD;
+                        height: 77px;
+                        padding: 20px;
 
-                    .image {
-                        cursor: move;
-                        float: left;
-
-                        .icon-reorder {
-                            color: #999;
+                        em {
+                            color: #777;
+                            display: block;
+                            font-weight: bold;
+                            margin-top: 15px;
                         }
 
-                        img {
-                            border: 1px solid #CCC;
-                            height: 115px;
-                            margin-left: 5px;
-                            width: 200px;
+                        .progress {
+                            margin-top: 10px;
                         }
                     }
 
-                    .description {
-                        margin-left: 245px;
-                        padding-top: 5px;
+                    li.picture {
+                        margin-left: 5px;
+                        vertical-align: middle;
 
-                        label {
-                            color: #555;
-                            font-size: 13px;
+                        .image {
+                            cursor: move;
+                            float: left;
 
-                            input {
-                                display: block;
-                                font-size: 16px;
-                                height: 30px;
-                                margin-top: 5px;
-                                width: 95%;
+                            .icon-reorder {
+                                color: #999;
+                            }
+
+                            img {
+                                border: 1px solid #CCC;
+                                height: 115px;
+                                margin-left: 5px;
+                                width: 200px;
                             }
                         }
 
-                        .delete {
-                            .danger_link;
-                            font-size: 13px;
+                        .description {
+                            margin-left: 245px;
+                            padding-top: 5px;
+
+                            label {
+                                color: #555;
+                                font-size: 13px;
+
+                                input {
+                                    display: block;
+                                    font-size: 16px;
+                                    height: 30px;
+                                    margin-top: 5px;
+                                    width: 95%;
+                                }
+                            }
+
+                            .delete {
+                                .danger_link;
+                                font-size: 13px;
+                            }
+                        }
+                    }
+
+                    li.error {
+                        background: url(../images/page/course-form/picture_error.png) #FFF 20px 20px no-repeat;
+                        border: 1px dashed #DDD;
+                        height: 117px;
+
+                        em {
+                            color: #C30;
+                            display: block;
+                            font-size: 15px;
+                            font-weight: bold;
+                            margin: 30px 0 0 65px;
+                        }
+
+                        .dismiss {
+                            margin: 5px 0 0 65px;
+
+                            a {
+                                .grey_link;
+                                font-size: 13px;
+                            }
                         }
                     }
                 }
+            }
 
-                li.error {
-                    background: url(../images/page/course-form/picture_error.png) #FFF 20px 20px no-repeat;
-                    border: 1px dashed #DDD;
-                    height: 117px;
+            .displays {
+                .pictures {
+                    margin: 10px 0 0;
 
-                    em {
-                        color: #C30;
-                        display: block;
-                        font-size: 15px;
-                        font-weight: bold;
-                        margin: 30px 0 0 65px;
-                    }
+                    li.picture {
+                        height: 117px;
+                        list-style: none;
+                        margin-bottom: 25px;
+                        vertical-align: middle;
 
-                    .dismiss {
-                        margin: 5px 0 0 65px;
+                        .image {
+                            float: left;
 
-                        a {
-                            .grey_link;
-                            font-size: 13px;
+                            img {
+                                border: 1px solid #CCC;
+                                height: 115px;
+                                width: 200px;
+                            }
+                        }
+
+                        .description {
+                            color: #444;
+                            margin-left: 225px;
+                            padding-top: 5px;
                         }
                     }
                 }
@@ -1730,11 +1780,12 @@
 
         .school-control {
             select {
-                font-size: 15px;
-                padding: 4px;
+                width: 350px;
+                //font-size: 15px;
+                //padding: 4px;
 
                 option {
-                    padding: 4px;
+                    //padding: 4px;
                 }
             }
         }
@@ -2004,6 +2055,28 @@
             color: #444;
             font-size: 16px;
             line-height: 25px;
+        }
+    }
+
+    .select2-results {
+        .topic {
+            color: #555;
+            font-size: 13px;
+
+            strong {
+                color: #444;
+                font-size: 14px;
+            }
+        }
+
+        .select2-highlighted {
+            .topic {
+                color: #FFF;
+
+                strong {
+                    color: #FFF;
+                }
+            }
         }
     }
 }

@@ -79,6 +79,7 @@ function _notify(type, title, message) {
         $.pnotify({
             addclass: 'custom',
             animation: 'none',
+            delay: 2000,
             history: false,
             icon: false,
             sticker: false,

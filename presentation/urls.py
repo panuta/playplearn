@@ -48,7 +48,8 @@ urlpatterns += patterns(
     url(r'^my/activities/teaching/(?P<category>\w+)/$', 'view_my_courses_teaching', name='view_my_courses_teaching'),
 
     url(r'^my/activities/new/$', 'create_course', name='create_course'),
-    url(r'^activity/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),
+    url(r'^workshop/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),
+    url(r'^workshop/(?P<course_uid>\w+)/revert/$', 'revert_approving_course', name='revert_approving_course'),
 
     url(r'^activity/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
     url(r'^activity/(?P<course_uid>\w+)/manage/class/$', 'manage_course_class', {'datetime_string': ''}, name='manage_course_latest_class'),

@@ -67,6 +67,14 @@ def is_course_outline_completed(course):
 
     if not course.place:
         is_completed = False
+    if course.place.is_userdefined and (
+            not course.place.name or
+            not course.place.address or
+            not course.place.province_code or
+            not course.place.latlng or
+            not course.place.direction
+    ):
+        is_completed = False
 
     return is_completed
 
@@ -233,6 +241,11 @@ def save_course(course, request_data):
 
     course.save()
     return errors
+
+
+def revert_approving_workshop(workshop):
+    workshop.status = 'DRAFT'
+    workshop.save()
 
 
 # COURSE ENROLLMENT ####################################################################################################

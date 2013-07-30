@@ -9,6 +9,23 @@ $(document).ready(function() {
 });*/
 
 function initCourseModifyPage(course_uid, enable_autosave, page_type) {
+    var form_title = $('#id_title');
+    var form_activity = $('#control_activity_list');
+    var form_story = $('#id_story');
+    var form_cover = $('#id_cover_filename');
+    var form_pictures = $('#upload-pictures');
+    var form_pictures_ordering = $('#id_pictures_ordering');
+    var form_school = $('#id_school');
+    var form_price = $('#id_price');
+    var form_duration = $('#id_duration');
+    var form_capacity = $('#id_capacity');
+    var form_place = $('#id_place');
+
+    var _is_saving = false;
+    var _is_very_dirty = false;
+    var _is_dirty = false;
+    var autosave_timer = null;
+
     // BINDING FORM ACTIONS
 
     $('.form-footer .button-draft').on('click', function() {
@@ -26,7 +43,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
             $('#modal-course-submitted').modal();
         });
 
-        save_changes('approval', true);
+        save_changes('approval', false);
         return false;
     });
 
@@ -223,7 +240,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                     upload_pictures_ordering.val(response.data.ordering);
 
                     data.context.removeClass('uploading').addClass('picture');
-                    data.context.html('<div class="image"><i class="icon-reorder"></i><img src="' + response.data.picture_url + '" /></div><div class="description"><label>Describe this picture <input type="text" /></label><a href="#" class="delete">Delete picture</a></div>');
+                    data.context.html('<div class="image"><i class="icon-reorder"></i><img src="' + response.data.picture_url + '" /></div><div class="description"><label>คำอธิบายรูปภาพ <input type="text" /></label><a href="#" class="delete">ลบรูป</a></div>');
                     data.context.attr('picture-uid', response.data.picture_uid);
 
                     _set_picture_events(data.context);
@@ -342,12 +359,27 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         _set_picture_events(upload_pictures);
     }
 
+    // Initialize Topic
+    function format(topic) {
+        var topicObj = topic.element;
+        console.log($(topicObj).data('desc'));
+        return '<span class="topic"><strong>' + topic.text + '</strong><br/>' + $(topicObj).data('desc') + '</span>';
+    }
+
+    form_school.select2({
+        allowClear: true,
+        minimumResultsForSearch: 1000,
+        formatResult: format,
+        width: 350,
+        escapeMarkup: function(m) { return m; }
+    });
+
     // Initialize Place
     function _init_place() {
         var place_form = $('.place-form');
         var id_place_userdefined = $('#id_place_userdefined');
 
-        $('.button-new-location').on('click', function() {
+        $('.button-new-location:not(.disabled)').on('click', function() {
             form_place.find('input[value="userdefined-place"]').trigger('click');
 
             id_place_userdefined.find('option:first').prop('selected', true);
@@ -500,23 +532,6 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         });
     }
 
-    var form_title = $('#id_title');
-    var form_activity = $('#control_activity_list');
-    var form_story = $('#id_story');
-    var form_cover = $('#id_cover_filename');
-    var form_pictures = $('#upload-pictures');
-    var form_pictures_ordering = $('#id_pictures_ordering');
-    var form_school = $('#id_school');
-    var form_price = $('#id_price');
-    var form_duration = $('#id_duration');
-    var form_capacity = $('#id_capacity');
-    var form_place = $('#id_place');
-
-    var _is_saving = false;
-    var _is_very_dirty = false;
-    var _is_dirty = false;
-    var autosave_timer = null;
-
     function collect_data() {
         var data = {};
 
@@ -631,14 +646,14 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                 $('.form-footer .loading').hide();
 
                 if(response.status == 'success') {
-                    if(submit_action == 'draft' && window.location.href != response.data.edit_url) {
+                    if(submit_action == 'draft' && window.location.pathname != response.data.edit_url) {
                         window.onbeforeunload = function() {};
                         window.location = response.data.edit_url;
                     } else {
                         $('.form-footer .preview').show();
                         $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'course-' + response.data.course_uid);
                         $('.form-content').trigger('saved');
-                        if(notify) _notify('success', 'Saved successfully', 'All changes have been saved');
+                        if(notify) _notify('success', 'บันทึกเรียบร้อย', '');
                     }
                 } else {
                     if(response.message) {
@@ -686,19 +701,19 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         if(!$.isNumeric(form_duration.val())) is_completed = false;
         if(!$.isNumeric(form_capacity.val())) is_completed = false;
 
-        var place_choice = form_place.find('.place-label input:checked').val();
+        var place_choice = form_place.find('input[name="place"]:checked').val();
         if(place_choice == 'system-place') {
-            if(!$('#id_place_system').find('option:selected').val().trim()) is_completed = false;
-        } else if(place_choice == 'defined-place') {
-            if($('#id_place_userdefined').find('option:selected').val().trim()) is_completed = false;
+            if(!$('#id_place_system').find('option:selected').val()) is_completed = false;
         } else if(place_choice == 'userdefined-place') {
             if(!$('#id_place_name').val().trim() ||
                     !$('#id_place_address').val().trim() ||
-                    !$('#id_place_province').find('option:selected').val().trim() ||
+                    !$('#id_place_province').find('option:selected').val() ||
                     !$('#id_place_location').val().trim() ||
                     !$('#id_place_direction').val().trim()) {
                 is_completed = false;
             }
+        } else {
+            is_completed = false;
         }
 
         return is_completed;

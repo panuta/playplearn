@@ -35,7 +35,7 @@ def course_school_as_option(course):
     options = []
     for school in CourseSchool.objects.all():
         selected = ' selected="selected"' if course and school in course.schools.all() else ''
-        options.append('<option value="%s"%s>%s</option>' %(school.slug, selected, school.name))
+        options.append('<option value="%s"%s data-desc="%s">%s</option>' %(school.slug, selected, school.description, school.name))
 
     return ''.join(options)
 
