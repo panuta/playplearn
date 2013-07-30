@@ -992,7 +992,6 @@ h1.style-page-header {
 }
 .style-course-box .title a {
   font-size: 18px;
-  font-weight: bold;
   line-height: 26px;
 }
 .style-course-box .title a:link,
@@ -1070,13 +1069,13 @@ h1.style-page-header {
   color: #444;
   display: block;
   font-size: 15px;
-  font-weight: bold;
   padding-top: 4px;
 }
 .style-course-box .teacher .doing {
-  color: #666;
+  color: #777;
   display: block;
   font-size: 13px;
+  margin-top: 2px;
 }
 .style-course-box .next {
   border-top: 1px dashed #DDD;
@@ -1581,7 +1580,7 @@ body {
   padding: 25px 0;
 }
 .page-backend #backend-header .parent {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .page-backend #backend-header .parent a {
   color: #FFF;
@@ -1623,7 +1622,7 @@ body {
 }
 .page-backend #backend-header h1 {
   color: #FFF;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: normal;
   line-height: normal;
   margin: 0;
@@ -1631,7 +1630,7 @@ body {
 }
 .page-backend #backend-header h1 span {
   color: #FFF;
-  font-size: 26px;
+  font-size: 24px;
 }
 .page-backend #backend-header .with_actions h1 {
   display: inline-block;
@@ -3060,7 +3059,6 @@ body {
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .title a {
   font-size: 17px;
-  font-weight: bold;
   line-height: 25px;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:link,
@@ -3213,21 +3211,40 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
+.style-course-status {
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+}
+.style-course-status i {
+  color: #AAA;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.style-course-status i.icon-light {
+  font-size: 10px;
+}
+.style-course-status .draft i {
+  color: #555;
+}
+.style-course-status .published i {
+  color: #00ac71;
+}
 .page-my-courses-teaching .style-stats-bar .create-course {
   float: right;
   margin: 7px 13px;
 }
-.page-my-courses-teaching .teaching-status .head {
+.page-my-courses-teaching .teaching-courses {
+  margin-top: 15px;
+}
+.page-my-courses-teaching .teaching-courses .teaching-status .head {
   color: #777;
   font-size: 12px;
   font-weight: bold;
   margin-bottom: 7px;
 }
-.page-my-courses-teaching .teaching-courses {
-  margin-top: 25px;
-}
 .page-my-courses-teaching .teaching-courses ul.courses {
-  margin: 0;
+  margin: 20px 0 0;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course {
   border-bottom: 1px solid #DDD;
@@ -3483,6 +3500,11 @@ body {
   font-weight: normal;
   margin-right: 3px;
 }
+.page-course-modify .form-content .control-group .control-sub-label {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
 .page-course-modify .form-content .control-group .controls-with-guide {
   clear: left;
   display: inline-block;
@@ -3532,9 +3554,12 @@ body {
   cursor: pointer;
 }
 .page-course-modify .form-content .control-group .help-block {
-  color: #777;
+  color: #888;
   font-size: 13px;
   margin-top: 6px;
+}
+.page-course-modify .form-content .control-group .help-block strong {
+  color: #777;
 }
 .page-course-modify .form-content .control-row {
   margin-bottom: 10px;
@@ -3874,6 +3899,16 @@ body {
   margin-right: 10px;
   padding: 1px 10px;
 }
+.page-course-modify .form-content .place-control .place-note {
+  color: #888;
+  font-size: 13px;
+  line-height: 24px;
+  margin-top: 15px;
+}
+.page-course-modify .form-content .place-control .place-note i {
+  color: #888;
+  margin-right: 3px;
+}
 .page-course-modify #form-footer-container {
   margin-top: 30px;
   min-height: 65px;
@@ -3940,17 +3975,20 @@ body {
   max-width: none;
 }
 .page-course-modify #modal-place-map .modal-footer .note {
-  color: #444;
+  color: #555;
   float: left;
   font-size: 13px;
   text-align: left;
   width: 370px;
 }
 .page-course-modify #modal-place-map .modal-footer .note strong {
-  background-color: #666;
-  color: #FFF;
+  color: #444;
+  font-size: 14px;
+  font-weight: bold;
   margin-right: 3px;
-  padding: 0 5px;
+}
+.page-course-modify #modal-place-map .modal-footer .note em {
+  font-style: italic;
 }
 .page-course-modify #modal-course-submitted .head1 {
   color: #444;

@@ -1100,6 +1100,30 @@
     }
 }
 
+.style-course-status {
+    color: #444;
+    font-size: 13px;
+    font-weight: bold;
+
+    i {
+        color: #AAA;
+        font-size: 14px;
+        margin-right: 5px;
+
+        &.icon-light {
+            font-size: 10px;
+        }
+    }
+
+    .draft i {
+        color: #555;
+    }
+
+    .published i {
+        color: @alertGreenColor;
+    }
+}
+
 .page-my-courses-teaching {
     .style-stats-bar {
         .create-course {
@@ -1108,20 +1132,20 @@
         }
     }
 
-    .teaching-status {
-        .head {
-            color: #777;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 7px;
-        }
-    }
-
     .teaching-courses {
-        margin-top: 25px;
+        margin-top: 15px;
+
+        .teaching-status {
+            .head {
+                color: #777;
+                font-size: 12px;
+                font-weight: bold;
+                margin-bottom: 7px;
+            }
+        }
 
         ul.courses {
-            margin: 0;
+            margin: 20px 0 0;
 
             li.course {
                 border-bottom: 1px solid #DDD;
@@ -1396,6 +1420,12 @@
                 }
             }
 
+            .control-sub-label {
+                color: #777;
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
             .controls-with-guide {
                 clear: left;
                 display: inline-block;
@@ -1454,9 +1484,13 @@
             }
 
             .help-block {
-                color: #777;
+                color: #888;
                 font-size: 13px;
                 margin-top: 6px;
+
+                strong {
+                    color: #777;
+                }
             }
         }
 
@@ -1860,6 +1894,18 @@
                     padding: 1px 10px;
                 }
             }
+
+            .place-note {
+                color: #888;
+                font-size: 13px;
+                line-height: 24px;
+                margin-top: 15px;
+
+                i {
+                    color: #888;
+                    margin-right: 3px;
+                }
+            }
         }
     }
 
@@ -1934,17 +1980,21 @@
         }
 
         .modal-footer .note {
-            color: #444;
+            color: #555;
             float: left;
             font-size: 13px;
             text-align: left;
             width: 370px;
 
             strong {
-                background-color: #666;
-                color: #FFF;
+                color: #444;
+                font-size: 14px;
+                font-weight: bold;
                 margin-right: 3px;
-                padding: 0 5px;
+            }
+
+            em {
+                font-style: italic;
             }
         }
     }

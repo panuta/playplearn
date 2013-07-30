@@ -8,13 +8,13 @@ $(document).ready(function() {
     });
 });*/
 
-function initCourseModifyPage(enable_autosave) {
+function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     // BINDING FORM ACTIONS
 
     $('.form-footer .button-draft').on('click', function() {
         _is_dirty = true;
         _is_very_dirty = true;
-        save_changes('');
+        save_changes('draft', true);
         return false;
     });
 
@@ -26,16 +26,28 @@ function initCourseModifyPage(enable_autosave) {
             $('#modal-course-submitted').modal();
         });
 
-        save_changes('approval');
+        save_changes('approval', true);
         return false;
     });
 
     $('.form-footer .button-save-changes').on('click', function() {
         _is_dirty = true;
         _is_very_dirty = true;
-        save_changes('');
+        save_changes('update', true);
         return false;
     });
+
+    if(page_type == 'create') {
+        window.onbeforeunload = function() {
+            return 'Please save your draft before reloading this page';
+        };
+    } else if(page_type == 'edit') {
+        window.onbeforeunload = function() {
+            if(_is_dirty || _is_saving) {
+                return 'Please save your data before reloading this page';
+            }
+        };
+    }
 
     // Initialize Course Activities
     function _init_course_activities() {
@@ -113,7 +125,7 @@ function initCourseModifyPage(enable_autosave) {
         cover_form.fileupload({
             dataType: 'json',
             url: '/ajax/course/cover/upload/',
-            formData: function (form) {return [{name:'uid', value:_course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}];},
+            formData: function (form) {return [{name:'uid', value:course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}];},
             add: function (e, data) {
                 $('.form-footer button').prop('disabled', true);
 
@@ -169,7 +181,7 @@ function initCourseModifyPage(enable_autosave) {
             dataType: 'json',
             url: '/ajax/course/picture/upload/',
             sequentialUploads: true,
-            formData: function (form) {return [{name:'uid', value:_course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}, {name:'ordering', value: upload_pictures_ordering.val()}];},
+            formData: function (form) {return [{name:'uid', value:course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}, {name:'ordering', value: upload_pictures_ordering.val()}];},
             add: function (e, data) {
                 $('.form-footer button').prop('disabled', true);
 
@@ -284,7 +296,7 @@ function initCourseModifyPage(enable_autosave) {
             delete_actions.addClass('disabled');
 
             var picture_uid = $(this).closest('li.picture').attr('picture-uid');
-            var jqxhr = $.post('/ajax/course/picture/delete/', {uid: _course_uid, picture_uid: picture_uid}, function(response) {
+            var jqxhr = $.post('/ajax/course/picture/delete/', {uid: course_uid, picture_uid: picture_uid}, function(response) {
                 if(response.status == 'success') {
                     upload_pictures_ordering.val(response.data.ordering);
                     upload_pictures.find('li[picture-uid=' + picture_uid + ']').fadeOut(function() {
@@ -340,8 +352,9 @@ function initCourseModifyPage(enable_autosave) {
 
             id_place_userdefined.find('option:first').prop('selected', true);
             place_form.show();
-            place_form.find('.head').text('New location');
+            place_form.find('.head').text('สถานที่ใหม่');
 
+            $('#id_place_id').val('new');
             $('#id_place_name').val('').focus().select();
             $('#id_place_address').val('');
             $('#id_place_province').find('option:first').prop('selected', true);
@@ -365,6 +378,7 @@ function initCourseModifyPage(enable_autosave) {
                 var jqxhr = $.get('/ajax/course/place/get/', {place_id:selected}, function(response) {
                     place_form_loading.hide();
                     if(response.status == 'success') {
+                        $('#id_place_id').val(response.data.id);
                         $('#id_place_name').val(response.data.name);
                         $('#id_place_address').val(response.data.address);
                         $('#id_place_province').find('option[value="' + response.data.province_code + '"]').prop('selected', true);
@@ -372,11 +386,18 @@ function initCourseModifyPage(enable_autosave) {
                         $('#id_place_location').val(response.data.latlng);
 
                         if(response.data.latlng) {
-                            place_form.find('minimap').html('<img src="http://maps.googleapis.com/maps/api/staticmap?center=' + response.data.latlng + '&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C' + response.data.latlng + '&sensor=false" />');
+                            place_form.find('.minimap').html('<img src="http://maps.googleapis.com/maps/api/staticmap?center=' + response.data.latlng + '&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C' + response.data.latlng + '&sensor=false" />').removeClass('hide');
+                        } else {
+                            place_form.find('.minimap').html('').addClass('hide');
                         }
 
-                        place_form.find('.head').text('Edit location');
+                        place_form.find('.head').text('แก้ไขสถานที่');
                         place_form.show();
+
+                        form_place.find('input[value="userdefined-place"]').trigger('click');
+                        form_place.data('dirty', true);
+                        set_dirty();
+
                     } else {
                         if(response.message) {
                             _notify('error', 'Cannot load', response.message);
@@ -391,7 +412,17 @@ function initCourseModifyPage(enable_autosave) {
                     _notify('error', 'Cannot load', errorThrown);
                 });
             } else {
+                $('#id_place_id').val('');
+                $('#id_place_name').val('');
+                $('#id_place_address').val('');
+                $('#id_place_province').find('option:first').prop('selected', true);
+                $('#id_place_direction').val('');
+                $('#id_place_location').val('');
+
+                form_place.find('input[value="userdefined-place"]').trigger('click');
                 place_form.hide();
+                form_place.data('dirty', true);
+                set_dirty();
             }
         });
 
@@ -410,7 +441,7 @@ function initCourseModifyPage(enable_autosave) {
                     var latlng_tuple = latlng.split(',');
                     lat = latlng_tuple[0];
                     lng = latlng_tuple[1];
-                    zoom = 12;
+                    zoom = 16;
                 } else {
                     lat = 13.727896;
                     lng = 100.524124;
@@ -464,7 +495,6 @@ function initCourseModifyPage(enable_autosave) {
         placeModal.find('.button-set-location').on('click', function() {
             var temp_input = $('#id_place_location_temp');
             $('.place-form .minimap').html('<img src="http://maps.googleapis.com/maps/api/staticmap?center=' + temp_input.val() + '&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C' + temp_input.val() + '&sensor=false" />').show();
-            //$('.place-input-location .location_latlng').text(temp_input.val());
             $('#id_place_location').val(temp_input.val()).change();
             placeModal.modal('hide');
         });
@@ -564,13 +594,7 @@ function initCourseModifyPage(enable_autosave) {
                 data['place-id'] = $('#id_place_system').find('option:selected').val();
 
             } else if(place_choice == 'userdefined-place') {
-                var id_place_userdefined = $('#id_place_userdefined');
-                if(id_place_userdefined.length) {
-                    data['place-id'] = id_place_userdefined.find('option:selected').val();
-                } else {
-                    data['place-id'] = '';
-                }
-
+                data['place-id'] = $('#id_place_id').val();
                 data['place-name'] = $('#id_place_name').val();
                 data['place-address'] = $('#id_place_address').val();
                 data['place-province'] = $('#id_place_province').find('option:selected').val();
@@ -589,12 +613,12 @@ function initCourseModifyPage(enable_autosave) {
         if(is_data_empty) {
             return null;
         } else {
-            data['uid'] = _course_uid;
+            data['uid'] = course_uid;
             return data;
         }
     }
 
-    function save_changes(submit_action) {
+    function save_changes(submit_action, notify) {
         _is_saving = true;
         $('.form-footer .loading').show();
         $('.form-footer button').prop('disabled', true);
@@ -607,10 +631,15 @@ function initCourseModifyPage(enable_autosave) {
                 $('.form-footer .loading').hide();
 
                 if(response.status == 'success') {
-                    $('.form-footer .preview').show();
-                    $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'course-' + response.data.course_uid);
-                    $('.form-content').trigger('saved');
-                    _notify('success', 'Saved successfully', 'All changes have been saved');
+                    if(submit_action == 'draft' && window.location.href != response.data.edit_url) {
+                        window.onbeforeunload = function() {};
+                        window.location = response.data.edit_url;
+                    } else {
+                        $('.form-footer .preview').show();
+                        $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'course-' + response.data.course_uid);
+                        $('.form-content').trigger('saved');
+                        if(notify) _notify('success', 'Saved successfully', 'All changes have been saved');
+                    }
                 } else {
                     if(response.message) {
                         _notify('error', 'Cannot save', response.message);
@@ -779,11 +808,13 @@ function initCourseModifyPage(enable_autosave) {
         set_dirty();
     });
 
+    /*
+    // SELECT HAS ALREADY BINDED TO SET DIRTY
     $('#id_place_userdefined').on('change', function() {
         form_place.find('input[value="userdefined-place"]').trigger('click');
         form_place.data('dirty', true);
         set_dirty();
-    });
+    });*/
 
     $('#id_place_name').on('change', function() {
         form_place.find('input[value="userdefined-place"]').trigger('click');

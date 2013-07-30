@@ -36,7 +36,7 @@
                             <th class="date">Date joined</th>
                             <th class="status">Status</th>
                             <th class="payment">Payment</th>
-                            <th class="actions"></th><!-- TODO -->
+                            <th class="actions"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,7 +46,14 @@
                                 <td class="date">{{ enrollment.created|timestamp }}</td>
                                 <td class="status">{{ enrollment|enrollment_status }}</td>
                                 <td class="payment">{{ enrollment|enrollment_payment_status }}</td>
-                                <td class="actions"><a href="#" class="btn btn-small">Actions</a></td>
+                                <td class="actions">
+                                    <div class="btn-group">
+                                        <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret"></span></a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#" data-toggle="message-modal" data-message-recipient="{{ enrollment.student.id }}" data-message-recipient-name="{{ enrollment.student.name }}"><i class="icon-comment"></i> Send message</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -60,4 +67,8 @@
         <div class="style-no-information"><i class="icon-info-sign"></i> No classes</div>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'snippets/modal_message_write.html' %}
 {% endblock %}

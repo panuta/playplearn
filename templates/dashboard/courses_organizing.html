@@ -1,5 +1,5 @@
 {% extends 'dashboard/courses_base.html' %}
-{% load i18n humanize common_tags %}
+{% load i18n humanize common_tags presentation_tags %}
 
 {% block head_title %}{% trans 'Organizing activities' %} - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block workshops_title %}{% trans 'Organizing activities' %}{% endblock %}
@@ -80,24 +80,24 @@
     {% if num_of_courses.all %}
         <div class="style-stats-bar">
             <div class="create-course">
-                <a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> Create new workshop</a>
+                <a href="{% url 'create_course' %}" class="style-orange-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a>
             </div>
             <ul class="stats">
                 <li class="stat">
-                    <span class="caption">Total earning</span>
-                    <span class="number"><em>{{ request.user.stats_total_earning|floatformat:-2|intcomma }}</em> baht</span>
+                    <span class="caption">รายได้รวม</span>
+                    <span class="number"><em>{{ request.user.stats_total_earning|floatformat:-2|intcomma }}</em> บาท</span>
                 </li>
                 <li class="stat">
-                    <span class="caption">Workshops teaching</span>
-                    <span class="number"><em>{{ request.user.stats_courses_teaching }}</em> workshop{{ request.user.stats_courses_teaching|pluralize }} <span class="smaller">/ {{ request.user.stats_classes_teaching }} lass{{ request.user.stats_classes_teaching|pluralize:'es' }}</span></span>
+                    <span class="caption">จำนวนเวิร์คช็อป</span>
+                    <span class="number"><em>{{ request.user.stats_courses_teaching }}</em> เวิร์คช็อป <span class="smaller">/ {{ request.user.stats_classes_teaching }} ครั้ง</span></span>
                 </li>
                 <li class="stat">
-                    <span class="caption">Total students</span>
-                    <span class="number"><em>{{ request.user.stats_students_teaching }}</em> student{{ request.user.stats_students_teaching|pluralize }}</span>
+                    <span class="caption">จำนวนนักเรียน</span>
+                    <span class="number"><em>{{ request.user.stats_students_teaching }}</em> คน</span>
                 </li>
                 <li class="stat">
-                    <span class="caption">Total feedback</span>
-                    <span class="number"><em>{{ request.user.stats_feedbacks_received }}</em> feedback{{ request.user.stats_feedbacks_received|pluralize }}</span>
+                    <span class="caption">จำนวนผลตอบรับ</span>
+                    <span class="number"><em>{{ request.user.stats_feedbacks_received }}</em> ข้อความ</span>
                 </li>
             </ul>
         </div>
@@ -105,13 +105,13 @@
             <div class="row">
                 <div class="span2">
                     <div class="teaching-status">
-                        <div class="head">FILTER BY STATUS</div>
+                        <div class="head">สถานะเวิร์คช็อป</div>
                         <ul class="style-sidebar-navigation">
-                            <li{% if active_category == 'all' %} class="active"{% endif %}><a href="{% url 'view_all_my_courses_teaching' %}">All status <span class="number">{{ num_of_courses.all }}</span></a></li>
-                            <li{% if active_category == 'draft' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'draft' %}">Draft <span class="number">{{ num_of_courses.draft }}</span></a></li>
-                            <li{% if active_category == 'approving' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'approving' %}">Wait for approval <span class="number">{{ num_of_courses.approving }}</span></a></li>
-                            <li{% if active_category == 'publishing' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'publishing' %}">Ready to publish <span class="number">{{ num_of_courses.publishing }}</span></a></li>
-                            <li{% if active_category == 'published' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'published' %}">Published <span class="number">{{ num_of_courses.published }}</span></a></li>
+                            <li{% if active_category == 'all' %} class="active"{% endif %}><a href="{% url 'view_all_my_courses_teaching' %}">ทั้งหมด <span class="number">{{ num_of_courses.all }}</span></a></li>
+                            <li{% if active_category == 'draft' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'draft' %}">ฉบับร่าง <span class="number">{{ num_of_courses.draft }}</span></a></li>
+                            <li{% if active_category == 'approving' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'approving' %}">รอการรับรอง <span class="number">{{ num_of_courses.approving }}</span></a></li>
+                            <li{% if active_category == 'publishing' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'publishing' %}">พร้อมเปิดตัว <span class="number">{{ num_of_courses.publishing }}</span></a></li>
+                            <li{% if active_category == 'published' %} class="active"{% endif %}><a href="{% url 'view_my_courses_teaching' 'published' %}">เปิดตัวแล้ว <span class="number">{{ num_of_courses.published }}</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -122,10 +122,7 @@
                             <li class="course clearfix" data-course-uid="{{ course.uid }}">
                                 <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title|default:'(No title)' }}</a></div>
                                 <div class="status">
-                                    {% if course.status == 'DRAFT' %}<span class="name draft"><i class="icon-edit-sign"></i> Drafting</span>
-                                    {% elif course.status == 'WAIT_FOR_APPROVAL' %}<span class="name wait_for_approval"><i class="icon-check-sign"></i>  Waiting for approval</span>
-                                    {% elif course.status == 'READY_TO_PUBLISH' %}<span class="name ready_to_publish"><i class="icon-check-sign"></i>  Ready to be published</span>
-                                    {% elif course.status == 'PUBLISHED' %}<span class="name published"><i class="icon-check-sign"></i> Published</span>{% endif %}
+                                    {{ course|course_status_as_span_with_sign }}
                                 </div>
                                 <div class="actions">
                                     {% if course.status == 'DRAFT' %}

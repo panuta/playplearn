@@ -24,3 +24,7 @@ def view_place_info_by_code(request, place_code):
 
 def _view_place_info(request, place):
     return render(request, 'page/place_info.html', {'place': place})
+
+
+def view_faq_page(request):
+    return render(request, 'page/faq.html')

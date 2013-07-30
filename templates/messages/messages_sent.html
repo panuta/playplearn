@@ -1,0 +1,47 @@
+{% extends 'messages/messages_base.html' %}
+{% load postman_tags common_tags messages_tags %}
+
+{% block messages_title %}Sent{% endblock %}
+{% block messages_nav %}{% include 'messages/messages_nav.html' with tab_name='sent' %}{% endblock %}
+
+{% block scripts %}
+<script>
+    (function() {
+        $('table.messages tr').on('click', function() {
+            window.location = $(this).attr('data-message-url');
+        });
+    })();
+</script>
+{% endblock %}
+
+{% block messages_content %}
+    <h2>Sent messages</h2>
+    {% if pm_messages %}
+        <table class="messages">
+            <tbody>
+            {% for message in pm_messages %}
+                {% first_message_in_thread message as latest_message %}
+                {% latest_message_in_thread message as latest_message %}
+                <tr{% if message.is_new %} class="unread"{% endif %} data-message-url="{% if message.thread_id %}{% url 'view_message' message.thread_id %}{% else %}{% url 'view_message' message.id %}{% endif %}">
+                    <td class="message">
+                        <div class="sender">{{ message.sender|name_or_me:user }}</div>
+                        <div class="subject">
+                            {% if message.is_new %}<span class="label-unread">Unread</span>{% endif %}
+                            {% if message.is_replied %}<i class="icon-share-alt"></i>{% endif %}
+                            {% if message.thread_id %}
+                                <a href="{% url 'view_message' message.thread_id %}">{{ message.thread.subject }}</a>
+                            {% else %}
+                                <a href="{% url 'view_message' message.id %}">{{ message.subject }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="preview">{{ latest_message.body|excerpt:150 }}</div>
+                    </td>
+                    <td class="timestamp">{{ latest_message.sent_at|compact_date:_("g:i A,M j,n/j/y") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="style-no-information">No messages</div>
+    {% endif %}
+{% endblock %}

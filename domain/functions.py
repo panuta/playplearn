@@ -165,7 +165,10 @@ def save_course(course, request_data):
             course.maximum_people = capacity
 
     if 'place-id' in request_data:
-        if request_data.get('place-id'):
+        place_id = request_data.get('place-id')
+        if place_id == 'new':
+            place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=course.teacher)
+        elif place_id:
             try:
                 place = Place.objects.get(pk=request_data.get('place-id'))
             except ValueError:
@@ -174,36 +177,34 @@ def save_course(course, request_data):
             except Place.DoesNotExist:
                 errors['place-id'] = 'invalid'
                 place = None
-
         else:
-            place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=course.teacher)
+            place = None
 
-        if place:
-            course.place = place
-            course.save()
+        course.place = place
+        course.save()
 
-            if place.created_by == course.teacher:
-                if 'place-name' in request_data:
-                    place.name = request_data['place-name'].strip(' \t\n\r')
+        if place and place.created_by == course.teacher:
+            if 'place-name' in request_data:
+                place.name = request_data['place-name'].strip(' \t\n\r')
 
-                if 'place-address' in request_data:
-                    place.address = request_data['place-address'].strip(' \t\n\r')
+            if 'place-address' in request_data:
+                place.address = request_data['place-address'].strip(' \t\n\r')
 
-                if 'place-province' in request_data:
-                    province_code = request_data['place-province']
+            if 'place-province' in request_data:
+                province_code = request_data['place-province']
 
-                    if province_code in PROVINCE_MAP:
-                        place.province_code = province_code
-                    else:
-                        errors['place-province'] = 'invalid'
+                if province_code in PROVINCE_MAP:
+                    place.province_code = province_code
+                else:
+                    errors['place-province'] = 'invalid'
 
-                if 'place-location' in request_data:
-                    place.latlng = request_data['place-location']
+            if 'place-location' in request_data:
+                place.latlng = request_data['place-location']
 
-                if 'place-direction' in request_data:
-                    place.direction = request_data['place-direction'].strip(' \t\n\r')
+            if 'place-direction' in request_data:
+                place.direction = request_data['place-direction'].strip(' \t\n\r')
 
-                place.save()
+            place.save()
 
     # Save editing course
 

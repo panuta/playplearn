@@ -1,9 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 from datetime import timedelta
+
 from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import safe
+from django.utils.translation import ugettext as _
+from common.constants.course import COURSE_STATUS_MAP
 
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
@@ -104,6 +108,28 @@ def get_course_undefined_place(course):
 @register.simple_tag
 def course_picture_ordering_as_comma_separated(course):
     return ','.join([picture.uid for picture in CoursePicture.objects.filter(course=course, mark_deleted=False)])
+
+
+@register.filter
+def course_status_as_span(course):
+    return course_status_as_span_with_sign(course, False)
+
+
+@register.filter
+def course_status_as_span_with_sign(course, with_sign=True):
+    status = COURSE_STATUS_MAP[course.status]
+
+    if with_sign:
+        if course.status == 'DRAFT':
+            sign = '<i class="icon-edit-sign"></i>'
+        elif course.status in ('WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH', 'PUBLISHED'):
+            sign = '<i class="icon-check-sign"></i>'
+        else:
+            sign = ''
+    else:
+        sign = ''
+
+    return safe('<span class="style-course-status %s">%s%s</span>' % (status['css_class'], sign, _(status['name'])))
 
 
 # COURSE SCHEDULE ######################################################################################################
