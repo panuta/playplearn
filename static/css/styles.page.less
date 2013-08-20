@@ -166,7 +166,7 @@
 
                 img {
                     width: 450px;
-                    height: 250px;
+                    height: 240px;
                 }
             }
 
@@ -306,9 +306,46 @@
 }
 
 .page-course-outline {
+    h1 {
+        color: @colorBlue;
+        font-family: 'QuarkLight', sans-serif;
+        font-size: 40px;
+        font-weight: normal;
+        line-height: normal;
+        margin: 30px 0 0;
+    }
+
+    .course-teacher {
+        margin-top: 5px;
+
+        .avatar {
+            display: inline-block;
+            margin-right: 12px;
+            vertical-align: middle;
+
+            img {
+                border-radius: 50px;
+                height: 50px;
+                width: 50px;
+            }
+        }
+
+        .name {
+            color: #888;
+            display: inline-block;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 20px;
+            vertical-align: middle;
+
+            a {
+                color: @colorNavy;
+                font-size: 24px;
+            }
+        }
+    }
+
+/*
     .course-header {
-        //background: @headerBackground;
-        //border-top: 1px solid @headerLightBorder;
         margin: 40px 0 10px;
 
         .join {
@@ -324,71 +361,33 @@
                 padding: 8px 40px;
             }
         }
-
-        h1 {
-            color: @colorBlue;
-            font-family: 'QuarkLight', sans-serif;
-            font-size: 40px;
-            font-weight: normal;
-            line-height: normal;
-            margin: 0;
-        }
-
-        .teacher {
-            margin-top: 10px;
-            position: relative;
-
-            .avatar {
-                position: absolute;
-                left: 0;
-                bottom: -49px;
-
-                img {
-                    border: 4px solid #FFF;
-                    border-radius: 70px;
-                }
-            }
-
-            .name {
-                color: #555;
-                display: inline-block;
-                font-size: 16px;
-                margin-left: 90px;
-
-                a {
-                    color: #555;
-                    font-size: 22px;
-                    margin-left: 3px;
-                }
-            }
-        }
-    }
+    }*/
 
     .course-details {
-        //margin: 15px 0 0 90px;
-        margin-top: 7px;
+        background-color: #F7F7F7;
+        margin: 20px 0;
+        padding: 15px 20px;
 
         .details {
             margin-right: 15px;
 
             .caption {
-                color: #999;
+                color: #888;
                 font-size: 14px;
                 margin-bottom: 0px;
                 margin-right: 3px;
             }
 
             .value {
-                color: #666;
+                color: #555;
                 font-size: 16px;
-                font-weight: bold;
 
                 em {
                     margin-right: 1px;
                 }
 
                 a {
-                    color: #666;
+                    color: #555;
                 }
             }
         }
@@ -417,11 +416,13 @@
     }
 
     .course-pictures {
-        margin-top: 40px;
+        //margin-top: 40px;
+
+        background-color: #DDD;
 
         #pictures-slider {
-            width: 770px;
-            height: 450px;
+            height: 400px;
+            width: 750px;
         }
 
         .rsNav {
@@ -442,9 +443,63 @@
         }
     }
 
+    .course-enrollment {
+        .head {
+            color: @colorNavy;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .enroll-input {
+            label {
+                color: #888;
+                display: block;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 18px;
+                font-weight: normal;
+                margin: 0;
+                padding: 0;
+            }
+
+            .input {
+                background-color: #8696a0;
+                border-radius: 4px;
+                color: #FFF;
+                display: inline-block;
+                padding: 8px 15px;
+
+                i {
+                    margin-left: 15px;
+                }
+            }
+        }
+
+        .enroll-input-schedule {
+            margin-bottom: 20px;
+        }
+
+        .enroll-input-people {
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .enroll-button {
+            display: inline-block;
+            margin-left: 15px;
+            vertical-align: bottom;
+
+            a {
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 20px;
+                padding: 12px 50px 9px;
+            }
+        }
+    }
+
     .course-activities {
         background-color: #F7F7F7;
-        margin-top: 40px;
+        //margin-top: 40px;
         padding: 15px 20px;
 
         .head {
@@ -464,14 +519,16 @@
         }
     }
 
-    .course-description {
+    .course-story {
+        color: #555;
+        font-family: 'ChiangSaenRegular', sans-serif;
+        font-size: 24px;
+        line-height: 32px;
         margin-top: 40px;
 
         p {
-            color: #555;
-            font-size: 16px;
-            font-weight: 300;
-            line-height: 32px;
+
+
             margin-bottom: 20px;
         }
     }

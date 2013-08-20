@@ -42,42 +42,39 @@
 {% endblock %}
 
 {% block body %}
-<div class="course-header">
-    <div class="container">
-        <div class="join"><a href="#join-workshop" class="style-orange-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a></div>
-        <h1>{{ course.title }}</h1>
-        <div class="course-details">
-            <span class="details">
-                <span class="caption">หัวข้อ</span>
-                <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
-            </span>
-            <span class="details">
-                <span class="caption">ระยะเวลา</span>
-                <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
-            </span>
-            <span class="details">
-                <span class="caption">จำนวนคนในกลุ่ม</span>
-                <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
-            </span>
-            <span class="details">
-                <span class="caption">จำนวนครั้งที่จะจัด</span>
-                <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
-            </span>
-            <span class="details">
-                <span class="caption">ค่าใช้จ่าย</span>
-                <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
-            </span>
-        </div>
-        <div class="teacher">
-            <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></a></div>
-            <div class="name">โดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-        </div>
-    </div>
-</div>
 <div class="container">
+    <!--<div class="join"><a href="#join-workshop" class="style-orange-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a></div>-->
+    <h1>{{ course.title }}</h1>
+    <div class="course-teacher">
+        <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
+        <div class="name">จัดโดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
+    </div>
+
+    <div class="course-details">
+        <span class="details">
+            <span class="caption">หัวข้อ</span>
+            <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
+        </span>
+        <span class="details">
+            <span class="caption">ระยะเวลา</span>
+            <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
+        </span>
+        <span class="details">
+            <span class="caption">จำนวนคนในกลุ่ม</span>
+            <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
+        </span>
+        <span class="details">
+            <span class="caption">จำนวนครั้งที่จะจัด</span>
+            <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
+        </span>
+        <span class="details">
+            <span class="caption">ค่าใช้จ่าย</span>
+            <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
+        </span>
+    </div>
 
     <div class="row">
-        <div class="span8">
+        <div class="col-lg-8">
             <div class="course-pictures">
                 <div id="pictures-slider" class="royalSlider rsDefault">
                     {% for picture in course_pictures %}
@@ -86,28 +83,46 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="course-activities">
+        <div class="col-lg-4">
+            <div class="course-enrollment">
+                <div class="head">เข้าร่วมเวิร์คช็อป</div>
+
+                <div class="enroll-input enroll-input-schedule">
+                    <label>รอบวันที่</label>
+                    <div class="input">วันพฤหัสบดี, 1 ก.ย. 2556 เวลา 16:00 - 18:00 น. <i class="icon-chevron-down"></i></div>
+                </div>
+
+                <div class="enroll-input enroll-input-people">
+                    <label>จำนวนคน</label>
+                    <div class="input">4 คน <i class="icon-chevron-down"></i></div>
+                </div>
+
+                <div class="enroll-button">
+                    <a href="#" class="style-primary-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a>
+                </div>
+            </div>
+
+            {% comment %}<div class="course-activities">
                 <div class="head">กิจกรรม</div>
                 <ul>
                     {% for activity in course.activities.all %}
-                    <li>{{ activity.title }}</li>
+                        <li>{{ activity.title }}</li>
                     {% endfor %}
                 </ul>
             </div>
             {% if user.is_authenticated and user == course.teacher %}
-            <div class="course-tools">
-                <div class="head">Tools for teacher</div>
-                <div>
-                    <a href="{% url 'edit_course' course.uid %}" class="style-button"><i class="icon-pencil"></i> Edit workshop</a>
-                    <a href="{% url 'manage_course_overview' course.uid %}" class="style-button"><i class="icon-book"></i> Manage workshop</a>
+                <div class="course-tools">
+                    <div class="head">Tools for teacher</div>
+                    <div>
+                        <a href="{% url 'edit_course' course.uid %}" class="style-button"><i class="icon-pencil"></i> Edit workshop</a>
+                        <a href="{% url 'manage_course_overview' course.uid %}" class="style-button"><i class="icon-book"></i> Manage workshop</a>
+                    </div>
                 </div>
-            </div>
-            {% endif %}
+            {% endif %}{% endcomment %}
         </div>
     </div>
 
-    <div class="course-description">
+    <div class="course-story">
         {{ course.description|safe }}
     </div>
 
