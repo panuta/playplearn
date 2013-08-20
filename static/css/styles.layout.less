@@ -8,180 +8,88 @@ html, body {
 }
 
 #body-top {
-    background: @headerBackground;
-    border-bottom: 1px solid @headerDarkBorder;
-    height: 35px;
+    height: 57px;
 
-    ul.buttons {
-        border-left: 1px solid @headerDarkBorder;
-        border-right: 1px solid @headerLightBorder;
-        height: 35px;
-        margin: 0;
+    .top-left {
+        float: left;
 
-        li.button {
+        a {
+            color: @colorNavy;
             display: inline-block;
-            height: 35px;
-            list-style: none;
-            vertical-align: middle;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 22px;
+            margin-left: 20px;
+        }
 
-            .open {
-                a.top-button {
-                    background-color: @linkColor;
-                    border-left: 1px solid #336396;
+        .logo {
+            margin: 10px 0 0;
+        }
+    }
+
+    .top-right {
+        float: right;
+
+        .registration {
+            margin-top: 15px;
+
+            a {
+                color: @colorGrey;
+                display: inline-block;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 19px;
+            }
+        }
+
+        .user {
+            margin-top: 15px;
+
+            .top-item {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .notification a {
+                background-color: @colorYellow;
+                border-radius: 4px;
+                color: #555;
+                font-weight: bold;
+                margin-right: 10px;
+                padding: 3px 10px;
+
+                &:hover, &:focus {
+                    background-color: @colorSky;
                     color: #FFF;
                     text-decoration: none;
                 }
             }
 
-            .dropdown-menu {
-                i {
-                    margin-right: 1px;
+            .avatar {
+                display: inline-block;
+                margin-right: 5px;
+
+                img {
+                    border-radius: 30px;
                 }
             }
-        }
-    }
 
-    a.top-button {
-        border-left: 1px solid @headerLightBorder;
-        border-right: 1px solid @headerDarkBorder;
-        color: #FFF;
-        display: block;
-        font-size: 12px;
-        line-height: 35px;
-        padding: 0 14px;
-
-        i {
-            font-size: 15px;
-            margin-right: 2px;
-            vertical-align: -1px;
-        }
-
-        &:hover {
-            background-color: @linkColor;
-            border-left: 1px solid #336396;
-            color: #FFF;
-            text-decoration: none;
-        }
-
-        &:active, &:focus {
-            background-color: transparent;
-            border-left: 1px solid @headerLightBorder;
-            color: #FFF;
-            outline: none;
-            text-decoration: none;
-        }
-
-        .num {
-            background-color: @primaryColor;
-            border-radius: 4px;
-            color: #EEE;
-            font-size: 11px;
-            font-weight: bold;
-            line-height: normal;
-            margin-left: 6px;
-            padding: 1px 5px;
-        }
-    }
-
-    .social {
-        float: left;
-        height: 35px;
-
-        ul.buttons {
-            li.button {
-                a.top-button {
-                    padding: 0 12px;
-                }
-
-                &.home {
-                    a.top-button {
-                        padding: 0 20px;
-                    }
-                }
-
-                &.phone {
-                    .phone-number {
-                        border-left: 1px solid @headerLightBorder;
-                        border-right: 1px solid @headerDarkBorder;
-                        color: #FFF;
-                        display: block;
-                        font-size: 14px;
-                        line-height: 35px;
-                        padding: 0 14px;
-
-                        i {
-                            margin-right: 2px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .account {
-        float: right;
-        height: 35px;
-    }
-
-    .registration {
-    }
-
-    .user {
-        ul.buttons {
-            border-left: none;
-
-            li.button {
-                &.username {
-                    a.top-button {
-                        border-left: none;
-                        font-weight: bold;
-                        padding-right: 15px;
-
-                        &:hover, &:active, &:focus {
-                            background-color: transparent;
-                            text-decoration: underline;
-                        }
-                    }
-                }
-
-                &.messages {
-                    a.top-button {
-                        padding: 0 11px;
-
-                        i {
-                            font-size: 14px;
-                        }
-                    }
-                }
-
-                &.settings {
-                    a.top-button {
-                        padding: 0 10px 0 12px;
-
-                        i.icon-gear {
-                            font-size: 14px;
-                            margin: 0 6px 0 0;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .messages {
-        .message {
-            height: 30px;
-            overflow: hidden;
-
-            em {
-                color: #444;
-                font-size: 13px;
-                font-weight: bold;
+            .name {
+                color: @colorGrey;
+                display: inline-block;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 19px;
+                margin-right: 15px;
+                vertical-align: -1px;
             }
 
-            b {
-                color: #555;
-                font-size: 12px;
+            .menu {
+                a:hover, a:focus {
+                    text-decoration: none;
+                }
+
+                i.icon-reorder {
+                    color: @colorNavy;
+                    font-size: 22px;
+                }
             }
         }
     }
@@ -203,7 +111,7 @@ html, body {
 
 }
 
-@footerHeight: 80px;
+@footerHeight: 200px;
 @footerTopPadding: 15px;
 
 .wrapper {
@@ -218,7 +126,7 @@ html, body {
 }
 
 #body-footer {
-    background: @headerBackground;
+    background-color: #FFF;
     position: relative;
     padding-top: @footerTopPadding;
     height: @footerHeight;
@@ -228,14 +136,8 @@ html, body {
     }
 
     .links {
-        a {
-            color: #FFF;
-            font-size: 13px;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+        .content_link;
+        font-size: 13px;
 
         .separator {
             color: #DDD;
@@ -244,60 +146,59 @@ html, body {
     }
 
     .copyright {
-        color: #EEE;
+        color: #888;
         font-size: 12px;
         margin-top: 5px;
     }
 
-    .social-links {
-        margin-top: 7px;
-
-        a {
-            background-image: url(../images/ui/social-icons.png);
-            border: 1px solid #6c9fd4;
-            border-radius: 32px;
-            float: right;
-            height: 32px;
-            margin-left: 10px;
-            text-indent: -9999px;
-            width: 32px;
-
-            &:hover {
-                background-color: #FFF;
-                border: 1px solid #FFF;
-            }
+    .contact {
+        .head {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 7px;
         }
 
-        .facebook {
-            background-position: 0 0;
+        ul {
+            margin: 0;
+            padding: 0;
 
-            &:hover {
-                background-position: 0 -32px;
+            li {
+                list-style: none;
+                margin-bottom: 10px;
+
+                i {
+                    color: #888;
+                    display: inline-block;
+                    text-align: center;
+                    width: 20px;
+                }
+
+                a {
+                    color: #444;
+                    font-size: 13px;
+                    font-weight: bold;
+                }
             }
         }
+    }
 
-        .twitter {
-            background-position: -32px 0;
-
-            &:hover {
-                background-position: -32px -32px;
-            }
+    .subscribe {
+        .head {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 7px;
         }
 
-        .rss {
-            background-position: -64px 0;
-
-            &:hover {
-                background-position: -64px -32px;
-            }
+        .box {
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            padding: 15px;
         }
 
-        .email {
-            background-position: -96px 0;
-
-            &:hover {
-                background-position: -96px -32px;
-            }
+        .offer {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 10px;
         }
     }
 }

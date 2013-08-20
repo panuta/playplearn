@@ -1,4 +1,4 @@
-{% load i18n %}<!DOCTYPE html>
+{% load i18n common_tags %}<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -9,17 +9,22 @@
     <title>{% block head_title %}{{ settings.WEBSITE_NAME }}{% endblock %}</title>
     <meta name="description" content="">
     <meta name="keywords" content="{% block head_keywords %}{% endblock %}" />
-    <meta name="viewport" content="width=device-width">
+    <!--<meta name="viewport" content="width=device-width">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 
     {% comment %}
     <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png" />
     <link rel="icon" href="{{ STATIC_URL }}favicon.ico" />
     {% endcomment %}
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap3/css/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery.ui/jquery-ui-1.10.3.custom.min.css">
+
+
 
     <!--<link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap.datepicker/css/datepicker.css">-->
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap.progressbar/bootstrap-progressbar.min.css">
@@ -45,6 +50,40 @@
 
 <div id="body-top">
     <div class="container">
+        <div class="top-left">
+            <a href="/" class="logo"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a>
+            <a href="#">ค้นหาเวิร์คช็อป</a>
+            <a href="#">จัดเวิร์คช็อป</a>
+        </div>
+        <div class="top-right">
+            {% if not user.is_authenticated %}
+            <div class="registration">
+                <a href="#registration-modal" data-toggle="modal">เข้าสู่ระบบ / สมัครสมาชิก</a>
+            </div>
+            {% else %}
+            <div class="user">
+                <div class="top-item">
+                    <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="avatar"><img src="{{ user.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a>
+                    <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="name">{{ user.name }}</a>
+                </div>
+                <div class="top-item notification"><a href="#"><i class="icon-comments"></i> 10</a></div><!-- TODO: Add link destination -->
+                <div class="top-item notification"><a href="#"><i class="icon-bell"></i> 10</a></div><!-- TODO: Add link destination -->
+                <div class="top-item menu">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-reorder"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="{% url 'view_my_courses_attended' %}">เวิร์คช็อป</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าผู้ใช้</a></li>
+                            <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {% comment %}
         {% spaceless %}
         <div class="social">
             <ul class="buttons">
@@ -58,7 +97,7 @@
                 <div class="user">
                     <ul class="buttons">
                         <li class="button username"><a href="{% url 'view_my_profile' %}" class="top-button" title="ไปหน้าข้อมูลผู้ใช้">{{ user.name }}</a></li>
-                        {% comment %}<li class="button alerts"><a href="#" class="top-button"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>{% endcomment %}
+                        <li class="button alerts"><a href="#" class="top-button"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
                         <li class="button messages"><a href="{% url 'postman_inbox' %}" class="top-button dropdown-toggle"><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a></li>
                         <li class="button activities">
                             <div class="dropdown">
@@ -96,6 +135,7 @@
             {% endif %}
         </div>
         {% endspaceless %}
+        {% endcomment %}
     </div>
 </div>
 
@@ -116,8 +156,8 @@
 </div>
 <div id="body-footer">
     <div class="container">
-        <div class="clearfix">
-            <div class="pull-left">
+        <div class="row">
+            <div class="col-lg-5">
                 <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a></div>
                 <div class="links">
                     <a href="#">About us</a>
@@ -130,12 +170,28 @@
                 </div>
                 <div class="copyright">© 2013</div>
             </div>
-            <div class="pull-right">
-                <div class="social-links">
-                    <a href="#" class="rss">RSS Feed</a>
-                    <a href="#" class="email">Email</a>
-                    <a href="#" class="twitter">Twitter</a>
-                    <a href="http://www.facebook.com" class="facebook">Facebook</a>
+            <div class="col-lg-3">
+                <div class="contact">
+                    <div class="head">Contact us</div>
+                    <ul>
+                        <li><i class="icon-envelope"></i> <a href="mailto:panuta@gmail.com">panuta@gmail.com</a></li>
+                        <li><i class="icon-facebook"></i> <a href="#">PlayPlearn</a></li>
+                        <li><i class="icon-twitter"></i> <a href="#">PlayPlearn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="subscribe">
+                    <div class="head">Email Subscription</div>
+                    <div class="box">
+                        <div class="offer">Subscribe to get our workshop updates and special promotions</div>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <button type="submit" class="style-outline-button">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,6 +205,55 @@
 </div>
 
 {% if not user.is_authenticated %}
+<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content style-registration-modal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">เข้าสู่ระบบ / สมัครสมาชิก</h4>
+            </div>
+            <div class="modal-body">
+                <div class="backend-social">
+                    <a href="#" class="facebook">Connect with Facebook</a>
+                    <a href="#" class="twitter">Connect with Twitter</a>
+                </div>
+                <div class="or"><hr><span>หรือใช้อีเมล</span></div>
+                <div class="backend-email">
+                    <div class="clearfix">
+                        <div class="email-login">
+                            <div class="head">เข้าสู่ระบบ</div>
+                            <form action="{% url 'ajax_email_login' %}" method="post" role="form">
+                                {% csrf_token %}
+                                <div class="inputs">
+                                    <input type="email" name="email" class="form-control" id="modal_registration_login_email" placeholder="อีเมล">
+                                    <input type="password" name="password" class="form-control" id="modal_registration_login_password" placeholder="รหัสผ่าน">
+                                </div>
+                                <div class="actions">
+                                    <button type="button" class="style-button">เข้าสู่ระบบ</button>
+                                </div>
+                                <div class="forgot"><a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a></div>
+                            </form>
+                        </div>
+                        <div class="email-register">
+                            <div class="head">สมัครสมาชิก</div>
+                            <form action="{% url 'ajax_email_register' %}" method="post" role="form">
+                                {% csrf_token %}
+                                <div class="inputs">
+                                    <input type="email" name="email" class="form-control" id="modal_registration_register_email" placeholder="อีเมล">
+                                </div>
+                                <div class="actions">
+                                    <button type="button" class="style-button">สมัครสมาชิก</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %}
 <div class="modal hide" id="registration-modal">
     <div class="modal-body style-registration-login">
         <div class="backend-social">
@@ -193,6 +298,7 @@
         </div>
     </div>
 </div>
+{% endcomment %}
 {% endif %}
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/moment.min.js"></script>
@@ -202,7 +308,7 @@
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.fileupload/js/jquery.iframe-transport.js"></script>
 
-<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap3/js/bootstrap.min.js"></script>
 <!--<script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/bootstrap.datepicker/js/locales/bootstrap-datepicker.th.js"></script>-->
 
@@ -221,68 +327,7 @@
 
 {% if not user.is_authenticated %}
 <script>
-(function() {
-    var registration_modal = $('#registration-modal');
-
-    $('#body-top').find('.registration .login').on('click', function() {
-        registration_modal.find('.email-login .actions .error').remove();
-        registration_modal.find('.email-register .actions .error').remove();
-        registration_modal.modal();
-        return false;
-    });
-
-    registration_modal.find('.email-login button').on('click', function() {
-        var email = registration_modal.find('.email-login input[name="email"]').val();
-        var password = registration_modal.find('.email-login input[name="password"]').val();
-
-        if(email && password) {
-            registration_modal.find('.email-login button').prop('disabled', true);
-            var jqxhr = $.post('/ajax/email/login/', {email:email, password:password}, function(response) {
-                if(response.status == 'success') {
-                    window.location.reload();
-                } else {
-                    registration_modal.find('.email-login button').prop('disabled', false);
-                    registration_modal.find('.email-login .actions .error').remove();
-                    registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + response.message + '</div>');
-                }
-            }, 'json');
-
-            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                registration_modal.find('.email-login button').prop('disabled', false);
-                registration_modal.find('.email-login .actions .error').remove();
-                registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + errorThrown + '</div>');
-            });
-        }
-
-        return false;
-    });
-
-    registration_modal.find('.email-register button').on('click', function() {
-        var email = registration_modal.find('.email-register input[name="email"]').val();
-
-        if(email) {
-            registration_modal.find('.email-register button').prop('disabled', true);
-            var jqxhr = $.post('/ajax/email/register/', {email:email}, function(response) {
-                registration_modal.find('.email-register button').prop('disabled', false);
-                if(response.status == 'success') {
-                    registration_modal.modal('hide');
-                    _alertModal('success', 'Register successful', 'Please confirm your email address from an email we sent to you.');
-                } else {
-                    registration_modal.find('.email-register .actions .error').remove();
-                    registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + response.message + '</div>');
-                }
-            }, 'json');
-
-            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                registration_modal.find('.email-register button').prop('disabled', false);
-                registration_modal.find('.email-register .actions .error').remove();
-                registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + errorThrown + '</div>');
-            });
-        }
-
-        return false;
-    });
-})();
+    initializeRegistrationModal();
 </script>
 {% endif %}
 

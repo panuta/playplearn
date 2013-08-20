@@ -1,32 +1,33 @@
+# -*- encoding: utf-8 -*-
 
 # COURSE STATUS
 COURSE_STATUS_CHOICES = (
-    ('DRAFT', 'Draft'),
-    ('WAIT_FOR_APPROVAL', 'Wait for Approval'),
-    ('READY_TO_PUBLISH', 'Ready to Publish'),
-    ('PUBLISHED', 'Public'),
-    ('DELETED', 'Deleted'),
+    ('DRAFT', u'ฉบับร่าง'),
+    ('WAIT_FOR_APPROVAL', u'รอการรับรอง'),
+    ('READY_TO_PUBLISH', u'พร้อมเปิดตัว'),
+    ('PUBLISHED', u'เปิดตัวแล้ว'),
+    ('DELETED', u'ถูกลบไปแล้ว'),
 )
 
 COURSE_STATUS_MAP = {
     'DRAFT': {
-        'name': 'Draft',
+        'name': u'ฉบับร่าง',
         'css_class': 'draft',
     },
     'WAIT_FOR_APPROVAL': {
-        'name': 'Wait for Approval',
+        'name': u'รอการรับรอง',
         'css_class': 'wait_for_approval',
     },
     'READY_TO_PUBLISH': {
-        'name': 'Ready to Publish',
+        'name': u'พร้อมเปิดตัว',
         'css_class': 'ready_to_publish',
     },
     'PUBLISHED': {
-        'name': 'Published',
+        'name': u'เปิดตัวแล้ว',
         'css_class': 'published',
     },
     'DELETED': {
-        'name': 'Deleted',
+        'name': u'ถูกลบไปแล้ว',
         'css_class': 'deleted',
     },
 }

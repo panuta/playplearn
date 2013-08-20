@@ -165,7 +165,7 @@ class Command(BaseCommand):
                     teacher=user_panuta,
                     status='PUBLISHED',
                     first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 1, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 23, 8, 0), is_dst=None),
+                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 23, 8, 0), is_dst=None),
                 )
 
                 course1.schools.add(photography_school)
@@ -173,19 +173,19 @@ class Command(BaseCommand):
 
                 course1_schedule1 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 15, 9, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 9, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 course1_schedule2 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 1, 9, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 9, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 course1_schedule3 = CourseSchedule.objects.create(
                     course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 12, 9, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 12, 9, 0), is_dst=None),
                     status='OPENING',
                 )
 
@@ -261,19 +261,19 @@ class Command(BaseCommand):
 
                 course2_schedule1 = CourseSchedule.objects.create(
                     course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 10, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 10, 0), is_dst=None),
                     status='OPENING',
                 )
 
                 course2_schedule2 = CourseSchedule.objects.create(
                     course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 1, 10, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 10, 0), is_dst=None),
                     status='CANCELLED',
                 )
 
                 course2_schedule2 = CourseSchedule.objects.create(
                     course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 7, 30, 10, 0), is_dst=None),
+                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 30, 10, 0), is_dst=None),
                     status='OPENING',
                 )
 

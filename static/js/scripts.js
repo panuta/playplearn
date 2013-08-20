@@ -40,6 +40,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         _is_very_dirty = true;
 
         $('.form-content').one('saved', function(e, response) {
+            window.onbeforeunload = function() {};
             $('#modal-course-submitted').modal();
         });
 
@@ -53,18 +54,6 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         save_changes('update', true);
         return false;
     });
-
-    if(page_type == 'create') {
-        window.onbeforeunload = function() {
-            return 'Please save your draft before reloading this page';
-        };
-    } else if(page_type == 'edit') {
-        window.onbeforeunload = function() {
-            if(_is_dirty || _is_saving) {
-                return 'Please save your data before reloading this page';
-            }
-        };
-    }
 
     // Initialize Course Activities
     function _init_course_activities() {
@@ -746,6 +735,16 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                 save_changes();
                 _start_autosave_timer();
             }
+        }
+
+        if(page_type == 'create') {
+            window.onbeforeunload = function() {return 'Please save your draft before reloading this page';};
+        } else if(page_type == 'edit') {
+            window.onbeforeunload = function() {
+                if(_is_dirty || _is_saving) {
+                    return 'Please save your data before reloading this page';
+                }
+            };
         }
     }
 

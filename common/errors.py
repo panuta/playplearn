@@ -26,6 +26,7 @@ ACCOUNT_REGISTRATION_ERRORS = {
 COURSE_MODIFICATION_ERRORS = {
     'unauthorized': u'Unauthorized action',
     'status-invalid': u'Course status is read only',
+    'edit-while-approving': u'Cannot make a modification while this workshop is approving',
     'status-no-ready-to-submit': u'Course is still not ready to be submitted',
     'status-no-ready-to-publish': u'Course is still not ready to be published',
     'input-invalid': u'Input is invalid',

@@ -111,111 +111,205 @@
         text-align: center;
 
         .logo {
-            margin-top: 50px;
+            margin-top: 55px;
         }
 
-        .subtitle {
-            color: #444;
-            font-family: 'KunlasatriBold', sans-serif;
-            font-size: 50px;
+        .headline {
+            color: #8696a0;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 40px;
             font-weight: normal;
-            margin-top: 45px;
-        }
-
-        .description {
-            color: #777;
-            font-family: 'KunlasatriLight', sans-serif;
-            font-size: 42px;
-            font-weight: normal;
-            margin-top: 40px;
-        }
-
-        .browse {
-            margin-top: 35px;
-
-            a {
-                font-size: 15px;
-                padding: 12px 55px;
-
-                i {
-                    font-size: 11px;
-                    margin-right: 4px;
-                    vertical-align: 2px;
-                }
-            }
+            margin-top: 15px;
         }
     }
 
-    .latest-courses {
-        margin-top: 60px;
-
+    .upcoming-workshops {
         .head {
-            margin-bottom: 15px;
-            text-align: center;
+            line-height: 12px;
+            margin: 70px auto 20px;
+            text-align: left;
 
-            h2 {
-                color: #666;
-                font-family: 'KunlasatriLight', sans-serif;
-                font-size: 34px;
-                font-weight: normal;
-                line-height: normal;
-                margin: 0;
-                padding: 5px 20px;
+            hr {
+                border: none;
+                border-bottom: 1px solid #EEE;
+                margin: 5px 0px;
+            }
 
-                i {
-                    color: #AAA;
-                    display: block;
-                    font-size: 14px;
-                    margin-top: 1px;
-                }
+            span {
+                background-color: #FFF;
+                color: @colorGrey;
+                font-size: 13px;
+                display: inline-block;
+                margin-left: 20px;
+                padding: 0 10px;
+                position: relative;
+                top: -13px;
             }
         }
 
         ul.courses {
             margin: 0;
+            padding: 0;
 
             li.course {
-                float: left;
                 list-style: none;
-                margin-bottom: 40px;
+                margin-bottom: 50px;
+            }
+        }
+
+        li.course {
+            .cover {
+                padding: 3px;
+                border: 1px solid #DDD;
+                float: left;
+                position: relative;
+
+                img {
+                    width: 450px;
+                    height: 250px;
+                }
             }
 
-            li.left-box {
-                margin-right: 46px;
+            .right {
+                margin-left: 480px;
+            }
+
+            .title a {
+                .content_link;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 30px;
+                line-height: 38px;
+            }
+
+            .at_glance {
+                color: @colorGrey;
+                font-size: 14px;
+                margin-top: 2px;
+
+                .item {
+                    margin-right: 5px;
+                }
+
+                a {
+                    color: @colorNavy;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                em {
+                    color: @colorNavy;
+                }
+            }
+
+            .teacher {
+                margin-top: 17px;
+
+                .avatar {
+                    display: inline-block;
+                    margin-right: 10px;
+                    vertical-align: middle;
+
+                    img {
+                        border-radius: 50px;
+                        height: 50px;
+                        width: 50px;
+                    }
+                }
+
+                .teacher_name {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                .name {
+                    color: @colorNavy;
+                    display: block;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 24px;
+                }
+
+                .doing {
+                    color: @colorGrey;
+                    display: block;
+                    font-size: 13px;
+                }
+            }
+
+            .numbers {
+                color: #555;
+                margin: 20px 0 0;
+
+                span {
+                    background-color: #F4F4F4;
+                    display: inline-block;
+                    font-size: 13px;
+                    margin-right: 7px;
+                    padding: 6px 15px;
+
+                    em {
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+
+                i {
+                    color: #666;
+                    font-size: 15px;
+                    margin-right: 2px;
+
+                    &.icon-comment {
+                        vertical-align: 1px;
+                    }
+                }
+            }
+
+            .enroll {
+                margin-top: 20px;
+
+                .button-enroll {
+                    font-size: 14px;
+                    padding: 10px 40px;
+                }
+
+                .upcoming {
+                    color: #777;
+                    font-size: 13px;
+                    margin-left: 12px;
+
+                    .date, .time {
+                        color: #555;
+                        font-weight: bold;
+                    }
+                }
             }
         }
     }
 
     .homepage-teach {
-        background-color: #bbd3eb;
+        background-color: #e2ecf6;
         margin: 20px auto 50px;
         padding: 40px 0;
         text-align: center;
 
         .head1 {
-            color: @primaryColor;
-            font-family: 'KunlasatriBold', sans-serif;
-            font-size: 34px;
-            margin-bottom: 30px;
+            color: @colorNavy;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 28px;
+            margin-bottom: 10px;
         }
 
         .head2 {
-            color: #444;
-            font-family: 'KunlasatriBold', sans-serif;
-            font-size: 26px;
-            margin-bottom: 30px;
+            color: @colorNavy;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
         }
 
-        .head3 {
-            color: #444;
-            font-family: 'KunlasatriBold', sans-serif;
-            font-size: 26px;
-            margin-bottom: 20px;
-        }
-
-        .style-white-button {
+        .button-start-workshop {
             font-size: 14px;
-            padding: 12px 40px;
+            padding: 10px 40px;
         }
     }
 }
@@ -1100,30 +1194,6 @@
     }
 }
 
-.style-course-status {
-    color: #444;
-    font-size: 13px;
-    font-weight: bold;
-
-    i {
-        color: #AAA;
-        font-size: 14px;
-        margin-right: 5px;
-
-        &.icon-light {
-            font-size: 10px;
-        }
-    }
-
-    .draft i {
-        color: #555;
-    }
-
-    .published i {
-        color: @alertGreenColor;
-    }
-}
-
 .page-my-courses-teaching {
     .style-stats-bar {
         .create-course {
@@ -1133,7 +1203,7 @@
     }
 
     .teaching-courses {
-        margin-top: 15px;
+        margin-top: 25px;
 
         .teaching-status {
             .head {
@@ -1155,7 +1225,26 @@
                 .title {
                     a {
                         .content_link;
-                        font-size: 16px;
+                        font-size: 15px;
+                    }
+                }
+
+                .details {
+                    margin-top: 5px;
+
+                    .details-item {
+                        display: inline-block;
+                        margin-right: 15px;
+                    }
+
+                    .caption {
+                        color: #777;
+                        font-size: 12px;
+                    }
+
+                    .value {
+                        color: #555;
+                        font-weight: bold;
                     }
                 }
 
@@ -1229,6 +1318,98 @@
                         font-size: 13px;
                         margin-right: 10px;
                     }
+
+                    i.icon-check-sign {
+                        color: @alertGreenColor;
+                        margin-right: 2px;
+                    }
+                }
+            }
+        }
+
+        table.courses {
+            border: none;
+            width: 100%;
+
+            th {
+                border: none;
+                color: #777;
+                font-size: 12px;
+                font-weight: bold;
+                padding-top: 0;
+            }
+
+            td {
+                padding-bottom: 15px;
+                padding-top: 15px;
+                vertical-align: middle;
+            }
+
+            .status {
+                text-align: center;
+                width: 100px;
+            }
+
+            .title {
+                padding-left: 20px;
+            }
+
+            .actions {
+                text-align: right;
+                width: 220px;
+
+                a {
+                    margin-left: 10px;
+                }
+
+                i.icon-check-sign {
+                    color: @successColor;
+                    margin-right: 2px;
+                }
+            }
+
+            td.title {
+                a {
+                    .content_link;
+                    font-size: 15px;
+                }
+
+                .stats {
+                    color: #666;
+                    font-size: 12.5px;
+                    margin-top: 5px;
+
+                }
+            }
+
+            td.status {
+                color: #444;
+                font-size: 12px;
+
+                .style-course-status {
+                    border-radius: 4px;
+                    display: block;
+                    padding: 4px 0;
+                }
+
+                .draft {
+                    background-color: #EEE;
+                    color: #333;
+                }
+
+                .wait_for_approval {
+                    background-color: #FFC;
+                    color: #333;
+                }
+
+                .ready_to_publish {
+                    background-color: #e7fee7;
+                    color: #333;
+                }
+
+                .published {
+                    background-color: @successColor;
+                    color: #FFF;
                 }
             }
         }
@@ -1253,51 +1434,8 @@
             margin-top: 18px;
         }
     }
-
-    .schedule-modal {
-        margin-left: -300px;
-        width: 600px;
-
-        .schedule-date {
-            float: left;
-            padding: 15px 0 0 15px;
-
-            .note {
-                color: #666;
-                font-size: 12px;
-                margin-top: 4px;
-                text-align: center;
-            }
-        }
-
-        .schedule-time {
-            margin-left: 325px;
-            padding-top: 50px;
-
-            .head {
-                color: #555;
-                font-weight: bold;
-                margin-bottom: 9px;
-                text-align: center;
-            }
-
-            select {
-                display: block;
-                font-size: 16px;
-                margin: 0 auto;
-                width: 150px;
-
-                option {
-                    padding: 2px 5px;
-                    text-align: center;
-                }
-            }
-        }
-    }
-
+/*
     #modal-publish-course {
-        margin-left: -300px;
-        width: 600px;
 
         #publish-date {
             float: left;
@@ -1334,7 +1472,7 @@
                 }
             }
         }
-    }
+    }*/
 }
 
 .page-course-modify {
@@ -1781,12 +1919,6 @@
         .school-control {
             select {
                 width: 350px;
-                //font-size: 15px;
-                //padding: 4px;
-
-                option {
-                    //padding: 4px;
-                }
             }
         }
 

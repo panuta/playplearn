@@ -4,9 +4,9 @@
         <div class="top">
             <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
             <div class="at_glance">
-                กิจกรรมเกี่ยวกับ <a href="#" class="school">{{ course.get_school.name }}</a>
+                <a href="#" class="school">{{ course.get_school.name }}</a>
                 ระยะเวลา <span class="duration">{{ course.duration }} ชั่วโมง</span>
-                ร่วมกับคนอีก <span class="people">{{ course.maximum_people }} คน</span>
+                กลุ่ม <span class="people">{{ course.maximum_people }} คน</span>
             </div>
             <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" {% thumbnail_img_size 'course_cover_normal' %} /></a></div>
             {% if not hide_teacher %}

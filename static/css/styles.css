@@ -130,63 +130,89 @@ select:focus:invalid:focus {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.19);
   -webkit-font-smoothing: antialiased;
 }
-.modal-backdrop {
-  background-color: #333;
-}
-body.modal-open {
-  overflow: hidden;
-}
-.modal {
-  border: none;
-  border-top: 7px solid #3a71a9;
+.modal .modal-dialog .modal-content {
   border-radius: 0px;
 }
-.modal form {
-  margin: 0px;
+.modal .modal-dialog .modal-content .modal-header {
+  border-bottom: none;
 }
-.modal .modal-header {
-  border-bottom: 0px;
-  padding: 15px 20px;
-}
-.modal .modal-header h3 {
-  color: #555;
+.modal .modal-dialog .modal-content .modal-title {
+  color: #29ace4;
+  font-family: 'QuarkLight', sans-serif;
   font-size: 22px;
 }
-.modal .modal-header .close {
-  font-size: 26px;
-  margin: 0;
+/*
+.modal-backdrop {
+    background-color: #333;
 }
-.modal .modal-error {
-  background-color: #e56068;
-  color: #FFF;
-  margin-bottom: 15px;
-  padding: 8px 20px;
+
+body.modal-open {
+    // Prevent background content to scroll when modal is opened
+    overflow: hidden;
 }
-.modal .modal-error i {
-  vertical-align: -2px;
-}
-.modal .modal-body {
-  padding: 0px 20px 15px;
-}
-.modal .modal-loading {
-  padding: 30px 0;
-  text-align: center;
-}
-.modal .modal-footer {
-  background-color: transparent;
-  border-top: none;
-  box-shadow: none;
-  padding: 10px 20px 20px;
-}
-.modal .modal-footer a,
-.modal .modal-footer button {
-  font-size: 13px;
-  margin-left: 15px;
-  padding: 5px 20px;
-}
-.modal .modal-footer .style-primary-button {
-  padding: 5px 30px;
-}
+
+.modal {
+    //border: 1px solid rgba(85, 85, 85, 0.3);
+    border: none;
+    border-top: 7px solid @primaryColor;
+    border-radius: 0px;
+
+    form {
+        margin: 0px;
+    }
+
+    .modal-header {
+        border-bottom: 0px;
+        padding: 15px 20px;
+
+        h3 {
+            color: #555;
+            font-size: 22px;
+        }
+
+        .close {
+            font-size: 26px;
+            margin: 0;
+        }
+    }
+
+    .modal-error {
+        background-color: #e56068;
+        color: #FFF;
+        margin-bottom: 15px;
+        padding: 8px 20px;
+
+        i {
+            vertical-align: -2px;
+        }
+    }
+
+    .modal-body {
+        padding: 0px 20px 15px;
+    }
+
+    .modal-loading {
+        padding: 30px 0;
+        text-align: center;
+    }
+
+    .modal-footer {
+        background-color: transparent;
+        border-top: none;
+        box-shadow: none;
+        padding: 10px 20px 20px;
+
+        a, button {
+            font-size: 13px;
+            margin-left: 15px;
+            padding: 5px 20px;
+        }
+
+        .style-primary-button {
+            padding: 5px 30px;
+        }
+    }
+}*/
 .slider .slider-selection {
   background-color: #0E90D2;
   background-image: linear-gradient(to bottom, #149bdf, #0480be);
@@ -201,7 +227,7 @@ body.modal-open {
   width: auto;
 }
 .ui-datepicker .ui-datepicker-header {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
@@ -498,14 +524,13 @@ form .avatar-control .errorlist {
   margin-right: 2px;
 }
 .style-button {
-  border: none;
   border-radius: 4px;
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #BBB;
-  color: #444;
+  background-color: #FFF;
+  border: 1px solid #DDD;
+  color: #555;
 }
 .style-button:hover,
 .style-button:focus {
@@ -516,105 +541,18 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
-.style-button[disabled] {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-  cursor: default;
-}
-.style-button[disabled]:hover,
-.style-button[disabled]:focus {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-}
 .style-button:hover,
 .style-button:focus {
-  background-color: #E4E4E4;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #444;
-}
-.style-white-button {
-  border: none;
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 13.5px;
-  padding: 7px 30px;
-  background-color: #F7F7F7;
-  box-shadow: 0px 3px 0px #DDD;
-  color: #444;
-}
-.style-white-button:hover,
-.style-white-button:focus {
-  color: #FFF;
-  text-decoration: none;
-}
-.style-white-button i {
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.style-white-button[disabled] {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-  cursor: default;
-}
-.style-white-button[disabled]:hover,
-.style-white-button[disabled]:focus {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-}
-.style-white-button:hover,
-.style-white-button:focus {
-  background-color: #FFF;
-  box-shadow: 0px 3px 0px #DDD;
-  color: #444;
-}
-.style-orange-button {
-  border: none;
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 13.5px;
-  padding: 7px 30px;
-  background-color: #FF874A;
-  box-shadow: 0px 3px 0px #E86D2E;
-  color: #FFF;
-}
-.style-orange-button:hover,
-.style-orange-button:focus {
-  color: #FFF;
-  text-decoration: none;
-}
-.style-orange-button i {
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.style-orange-button[disabled] {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-  cursor: default;
-}
-.style-orange-button[disabled]:hover,
-.style-orange-button[disabled]:focus {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-}
-.style-orange-button:hover,
-.style-orange-button:focus {
-  background-color: #ff7630;
-  box-shadow: 0px 3px 0px #E86D2E;
+  background-color: #5892ce;
+  border: 1px solid #5892ce;
 }
 .style-primary-button {
-  border: none;
   border-radius: 4px;
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
-  background-color: #3a71a9;
-  box-shadow: 0px 3px 0px #2d5883;
+  background-color: #5892ce;
+  border: none;
   color: #FFF;
 }
 .style-primary-button:hover,
@@ -626,23 +564,136 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
-.style-primary-button[disabled] {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-  cursor: default;
-}
-.style-primary-button[disabled]:hover,
-.style-primary-button[disabled]:focus {
-  background-color: #D9D9D9;
-  box-shadow: 0px 3px 0px #CCC;
-  color: #AAA;
-}
 .style-primary-button:hover,
 .style-primary-button:focus {
-  background-color: #417ebc;
-  box-shadow: 0px 3px 0px #336496;
+  background-color: #4485c8;
 }
+.style-outline-button {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13.5px;
+  padding: 7px 30px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  color: #555;
+}
+.style-outline-button:hover,
+.style-outline-button:focus {
+  color: #FFF;
+  text-decoration: none;
+}
+.style-outline-button i {
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.style-outline-button:hover,
+.style-outline-button:focus {
+  background-color: #5892ce;
+  border: 1px solid #5892ce;
+}
+.style-dark-outline-button {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13.5px;
+  padding: 7px 30px;
+  border: 1px solid #29ace4;
+  color: #29ace4;
+}
+.style-dark-outline-button:hover,
+.style-dark-outline-button:focus {
+  color: #FFF;
+  text-decoration: none;
+}
+.style-dark-outline-button i {
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.style-dark-outline-button:hover,
+.style-dark-outline-button:focus {
+  background-color: #5892ce;
+  border: 1px solid #5892ce;
+}
+/*
+.style-button-base() {
+    border: none;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 13.5px;
+    padding: 7px 30px;
+
+    &:hover, &:focus {
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    i {
+        margin-right: 3px;
+        vertical-align: middle;
+    }
+
+    &[disabled] {
+        background-color: #D9D9D9;
+        box-shadow: 0px 3px 0px #CCC;
+        color: #AAA;
+        cursor: default;
+
+        &:hover, &:focus {
+            background-color: #D9D9D9;
+            box-shadow: 0px 3px 0px #CCC;
+            color: #AAA;
+        }
+    }
+}
+
+.style-button {
+    .style-button-base;
+    background-color: #D9D9D9;
+    box-shadow: 0px 3px 0px #BBB;
+    color: #444;
+
+    &:hover, &:focus {
+        background-color: #E4E4E4;
+        box-shadow: 0px 3px 0px #CCC;
+        color: #444;
+    }
+}
+
+.style-white-button {
+    .style-button-base;
+    background-color: #F7F7F7;
+    box-shadow: 0px 3px 0px #DDD;
+    color: #444;
+
+    &:hover, &:focus {
+        background-color: #FFF;
+        box-shadow: 0px 3px 0px #DDD;
+        color: #444;
+    }
+}
+
+.style-orange-button {
+    .style-button-base;
+    background-color: #FF874A;
+    box-shadow: 0px 3px 0px #E86D2E;
+    color: #FFF;
+
+    &:hover, &:focus {
+        background-color: #ff7630;
+        box-shadow: 0px 3px 0px #E86D2E;
+    }
+}
+
+.style-primary-button {
+    .style-button-base;
+    background-color: @buttonColor;
+    box-shadow: 0px 3px 0px @buttonShadowColor;
+    color: #FFF;
+
+    &:hover, &:focus {
+        background-color: @buttonHoverColor;
+        box-shadow: 0px 3px 0px @buttonHoverShadowColor;
+    }
+}*/
 h1.style-page-header {
   background-position: left center;
   background-repeat: no-repeat;
@@ -860,24 +911,10 @@ h1.style-page-header {
   font-size: 20px;
   font-weight: bold;
 }
-.style-registration-login {
-  width: 650px;
-  padding: 40px 25px 10px;
-}
-.style-registration-login .head {
-  color: #888;
-  font-size: 22px;
-  margin-bottom: 30px;
+.style-registration-modal .backend-social {
   text-align: center;
 }
-.style-registration-login .head b {
-  color: #666;
-  font-weight: normal;
-}
-.style-registration-login .backend-social {
-  text-align: center;
-}
-.style-registration-login .backend-social .facebook {
+.style-registration-modal .backend-social .facebook {
   background: url(../images/ui/login.socials.en.png) 0px 0px no-repeat;
   display: inline-block;
   height: 40px;
@@ -885,7 +922,7 @@ h1.style-page-header {
   width: 230px;
   margin: 0 15px;
 }
-.style-registration-login .backend-social .twitter {
+.style-registration-modal .backend-social .twitter {
   background: url(../images/ui/login.socials.en.png) 0px -40px no-repeat;
   display: inline-block;
   height: 40px;
@@ -893,18 +930,17 @@ h1.style-page-header {
   width: 230px;
   margin: 0 15px;
 }
-.style-registration-login .or {
+.style-registration-modal .or {
   line-height: 12px;
-  margin: 35px auto 0px;
+  margin: 35px auto 5px;
   text-align: center;
-  width: 650px;
 }
-.style-registration-login .or hr {
+.style-registration-modal .or hr {
   border: none;
   border-bottom: 1px solid #DDD;
   margin: 5px 0px;
 }
-.style-registration-login .or span {
+.style-registration-modal .or span {
   background-color: #FFF;
   color: #888;
   font-size: 12.5px;
@@ -913,117 +949,109 @@ h1.style-page-header {
   position: relative;
   top: -13px;
 }
-.style-registration-login .backend-email {
-  margin-top: 5px;
+.style-registration-modal .backend-email {
+  margin-bottom: 20px;
 }
-.style-registration-login .backend-email .head {
+.style-registration-modal .backend-email .head {
   color: #666;
-  font-size: 15px;
-  margin-bottom: 15px;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
 }
-.style-registration-login .backend-email form {
+.style-registration-modal .backend-email form {
   margin: 0;
   text-align: center;
 }
-.style-registration-login .backend-email form label {
-  color: #555;
-  font-size: 13px;
-  font-weight: bold;
-}
-.style-registration-login .backend-email form input {
+.style-registration-modal .backend-email form input {
   font-size: 15px;
-  height: 25px;
-  margin-bottom: 15px;
+  margin: 0 auto 15px;
   width: 230px;
 }
-.style-registration-login .backend-email form .actions {
+.style-registration-modal .backend-email form .actions {
   margin-top: 2px;
 }
-.style-registration-login .backend-email form .actions .error {
+.style-registration-modal .backend-email form .actions .error {
   color: #C30;
   font-size: 13px;
   margin-bottom: 8px;
 }
-.style-registration-login .backend-email form .actions .style-button {
+.style-registration-modal .backend-email form .actions .style-button {
   font-size: 13px;
   height: auto;
   margin: 0;
   padding: 5px 40px;
   width: auto;
 }
-.style-registration-login .backend-email form .forgot {
+.style-registration-modal .backend-email form .forgot {
   margin-top: 7px;
 }
-.style-registration-login .backend-email form .forgot a {
+.style-registration-modal .backend-email form .forgot a {
   font-size: 12px;
 }
-.style-registration-login .backend-email form .forgot a:link,
-.style-registration-login .backend-email form .forgot a:active,
-.style-registration-login .backend-email form .forgot a:visited {
+.style-registration-modal .backend-email form .forgot a:link,
+.style-registration-modal .backend-email form .forgot a:active,
+.style-registration-modal .backend-email form .forgot a:visited {
   color: #888;
   text-decoration: underline;
 }
-.style-registration-login .backend-email form .forgot a:hover {
+.style-registration-modal .backend-email form .forgot a:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
-.style-registration-login .backend-email .email-login {
+.style-registration-modal .backend-email .email-login {
   float: left;
-  margin-bottom: 20px;
   vertical-align: top;
-  width: 325px;
+  width: 319px;
 }
-.style-registration-login .backend-email .email-register {
+.style-registration-modal .backend-email .email-register {
   float: left;
   vertical-align: top;
-  width: 325px;
+  width: 319px;
 }
 .style-course-box {
-  background-color: white;
-  border: 1px solid #DDD;
+  background-color: #FFF;
   display: inline-block;
   list-style: none;
   width: 560px;
 }
 .style-course-box .top {
-  padding: 20px 25px 20px;
+  padding: 30px 25px 20px;
 }
 .style-course-box .title a {
-  font-size: 18px;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 26px;
   line-height: 26px;
 }
 .style-course-box .title a:link,
 .style-course-box .title a:active,
 .style-course-box .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .style-course-box .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
 .style-course-box .at_glance {
-  color: #888;
+  color: #8696a0;
   font-size: 14px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 .style-course-box .at_glance a {
-  color: #666;
+  color: #8696a0;
   font-weight: bold;
 }
 .style-course-box .at_glance a:hover {
   text-decoration: underline;
 }
 .style-course-box .at_glance span {
-  color: #666;
+  color: #8696a0;
   font-weight: bold;
 }
 .style-course-box .cover {
-  margin-top: 10px;
+  margin-top: 15px;
   position: relative;
 }
 .style-course-box .course-details {
@@ -1097,12 +1125,9 @@ h1.style-page-header {
 .style-course-box .next a:link,
 .style-course-box .next a:active,
 .style-course-box .next a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .style-course-box .next a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -1181,12 +1206,9 @@ h1.style-page-header {
 .style-course-story a:link,
 .style-course-story a:active,
 .style-course-story a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .style-course-story a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -1394,134 +1416,76 @@ body {
   height: 100%;
 }
 #body-top {
-  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
-  border-bottom: 1px solid #4585c8;
-  height: 35px;
+  height: 57px;
 }
-#body-top ul.buttons {
-  border-left: 1px solid #4585c8;
-  border-right: 1px solid #87add4;
-  height: 35px;
-  margin: 0;
+#body-top .top-left {
+  float: left;
 }
-#body-top ul.buttons li.button {
+#body-top .top-left a {
+  color: #4b5c66;
   display: inline-block;
-  height: 35px;
-  list-style: none;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  margin-left: 20px;
+}
+#body-top .top-left .logo {
+  margin: 10px 0 0;
+}
+#body-top .top-right {
+  float: right;
+}
+#body-top .top-right .registration {
+  margin-top: 15px;
+}
+#body-top .top-right .registration a {
+  color: #8696a0;
+  display: inline-block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 19px;
+}
+#body-top .top-right .user {
+  margin-top: 15px;
+}
+#body-top .top-right .user .top-item {
+  display: inline-block;
   vertical-align: middle;
 }
-#body-top ul.buttons li.button .open a.top-button {
-  background-color: #3a71a9;
-  border-left: 1px solid #336396;
+#body-top .top-right .user .notification a {
+  background-color: #f9e25c;
+  border-radius: 4px;
+  color: #555;
+  font-weight: bold;
+  margin-right: 10px;
+  padding: 3px 10px;
+}
+#body-top .top-right .user .notification a:hover,
+#body-top .top-right .user .notification a:focus {
+  background-color: #5892ce;
   color: #FFF;
   text-decoration: none;
 }
-#body-top ul.buttons li.button .dropdown-menu i {
-  margin-right: 1px;
+#body-top .top-right .user .avatar {
+  display: inline-block;
+  margin-right: 5px;
 }
-#body-top a.top-button {
-  border-left: 1px solid #87add4;
-  border-right: 1px solid #4585c8;
-  color: #FFF;
-  display: block;
-  font-size: 12px;
-  line-height: 35px;
-  padding: 0 14px;
+#body-top .top-right .user .avatar img {
+  border-radius: 30px;
 }
-#body-top a.top-button i {
-  font-size: 15px;
-  margin-right: 2px;
+#body-top .top-right .user .name {
+  color: #8696a0;
+  display: inline-block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 19px;
+  margin-right: 15px;
   vertical-align: -1px;
 }
-#body-top a.top-button:hover {
-  background-color: #3a71a9;
-  border-left: 1px solid #336396;
-  color: #FFF;
+#body-top .top-right .user .menu a:hover,
+#body-top .top-right .user .menu a:focus {
   text-decoration: none;
 }
-#body-top a.top-button:active,
-#body-top a.top-button:focus {
-  background-color: transparent;
-  border-left: 1px solid #87add4;
-  color: #FFF;
-  outline: none;
-  text-decoration: none;
-}
-#body-top a.top-button .num {
-  background-color: #3a71a9;
-  border-radius: 4px;
-  color: #EEE;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: normal;
-  margin-left: 6px;
-  padding: 1px 5px;
-}
-#body-top .social {
-  float: left;
-  height: 35px;
-}
-#body-top .social ul.buttons li.button a.top-button {
-  padding: 0 12px;
-}
-#body-top .social ul.buttons li.button.home a.top-button {
-  padding: 0 20px;
-}
-#body-top .social ul.buttons li.button.phone .phone-number {
-  border-left: 1px solid #87add4;
-  border-right: 1px solid #4585c8;
-  color: #FFF;
-  display: block;
-  font-size: 14px;
-  line-height: 35px;
-  padding: 0 14px;
-}
-#body-top .social ul.buttons li.button.phone .phone-number i {
-  margin-right: 2px;
-}
-#body-top .account {
-  float: right;
-  height: 35px;
-}
-#body-top .user ul.buttons {
-  border-left: none;
-}
-#body-top .user ul.buttons li.button.username a.top-button {
-  border-left: none;
-  font-weight: bold;
-  padding-right: 15px;
-}
-#body-top .user ul.buttons li.button.username a.top-button:hover,
-#body-top .user ul.buttons li.button.username a.top-button:active,
-#body-top .user ul.buttons li.button.username a.top-button:focus {
-  background-color: transparent;
-  text-decoration: underline;
-}
-#body-top .user ul.buttons li.button.messages a.top-button {
-  padding: 0 11px;
-}
-#body-top .user ul.buttons li.button.messages a.top-button i {
-  font-size: 14px;
-}
-#body-top .user ul.buttons li.button.settings a.top-button {
-  padding: 0 10px 0 12px;
-}
-#body-top .user ul.buttons li.button.settings a.top-button i.icon-gear {
-  font-size: 14px;
-  margin: 0 6px 0 0;
-}
-#body-top .messages .message {
-  height: 30px;
-  overflow: hidden;
-}
-#body-top .messages .message em {
-  color: #444;
-  font-size: 13px;
-  font-weight: bold;
-}
-#body-top .messages .message b {
-  color: #555;
-  font-size: 12px;
+#body-top .top-right .user .menu i.icon-reorder {
+  color: #4b5c66;
+  font-size: 22px;
 }
 #body-header {
   background-color: #FFF;
@@ -1536,77 +1500,80 @@ body {
 .wrapper {
   height: auto !important;
   height: 100%;
-  margin: 0 auto -95px;
+  margin: 0 auto -215px;
   min-height: 100%;
 }
 .push {
-  height: 95px;
+  height: 215px;
 }
 #body-footer {
-  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
+  background-color: #FFF;
   position: relative;
   padding-top: 15px;
-  height: 80px;
+  height: 200px;
 }
 #body-footer .logo {
   margin-bottom: 5px;
 }
-#body-footer .links a {
-  color: #FFF;
+#body-footer .links {
   font-size: 13px;
 }
-#body-footer .links a:hover {
+#body-footer .links:link,
+#body-footer .links:active,
+#body-footer .links:visited {
+  color: #5892ce;
+}
+#body-footer .links:hover {
   text-decoration: underline;
+  text-shadow: none;
 }
 #body-footer .links .separator {
   color: #DDD;
   margin: 0 6px;
 }
 #body-footer .copyright {
-  color: #EEE;
+  color: #888;
   font-size: 12px;
   margin-top: 5px;
 }
-#body-footer .social-links {
-  margin-top: 7px;
+#body-footer .contact .head {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 7px;
 }
-#body-footer .social-links a {
-  background-image: url(../images/ui/social-icons.png);
-  border: 1px solid #6c9fd4;
-  border-radius: 32px;
-  float: right;
-  height: 32px;
-  margin-left: 10px;
-  text-indent: -9999px;
-  width: 32px;
+#body-footer .contact ul {
+  margin: 0;
+  padding: 0;
 }
-#body-footer .social-links a:hover {
-  background-color: #FFF;
-  border: 1px solid #FFF;
+#body-footer .contact ul li {
+  list-style: none;
+  margin-bottom: 10px;
 }
-#body-footer .social-links .facebook {
-  background-position: 0 0;
+#body-footer .contact ul li i {
+  color: #888;
+  display: inline-block;
+  text-align: center;
+  width: 20px;
 }
-#body-footer .social-links .facebook:hover {
-  background-position: 0 -32px;
+#body-footer .contact ul li a {
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
 }
-#body-footer .social-links .twitter {
-  background-position: -32px 0;
+#body-footer .subscribe .head {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 7px;
 }
-#body-footer .social-links .twitter:hover {
-  background-position: -32px -32px;
+#body-footer .subscribe .box {
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  padding: 15px;
 }
-#body-footer .social-links .rss {
-  background-position: -64px 0;
-}
-#body-footer .social-links .rss:hover {
-  background-position: -64px -32px;
-}
-#body-footer .social-links .email {
-  background-position: -96px 0;
-}
-#body-footer .social-links .email:hover {
-  background-position: -96px -32px;
+#body-footer .subscribe .offer {
+  color: #555;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 .page-backend #backend-header {
   background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
@@ -1800,12 +1767,8 @@ body {
 #modal-error-message h3 {
   color: #C30;
 }
-#registration-modal {
-  margin-left: -350px;
+#registration-modal .modal-dialog {
   width: 700px;
-}
-#registration-modal .modal-body {
-  padding: 40px 25px 10px;
 }
 #modal-enrollment-login {
   margin-left: -300px;
@@ -1917,12 +1880,9 @@ body {
 #modal-enrollment-login .registration .backend-email .signup a:link,
 #modal-enrollment-login .registration .backend-email .signup a:active,
 #modal-enrollment-login .registration .backend-email .signup a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 #modal-enrollment-login .registration .backend-email .signup a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -2157,6 +2117,45 @@ body {
   height: 80px;
   width: 97%;
 }
+.modal-add-schedule {
+  margin-left: -280px;
+  width: 560px;
+}
+.modal-add-schedule .head {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.modal-add-schedule .head i {
+  color: #3a71a9;
+}
+.modal-add-schedule .schedule-date {
+  float: left;
+  padding-top: 10px;
+}
+.modal-add-schedule .schedule-date .control {
+  border: 1px solid #CCC;
+  padding: 15px;
+}
+.modal-add-schedule .schedule-date .note {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
+.modal-add-schedule .schedule-time {
+  margin-left: 360px;
+  padding-top: 10px;
+}
+.modal-add-schedule .schedule-time select {
+  display: block;
+  font-size: 16px;
+  width: 150px;
+}
+.modal-add-schedule .schedule-time select option {
+  padding: 2px 5px;
+  text-align: center;
+}
 #modal-add-class {
   margin-left: -300px;
   width: 600px;
@@ -2379,94 +2378,176 @@ body {
   text-align: center;
 }
 .page-homepage .homepage-header .logo {
-  margin-top: 50px;
+  margin-top: 55px;
 }
-.page-homepage .homepage-header .subtitle {
-  color: #444;
-  font-family: 'KunlasatriBold', sans-serif;
-  font-size: 50px;
+.page-homepage .homepage-header .headline {
+  color: #8696a0;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 40px;
   font-weight: normal;
-  margin-top: 45px;
+  margin-top: 15px;
 }
-.page-homepage .homepage-header .description {
-  color: #777;
-  font-family: 'KunlasatriLight', sans-serif;
-  font-size: 42px;
-  font-weight: normal;
-  margin-top: 40px;
+.page-homepage .upcoming-workshops .head {
+  line-height: 12px;
+  margin: 70px auto 20px;
+  text-align: left;
 }
-.page-homepage .homepage-header .browse {
-  margin-top: 35px;
+.page-homepage .upcoming-workshops .head hr {
+  border: none;
+  border-bottom: 1px solid #EEE;
+  margin: 5px 0px;
 }
-.page-homepage .homepage-header .browse a {
-  font-size: 15px;
-  padding: 12px 55px;
+.page-homepage .upcoming-workshops .head span {
+  background-color: #FFF;
+  color: #8696a0;
+  font-size: 13px;
+  display: inline-block;
+  margin-left: 20px;
+  padding: 0 10px;
+  position: relative;
+  top: -13px;
 }
-.page-homepage .homepage-header .browse a i {
-  font-size: 11px;
-  margin-right: 4px;
-  vertical-align: 2px;
-}
-.page-homepage .latest-courses {
-  margin-top: 60px;
-}
-.page-homepage .latest-courses .head {
-  margin-bottom: 15px;
-  text-align: center;
-}
-.page-homepage .latest-courses .head h2 {
-  color: #666;
-  font-family: 'KunlasatriLight', sans-serif;
-  font-size: 34px;
-  font-weight: normal;
-  line-height: normal;
+.page-homepage .upcoming-workshops ul.courses {
   margin: 0;
-  padding: 5px 20px;
+  padding: 0;
 }
-.page-homepage .latest-courses .head h2 i {
-  color: #AAA;
-  display: block;
-  font-size: 14px;
-  margin-top: 1px;
-}
-.page-homepage .latest-courses ul.courses {
-  margin: 0;
-}
-.page-homepage .latest-courses ul.courses li.course {
-  float: left;
+.page-homepage .upcoming-workshops ul.courses li.course {
   list-style: none;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
-.page-homepage .latest-courses ul.courses li.left-box {
-  margin-right: 46px;
+.page-homepage .upcoming-workshops li.course .cover {
+  padding: 3px;
+  border: 1px solid #DDD;
+  float: left;
+  position: relative;
+}
+.page-homepage .upcoming-workshops li.course .cover img {
+  width: 450px;
+  height: 250px;
+}
+.page-homepage .upcoming-workshops li.course .right {
+  margin-left: 480px;
+}
+.page-homepage .upcoming-workshops li.course .title a {
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 30px;
+  line-height: 38px;
+}
+.page-homepage .upcoming-workshops li.course .title a:link,
+.page-homepage .upcoming-workshops li.course .title a:active,
+.page-homepage .upcoming-workshops li.course .title a:visited {
+  color: #5892ce;
+}
+.page-homepage .upcoming-workshops li.course .title a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-homepage .upcoming-workshops li.course .at_glance {
+  color: #8696a0;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.page-homepage .upcoming-workshops li.course .at_glance .item {
+  margin-right: 5px;
+}
+.page-homepage .upcoming-workshops li.course .at_glance a {
+  color: #4b5c66;
+}
+.page-homepage .upcoming-workshops li.course .at_glance a:hover {
+  text-decoration: underline;
+}
+.page-homepage .upcoming-workshops li.course .at_glance em {
+  color: #4b5c66;
+}
+.page-homepage .upcoming-workshops li.course .teacher {
+  margin-top: 17px;
+}
+.page-homepage .upcoming-workshops li.course .teacher .avatar {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.course .teacher .avatar img {
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+}
+.page-homepage .upcoming-workshops li.course .teacher .teacher_name {
+  display: inline-block;
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.course .teacher .name {
+  color: #4b5c66;
+  display: block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 24px;
+}
+.page-homepage .upcoming-workshops li.course .teacher .doing {
+  color: #8696a0;
+  display: block;
+  font-size: 13px;
+}
+.page-homepage .upcoming-workshops li.course .numbers {
+  color: #555;
+  margin: 20px 0 0;
+}
+.page-homepage .upcoming-workshops li.course .numbers span {
+  background-color: #F4F4F4;
+  display: inline-block;
+  font-size: 13px;
+  margin-right: 7px;
+  padding: 6px 15px;
+}
+.page-homepage .upcoming-workshops li.course .numbers span em {
+  font-size: 14px;
+  font-weight: bold;
+}
+.page-homepage .upcoming-workshops li.course .numbers i {
+  color: #666;
+  font-size: 15px;
+  margin-right: 2px;
+}
+.page-homepage .upcoming-workshops li.course .numbers i.icon-comment {
+  vertical-align: 1px;
+}
+.page-homepage .upcoming-workshops li.course .enroll {
+  margin-top: 20px;
+}
+.page-homepage .upcoming-workshops li.course .enroll .button-enroll {
+  font-size: 14px;
+  padding: 10px 40px;
+}
+.page-homepage .upcoming-workshops li.course .enroll .upcoming {
+  color: #777;
+  font-size: 13px;
+  margin-left: 12px;
+}
+.page-homepage .upcoming-workshops li.course .enroll .upcoming .date,
+.page-homepage .upcoming-workshops li.course .enroll .upcoming .time {
+  color: #555;
+  font-weight: bold;
 }
 .page-homepage .homepage-teach {
-  background-color: #bbd3eb;
+  background-color: #e2ecf6;
   margin: 20px auto 50px;
   padding: 40px 0;
   text-align: center;
 }
 .page-homepage .homepage-teach .head1 {
-  color: #3a71a9;
-  font-family: 'KunlasatriBold', sans-serif;
-  font-size: 34px;
-  margin-bottom: 30px;
+  color: #4b5c66;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 28px;
+  margin-bottom: 10px;
 }
 .page-homepage .homepage-teach .head2 {
-  color: #444;
-  font-family: 'KunlasatriBold', sans-serif;
-  font-size: 26px;
-  margin-bottom: 30px;
+  color: #4b5c66;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 24px;
+  margin-bottom: 15px;
 }
-.page-homepage .homepage-teach .head3 {
-  color: #444;
-  font-family: 'KunlasatriBold', sans-serif;
-  font-size: 26px;
-  margin-bottom: 20px;
-}
-.page-homepage .homepage-teach .style-white-button {
+.page-homepage .homepage-teach .button-start-workshop {
   font-size: 14px;
-  padding: 12px 40px;
+  padding: 10px 40px;
 }
 .page-course-outline .course-header {
   background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
@@ -2881,12 +2962,9 @@ body {
 .page-course-browse .browse-workshops ul li .title a:link,
 .page-course-browse .browse-workshops ul li .title a:active,
 .page-course-browse .browse-workshops ul li .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-course-browse .browse-workshops ul li .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -2977,12 +3055,9 @@ body {
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:link,
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:active,
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -3007,12 +3082,9 @@ body {
 .page-my-courses-payments ul.enrollments li.enrollment .title a:link,
 .page-my-courses-payments ul.enrollments li.enrollment .title a:active,
 .page-my-courses-payments ul.enrollments li.enrollment .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-my-courses-payments ul.enrollments li.enrollment .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -3098,12 +3170,9 @@ body {
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:link,
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:active,
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-my-courses-upcoming ul.courses li.course .course-content .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -3198,12 +3267,9 @@ body {
 .page-my-courses-attended ul.enrollments li.enrollment .title a:link,
 .page-my-courses-attended ul.enrollments li.enrollment .title a:active,
 .page-my-courses-attended ul.enrollments li.enrollment .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-my-courses-attended ul.enrollments li.enrollment .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -3245,31 +3311,54 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.style-course-status {
-  color: #444;
-  font-size: 13px;
-  font-weight: bold;
-}
-.style-course-status i {
-  color: #AAA;
-  font-size: 14px;
-  margin-right: 5px;
-}
-.style-course-status i.icon-light {
-  font-size: 10px;
-}
-.style-course-status .draft i {
-  color: #555;
-}
-.style-course-status .published i {
-  color: #00ac71;
+.page-my-courses-teaching {
+  /*
+    #modal-publish-course {
+
+        #publish-date {
+            float: left;
+            padding: 15px 0 0 15px;
+
+            .note {
+                color: #666;
+                font-size: 12px;
+                margin-top: 4px;
+                text-align: center;
+            }
+        }
+
+        #publish-time {
+            margin-left: 325px;
+            padding-top: 50px;
+
+            .head {
+                color: #555;
+                font-weight: bold;
+                margin-bottom: 9px;
+                text-align: center;
+            }
+
+            select {
+                display: block;
+                font-size: 16px;
+                margin: 0 auto;
+                width: 150px;
+
+                option {
+                    padding: 2px 5px;
+                    text-align: center;
+                }
+            }
+        }
+    }*/
+
 }
 .page-my-courses-teaching .style-stats-bar .create-course {
   float: right;
   margin: 7px 13px;
 }
 .page-my-courses-teaching .teaching-courses {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .page-my-courses-teaching .teaching-courses .teaching-status .head {
   color: #777;
@@ -3286,19 +3375,31 @@ body {
   padding-bottom: 20px;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a {
-  font-size: 16px;
+  font-size: 15px;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:link,
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:active,
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .details {
+  margin-top: 5px;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .details .details-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .details .caption {
+  color: #777;
+  font-size: 12px;
+}
+.page-my-courses-teaching .teaching-courses ul.courses li.course .details .value {
+  color: #555;
+  font-weight: bold;
 }
 .page-my-courses-teaching .teaching-courses ul.courses li.course .status {
   margin-top: 6px;
@@ -3369,6 +3470,86 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
+.page-my-courses-teaching .teaching-courses ul.courses li.course .actions i.icon-check-sign {
+  color: #00ac71;
+  margin-right: 2px;
+}
+.page-my-courses-teaching .teaching-courses table.courses {
+  border: none;
+  width: 100%;
+}
+.page-my-courses-teaching .teaching-courses table.courses th {
+  border: none;
+  color: #777;
+  font-size: 12px;
+  font-weight: bold;
+  padding-top: 0;
+}
+.page-my-courses-teaching .teaching-courses table.courses td {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  vertical-align: middle;
+}
+.page-my-courses-teaching .teaching-courses table.courses .status {
+  text-align: center;
+  width: 100px;
+}
+.page-my-courses-teaching .teaching-courses table.courses .title {
+  padding-left: 20px;
+}
+.page-my-courses-teaching .teaching-courses table.courses .actions {
+  text-align: right;
+  width: 220px;
+}
+.page-my-courses-teaching .teaching-courses table.courses .actions a {
+  margin-left: 10px;
+}
+.page-my-courses-teaching .teaching-courses table.courses .actions i.icon-check-sign {
+  color: #00ac71;
+  margin-right: 2px;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.title a {
+  font-size: 15px;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.title a:link,
+.page-my-courses-teaching .teaching-courses table.courses td.title a:active,
+.page-my-courses-teaching .teaching-courses table.courses td.title a:visited {
+  color: #5892ce;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.title a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.title .stats {
+  color: #666;
+  font-size: 12.5px;
+  margin-top: 5px;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.status {
+  color: #444;
+  font-size: 12px;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.status .style-course-status {
+  border-radius: 4px;
+  display: block;
+  padding: 4px 0;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.status .draft {
+  background-color: #EEE;
+  color: #333;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.status .wait_for_approval {
+  background-color: #FFC;
+  color: #333;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.status .ready_to_publish {
+  background-color: #e7fee7;
+  color: #333;
+}
+.page-my-courses-teaching .teaching-courses table.courses td.status .published {
+  background-color: #00ac71;
+  color: #FFF;
+}
 .page-my-courses-teaching .no-teaching-course {
   margin-top: 30px;
   text-align: center;
@@ -3384,74 +3565,6 @@ body {
 }
 .page-my-courses-teaching .no-teaching-course .call_to_action {
   margin-top: 18px;
-}
-.page-my-courses-teaching .schedule-modal {
-  margin-left: -300px;
-  width: 600px;
-}
-.page-my-courses-teaching .schedule-modal .schedule-date {
-  float: left;
-  padding: 15px 0 0 15px;
-}
-.page-my-courses-teaching .schedule-modal .schedule-date .note {
-  color: #666;
-  font-size: 12px;
-  margin-top: 4px;
-  text-align: center;
-}
-.page-my-courses-teaching .schedule-modal .schedule-time {
-  margin-left: 325px;
-  padding-top: 50px;
-}
-.page-my-courses-teaching .schedule-modal .schedule-time .head {
-  color: #555;
-  font-weight: bold;
-  margin-bottom: 9px;
-  text-align: center;
-}
-.page-my-courses-teaching .schedule-modal .schedule-time select {
-  display: block;
-  font-size: 16px;
-  margin: 0 auto;
-  width: 150px;
-}
-.page-my-courses-teaching .schedule-modal .schedule-time select option {
-  padding: 2px 5px;
-  text-align: center;
-}
-.page-my-courses-teaching #modal-publish-course {
-  margin-left: -300px;
-  width: 600px;
-}
-.page-my-courses-teaching #modal-publish-course #publish-date {
-  float: left;
-  padding: 15px 0 0 15px;
-}
-.page-my-courses-teaching #modal-publish-course #publish-date .note {
-  color: #666;
-  font-size: 12px;
-  margin-top: 4px;
-  text-align: center;
-}
-.page-my-courses-teaching #modal-publish-course #publish-time {
-  margin-left: 325px;
-  padding-top: 50px;
-}
-.page-my-courses-teaching #modal-publish-course #publish-time .head {
-  color: #555;
-  font-weight: bold;
-  margin-bottom: 9px;
-  text-align: center;
-}
-.page-my-courses-teaching #modal-publish-course #publish-time select {
-  display: block;
-  font-size: 16px;
-  margin: 0 auto;
-  width: 150px;
-}
-.page-my-courses-teaching #modal-publish-course #publish-time select option {
-  padding: 2px 5px;
-  text-align: center;
 }
 .page-course-modify #backend-container {
   background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
@@ -4094,12 +4207,9 @@ body {
 .page-manage-workshop-overview .upcoming_classes .datetime a:link,
 .page-manage-workshop-overview .upcoming_classes .datetime a:active,
 .page-manage-workshop-overview .upcoming_classes .datetime a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-manage-workshop-overview .upcoming_classes .datetime a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -4316,12 +4426,9 @@ body {
 .page-manage-workshop-feedback ul.feedbacks li.feedback .right .name a:link,
 .page-manage-workshop-feedback ul.feedbacks li.feedback .right .name a:active,
 .page-manage-workshop-feedback ul.feedbacks li.feedback .right .name a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-manage-workshop-feedback ul.feedbacks li.feedback .right .name a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -4379,12 +4486,9 @@ body {
 .page-enrollment-details .enrollment-course .title a:link,
 .page-enrollment-details .enrollment-course .title a:active,
 .page-enrollment-details .enrollment-course .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-enrollment-details .enrollment-course .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
@@ -4544,12 +4648,9 @@ body {
 .page-profile .profile-workshops ul.workshops li.workshop .title a:link,
 .page-profile .profile-workshops ul.workshops li.workshop .title a:active,
 .page-profile .profile-workshops ul.workshops li.workshop .title a:visited {
-  color: #3a71a9;
-  text-decoration: underline;
+  color: #5892ce;
 }
 .page-profile .profile-workshops ul.workshops li.workshop .title a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }

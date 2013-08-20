@@ -151,6 +151,23 @@ select:focus:invalid:focus {
 
 // BOOTSTRAP MODAL #####################################################################################################
 
+.modal .modal-dialog .modal-content {
+    //border: none;
+    //border-top: 7px solid @primaryColor;
+    border-radius: 0px;
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-title {
+        color: #29ace4;
+        font-family: 'QuarkLight', sans-serif;
+        font-size: 22px;
+    }
+}
+
+/*
 .modal-backdrop {
     background-color: #333;
 }
@@ -221,7 +238,7 @@ body.modal-open {
             padding: 5px 30px;
         }
     }
-}
+}*/
 
 // LIBS: SLIDER ########################################################################################################
 
@@ -245,7 +262,7 @@ body.modal-open {
     width: auto;
 
     .ui-datepicker-header {
-        margin-bottom: 12px;
+        margin-bottom: 6px;
 
         .ui-datepicker-prev, .ui-datepicker-next {
             background-repeat: no-repeat;
@@ -608,6 +625,70 @@ form {
 }
 
 .style-button-base() {
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 13.5px;
+    padding: 7px 30px;
+
+    &:hover, &:focus {
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    i {
+        margin-right: 3px;
+        vertical-align: middle;
+    }
+}
+
+.style-button {
+    .style-button-base;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: @colorSky;
+        border: 1px solid @colorSky;
+    }
+}
+
+.style-primary-button {
+    .style-button-base;
+    background-color: @colorSky;
+    border: none;
+    color: #FFF;
+
+    &:hover, &:focus {
+        background-color: #4485c8;
+    }
+}
+
+.style-outline-button {
+    .style-button-base;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: @colorSky;
+        border: 1px solid @colorSky;
+    }
+}
+
+.style-dark-outline-button {
+    .style-button-base;
+    border: 1px solid @colorBlue;
+    color: @colorBlue;
+
+    &:hover, &:focus {
+        background-color: @colorSky;
+        border: 1px solid @colorSky;
+    }
+}
+
+/*
+.style-button-base() {
     border: none;
     border-radius: 4px;
     display: inline-block;
@@ -686,7 +767,7 @@ form {
         background-color: @buttonHoverColor;
         box-shadow: 0px 3px 0px @buttonHoverShadowColor;
     }
-}
+}*/
 
 h1.style-page-header {
     background-position: left center;
@@ -939,21 +1020,7 @@ h1.style-page-header {
 
 // COMPONENT ###########################################################################################################
 
-.style-registration-login {
-    width: 650px;
-    padding: 40px 25px 10px;
-
-    .head {
-        color: #888;
-        font-size: 22px;
-        margin-bottom: 30px;
-        text-align: center;
-
-        b {
-            color: #666;
-            font-weight: normal;
-        }
-    }
+.style-registration-modal {
 
     .backend-social {
         text-align: center;
@@ -971,9 +1038,8 @@ h1.style-page-header {
 
     .or {
         line-height: 12px;
-        margin: 35px auto 0px;
+        margin: 35px auto 5px;
         text-align: center;
-        width: 650px;
 
         hr {
             border: none;
@@ -993,28 +1059,23 @@ h1.style-page-header {
     }
 
     .backend-email {
-        margin-top: 5px;
+        margin-bottom: 20px;
 
         .head {
             color: #666;
-            font-size: 15px;
-            margin-bottom: 15px;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         form {
             margin: 0;
             text-align: center;
 
-            label {
-                color: #555;
-                font-size: 13px;
-                font-weight: bold;
-            }
-
             input {
                 font-size: 15px;
-                height: 25px;
-                margin-bottom: 15px;
+                margin: 0 auto 15px;
                 width: 230px;
             }
 
@@ -1048,46 +1109,48 @@ h1.style-page-header {
 
         .email-login {
             float: left;
-            margin-bottom: 20px;
             vertical-align: top;
-            width: 325px;
+            width: 319px;
         }
 
         .email-register {
             float: left;
             vertical-align: top;
-            width: 325px;
+            width: 319px;
         }
     }
 }
 
 
 .style-course-box {
-    background-color: white;
-    border: 1px solid #DDD;
+    background-color: #FFF;
+    //border: 1px solid #DDD;
+    //border-radius: 7px;
+    //box-shadow: 0 0 2px #DDD;
     display: inline-block;
     list-style: none;
     width: 560px;
 
     .top {
-        padding: 20px 25px 20px;
+        padding: 30px 25px 20px;
     }
 
     .title {
         a {
             .content_link;
-            font-size: 18px;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 26px;
             line-height: 26px;
         }
     }
 
     .at_glance {
-        color: #888;
+        color: @colorGrey;
         font-size: 14px;
-        margin-top: 8px;
+        margin-top: 10px;
 
         a {
-            color: #666;
+            color: @colorGrey;
             font-weight: bold;
 
             &:hover {
@@ -1096,13 +1159,13 @@ h1.style-page-header {
         }
 
         span {
-            color: #666;
+            color: @colorGrey;
             font-weight: bold;
         }
     }
 
     .cover {
-        margin-top: 10px;
+        margin-top: 15px;
         position: relative;
     }
 

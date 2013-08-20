@@ -89,3 +89,64 @@ function _notify(type, title, message) {
         });
     }
 }
+
+function initializeRegistrationModal() {
+    var registration_modal = $('#registration-modal');
+
+    registration_modal.on('shown', function() {
+        registration_modal.find('.email-login .actions .error').remove();
+        registration_modal.find('.email-register .actions .error').remove();
+    });
+
+    registration_modal.find('.email-login button').on('click', function() {
+        var email = registration_modal.find('.email-login input[name="email"]').val();
+        var password = registration_modal.find('.email-login input[name="password"]').val();
+
+        if(email && password) {
+            registration_modal.find('.email-login button').prop('disabled', true);
+            var jqxhr = $.post('/ajax/email/login/', {email:email, password:password}, function(response) {
+                if(response.status == 'success') {
+                    window.location.reload();
+                } else {
+                    registration_modal.find('.email-login button').prop('disabled', false);
+                    registration_modal.find('.email-login .actions .error').remove();
+                    registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + response.message + '</div>');
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                registration_modal.find('.email-login button').prop('disabled', false);
+                registration_modal.find('.email-login .actions .error').remove();
+                registration_modal.find('.email-login .actions').prepend('<div class="error">Login failed. ' + errorThrown + '</div>');
+            });
+        }
+
+        return false;
+    });
+
+    registration_modal.find('.email-register button').on('click', function() {
+        var email = registration_modal.find('.email-register input[name="email"]').val();
+
+        if(email) {
+            registration_modal.find('.email-register button').prop('disabled', true);
+            var jqxhr = $.post('/ajax/email/register/', {email:email}, function(response) {
+                registration_modal.find('.email-register button').prop('disabled', false);
+                if(response.status == 'success') {
+                    registration_modal.modal('hide');
+                    _alertModal('success', 'Register successful', 'Please confirm your email address from an email we sent to you.');
+                } else {
+                    registration_modal.find('.email-register .actions .error').remove();
+                    registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + response.message + '</div>');
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                registration_modal.find('.email-register button').prop('disabled', false);
+                registration_modal.find('.email-register .actions .error').remove();
+                registration_modal.find('.email-register .actions').prepend('<div class="error">Register failed. ' + errorThrown + '</div>');
+            });
+        }
+
+        return false;
+    });
+}

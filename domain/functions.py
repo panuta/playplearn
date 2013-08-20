@@ -67,7 +67,7 @@ def is_course_outline_completed(course):
 
     if not course.place:
         is_completed = False
-    if course.place.is_userdefined and (
+    elif course.place.is_userdefined and (
             not course.place.name or
             not course.place.address or
             not course.place.province_code or

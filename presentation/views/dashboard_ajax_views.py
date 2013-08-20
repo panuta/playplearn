@@ -51,6 +51,9 @@ def ajax_save_course(request):
         if course.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
 
+    if course.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
+
     domain_function.save_course(course, request.POST)
 
     submit_action = request.POST.get('submit')
@@ -92,6 +95,9 @@ def ajax_upload_course_cover(request):
     else:
         if course.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    if course.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
 
     cover_file = request.FILES['cover']
 
@@ -139,6 +145,9 @@ def ajax_upload_course_picture(request):
         if course.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
 
+    if course.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
+
     if CoursePicture.objects.filter(course=course).count() > settings.COURSE_PICTURE_MAXIMUM_NUMBER:
         return response_json_error_with_message('file-number-exceeded', errors.COURSE_MODIFICATION_ERRORS)
 
@@ -183,50 +192,6 @@ def ajax_upload_course_picture(request):
     })
 
 
-"""
-@require_POST
-@login_required
-def ajax_reorder_course_picture(request):
-    if not request.is_ajax():
-        raise Http404
-
-    course_uid = request.POST.get('uid')
-    course = get_object_or_404(Course, uid=course_uid)
-
-    if course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
-
-    ordering = 1
-    pictures_ordering = []
-    for picture_uid in request.POST.get('ordering').split(','):
-        try:
-            course_picture = CoursePicture.objects.get(course=course, uid=picture_uid)
-        except CoursePicture.DoesNotExist:
-            pass
-        else:
-            pictures_ordering.append({'picture': course_picture, 'ordering': ordering})
-            ordering += 1
-
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        for picture_ordering in pictures_ordering:
-            picture_ordering['picture'].ordering = picture_ordering['ordering']
-            picture_ordering['picture'].save()
-
-    elif course.status == 'PUBLISHED':
-        CoursePictureEditingOrdering.objects.filter(picture__course=course).delete()
-        for picture_ordering in pictures_ordering:
-            CoursePictureEditingOrdering.objects.create(picture=picture_ordering['picture'], ordering=picture_ordering['ordering'])
-
-    else:
-        return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
-
-    return response_json_success({
-        'is_completed': domain_function.is_course_outline_completed(course),
-        'ordering': course_picture_ordering_as_comma_separated(course),
-    })
-"""
-
-
 @require_POST
 @login_required
 def ajax_delete_course_picture(request):
@@ -240,6 +205,9 @@ def ajax_delete_course_picture(request):
 
     if course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+
+    if course.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
 
     try:
         course_picture = CoursePicture.objects.get(uid=picture_uid)
