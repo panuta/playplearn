@@ -19,24 +19,27 @@
         <div class="head"><hr><span>Upcoming workshops</span></div>
         <ul class="courses">
             {% for course in upcoming_courses %}
-                <li class="course">
+                <li class="course clearfix">
                     <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" {% thumbnail_img_size 'course_cover_normal' %} /></a></div>
                     <div class="right">
                         <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                        <div class="at_glance">
-                            <span class="item"><a href="#" class="school">{{ course.get_school.name }}</a></span>
-                            <span class="item">จัดที่ <em class="place">{{ course.place.province_code|province_name }}</em></span>
-                            <span class="item">ระยะเวลา <em class="duration">{{ course.duration }} ชั่วโมง</em></span>
-                            <span class="item">ค่าใช้จ่าย <em class="price">{{ course.price|floatformat:-2 }} บาท</em></span>
-                        </div>
                         <div class="teacher">
                             <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
-                            <div class="teacher_name"><a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a> <span class="doing">{{ course.teacher.headline }}</span></div>
+                            <div class="name">จัดโดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
                         </div>
-                        <div class="numbers">
-                            <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ course.stats_upcoming_classes }}</em> รอบ</span>
-                            <span class="feedbacks"><i class="icon-star"></i> <em>{{ course.stats_feedbacks }}</em> ผลตอบรับ</span>
+                        <div class="details">
+                            <div class="numbers">
+                                <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ course.stats_upcoming_classes }}</em> รอบ</span>
+                                <span class="feedbacks"><i class="icon-star"></i> <em>{{ course.stats_feedbacks }}</em> ผลตอบรับ</span>
+                                <span class="students"><i class="icon-user"></i> <em>10</em> นักเรียน</span>
+                            </div>
+                            <div class="at_glance">
+                                <span class="item">ระยะเวลา <em class="duration">{{ course.duration }} ชั่วโมง</em></span>
+                                <span class="item">ค่าใช้จ่าย <em class="price">{{ course.price|floatformat:-2 }} บาท</em></span>
+                                <span class="item">จัดที่ <em class="place">{{ course.place.province_code|province_name }}</em></span>
+                            </div>
                         </div>
+
                         <div class="enroll">
                             <a href="#" class="style-primary-button button-enroll"><i class="icon-signin"></i> ลงชื่อ</a>
                             <span class="upcoming">คลาสถัดไป {{ course.get_upcoming_schedule|schedule_datetime }}</span> <!-- TODO: Show most upcoming class that available -->

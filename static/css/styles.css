@@ -551,7 +551,7 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
-  background-color: #5892ce;
+  background-color: #29ace4;
   border: none;
   color: #FFF;
 }
@@ -2413,7 +2413,7 @@ body {
 }
 .page-homepage .upcoming-workshops ul.courses li.course {
   list-style: none;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 .page-homepage .upcoming-workshops li.course .cover {
   padding: 3px;
@@ -2429,42 +2429,17 @@ body {
   margin-left: 480px;
 }
 .page-homepage .upcoming-workshops li.course .title a {
+  color: #29ace4;
   font-family: 'QuarkLight', sans-serif;
   font-size: 30px;
   line-height: 38px;
 }
-.page-homepage .upcoming-workshops li.course .title a:link,
-.page-homepage .upcoming-workshops li.course .title a:active,
-.page-homepage .upcoming-workshops li.course .title a:visited {
-  color: #5892ce;
-}
-.page-homepage .upcoming-workshops li.course .title a:hover {
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-homepage .upcoming-workshops li.course .at_glance {
-  color: #8696a0;
-  font-size: 14px;
-  margin-top: 2px;
-}
-.page-homepage .upcoming-workshops li.course .at_glance .item {
-  margin-right: 5px;
-}
-.page-homepage .upcoming-workshops li.course .at_glance a {
-  color: #4b5c66;
-}
-.page-homepage .upcoming-workshops li.course .at_glance a:hover {
-  text-decoration: underline;
-}
-.page-homepage .upcoming-workshops li.course .at_glance em {
-  color: #4b5c66;
-}
 .page-homepage .upcoming-workshops li.course .teacher {
-  margin-top: 17px;
+  margin-top: 8px;
 }
 .page-homepage .upcoming-workshops li.course .teacher .avatar {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 12px;
   vertical-align: middle;
 }
 .page-homepage .upcoming-workshops li.course .teacher .avatar img {
@@ -2472,46 +2447,56 @@ body {
   height: 50px;
   width: 50px;
 }
-.page-homepage .upcoming-workshops li.course .teacher .teacher_name {
+.page-homepage .upcoming-workshops li.course .teacher .name {
+  color: #888;
   display: inline-block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
   vertical-align: middle;
 }
-.page-homepage .upcoming-workshops li.course .teacher .name {
+.page-homepage .upcoming-workshops li.course .teacher .name a {
   color: #4b5c66;
-  display: block;
-  font-family: 'QuarkLight', sans-serif;
   font-size: 24px;
 }
-.page-homepage .upcoming-workshops li.course .teacher .doing {
-  color: #8696a0;
-  display: block;
-  font-size: 13px;
+.page-homepage .upcoming-workshops li.course .details {
+  background-color: #F7F7F7;
+  padding: 13px 20px 10px;
+  margin-top: 20px;
 }
-.page-homepage .upcoming-workshops li.course .numbers {
+.page-homepage .upcoming-workshops li.course .details .numbers {
   color: #555;
-  margin: 20px 0 0;
 }
-.page-homepage .upcoming-workshops li.course .numbers span {
-  background-color: #F4F4F4;
-  display: inline-block;
-  font-size: 13px;
-  margin-right: 7px;
-  padding: 6px 15px;
+.page-homepage .upcoming-workshops li.course .details .numbers span {
+  font-size: 15px;
+  margin-right: 20px;
 }
-.page-homepage .upcoming-workshops li.course .numbers span em {
-  font-size: 14px;
+.page-homepage .upcoming-workshops li.course .details .numbers span em {
+  font-size: 15px;
   font-weight: bold;
 }
-.page-homepage .upcoming-workshops li.course .numbers i {
+.page-homepage .upcoming-workshops li.course .details .numbers i {
   color: #666;
   font-size: 15px;
   margin-right: 2px;
 }
-.page-homepage .upcoming-workshops li.course .numbers i.icon-comment {
+.page-homepage .upcoming-workshops li.course .details .numbers i.icon-comment {
   vertical-align: 1px;
 }
+.page-homepage .upcoming-workshops li.course .details .at_glance {
+  border-top: 1px solid #DDD;
+  color: #999;
+  font-size: 14px;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+.page-homepage .upcoming-workshops li.course .details .at_glance .item {
+  margin-right: 15px;
+}
+.page-homepage .upcoming-workshops li.course .details .at_glance em {
+  color: #666;
+}
 .page-homepage .upcoming-workshops li.course .enroll {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .page-homepage .upcoming-workshops li.course .enroll .button-enroll {
   font-size: 14px;
@@ -2550,9 +2535,7 @@ body {
   padding: 10px 40px;
 }
 .page-course-outline .course-header {
-  background: url('../images/ui/100-95-3.png') repeat #6c9fd4;
-  border-top: 1px solid #87add4;
-  padding: 30px 0 10px;
+  margin: 40px 0 10px;
 }
 .page-course-outline .course-header .join {
   background-color: #FFF;
@@ -2567,15 +2550,15 @@ body {
   padding: 8px 40px;
 }
 .page-course-outline .course-header h1 {
-  color: #FFF;
-  font-size: 32px;
-  font-weight: bold;
+  color: #29ace4;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 40px;
+  font-weight: normal;
   line-height: normal;
   margin: 0;
-  text-shadow: 2px 2px #3A71A9;
 }
 .page-course-outline .course-header .teacher {
-  margin-top: 25px;
+  margin-top: 10px;
   position: relative;
 }
 .page-course-outline .course-header .teacher .avatar {
@@ -2588,27 +2571,25 @@ body {
   border-radius: 70px;
 }
 .page-course-outline .course-header .teacher .name {
-  color: #FFF;
+  color: #555;
   display: inline-block;
   font-size: 16px;
   margin-left: 90px;
-  text-shadow: 1px 1px #3A71A9;
 }
 .page-course-outline .course-header .teacher .name a {
-  color: #FFF;
+  color: #555;
   font-size: 22px;
   margin-left: 3px;
-  text-shadow: 1px 1px #3A71A9;
 }
 .page-course-outline .course-details {
-  margin: 15px 0 0 90px;
+  margin-top: 7px;
 }
 .page-course-outline .course-details .details {
   margin-right: 15px;
 }
 .page-course-outline .course-details .details .caption {
   color: #999;
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 0px;
   margin-right: 3px;
 }

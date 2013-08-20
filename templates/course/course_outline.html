@@ -46,6 +46,28 @@
     <div class="container">
         <div class="join"><a href="#join-workshop" class="style-orange-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a></div>
         <h1>{{ course.title }}</h1>
+        <div class="course-details">
+            <span class="details">
+                <span class="caption">หัวข้อ</span>
+                <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
+            </span>
+            <span class="details">
+                <span class="caption">ระยะเวลา</span>
+                <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
+            </span>
+            <span class="details">
+                <span class="caption">จำนวนคนในกลุ่ม</span>
+                <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
+            </span>
+            <span class="details">
+                <span class="caption">จำนวนครั้งที่จะจัด</span>
+                <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
+            </span>
+            <span class="details">
+                <span class="caption">ค่าใช้จ่าย</span>
+                <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
+            </span>
+        </div>
         <div class="teacher">
             <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></a></div>
             <div class="name">โดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
@@ -53,28 +75,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="course-details">
-        <span class="details">
-            <span class="caption">หัวข้อ</span>
-            <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
-        </span>
-        <span class="details">
-            <span class="caption">ระยะเวลา</span>
-            <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
-        </span>
-        <span class="details">
-            <span class="caption">จำนวนคนในกลุ่ม</span>
-            <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
-        </span>
-        <span class="details">
-            <span class="caption">จำนวนครั้งที่จะจัด</span>
-            <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
-        </span>
-        <span class="details">
-            <span class="caption">ค่าใช้จ่าย</span>
-            <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
-        </span>
-    </div>
+
     <div class="row">
         <div class="span8">
             <div class="course-pictures">

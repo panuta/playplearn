@@ -153,7 +153,7 @@
 
             li.course {
                 list-style: none;
-                margin-bottom: 50px;
+                margin-bottom: 40px;
             }
         }
 
@@ -175,40 +175,18 @@
             }
 
             .title a {
-                .content_link;
+                color: @colorBlue;
                 font-family: 'QuarkLight', sans-serif;
                 font-size: 30px;
                 line-height: 38px;
             }
 
-            .at_glance {
-                color: @colorGrey;
-                font-size: 14px;
-                margin-top: 2px;
-
-                .item {
-                    margin-right: 5px;
-                }
-
-                a {
-                    color: @colorNavy;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-
-                em {
-                    color: @colorNavy;
-                }
-            }
-
             .teacher {
-                margin-top: 17px;
+                margin-top: 8px;
 
                 .avatar {
                     display: inline-block;
-                    margin-right: 10px;
+                    margin-right: 12px;
                     vertical-align: middle;
 
                     img {
@@ -218,55 +196,68 @@
                     }
                 }
 
-                .teacher_name {
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-
                 .name {
-                    color: @colorNavy;
-                    display: block;
+                    color: #888;
+                    display: inline-block;
                     font-family: 'QuarkLight', sans-serif;
-                    font-size: 24px;
-                }
+                    font-size: 20px;
+                    vertical-align: middle;
 
-                .doing {
-                    color: @colorGrey;
-                    display: block;
-                    font-size: 13px;
+                    a {
+                        color: @colorNavy;
+                        font-size: 24px;
+                    }
                 }
             }
 
-            .numbers {
-                color: #555;
-                margin: 20px 0 0;
+            .details {
+                background-color: #F7F7F7;
+                padding: 13px 20px 10px;
+                margin-top: 20px;
 
-                span {
-                    background-color: #F4F4F4;
-                    display: inline-block;
-                    font-size: 13px;
-                    margin-right: 7px;
-                    padding: 6px 15px;
+                .numbers {
+                    color: #555;
 
-                    em {
-                        font-size: 14px;
-                        font-weight: bold;
+                    span {
+                        font-size: 15px;
+                        margin-right: 20px;
+
+                        em {
+                            font-size: 15px;
+                            font-weight: bold;
+                        }
+                    }
+
+                    i {
+                        color: #666;
+                        font-size: 15px;
+                        margin-right: 2px;
+
+                        &.icon-comment {
+                            vertical-align: 1px;
+                        }
                     }
                 }
 
-                i {
-                    color: #666;
-                    font-size: 15px;
-                    margin-right: 2px;
+                .at_glance {
+                    border-top: 1px solid #DDD;
+                    color: #999;
+                    font-size: 14px;
+                    margin-top: 8px;
+                    padding-top: 8px;
 
-                    &.icon-comment {
-                        vertical-align: 1px;
+                    .item {
+                        margin-right: 15px;
+                    }
+
+                    em {
+                        color: #666;
                     }
                 }
             }
 
             .enroll {
-                margin-top: 20px;
+                margin-top: 15px;
 
                 .button-enroll {
                     font-size: 14px;
@@ -316,9 +307,9 @@
 
 .page-course-outline {
     .course-header {
-        background: @headerBackground;
-        border-top: 1px solid @headerLightBorder;
-        padding: 30px 0 10px;
+        //background: @headerBackground;
+        //border-top: 1px solid @headerLightBorder;
+        margin: 40px 0 10px;
 
         .join {
             background-color: #FFF;
@@ -335,16 +326,16 @@
         }
 
         h1 {
-            color: #FFF;
-            font-size: 32px;
-            font-weight: bold;
+            color: @colorBlue;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 40px;
+            font-weight: normal;
             line-height: normal;
             margin: 0;
-            text-shadow: 2px 2px #3A71A9;
         }
 
         .teacher {
-            margin-top: 25px;
+            margin-top: 10px;
             position: relative;
 
             .avatar {
@@ -359,31 +350,30 @@
             }
 
             .name {
-                color: #FFF;
+                color: #555;
                 display: inline-block;
                 font-size: 16px;
                 margin-left: 90px;
-                text-shadow: 1px 1px #3A71A9;
 
                 a {
-                    color: #FFF;
+                    color: #555;
                     font-size: 22px;
                     margin-left: 3px;
-                    text-shadow: 1px 1px #3A71A9;
                 }
             }
         }
     }
 
     .course-details {
-        margin: 15px 0 0 90px;
+        //margin: 15px 0 0 90px;
+        margin-top: 7px;
 
         .details {
             margin-right: 15px;
 
             .caption {
                 color: #999;
-                font-size: 13px;
+                font-size: 14px;
                 margin-bottom: 0px;
                 margin-right: 3px;
             }
