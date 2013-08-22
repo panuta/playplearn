@@ -355,13 +355,14 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         return '<span class="topic"><strong>' + topic.text + '</strong><br/>' + $(topicObj).data('desc') + '</span>';
     }
 
+    /*
     form_school.select2({
         allowClear: true,
         minimumResultsForSearch: 1000,
         formatResult: format,
         width: 350,
         escapeMarkup: function(m) { return m; }
-    });
+    });*/
 
     // Initialize Place
     function _init_place() {
@@ -679,16 +680,12 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         });
 
         if(!has_activity_value) is_completed = false;
-
         if(!form_story.redactor('get')) is_completed = false;
-
-        if(!form_cover.val()) is_completed = false;
         if(!form_pictures.find('li.picture').length) is_completed = false;
-
-        if(!form_school.val().trim()) is_completed = false;
         if(!$.isNumeric(form_price.val())) is_completed = false;
         if(!$.isNumeric(form_duration.val())) is_completed = false;
         if(!$.isNumeric(form_capacity.val())) is_completed = false;
+        if(!form_school.val().trim()) is_completed = false;
 
         var place_choice = form_place.find('input[name="place"]:checked').val();
         if(place_choice == 'system-place') {
@@ -711,8 +708,15 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     function _reset_form_header() {
         var is_completed = _is_completed();
         //$('.form-footer .button-draft').prop('disabled', !_is_dirty);
-        $('.form-footer .button-draft').prop('disabled', false);
-        $('.form-footer .button-submit').prop('disabled', !is_completed);
+        $('.form-footer .button-draft').removeProp('disabled');
+
+        console.log(is_completed);
+
+        if(is_completed) {
+            $('.form-footer .button-submit').removeProp('disabled');
+        } else {
+            $('.form-footer .button-submit').prop('disabled', true);
+        }
     }
 
     function _start_autosave_timer() {

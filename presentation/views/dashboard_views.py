@@ -123,7 +123,7 @@ def view_my_courses_teaching(request):
 @login_required
 def create_course(request):
     course_uid = Course.objects.generate_course_uid()
-    return render(request, 'dashboard/course_modify.html', {
+    return render(request, 'dashboard/workshop_modify.html', {
         'course_uid': course_uid,
         'is_completed': False,
     })
@@ -138,7 +138,7 @@ def edit_course(request, course_uid):
 
     course_pictures = CoursePicture.objects.filter(course=course, mark_deleted=False)
 
-    return render(request, 'dashboard/course_modify.html', {
+    return render(request, 'dashboard/workshop_modify.html', {
         'course': course,
         'course_pictures': course_pictures,
         'is_completed': domain_functions.is_course_outline_completed(course),

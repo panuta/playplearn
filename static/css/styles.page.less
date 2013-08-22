@@ -1735,20 +1735,69 @@
 
     .form-content {
         background-color: #FFF;
-        border: 2px solid #93b9e0;
-        padding: 40px 50px 15px;
+        padding: 40px 50px;
 
         h3 {
-            background-color: #bfd3e8;
-            color: @primaryColor;
-            font-size: 20px;
+            background: @headerBackground;
+            color: #FFF;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 26px;
             font-weight: 200;
             line-height: normal;
             margin: 35px 0 25px;
-            padding: 12px 18px;
+            padding: 12px 18px 10px;
 
             i {
-                margin-right: 6px;
+                font-size: 0.7em;
+                margin-right: 3px;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+
+            label {
+                color: #666;
+                display: inline-block;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 22px;
+                font-weight: normal;
+                margin-bottom: 3px;
+            }
+
+            .sublabel {
+                color: #777;
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            input, select {
+                margin: 0;
+
+                &.error {
+                    background-color: #FCC;
+                }
+            }
+
+            .number-control {
+                input {
+                    text-align: center;
+                }
+
+                .unit {
+                    color: #555;
+                    margin-left: 6px;
+                }
+            }
+
+            .help-block {
+                color: #999;
+                font-size: 13px;
+                margin-top: 10px;
+
+                strong {
+                    color: #777;
+                }
             }
         }
 
@@ -1769,11 +1818,7 @@
                 }
             }
 
-            .control-sub-label {
-                color: #777;
-                font-size: 13px;
-                margin-bottom: 10px;
-            }
+
 
             .controls-with-guide {
                 clear: left;
@@ -1792,9 +1837,7 @@
                 width: 400px;
             }
 
-            input, select {
-                margin: 0;
-            }
+
 
             .controls-text {
                 input {
@@ -1832,21 +1875,13 @@
                 cursor: pointer;
             }
 
-            .help-block {
-                color: #888;
-                font-size: 13px;
-                margin-top: 6px;
 
-                strong {
-                    color: #777;
-                }
-            }
         }
 
         .control-row {
             margin-bottom: 10px;
 
-            .control-group {
+            .form-group {
                 display: inline-block;
                 margin-right: 60px;
                 vertical-align: top;
@@ -1864,8 +1899,8 @@
 
             input {
                 font-size: 20px;
-                height: 40px;
-                width: 1054px; // 1066px -12px
+                height: 48px;
+                width: 1040px; // 1040px -12px
             }
         }
 
@@ -1875,6 +1910,7 @@
             .controls {
                 ul {
                     margin: 0;
+                    padding: 0;
 
                     li {
                         border: 1px solid #999;
@@ -1992,6 +2028,86 @@
 
         .pictures-control {
             .controls {
+                ul.pictures {
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        float: left;
+                        list-style: none;
+                        margin: 0 19px 30px 19px;
+                        vertical-align: middle;
+
+                        .image {
+                            border: 1px solid #DDD;
+                            cursor: move;
+                            height: 188px;
+                            padding: 3px;
+                            position: relative;
+                            width: 308px;
+
+                            .hover {
+                                background-color: rgba(0,0,0,0.5);
+                                color: #FFF;
+                                cursor: move;
+                                font-weight: bold;
+                                height: 180px;
+                                padding-top: 80px;
+                                position: absolute;
+                                text-align: center;
+                                text-shadow: 0 0 2px #000;
+                                width: 300px;
+                            }
+                        }
+
+                        &.left-picture {
+
+                        }
+
+                        &.center-picture {
+
+                        }
+
+                        &.right-picture {
+
+                        }
+
+                        .actions {
+                            color: #CCC;
+                            margin: 5px 0 0 4px;
+
+                            a {
+                                color: #777;
+                                font-size: 13px;
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+
+                    img {
+                        width: 300px;
+                        height: 180px;
+                    }
+
+                    li.picture {
+
+                    }
+                }
+
+                .input {
+                    border: 1px dashed #DDD;
+                    padding: 15px 20px;
+
+                    label {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+
+        /*
+        .pictures-control {
+            .controls {
                 .pictures {
                     margin: 10px 0 0;
 
@@ -2092,6 +2208,15 @@
                         }
                     }
                 }
+
+                .input {
+                    border: 1px dashed #DDD;
+                    padding: 15px 20px;
+
+                    label {
+                        font-size: 20px;
+                    }
+                }
             }
 
             .displays {
@@ -2122,46 +2247,32 @@
                     }
                 }
             }
-        }
-
-        .school-control {
-            select {
-                width: 350px;
-            }
-        }
-
-        .topics-control {
-            input {
-                width: 400px;
-            }
-        }
-
-        .level-control {
-            select {
-                font-size: 15px;
-                padding: 4px;
-
-                option {
-                    padding: 4px;
-                }
-            }
-        }
+        }*/
 
         .tuition-control {
-            .controls input {
-                width: 70px;
+            input {
+                display: inline-block;
+                width: 100px;
             }
         }
 
         .duration-control {
-            .controls input {
-                width: 50px;
+            input {
+                display: inline-block;
+                width: 70px;
             }
         }
 
         .capacity-control {
-            .controls input {
-                width: 50px;
+            input {
+                display: inline-block;
+                width: 70px;
+            }
+        }
+
+        .topic-control {
+            select {
+                width: 350px;
             }
         }
 
@@ -2302,11 +2413,16 @@
 
     #form-footer-container {
         margin-top: 30px;
-        min-height: 65px;
+        min-height: 60px;
 
         .form-footer {
+            .container {
+                padding: 0;
+            }
+
             button {
                 margin-right: 15px;
+                padding: 14px 40px;
             }
 
             .button-submit {
@@ -2334,11 +2450,14 @@
         background-color: rgba(255, 255, 255, 0.9);
         border-top: 1px solid #EEE;
         bottom: 0px;
-        height: 35px;
         left: 0px;
         padding: 15px 50px;
         position: fixed;
         width: 100%;
+
+        .container {
+            padding: 0 15px !important;
+        }
     }
 
     #modal-place-map {

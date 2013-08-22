@@ -528,6 +528,7 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
+  cursor: pointer;
   background-color: #FFF;
   border: 1px solid #DDD;
   color: #555;
@@ -541,6 +542,16 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-button[disabled] {
+  background-color: #D9D9D9;
+  color: #AAA;
+  cursor: default;
+}
+.style-button[disabled]:hover,
+.style-button[disabled]:focus {
+  background-color: #D9D9D9;
+  color: #AAA;
+}
 .style-button:hover,
 .style-button:focus {
   background-color: #5892ce;
@@ -551,6 +562,7 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
+  cursor: pointer;
   background-color: #29ace4;
   border: none;
   color: #FFF;
@@ -564,6 +576,16 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-primary-button[disabled] {
+  background-color: #D9D9D9;
+  color: #AAA;
+  cursor: default;
+}
+.style-primary-button[disabled]:hover,
+.style-primary-button[disabled]:focus {
+  background-color: #D9D9D9;
+  color: #AAA;
+}
 .style-primary-button:hover,
 .style-primary-button:focus {
   background-color: #1ba0d8;
@@ -573,6 +595,7 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
+  cursor: pointer;
   background-color: #FFF;
   border: none;
   color: #555;
@@ -586,6 +609,16 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-white-button[disabled] {
+  background-color: #D9D9D9;
+  color: #AAA;
+  cursor: default;
+}
+.style-white-button[disabled]:hover,
+.style-white-button[disabled]:focus {
+  background-color: #D9D9D9;
+  color: #AAA;
+}
 .style-white-button:hover,
 .style-white-button:focus {
   background-color: #1ba0d8;
@@ -596,6 +629,7 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
+  cursor: pointer;
   background-color: #FFF;
   border: 1px solid #CCC;
   color: #555;
@@ -609,6 +643,16 @@ form .avatar-control .errorlist {
   margin-right: 3px;
   vertical-align: middle;
 }
+.style-outline-button[disabled] {
+  background-color: #D9D9D9;
+  color: #AAA;
+  cursor: default;
+}
+.style-outline-button[disabled]:hover,
+.style-outline-button[disabled]:focus {
+  background-color: #D9D9D9;
+  color: #AAA;
+}
 .style-outline-button:hover,
 .style-outline-button:focus {
   background-color: #29ace4;
@@ -619,6 +663,7 @@ form .avatar-control .errorlist {
   display: inline-block;
   font-size: 13.5px;
   padding: 7px 30px;
+  cursor: pointer;
   border: 1px solid #29ace4;
   color: #29ace4;
 }
@@ -630,6 +675,16 @@ form .avatar-control .errorlist {
 .style-dark-outline-button i {
   margin-right: 3px;
   vertical-align: middle;
+}
+.style-dark-outline-button[disabled] {
+  background-color: #D9D9D9;
+  color: #AAA;
+  cursor: default;
+}
+.style-dark-outline-button[disabled]:hover,
+.style-dark-outline-button[disabled]:focus {
+  background-color: #D9D9D9;
+  color: #AAA;
 }
 .style-dark-outline-button:hover,
 .style-dark-outline-button:focus {
@@ -1599,7 +1654,8 @@ body {
 }
 .page-backend #backend-header .parent a {
   color: #FFF;
-  font-size: 13px;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 18px;
 }
 .page-backend #backend-header .parent a:hover {
   text-decoration: underline;
@@ -1645,7 +1701,7 @@ body {
 }
 .page-backend #backend-header h1 span {
   color: #FFF;
-  font-size: 22px;
+  font-size: 26px;
 }
 .page-backend #backend-header .with_actions h1 {
   display: inline-block;
@@ -3782,20 +3838,204 @@ body {
 }
 .page-course-modify .form-content {
   background-color: #FFF;
-  border: 2px solid #93b9e0;
-  padding: 40px 50px 15px;
+  padding: 40px 50px;
+  /*
+        .pictures-control {
+            .controls {
+                .pictures {
+                    margin: 10px 0 0;
+
+                    li {
+                        background-color: #FFF;
+                        height: 117px;
+                        list-style: none;
+                        margin-bottom: 25px;
+                        vertical-align: middle;
+                    }
+
+                    .ui-state-highlight {
+                        background-color: transparent;
+                        border: 1px dashed #CCC;
+                    }
+
+                    li.uploading {
+                        border: 1px dashed #DDD;
+                        height: 77px;
+                        padding: 20px;
+
+                        em {
+                            color: #777;
+                            display: block;
+                            font-weight: bold;
+                            margin-top: 15px;
+                        }
+
+                        .progress {
+                            margin-top: 10px;
+                        }
+                    }
+
+                    li.picture {
+                        margin-left: 5px;
+                        vertical-align: middle;
+
+                        .image {
+                            cursor: move;
+                            float: left;
+
+                            .icon-reorder {
+                                color: #999;
+                            }
+
+                            img {
+                                border: 1px solid #CCC;
+                                height: 115px;
+                                margin-left: 5px;
+                                width: 200px;
+                            }
+                        }
+
+                        .description {
+                            margin-left: 245px;
+                            padding-top: 5px;
+
+                            label {
+                                color: #555;
+                                font-size: 13px;
+
+                                input {
+                                    display: block;
+                                    font-size: 16px;
+                                    height: 30px;
+                                    margin-top: 5px;
+                                    width: 95%;
+                                }
+                            }
+
+                            .delete {
+                                .danger_link;
+                                font-size: 13px;
+                            }
+                        }
+                    }
+
+                    li.error {
+                        background: url(../images/page/course-form/picture_error.png) #FFF 20px 20px no-repeat;
+                        border: 1px dashed #DDD;
+                        height: 117px;
+
+                        em {
+                            color: #C30;
+                            display: block;
+                            font-size: 15px;
+                            font-weight: bold;
+                            margin: 30px 0 0 65px;
+                        }
+
+                        .dismiss {
+                            margin: 5px 0 0 65px;
+
+                            a {
+                                .grey_link;
+                                font-size: 13px;
+                            }
+                        }
+                    }
+                }
+
+                .input {
+                    border: 1px dashed #DDD;
+                    padding: 15px 20px;
+
+                    label {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .displays {
+                .pictures {
+                    margin: 10px 0 0;
+
+                    li.picture {
+                        height: 117px;
+                        list-style: none;
+                        margin-bottom: 25px;
+                        vertical-align: middle;
+
+                        .image {
+                            float: left;
+
+                            img {
+                                border: 1px solid #CCC;
+                                height: 115px;
+                                width: 200px;
+                            }
+                        }
+
+                        .description {
+                            color: #444;
+                            margin-left: 225px;
+                            padding-top: 5px;
+                        }
+                    }
+                }
+            }
+        }*/
+
 }
 .page-course-modify .form-content h3 {
-  background-color: #bfd3e8;
-  color: #3a71a9;
-  font-size: 20px;
+  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  color: #FFF;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 26px;
   font-weight: 200;
   line-height: normal;
   margin: 35px 0 25px;
-  padding: 12px 18px;
+  padding: 12px 18px 10px;
 }
 .page-course-modify .form-content h3 i {
-  margin-right: 6px;
+  font-size: 0.7em;
+  margin-right: 3px;
+}
+.page-course-modify .form-content .form-group {
+  margin-bottom: 20px;
+}
+.page-course-modify .form-content .form-group label {
+  color: #666;
+  display: inline-block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  font-weight: normal;
+  margin-bottom: 3px;
+}
+.page-course-modify .form-content .form-group .sublabel {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.page-course-modify .form-content .form-group input,
+.page-course-modify .form-content .form-group select {
+  margin: 0;
+}
+.page-course-modify .form-content .form-group input.error,
+.page-course-modify .form-content .form-group select.error {
+  background-color: #FCC;
+}
+.page-course-modify .form-content .form-group .number-control input {
+  text-align: center;
+}
+.page-course-modify .form-content .form-group .number-control .unit {
+  color: #555;
+  margin-left: 6px;
+}
+.page-course-modify .form-content .form-group .help-block {
+  color: #999;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.page-course-modify .form-content .form-group .help-block strong {
+  color: #777;
 }
 .page-course-modify .form-content .control-group {
   margin-bottom: 20px;
@@ -3812,11 +4052,6 @@ body {
   font-weight: normal;
   margin-right: 3px;
 }
-.page-course-modify .form-content .control-group .control-sub-label {
-  color: #777;
-  font-size: 13px;
-  margin-bottom: 10px;
-}
 .page-course-modify .form-content .control-group .controls-with-guide {
   clear: left;
   display: inline-block;
@@ -3831,10 +4066,6 @@ body {
   padding: 0 15px;
   vertical-align: top;
   width: 400px;
-}
-.page-course-modify .form-content .control-group input,
-.page-course-modify .form-content .control-group select {
-  margin: 0;
 }
 .page-course-modify .form-content .control-group .controls-text input {
   font-size: 18px;
@@ -3865,18 +4096,10 @@ body {
   direction: ltr;
   cursor: pointer;
 }
-.page-course-modify .form-content .control-group .help-block {
-  color: #888;
-  font-size: 13px;
-  margin-top: 6px;
-}
-.page-course-modify .form-content .control-group .help-block strong {
-  color: #777;
-}
 .page-course-modify .form-content .control-row {
   margin-bottom: 10px;
 }
-.page-course-modify .form-content .control-row .control-group {
+.page-course-modify .form-content .control-row .form-group {
   display: inline-block;
   margin-right: 60px;
   vertical-align: top;
@@ -3890,14 +4113,15 @@ body {
 }
 .page-course-modify .form-content .title-control input {
   font-size: 20px;
-  height: 40px;
-  width: 1054px;
+  height: 48px;
+  width: 1040px;
 }
 .page-course-modify .form-content .activities-control {
   margin-bottom: 30px;
 }
 .page-course-modify .form-content .activities-control .controls ul {
   margin: 0;
+  padding: 0;
 }
 .page-course-modify .form-content .activities-control .controls ul li {
   border: 1px solid #999;
@@ -3992,154 +4216,70 @@ body {
   font-size: 13px;
   margin-top: 0;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures {
-  margin: 10px 0 0;
+.page-course-modify .form-content .pictures-control .controls ul.pictures {
+  margin: 0;
+  padding: 0;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures li {
-  background-color: #FFF;
-  height: 117px;
+.page-course-modify .form-content .pictures-control .controls ul.pictures li {
+  float: left;
   list-style: none;
-  margin-bottom: 25px;
+  margin: 0 19px 30px 19px;
   vertical-align: middle;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures .ui-state-highlight {
-  background-color: transparent;
-  border: 1px dashed #CCC;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.uploading {
-  border: 1px dashed #DDD;
-  height: 77px;
-  padding: 20px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.uploading em {
-  color: #777;
-  display: block;
-  font-weight: bold;
-  margin-top: 15px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.uploading .progress {
-  margin-top: 10px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture {
-  margin-left: 5px;
-  vertical-align: middle;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .image {
+.page-course-modify .form-content .pictures-control .controls ul.pictures li .image {
+  border: 1px solid #DDD;
   cursor: move;
-  float: left;
+  height: 188px;
+  padding: 3px;
+  position: relative;
+  width: 308px;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .image .icon-reorder {
-  color: #999;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .image img {
-  border: 1px solid #CCC;
-  height: 115px;
-  margin-left: 5px;
-  width: 200px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description {
-  margin-left: 245px;
-  padding-top: 5px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description label {
-  color: #555;
-  font-size: 13px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description label input {
-  display: block;
-  font-size: 16px;
-  height: 30px;
-  margin-top: 5px;
-  width: 95%;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description .delete {
-  font-size: 13px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description .delete:link,
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description .delete:active,
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description .delete:visited {
-  color: #999;
-  text-decoration: underline;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.picture .description .delete:hover {
-  background-color: #C30;
+.page-course-modify .form-content .pictures-control .controls ul.pictures li .image .hover {
+  background-color: rgba(0, 0, 0, 0.5);
   color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.error {
-  background: url(../images/page/course-form/picture_error.png) #ffffff 20px 20px no-repeat;
-  border: 1px dashed #DDD;
-  height: 117px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.error em {
-  color: #C30;
-  display: block;
-  font-size: 15px;
+  cursor: move;
   font-weight: bold;
-  margin: 30px 0 0 65px;
+  height: 180px;
+  padding-top: 80px;
+  position: absolute;
+  text-align: center;
+  text-shadow: 0 0 2px #000;
+  width: 300px;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures li.error .dismiss {
-  margin: 5px 0 0 65px;
+.page-course-modify .form-content .pictures-control .controls ul.pictures li .actions {
+  color: #CCC;
+  margin: 5px 0 0 4px;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures li.error .dismiss a {
+.page-course-modify .form-content .pictures-control .controls ul.pictures li .actions a {
+  color: #777;
   font-size: 13px;
-}
-.page-course-modify .form-content .pictures-control .controls .pictures li.error .dismiss a:link,
-.page-course-modify .form-content .pictures-control .controls .pictures li.error .dismiss a:active,
-.page-course-modify .form-content .pictures-control .controls .pictures li.error .dismiss a:visited {
-  color: #888;
   text-decoration: underline;
 }
-.page-course-modify .form-content .pictures-control .controls .pictures li.error .dismiss a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
+.page-course-modify .form-content .pictures-control .controls ul.pictures img {
+  width: 300px;
+  height: 180px;
 }
-.page-course-modify .form-content .pictures-control .displays .pictures {
-  margin: 10px 0 0;
+.page-course-modify .form-content .pictures-control .controls .input {
+  border: 1px dashed #DDD;
+  padding: 15px 20px;
 }
-.page-course-modify .form-content .pictures-control .displays .pictures li.picture {
-  height: 117px;
-  list-style: none;
-  margin-bottom: 25px;
-  vertical-align: middle;
+.page-course-modify .form-content .pictures-control .controls .input label {
+  font-size: 20px;
 }
-.page-course-modify .form-content .pictures-control .displays .pictures li.picture .image {
-  float: left;
+.page-course-modify .form-content .tuition-control input {
+  display: inline-block;
+  width: 100px;
 }
-.page-course-modify .form-content .pictures-control .displays .pictures li.picture .image img {
-  border: 1px solid #CCC;
-  height: 115px;
-  width: 200px;
-}
-.page-course-modify .form-content .pictures-control .displays .pictures li.picture .description {
-  color: #444;
-  margin-left: 225px;
-  padding-top: 5px;
-}
-.page-course-modify .form-content .school-control select {
-  width: 350px;
-}
-.page-course-modify .form-content .topics-control input {
-  width: 400px;
-}
-.page-course-modify .form-content .level-control select {
-  font-size: 15px;
-  padding: 4px;
-}
-.page-course-modify .form-content .level-control select option {
-  padding: 4px;
-}
-.page-course-modify .form-content .tuition-control .controls input {
+.page-course-modify .form-content .duration-control input {
+  display: inline-block;
   width: 70px;
 }
-.page-course-modify .form-content .duration-control .controls input {
-  width: 50px;
+.page-course-modify .form-content .capacity-control input {
+  display: inline-block;
+  width: 70px;
 }
-.page-course-modify .form-content .capacity-control .controls input {
-  width: 50px;
+.page-course-modify .form-content .topic-control select {
+  width: 350px;
 }
 .page-course-modify .form-content .place-control .place-label {
   color: #444;
@@ -4251,10 +4391,14 @@ body {
 }
 .page-course-modify #form-footer-container {
   margin-top: 30px;
-  min-height: 65px;
+  min-height: 60px;
+}
+.page-course-modify #form-footer-container .form-footer .container {
+  padding: 0;
 }
 .page-course-modify #form-footer-container .form-footer button {
   margin-right: 15px;
+  padding: 14px 40px;
 }
 .page-course-modify #form-footer-container .form-footer .button-submit {
   font-weight: bold;
@@ -4286,11 +4430,13 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
   border-top: 1px solid #EEE;
   bottom: 0px;
-  height: 35px;
   left: 0px;
   padding: 15px 50px;
   position: fixed;
   width: 100%;
+}
+.page-course-modify .form-footer-floating .container {
+  padding: 0 15px !important;
 }
 .page-course-modify #modal-place-map {
   margin-left: -350px;

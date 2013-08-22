@@ -191,12 +191,9 @@ THUMBNAIL_ALIASES = {
         'avatar_smaller': {'size': (50, 50), 'crop': True},
         'avatar_tiny': {'size': (30, 30), 'crop': True},
 
-        'course_cover_normal': {'size': (510, 260), 'crop': True},
-        'course_cover_small': {'size': (255, 130), 'crop': True},
-
-        'course_picture_normal': {'size': (750, 400), 'crop': True},
-        'course_picture_cover_normal': {'size': (450, 240), 'crop': True},
-        'course_picture_cover_small': {'size': (225, 120), 'crop': True},
+        'course_picture_normal': {'size': (750, 450), 'crop': True},
+        'course_picture_small': {'size': (450, 270), 'crop': True},
+        'course_picture_smaller': {'size': (300, 180), 'crop': True},
     },
 }
 
