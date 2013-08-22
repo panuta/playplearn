@@ -8,13 +8,13 @@ html, body {
 }
 
 #body-top {
-    height: 67px;
+    height: 72px;
 
     .top-left {
         float: left;
 
         a {
-            color: @colorNavy;
+            color: #777;
             display: inline-block;
             font-family: 'QuarkLight', sans-serif;
             font-size: 22px;
@@ -22,7 +22,7 @@ html, body {
         }
 
         .logo {
-            margin: 20px 0 0;
+            margin: 20px 10px 0;
         }
     }
 
@@ -210,8 +210,7 @@ html, body {
 .page-backend {
     #backend-header {
         background: @headerBackground;
-        border-top: 1px solid @headerLightBorder;
-        padding: 25px 0;
+        padding: 25px 0 15px;
 
         .parent {
             margin-bottom: 8px;
@@ -265,11 +264,11 @@ html, body {
 
         h1 {
             color: #FFF;
-            font-size: 28px;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 34px;
             font-weight: normal;
             line-height: normal;
             margin: 0;
-            text-shadow: 1px 1px @primaryColor;
 
             span {
                 color: #FFF;
@@ -318,7 +317,7 @@ html, body {
     }
 
     .backend-tabs {
-        background: url('../images/ui/100-95-3.png') repeat #6C9FD4;
+        background: @headerBackground;
 
         .nav {
             margin: 0;
@@ -333,7 +332,7 @@ html, body {
         }
 
         .nav-tabs > li > a {
-            background-color: @linkColorLight;
+            background-color: @headerNavBackground;
             border: 0;
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;

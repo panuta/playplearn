@@ -33,8 +33,8 @@
     });
 
     $('.course-feedbacks .feedbacks').masonry({
-        columnWidth: 570,
-        gutter: 30,
+        columnWidth: 540,
+        gutter: 50,
         itemSelector: '.style-course-feedback'
     });
 })();
@@ -45,35 +45,28 @@
 <div class="container">
     <!--<div class="join"><a href="#join-workshop" class="style-orange-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a></div>-->
     <h1>{{ course.title }}</h1>
-    <div class="course-teacher">
-        <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
-        <div class="name">จัดโดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
+    <div class="course-subtitle">
+        <div class="course-teacher">
+            <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
+            <div class="name">จัดโดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
+        </div>
+        <div class="course-details">
+            <span class="details">
+                <span class="caption">ระยะเวลา</span>
+                <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
+            </span>
+            <span class="details">
+                <span class="caption">กลุ่มละ</span>
+                <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
+            </span>
+            <span class="details">
+                <span class="caption">ค่าใช้จ่าย</span>
+                <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
+            </span>
+        </div>
     </div>
 
-    <div class="course-details">
-        <span class="details">
-            <span class="caption">หัวข้อ</span>
-            <span class="value"><a href="#">{{ course.get_school.name }}</a></span>
-        </span>
-        <span class="details">
-            <span class="caption">ระยะเวลา</span>
-            <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
-        </span>
-        <span class="details">
-            <span class="caption">จำนวนคนในกลุ่ม</span>
-            <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
-        </span>
-        <span class="details">
-            <span class="caption">จำนวนครั้งที่จะจัด</span>
-            <span class="value"><em>{{ course.stats_upcoming_classes }}</em> ครั้ง</span>
-        </span>
-        <span class="details">
-            <span class="caption">ค่าใช้จ่าย</span>
-            <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
-        </span>
-    </div>
-
-    <div class="row">
+    <div class="row course-pictures-enrollment">
         <div class="col-lg-8">
             <div class="course-pictures">
                 <div id="pictures-slider" class="royalSlider rsDefault">
@@ -85,7 +78,7 @@
         </div>
         <div class="col-lg-4">
             <div class="course-enrollment">
-                <div class="head">เข้าร่วมเวิร์คช็อป</div>
+                <div class="head"><i class="icon-signin"></i> เข้าร่วมเวิร์คช็อป</div>
 
                 <div class="enroll-input enroll-input-schedule">
                     <label>รอบวันที่</label>
@@ -98,7 +91,7 @@
                 </div>
 
                 <div class="enroll-button">
-                    <a href="#" class="style-primary-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a>
+                    <a href="#" class="style-primary-button">ลงชื่อเข้าร่วม</a>
                 </div>
             </div>
 
@@ -123,25 +116,90 @@
     </div>
 
     <div class="course-story">
-        {{ course.description|safe }}
+        <!--{{ course.description|safe }}-->
+        <p>รีดไถเจล คลาสสิกห่วยฮาราคีรีว้าวไอติมเซี้ยว แพนงเชิญทำงานคอรัปชัน วานิลาแตงโมอพาร์ทเมนท์แฟรนไชส์งี้แอลมอนด์ เพทนาการไมค์ ติงต๊องบึมสังโฆทับซ้อน ซินโดรมเทรลเล่อร์ปัจเจกชนโอเปร่าคอรัปชันควีน แฟรีนรีแพทย์รอยัลตี้ฮองเฮา มาเฟียเมจิกเฟรชทำงานวอลซ์โพลารอยด์ แซ็กแอ็กชั่นกราวนด์เมจิกไทยแลนด์ รีพอร์ทลอร์ดสปาจีดีพีแอปเปิ้ล สังโฆอันเดอร์ภควัทคีตาอุด้ง มาร์ชโซนี่ พรีเมียร์อีสต์โหงวอุตสาหการ ออโต้ห่วยท็อปบูตคาปูชิโนแชมป์ หลินจือเนิร์สเซอรีไฮกุสหัสวรรษบอร์ดคันธาระ</p>
+        <p>เซ็นทรัลปิโตรเคมีสโรชา เบลอ วอฟเฟิลรีสอร์ทคำสาป เหี่ยวย่นแมกกาซีนพงษ์ แฟรีสจ๊วตธรรมา สเตอริโอโบว์ลิ่งเยน ผู้นำสปิริตแกงค์เทค สปายแม่ค้าสเตเดียมไรเฟิลรีสอร์ต กิฟท์ เนอะราเม็งฮองเฮา ภควัทคีตาพุดดิ้ง สกรัมโปรดิวเซอร์ ติงต๊อง แคร็กเกอร์ พอเพียงไอซียูจูนรัมโฮปฟลุต ลอร์ดออร์เดอร์วอร์รูมสเตชันฟรุต</p>
+        <p>พุทธภูมิโอเพ่นบราแบคโฮ ไฮเอนด์โปรเจ็คท์โปสเตอร์ยังไงฮาราคีรีเครป ตุ๊กอมาตยาธิปไตยคอรัปชันรีโมตกับดัก ว้อดก้า บุญคุณเกรดเบิร์ดเคลมกรอบรูปแจ๊กพอต ชีสเอ๋ไชน่า ดีพาร์ทเมนท์แบคโฮอีสต์เคอร์ฟิวแป๋วแคนยอน สไตล์โอเคสะบึมส์โปสเตอร์ เวิลด์พฤหัส ต้าอ่วยสามแยก ฟินิกซ์ต้าอ่วยบิลแพกเกจเจได ฮ็อตปอดแหกแก๊สโซฮอล์ไฮกุศิลปากรราเม็ง แอสเตอร์จุ๊ย รีโมทโต๊ะจีนแฟนตาซีอินเตอร์เฟอร์นิเจอร์เดโม เกรดเฟอร์นิเจอร์เซรามิกราเมนเบบี้ ราชานุญาตปิยมิตรปฏิสัมพันธ์โฮปแอดมิชชั่นกับดัก</p>
     </div>
 
-    <div class="course-place">
-        <div class="head"><i class="icon-map-marker"></i> สถานที่</div>
-        <div class="clearfix">
-            <div class="map"><a href="http://maps.google.com/maps?q={{ course.place.latlng }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ course.place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ course.place.latlng }}&sensor=false" /></a></div>
-            <div class="place">
-                <div class="name">{{ course.place.name }}</div>
-                <div class="address">{{ course.place.address }}</div>
-                <div class="direction">
-                    <div class="direction_head">Direction</div>
-                    {{ course.place.direction|linebreaks }}
+    <div class="row course-activities-place">
+        <div class="col-lg-5">
+            <div class="course-activities">
+                <div class="head"><i class="icon-th-list"></i> กิจกรรม</div>
+                <ul>
+                    <li>แซ็กโซโฟนโปรเจกต์อินดอร์ ซาตานเอสเพรสโซลิสต์แซลมอนฮิต สเต็ปง่าวจิตเภทเนิร์สเซอรีง่าว วีซ่าเจ็ตมหาอุปราชา</li>
+                    <li>หยวนเตี๊ยมเซนเซอร์ คอมเมนต์ปิกอัพแพ็คทริป ศิรินทร์วัจนะ แบคโฮสกรัมควิก คอร์ปพาวเวอร์นิวส์พันธุวิศวกรรม คำสาปตังค์แจมบ๊วยอีสต์</li>
+                    {% for activity in course.activities.all %}
+                        <li>{{ activity.title }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="course-place">
+                <div class="head"><i class="icon-map-marker"></i> สถานที่</div>
+                <div class="clearfix">
+                    <div class="map"><a href="http://maps.google.com/maps?q={{ course.place.latlng }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ course.place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ course.place.latlng }}&sensor=false" /></a></div>
+                    <div class="place">
+                        <div class="name">{{ course.place.name }}</div>
+                        <div class="address">{{ course.place.address }}</div>
+                        <div class="direction">
+                            <div class="direction_head">How to get there</div>
+                            {{ course.place.direction|linebreaks }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="course-feedbacks">
+        <h2>คำนิยม</h2>
+        <ul class="feedbacks">
+            <li class="feedback style-course-feedback">
+                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
+                <div class="feedback-right">
+                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
+                    <div class="feedback-content">
+                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
+                    </div>
+                </div>
+            </li>
+            <li class="feedback style-course-feedback">
+                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
+                <div class="feedback-right">
+                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
+                    <div class="feedback-content">
+                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
+                    </div>
+                </div>
+            </li>
+            <li class="feedback style-course-feedback">
+                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
+                <div class="feedback-right">
+                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
+                    <div class="feedback-content">
+                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
+                    </div>
+                </div>
+            </li>
+            <li class="feedback style-course-feedback">
+                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
+                <div class="feedback-right">
+                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
+                    <div class="feedback-content">
+                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
+                    </div>
+                </div>
+            </li>
+            {% for feedback in feedbacks %}
+                {% include 'snippets/course_feedback_box.html' %}
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 
+{% comment %}
 <div class="course-schedules">
     <a name="join-workshop"></a>
     <div class="container">
@@ -176,21 +234,10 @@
             </div>
         </div>
     </div>
-</div>
+</div>{% endcomment %}
 
 <div class="container">
-    <div class="course-feedbacks">
-        <h2><i class="icon-comment"></i> การตอบรับ</h2>
-        {% if feedbacks %}
-            <div class="feedbacks">
-                {% for feedback in feedbacks %}
-                    {% include 'snippets/course_feedback_box.html' %}
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="style-no-information">No feedback yet</div>
-        {% endif %}
-    </div>
+
 </div>
 
 
