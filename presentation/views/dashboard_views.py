@@ -110,32 +110,11 @@ def _view_my_courses_attended(request, course_school=None):
 
 
 @login_required
-def view_my_courses_teaching(request, category):
-    if category == 'all':
-        teaching_courses = Course.objects.filter(teacher=request.user).exclude(status='DELETED')
-    elif category == 'draft':
-        teaching_courses = Course.objects.filter(teacher=request.user, status='DRAFT')
-    elif category == 'approving':
-        teaching_courses = Course.objects.filter(teacher=request.user, status='WAIT_FOR_APPROVAL')
-    elif category == 'publishing':
-        teaching_courses = Course.objects.filter(teacher=request.user, status='READY_TO_PUBLISH')
-    elif category == 'published':
-        teaching_courses = Course.objects.filter(teacher=request.user, status='PUBLISHED')
-    else:
-        raise Http404
+def view_my_courses_teaching(request):
+    workshops = Course.objects.filter(teacher=request.user).exclude(status='DELETED')
 
-    num_of_courses = {
-        'all': Course.objects.filter(teacher=request.user).exclude(status='DELETED').count(),
-        'draft': Course.objects.filter(teacher=request.user, status='DRAFT').count(),
-        'approving': Course.objects.filter(teacher=request.user, status='WAIT_FOR_APPROVAL').count(),
-        'publishing': Course.objects.filter(teacher=request.user, status='READY_TO_PUBLISH').count(),
-        'published': Course.objects.filter(teacher=request.user, status='PUBLISHED').count(),
-    }
-
-    return render(request, 'dashboard/courses_organizing.html', {
-        'teaching_courses': teaching_courses,
-        'num_of_courses': num_of_courses,
-        'active_category': category,
+    return render(request, 'dashboard/workshops_organizing.html', {
+        'workshops': workshops
     })
 
 

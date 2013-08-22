@@ -1,7 +1,7 @@
 {% extends 'dashboard/courses_base.html' %}
 {% load i18n humanize common_tags presentation_tags %}
 
-{% block head_title %}{% trans 'Organizing activities' %} - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block head_title %}จัดเวิร์คช็อป - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block workshops_title %}{% trans 'Organizing activities' %}{% endblock %}
 {% block courses_content_nav %}{% include 'dashboard/courses_base_nav.html' with tab_name='teaching' %}{% endblock %}
 
@@ -76,7 +76,7 @@
 {% endblock %}
 
 {% block courses_content %}
-<div class="page-my-courses-teaching">
+<div class="page-my-workshops-teaching">
     {% if num_of_courses.all %}
         <div class="style-stats-bar">
             <div class="create-course">

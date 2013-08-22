@@ -1258,13 +1258,107 @@
     }
 }
 
-.page-my-courses-teaching {
+.page-my-workshops-organizing {
     .style-stats-bar {
-        .create-course {
+        margin-top: 20px;
+
+        .add-workshop {
             float: right;
-            margin: 7px 13px;
+            margin: 12px 17px;
         }
     }
+
+    ul.workshops {
+        margin: 35px 0 0;
+        padding: 0;
+
+        li.workshop {
+            border-bottom: 1px solid #DDD;
+            list-style: none;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+
+            .cover {
+                border: 1px solid #DDDDDD;
+                float: left;
+                padding: 2px;
+            }
+
+            .right {
+                margin-left: 175px;
+            }
+
+            .title a {
+                .content_link;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 24px;
+            }
+
+            .subtitle {
+                margin-top: 5px;
+
+                .workshop-status {
+                    display: inline-block;
+                    margin-right: 15px;
+
+                    span {
+                        border-radius: 4px;
+                        padding: 4px 15px;
+                        font-size: 12px;
+
+                        background-color: @successColor;
+                        color: #FFF;
+                    }
+                }
+
+                .workshop-stats {
+                    color: #888;
+                    display: inline-block;
+                    font-size: 14px;
+
+
+                    span {
+                        margin-right: 12px;
+                    }
+
+                    em {
+                        color: #444;
+                    }
+                }
+            }
+
+            .actions {
+                float: right;
+                text-align: right;
+
+                a {
+                    font-size: 12px;
+                    margin-left: 5px;
+                    padding: 5px 15px;
+                }
+
+                i.icon-check-sign {
+                    color: @successColor;
+                    margin-right: 2px;
+                }
+            }
+
+            .next {
+                border: 1px dashed #DDD;
+                color: #555;
+                display: inline-block;
+                font-size: 13px;
+                margin-top: 15px;
+                padding: 6px 15px;
+
+                i {
+                    color: #C30;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
 
     .teaching-courses {
         margin-top: 25px;
@@ -1397,9 +1491,9 @@
 
             th {
                 border: none;
-                color: #777;
-                font-size: 12px;
-                font-weight: bold;
+                color: #999;
+                font-size: 13px;
+                font-weight: normal;
                 padding-top: 0;
             }
 
@@ -1423,7 +1517,7 @@
                 width: 220px;
 
                 a {
-                    margin-left: 10px;
+                    margin-left: 5px;
                 }
 
                 i.icon-check-sign {
@@ -1435,14 +1529,57 @@
             td.title {
                 a {
                     .content_link;
-                    font-size: 15px;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 24px;
                 }
 
-                .stats {
-                    color: #666;
-                    font-size: 12.5px;
+                .status-stats {
                     margin-top: 5px;
 
+                    .workshop-status {
+                        display: inline-block;
+                        margin-right: 15px;
+
+                        span {
+                            border-radius: 4px;
+                            padding: 4px 15px;
+                            font-size: 12px;
+
+                            background-color: @successColor;
+                            color: #FFF;
+                        }
+                    }
+
+                    .stats {
+                        color: #888;
+                        display: inline-block;
+                        font-size: 14px;
+
+
+                        span {
+                            margin-right: 12px;
+                        }
+
+                        em {
+                            color: #444;
+                        }
+                    }
+                }
+
+
+
+                .next {
+                    border: 1px dashed #DDD;
+                    color: #555;
+                    display: inline-block;
+                    font-size: 13px;
+                    margin-top: 15px;
+                    padding: 6px 15px;
+
+                    i {
+                        color: #C30;
+                        margin-right: 5px;
+                    }
                 }
             }
 
@@ -1474,6 +1611,13 @@
                 .published {
                     background-color: @successColor;
                     color: #FFF;
+                }
+            }
+
+            td.actions {
+                .style-outline-button {
+                    font-size: 12px;
+                    padding: 5px 15px;
                 }
             }
         }
