@@ -13,25 +13,30 @@ em {
     vertical-align: 0px;
 }
 
-select,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-    border-radius: 0;
+.form-group {
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+        border-radius: 0;
+        padding: 6px;
+    }
 }
+
+
 
 textarea:focus,
 input[type="text"]:focus,
@@ -641,7 +646,7 @@ form {
         vertical-align: middle;
     }
 
-    &[disabled] {
+    &[disabled], &.disabled {
         background-color: #D9D9D9;
         color: #AAA;
         cursor: default;
@@ -697,6 +702,26 @@ form {
     &:hover, &:focus {
         background-color: @colorBlue;
         border: 1px solid @colorBlue;
+    }
+
+    &[disabled], &.disabled {
+        border: 1px solid #D9D9D9;
+    }
+}
+
+.style-outline-danger-button {
+    .style-button-base;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: #c30;
+        border: 1px solid #c30;
+    }
+
+    &[disabled], &.disabled {
+        border: 1px solid #D9D9D9;
     }
 }
 

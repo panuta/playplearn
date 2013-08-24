@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
-{% load i18n common_tags %}
+{% load i18n thumbnail common_tags %}
 
 {% block head_title %}{{ settings.WEBSITE_NAME }} - เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่ได้สนุกเพลิดเพลิน{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
 
-{% block body_header %}
-
+{% block scripts %}
+<script>
+(function() {
+    $('.royalSlider').royalSlider({
+        controlsInside: true,
+        controlNavigation: 'none',
+        imageScaleMode: 'fill'
+    });
+})();
+</script>
 {% endblock %}
 
 {% block body %}
@@ -20,7 +28,20 @@
         <ul class="courses">
             {% for course in upcoming_courses %}
                 <li class="course clearfix">
-                    <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" {% thumbnail_img_size 'course_cover_normal' %} /></a></div>
+                    <div class="workshop-pictures">
+                        <div class="royalSlider rsDefault">
+                            {% for picture in course.pictures.all %}
+                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}" {% thumbnail_img_size 'course_picture_small' %} alt="{{ picture.description }}" />
+                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}" {% thumbnail_img_size 'course_picture_small' %} alt="{{ picture.description }}" />
+                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}" {% thumbnail_img_size 'course_picture_small' %} alt="{{ picture.description }}" />
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                    {% comment %}<div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="450" height="270" /></a></div>{% endcomment %}
+
+                    {% comment %}<div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" {% thumbnail_img_size 'course_picture_small' %} /></a></div>{% endcomment %}
                     <div class="right">
                         <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
                         <div class="teacher">

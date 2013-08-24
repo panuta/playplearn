@@ -12,7 +12,6 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     var form_title = $('#id_title');
     var form_activity = $('#control_activity_list');
     var form_story = $('#id_story');
-    var form_cover = $('#id_cover_filename');
     var form_pictures = $('#upload-pictures');
     var form_pictures_ordering = $('#id_pictures_ordering');
     var form_school = $('#id_school');
@@ -27,8 +26,9 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     var autosave_timer = null;
 
     // BINDING FORM ACTIONS
-
     $('.form-footer .button-draft').on('click', function() {
+        if($(this).hasClass('disabled')) return false;
+
         _is_dirty = true;
         _is_very_dirty = true;
         save_changes('draft', true);
@@ -36,6 +36,8 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     });
 
     $('.form-footer .button-submit-approval').on('click', function() {
+        if($(this).hasClass('disabled')) return false;
+
         _is_dirty = true;
         _is_very_dirty = true;
 
@@ -49,6 +51,8 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     });
 
     $('.form-footer .button-save-changes').on('click', function() {
+        if($(this).hasClass('disabled')) return false;
+
         _is_dirty = true;
         _is_very_dirty = true;
         save_changes('update', true);
@@ -125,62 +129,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     }
 
     // Initialize Pictures
-    function _init_pictures_and_cover() {
-        var cover_form = $('#id_cover');
-        var upload_cover = $('#upload-cover');
-        cover_form.fileupload({
-            dataType: 'json',
-            url: '/ajax/course/cover/upload/',
-            formData: function (form) {return [{name:'uid', value:course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}];},
-            add: function (e, data) {
-                $('.form-footer button').prop('disabled', true);
-
-                var file = data.files[0];
-
-                if(typeof file.type != 'undefined' && file.type.indexOf('image/') != 0) {
-                    upload_cover.html('<div class="error">This is not an image file</div>').show();
-                } else if(file.size > 3000000) {
-                    upload_cover.html('<div class="error">Image file size is too large<br/>(Max 3 megabytes)</div>').show();
-                } else {
-                    upload_cover.html('<div class="progress progress-striped"><div class="bar"></div></div>').show();
-                    cover_form.prop('disabled', true);
-                    data.submit();
-                }
-            },
-            progress: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                upload_cover.find('.bar').attr('data-percentage', progress);
-                upload_cover.find('.bar').progressbar({display_text: 1});
-            },
-            done: function (e, data) {
-                upload_cover.find('.bar').attr('data-percentage', 100);
-                upload_cover.find('.bar').progressbar({display_text: 1});
-
-                cover_form.prop('disabled', false);
-
-                var response = data.result;
-
-                if(response.status == 'success') {
-                    upload_cover.html('<img src="' + response.data.cover_url + '" height="130" width="255" />');
-                    $('#id_cover_filename').val(response.data.cover_filename);
-
-                } else if(response.status == 'error') {
-                    if(response.message) {
-                        upload_cover.html('<div class="error">' + response.message + '</div>')
-                    } else {
-                        upload_cover.html('<div class="error">Unknown error</div>')
-                    }
-                }
-
-                _reset_form_header();
-            },
-            fail: function (e, data) {
-                upload_cover.html('<div class="error">Upload error</div>')
-                _reset_form_header();
-            }
-        });
-        cover_form.prop('disabled', false);
-
+    function _init_pictures() {
         var upload_pictures = $('#upload-pictures');
         var upload_pictures_ordering = $('#id_pictures_ordering');
         $('#id_pictures').fileupload({
@@ -189,15 +138,15 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
             sequentialUploads: true,
             formData: function (form) {return [{name:'uid', value:course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}, {name:'ordering', value: upload_pictures_ordering.val()}];},
             add: function (e, data) {
-                $('.form-footer button').prop('disabled', true);
+                $('.form-footer button').addClass('disabled');
 
                 var file = data.files[0];
                 var errorObject = null;
 
                 if(typeof file.type != 'undefined' && file.type.indexOf('image/') != 0) {
-                    errorObject = $('<li class="error"><em>Image file only</em><div class="dismiss"><a href="#">Dismiss</a></div></li>');
+                    errorObject = $('<li class="error"><div class="dismiss"><a href="#"><i class="icon-remove"></i></a></div><div class="error-text"><i class="icon-warning-sign"></i> ไม่ใช่ไฟล์รูปภาพ</div></li>');
                 } else if(file.size > 5000000) {
-                    errorObject = $('<li class="error"><em>Image is too big<br/>(Max 5 megabytes)</em><div class="dismiss"><a href="#">Dismiss</a></div></li>');
+                    errorObject = $('<li class="error"><div class="dismiss"><a href="#"><i class="icon-remove"></i></a></div><div class="error-text"><i class="icon-warning-sign"></i> ขนาดไฟล์ใหญ่เกิน 5 เมกะไบต์</div></li>');
                 }
 
                 if(errorObject) {
@@ -205,7 +154,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                     return;
                 }
 
-                var uploadingObject = $('<li class="uploading"><em>Uploading...</em><div class="progress progress-striped"><div class="bar"></div></div></li>');
+                var uploadingObject = $('<li class="uploading"><div class="progress"><div class="progress-bar" role="progressbar"></div></div><div class="progress-text"><em>0</em>% Complete</div></li>');
                 upload_pictures.append(uploadingObject);
 
                 uploadingObject.data('data', data);
@@ -215,12 +164,12 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
             },
             progress: function (e, data) {
                 var progress = parseInt(data.loaded / data.total * 100, 10);
-                data.context.find('.bar').attr('data-percentage', progress);
-                data.context.find('.bar').progressbar({display_text: 1});
+                data.context.find('.progress-bar').attr('aria-valuetransitiongoal', progress).progressbar();
+                data.context.find('.progress-text em').text(progress);
             },
             done: function (e, data) {
-                data.context.find('.bar').attr('data-percentage', 100);
-                data.context.find('.bar').progressbar({display_text: 1});
+                data.context.find('.progress-bar').attr('aria-valuetransitiongoal', 100).progressbar();
+                data.context.find('.progress-text em').text(100);
 
                 var file = data.files[0];
                 var response = data.result;
@@ -229,18 +178,16 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                     upload_pictures_ordering.val(response.data.ordering);
 
                     data.context.removeClass('uploading').addClass('picture');
-                    data.context.html('<div class="image"><i class="icon-reorder"></i><img src="' + response.data.picture_url + '" /></div><div class="description"><label>คำอธิบายรูปภาพ <input type="text" /></label><a href="#" class="delete">ลบรูป</a></div>');
+                    data.context.html('<img src="' + response.data.picture_url + '"><a title="ลบรูปภาพ" class="delete" href="#"><i class="icon-remove icon-white"></i></a>');
                     data.context.attr('picture-uid', response.data.picture_uid);
-
-                    _set_picture_events(data.context);
 
                 } else if(response.status == 'error') {
                     data.context.removeClass('uploading').addClass('error');
 
                     if(response.message) {
-                        data.context.html('<em>' + response.message + '</em><div class="dismiss"><a href="#">Dismiss</a></div>');
+                        data.context.html('<div class="dismiss"><a href="#"><i class="icon-remove"></i></a></div><div class="error-text"><i class="icon-warning-sign"></i> ' + response.message + '</div>');
                     } else {
-                        data.context.html('<em>Unknown error</em><div class="dismiss"><a href="#">Dismiss</a></div>');
+                        data.context.html('<div class="dismiss"><a href="#"><i class="icon-remove"></i></a></div><div class="error-text"><i class="icon-warning-sign"></i> ไม่สามารถอัพโหลดไฟล์ได้</div>');
                     }
                 }
 
@@ -251,30 +198,15 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                     data.context.remove();
                 } else {
                     data.context.removeClass('uploading').addClass('error');
-                    data.context.html('<em>Upload error</em><div class="dismiss"><a href="#">Dismiss</a></div>');
+                    data.context.html('<div class="dismiss"><a href="#"><i class="icon-remove"></i></a></div><div class="error-text"><i class="icon-warning-sign"></i> ไม่สามารถอัพโหลดไฟล์ได้</div>');
                 }
                 _reset_form_header();
             }
         });
 
-        function _set_picture_events(picture_object) {
-            picture_object.find('.delete').popover({
-                html: true,
-                placement: 'left',
-                content: '<a href="#" class="btn btn-mini btn-danger button-picture-remove">Confirm delete</a> <a href="#" class="btn btn-mini button-picture-remove-cancel">Cancel</a>'
-            }).on('click', function() {
-                return false;
-            });
-
-            picture_object.find('.description input').on('change', function() {
-                upload_pictures.data('dirty', true);
-                set_dirty();
-            });
-        }
-
         upload_pictures.sortable({
             distance: 15,
-            handle: '.image',
+            handle: 'img',
             items: 'li.picture',
             tolerance: 'pointer',
             placeholder: 'ui-state-highlight',
@@ -290,18 +222,25 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
             }
         });
 
-        $(document).on('click', '.button-picture-remove', function() {
-            $('.form-footer button').prop('disabled', true);
+        $(document).on('click', '#upload-pictures li.picture a.delete', function() {
+            $(this).hide();
+            $(this).closest('.picture').prepend('<div class="confirm-delete"><div class="actions"><a href="#" class="style-outline-danger-button button-remove-picture">ลบรูปภาพ</a><a href="#" class="style-outline-button button-remove-picture-cancel">ยกเลิก</a></div></div>');
+            return false;
+        });
+
+        $(document).on('click', '#upload-pictures .button-remove-picture', function() {
+            $('.form-footer button').addClass('disabled');
 
             if($(this).hasClass('disabled')) {
                 return false;
             }
 
-            var delete_link = $(this).closest('.description').find('.delete');
-            var delete_actions = $(this).closest('.popover-content').find('a');
+            var picture = $(this).closest('li.picture');
+            var delete_actions = picture.find('confirm-delete a');
             delete_actions.addClass('disabled');
 
             var picture_uid = $(this).closest('li.picture').attr('picture-uid');
+
             var jqxhr = $.post('/ajax/course/picture/delete/', {uid: course_uid, picture_uid: picture_uid}, function(response) {
                 if(response.status == 'success') {
                     upload_pictures_ordering.val(response.data.ordering);
@@ -310,12 +249,13 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                     });
                 } else {
                     delete_actions.removeClass('disabled');
-                    delete_link.popover('hide');
+                    picture.find('.confirm-delete').remove();
+                    picture.find('.delete').show();
 
                     if(response.message) {
-                        _alertModal('error', 'Delete error', response.message);
+                        _alertModal('error', 'ไม่สามารถลบรูปได้', response.message);
                     } else {
-                        _alertModal('error', 'Delete error', 'Unknown error');
+                        _alertModal('error', 'ไม่สามารถลบรูปได้', 'Unknown error');
                     }
                 }
 
@@ -324,19 +264,22 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
                 delete_actions.removeClass('disabled');
-                delete_link.popover('hide');
-                _alertModal('error', 'Delete error', 'Unexpected error occurred: ' + errorThrown);
+                picture.find('.confirm-delete').remove();
+                picture.find('.delete').show();
+                _alertModal('error', 'ไม่สามารถลบรูปได้', 'Unexpected error occurred: ' + errorThrown);
             });
 
             return false;
         });
 
-        $(document).on('click', '.button-picture-remove-cancel', function() {
+        $(document).on('click', '.button-remove-picture-cancel', function() {
             if($(this).hasClass('disabled')) {
                 return false;
             }
 
-            $(this).closest('li.picture').find('.delete').popover('hide');
+            var picture = $(this).closest('li.picture');
+            picture.find('.confirm-delete').remove();
+            picture.find('.delete').show();
             return false;
         });
 
@@ -344,25 +287,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
             $(this).closest('li.error').remove();
             return false;
         });
-
-        _set_picture_events(upload_pictures);
     }
-
-    // Initialize Topic
-    function format(topic) {
-        var topicObj = topic.element;
-        console.log($(topicObj).data('desc'));
-        return '<span class="topic"><strong>' + topic.text + '</strong><br/>' + $(topicObj).data('desc') + '</span>';
-    }
-
-    /*
-    form_school.select2({
-        allowClear: true,
-        minimumResultsForSearch: 1000,
-        formatResult: format,
-        width: 350,
-        escapeMarkup: function(m) { return m; }
-    });*/
 
     // Initialize Place
     function _init_place() {
@@ -554,19 +479,6 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
             form_story.data('dirty', false);
         }
 
-        if(form_pictures.data('dirty') || _is_very_dirty) {
-            var picture_desc = [];
-            form_pictures.find('li.picture').each(function() {
-                picture_desc.push({uid: $(this).attr('picture-uid'), description: $(this).find('input').val()});
-            });
-
-            if(picture_desc) {
-                data['picture_descriptions'] = picture_desc;
-            }
-
-            form_pictures.data('dirty', false);
-        }
-
         if(form_pictures_ordering.data('dirty') || _is_very_dirty) {
             data['picture_ordering'] = form_pictures_ordering.val();
             form_pictures_ordering.data('dirty', false);
@@ -626,7 +538,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     function save_changes(submit_action, notify) {
         _is_saving = true;
         $('.form-footer .loading').show();
-        $('.form-footer button').prop('disabled', true);
+        $('.form-footer button').addClass('disabled');
 
         var data = collect_data();
         if(submit_action) data['submit'] = submit_action;
@@ -687,10 +599,10 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         if(!$.isNumeric(form_capacity.val())) is_completed = false;
         if(!form_school.val().trim()) is_completed = false;
 
-        var place_choice = form_place.find('input[name="place"]:checked').val();
-        if(place_choice == 'system-place') {
+        var place_type = form_place.find('input[name="place-type"]:checked').val();
+        if(place_type == 'system-place') {
             if(!$('#id_place_system').find('option:selected').val()) is_completed = false;
-        } else if(place_choice == 'userdefined-place') {
+        } else if(place_type == 'userdefined-place') {
             if(!$('#id_place_name').val().trim() ||
                     !$('#id_place_address').val().trim() ||
                     !$('#id_place_province').find('option:selected').val() ||
@@ -708,14 +620,13 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
     function _reset_form_header() {
         var is_completed = _is_completed();
         //$('.form-footer .button-draft').prop('disabled', !_is_dirty);
-        $('.form-footer .button-draft').removeProp('disabled');
 
-        console.log(is_completed);
+        $('.form-footer .button-draft').removeClass('disabled');
 
         if(is_completed) {
-            $('.form-footer .button-submit').removeProp('disabled');
+            $('.form-footer .button-submit').removeClass('disabled').tooltip('destroy');
         } else {
-            $('.form-footer .button-submit').prop('disabled', true);
+            $('.form-footer .button-submit').addClass('disabled').tooltip({title: 'ยังกรอกข้อมูลไม่ครบถ้วน',trigger: 'hover'});
         }
     }
 
@@ -774,7 +685,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         }
     });
 
-    _init_pictures_and_cover();
+    _init_pictures();
 
     form_school.on('change', function() {
         form_school.data('dirty', true);

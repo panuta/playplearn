@@ -130,7 +130,7 @@ class Command(BaseCommand):
                     direction='Go to Srinakarin',
                     latlng='13.614947,100.626386',
                     is_userdefined=True,
-                    created_by=user_panuta,
+                    created_by=user2,
                 )
 
             try:
@@ -144,7 +144,7 @@ class Command(BaseCommand):
                     direction=u'จากถนนพระราม 9 เลี้ยวเข้ามารัชดาภิเษกทางที่จะไปลาดพร้าว ตรงมาเรื่อยๆ จนเจอสี่แยกสุทธิสาร เลี้ยวขวาแล้วขับตรงเข้ามาเรื่อยๆ',
                     latlng='13.791149,100.5882',
                     is_userdefined=True,
-                    created_by=user1,
+                    created_by=user2,
                 )
 
             # COURSES

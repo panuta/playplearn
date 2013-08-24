@@ -157,6 +157,18 @@
         }
 
         li.course {
+            .workshop-pictures {
+                border: 1px solid #DDD;
+                float: left;
+                padding: 3px;
+                position: relative;
+
+                .royalSlider {
+                    width: 450px;
+                    height: 270px;
+                }
+            }
+
             .cover {
                 padding: 3px;
                 border: 1px solid #DDD;
@@ -1741,11 +1753,11 @@
             background: @headerBackground;
             color: #FFF;
             font-family: 'QuarkLight', sans-serif;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 200;
             line-height: normal;
             margin: 35px 0 25px;
-            padding: 12px 18px 10px;
+            padding: 9px 20px 7px;
 
             i {
                 font-size: 0.7em;
@@ -1781,12 +1793,15 @@
 
             .number-control {
                 input {
+                    display: inline-block;
+                    font-size: 16px;
                     text-align: center;
                 }
 
                 .unit {
                     color: #555;
                     margin-left: 6px;
+                    vertical-align: middle;
                 }
             }
 
@@ -1925,7 +1940,7 @@
                             font-size: 15px;
                             float: right;
                             line-height: normal;
-                            padding: 11px 10px;
+                            padding: 15px 12px;
 
                             &:hover {
                                 color: #c30;
@@ -1949,7 +1964,7 @@
                             border: none;
                             box-shadow: none;
                             font-size: 15px;
-                            height: 26px;
+                            height: 45px;
                             margin: 0px;
                             padding: 5px 0px;
                             vertical-align: middle;
@@ -2027,374 +2042,177 @@
         }
 
         .pictures-control {
-            .controls {
-                ul.pictures {
-                    margin: 0;
-                    padding: 0;
+            ul.pictures {
+                margin: 0;
+                padding: 0;
 
-                    li {
-                        float: left;
-                        list-style: none;
-                        margin: 0 19px 30px 19px;
-                        vertical-align: middle;
+                li {
+                    border: 1px solid #DDD;
+                    float: left;
+                    height: 188px;
+                    padding: 3px;
+                    position: relative;
+                    list-style: none;
+                    margin: 0 19px 30px 19px;
+                    vertical-align: middle;
+                    width: 308px;
 
-                        .image {
-                            border: 1px solid #DDD;
-                            cursor: move;
-                            height: 188px;
-                            padding: 3px;
-                            position: relative;
-                            width: 308px;
+                    &.picture {
+                        img {
+                            height: 180px;
+                            width: 300px;
+                        }
 
-                            .hover {
-                                background-color: rgba(0,0,0,0.5);
+                        .delete {
+                            background-color: rgba(0, 0, 0, 0.5);
+                            border-left: 1px solid #EEE;
+                            border-top: 1px solid #EEE;
+                            bottom: 3px;
+                            color: #DDD;
+                            float: right;
+                            height: 25px;
+                            line-height: 23px;
+                            position: absolute;
+                            right: 3px;
+                            text-align: center;
+                            width: 25px;
+
+                            &:hover, &focus {
+                                background-color: #C30;
                                 color: #FFF;
-                                cursor: move;
-                                font-weight: bold;
-                                height: 180px;
-                                padding-top: 80px;
-                                position: absolute;
-                                text-align: center;
-                                text-shadow: 0 0 2px #000;
-                                width: 300px;
+                                text-decoration: none;
                             }
                         }
 
-                        &.left-picture {
+                        .confirm-delete {
+                            background-color: rgba(0, 0, 0, 0.5);
+                            height: 180px;
+                            padding-top: 66px;
+                            position: absolute;
+                            text-align: center;
+                            width: 300px;
 
-                        }
-
-                        &.center-picture {
-
-                        }
-
-                        &.right-picture {
-
-                        }
-
-                        .actions {
-                            color: #CCC;
-                            margin: 5px 0 0 4px;
+                            .actions {
+                                background-color: rgba(255, 255, 255, 0.5);
+                                padding: 10px 0;
+                            }
 
                             a {
-                                color: #777;
                                 font-size: 13px;
-                                text-decoration: underline;
+                                margin: 0 8px;
+                                padding: 3px 15px;
+
                             }
                         }
                     }
 
-                    img {
-                        width: 300px;
-                        height: 180px;
-                    }
-
-                    li.picture {
-
-                    }
-                }
-
-                .input {
-                    border: 1px dashed #DDD;
-                    padding: 15px 20px;
-
-                    label {
-                        font-size: 20px;
-                    }
-                }
-            }
-        }
-
-        /*
-        .pictures-control {
-            .controls {
-                .pictures {
-                    margin: 10px 0 0;
-
-                    li {
-                        background-color: #FFF;
-                        height: 117px;
-                        list-style: none;
-                        margin-bottom: 25px;
-                        vertical-align: middle;
-                    }
-
-                    .ui-state-highlight {
-                        background-color: transparent;
-                        border: 1px dashed #CCC;
-                    }
-
-                    li.uploading {
-                        border: 1px dashed #DDD;
-                        height: 77px;
-                        padding: 20px;
-
-                        em {
-                            color: #777;
-                            display: block;
-                            font-weight: bold;
-                            margin-top: 15px;
-                        }
-
+                    &.uploading {
                         .progress {
-                            margin-top: 10px;
+                            height: 15px;
+                            margin: 75px auto 0;
+                            width: 200px;
+                        }
+
+                        .progress-text {
+                            color: #555;
+                            font-size: 13px;
+                            font-weight: bold;
+                            margin-top: 5px;
+                            text-align: center;
                         }
                     }
 
-                    li.picture {
-                        margin-left: 5px;
-                        vertical-align: middle;
+                    &.error {
+                        .dismiss {
+                            padding: 2px 4px;
+                            text-align: right;
 
-                        .image {
-                            cursor: move;
-                            float: left;
-
-                            .icon-reorder {
-                                color: #999;
+                            i {
+                                color: #CCC;
+                                font-size: 18px;
                             }
 
-                            img {
-                                border: 1px solid #CCC;
-                                height: 115px;
-                                margin-left: 5px;
-                                width: 200px;
-                            }
-                        }
+                            a:hover, a:focus {
+                                text-decoration: none;
 
-                        .description {
-                            margin-left: 245px;
-                            padding-top: 5px;
-
-                            label {
-                                color: #555;
-                                font-size: 13px;
-
-                                input {
-                                    display: block;
-                                    font-size: 16px;
-                                    height: 30px;
-                                    margin-top: 5px;
-                                    width: 95%;
+                                i {
+                                    color: #C30;
                                 }
                             }
-
-                            .delete {
-                                .danger_link;
-                                font-size: 13px;
-                            }
                         }
-                    }
 
-                    li.error {
-                        background: url(../images/page/course-form/picture_error.png) #FFF 20px 20px no-repeat;
-                        border: 1px dashed #DDD;
-                        height: 117px;
-
-                        em {
+                        .error-text {
                             color: #C30;
-                            display: block;
-                            font-size: 15px;
-                            font-weight: bold;
-                            margin: 30px 0 0 65px;
-                        }
+                            font-size: 13px;
+                            margin-top: 50px;
+                            text-align: center;
 
-                        .dismiss {
-                            margin: 5px 0 0 65px;
-
-                            a {
-                                .grey_link;
-                                font-size: 13px;
+                            i {
+                                display: block;
+                                margin-bottom: 4px;
                             }
                         }
                     }
+                }
+            }
+
+            .controls {
+                ul.pictures li.picture img {
+                    cursor: move;
+                }
+
+                .reorder {
+                    color: #777;
+                    font-size: 13px;
+                    margin-bottom: 7px;
                 }
 
                 .input {
-                    border: 1px dashed #DDD;
-                    padding: 15px 20px;
+                    border-bottom: 1px dashed #DDD;
+                    margin-bottom: 35px;
+                    padding-bottom: 15px;
 
                     label {
-                        font-size: 20px;
+                        font-size: 19px;
+                        margin-bottom: 7px;
                     }
                 }
             }
-
-            .displays {
-                .pictures {
-                    margin: 10px 0 0;
-
-                    li.picture {
-                        height: 117px;
-                        list-style: none;
-                        margin-bottom: 25px;
-                        vertical-align: middle;
-
-                        .image {
-                            float: left;
-
-                            img {
-                                border: 1px solid #CCC;
-                                height: 115px;
-                                width: 200px;
-                            }
-                        }
-
-                        .description {
-                            color: #444;
-                            margin-left: 225px;
-                            padding-top: 5px;
-                        }
-                    }
-                }
-            }
-        }*/
-
-        .tuition-control {
-            input {
-                display: inline-block;
-                width: 100px;
-            }
         }
 
-        .duration-control {
-            input {
-                display: inline-block;
-                width: 70px;
-            }
+        .tuition-control input {
+            width: 100px;
         }
 
-        .capacity-control {
-            input {
-                display: inline-block;
-                width: 70px;
-            }
+        .duration-control input {
+            width: 70px;
         }
 
-        .topic-control {
-            select {
-                width: 350px;
-            }
+        .capacity-control input {
+            width: 70px;
+        }
+
+        .topic-control select {
+            width: 350px;
         }
 
         .place-control {
             .place-label {
-                color: #444;
-                display: inline-block;
-                font-size: 15px;
-                font-weight: bold;
-                margin-bottom: 10px;
-
                 input {
                     margin-right: 5px;
                     vertical-align: 1px;
                 }
             }
 
-            select.places {
-                margin: 0;
-                width: 340px;
+            #id_place_userdefined {
+                display: inline-block;
+                width: 350px;
             }
 
-            .place-form {
-                background-color: #F7F7F7;
-                border: 1px solid #EEE;
-                padding: 15px 20px 0 20px;
-            }
-
-            .place-form-loading {
-                color: #555;
+            .or {
+                color: #777;
                 font-size: 13px;
-
-                img {
-                    margin-right: 5px;
-                }
-            }
-
-            .place-row {
-                .place-input {
-                    display: inline-block;
-                    vertical-align: top;
-                }
-            }
-
-            .head {
-                color: @primaryColor;
-                font-size: 15px;
-                font-weight: bold;
-                margin-bottom: 15px;
-            }
-
-            .place-input {
-                margin-bottom: 20px;
-
-                label {
-                    color: #666;
-                    display: inline-block;
-                    font-size: 13px;
-                    font-weight: bold;
-                    margin-bottom: 3px;
-                }
-
-                input, select {
-                    margin: 0;
-                }
-
-                .or {
-                    color: #777;
-                    font-size: 13px;
-                    margin: 0 6px;
-                }
-
-                #id_place_name {
-                    width: 365px;
-                }
-
-                #id_place_address {
-                    height: 50px;
-                    margin: 0 20px 0 0;
-                    width: 365px;
-                }
-
-                #id_place_direction {
-                    height: 80px;
-                    margin-right: 25px;
-                    width: 300px;
-                }
-            }
-
-            .place-input-location {
-                .minimap {
-                    background-color: #F9F9F9;
-                    border: 1px solid #EEE;
-                    height: 182px;
-                    padding: 3px;
-                    text-align: center;
-                    width: 272px;
-
-                    img {
-                        border: 1px solid #DDDDDD;
-                        height: 180px;
-                        width: 270px;
-                    }
-                }
-
-                .button-input-latlng {
-                    margin-top: 5px;
-                    padding: 2px 15px;
-                }
-
-                em, a {
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-
-                .place_latlng {
-                    background-color: #EEE;
-                    color: #555;
-                    font-size: 13px;
-                    margin-right: 10px;
-                    padding: 1px 10px;
-                }
+                margin: 0 6px;
             }
 
             .place-note {
@@ -2406,6 +2224,89 @@
                 i {
                     color: #888;
                     margin-right: 3px;
+                }
+            }
+        }
+
+        .place-form-loading {
+            color: #555;
+            font-size: 13px;
+
+            img {
+                margin-right: 5px;
+            }
+        }
+
+        .place-form {
+            background-color: #F7F7F7;
+            border: 1px solid #DDD;
+            padding: 15px 20px 0 20px;
+
+            .head {
+                border-bottom: 1px solid #DDD;
+                color: #555;
+                font-size: 13px;
+                font-weight: bold;
+                margin-bottom: 17px;
+                padding-bottom: 7px;
+            }
+
+            .form-row .form-group {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            label {
+                color: #444;
+                display: inline-block;
+                font-size: 18px;
+                font-weight: normal;
+                margin-bottom: 3px;
+            }
+
+            #id_place_name {
+                width: 365px;
+            }
+
+            #id_place_address {
+                height: 60px;
+                margin: 0 20px 0 0;
+                width: 365px;
+            }
+
+            #id_place_province {
+                width: 250px;
+            }
+
+            #id_place_direction {
+                height: 120px;
+                margin-right: 25px;
+                width: 300px;
+            }
+
+            .place-location-control {
+                .minimap {
+                    background-color: #F9F9F9;
+                    border: 1px solid #EEE;
+                    height: 188px;
+                    padding: 3px;
+                    text-align: center;
+                    width: 278px;
+
+                    img {
+                        border: 1px solid #DDDDDD;
+                        height: 180px;
+                        width: 270px;
+                    }
+                }
+
+                .actions {
+                    text-align: center;
+
+                    .button-input-latlng {
+                        margin-top: 5px;
+                        padding: 2px 15px;
+                    }
                 }
             }
         }

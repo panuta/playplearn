@@ -52,6 +52,7 @@ def course_topics_as_li(selected_topic_slug):
 
 @register.assignment_tag
 def has_user_defined_place(user):
+    print user.id
     return Place.objects.filter(is_userdefined=True, created_by=user).exists()
 
 
