@@ -306,7 +306,7 @@
         }
     }
 
-    .workshop-enrollment {
+    .workshop-reservation {
         .head {
             color: #555;
             font-family: 'QuarkLight', sans-serif;
@@ -330,7 +330,7 @@
             padding: 0;
         }
 
-        .enroll-schedule {
+        .reserve-schedule {
             a.button-schedule-picker {
                 font-size: 14px;
                 display: block;
@@ -360,7 +360,7 @@
             }
         }
 
-        .enroll-seats {
+        .reserve-seats {
             margin-top: 15px;
 
             .dropdown-toggle {
@@ -388,7 +388,7 @@
             }
         }
 
-        .enroll-button {
+        .reserve-button {
             margin-top: 15px;
 
             a {
@@ -405,16 +405,23 @@
         .modal-body {
             padding: 0 15px 10px;
 
-            table {
+            ul {
                 border-bottom: 1px solid #DDD;
-                width: 100%;
+                margin: 0;
+                padding: 0;
 
-                tr {
+                li {
                     border-top: 1px solid #DDD;
+                    list-style: none;
+                    padding: 10px 0;
                 }
 
-                .datetime {
-                    padding: 10px 0;
+                .input {
+                    float: left;
+
+                    label {
+                        margin: 0;
+                    }
 
                     input {
                         float: left;
@@ -434,30 +441,31 @@
                         font-size: 13px;
                         font-weight: normal;
                         margin-left: 35px;
+                        margin-top: 3px;
                     }
+                }
+
+                .right {
+                    float: right;
+                    padding: 6px 0;
                 }
 
                 .availability {
                     color: #666;
+                    display: inline-block;
                     font-size: 13px;
                     text-align: right;
-                    vertical-align: middle;
-                    width: 200px;
                 }
 
                 .price {
+                    background-color: @colorGrey;
+                    color: #FFF;
+                    display: inline-block;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 16px;
+                    margin-left: 10px;
+                    padding: 6px 15px 1px;
                     text-align: right;
-                    vertical-align: middle;
-                    width: 100px;
-
-                    span {
-                        background-color: @colorGrey;
-                        color: #FFF;
-                        display: inline-block;
-                        font-family: 'QuarkLight', sans-serif;
-                        font-size: 16px;
-                        padding: 6px 15px 1px;
-                    }
                 }
             }
         }

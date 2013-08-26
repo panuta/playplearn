@@ -70,6 +70,27 @@ def schedule_datetime(schedule):
 
 
 @register.filter
+def schedule_datetime_duration(schedule):
+    try:
+        start_datetime = schedule.start_datetime
+        end_datetime = schedule.start_datetime + datetime.timedelta(hours=schedule.workshop.duration)
+
+        return safe(u'<span class="date">%s, %d %s %d</span> <span class="time">เวลา %02d:%02d - %02d:%02d น. (%d ชั่วโมง)</span>' % (
+            th.TH_WEEKDAY_NAME[start_datetime.isoweekday()],
+            start_datetime.day,
+            th.TH_MONTH_ABBR_NAME[start_datetime.month],
+            start_datetime.year + 543,
+            start_datetime.hour,
+            start_datetime.minute,
+            end_datetime.hour,
+            end_datetime.minute,
+            schedule.workshop.duration,
+        ))
+    except ValueError:
+        return ''
+
+
+@register.filter
 def schedule_datetime_no_weekday(schedule):
     try:
         return safe(u'<span class="date">%d %s %d</span> <span class="time">เวลา %02d:%02d น.</span>' % (

@@ -16,28 +16,42 @@
         });
     {% endif %}
 
-    var scheduleArray = [{% course_schedule_start_datetime_as_comma_separated course_schedules %}]
-
-    $( "#enrollment-calendar" ).datepicker({
-        showOtherMonths: true,
-        beforeShowDay: function (date) {
-            var theday = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-            return [false, $.inArray(theday, scheduleArray) >=0 ? 'schedule-date' : ''];
-        }
-    });
-
-    $('.button-show-all-schedules').on('click', function() {
-        $('.schedules-list li').removeClass('hide');
-        $(this).closest('li').remove();
-        return false;
-    });
-
     $('.workshop-feedbacks .feedbacks').masonry({
         columnWidth: 540,
         gutter: 50,
         itemSelector: '.style-course-feedback'
     });
 
+    var schedule_picker_modal = $('#modal-schedule-picker');
+    schedule_picker_modal.on('show.bs.modal', function() {
+        $('#modal-schedule-picker').find('input').prop('checked', false);
+    });
+
+    schedule_picker_modal.find('.button-schedule-choose').on('click', function() {
+        var schedule_li = schedule_picker_modal.find('input:checked').closest('li');
+        $('.workshop-reservation .reserve-schedule .datetime').html(schedule_li.find('.datetime').html());
+        $('.workshop-reservation .reserve-seats .price').html(schedule_li.find('.price').html());
+
+        var selected_seats = $('.workshop-reservation .reserve-seats select option:selected').val();
+        var seats_left = parseInt(schedule_li.find('.availability em').text(), 10);
+
+        if(seats_left > {{ settings.DISPLAY_MAXIMUM_SEATS_RESERVABLE }}) seats_left = {{ settings.DISPLAY_MAXIMUM_SEATS_RESERVABLE }};
+
+        var options = '';
+        for(var i=1; i<=seats_left; i++) {
+            options = options + '<option value="' + i + '">' + i + ' คน</option>'
+        }
+
+        if(selected_seats > seats_left) selected_seats = seats_left;
+        $('.workshop-reservation .reserve-seats select').html(options).selectpicker('refresh').selectpicker('val', selected_seats);
+
+        schedule_picker_modal.modal('hide');
+        return false;
+    });
+
+    $('.button-schedule-reserve').on('click', function() {
+
+    });
 })();
 </script>
 {% endblock %}
@@ -51,7 +65,7 @@
         <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
     </div>
 
-    <div class="row workshop-pictures-enrollment">
+    <div class="row workshop-pictures-reservation">
         <div class="col-lg-8">
             <div class="workshop-pictures">
                 <div id="pictures-slider" class="royalSlider rsDefault">
@@ -62,31 +76,22 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="workshop-enrollment">
+            <div class="workshop-reservation">
                 <div class="head"><i class="icon-signin"></i> เข้าร่วมเวิร์คช็อป</div>
-
-                <div class="enroll-schedule">
+                <div class="reserve-schedule">
                     <label>รอบวันที่</label>
-                    <a href="#modal-schedule-picker" class="btn btn-default button-schedule-picker" data-toggle="modal"><i class="icon-calendar"></i><span class="date">วันพฤหัสบดี, 1 ก.ย. 2556</span><span class="time">เวลา 16:00 - 18:00 น.</span></a>
+                    <a href="#modal-schedule-picker" class="btn btn-default button-schedule-picker" data-toggle="modal"><i class="icon-calendar"></i><span class="datetime">{{ upcoming_schedule|schedule_datetime_duration }}</span></a>
                 </div>
-
-                <div class="enroll-seats">
+                <div class="reserve-seats">
                     <label>จำนวนคน</label>
-                    <select>
-                        <option value="1">1 คน</option>
-                        <option value="2">2 คน</option>
-                        <option value="3">3 คน</option>
-                        <option value="4">4 คน</option>
-                        <option value="5">5 คน</option>
-                        <option value="6">6 คน</option>
-                        <option value="7">7 คน</option>
+                    <select class="selectpicker">
+                        {% workshop_schedule_seats_as_option upcoming_schedule %}
                     </select>
-                    <script>$('.workshop-enrollment .enroll-seats select').selectpicker({width: '100px'});</script>
-                    <span class="price_per_person"><span class="x">x</span> <span class="price"><em>400</em> บาท</span></span>
+                    <script>$('.workshop-reservation .reserve-seats select').selectpicker({width: '100px'});</script>
+                    <span class="price_per_person"><span class="x">x</span> <span class="price"><em>{{ upcoming_schedule.price|floatformat:-2 }}</em> บาท</span></span>
                 </div>
-
-                <div class="enroll-button">
-                    <a href="#" class="style-primary-button">ลงชื่อเข้าร่วม</a>
+                <div class="reserve-button">
+                    <a href="#" class="style-primary-button button-schedule-reserve">ลงชื่อเข้าร่วม</a>
                 </div>
             </div>
             <div class="workshop-social">
@@ -236,21 +241,20 @@
                 <h4 class="modal-title">เลือกรอบ</h4>
             </div>
             <div class="modal-body">
-                <table>
-                    <tr>
-                        <td class="datetime"><label><input type="radio" name="schedule" /> <span class="date">วันพฤหัสบดี, 1 ก.ย. 2556</span><span class="time">เวลา 16:00 - 18:00 น.</span></label></td>
-                        <td class="availability">เหลือที่ว่าง 10 ที่นั่ง</td>
-                        <td class="price"><span>400 บาท</span></td>
-                    </tr>
-                    <tr>
-                        <td class="datetime"><label><input type="radio" name="schedule" /> <span class="date">วันพฤหัสบดี, 1 ก.ย. 2556</span><span class="time">เวลา 16:00 - 18:00 น.</span></label></td>
-                        <td class="availability">เหลือที่ว่าง 10 ที่นั่ง</td>
-                        <td class="price"><span>400 บาท</span></td>
-                    </tr>
-                </table>
+                <ul>
+                    {% for schedule in workshop_schedules %}
+                    <li class="clearfix" data-schedule-id="{{ schedule.id }}">
+                        <div class="input"><label><input type="radio" name="schedule"{% if not schedule.seats_left %} disabled="disabled"{% endif %}/> <span class="datetime">{{ schedule|schedule_datetime_duration }}</span></label></div>
+                        <div class="right">
+                            <div class="availability">{% if schedule.seats_left %}เหลือที่ว่าง <em>{% comment %}{{ schedule.seats_left }}{% endcomment %}3</em> ที่นั่ง{% else %}เต็ม{% endif %}</div>
+                            <div class="price"><em>{{ schedule.price|floatformat:-2 }}</em> บาท</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="style-primary-button">ตกลง</button>
+                <button type="button" class="style-primary-button button-schedule-choose">เลือก</button>
             </div>
         </div>
     </div>

@@ -133,7 +133,20 @@ def course_status_as_span_with_sign(course, with_sign=True):
     return safe('<span class="style-course-status %s">%s%s</span>' % (status['css_class'], sign, _(status['name'])))
 
 
-# COURSE SCHEDULE ######################################################################################################
+# WORKSHOP SCHEDULE ####################################################################################################
+
+@register.simple_tag
+def workshop_schedule_seats_as_option(schedule):
+    seats = schedule.seats_left
+    if schedule.seats_left > settings.DISPLAY_MAXIMUM_SEATS_RESERVABLE:
+        seats = settings.DISPLAY_MAXIMUM_SEATS_RESERVABLE
+
+    options = []
+    for i in range(1, seats + 1):
+        options.append('<option value="%d">%d คน</option>' % (i, i))
+
+    return ''.join(options)
+
 
 @register.simple_tag
 def course_schedule_start_datetime_as_comma_separated(schedules):
@@ -141,7 +154,7 @@ def course_schedule_start_datetime_as_comma_separated(schedules):
 
 
 @register.filter
-def course_schedule_end_datetime(schedule):
+def workshop_schedule_end_datetime(schedule):
     return schedule.start_datetime + timedelta(hours=schedule.course.duration)
 
 

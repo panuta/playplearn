@@ -2757,18 +2757,18 @@ body {
 .page-workshop-outline .workshop-pictures .rsNav .rsBullet.rsNavSelected span {
   background-color: #444;
 }
-.page-workshop-outline .workshop-enrollment .head {
+.page-workshop-outline .workshop-reservation .head {
   color: #555;
   font-family: 'QuarkLight', sans-serif;
   font-size: 26px;
   margin-bottom: 10px;
 }
-.page-workshop-outline .workshop-enrollment .head i {
+.page-workshop-outline .workshop-reservation .head i {
   color: #29ace4;
   font-size: 0.7em;
   margin-right: 2px;
 }
-.page-workshop-outline .workshop-enrollment label {
+.page-workshop-outline .workshop-reservation label {
   color: #888;
   display: block;
   font-family: 'QuarkLight', sans-serif;
@@ -2777,55 +2777,55 @@ body {
   margin: 0;
   padding: 0;
 }
-.page-workshop-outline .workshop-enrollment .enroll-schedule a.button-schedule-picker {
+.page-workshop-outline .workshop-reservation .reserve-schedule a.button-schedule-picker {
   font-size: 14px;
   display: block;
   padding: 9px 15px;
   text-align: left;
 }
-.page-workshop-outline .workshop-enrollment .enroll-schedule a.button-schedule-picker span {
+.page-workshop-outline .workshop-reservation .reserve-schedule a.button-schedule-picker span {
   display: block;
 }
-.page-workshop-outline .workshop-enrollment .enroll-schedule a.button-schedule-picker .date {
+.page-workshop-outline .workshop-reservation .reserve-schedule a.button-schedule-picker .date {
   color: #555;
   font-weight: bold;
 }
-.page-workshop-outline .workshop-enrollment .enroll-schedule a.button-schedule-picker .time {
+.page-workshop-outline .workshop-reservation .reserve-schedule a.button-schedule-picker .time {
   color: #666;
   font-size: 13px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-schedule a.button-schedule-picker i {
+.page-workshop-outline .workshop-reservation .reserve-schedule a.button-schedule-picker i {
   color: #666;
   font-size: 1.2em;
   float: right;
   margin: 10px 4px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-seats {
+.page-workshop-outline .workshop-reservation .reserve-seats {
   margin-top: 15px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-seats .dropdown-toggle {
+.page-workshop-outline .workshop-reservation .reserve-seats .dropdown-toggle {
   color: #555;
   font-size: 15px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-seats .price_per_person {
+.page-workshop-outline .workshop-reservation .reserve-seats .price_per_person {
   font-family: 'QuarkLight', sans-serif;
 }
-.page-workshop-outline .workshop-enrollment .enroll-seats .price_per_person .x {
+.page-workshop-outline .workshop-reservation .reserve-seats .price_per_person .x {
   color: #BBB;
   font-size: 22px;
   margin: 0 6px 0 10px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-seats .price_per_person .price {
+.page-workshop-outline .workshop-reservation .reserve-seats .price_per_person .price {
   color: #777;
   font-size: 24px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-seats .price_per_person .price em {
+.page-workshop-outline .workshop-reservation .reserve-seats .price_per_person .price em {
   color: #555;
 }
-.page-workshop-outline .workshop-enrollment .enroll-button {
+.page-workshop-outline .workshop-reservation .reserve-button {
   margin-top: 15px;
 }
-.page-workshop-outline .workshop-enrollment .enroll-button a {
+.page-workshop-outline .workshop-reservation .reserve-button a {
   display: block;
   font-family: 'QuarkLight', sans-serif;
   font-size: 20px;
@@ -2835,52 +2835,59 @@ body {
 .page-workshop-outline #modal-schedule-picker .modal-body {
   padding: 0 15px 10px;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table {
+.page-workshop-outline #modal-schedule-picker .modal-body ul {
   border-bottom: 1px solid #DDD;
-  width: 100%;
+  margin: 0;
+  padding: 0;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table tr {
+.page-workshop-outline #modal-schedule-picker .modal-body ul li {
   border-top: 1px solid #DDD;
-}
-.page-workshop-outline #modal-schedule-picker .modal-body table .datetime {
+  list-style: none;
   padding: 10px 0;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table .datetime input {
+.page-workshop-outline #modal-schedule-picker .modal-body ul .input {
+  float: left;
+}
+.page-workshop-outline #modal-schedule-picker .modal-body ul .input label {
+  margin: 0;
+}
+.page-workshop-outline #modal-schedule-picker .modal-body ul .input input {
   float: left;
   margin: 14px 0 0 8px;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table .datetime .date {
+.page-workshop-outline #modal-schedule-picker .modal-body ul .input .date {
   color: #555;
   display: block;
   font-weight: bold;
   margin-left: 35px;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table .datetime .time {
+.page-workshop-outline #modal-schedule-picker .modal-body ul .input .time {
   color: #666;
   display: block;
   font-size: 13px;
   font-weight: normal;
   margin-left: 35px;
+  margin-top: 3px;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table .availability {
+.page-workshop-outline #modal-schedule-picker .modal-body ul .right {
+  float: right;
+  padding: 6px 0;
+}
+.page-workshop-outline #modal-schedule-picker .modal-body ul .availability {
   color: #666;
+  display: inline-block;
   font-size: 13px;
   text-align: right;
-  vertical-align: middle;
-  width: 200px;
 }
-.page-workshop-outline #modal-schedule-picker .modal-body table .price {
-  text-align: right;
-  vertical-align: middle;
-  width: 100px;
-}
-.page-workshop-outline #modal-schedule-picker .modal-body table .price span {
+.page-workshop-outline #modal-schedule-picker .modal-body ul .price {
   background-color: #8696a0;
   color: #FFF;
   display: inline-block;
   font-family: 'QuarkLight', sans-serif;
   font-size: 16px;
+  margin-left: 10px;
   padding: 6px 15px 1px;
+  text-align: right;
 }
 .page-workshop-outline #modal-schedule-picker .modal-footer {
   margin-top: 10px;

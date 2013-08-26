@@ -30,9 +30,10 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
 
     pictures = WorkshopPicture.objects.filter(workshop=workshop, is_visible=True).order_by('ordering')
 
+    upcoming_schedule = workshop.get_available_upcoming_schedule()
     schedules = Schedule.objects.filter(
         workshop=workshop,
-        status='OPENING',
+        status=Schedule.STATUS_OPEN,
         start_datetime__gte=rightnow
     ).order_by('start_datetime')
 
@@ -41,6 +42,7 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
     return render(request, 'workshop/workshop_outline.html', {
         'workshop': workshop,
         'workshop_pictures': pictures,
+        'upcoming_schedule': upcoming_schedule,
         'workshop_schedules': schedules,
         'page_action': page_action,
         'reservation': reservation,
