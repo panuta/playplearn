@@ -9,7 +9,7 @@ from common.decorators import redirect_if_authenticated
 from common.errors import UserRegistrationException, ACCOUNT_REGISTRATION_ERRORS
 from common.shortcuts import response_json_success, response_json_error_with_message
 from common.utilities import split_filepath
-from domain.models import UserRegistration, UnauthenticatedCourseEnrollment, CourseEnrollment
+from domain.models import UserRegistration
 
 
 @redirect_if_authenticated

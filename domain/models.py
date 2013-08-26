@@ -26,6 +26,7 @@ from common.constants.currency import CURRENCY_CHOICES
 from common.constants.transaction import TRANSACTION_TYPE_CHOICES
 from common.email import send_registration_email
 from common.utilities import split_filepath
+from reservation.models import Reservation, Schedule
 
 SHORTUUID_ALPHABETS_NUMBER_ONLY = '1234567890'
 SHORTUUID_ALPHABETS_CHARACTERS_NUMBER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -167,12 +168,12 @@ class UserAccount(AbstractBaseUser):
         return attending + teaching
 
     def stats_total_activities_organizing(self):
-        return Course.objects.filter(
+        return Workshop.objects.filter(
             teacher=self
         ).count()
 
     def stats_courses_teaching(self):
-        return Course.objects.filter(
+        return Workshop.objects.filter(
             teacher=self,
             status='PUBLISHED'
         ).count()
@@ -187,7 +188,7 @@ class UserAccount(AbstractBaseUser):
         # TODO distinct
 
         rightnow = now()
-        return Course.objects.filter(
+        return Workshop.objects.filter(
             schedules__start_datetime__lte=rightnow,
             schedules__enrollments__status='CONFIRMED',
             schedules__enrollments__student=self,
@@ -196,16 +197,16 @@ class UserAccount(AbstractBaseUser):
     def stats_courses_attended_and_attending(self):
         # TODO distinct
 
-        return Course.objects.filter(
+        return Workshop.objects.filter(
             schedules__enrollments__status='CONFIRMED',
             schedules__enrollments__student=self,
         ).count()
 
     def stats_feedbacks_received(self):
-        return CourseFeedback.objects.filter(enrollment__schedule__course__teacher=self).count()
+        return WorkshopFeedback.objects.filter(enrollment__schedule__course__teacher=self).count()
 
     def stats_feedbacks_given(self):
-        return CourseFeedback.objects.filter(enrollment__student=self).count()
+        return WorkshopFeedback.objects.filter(enrollment__student=self).count()
 
     def stats_total_earning(self):
         total_earning = UserAccountBalanceTransaction.objects.filter(transaction_type='RECEIVED').aggregate(Sum('amount'))['amount__sum']
@@ -248,21 +249,6 @@ class UserRegistration(models.Model):
         return user_account
 
 
-class UserAccountBalance(models.Model):
-    user = models.OneToOneField(UserAccount, related_name='account_balance')
-    amount = models.DecimalField(max_digits=12, decimal_places=2, default=decimal.Decimal('0'))
-    last_modified = models.DateTimeField(auto_now=True)
-
-
-class UserAccountBalanceTransaction(models.Model):
-    user = models.ForeignKey(UserAccount, related_name='balance_transactions')
-    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE_CHOICES)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    enrollment = models.ForeignKey('CourseEnrollment', null=True)
-    note = models.CharField(max_length=500, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-
 # PLACE ################################################################################################################
 
 class Place(models.Model):
@@ -288,9 +274,9 @@ class Place(models.Model):
         return reverse('view_place_info_by_id', args=(self.id,))
 
 
-# COURSE ###############################################################################################################
+# WORKSHOP #############################################################################################################
 
-class CourseSchool(models.Model):
+class WorkshopTopic(models.Model):
     slug = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
     description = models.CharField(max_length=1000)
@@ -299,13 +285,13 @@ class CourseSchool(models.Model):
         ordering = ['name']
 
 
-class CourseManager(models.Manager):
+class WorkshopManager(models.Manager):
     use_for_related_fields = True
 
     def get_query_set(self):
-        return super(CourseManager, self).get_query_set().exclude(status='DELETED')
+        return super(WorkshopManager, self).get_query_set().exclude(status='DELETED')
 
-    def generate_course_uid(self):
+    def generate_workshop_uid(self):
         shortuuid.set_alphabet(SHORTUUID_ALPHABETS_NUMBER_ONLY)
         temp_uuid = shortuuid.uuid()[:10]
         while self.filter(uid=temp_uuid).exists():
@@ -313,59 +299,51 @@ class CourseManager(models.Manager):
         return temp_uuid
 
 
-def course_cover_dir(instance, filename):
+def workshop_cover_dir(instance, filename):
     rightnow = now()
     (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/cover-%d.%s' % (instance.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
+    return 'users/%s/workshops/%s/cover-%d.%s' % (instance.teacher.uid, instance.uid, time.mktime(rightnow.timetuple()), ext)
 
 
-class Course(models.Model):
+class Workshop(models.Model):
+    STATUS_DRAFT = 'D'
+    STATUS_WAIT_FOR_APPROVAL = 'W'
+    STATUS_READY_TO_PUBLISH = 'R'
+    STATUS_PUBLISHED = 'P'
+
     uid = models.CharField(max_length=50, db_index=True, unique=True)
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True)
-    schools = models.ManyToManyField(CourseSchool, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    price_unit = models.CharField(max_length=20, default='THB', choices=CURRENCY_CHOICES)
+    topics = models.ManyToManyField(WorkshopTopic, null=True)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)
-    maximum_people = models.PositiveSmallIntegerField(null=True, blank=True)
     prerequisites = models.CharField(max_length=500, blank=True)
-
-    cover = ThumbnailerImageField(upload_to=course_cover_dir, null=True)
     place = models.ForeignKey(Place, null=True)
-    teacher = models.ForeignKey(UserAccount, related_name='courses')
+    teacher = models.ForeignKey(UserAccount, related_name='workshops')
+
+    default_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    default_total_seats = models.PositiveSmallIntegerField(null=True, blank=True)
 
     tags = TaggableManager()
-    status = models.CharField(max_length=20, choices=COURSE_STATUS_CHOICES, default='DRAFT')
+    status = models.CharField(max_length=20, default=STATUS_DRAFT)
 
-    created = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
-    first_published = models.DateTimeField(null=True)
-    last_scheduled = models.DateTimeField(null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+    date_published = models.DateTimeField(null=True)
 
-    objects = CourseManager()
+    objects = WorkshopManager()
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['-date_created']
 
     def save(self, *args, **kwargs):
         if not self.uid:
-            self.uid = Course.objects.generate_course_uid()
-        super(Course, self).save(*args, **kwargs)
+            self.uid = Workshop.objects.generate_workshop_uid()
+        super(Workshop, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
 
     # PROPERTIES
-
-    def cover_url(self):
-        if self.cover:
-            return get_thumbnailer(self.cover)['course_cover_normal'].url
-        return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_NORMAL)
-
-    def small_cover_url(self):
-        if self.cover:
-            return get_thumbnailer(self.cover)['course_cover_small'].url
-        return '%simages/%s' % (settings.STATIC_URL, settings.COURSE_COVER_DEFAULT_SMALL)
 
     def get_school(self):
         if self.schools:
@@ -382,7 +360,13 @@ class Course(models.Model):
 
     def get_upcoming_schedule(self):
         rightnow = now()
-        schedules = CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__gte=rightnow).order_by('start_datetime')
+
+        schedules = Schedule.objects.filter(workshop=self, status=Schedule.STATUS_OPEN, start_datetime__gte=rightnow).order_by('start_datetime')
+        return schedules[0] if schedules else None
+
+    def get_available_upcoming_schedule(self):
+        rightnow = now()
+        schedules = Schedule.objects.filter(workshop=self, seats_left__gt=0, status=Schedule.STATUS_OPEN, start_datetime__gte=rightnow).order_by('start_datetime')
         return schedules[0] if schedules else None
 
     def get_last_schedule(self):
@@ -390,22 +374,22 @@ class Course(models.Model):
         return CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__lt=rightnow).order_by('-start_datetime')[0]
 
     def get_promoted_feedbacks(self):
-        return CourseFeedback.objects.filter(enrollment__schedule__course=self, is_promoted=True).order_by('-created')
+        return WorkshopFeedback.objects.filter(enrollment__schedule__workshop=self, is_promoted=True).order_by('-created')
 
     # PERMISSIONS
 
     def can_view(self, user):
-        return (self.status == 'PUBLISHED') or (self.status == 'UNPUBLISHED' and user == self.teacher) or \
-               (self.status == 'WAIT_FOR_APPROVAL' and (user == self.teacher or user.is_staff()))
+        return (self.status == Workshop.STATUS_PUBLISHED) or (self.status == Workshop.STATUS_DRAFT and user == self.teacher) or \
+               (self.status == Workshop.STATUS_WAIT_FOR_APPROVAL and (user == self.teacher or user.is_staff()))
 
     # STATS
 
     def stats_upcoming_classes(self):
         rightnow = now()
-        return CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__gte=rightnow).count()
+        return Schedule.objects.filter(workshop=self, status=Schedule.STATUS_OPEN, start_datetime__gte=rightnow).count()
 
-    def stats_opening_classes(self):
-        return CourseSchedule.objects.filter(course=self, status='OPENING').count()
+    def stats_opening_classes(self):  # TODO Rename to all classes
+        return Schedule.objects.filter(workshop=self, status=Schedule.STATUS_OPEN).count()
 
     def stats_students(self):
         return UserAccount.objects.filter(
@@ -416,28 +400,15 @@ class Course(models.Model):
         ).distinct().count()
 
     def stats_feedbacks(self):
-        return CourseFeedback.objects.filter(enrollment__schedule__course=self).count()
+        return WorkshopFeedback.objects.filter(reservation__schedule__workshop=self).count()
 
     def stats_total_earning(self):
-        total_earning = CourseEnrollment.objects.filter(schedule__course=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
+        total_earning = CourseEnrollment.objects.filter(schedule__workshop=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
         return total_earning if total_earning else 0
 
 
-def editing_course_cover_dir(instance, filename):
-    rightnow = now()
-    (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/cover-%d.%s' % (instance.course.teacher.uid, instance.course.uid, time.mktime(rightnow.timetuple()), ext)
-
-
-class EditingCourse(models.Model):
-    course = models.OneToOneField(Course, related_name='editing_course')
-    cover = ThumbnailerImageField(upload_to=editing_course_cover_dir, null=True)
-
-
-# Course Activities
-
-class CourseActivity(models.Model):
-    course = models.ForeignKey(Course, related_name='activities')
+class WorkshopActivity(models.Model):
+    workshop = models.ForeignKey(Workshop, related_name='activities')
     title = models.CharField(max_length=500)
     description = models.CharField(max_length=1000, blank=True)
     ordering = models.PositiveSmallIntegerField(default=0)
@@ -446,27 +417,25 @@ class CourseActivity(models.Model):
         ordering = ['ordering']
 
 
-# Course Pictures
-
-def course_picture_dir(instance, filename):
+def workshop_picture_dir(instance, filename):
     (head, root, ext) = split_filepath(filename)
-    return 'users/%s/courses/%s/%s.%s' % (instance.course.teacher.uid, instance.course.uid, instance.uid, ext)
+    return 'users/%s/workshops/%s/%s.%s' % (instance.workshop.teacher.uid, instance.workshop.uid, instance.uid, ext)
 
 
-class CoursePictureManager(models.Manager):
+class WorkshopPictureManager(models.Manager):
     def generate_media_uid(self):
         shortuuid.set_alphabet(SHORTUUID_ALPHABETS_CHARACTERS_NUMBER)
         temp_uuid = shortuuid.uuid()[0:10]
-        while CoursePicture.objects.filter(uid=temp_uuid).exists():
+        while WorkshopPicture.objects.filter(uid=temp_uuid).exists():
             temp_uuid = shortuuid.uuid()[0:10]
         return temp_uuid
 
 
-class CoursePicture(models.Model):
-    course = models.ForeignKey(Course, related_name='pictures')
+class WorkshopPicture(models.Model):
+    workshop = models.ForeignKey(Workshop, related_name='pictures')
     uid = models.CharField(max_length=50, db_index=True, unique=True)
     description = models.CharField(max_length=1000, blank=True)
-    image = ThumbnailerImageField(upload_to=course_picture_dir)
+    image = ThumbnailerImageField(upload_to=workshop_picture_dir)
     ordering = models.PositiveSmallIntegerField(default=0)
     uploaded = models.DateTimeField(auto_now_add=True)
     is_visible = models.BooleanField(default=False)
@@ -477,124 +446,18 @@ class CoursePicture(models.Model):
     class Meta:
         ordering = ['ordering']
 
-    objects = CoursePictureManager()
+    objects = WorkshopPictureManager()
 
     def save(self, *args, **kwargs):
         if not self.uid:
             self.uid = self.__class__.objects.generate_media_uid()
-        super(CoursePicture, self).save(*args, **kwargs)
+        super(WorkshopPicture, self).save(*args, **kwargs)
 
 
-# Course Schedule
+# WORKSHOP FEEDBACK ####################################################################################################
 
-class CourseScheduleManager(models.Manager):
-    use_for_related_fields = True
-
-    def get_query_set(self):
-        return super(CourseScheduleManager, self).get_query_set().exclude(status='DELETED')
-
-
-class CourseSchedule(models.Model):
-    course = models.ForeignKey(Course, related_name='schedules')
-    start_datetime = models.DateTimeField()
-    status = models.CharField(max_length=30, default='OPENING', choices=COURSE_SCHEDULE_STATUS_CHOICES)
-
-    class Meta:
-        ordering = ['-start_datetime']
-
-    objects = CourseScheduleManager()
-
-    def is_opening(self):
-        rightnow = now()
-        return self.status == 'OPENING' and self.start_datetime > rightnow
-
-    # STATS
-
-    def stats_seats_reserved(self):
-        return CourseEnrollment.objects.filter(schedule=self, status='CONFIRMED').count()
-
-    def stats_seats_left(self):
-        return self.course.maximum_people - self.stats_seats_reserved()
-
-
-# Course Enrollment
-
-class CourseEnrollmentManager(models.Manager):
-    def generate_enrollment_code(self):
-        shortuuid.set_alphabet(SHORTUUID_ALPHABETS_NUMBER_ONLY)
-        temp_uuid = shortuuid.uuid()[0:10]
-        while CourseEnrollment.objects.filter(code=temp_uuid).exists() or \
-                UnauthenticatedCourseEnrollment.objects.filter(code=temp_uuid).exists():
-            temp_uuid = shortuuid.uuid()[0:10]
-        return temp_uuid
-
-    def create_enrollment_from_unauthenticated(self, user, unauthenticated_enrollment):
-        return CourseEnrollment.objects.create(
-            student=user,
-            schedule=unauthenticated_enrollment.schedule,
-            price=unauthenticated_enrollment.price,
-            total=unauthenticated_enrollment.price,
-            status='PENDING',
-            payment_status='WAIT_FOR_PAYMENT',
-        )
-
-
-class BaseCourseEnrollment(models.Model):
-    code = models.CharField(max_length=20, db_index=True, unique=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    people = models.PositiveSmallIntegerField()
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    note = models.CharField(max_length=1000, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        abstract = True
-
-    objects = CourseEnrollmentManager()
-
-    def save(self, *args, **kwargs):
-        if not self.code:
-            self.code = self.__class__.objects.generate_enrollment_code()
-        super(BaseCourseEnrollment, self).save(*args, **kwargs)
-
-
-class CourseEnrollment(BaseCourseEnrollment):
-    student = models.ForeignKey(UserAccount, related_name='enrollments')
-    schedule = models.ForeignKey(CourseSchedule, related_name='enrollments')
-    is_public = models.BooleanField(default=False)
-    payment_status = models.CharField(max_length=30, choices=COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES)
-    status = models.CharField(max_length=20, choices=COURSE_ENROLLMENT_STATUS_CHOICES)
-    status_reason = models.CharField(max_length=100, blank=True)
-
-    class Meta:
-        ordering = ['-schedule__start_datetime']
-
-    def has_feedback(self):
-        return CourseFeedback.objects.filter(enrollment=self).exists()
-
-    def is_payment_notified(self):
-        return CourseEnrollmentPaymentNotify.objects.filter(enrollment=self, status='RECEIVE').exists()
-
-
-class UnauthenticatedCourseEnrollment(BaseCourseEnrollment):
-    key = models.CharField(max_length=100, db_index=True, unique=True)
-    schedule = models.ForeignKey(CourseSchedule, related_name='unauthenticated_enrollments')
-
-
-class CourseEnrollmentPaymentNotify(models.Model):
-    enrollment = models.ForeignKey(CourseEnrollment)
-    bank = models.CharField(max_length=20)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    transfered_on = models.DateTimeField()
-    notified_on = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=30, default='RECEIVE', choices=COURSE_ENROLLMENT_PAYMENT_NOTIFY_STATUS_CHOICES)
-    remark = models.CharField(max_length=500)
-
-
-# COURSE FEEDBACK ######################################################################################################
-
-class CourseFeedback(models.Model):
-    enrollment = models.OneToOneField('CourseEnrollment', related_name='feedback')
+class WorkshopFeedback(models.Model):
+    reservation = models.OneToOneField(Reservation, related_name='feedback')
     content = models.CharField(max_length=2000, blank=True)
     feelings = models.CharField(max_length=500, blank=True)
     created = models.DateTimeField(auto_now_add=True)

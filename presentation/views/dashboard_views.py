@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 from common.decorators import teacher_only
 
 from domain import functions as domain_functions
-from domain.models import CourseEnrollment, CourseSchedule, Course, CourseSchool, CourseFeedback, CoursePicture
+from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
 
 
 # MY WORKSHOPS #########################################################################################################
@@ -95,7 +95,7 @@ def _view_my_courses_attended(request, course_school=None):
     schools_learned = []
     for school_learned in sorted_schools_learned:
         schools_learned.append({
-            'school': CourseSchool.objects.get(id=school_learned['schedule__course__schools__id']),
+            'school': WorkshopTopic.objects.get(id=school_learned['schedule__course__schools__id']),
             'num_schools': school_learned['num_schools'],
         })
 
@@ -111,7 +111,7 @@ def _view_my_courses_attended(request, course_school=None):
 
 @login_required
 def view_my_courses_teaching(request):
-    workshops = Course.objects.filter(teacher=request.user).exclude(status='DELETED')
+    workshops = Workshop.objects.filter(teacher=request.user).exclude(status='DELETED')
 
     return render(request, 'dashboard/workshops_organizing.html', {
         'workshops': workshops
@@ -122,7 +122,7 @@ def view_my_courses_teaching(request):
 
 @login_required
 def create_course(request):
-    course_uid = Course.objects.generate_course_uid()
+    course_uid = Workshop.objects.generate_course_uid()
     return render(request, 'dashboard/workshop_modify.html', {
         'course_uid': course_uid,
         'is_completed': False,
@@ -130,13 +130,13 @@ def create_course(request):
 
 
 @login_required
-def edit_course(request, course_uid):
-    course = get_object_or_404(Course, uid=course_uid)
+def edit_workshop(request, workshop_uid):
+    course = get_object_or_404(Workshop, uid=course_uid)
 
     if course.teacher != request.user:
         raise Http404
 
-    course_pictures = CoursePicture.objects.filter(course=course, mark_deleted=False)
+    course_pictures = WorkshopPicture.objects.filter(course=course, mark_deleted=False)
 
     return render(request, 'dashboard/workshop_modify.html', {
         'course': course,
@@ -148,7 +148,7 @@ def edit_course(request, course_uid):
 @require_POST
 @login_required
 def revert_approving_course(request, course_uid):
-    course = get_object_or_404(Course, uid=course_uid)
+    course = get_object_or_404(Workshop, uid=course_uid)
 
     if course.teacher != request.user:
         raise Http404
@@ -161,7 +161,7 @@ def revert_approving_course(request, course_uid):
 
 @login_required
 @teacher_only
-def manage_course_overview(request, course, course_uid):
+def manage_workshop_overview(request, workshop, workshop_uid):
     rightnow = now()
     upcoming_schedules = CourseSchedule.objects.filter(
         course=course,
@@ -219,21 +219,21 @@ def manage_course_feedback(request, course, course_uid, category):
         category = 'all'
 
     if category == 'all':
-        feedbacks = CourseFeedback.objects.filter(
+        feedbacks = WorkshopFeedback.objects.filter(
             enrollment__schedule__course=course
         ).order_by('-created')
     elif category == 'promoted':
-        feedbacks = CourseFeedback.objects.filter(
+        feedbacks = WorkshopFeedback.objects.filter(
             enrollment__schedule__course=course,
             is_promoted=True
         ).order_by('-created')
     elif category == 'visible':
-        feedbacks = CourseFeedback.objects.filter(
+        feedbacks = WorkshopFeedback.objects.filter(
             enrollment__schedule__course=course,
             is_public=True
         ).order_by('-created')
     elif category == 'invisible':
-        feedbacks = CourseFeedback.objects.filter(
+        feedbacks = WorkshopFeedback.objects.filter(
             enrollment__schedule__course=course,
             is_public=False
         ).order_by('-created')
@@ -241,10 +241,10 @@ def manage_course_feedback(request, course, course_uid, category):
         raise Http404
 
     num_of_feedbacks = {
-        'all': CourseFeedback.objects.filter(enrollment__schedule__course=course).count(),
-        'promoted': CourseFeedback.objects.filter(enrollment__schedule__course=course, is_promoted=True).count(),
-        'visible': CourseFeedback.objects.filter(enrollment__schedule__course=course, is_public=True).count(),
-        'invisible': CourseFeedback.objects.filter(enrollment__schedule__course=course, is_public=False).count(),
+        'all': WorkshopFeedback.objects.filter(enrollment__schedule__course=course).count(),
+        'promoted': WorkshopFeedback.objects.filter(enrollment__schedule__course=course, is_promoted=True).count(),
+        'visible': WorkshopFeedback.objects.filter(enrollment__schedule__course=course, is_public=True).count(),
+        'invisible': WorkshopFeedback.objects.filter(enrollment__schedule__course=course, is_public=False).count(),
     }
 
     return render(request, 'dashboard/manage_course_feedback.html', {

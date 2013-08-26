@@ -8,7 +8,10 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 
-from domain.models import UserAccount, CourseSchool, Course, CourseSchedule, CourseEnrollment, Place, UserAccountBalanceTransaction, CourseFeedback
+from domain.models import UserAccount, WorkshopTopic, Workshop, Place
+
+from reservation import functions as reservation_functions
+from reservation.models import Reservation, BalanceTransaction
 
 
 class Command(BaseCommand):
@@ -34,15 +37,15 @@ class Command(BaseCommand):
 
             some_admin = user
 
-        craftmanship_school, _ = CourseSchool.objects.get_or_create(name='Craftmanship', slug='craftmanship', description='Craftmanship is craftmanship')
-        culinary_arts_school, _ = CourseSchool.objects.get_or_create(name='Culinary Arts', slug='culinary_arts', description='Culinary Arts is culinary arts')
-        design_school, _ = CourseSchool.objects.get_or_create(name='Design', slug='design', description='Design is design')
-        entrepreneurship_school, _ = CourseSchool.objects.get_or_create(name='Entrepreneurship', slug='entrepreneurship', description='Entrepreneurship is entrepreneurship')
-        fashion_and_style_school, _ = CourseSchool.objects.get_or_create(name='Fashion & Style', slug='fashion_and_style', description='Fashion & Style is fashion & style')
-        gardening_school, _ = CourseSchool.objects.get_or_create(name='Gardening', slug='gardening', description='Gardening is gardening')
-        photography_school, _ = CourseSchool.objects.get_or_create(name='Photography', slug='photography', description='Photography is photography')
-        technology_school, _ = CourseSchool.objects.get_or_create(name='Technology', slug='technology', description='Technology is technology')
-        writing_school, _ = CourseSchool.objects.get_or_create(name='Writing', slug='writing', description='Writing is writing')
+        craftmanship_topic, _ = WorkshopTopic.objects.get_or_create(name='Craftmanship', slug='craftmanship', description='Craftmanship is craftmanship')
+        culinary_arts_topic, _ = WorkshopTopic.objects.get_or_create(name='Culinary Arts', slug='culinary_arts', description='Culinary Arts is culinary arts')
+        design_topic, _ = WorkshopTopic.objects.get_or_create(name='Design', slug='design', description='Design is design')
+        entrepreneurship_topic, _ = WorkshopTopic.objects.get_or_create(name='Entrepreneurship', slug='entrepreneurship', description='Entrepreneurship is entrepreneurship')
+        fashion_and_style_topic, _ = WorkshopTopic.objects.get_or_create(name='Fashion & Style', slug='fashion_and_style', description='Fashion & Style is fashion & style')
+        gardening_topic, _ = WorkshopTopic.objects.get_or_create(name='Gardening', slug='gardening', description='Gardening is gardening')
+        photography_topic, _ = WorkshopTopic.objects.get_or_create(name='Photography', slug='photography', description='Photography is photography')
+        technology_topic, _ = WorkshopTopic.objects.get_or_create(name='Technology', slug='technology', description='Technology is technology')
+        writing_topic, _ = WorkshopTopic.objects.get_or_create(name='Writing', slug='writing', description='Writing is writing')
 
         # DEVELOPMENT CODE #############################################################################################
 
@@ -150,169 +153,147 @@ class Command(BaseCommand):
             # COURSES
 
             try:
-                course1 = Course.objects.get(uid='1111111111')
-            except Course.DoesNotExist:
-                course1 = Course.objects.create(
+                workshop1 = Workshop.objects.get(uid='1111111111')
+            except Workshop.DoesNotExist:
+                workshop1 = Workshop.objects.create(
                     uid='1111111111',
                     title=u'ถ่ายรูปและแต่งรูปอย่างไรให้อวดเพื่อนได้ไม่อายใคร',
                     description='I will show you how to take a photo',
-                    price=200,
+                    default_price=200,
                     duration=6,
-                    maximum_people=8,
+                    default_total_seats=8,
                     prerequisites='a camera',
                     place=hubba_place,
 
                     teacher=user_panuta,
-                    status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 1, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 23, 8, 0), is_dst=None),
+                    status=Workshop.STATUS_PUBLISHED,
+                    date_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 1, 8, 0), is_dst=None),
                 )
 
-                course1.schools.add(photography_school)
-                course1.save()
+                workshop1.topics.add(photography_topic)
+                workshop1.save()
 
-                course1_schedule1 = CourseSchedule.objects.create(
-                    course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 9, 0), is_dst=None),
-                    status='OPENING',
-                )
+                schedule1 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_total_seats)
+                schedule2 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_total_seats)
+                schedule3 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 12, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_total_seats)
 
-                course1_schedule2 = CourseSchedule.objects.create(
-                    course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 9, 0), is_dst=None),
-                    status='OPENING',
-                )
-
-                course1_schedule3 = CourseSchedule.objects.create(
-                    course=course1,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 12, 9, 0), is_dst=None),
-                    status='OPENING',
-                )
-
-                enrollment1, _ = CourseEnrollment.objects.get_or_create(
+                reservation1 = Reservation.objects.create(
                     code='ENROLL1_1',
-                    student=user4,
-                    schedule=course1_schedule1,
+                    user=user4,
+                    schedule=schedule1,
                     price=200,
-                    people=2,
+                    seats=2,
                     total=400,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                enrollment2, _ = CourseEnrollment.objects.get_or_create(
+                reservation2 = Reservation.objects.create(
                     code='ENROLL1_2',
-                    student=user2,
-                    schedule=course1_schedule2,
+                    user=user2,
+                    schedule=schedule2,
                     price=200,
-                    people=1,
+                    seats=1,
                     total=200,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                enrollment3, _ = CourseEnrollment.objects.get_or_create(
+                reservation3 = Reservation.objects.create(
                     code='ENROLL1_3',
-                    student=user3,
-                    schedule=course1_schedule2,
+                    user=user3,
+                    schedule=schedule2,
                     price=200,
-                    people=3,
+                    seats=3,
                     total=600,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                enrollment4, _ = CourseEnrollment.objects.get_or_create(
+                reservation4 = Reservation.objects.create(
                     code='ENROLL1_4',
-                    student=user4,
-                    schedule=course1_schedule2,
+                    user=user4,
+                    schedule=schedule2,
                     price=200,
-                    people=1,
+                    seats=1,
                     total=200,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment1)
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('200'), enrollment=enrollment2)
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('600'), enrollment=enrollment3)
-                UserAccountBalanceTransaction.objects.create(user=user1, transaction_type='RECEIVED', amount=Decimal('200'), enrollment=enrollment4)
+                BalanceTransaction.objects.create(user=user_panuta, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('400'), reservation=reservation1)
+                BalanceTransaction.objects.create(user=user_panuta, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('200'), reservation=reservation2)
+                BalanceTransaction.objects.create(user=user_panuta, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('600'), reservation=reservation3)
+                BalanceTransaction.objects.create(user=user_panuta, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('200'), reservation=reservation4)
 
             try:
-                course2 = Course.objects.get(uid='2222222222')
-            except Course.DoesNotExist:
-                course2 = Course.objects.create(
+                workshop2 = Workshop.objects.get(uid='2222222222')
+            except Workshop.DoesNotExist:
+                workshop2 = Workshop.objects.create(
                     uid='2222222222',
                     title=u'ทำสวนผักสำหรับคนเมือง',
                     description='I will show you how to grow a plant',
-                    price=400,
+                    default_price=400,
                     duration=8,
-                    maximum_people=10,
+                    default_total_seats=10,
                     place=home_place,
 
                     teacher=user2,
-                    status='PUBLISHED',
-                    first_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
-                    last_scheduled=pytz.timezone('UTC').localize(datetime.datetime(2013, 6, 15, 9, 0), is_dst=None),
+                    status=Workshop.STATUS_PUBLISHED,
+                    date_published=pytz.timezone('UTC').localize(datetime.datetime(2013, 5, 28, 8, 0), is_dst=None),
                 )
 
-                course2.schools.add(gardening_school)
-                course2.save()
+                workshop2.topics.add(gardening_topic)
+                workshop2.save()
 
-                course2_schedule1 = CourseSchedule.objects.create(
-                    course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 10, 0), is_dst=None),
-                    status='OPENING',
-                )
+                schedule1 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
+                schedule2 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
+                schedule3 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 30, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
 
-                course2_schedule2 = CourseSchedule.objects.create(
-                    course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 10, 0), is_dst=None),
-                    status='CANCELLED',
-                )
+                reservation4 = Reservation.objects.create(
+                    code='ENROLL1_4',
+                    user=user4,
+                    schedule=schedule2,
+                    price=200,
+                    seats=1,
+                    total=200,
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
+                    )
 
-                course2_schedule2 = CourseSchedule.objects.create(
-                    course=course2,
-                    start_datetime=pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 30, 10, 0), is_dst=None),
-                    status='OPENING',
-                )
-
-                enrollment1, _ = CourseEnrollment.objects.get_or_create(
+                reservation1 = Reservation.objects.create(
                     code='ENROLL2_1',
-                    student=user_panuta,
-                    schedule=course2_schedule1,
+                    user=user_panuta,
+                    schedule=schedule1,
                     price=400,
-                    people=2,
+                    seats=2,
                     total=800,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
-                    is_public=True,
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                enrollment2, _ = CourseEnrollment.objects.get_or_create(
+                reservation2 = Reservation.objects.create(
                     code='ENROLL2_2',
-                    student=user4,
-                    schedule=course2_schedule1,
+                    user=user4,
+                    schedule=schedule1,
                     price=400,
-                    people=1,
+                    seats=1,
                     total=400,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
-                    is_public=True,
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                enrollment3, _ = CourseEnrollment.objects.get_or_create(
+                reservation3 = Reservation.objects.create(
                     code='ENROLL2_3',
-                    student=user_panuta,
-                    schedule=course2_schedule2,
+                    user=user_panuta,
+                    schedule=schedule2,
                     price=400,
-                    people=1,
+                    seats=1,
                     total=400,
-                    payment_status='PAYMENT_RECEIVED',
-                    status='CONFIRMED',
-                    is_public=True,
+                    status=Reservation.STATUS_CONFIRMED,
+                    payment_status=Reservation.PAYMENT_STATUS_PAID,
                 )
 
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('800'), enrollment=enrollment1)
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment2)
-                UserAccountBalanceTransaction.objects.create(user=user2, transaction_type='RECEIVED', amount=Decimal('400'), enrollment=enrollment3)
+                BalanceTransaction.objects.create(user=user2, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('800'), reservation=reservation1)
+                BalanceTransaction.objects.create(user=user2, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('400'), reservation=reservation2)
+                BalanceTransaction.objects.create(user=user2, transaction_type=BalanceTransaction.RECEIVED_TRANSACTION, amount=Decimal('400'), reservation=reservation3)

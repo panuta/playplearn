@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'common',
     'messages',
     'presentation',
+    'reservation',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -191,9 +192,9 @@ THUMBNAIL_ALIASES = {
         'avatar_smaller': {'size': (50, 50), 'crop': True},
         'avatar_tiny': {'size': (30, 30), 'crop': True},
 
-        'course_picture_normal': {'size': (750, 450), 'crop': True},
-        'course_picture_small': {'size': (450, 270), 'crop': True},
-        'course_picture_smaller': {'size': (300, 180), 'crop': True},
+        'workshop_picture_normal': {'size': (750, 450), 'crop': True},
+        'workshop_picture_small': {'size': (450, 270), 'crop': True},
+        'workshop_picture_smaller': {'size': (300, 180), 'crop': True},
     },
 }
 
@@ -225,11 +226,11 @@ POSTMAN_AUTO_MODERATE_AS = True
 POSTMAN_SHOW_USER_AS = 'get_full_name'
 
 
-# LITTLE BIG SKILLS SETTINGS ###########################################################################################
+# PLAYPLEARN SETTINGS ##################################################################################################
 
 # DISPLAY SETTINGS
 
-DISPLAY_HOMEPAGE_COURSES = 20
+DISPLAY_HOMEPAGE_WORKSHOPS = 20
 
 # USER AVATAR
 

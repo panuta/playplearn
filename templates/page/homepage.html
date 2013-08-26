@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% load i18n thumbnail common_tags %}
+{% load i18n thumbnail common_tags presentation_tags %}
 
-{% block head_title %}{{ settings.WEBSITE_NAME }} - เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่ได้สนุกเพลิดเพลิน{% endblock %}
+{% block head_title %}{{ settings.WEBSITE_NAME }} - เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่สนุกเพลิดเพลิน{% endblock %}
 {% block body_class %}page-homepage{% endblock %}
 
 {% block scripts %}
@@ -20,70 +20,16 @@
 <div class="container">
     <div class="homepage-header">
         <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.homepage.png" /></div>
-        <div class="headline">เปลี่ยนวันว่างธรรมดาๆ ให้เป็นวันที่ได้สนุกสนานเพลิดเพลิน</div>
+        <div class="headline">เปลี่ยนวันว่างธรรมดาๆ ให้เป็นวันที่สนุกสนานเพลิดเพลิน</div>
     </div>
 
     <div class="upcoming-workshops">
-        <div class="head"><hr><span>Upcoming workshops</span></div>
-        <ul class="courses">
-            {% for course in upcoming_courses %}
-                <li class="course clearfix">
-                    <div class="workshop-pictures">
-                        <div class="royalSlider rsDefault">
-                            {% for picture in course.pictures.all %}
-                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}" {% thumbnail_img_size 'course_picture_small' %} alt="{{ picture.description }}" />
-                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}" {% thumbnail_img_size 'course_picture_small' %} alt="{{ picture.description }}" />
-                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}" {% thumbnail_img_size 'course_picture_small' %} alt="{{ picture.description }}" />
-                            {% endfor %}
-                        </div>
-                    </div>
-
-
-                    {% comment %}<div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="450" height="270" /></a></div>{% endcomment %}
-
-                    {% comment %}<div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.cover_url }}" {% thumbnail_img_size 'course_picture_small' %} /></a></div>{% endcomment %}
-                    <div class="right">
-                        <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                        <div class="teacher">
-                            <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
-                            <div class="name">จัดโดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-                        </div>
-                        <div class="details">
-                            <div class="numbers">
-                                <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ course.stats_upcoming_classes }}</em> รอบ</span>
-                                <span class="feedbacks"><i class="icon-star"></i> <em>{{ course.stats_feedbacks }}</em> ผลตอบรับ</span>
-                                <span class="students"><i class="icon-user"></i> <em>10</em> นักเรียน</span>
-                            </div>
-                            <div class="at_glance">
-                                <span class="item">ระยะเวลา <em class="duration">{{ course.duration }} ชั่วโมง</em></span>
-                                <span class="item">ค่าใช้จ่าย <em class="price">{{ course.price|floatformat:-2 }} บาท</em></span>
-                                <span class="item">จัดที่ <em class="place">{{ course.place.province_code|province_name }}</em></span>
-                            </div>
-                        </div>
-
-                        <div class="enroll">
-                            <a href="#" class="style-primary-button button-enroll"><i class="icon-signin"></i> ลงชื่อ</a>
-                            <span class="upcoming">คลาสถัดไป {{ course.get_upcoming_schedule|schedule_datetime }}</span> <!-- TODO: Show most upcoming class that available -->
-                        </div>
-                    </div>
+        <div class="head"><hr><span>เวิร์คช็อปล่าสุด</span></div>
+        <ul class="workshops">
+            {% for workshop in upcoming_workshops %}
+                <li class="workshop style-workshop-row clearfix">
+                    {% include 'snippets/workshop_row.html' %}
                 </li>
-
-                {% comment %}
-                    <div class="box-inner">
-                        {% if not hide_footnote %}
-                            {% with upcoming_schedule=course.get_upcoming_schedule %}
-                                {% if upcoming_schedule %}
-                                    <div class="next"><i class="icon-bullhorn icon-large"></i> คลาสถัดไป {{ upcoming_schedule|schedule_datetime }}</div>
-                                {% endif %}
-                            {% endwith %}
-                        {% endif %}
-                    </div>
-                </div>{% endcomment %}
-
-                {% comment %}
-                <li class="course {% cycle 'left-box' 'right-box' %}">
-                    {% include 'snippets/course_box.html' %}
-                </li>{% endcomment %}
             {% endfor %}
         </ul>
     </div>

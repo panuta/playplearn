@@ -8,8 +8,8 @@ from postman.models import Message
 
 
 def view_homepage(request):
-    upcoming_courses = domain_functions.get_upcoming_courses()
-    return render(request, 'page/homepage.html', {'upcoming_courses': upcoming_courses})
+    upcoming_workshops = domain_functions.get_upcoming_workshops()
+    return render(request, 'page/homepage.html', {'upcoming_workshops': upcoming_workshops})
 
 
 def view_place_info_by_id(request, place_id):

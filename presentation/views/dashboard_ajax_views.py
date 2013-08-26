@@ -24,7 +24,7 @@ from common.shortcuts import response_json_success, response_json_error_with_mes
 from common.utilities import format_full_datetime, format_datetime_string
 
 from domain import functions as domain_function
-from domain.models import CourseFeedback, CourseEnrollment, Course, CourseSchedule, CoursePicture, EditingCourse, Place, CourseEnrollmentPaymentNotify
+from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
 
 
 # COURSE ###############################################################################################################
@@ -40,9 +40,9 @@ def ajax_save_course(request):
     course_uid = request.POST.get('uid')
 
     try:
-        course = Course.objects.get(uid=course_uid)
-    except Course.DoesNotExist:
-        course = Course.objects.create(
+        course = Workshop.objects.get(uid=course_uid)
+    except Workshop.DoesNotExist:
+        course = Workshop.objects.create(
             uid=course_uid,
             teacher=request.user,
             status='DRAFT',
@@ -85,9 +85,9 @@ def ajax_upload_course_cover(request):
     course_uid = request.POST.get('uid')
 
     try:
-        course = Course.objects.get(uid=course_uid)
-    except Course.DoesNotExist:
-        course = Course.objects.create(
+        course = Workshop.objects.get(uid=course_uid)
+    except Workshop.DoesNotExist:
+        course = Workshop.objects.create(
             uid=course_uid,
             teacher=request.user,
             status='DRAFT',
@@ -134,9 +134,9 @@ def ajax_upload_course_picture(request):
     course_uid = request.POST.get('uid')
 
     try:
-        course = Course.objects.get(uid=course_uid)
-    except Course.DoesNotExist:
-        course = Course.objects.create(
+        course = Workshop.objects.get(uid=course_uid)
+    except Workshop.DoesNotExist:
+        course = Workshop.objects.create(
             uid=course_uid,
             teacher=request.user,
             status='DRAFT',
@@ -148,7 +148,7 @@ def ajax_upload_course_picture(request):
     if course.status == 'WAIT_FOR_APPROVAL':
         return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
 
-    if CoursePicture.objects.filter(course=course).count() > settings.COURSE_PICTURE_MAXIMUM_NUMBER:
+    if WorkshopPicture.objects.filter(course=course).count() > settings.COURSE_PICTURE_MAXIMUM_NUMBER:
         return response_json_error_with_message('file-number-exceeded', errors.COURSE_MODIFICATION_ERRORS)
 
     image_file = request.FILES['pictures[]']
@@ -156,14 +156,14 @@ def ajax_upload_course_picture(request):
     if image_file.size > settings.COURSE_PICTURE_MAXIMUM_SIZE:
         return response_json_error_with_message('file-size-exceeded', errors.COURSE_MODIFICATION_ERRORS)
 
-    last_ordering = CoursePicture.objects.filter(course=course, mark_deleted=False) \
+    last_ordering = WorkshopPicture.objects.filter(course=course, mark_deleted=False) \
         .aggregate(Max('ordering'))['ordering__max']
 
     if not last_ordering:
         last_ordering = 0
 
     if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        course_picture = CoursePicture.objects.create(
+        course_picture = WorkshopPicture.objects.create(
             course=course,
             image=image_file,
             ordering=last_ordering+1,
@@ -171,7 +171,7 @@ def ajax_upload_course_picture(request):
         )
 
     elif course.status == 'PUBLISHED':
-        course_picture = CoursePicture.objects.create(
+        course_picture = WorkshopPicture.objects.create(
             course=course,
             image=image_file,
             ordering=last_ordering+1,
@@ -199,7 +199,7 @@ def ajax_delete_course_picture(request):
         raise Http404
 
     course_uid = request.POST.get('uid')
-    course = get_object_or_404(Course, uid=course_uid)
+    course = get_object_or_404(Workshop, uid=course_uid)
 
     picture_uid = request.POST.get('picture_uid')
 
@@ -210,8 +210,8 @@ def ajax_delete_course_picture(request):
         return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
 
     try:
-        course_picture = CoursePicture.objects.get(uid=picture_uid)
-    except CoursePicture.DoesNotExist:
+        course_picture = WorkshopPicture.objects.get(uid=picture_uid)
+    except WorkshopPicture.DoesNotExist:
         return response_json_error_with_message('picture-notfound', errors.COURSE_MODIFICATION_ERRORS)
 
 
@@ -260,7 +260,7 @@ def ajax_publish_course(request):
 
     course_uid = request.POST.get('uid')
 
-    course = get_object_or_404(Course, uid=course_uid)
+    course = get_object_or_404(Workshop, uid=course_uid)
 
     if course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
@@ -306,7 +306,7 @@ def ajax_add_course_schedule(request):
 
     course_uid = request.POST.get('uid')
 
-    course = get_object_or_404(Course, uid=course_uid)
+    course = get_object_or_404(Workshop, uid=course_uid)
 
     if course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
@@ -355,7 +355,7 @@ def ajax_view_course_feedback(request):
     if enrollment.student != request.user and enrollment.schedule.course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_FEEDBACK_ERRORS)
 
-    feedback = get_object_or_404(CourseFeedback, enrollment=enrollment)
+    feedback = get_object_or_404(WorkshopFeedback, enrollment=enrollment)
 
     feeling_names = []
     for feeling in feedback.feelings.split(','):
@@ -381,8 +381,8 @@ def ajax_add_course_feedback(request):
         return response_json_error_with_message('unauthorized', errors.COURSE_FEEDBACK_ERRORS)
 
     try:
-        CourseFeedback.objects.get(enrollment=enrollment)
-    except CourseFeedback.DoesNotExist:
+        WorkshopFeedback.objects.get(enrollment=enrollment)
+    except WorkshopFeedback.DoesNotExist:
         pass
     else:
         return response_json_error_with_message('existed', errors.COURSE_FEEDBACK_ERRORS)
@@ -398,7 +398,7 @@ def ajax_add_course_feedback(request):
         if feeling in FEEDBACK_FEELING_MAP:
             valid_feelings.append(feeling)
 
-    CourseFeedback.objects.create(
+    WorkshopFeedback.objects.create(
         enrollment=enrollment,
         content=content,
         feelings=','.join(valid_feelings),
@@ -420,8 +420,8 @@ def ajax_delete_course_feedback(request):
         return response_json_error_with_message('unauthorized', errors.COURSE_FEEDBACK_ERRORS)
 
     try:
-        feedback = CourseFeedback.objects.get(enrollment=enrollment)
-    except CourseFeedback.DoesNotExist:
+        feedback = WorkshopFeedback.objects.get(enrollment=enrollment)
+    except WorkshopFeedback.DoesNotExist:
         return response_json_error_with_message('deleted', errors.COURSE_FEEDBACK_ERRORS)
 
     feedback.delete()
@@ -435,7 +435,7 @@ def ajax_set_course_feedback_public(request):
         raise Http404
 
     feedback_id = request.POST.get('feedback_id')
-    feedback = get_object_or_404(CourseFeedback, pk=feedback_id)
+    feedback = get_object_or_404(WorkshopFeedback, pk=feedback_id)
 
     if feedback.enrollment.schedule.course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
@@ -455,7 +455,7 @@ def ajax_set_course_feedback_promoted(request):
         raise Http404
 
     feedback_id = request.POST.get('feedback_id')
-    feedback = get_object_or_404(CourseFeedback, pk=feedback_id)
+    feedback = get_object_or_404(WorkshopFeedback, pk=feedback_id)
 
     if feedback.enrollment.schedule.course.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)

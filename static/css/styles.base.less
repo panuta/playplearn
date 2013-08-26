@@ -163,12 +163,19 @@ select:focus:invalid:focus {
 
     .modal-header {
         border-bottom: none;
+        padding: 15px 15px 10px;
     }
 
     .modal-title {
         color: #29ace4;
         font-family: 'QuarkLight', sans-serif;
-        font-size: 22px;
+        font-size: 26px;
+    }
+
+    .modal-footer {
+        border-top: none;
+        margin: 0;
+        padding-top: 5px;
     }
 }
 
@@ -1171,6 +1178,110 @@ h1.style-page-header {
     }
 }
 
+.style-workshop-row {
+    .workshop-pictures {
+        border: 1px solid #DDD;
+        float: left;
+        padding: 3px;
+        position: relative;
+
+        .royalSlider {
+            width: 450px;
+            height: 270px;
+        }
+    }
+
+    .right {
+        margin-left: 480px;
+    }
+
+    .title a {
+        color: @colorBlue;
+        font-family: 'QuarkLight', sans-serif;
+        font-size: 34px;
+        line-height: 45px;
+    }
+
+    .teacher {
+        margin-top: 6px;
+
+        .avatar {
+            display: inline-block;
+            margin-right: 7px;
+            vertical-align: middle;
+
+            img {
+                border-radius: 50px;
+            }
+        }
+
+        .name {
+            display: inline-block;
+            vertical-align: middle;
+
+            a {
+                color: @colorNavy;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 19px;
+                font-size: 24px;
+            }
+        }
+    }
+
+    .convincing {
+        margin-top: 15px;
+
+        span {
+            background-color: #F7F7F7;
+            color: #666;
+            display: inline-block;
+            font-size: 15px;
+            margin-right: 10px;
+            padding: 9px 15px;
+
+            i {
+                margin-right: 3px;
+            }
+
+            em {
+                color: #555;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .next {
+        border: 1px dashed #CCC;
+        margin-top: 20px;
+        padding: 14px 18px;
+
+        .button-enroll {
+            float: right;
+            margin: 6px 5px 0 0;
+        }
+
+        .schedule {
+            color: #666;
+            font-size: 15px;
+
+            i {
+                color: #C30;
+                margin-right: 4px;
+            }
+
+            .date, .time {
+                color: #444;
+                font-weight: bold;
+            }
+        }
+
+        .available {
+            color: #666;
+            font-size: 13px;
+            margin: 7px 0 0 23px;
+        }
+    }
+}
 
 .style-course-box {
     background-color: #FFF;

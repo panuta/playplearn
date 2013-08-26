@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load thumbnail common_tags presentation_tags %}
 
-{% block head_title %}{{ course.title }} - {{ settings.WEBSITE_NAME }}{% endblock %}
-{% block body_class %}page-course-outline{% endblock %}
+{% block head_title %}{{ workshop.title }} - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block body_class %}page-workshop-outline{% endblock %}
 
 {% block scripts %}
 <script>
 (function() {
-    {% if course_pictures %}
+    {% if workshop_pictures %}
         $('#pictures-slider').royalSlider({
             controlsInside: false,
             globalCaption: true,
@@ -32,43 +32,28 @@
         return false;
     });
 
-    $('.course-feedbacks .feedbacks').masonry({
+    $('.workshop-feedbacks .feedbacks').masonry({
         columnWidth: 540,
         gutter: 50,
         itemSelector: '.style-course-feedback'
     });
+
 })();
 </script>
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <!--<div class="join"><a href="#join-workshop" class="style-orange-button"><i class="icon-signin"></i> ลงชื่อเข้าร่วม</a></div>-->
-    <h1>{{ course.title }}</h1>
-    <div class="course-subtitle">
-        <div class="course-teacher">
-            <div class="avatar"><a href="{% url 'view_user_profile' course.teacher.uid %}"><img src="{{ course.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
-            <div class="name">จัดโดย <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-        </div>
-        <div class="course-details">
-            <span class="details">
-                <span class="caption">ระยะเวลา</span>
-                <span class="value"><em>{{ course.duration }}</em> ชั่วโมง</span>
-            </span>
-            <span class="details">
-                <span class="caption">กลุ่มละ</span>
-                <span class="value"><em>{{ course.maximum_people }}</em> คน</span>
-            </span>
-            <span class="details">
-                <span class="caption">ค่าใช้จ่าย</span>
-                <span class="value"><em>{{ course.price|floatformat:0 }}</em> บาท</span>
-            </span>
-        </div>
+    <h1>{{ workshop.title }}</h1>
+
+    <div class="workshop-teacher">
+        <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
+        <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
     </div>
 
-    <div class="row course-pictures-enrollment">
+    <div class="row workshop-pictures-enrollment">
         <div class="col-lg-8">
-            <div class="course-pictures">
+            <div class="workshop-pictures">
                 <div id="pictures-slider" class="royalSlider rsDefault">
                     {% for picture in course_pictures %}
                         <img src="{{ picture.image|thumbnail_url:'course_picture_full' }}" alt="{{ picture.description }}" />
@@ -77,75 +62,70 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="course-enrollment">
+            <div class="workshop-enrollment">
                 <div class="head"><i class="icon-signin"></i> เข้าร่วมเวิร์คช็อป</div>
 
-                <div class="enroll-input enroll-input-schedule">
+                <div class="enroll-schedule">
                     <label>รอบวันที่</label>
-                    <div class="input">วันพฤหัสบดี, 1 ก.ย. 2556 เวลา 16:00 - 18:00 น. <i class="icon-chevron-down"></i></div>
+                    <a href="#modal-schedule-picker" class="btn btn-default button-schedule-picker" data-toggle="modal"><i class="icon-calendar"></i><span class="date">วันพฤหัสบดี, 1 ก.ย. 2556</span><span class="time">เวลา 16:00 - 18:00 น.</span></a>
                 </div>
 
-                <div class="enroll-input enroll-input-people">
+                <div class="enroll-seats">
                     <label>จำนวนคน</label>
-                    <div class="input">4 คน <i class="icon-chevron-down"></i></div>
+                    <select>
+                        <option value="1">1 คน</option>
+                        <option value="2">2 คน</option>
+                        <option value="3">3 คน</option>
+                        <option value="4">4 คน</option>
+                        <option value="5">5 คน</option>
+                        <option value="6">6 คน</option>
+                        <option value="7">7 คน</option>
+                    </select>
+                    <script>$('.workshop-enrollment .enroll-seats select').selectpicker({width: '100px'});</script>
+                    <span class="price_per_person"><span class="x">x</span> <span class="price"><em>400</em> บาท</span></span>
                 </div>
 
                 <div class="enroll-button">
                     <a href="#" class="style-primary-button">ลงชื่อเข้าร่วม</a>
                 </div>
             </div>
-
-            {% comment %}<div class="course-activities">
-                <div class="head">กิจกรรม</div>
-                <ul>
-                    {% for activity in course.activities.all %}
-                        <li>{{ activity.title }}</li>
-                    {% endfor %}
-                </ul>
+            <div class="workshop-social">
+                <!-- TODO -->
             </div>
-            {% if user.is_authenticated and user == course.teacher %}
-                <div class="course-tools">
-                    <div class="head">Tools for teacher</div>
-                    <div>
-                        <a href="{% url 'edit_course' course.uid %}" class="style-button"><i class="icon-pencil"></i> Edit workshop</a>
-                        <a href="{% url 'manage_course_overview' course.uid %}" class="style-button"><i class="icon-book"></i> Manage workshop</a>
-                    </div>
-                </div>
-            {% endif %}{% endcomment %}
         </div>
     </div>
 
-    <div class="course-story">
+    <div class="workshop-story">
         <!--{{ course.description|safe }}-->
         <p>รีดไถเจล คลาสสิกห่วยฮาราคีรีว้าวไอติมเซี้ยว แพนงเชิญทำงานคอรัปชัน วานิลาแตงโมอพาร์ทเมนท์แฟรนไชส์งี้แอลมอนด์ เพทนาการไมค์ ติงต๊องบึมสังโฆทับซ้อน ซินโดรมเทรลเล่อร์ปัจเจกชนโอเปร่าคอรัปชันควีน แฟรีนรีแพทย์รอยัลตี้ฮองเฮา มาเฟียเมจิกเฟรชทำงานวอลซ์โพลารอยด์ แซ็กแอ็กชั่นกราวนด์เมจิกไทยแลนด์ รีพอร์ทลอร์ดสปาจีดีพีแอปเปิ้ล สังโฆอันเดอร์ภควัทคีตาอุด้ง มาร์ชโซนี่ พรีเมียร์อีสต์โหงวอุตสาหการ ออโต้ห่วยท็อปบูตคาปูชิโนแชมป์ หลินจือเนิร์สเซอรีไฮกุสหัสวรรษบอร์ดคันธาระ</p>
         <p>เซ็นทรัลปิโตรเคมีสโรชา เบลอ วอฟเฟิลรีสอร์ทคำสาป เหี่ยวย่นแมกกาซีนพงษ์ แฟรีสจ๊วตธรรมา สเตอริโอโบว์ลิ่งเยน ผู้นำสปิริตแกงค์เทค สปายแม่ค้าสเตเดียมไรเฟิลรีสอร์ต กิฟท์ เนอะราเม็งฮองเฮา ภควัทคีตาพุดดิ้ง สกรัมโปรดิวเซอร์ ติงต๊อง แคร็กเกอร์ พอเพียงไอซียูจูนรัมโฮปฟลุต ลอร์ดออร์เดอร์วอร์รูมสเตชันฟรุต</p>
         <p>พุทธภูมิโอเพ่นบราแบคโฮ ไฮเอนด์โปรเจ็คท์โปสเตอร์ยังไงฮาราคีรีเครป ตุ๊กอมาตยาธิปไตยคอรัปชันรีโมตกับดัก ว้อดก้า บุญคุณเกรดเบิร์ดเคลมกรอบรูปแจ๊กพอต ชีสเอ๋ไชน่า ดีพาร์ทเมนท์แบคโฮอีสต์เคอร์ฟิวแป๋วแคนยอน สไตล์โอเคสะบึมส์โปสเตอร์ เวิลด์พฤหัส ต้าอ่วยสามแยก ฟินิกซ์ต้าอ่วยบิลแพกเกจเจได ฮ็อตปอดแหกแก๊สโซฮอล์ไฮกุศิลปากรราเม็ง แอสเตอร์จุ๊ย รีโมทโต๊ะจีนแฟนตาซีอินเตอร์เฟอร์นิเจอร์เดโม เกรดเฟอร์นิเจอร์เซรามิกราเมนเบบี้ ราชานุญาตปิยมิตรปฏิสัมพันธ์โฮปแอดมิชชั่นกับดัก</p>
     </div>
 
-    <div class="row course-activities-place">
+    <div class="row workshop-activities-place">
         <div class="col-lg-5">
-            <div class="course-activities">
+            <div class="workshop-activities">
                 <div class="head"><i class="icon-th-list"></i> กิจกรรม</div>
                 <ul>
                     <li>แซ็กโซโฟนโปรเจกต์อินดอร์ ซาตานเอสเพรสโซลิสต์แซลมอนฮิต สเต็ปง่าวจิตเภทเนิร์สเซอรีง่าว วีซ่าเจ็ตมหาอุปราชา</li>
                     <li>หยวนเตี๊ยมเซนเซอร์ คอมเมนต์ปิกอัพแพ็คทริป ศิรินทร์วัจนะ แบคโฮสกรัมควิก คอร์ปพาวเวอร์นิวส์พันธุวิศวกรรม คำสาปตังค์แจมบ๊วยอีสต์</li>
-                    {% for activity in course.activities.all %}
+                    {% for activity in workshop.activities.all %}
                         <li>{{ activity.title }}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="col-lg-7">
-            <div class="course-place">
+            <div class="workshop-place">
                 <div class="head"><i class="icon-map-marker"></i> สถานที่</div>
                 <div class="clearfix">
-                    <div class="map"><a href="http://maps.google.com/maps?q={{ course.place.latlng }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ course.place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ course.place.latlng }}&sensor=false" /></a></div>
+                    <div class="map"><a href="http://maps.google.com/maps?q={{ workshop.place.latlng }}"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ workshop.place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ workshop.place.latlng }}&sensor=false" /></a></div>
                     <div class="place">
-                        <div class="name">{{ course.place.name }}</div>
-                        <div class="address">{{ course.place.address }}</div>
+                        <div class="name">{{ workshop.place.name }}</div>
+                        <div class="address">{{ workshop.place.address }}</div>
                         <div class="direction">
                             <div class="direction_head">How to get there</div>
-                            {{ course.place.direction|linebreaks }}
+                            {{ workshop.place.direction|linebreaks }}
                         </div>
                     </div>
                 </div>
@@ -153,7 +133,14 @@
         </div>
     </div>
 
-    <div class="course-feedbacks">
+    {% if user.is_authenticated and user == workshop.teacher %}
+    <div class="workshop-tools">
+        <a href="{% url 'edit_workshop' workshop.uid %}" class="style-outline-button"><i class="icon-pencil"></i> Edit workshop</a>
+        <a href="{% url 'manage_workshop_overview' workshop.uid %}" class="style-outline-button"><i class="icon-book"></i> Manage workshop</a>
+    </div>
+    {% endif %}
+
+    <div class="workshop-feedbacks">
         <h2>คำนิยม</h2>
         <ul class="feedbacks">
             <li class="feedback style-course-feedback">
@@ -236,18 +223,38 @@
     </div>
 </div>{% endcomment %}
 
-<div class="container">
-
-</div>
-
-
-
-
-
 {% endblock %}
 
 {% block modals %}
 {% include 'snippets/modal_enrollment_confirm.html' %}
+
+<div class="modal fade" id="modal-schedule-picker">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">เลือกรอบ</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td class="datetime"><label><input type="radio" name="schedule" /> <span class="date">วันพฤหัสบดี, 1 ก.ย. 2556</span><span class="time">เวลา 16:00 - 18:00 น.</span></label></td>
+                        <td class="availability">เหลือที่ว่าง 10 ที่นั่ง</td>
+                        <td class="price"><span>400 บาท</span></td>
+                    </tr>
+                    <tr>
+                        <td class="datetime"><label><input type="radio" name="schedule" /> <span class="date">วันพฤหัสบดี, 1 ก.ย. 2556</span><span class="time">เวลา 16:00 - 18:00 น.</span></label></td>
+                        <td class="availability">เหลือที่ว่าง 10 ที่นั่ง</td>
+                        <td class="price"><span>400 บาท</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="style-primary-button">ตกลง</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 

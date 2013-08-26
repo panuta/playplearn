@@ -16,33 +16,34 @@ from common.errors import CourseEnrollmentException, ACCOUNT_REGISTRATION_ERRORS
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
 from domain import functions as domain_functions
-from domain.models import Course, CourseEnrollment, CourseSchedule, UnauthenticatedCourseEnrollment, CourseSchool, CoursePicture
+from domain.models import Workshop, WorkshopTopic, WorkshopPicture
+from reservation.models import Schedule, Reservation
 
 
-def view_course_outline(request, course_uid, page_action, enrollment_code):
-    course = get_object_or_404(Course, uid=course_uid)
+def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
+    workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
-    if not course.can_view(request.user):
+    if not workshop.can_view(request.user):
         raise Http404
 
     rightnow = now()
 
-    pictures = CoursePicture.objects.filter(course=course, is_visible=True).order_by('ordering')
+    pictures = WorkshopPicture.objects.filter(workshop=workshop, is_visible=True).order_by('ordering')
 
-    schedules = CourseSchedule.objects.filter(
-        course=course,
+    schedules = Schedule.objects.filter(
+        workshop=workshop,
         status='OPENING',
         start_datetime__gte=rightnow
     ).order_by('start_datetime')
 
-    enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code) if enrollment_code else None
+    reservation = get_object_or_404(Reservation, code=reservation_code) if reservation_code else None
 
-    return render(request, 'course/course_outline.html', {
-        'course': course,
-        'course_pictures': pictures,
-        'course_schedules': schedules,
+    return render(request, 'workshop/workshop_outline.html', {
+        'workshop': workshop,
+        'workshop_pictures': pictures,
+        'workshop_schedules': schedules,
         'page_action': page_action,
-        'enrollment': enrollment,
+        'reservation': reservation,
     })
 
 
@@ -51,12 +52,12 @@ def view_courses_browse(request, browse_by):
         browse_by = 'upcoming'
 
     if browse_by == 'upcoming':
-        courses = domain_functions.get_upcoming_courses()
+        courses = domain_functions.get_upcoming_workshops()
         browse_title = _('Upcoming')
     else:
         raise Http404
 
-    return render(request, 'course/course_browse.html', {
+    return render(request, 'workshop/course_browse.html', {
         'courses': courses,
         'browse_by': browse_by,
         'browse_title': browse_title,
@@ -64,10 +65,10 @@ def view_courses_browse(request, browse_by):
 
 
 def view_courses_browse_by_topic(request, topic_slug):
-    school = get_object_or_404(CourseSchool, slug=topic_slug)
-    courses = Course.objects.filter(status='PUBLISHED', schools__in=(school, ))
+    school = get_object_or_404(WorkshopTopic, slug=topic_slug)
+    courses = Workshop.objects.filter(status='PUBLISHED', schools__in=(school, ))
 
-    return render(request, 'course/course_browse.html', {
+    return render(request, 'workshop/course_browse.html', {
         'courses': courses,
         'browse_by': 'topic',
         'browse_title': '%s workshops' % school.name,
@@ -76,7 +77,7 @@ def view_courses_browse_by_topic(request, topic_slug):
 
 
 def view_course_teach(request):
-    return render(request, 'course/course_teach.html', {})
+    return render(request, 'workshop/course_teach.html', {})
 
 
 def search_course_topics(request):

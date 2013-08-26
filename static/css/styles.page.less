@@ -146,146 +146,18 @@
             }
         }
 
-        ul.courses {
+        ul.workshops {
             margin: 0;
             padding: 0;
 
-            li.course {
+            li.workshop {
                 list-style: none;
                 margin-bottom: 40px;
             }
         }
 
-        li.course {
-            .workshop-pictures {
-                border: 1px solid #DDD;
-                float: left;
-                padding: 3px;
-                position: relative;
+        li.workshop {
 
-                .royalSlider {
-                    width: 450px;
-                    height: 270px;
-                }
-            }
-
-            .cover {
-                padding: 3px;
-                border: 1px solid #DDD;
-                float: left;
-                position: relative;
-
-                img {
-                    width: 450px;
-                    height: 270px;
-                }
-            }
-
-            .right {
-                margin-left: 480px;
-            }
-
-            .title a {
-                color: @colorBlue;
-                font-family: 'QuarkLight', sans-serif;
-                font-size: 30px;
-                line-height: 38px;
-            }
-
-            .teacher {
-                margin-top: 8px;
-
-                .avatar {
-                    display: inline-block;
-                    margin-right: 12px;
-                    vertical-align: middle;
-
-                    img {
-                        border-radius: 50px;
-                        height: 50px;
-                        width: 50px;
-                    }
-                }
-
-                .name {
-                    color: #888;
-                    display: inline-block;
-                    font-family: 'QuarkLight', sans-serif;
-                    font-size: 20px;
-                    vertical-align: middle;
-
-                    a {
-                        color: @colorNavy;
-                        font-size: 24px;
-                    }
-                }
-            }
-
-            .details {
-                background-color: #F7F7F7;
-                padding: 13px 20px 10px;
-                margin-top: 20px;
-
-                .numbers {
-                    color: #555;
-
-                    span {
-                        font-size: 15px;
-                        margin-right: 20px;
-
-                        em {
-                            font-size: 15px;
-                            font-weight: bold;
-                        }
-                    }
-
-                    i {
-                        color: #666;
-                        font-size: 15px;
-                        margin-right: 2px;
-
-                        &.icon-comment {
-                            vertical-align: 1px;
-                        }
-                    }
-                }
-
-                .at_glance {
-                    border-top: 1px solid #DDD;
-                    color: #999;
-                    font-size: 14px;
-                    margin-top: 8px;
-                    padding-top: 8px;
-
-                    .item {
-                        margin-right: 15px;
-                    }
-
-                    em {
-                        color: #666;
-                    }
-                }
-            }
-
-            .enroll {
-                margin-top: 15px;
-
-                .button-enroll {
-                    font-size: 14px;
-                    padding: 10px 40px;
-                }
-
-                .upcoming {
-                    color: #777;
-                    font-size: 13px;
-                    margin-left: 12px;
-
-                    .date, .time {
-                        color: #555;
-                        font-weight: bold;
-                    }
-                }
-            }
         }
     }
 
@@ -316,7 +188,7 @@
     }
 }
 
-.page-course-outline {
+.page-workshop-outline {
     h1 {
         color: @colorBlue;
         font-family: 'QuarkLight', sans-serif;
@@ -326,12 +198,9 @@
         margin: 30px 0 0;
     }
 
-    .course-subtitle {
-        margin: 5px 0 25px;
-    }
-
-    .course-teacher {
+    .workshop-teacher {
         display: inline-block;
+        margin: 5px 0 25px;
         vertical-align: middle;
 
         .avatar {
@@ -379,7 +248,7 @@
         }
     }*/
 
-    .course-details {
+    .workshop-details {
         margin-left: 50px;
         display: inline-block;
         vertical-align: middle;
@@ -409,29 +278,9 @@
         }
     }
 
-    .course-tools {
-        margin-top: 25px;
 
-        .head {
-            color: #555;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
 
-        .style-button {
-            color: #555;
-            font-size: 13px;
-            margin-right: 10px;
-            padding: 5px 15px;
-
-            i {
-                vertical-align: 0px;
-            }
-        }
-    }
-
-    .course-pictures {
+    .workshop-pictures {
         background-color: #DDD;
 
         #pictures-slider {
@@ -457,12 +306,12 @@
         }
     }
 
-    .course-enrollment {
+    .workshop-enrollment {
         .head {
-            color: @colorNavy;
+            color: #555;
             font-family: 'QuarkLight', sans-serif;
             font-size: 26px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
 
             i {
                 color: @colorBlue;
@@ -471,53 +320,154 @@
             }
         }
 
-        .enroll-input {
-            label {
-                color: #888;
-                display: block;
-                font-family: 'QuarkLight', sans-serif;
-                font-size: 18px;
-                font-weight: normal;
-                margin: 0;
-                padding: 0;
-            }
+        label {
+            color: #888;
+            display: block;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 19px;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
 
-            .input {
-                background-color: #8696a0;
-                border-radius: 4px;
-                color: #FFF;
-                display: inline-block;
-                padding: 8px 15px;
+        .enroll-schedule {
+            a.button-schedule-picker {
+                font-size: 14px;
+                display: block;
+                padding: 9px 15px;
+                text-align: left;
+
+                span {
+                    display: block;
+                }
+
+                .date {
+                    color: #555;
+                    font-weight: bold;
+                }
+
+                .time {
+                    color: #666;
+                    font-size: 13px;
+                }
 
                 i {
-                    margin-left: 15px;
+                    color: #666;
+                    font-size: 1.2em;
+                    float: right;
+                    margin: 10px 4px;
                 }
             }
         }
 
-        .enroll-input-schedule {
-            margin-bottom: 15px;
-        }
+        .enroll-seats {
+            margin-top: 15px;
 
-        .enroll-input-people {
-            display: inline-block;
-            vertical-align: bottom;
+            .dropdown-toggle {
+                color: #555;
+                font-size: 15px;
+            }
+
+            .price_per_person {
+                font-family: 'QuarkLight', sans-serif;
+
+                .x {
+                    color: #BBB;
+                    font-size: 22px;
+                    margin: 0 6px 0 10px;
+                }
+
+                .price {
+                    color: #777;
+                    font-size: 24px;
+
+                    em {
+                        color: #555;
+                    }
+                }
+            }
         }
 
         .enroll-button {
-            display: inline-block;
-            margin-left: 15px;
-            vertical-align: bottom;
+            margin-top: 15px;
 
             a {
+                display: block;
                 font-family: 'QuarkLight', sans-serif;
                 font-size: 20px;
                 padding: 12px 70px 9px;
+                text-align: center;
             }
         }
     }
 
-    .course-story {
+    #modal-schedule-picker {
+        .modal-body {
+            padding: 0 15px 10px;
+
+            table {
+                border-bottom: 1px solid #DDD;
+                width: 100%;
+
+                tr {
+                    border-top: 1px solid #DDD;
+                }
+
+                .datetime {
+                    padding: 10px 0;
+
+                    input {
+                        float: left;
+                        margin: 14px 0 0 8px;
+                    }
+
+                    .date {
+                        color: #555;
+                        display: block;
+                        font-weight: bold;
+                        margin-left: 35px;
+                    }
+
+                    .time {
+                        color: #666;
+                        display: block;
+                        font-size: 13px;
+                        font-weight: normal;
+                        margin-left: 35px;
+                    }
+                }
+
+                .availability {
+                    color: #666;
+                    font-size: 13px;
+                    text-align: right;
+                    vertical-align: middle;
+                    width: 200px;
+                }
+
+                .price {
+                    text-align: right;
+                    vertical-align: middle;
+                    width: 100px;
+
+                    span {
+                        background-color: @colorGrey;
+                        color: #FFF;
+                        display: inline-block;
+                        font-family: 'QuarkLight', sans-serif;
+                        font-size: 16px;
+                        padding: 6px 15px 1px;
+                    }
+                }
+            }
+        }
+
+        .modal-footer {
+            margin-top: 10px;
+        }
+    }
+
+    .workshop-story {
         color: #555;
         font-family: 'ChiangSaenRegular', sans-serif;
         font-size: 24px;
@@ -529,11 +479,11 @@
         }
     }
 
-    .course-activities-place {
+    .workshop-activities-place {
         margin: 40px 0;
     }
 
-    .course-activities {
+    .workshop-activities {
         //background-color: #F7F7F7;
         //margin-top: 10px;
         //padding: 15px 20px;
@@ -564,7 +514,7 @@
         }
     }
 
-    .course-place {
+    .workshop-place {
         //margin-top: 35px;
 
         .head {
@@ -636,7 +586,7 @@
         }
     }
 
-    .course-schedules {
+    .workshop-schedules {
         background-color: #bfd3e8;
         margin: 40px 0 0;
         padding: 35px 0;
@@ -792,7 +742,22 @@
         }
     }
 
-    .course-feedbacks {
+    .workshop-tools {
+        border: 1px dashed #CCC;
+        padding: 20px 25px;
+
+        .style-outline-button {
+            font-size: 13px;
+            margin-right: 10px;
+            padding: 5px 15px;
+
+            i {
+                vertical-align: 0px;
+            }
+        }
+    }
+
+    .workshop-feedbacks {
         h2 {
             color: #555;
             font-family: 'QuarkLight', sans-serif;

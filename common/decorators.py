@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.decorators import available_attrs
-from domain.models import Course
+from domain.models import Workshop
 
 
 def redirect_if_authenticated(function=None):
@@ -27,8 +27,8 @@ def teacher_or_student_only(function=None):
             course_uid = kwargs.get('course_uid')
 
             try:
-                course = Course.objects.get(uid=course_uid)
-            except Course.DoesNotExist:
+                course = Workshop.objects.get(uid=course_uid)
+            except Workshop.DoesNotExist:
                 raise Http404
 
             if course.teacher == request.user or course.schedules.filter(enrollments__student=request.user).exists():
@@ -44,15 +44,15 @@ def teacher_only(function=None):
     def decorator(view_func):
         @wraps(view_func, assigned=available_attrs(view_func))
         def _wrapped_view(request, *args, **kwargs):
-            course_uid = kwargs.get('course_uid')
+            workshop_uid = kwargs.get('workshop_uid')
 
             try:
-                course = Course.objects.get(uid=course_uid)
-            except Course.DoesNotExist:
+                workshop = Workshop.objects.get(uid=workshop_uid)
+            except Workshop.DoesNotExist:
                 raise Http404
 
-            if course.teacher == request.user:
-                return view_func(request, course, *args, **kwargs)
+            if workshop.teacher == request.user:
+                return view_func(request, workshop, *args, **kwargs)
 
             raise Http404
 

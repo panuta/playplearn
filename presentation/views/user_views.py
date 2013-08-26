@@ -10,7 +10,7 @@ from django.utils.timezone import now
 
 from common.utilities import split_filepath
 
-from domain.models import UserAccount, Course, CourseEnrollment
+from domain.models import UserAccount, Workshop
 from presentation.forms import EditProfileForm, EditAccountEmailForm
 
 
@@ -27,7 +27,7 @@ def view_user_profile(request, user_uid):
 def _view_user_profile(request, user):
     rightnow = now()
 
-    teaching_workshops = Course.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
+    teaching_workshops = Workshop.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
 
     attending_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__gt=rightnow)
     attended_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__lte=rightnow)

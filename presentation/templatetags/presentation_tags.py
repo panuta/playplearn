@@ -12,7 +12,7 @@ from common.constants.course import COURSE_STATUS_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 
-from domain.models import UserRegistration, CourseEnrollment, CourseSchool, Place, CoursePicture
+from domain.models import UserRegistration, WorkshopTopic, Place, WorkshopPicture
 
 register = template.Library()
 
@@ -33,7 +33,7 @@ def course_full_price(course):
 @register.simple_tag
 def course_school_as_option(course):
     options = []
-    for school in CourseSchool.objects.all():
+    for school in WorkshopTopic.objects.all():
         selected = ' selected="selected"' if course and school in course.schools.all() else ''
         options.append('<option value="%s"%s data-desc="%s">%s</option>' %(school.slug, selected, school.description, school.name))
 
@@ -43,7 +43,7 @@ def course_school_as_option(course):
 @register.simple_tag
 def course_topics_as_li(selected_topic_slug):
     li = []
-    for school in CourseSchool.objects.all():
+    for school in WorkshopTopic.objects.all():
         active = ' class="active"' if school.slug == selected_topic_slug else ''
         li.append('<li%s><a href="%s">%s</a></li>' % (active, reverse('view_courses_browse_by_topic', args=[school.slug]), school.name))
 
@@ -108,7 +108,7 @@ def get_course_undefined_place(course):
 
 @register.simple_tag
 def course_picture_ordering_as_comma_separated(course):
-    return ','.join([picture.uid for picture in CoursePicture.objects.filter(course=course, mark_deleted=False)])
+    return ','.join([picture.uid for picture in WorkshopPicture.objects.filter(course=course, mark_deleted=False)])
 
 
 @register.filter
@@ -143,6 +143,11 @@ def course_schedule_start_datetime_as_comma_separated(schedules):
 @register.filter
 def course_schedule_end_datetime(schedule):
     return schedule.start_datetime + timedelta(hours=schedule.course.duration)
+
+
+@register.assignment_tag
+def get_available_upcoming_schedule(workshop):
+    return workshop.get_available_upcoming_schedule()
 
 
 # COURSE ENROLLMENT ####################################################################################################

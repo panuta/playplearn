@@ -10,10 +10,10 @@ urlpatterns = patterns(
 )
 
 urlpatterns += patterns(
-    'presentation.views.course_views',
+    'presentation.views.workshop_views',
 
-    url(r'^activity/(?P<course_uid>\w+)/$', 'view_course_outline', {'page_action': '', 'enrollment_code': ''}, name='view_course_outline'),
-    url(r'^activity/(?P<course_uid>\w+)/payment/(?P<enrollment_code>\d+)/$', 'view_course_outline', {'page_action': 'payment'}, name='view_course_outline_with_payment'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/$', 'view_workshop_outline', {'page_action': '', 'reservation_code': ''}, name='view_workshop_outline'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/payment/(?P<reservation_code>\d+)/$', 'view_workshop_outline', {'page_action': 'payment'}, name='view_workshop_outline_with_payment'),
 
     url(r'^ajax/activity/enroll/$', 'enroll_workshop', name='enroll_workshop'),
     url(r'^ajax/activity/enroll/login/(?P<backend>[^/]+)/$', 'login_to_enroll_workshop', name='login_to_enroll_workshop'),
@@ -47,10 +47,10 @@ urlpatterns += patterns(
     url(r'^my/workshops/organizing/$', 'view_my_courses_teaching', name='view_all_my_courses_teaching'),
 
     url(r'^my/activities/new/$', 'create_course', name='create_course'),
-    url(r'^workshop/(?P<course_uid>\w+)/edit/$', 'edit_course', name='edit_course'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/edit/$', 'edit_workshop', name='edit_workshop'),
     url(r'^workshop/(?P<course_uid>\w+)/revert/$', 'revert_approving_course', name='revert_approving_course'),
 
-    url(r'^activity/(?P<course_uid>\w+)/manage/overview/$', 'manage_course_overview', name='manage_course_overview'),
+    url(r'^workshop/(?P<course_uid>\w+)/manage/overview/$', 'manage_workshop_overview', name='manage_workshop_overview'),
     url(r'^activity/(?P<course_uid>\w+)/manage/class/$', 'manage_course_class', {'datetime_string': ''}, name='manage_course_latest_class'),
     url(r'^activity/(?P<course_uid>\w+)/manage/class/(?P<datetime_string>\w+)/$', 'manage_course_class', name='manage_course_class'),
     url(r'^activity/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', {'category': 'all'}, name='manage_course_all_feedback'),

@@ -1,0 +1,24 @@
+{% load thumbnail common_tags presentation_tags %}
+<div class="workshop-pictures">
+    <div class="royalSlider rsDefault">
+        {% for picture in workshop.pictures.all %}
+            <img src="{{ picture.image|thumbnail_url:'workshop_picture_small' }}" {% thumbnail_img_size 'workshop_picture_small' %} alt="{{ picture.description }}" />
+        {% endfor %}
+    </div>
+</div>
+<div class="right">
+    <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+    <div class="teacher">
+        <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a></div>
+        <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
+    </div>
+    <div class="convincing">
+        <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ workshop.stats_upcoming_classes }}</em> รอบ</span>
+        {% if workshop.stats_feedbacks %}<span class="feedbacks"><i class="icon-heart"></i> ได้รับ <em>{{ workshop.stats_feedbacks }}</em> คำนิยม</span>{% endif %}
+    </div>
+    <div class="next">
+        {% get_available_upcoming_schedule workshop as upcoming_schedule %}
+        <div class="schedule"><i class="icon-bullhorn"></i> คลาสถัดไป {{ upcoming_schedule|schedule_datetime }}</div>
+        <div class="available">เหลือที่นั่งว่างอีก {{ upcoming_schedule.seats_left }} ที่นั่ง</div>
+    </div>
+</div>

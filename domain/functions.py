@@ -4,7 +4,9 @@ from django.utils.timezone import now
 from common.errors import CourseEnrollmentException
 from common.l10n.th import PROVINCE_MAP
 from common.utilities import extract_request_object
-from domain.models import CourseActivity, CourseSchool, Place, EditingCourse, CoursePicture, CourseSchedule
+
+from domain.models import WorkshopActivity, WorkshopTopic, Place, WorkshopPicture, Workshop
+from reservation.models import Schedule
 
 
 # COURSE BROWSE ########################################################################################################
@@ -13,24 +15,24 @@ def get_popular_courses():
     pass
 
 
-def get_upcoming_courses():
+def get_upcoming_workshops():
     rightnow = now()
 
-    upcoming_schedules = CourseSchedule.objects.filter(
-        course__status='PUBLISHED',
-        status='OPENING',
+    upcoming_schedules = Schedule.objects.filter(
+        workshop__status=Workshop.STATUS_PUBLISHED,
+        status=Schedule.STATUS_OPEN,
         start_datetime__gt=rightnow
     ).order_by('start_datetime')
 
-    upcoming_courses = []
+    upcoming_workshops = []
     for schedule in upcoming_schedules:
-        if schedule.course not in upcoming_courses:
-            upcoming_courses.append(schedule.course)
+        if schedule.workshop not in upcoming_workshops:
+            upcoming_workshops.append(schedule.workshop)
 
-        if len(upcoming_courses) > settings.DISPLAY_HOMEPAGE_COURSES:
+        if len(upcoming_workshops) > settings.DISPLAY_HOMEPAGE_WORKSHOPS:
             break
 
-    return upcoming_courses
+    return upcoming_workshops
 
 
 # COURSE DASHBOARD #####################################################################################################
@@ -41,7 +43,7 @@ def is_course_outline_completed(course):
     if not course.title:
         is_completed = False
 
-    if not CourseActivity.objects.filter(course=course).exists():
+    if not WorkshopActivity.objects.filter(course=course).exists():
         is_completed = False
 
     if not course.description:
@@ -50,7 +52,7 @@ def is_course_outline_completed(course):
     if not course.cover:
         is_completed = False
 
-    if not CoursePicture.objects.filter(course=course).exists():
+    if not WorkshopPicture.objects.filter(course=course).exists():
         is_completed = False
 
     if not course.schools.exists():
@@ -86,7 +88,7 @@ def save_course(course, request_data):
         course.title = request_data['title'].strip(' \t\n\r')
 
     if 'activity[]' in request_data:
-        CourseActivity.objects.filter(course=course).delete()
+        WorkshopActivity.objects.filter(course=course).delete()
 
         bulk = []
         ordering = 1
@@ -95,14 +97,14 @@ def save_course(course, request_data):
             if not activity:
                 continue
 
-            bulk.append(CourseActivity(
+            bulk.append(WorkshopActivity(
                 course=course,
                 title=activity,
                 ordering=ordering,
             ))
             ordering += 1
 
-        CourseActivity.objects.bulk_create(bulk)
+        WorkshopActivity.objects.bulk_create(bulk)
 
     if 'story' in request_data:
         course.description = request_data['story'].strip(' \t\n\r')
@@ -113,8 +115,8 @@ def save_course(course, request_data):
             media_uid = picture_descriptions[picture_key]['uid']
 
             try:
-                picture = CoursePicture.objects.get(course=course, uid=media_uid)
-            except CoursePicture.DoesNotExist:
+                picture = WorkshopPicture.objects.get(course=course, uid=media_uid)
+            except WorkshopPicture.DoesNotExist:
                 pass
             else:
                 picture.description = picture_descriptions[picture_key]['description']
@@ -124,8 +126,8 @@ def save_course(course, request_data):
         ordering = 1
         for picture_uid in request_data['picture_ordering'].split(','):
             try:
-                picture = CoursePicture.objects.get(course=course, uid=picture_uid)
-            except CoursePicture.DoesNotExist:
+                picture = WorkshopPicture.objects.get(course=course, uid=picture_uid)
+            except WorkshopPicture.DoesNotExist:
                 pass
             else:
                 picture.ordering = ordering
@@ -134,8 +136,8 @@ def save_course(course, request_data):
 
     if 'school' in request_data:
         try:
-            school = CourseSchool.objects.get(slug=request_data['school'])
-        except CourseSchool.DoesNotExist:
+            school = WorkshopTopic.objects.get(slug=request_data['school'])
+        except WorkshopTopic.DoesNotExist:
             errors['school'] = 'not-found'
         else:
             course.schools.clear()
@@ -214,27 +216,13 @@ def save_course(course, request_data):
 
             place.save()
 
-    # Save editing course
-
-    try:
-        editing_course = EditingCourse.objects.get(course=course)
-    except EditingCourse.DoesNotExist:
-        pass
-    else:
-        if editing_course.cover:
-            if course.cover:
-                course.cover.delete()
-            course.cover = editing_course.cover
-
-        editing_course.delete()
-
     # Save editing pictures
 
-    for picture in CoursePicture.objects.filter(course=course, mark_deleted=True):
+    for picture in WorkshopPicture.objects.filter(course=course, mark_deleted=True):
         picture.image.delete()
         picture.delete()
 
-    for picture in CoursePicture.objects.filter(course=course, mark_added=True):
+    for picture in WorkshopPicture.objects.filter(course=course, mark_added=True):
         picture.mark_added = False
         picture.is_visible = True
         picture.save()

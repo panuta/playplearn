@@ -1,5 +1,5 @@
 
-Course Schedule
+Workshop Schedule
 ==========
 
 PENDING
@@ -15,7 +15,7 @@ CANCELLED
  * When teacher cancelled schedule
  * When admin cancelled schedule
 
-Course Enrollment
+Workshop Enrollment
 ==========
 
 PENDING
