@@ -12,7 +12,7 @@ from account.forms import EmailAuthenticationForm
 from account.functions import ajax_login_email_user, ajax_register_email_user
 
 from common import errors
-from common.errors import CourseEnrollmentException, ACCOUNT_REGISTRATION_ERRORS, UserRegistrationException
+from common.errors import WorkshopEnrollmentException, ACCOUNT_REGISTRATION_ERRORS, UserRegistrationException
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
 from workshop import functions as domain_functions
@@ -49,40 +49,40 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
     })
 
 
-def view_courses_browse(request, browse_by):
+def view_workshops_browse(request, browse_by):
     if not browse_by:
         browse_by = 'upcoming'
 
     if browse_by == 'upcoming':
-        courses = domain_functions.get_upcoming_workshops()
+        workshops = domain_functions.get_upcoming_workshops()
         browse_title = _('Upcoming')
     else:
         raise Http404
 
-    return render(request, 'workshop/course_browse.html', {
-        'courses': courses,
+    return render(request, 'workshop/workshop_browse.html', {
+        'workshops': workshops,
         'browse_by': browse_by,
         'browse_title': browse_title,
     })
 
 
-def view_courses_browse_by_topic(request, topic_slug):
+def view_workshops_browse_by_topic(request, topic_slug):
     school = get_object_or_404(WorkshopTopic, slug=topic_slug)
-    courses = Workshop.objects.filter(status='PUBLISHED', schools__in=(school, ))
+    workshops = Workshop.objects.filter(status='PUBLISHED', schools__in=(school, ))
 
-    return render(request, 'workshop/course_browse.html', {
-        'courses': courses,
+    return render(request, 'workshop/workshop_browse.html', {
+        'workshops': workshops,
         'browse_by': 'topic',
         'browse_title': '%s workshops' % school.name,
         'topic_slug': topic_slug,
     })
 
 
-def view_course_teach(request):
-    return render(request, 'workshop/course_teach.html', {})
+def view_workshop_teach(request):
+    return render(request, 'workshop/workshop_teach.html', {})
 
 
-def search_course_topics(request):
+def search_workshop_topics(request):
     pass
 
 
@@ -92,29 +92,29 @@ def enroll_workshop(request):
     people = request.POST.get('people')
 
     try:
-        schedule = CourseSchedule.objects.get(pk=schedule_id)
-    except CourseSchedule.DoesNotExist:
+        schedule = WorkshopSchedule.objects.get(pk=schedule_id)
+    except WorkshopSchedule.DoesNotExist:
         return response_json_error('schedule-notfound')
 
     try:
         domain_functions.check_if_schedule_enrollable(schedule)
-    except CourseEnrollmentException, e:
-        return response_json_error_with_message(e.exception_code, errors.COURSE_ENROLLMENT_ERRORS)
+    except WorkshopEnrollmentException, e:
+        return response_json_error_with_message(e.exception_code, errors.WORKSHOP_ENROLLMENT_ERRORS)
 
     try:
         people = int(people)
         if people <= 0:
             raise ValueError
     except ValueError:
-        return response_json_error_with_message('people-invalid', errors.COURSE_ENROLLMENT_ERRORS)
+        return response_json_error_with_message('people-invalid', errors.WORKSHOP_ENROLLMENT_ERRORS)
 
     if request.user.is_authenticated():
-        enrollment = CourseEnrollment.objects.create(
+        enrollment = WorkshopEnrollment.objects.create(
             student=request.user,
             schedule=schedule,
-            price=schedule.course.price,
+            price=schedule.workshop.price,
             people=people,
-            total=schedule.course.price,
+            total=schedule.workshop.price,
             status='PENDING',
             payment_status='WAIT_FOR_PAYMENT',
         )
@@ -139,14 +139,14 @@ def login_to_enroll_workshop(request, backend):
     schedule_id = request.POST.get('schedule_id')
 
     try:
-        schedule = CourseSchedule.objects.get(pk=schedule_id)
-    except CourseSchedule.DoesNotExist:
+        schedule = WorkshopSchedule.objects.get(pk=schedule_id)
+    except WorkshopSchedule.DoesNotExist:
         return response_json_error('schedule-notfound')
 
     try:
         domain_functions.check_if_schedule_enrollable(schedule)
-    except CourseEnrollmentException, e:
-        return response_json_error_with_message(e.exception_code, errors.COURSE_ENROLLMENT_ERRORS)
+    except WorkshopEnrollmentException, e:
+        return response_json_error_with_message(e.exception_code, errors.WORKSHOP_ENROLLMENT_ERRORS)
 
     if backend == 'email_login':
         from django.contrib.auth.views import login
@@ -160,18 +160,18 @@ def login_to_enroll_workshop(request, backend):
         except UserRegistrationException, e:
             return response_json_error_with_message(e.exception_code, ACCOUNT_REGISTRATION_ERRORS)
 
-        enrollment = CourseEnrollment.objects.create(
+        enrollment = WorkshopEnrollment.objects.create(
             student=request.user,
             schedule=schedule,
-            price=schedule.course.price,
-            total=schedule.course.price,
+            price=schedule.workshop.price,
+            total=schedule.workshop.price,
             status='PENDING',
             payment_status='WAIT_FOR_PAYMENT',
         )
 
         return response_json_success({
             'enrollment_code': enrollment.code,
-            'redirect_url': reverse('view_course_outline_with_payment', args=[schedule.course.uid, enrollment.code])
+            'redirect_url': reverse('view_workshop_outline_with_payment', args=[schedule.workshop.uid, enrollment.code])
         })
 
     elif backend == 'email_signup':
@@ -182,11 +182,11 @@ def login_to_enroll_workshop(request, backend):
         except UserRegistrationException, e:
             return response_json_error_with_message(e.exception_code, ACCOUNT_REGISTRATION_ERRORS)
 
-        unauthenticated_enrollment = UnauthenticatedCourseEnrollment.objects.create(
+        unauthenticated_enrollment = UnauthenticatedWorkshopEnrollment.objects.create(
             key=registration.registration_key,
             schedule=schedule,
-            price=schedule.course.price,
-            total=schedule.course.price,
+            price=schedule.workshop.price,
+            total=schedule.workshop.price,
         )
 
         return response_json_success()

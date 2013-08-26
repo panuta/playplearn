@@ -18,44 +18,44 @@ urlpatterns += patterns(
     url(r'^ajax/activity/enroll/$', 'enroll_workshop', name='enroll_workshop'),
     url(r'^ajax/activity/enroll/login/(?P<backend>[^/]+)/$', 'login_to_enroll_workshop', name='login_to_enroll_workshop'),
 
-    url(r'^activities/$', 'view_courses_browse', {'browse_by': ''}, name='view_courses_browse'),
-    url(r'^activities/topic/(?P<topic_slug>\w+)/$', 'view_courses_browse_by_topic', name='view_courses_browse_by_topic'),
-    url(r'^activities/(?P<browse_by>\w+)/$', 'view_courses_browse', name='view_courses_browse_by_category'),
+    url(r'^activities/$', 'view_workshops_browse', {'browse_by': ''}, name='view_workshops_browse'),
+    url(r'^activities/topic/(?P<topic_slug>\w+)/$', 'view_workshops_browse_by_topic', name='view_workshops_browse_by_topic'),
+    url(r'^activities/(?P<browse_by>\w+)/$', 'view_workshops_browse', name='view_workshops_browse_by_category'),
 
-    url(r'^teach/$', 'view_course_teach', name='view_course_teach'),
+    url(r'^teach/$', 'view_workshop_teach', name='view_workshop_teach'),
 
-    url(r'^ajax/course/topics/search/$', 'search_course_topics', name='search_course_topics'),
+    url(r'^ajax/workshop/topics/search/$', 'search_workshop_topics', name='search_workshop_topics'),
 )
 
 """
 urlpatterns += patterns(
     'presentation.views.classroom_views',
 
-    url(r'^classroom/(?P<course_uid>\w+)/$', 'view_classroom_home', name='view_classroom_home'),
-    url(r'^classroom/(?P<course_uid>\w+)/conversation/$', 'view_classroom_conversation', name='view_classroom_conversation'),
-    url(r'^classroom/(?P<course_uid>\w+)/qa/$', 'view_classroom_qa', name='view_classroom_qa'),
-    url(r'^classroom/(?P<course_uid>\w+)/announcement/$', 'view_classroom_announcement', name='view_classroom_announcement'),
+    url(r'^classroom/(?P<workshop_uid>\w+)/$', 'view_classroom_home', name='view_classroom_home'),
+    url(r'^classroom/(?P<workshop_uid>\w+)/conversation/$', 'view_classroom_conversation', name='view_classroom_conversation'),
+    url(r'^classroom/(?P<workshop_uid>\w+)/qa/$', 'view_classroom_qa', name='view_classroom_qa'),
+    url(r'^classroom/(?P<workshop_uid>\w+)/announcement/$', 'view_classroom_announcement', name='view_classroom_announcement'),
 )
 """
 
 urlpatterns += patterns(
     'presentation.views.dashboard_views',
-    url(r'^my/activities/payment/$', 'view_my_courses_payment', name='view_my_courses_payment'),
-    url(r'^my/activities/upcoming/$', 'view_my_courses_upcoming', name='view_my_courses_upcoming'),
-    url(r'^my/activities/attended/$', 'view_my_courses_attended', name='view_my_courses_attended'),
-    url(r'^my/activities/attended/(?P<school_slug>\w+)/$', 'view_my_courses_attended_in_school', name='view_my_courses_attended_in_school'),
-    url(r'^my/workshops/organizing/$', 'view_my_courses_teaching', name='view_all_my_courses_teaching'),
+    url(r'^my/activities/payment/$', 'view_my_workshops_payment', name='view_my_workshops_payment'),
+    url(r'^my/activities/upcoming/$', 'view_my_workshops_upcoming', name='view_my_workshops_upcoming'),
+    url(r'^my/activities/attended/$', 'view_my_workshops_attended', name='view_my_workshops_attended'),
+    url(r'^my/activities/attended/(?P<school_slug>\w+)/$', 'view_my_workshops_attended_in_school', name='view_my_workshops_attended_in_school'),
+    url(r'^my/workshops/organizing/$', 'view_my_workshops_teaching', name='view_all_my_workshops_teaching'),
 
-    url(r'^my/activities/new/$', 'create_course', name='create_course'),
+    url(r'^my/activities/new/$', 'create_workshop', name='create_workshop'),
     url(r'^workshop/(?P<workshop_uid>\w+)/edit/$', 'edit_workshop', name='edit_workshop'),
-    url(r'^workshop/(?P<course_uid>\w+)/revert/$', 'revert_approving_course', name='revert_approving_course'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/revert/$', 'revert_approving_workshop', name='revert_approving_workshop'),
 
-    url(r'^workshop/(?P<course_uid>\w+)/manage/overview/$', 'manage_workshop_overview', name='manage_workshop_overview'),
-    url(r'^activity/(?P<course_uid>\w+)/manage/class/$', 'manage_course_class', {'datetime_string': ''}, name='manage_course_latest_class'),
-    url(r'^activity/(?P<course_uid>\w+)/manage/class/(?P<datetime_string>\w+)/$', 'manage_course_class', name='manage_course_class'),
-    url(r'^activity/(?P<course_uid>\w+)/manage/feedback/$', 'manage_course_feedback', {'category': 'all'}, name='manage_course_all_feedback'),
-    url(r'^activity/(?P<course_uid>\w+)/manage/feedback/(?P<category>\w+)/$', 'manage_course_feedback', name='manage_course_feedback'),
-    url(r'^activity/(?P<course_uid>\w+)/manage/promote/$', 'manage_course_promote', name='manage_course_promote'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/manage/overview/$', 'manage_workshop_overview', name='manage_workshop_overview'),
+    url(r'^activity/(?P<workshop_uid>\w+)/manage/class/$', 'manage_workshop_class', {'datetime_string': ''}, name='manage_workshop_latest_class'),
+    url(r'^activity/(?P<workshop_uid>\w+)/manage/class/(?P<datetime_string>\w+)/$', 'manage_workshop_class', name='manage_workshop_class'),
+    url(r'^activity/(?P<workshop_uid>\w+)/manage/feedback/$', 'manage_workshop_feedback', {'category': 'all'}, name='manage_workshop_all_feedback'),
+    url(r'^activity/(?P<workshop_uid>\w+)/manage/feedback/(?P<category>\w+)/$', 'manage_workshop_feedback', name='manage_workshop_feedback'),
+    url(r'^activity/(?P<workshop_uid>\w+)/manage/promote/$', 'manage_workshop_promote', name='manage_workshop_promote'),
 
     url(r'^enrollment/(?P<enrollment_code>\d+)/$', 'view_enrollment_details', {'with_payment': False}, name='view_enrollment_details'),
     url(r'^enrollment/(?P<enrollment_code>\d+)/payment/$', 'view_enrollment_details', {'with_payment': True}, name='view_enrollment_details_with_payment'),
@@ -64,21 +64,21 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'presentation.views.dashboard_ajax_views',
 
-    url(r'^ajax/course/save/$', 'ajax_save_course', name='ajax_save_course'),
-    url(r'^ajax/course/cover/upload/$', 'ajax_upload_course_cover', name='ajax_upload_course_cover'),
-    url(r'^ajax/course/picture/upload/$', 'ajax_upload_course_picture', name='ajax_upload_course_picture'),
-    url(r'^ajax/course/picture/delete/$', 'ajax_delete_course_picture', name='ajax_delete_course_picture'),
-    url(r'^ajax/course/place/get/$', 'ajax_get_course_place', name='ajax_get_course_place'),
+    url(r'^ajax/workshop/save/$', 'ajax_save_workshop', name='ajax_save_workshop'),
+    url(r'^ajax/workshop/cover/upload/$', 'ajax_upload_workshop_cover', name='ajax_upload_workshop_cover'),
+    url(r'^ajax/workshop/picture/upload/$', 'ajax_upload_workshop_picture', name='ajax_upload_workshop_picture'),
+    url(r'^ajax/workshop/picture/delete/$', 'ajax_delete_workshop_picture', name='ajax_delete_workshop_picture'),
+    url(r'^ajax/workshop/place/get/$', 'ajax_get_workshop_place', name='ajax_get_workshop_place'),
 
-    url(r'^ajax/course/publish/$', 'ajax_publish_course', name='ajax_publish_course'),
+    url(r'^ajax/workshop/publish/$', 'ajax_publish_workshop', name='ajax_publish_workshop'),
 
-    url(r'^ajax/course/schedule/add/$', 'ajax_add_course_schedule', name='ajax_add_course_schedule'),
+    url(r'^ajax/workshop/schedule/add/$', 'ajax_add_workshop_schedule', name='ajax_add_workshop_schedule'),
 
-    url(r'^ajax/course/feedback/view/$', 'ajax_view_course_feedback', name='ajax_view_course_feedback'),
-    url(r'^ajax/course/feedback/add/$', 'ajax_add_course_feedback', name='ajax_add_course_feedback'),
-    url(r'^ajax/course/feedback/delete/$', 'ajax_delete_course_feedback', name='ajax_delete_course_feedback'),
-    url(r'^ajax/course/feedback/set_public/$', 'ajax_set_course_feedback_public', name='ajax_set_course_feedback_public'),
-    url(r'^ajax/course/feedback/set_promoted/$', 'ajax_set_course_feedback_promoted', name='ajax_set_course_feedback_promoted'),
+    url(r'^ajax/workshop/feedback/view/$', 'ajax_view_workshop_feedback', name='ajax_view_workshop_feedback'),
+    url(r'^ajax/workshop/feedback/add/$', 'ajax_add_workshop_feedback', name='ajax_add_workshop_feedback'),
+    url(r'^ajax/workshop/feedback/delete/$', 'ajax_delete_workshop_feedback', name='ajax_delete_workshop_feedback'),
+    url(r'^ajax/workshop/feedback/set_public/$', 'ajax_set_workshop_feedback_public', name='ajax_set_workshop_feedback_public'),
+    url(r'^ajax/workshop/feedback/set_promoted/$', 'ajax_set_workshop_feedback_promoted', name='ajax_set_workshop_feedback_promoted'),
 
     url(r'^ajax/enrollment/details/$', 'ajax_view_enrollment_details', name='ajax_view_enrollment_details'),
     url(r'^ajax/enrollment/payment/notify/$', 'ajax_notify_enrollment_payment', name='ajax_notify_enrollment_payment'),

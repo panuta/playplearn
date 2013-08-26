@@ -1,20 +1,20 @@
 {% extends 'base_backend.html' %}
 {% load i18n common_tags presentation_tags thumbnail %}
 
-{% block body_class %}{{ block.super }} page-course-modify{% endblock %}
+{% block body_class %}{{ block.super }} page-workshop-modify{% endblock %}
 
 {% block scripts %}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
 <script>
 
 (function() {
-    var course_uid = '{% if not course %}{{ course_uid }}{% else %}{{ course.uid }}{% endif %}';
-    var enable_autosave = {% if course.status == 'PUBLISHED' %}false{% else %}true{% endif %};
-    var page_type = {% if not course %}'create'{% else %}'edit'{% endif %};
+    var workshop_uid = '{% if not workshop %}{{ workshop_uid }}{% else %}{{ workshop.uid }}{% endif %}';
+    var enable_autosave = {% if workshop.status == 'PUBLISHED' %}false{% else %}true{% endif %};
+    var page_type = {% if not workshop %}'create'{% else %}'edit'{% endif %};
 
-    initCourseModifyPage(course_uid, enable_autosave, page_type);
+    initWorkshopModifyPage(workshop_uid, enable_autosave, page_type);
 
-    {% if not course %}
+    {% if not workshop %}
     $('#id_title').focus().select();
     {% endif %}
 
@@ -44,17 +44,17 @@
 {% endblock %}
 
 {% block backend_header %}
-    <div class="parent"><a href="{% url 'view_all_my_courses_teaching' %}">← จัดเวิร์คช็อป</a></div>
-    <h1>{% if not course %}{% trans 'Organize new activity' %}{% else %}แก้ไขข้อมูลเวิร์คช็อป <span class="title">- {{ course.title|default:'(No title)' }}</span>{% endif %}</h1>
+    <div class="parent"><a href="{% url 'view_all_my_workshops_teaching' %}">← จัดเวิร์คช็อป</a></div>
+    <h1>{% if not workshop %}{% trans 'Organize new activity' %}{% else %}แก้ไขข้อมูลเวิร์คช็อป <span class="title">- {{ workshop.title|default:'(No title)' }}</span>{% endif %}</h1>
 {% endblock %}
 
 {% block backend_container %}
 <div class="container">
-    {% if course and course.status == 'WAIT_FOR_APPROVAL' %}
+    {% if workshop and workshop.status == 'WAIT_FOR_APPROVAL' %}
     <div class="approving-message">
         <p class="head1">ทีมงานของ PlayPlearn กำลังตรวจสอบเพื่อรับรองเวิร์คช็อปนี้</p>
         <p>ขั้นตอนนี้จะใช้เวลาไม่เกิน 2 วันโดยปกติ ในระหว่างที่มีการตรวจสอบนั้นจะไม่อนุญาติให้มีการแก้ไขข้อมูลใดๆ หากผู้ใช้ต้องการที่จะแก้ไขข้อมูล กรุณากดยกเลิกการตรวจสอบด้านล่างนี้</p>
-        <form method="post" action="{% url 'revert_approving_course' course.uid %}">
+        <form method="post" action="{% url 'revert_approving_workshop' workshop.uid %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-small">ยกเลิกการตรวจสอบ (กลับไปอยู่ในสถานะฉบับร่าง)</button>
         </form>
@@ -65,17 +65,17 @@
         <!-- Title -->
         <div class="form-group title-control">
             <label for="id_title">ชื่อเวิร์คช็อป</label>
-            <input type="text" id="id_title" class="form-control" placeholder="Title" value="{{ course.title }}"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
+            <input type="text" id="id_title" class="form-control" placeholder="Title" value="{{ workshop.title }}"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
             <p class="help-block">ชื่อที่ดีควรตั้งให้สั้น น่าสนใจ และสื่อสารสิ่งที่ต้องการ</p>
         </div>
 
         <!-- Activities -->
         <div class="form-group activities-control">
             <label>กิจกรรมในเวิร์คช็อป</label>
-            {% if course.status != 'WAIT_FOR_APPROVAL' %}
+            {% if workshop.status != 'WAIT_FOR_APPROVAL' %}
                 <div class="controls">
                     <ul id="control_activity_list">
-                        {% for activity in course.activities.all %}
+                        {% for activity in workshop.activities.all %}
                             <li class="activity"><i class="icon-remove"></i><i class="icon-reorder"></i><input type="text" value="{{ activity.title }}"/></li>
                         {% endfor %}
                         <li class="add"><i class="icon-plus"></i><a href="#" id="control_add_activity">เพิ่มกิจกรรม</a></li>
@@ -84,7 +84,7 @@
             {% else %}
                 <div class="displays">
                     <ul>
-                        {% for activity in course.activities.all %}<li>{{ activity.title }}</li>{% endfor %}
+                        {% for activity in workshop.activities.all %}<li>{{ activity.title }}</li>{% endfor %}
                     </ul>
                 </div>
             {% endif %}
@@ -94,13 +94,13 @@
         <div class="form-group story-control">
             <label for="id_story">เรื่องราว</label>
             <div class="sublabel">สิ่งที่ถ่ายทอด, แรงบันดาลใจ, ตัวตนของคุณ ฯลฯ</div>
-            {% if course.status != 'WAIT_FOR_APPROVAL' %}
+            {% if workshop.status != 'WAIT_FOR_APPROVAL' %}
             <div class="controls">
-                <textarea id="id_story"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>{{ course.description }}</textarea>
+                <textarea id="id_story"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>{{ workshop.description }}</textarea>
             </div>
             {% else %}
-            <div class="displays style-course-story">
-                {{ course.description|safe }}
+            <div class="displays style-workshop-story">
+                {{ workshop.description|safe }}
             </div>
             {% endif %}
         </div>
@@ -109,18 +109,18 @@
 
         <!-- Pictures -->
         <div class="form-group pictures-control">
-            {% if course.status != 'WAIT_FOR_APPROVAL' %}
+            {% if workshop.status != 'WAIT_FOR_APPROVAL' %}
                 <div class="controls">
                     <div class="input">
                         <label for="id_pictures">อัพโหลดรูป</label>
                         <input id="id_pictures" type="file" name="pictures[]" multiple>
-                        <input type="hidden" id="id_pictures_ordering" value="{% if course %}{% course_picture_ordering_as_comma_separated course %}{% endif %}" />
+                        <input type="hidden" id="id_pictures_ordering" value="{% if workshop %}{% workshop_pictures_ordering_as_comma_separated workshop %}{% endif %}" />
                     </div>
 
                     <ul class="pictures clearfix" id="upload-pictures">
-                        {% for picture in course_pictures %}
+                        {% for picture in workshop_pictures %}
                             <li class="picture" picture-uid="{{ picture.uid }}">
-                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}"><a title="Delete picture" class="delete" href="#"><i class="icon-remove icon-white"></i></a>
+                                <img src="{{ picture.image|thumbnail_url:'workshop_picture_small' }}"><a title="Delete picture" class="delete" href="#"><i class="icon-remove icon-white"></i></a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -130,9 +130,9 @@
             {% else %}
                 <div class="displays">
                     <ul class="pictures clearfix">
-                        {% for picture in course_pictures %}
+                        {% for picture in workshop_pictures %}
                             <li class="picture" picture-uid="{{ picture.uid }}">
-                                <img src="{{ picture.image|thumbnail_url:'course_picture_small' }}">
+                                <img src="{{ picture.image|thumbnail_url:'workshop_picture_small' }}">
                             </li>
                         {% endfor %}
                     </ul>
@@ -147,7 +147,7 @@
             <div class="form-group tuition-control">
                 <label for="id_price">ค่าใช้จ่าย</label>
                 <div class="number-control">
-                    <input type="number" id="id_price" class="form-control" value="{{ course.price|floatformat:0 }}"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
+                    <input type="number" id="id_price" class="form-control" value="{{ workshop.price|floatformat:0 }}"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
                     <span class="unit">บาท</span>
                 </div>
             </div>
@@ -156,7 +156,7 @@
             <div class="form-group duration-control">
                 <label for="id_duration">ระยะเวลา</label>
                 <div class="number-control">
-                    <input type="number" id="id_duration" class="form-control" value="{{ course.duration|default:'' }}"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
+                    <input type="number" id="id_duration" class="form-control" value="{{ workshop.duration|default:'' }}"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
                     <span class="unit">ชั่วโมง</span>
                 </div>
             </div>
@@ -165,7 +165,7 @@
             <div class="form-group capacity-control">
                 <label for="id_capacity">จำกัดจำนวนคน</label>
                 <div class="number-control">
-                    <input type="number" id="id_capacity" class="form-control" value="{{ course.maximum_people|default:'' }}"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
+                    <input type="number" id="id_capacity" class="form-control" value="{{ workshop.maximum_people|default:'' }}"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
                     <span class="unit">คน</span>
                 </div>
             </div>
@@ -175,9 +175,9 @@
         <div class="form-group topic-control">
             <label for="id_school">หัวข้อเวิร์คช็อป</label>
             <div>
-                <select id="id_school" class="form-control"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
+                <select id="id_school" class="form-control"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
                     <option></option>
-                    {% course_school_as_option course %}
+                    {% workshop_topic_as_option workshop %}
                 </select>
             </div>
         </div>
@@ -189,31 +189,31 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="form-group place-control">
-                        <label class="place-label"><input type="radio" name="place-type" value="system-place" {% if course and course.place and not course.place.is_userdefined %}checked="checked"{% endif %}{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/> สถานที่ยอดนิยม</label>
-                        <select class="form-control" id="id_place_system"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
+                        <label class="place-label"><input type="radio" name="place-type" value="system-place" {% if workshop and workshop.place and not workshop.place.is_userdefined %}checked="checked"{% endif %}{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/> สถานที่ยอดนิยม</label>
+                        <select class="form-control" id="id_place_system"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
                             <option></option>
-                            {% course_place_as_option 'system' user course %}
+                            {% workshop_place_as_option 'system' user workshop %}
                         </select>
                         <div class="place-note"><i class="icon-info-sign"></i> เราแนะนำให้ผู้ใช้ติดต่อกับสถานที่เพื่อยืนยันเวลาที่ต้องการจัดหลังจากที่ PlayPlearn ได้รับรองให้เวิร์คช็อปนี้เผยแพร่ได้แล้ว</div>
                     </div>
                 </div>
                 <div class="col-lg-8">
                     <div class="form-group place-control">
-                        <label class="place-label"><input type="radio" name="place-type" value="userdefined-place" {% if course and course.place and course.place.is_userdefined %}checked="checked"{% endif %}{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/> สถานที่กำหนดเอง</label>
+                        <label class="place-label"><input type="radio" name="place-type" value="userdefined-place" {% if workshop and workshop.place and workshop.place.is_userdefined %}checked="checked"{% endif %}{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/> สถานที่กำหนดเอง</label>
 
                         {% has_user_defined_place user as has_user_defined_place %}
-                        {% get_user_defined_place user course as user_defined_place %}
+                        {% get_user_defined_place user workshop as user_defined_place %}
 
-                        {% if course or has_user_defined_place %}
+                        {% if workshop or has_user_defined_place %}
                             <div class="form-group">
                                 {% if has_user_defined_place %}
-                                    <select class="form-control" id="id_place_userdefined"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
+                                    <select class="form-control" id="id_place_userdefined"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
                                         <option></option>
-                                        {% course_place_as_option 'userdefined' user course %}
+                                        {% workshop_place_as_option 'userdefined' user workshop %}
                                     </select>
                                     <span class="or">หรือ</span>
                                 {% endif %}
-                                {% if course or has_user_defined_place %}<a href="#" class="style-outline-button button-new-location{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled{% endif %}">กรอกสถานที่ใหม่</a>{% endif %}
+                                {% if workshop or has_user_defined_place %}<a href="#" class="style-outline-button button-new-location{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled{% endif %}">กรอกสถานที่ใหม่</a>{% endif %}
                             </div>
                         {% endif %}
 
@@ -224,16 +224,16 @@
                             <input type="hidden" id="id_place_id" value="{% if user_defined_place.pk %}{{ user_defined_place.pk }}{% else %}new{% endif %}" />
                             <div class="form-group">
                                 <label for="id_place_name">ชื่อสถานที่</label>
-                                <input type="text" class="form-control" id="id_place_name" value="{{ user_defined_place.name }}"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
+                                <input type="text" class="form-control" id="id_place_name" value="{{ user_defined_place.name }}"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="id_place_address">ที่อยู่</label>
-                                    <textarea class="form-control" id="id_place_address"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>{{ user_defined_place.address }}</textarea>
+                                    <textarea class="form-control" id="id_place_address"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>{{ user_defined_place.address }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="id_place_province">จังหวัด</label>
-                                    <select class="form-control" id="id_place_province"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
+                                    <select class="form-control" id="id_place_province"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>
                                         <option></option>
                                         {% province_options user_defined_place.province_code %}
                                     </select>
@@ -243,20 +243,20 @@
                                 <div class="form-group">
                                     <label for="id_place_direction">วิธีการเดินทาง</label>
                                     <div>
-                                        <textarea class="form-control" id="id_place_direction"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>{{ user_defined_place.direction }}</textarea>
+                                        <textarea class="form-control" id="id_place_direction"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}>{{ user_defined_place.direction }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group place-location-control">
                                     <label>ตำแหน่งบนแผนที่</label>
                                     <div>
-                                        <input class="form-control" type="hidden" id="id_place_location" value="{{ user_defined_place.latlng }}"{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
+                                        <input class="form-control" type="hidden" id="id_place_location" value="{{ user_defined_place.latlng }}"{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled="disabled"{% endif %}/>
                                         {% if user_defined_place.latlng %}
                                             <div class="minimap"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ user_defined_place.latlng }}&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C{{ user_defined_place.latlng }}&sensor=false" /></div>
                                         {% else %}
                                             <div class="minimap hide"></div>
                                         {% endif %}
                                         <div class="actions">
-                                            <a href="#modal-place-map" class="style-outline-button button-input-latlng{% if course.status == 'WAIT_FOR_APPROVAL' %} disabled{% endif %}"{% if course.status != 'WAIT_FOR_APPROVAL' %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
+                                            <a href="#modal-place-map" class="style-outline-button button-input-latlng{% if workshop.status == 'WAIT_FOR_APPROVAL' %} disabled{% endif %}"{% if workshop.status != 'WAIT_FOR_APPROVAL' %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
                                         </div>
                                     </div>
                                 </div>
@@ -267,12 +267,12 @@
             </div>
         </div>
 
-        {% if course.status != 'WAIT_FOR_APPROVAL' %}
+        {% if workshop.status != 'WAIT_FOR_APPROVAL' %}
         <div id="form-footer-container">
             <div class="form-footer form-footer-floating">
                 <div class="container">
-                    {% if course.status == 'READY_TO_PUBLISH' or course.status == 'PUBLISHED' %}
-                        <button class="style-primary-button button-submit button-save-changes{% if not editing_course.is_dirty %} disabled{% endif %}" type="button">บันทึกการเปลี่ยนแปลง</button>
+                    {% if workshop.status == 'READY_TO_PUBLISH' or workshop.status == 'PUBLISHED' %}
+                        <button class="style-primary-button button-submit button-save-changes{% if not editing_workshop.is_dirty %} disabled{% endif %}" type="button">บันทึกการเปลี่ยนแปลง</button>
                     {% else %}
                         <button class="style-primary-button button-submit button-submit-approval{% if not is_completed %} disabled{% endif %}" type="button">ส่งอนุมัติ</button>
                         <button class="style-button button-draft disabled" type="button">เก็บเป็นฉบับร่าง</button>
@@ -303,7 +303,7 @@
         </div>
     </div>
 
-    <div class="modal fade hide" id="modal-course-submitted">
+    <div class="modal fade hide" id="modal-workshop-submitted">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>ข้อมูลเวิร์คช็อปถูกส่งเรียบร้อย</h3>
@@ -312,7 +312,7 @@
             <p class="head1">ทีมงานของ PlayPlearn จะตรวจสอบข้อมูลเวิร์คช็อปของคุณซึ่งใช้เวลาโดยปกติไม่เกิน 2 วัน ทางเราจะแจ้งกลับไปเมื่อเราตรวจสอบข้อมูลเรียบร้อยแล้ว</p>
         </div>
         <div class="modal-footer">
-            <a href="{% url 'view_all_my_courses_teaching' %}" class="style-primary-button">กลับไปหน้าเวิร์คช็อปที่จัด</a>
+            <a href="{% url 'view_all_my_workshops_teaching' %}" class="style-primary-button">กลับไปหน้าเวิร์คช็อปที่จัด</a>
         </div>
     </div>
 </div>

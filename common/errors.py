@@ -7,7 +7,7 @@ class UserRegistrationException(Exception):
         self.exception_code = exception_code
 
 
-class CourseEnrollmentException(Exception):
+class WorkshopEnrollmentException(Exception):
     def __init__(self, exception_code, *args, **kwargs):
         Exception.__init__(self, *args, **kwargs)
         self.exception_code = exception_code
@@ -23,14 +23,14 @@ ACCOUNT_REGISTRATION_ERRORS = {
     'email-registered': u'อีเมลนี้ถูกใช้ลงทะเบียนแล้ว',
 }
 
-COURSE_MODIFICATION_ERRORS = {
+WORKSHOP_MODIFICATION_ERRORS = {
     'unauthorized': u'Unauthorized action',
-    'status-invalid': u'Course status is read only',
+    'status-invalid': u'Workshop status is read only',
     'edit-while-approving': u'Cannot make a modification while this workshop is approving',
-    'status-no-ready-to-submit': u'Course is still not ready to be submitted',
-    'status-no-ready-to-publish': u'Course is still not ready to be published',
+    'status-no-ready-to-submit': u'Workshop is still not ready to be submitted',
+    'status-no-ready-to-publish': u'Workshop is still not ready to be published',
     'input-invalid': u'Input is invalid',
-    'course-incomplete': u'Incomplete course details',
+    'workshop-incomplete': u'Incomplete workshop details',
     'picture-notfound': u'Picture file is no longer in the system',
     'file-type-invalid': u'File format is invalid',
     'file-number-exceeded': u'Too many files',
@@ -41,14 +41,14 @@ COURSE_MODIFICATION_ERRORS = {
     'schedule-future': u'Schedule is too long',
 }
 
-COURSE_FEEDBACK_ERRORS = {
+WORKSHOP_FEEDBACK_ERRORS = {
     'unauthorized': u'Unauthorized action',
     'existed': u'',
     'empty': u'',
 }
 
-COURSE_ENROLLMENT_ERRORS = {
-    'course-notpublished': u'',
+WORKSHOP_ENROLLMENT_ERRORS = {
+    'workshop-notpublished': u'',
     'schedule-notopening': u'',
     'schedule-full': u'',
     'people-invalid': u'',

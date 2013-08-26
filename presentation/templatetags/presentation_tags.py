@@ -7,9 +7,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import safe
 from django.utils.translation import ugettext as _
-from common.constants.course import COURSE_STATUS_MAP
+from common.constants.workshop import WORKSHOP_STATUS_MAP
 
-from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 
 from account.models import UserRegistration
@@ -23,20 +22,14 @@ def to_resend_registration(registering_email):
     return UserRegistration.objects.filter(email=registering_email).count()
 
 
-# COURSE ###############################################################################################################
+# WORKSHOP #############################################################################################################
 
 @register.simple_tag
-def course_full_price(course):
-    unit = CURRENCY_CODE_MAP[course.price_unit]
-    return '%s%d %s' % (unit['symbol'], course.price, unit['name'])
-
-
-@register.simple_tag
-def course_school_as_option(course):
+def workshop_topic_as_option(workshop):  # USED
     options = []
-    for school in WorkshopTopic.objects.all():
-        selected = ' selected="selected"' if course and school in course.schools.all() else ''
-        options.append('<option value="%s"%s data-desc="%s">%s</option>' %(school.slug, selected, school.description, school.name))
+    for topic in WorkshopTopic.objects.all():
+        selected = ' selected="selected"' if workshop and topic in workshop.topics.all() else ''
+        options.append('<option value="%s"%s data-desc="%s">%s</option>' %(topic.slug, selected, topic.description, topic.name))
 
     return ''.join(options)
 
@@ -81,7 +74,7 @@ def is_display_place_form(user, course):
 
 
 @register.simple_tag
-def course_place_as_option(place_type, teacher, course=None):
+def workshop_place_as_option(place_type, teacher, workshop=None):
     if place_type == 'system':
         places = Place.objects.filter(is_userdefined=False, is_visible=True)
     elif place_type == 'userdefined':
@@ -91,7 +84,7 @@ def course_place_as_option(place_type, teacher, course=None):
 
     options = []
     for place in places:
-        selected = ' selected="selected"' if course and course.place == place else ''
+        selected = ' selected="selected"' if workshop and workshop.place == place else ''
         place_name = place.name if place.name else '(No name)'
         options.append('<option value="%s"%s>%s</option>' %(place.id, selected, place_name))
 
@@ -108,8 +101,8 @@ def get_course_undefined_place(course):
 
 
 @register.simple_tag
-def course_picture_ordering_as_comma_separated(course):
-    return ','.join([picture.uid for picture in WorkshopPicture.objects.filter(course=course, mark_deleted=False)])
+def workshop_pictures_ordering_as_comma_separated(workshop):  # USED
+    return ','.join([picture.uid for picture in WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False)])
 
 
 @register.filter

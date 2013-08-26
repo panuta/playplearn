@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.timezone import now
 
-from common.errors import CourseEnrollmentException
+from common.errors import WorkshopEnrollmentException
 from common.l10n.th import PROVINCE_MAP
 from common.utilities import extract_request_object
 
@@ -9,9 +9,9 @@ from workshop.models import WorkshopActivity, WorkshopTopic, Place, WorkshopPict
 from reservation.models import Schedule
 
 
-# COURSE BROWSE ########################################################################################################
+# WORKSHOP BROWSE ######################################################################################################
 
-def get_popular_courses():
+def get_popular_workshops():
     pass
 
 
@@ -37,58 +37,55 @@ def get_upcoming_workshops():
 
 # WORKSHOP DASHBOARD ###################################################################################################
 
-def is_workshop_outline_completed(course):
+def is_workshop_outline_completed(workshop):
     is_completed = True
 
-    if not course.title:
+    if not workshop.title:
         is_completed = False
 
-    if not WorkshopActivity.objects.filter(course=course).exists():
+    if not WorkshopActivity.objects.filter(workshop=workshop).exists():
         is_completed = False
 
-    if not course.description:
+    if not workshop.description:
         is_completed = False
 
-    if not course.cover:
+    if not WorkshopPicture.objects.filter(workshop=workshop).exists():
         is_completed = False
 
-    if not WorkshopPicture.objects.filter(course=course).exists():
+    if not workshop.topics.exists():
         is_completed = False
 
-    if not course.schools.exists():
+    if not workshop.default_price:
         is_completed = False
 
-    if not course.price:
+    if not workshop.duration:
         is_completed = False
 
-    if not course.duration:
+    if not workshop.default_total_seats:
         is_completed = False
 
-    if not course.maximum_people:
+    if not workshop.place:
         is_completed = False
-
-    if not course.place:
-        is_completed = False
-    elif course.place.is_userdefined and (
-            not course.place.name or
-            not course.place.address or
-            not course.place.province_code or
-            not course.place.latlng or
-            not course.place.direction
+    elif workshop.place.is_userdefined and (
+            not workshop.place.name or
+            not workshop.place.address or
+            not workshop.place.province_code or
+            not workshop.place.latlng or
+            not workshop.place.direction
     ):
         is_completed = False
 
     return is_completed
 
 
-def save_course(course, request_data):
+def save_workshop(workshop, request_data):
     errors = {}
 
     if 'title' in request_data:
-        course.title = request_data['title'].strip(' \t\n\r')
+        workshop.title = request_data['title'].strip(' \t\n\r')
 
     if 'activity[]' in request_data:
-        WorkshopActivity.objects.filter(course=course).delete()
+        WorkshopActivity.objects.filter(workshop=workshop).delete()
 
         bulk = []
         ordering = 1
@@ -98,7 +95,7 @@ def save_course(course, request_data):
                 continue
 
             bulk.append(WorkshopActivity(
-                course=course,
+                workshop=workshop,
                 title=activity,
                 ordering=ordering,
             ))
@@ -107,7 +104,7 @@ def save_course(course, request_data):
         WorkshopActivity.objects.bulk_create(bulk)
 
     if 'story' in request_data:
-        course.description = request_data['story'].strip(' \t\n\r')
+        workshop.description = request_data['story'].strip(' \t\n\r')
 
     picture_descriptions = extract_request_object(request_data, 'picture_descriptions')
     if picture_descriptions:
@@ -115,7 +112,7 @@ def save_course(course, request_data):
             media_uid = picture_descriptions[picture_key]['uid']
 
             try:
-                picture = WorkshopPicture.objects.get(course=course, uid=media_uid)
+                picture = WorkshopPicture.objects.get(workshop=workshop, uid=media_uid)
             except WorkshopPicture.DoesNotExist:
                 pass
             else:
@@ -126,7 +123,7 @@ def save_course(course, request_data):
         ordering = 1
         for picture_uid in request_data['picture_ordering'].split(','):
             try:
-                picture = WorkshopPicture.objects.get(course=course, uid=picture_uid)
+                picture = WorkshopPicture.objects.get(workshop=workshop, uid=picture_uid)
             except WorkshopPicture.DoesNotExist:
                 pass
             else:
@@ -140,8 +137,8 @@ def save_course(course, request_data):
         except WorkshopTopic.DoesNotExist:
             errors['school'] = 'not-found'
         else:
-            course.schools.clear()
-            course.schools.add(school)
+            workshop.schools.clear()
+            workshop.schools.add(school)
 
     if 'price' in request_data:
         try:
@@ -149,10 +146,10 @@ def save_course(course, request_data):
         except ValueError:
             errors['price'] = 'invalid'
         else:
-            if price < settings.COURSE_PRICE_MINIMUM:
+            if price < settings.WORKSHOP_PRICE_MINIMUM:
                 errors['price'] = 'low'
             else:
-                course.price = price
+                workshop.price = price
 
     if 'duration' in request_data:
         try:
@@ -162,7 +159,7 @@ def save_course(course, request_data):
         except ValueError:
             errors['duration'] = 'invalid'
         else:
-            course.duration = duration
+            workshop.duration = duration
 
     if 'capacity' in request_data:
         try:
@@ -172,12 +169,12 @@ def save_course(course, request_data):
         except ValueError:
             errors['capacity'] = 'invalid'
         else:
-            course.maximum_people = capacity
+            workshop.maximum_people = capacity
 
     if 'place-id' in request_data:
         place_id = request_data.get('place-id')
         if place_id == 'new':
-            place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=course.teacher)
+            place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=workshop.teacher)
         elif place_id:
             try:
                 place = Place.objects.get(pk=request_data.get('place-id'))
@@ -190,10 +187,10 @@ def save_course(course, request_data):
         else:
             place = None
 
-        course.place = place
-        course.save()
+        workshop.place = place
+        workshop.save()
 
-        if place and place.created_by == course.teacher:
+        if place and place.created_by == workshop.teacher:
             if 'place-name' in request_data:
                 place.name = request_data['place-name'].strip(' \t\n\r')
 
@@ -218,16 +215,16 @@ def save_course(course, request_data):
 
     # Save editing pictures
 
-    for picture in WorkshopPicture.objects.filter(course=course, mark_deleted=True):
+    for picture in WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=True):
         picture.image.delete()
         picture.delete()
 
-    for picture in WorkshopPicture.objects.filter(course=course, mark_added=True):
+    for picture in WorkshopPicture.objects.filter(workshop=workshop, mark_added=True):
         picture.mark_added = False
         picture.is_visible = True
         picture.save()
 
-    course.save()
+    workshop.save()
     return errors
 
 
@@ -236,16 +233,16 @@ def revert_approving_workshop(workshop):
     workshop.save()
 
 
-# COURSE ENROLLMENT ####################################################################################################
+# WORKSHOP ENROLLMENT ####################################################################################################
 
 def check_if_schedule_enrollable(schedule):
-    if schedule.course.status != 'PUBLISHED':
-        raise CourseEnrollmentException('course-notpublished')
+    if schedule.workshop.status != 'PUBLISHED':
+        raise WorkshopEnrollmentException('workshop-notpublished')
 
     if schedule.status != 'OPENING':
-        raise CourseEnrollmentException('schedule-notopening')
+        raise WorkshopEnrollmentException('schedule-notopening')
 
     if not schedule.stats_seats_left():
-        raise CourseEnrollmentException('schedule-full')
+        raise WorkshopEnrollmentException('schedule-full')
 
     return True

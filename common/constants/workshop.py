@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-# COURSE STATUS
-COURSE_STATUS_CHOICES = (
+# WORKSHOP STATUS
+WORKSHOP_STATUS_CHOICES = (
     ('DRAFT', u'ฉบับร่าง'),
     ('WAIT_FOR_APPROVAL', u'รอการรับรอง'),
     ('READY_TO_PUBLISH', u'พร้อมเปิดตัว'),
@@ -9,7 +9,7 @@ COURSE_STATUS_CHOICES = (
     ('DELETED', u'ถูกลบไปแล้ว'),
 )
 
-COURSE_STATUS_MAP = {
+WORKSHOP_STATUS_MAP = {
     'DRAFT': {
         'name': u'ฉบับร่าง',
         'css_class': 'draft',
@@ -32,62 +32,62 @@ COURSE_STATUS_MAP = {
     },
 }
 
-# COURSE LEVEL
-COURSE_LEVEL_CHOICES = (
+# WORKSHOP LEVEL
+WORKSHOP_LEVEL_CHOICES = (
     ('ANY', 'Any Level'),
     ('BEGINNER', 'Beginner'),
     ('INTERMEDIATE', 'Intermediate'),
     ('ADVANCED', 'Advanced'),
 )
 
-COURSE_LEVEL_MAP = {
+WORKSHOP_LEVEL_MAP = {
     'ANY': {'name': 'Any Level'},
     'BEGINNER': {'name': 'Beginner'},
     'INTERMEDIATE': {'name': 'Intermediate'},
     'ADVANCED': {'name': 'Advanced'},
 }
 
-# COURSE OUTLINE MEDIA
-COURSE_OUTLINE_MEDIA_CHOICES = (
+# WORKSHOP OUTLINE MEDIA
+WORKSHOP_OUTLINE_MEDIA_CHOICES = (
     ('PICTURE', 'Picture'),
     ('VIDEO_URL', 'Video URL'),
     ('VIDEO_UPLOAD', 'Video Upload'),
 )
 
-COURSE_OUTLINE_MEDIA_MAP = {
+WORKSHOP_OUTLINE_MEDIA_MAP = {
     'PICTURE': {'name': 'Picture'},
     'VIDEO_URL': {'name': 'Video URL'},
     'VIDEO_UPLOAD': {'name': 'Video Upload'},
 }
 
-# COURSE SCHEDULE STATUS
-COURSE_SCHEDULE_STATUS_CHOICES = (
+# WORKSHOP SCHEDULE STATUS
+WORKSHOP_SCHEDULE_STATUS_CHOICES = (
     ('PENDING', 'Pending'),
     ('OPENING', 'Opening'),
     ('CANCELLED', 'Cancelled'),
 )
 
-COURSE_SCHEDULE_STATUS_MAP = {
+WORKSHOP_SCHEDULE_STATUS_MAP = {
     'PENDING': {'name': 'Pending'},
     'OPENING': {'name': 'Opening'},
     'CANCELLED': {'name': 'Cancelled'},
 }
 
-# COURSE ENROLLMENT STATUS
-COURSE_ENROLLMENT_STATUS_CHOICES = (
+# WORKSHOP ENROLLMENT STATUS
+WORKSHOP_ENROLLMENT_STATUS_CHOICES = (
     ('PENDING', 'Pending'),
     ('CONFIRMED', 'Confirmed'),
     ('CANCELLED', 'Cancelled'),
 )
 
-COURSE_ENROLLMENT_STATUS_MAP = {
+WORKSHOP_ENROLLMENT_STATUS_MAP = {
     'PENDING': {'name': 'Pending'},
     'CONFIRMED': {'name': 'Confirmed'},
     'CANCELLED': {'name': 'Cancelled'},
 }
 
-# COURSE ENROLLMENT PAYMENT STATUS
-COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES = (
+# WORKSHOP ENROLLMENT PAYMENT STATUS
+WORKSHOP_ENROLLMENT_PAYMENT_STATUS_CHOICES = (
     ('PENDING', 'Pending'),  # Enrollment record is just created. Payment status is not available.
     ('WAIT_FOR_PAYMENT', 'Wait for Payment'),
     ('PAYMENT_RECEIVED', 'Paid'),
@@ -98,7 +98,7 @@ COURSE_ENROLLMENT_PAYMENT_STATUS_CHOICES = (
     ('CANCELLED', 'Cancelled'),
 )
 
-COURSE_ENROLLMENT_PAYMENT_STATUS_MAP = {
+WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP = {
     'PENDING': {'name': 'Pending'},
     'WAIT_FOR_PAYMENT': {'name': 'Wait for Payment'},
     'PAYMENT_RECEIVED': {'name': 'Paid'},
@@ -109,13 +109,13 @@ COURSE_ENROLLMENT_PAYMENT_STATUS_MAP = {
     'CANCELLED': {'name': 'Cancelled'},
 }
 
-COURSE_ENROLLMENT_PAYMENT_NOTIFY_STATUS_CHOICES = (
+WORKSHOP_ENROLLMENT_PAYMENT_NOTIFY_STATUS_CHOICES = (
     ('RECEIVE', 'Received'),
     ('ACCEPT', 'Accepted'),
     ('REJECT', 'Rejected'),
 )
 
-COURSE_ENROLLMENT_PAYMENT_NOTIFY_STATUS_MAP = {
+WORKSHOP_ENROLLMENT_PAYMENT_NOTIFY_STATUS_MAP = {
     'RECEIVE': {'name': 'Received'},
     'ACCEPT': {'name': 'Accepted'},
     'REJECT': {'name': 'Rejected'},

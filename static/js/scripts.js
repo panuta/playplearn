@@ -8,7 +8,7 @@ $(document).ready(function() {
     });
 });*/
 
-function initCourseModifyPage(course_uid, enable_autosave, page_type) {
+function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
     var form_title = $('#id_title');
     var form_activity = $('#control_activity_list');
     var form_story = $('#id_story');
@@ -43,7 +43,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
 
         $('.form-content').one('saved', function(e, response) {
             window.onbeforeunload = function() {};
-            $('#modal-course-submitted').modal();
+            $('#modal-workshop-submitted').modal();
         });
 
         save_changes('approval', false);
@@ -59,8 +59,8 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         return false;
     });
 
-    // Initialize Course Activities
-    function _init_course_activities() {
+    // Initialize Workshop Activities
+    function _init_workshop_activities() {
         function _add_new_activity() {
             var new_activity = $('<li class="activity"><i class="icon-remove"></i><i class="icon-reorder"></i><input type="text"/></li>');
             _set_activity_events(new_activity);
@@ -134,9 +134,9 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         var upload_pictures_ordering = $('#id_pictures_ordering');
         $('#id_pictures').fileupload({
             dataType: 'json',
-            url: '/ajax/course/picture/upload/',
+            url: '/ajax/workshop/picture/upload/',
             sequentialUploads: true,
-            formData: function (form) {return [{name:'uid', value:course_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}, {name:'ordering', value: upload_pictures_ordering.val()}];},
+            formData: function (form) {return [{name:'uid', value:workshop_uid}, {name:'csrfmiddlewaretoken', value: csrftoken}, {name:'ordering', value: upload_pictures_ordering.val()}];},
             add: function (e, data) {
                 $('.form-footer button').addClass('disabled');
 
@@ -241,7 +241,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
 
             var picture_uid = $(this).closest('li.picture').attr('picture-uid');
 
-            var jqxhr = $.post('/ajax/course/picture/delete/', {uid: course_uid, picture_uid: picture_uid}, function(response) {
+            var jqxhr = $.post('/ajax/workshop/picture/delete/', {uid: workshop_uid, picture_uid: picture_uid}, function(response) {
                 if(response.status == 'success') {
                     upload_pictures_ordering.val(response.data.ordering);
                     upload_pictures.find('li[picture-uid=' + picture_uid + ']').fadeOut(function() {
@@ -322,7 +322,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                 var place_form_loading = $('.place-form-loading');
                 place_form_loading.show();
 
-                var jqxhr = $.get('/ajax/course/place/get/', {place_id:selected}, function(response) {
+                var jqxhr = $.get('/ajax/workshop/place/get/', {place_id:selected}, function(response) {
                     place_form_loading.hide();
                     if(response.status == 'success') {
                         $('#id_place_id').val(response.data.id);
@@ -530,7 +530,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         if(is_data_empty) {
             return null;
         } else {
-            data['uid'] = course_uid;
+            data['uid'] = workshop_uid;
             return data;
         }
     }
@@ -544,7 +544,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         if(submit_action) data['submit'] = submit_action;
 
         if(data) {
-            var jqxhr = $.post('/ajax/course/save/', data, function(response) {
+            var jqxhr = $.post('/ajax/workshop/save/', data, function(response) {
                 $('.form-footer .loading').hide();
 
                 if(response.status == 'success') {
@@ -553,7 +553,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
                         window.location = response.data.edit_url;
                     } else {
                         $('.form-footer .preview').show();
-                        $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'course-' + response.data.course_uid);
+                        $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'workshop-' + response.data.workshop_uid);
                         $('.form-content').trigger('saved');
                         if(notify) _notify('success', 'บันทึกเรียบร้อย', '');
                     }
@@ -668,7 +668,7 @@ function initCourseModifyPage(course_uid, enable_autosave, page_type) {
         set_dirty();
     });
 
-    _init_course_activities();
+    _init_workshop_activities();
 
     form_activity.find('input').on('change', function() {
         form_activity.data('dirty', true);

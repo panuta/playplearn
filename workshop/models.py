@@ -11,8 +11,8 @@ import shortuuid
 from easy_thumbnails.fields import ThumbnailerImageField
 from taggit.managers import TaggableManager
 
-from common.constants.course import *
-from common.utilities import split_filepath
+from common.constants.workshop import *
+from common.utilities import split_filepath, SHORTUUID_ALPHABETS_NUMBER_ONLY
 
 from account.models import UserAccount
 from reservation.models import Reservation, Schedule
@@ -120,10 +120,10 @@ class Workshop(models.Model):
         return None
 
     def status_info(self):
-        return COURSE_STATUS_MAP[str(self.status)]
+        return WORKSHOP_STATUS_MAP[str(self.status)]
 
     def status_name(self):
-        return COURSE_STATUS_MAP[str(self.status)]['name']
+        return WORKSHOP_STATUS_MAP[str(self.status)]['name']
 
     # DATA
 
@@ -140,7 +140,7 @@ class Workshop(models.Model):
 
     def get_last_schedule(self):
         rightnow = now()
-        return CourseSchedule.objects.filter(course=self, status='OPENING', start_datetime__lt=rightnow).order_by('-start_datetime')[0]
+        return WorkshopSchedule.objects.filter(workshop=self, status='OPENING', start_datetime__lt=rightnow).order_by('-start_datetime')[0]
 
     def get_promoted_feedbacks(self):
         return WorkshopFeedback.objects.filter(enrollment__schedule__workshop=self, is_promoted=True).order_by('-created')
@@ -162,7 +162,7 @@ class Workshop(models.Model):
 
     def stats_students(self):
         return UserAccount.objects.filter(
-            enrollments__schedule__course=self,
+            enrollments__schedule__workshop=self,
             enrollments__status='CONFIRMED',
             enrollments__payment_status='PAYMENT_RECEIVED',
             enrollments__schedule__status='OPENING'
@@ -172,7 +172,7 @@ class Workshop(models.Model):
         return WorkshopFeedback.objects.filter(reservation__schedule__workshop=self).count()
 
     def stats_total_earning(self):
-        total_earning = CourseEnrollment.objects.filter(schedule__workshop=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
+        total_earning = WorkshopEnrollment.objects.filter(schedule__workshop=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
         return total_earning if total_earning else 0
 
 

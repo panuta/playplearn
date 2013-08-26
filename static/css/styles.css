@@ -2660,7 +2660,7 @@ body {
 }
 .page-workshop-outline {
   /*
-    .course-header {
+    .workshop-header {
         margin: 40px 0 10px;
 
         .join {
@@ -3129,16 +3129,16 @@ body {
   margin: 0;
   padding: 0;
 }
-.page-workshop-outline .workshop-feedbacks .feedbacks .style-course-feedback {
+.page-workshop-outline .workshop-feedbacks .feedbacks .style-workshop-feedback {
   margin-bottom: 50px;
   width: 540px;
 }
-.page-course-browse .browse-header {
+.page-workshop-browse .browse-header {
   background: url('../images/ui/100-95-3.png') repeat #8696a0;
   margin-bottom: 25px;
   padding: 25px 0 25px;
 }
-.page-course-browse .browse-header h1 {
+.page-workshop-browse .browse-header h1 {
   color: #FFF;
   font-size: 30px;
   font-weight: normal;
@@ -3146,99 +3146,99 @@ body {
   margin: 0;
   text-shadow: 1px 1px #3a71a9;
 }
-.page-course-browse .browse-header h1 i {
+.page-workshop-browse .browse-header h1 i {
   font-size: 26px;
   margin-right: 5px;
   vertical-align: 3px;
 }
-.page-course-browse .browse-nav {
+.page-workshop-browse .browse-nav {
   background-color: #F7F7F7;
   border-radius: 4px;
   margin-bottom: 30px;
   padding: 15px 0 5px 20px;
 }
-.page-course-browse .browse-nav ul {
+.page-workshop-browse .browse-nav ul {
   margin: 0;
 }
-.page-course-browse .browse-nav ul li {
+.page-workshop-browse .browse-nav ul li {
   list-style: none;
   margin-bottom: 9px;
 }
-.page-course-browse .browse-nav ul li a {
+.page-workshop-browse .browse-nav ul li a {
   border-radius: 4px;
   color: #3a71a9;
   font-size: 15px;
 }
-.page-course-browse .browse-nav .head {
+.page-workshop-browse .browse-nav .head {
   color: #888;
   font-size: 13px;
   margin: 20px 0 8px;
 }
-.page-course-browse .browse-workshops {
+.page-workshop-browse .browse-workshops {
   padding-bottom: 30px;
 }
-.page-course-browse .browse-workshops h2 {
+.page-workshop-browse .browse-workshops h2 {
   color: #555;
   font-size: 26px;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 25px;
 }
-.page-course-browse .browse-workshops ul {
+.page-workshop-browse .browse-workshops ul {
   margin: 0;
 }
-.page-course-browse .browse-workshops ul li {
+.page-workshop-browse .browse-workshops ul li {
   background-color: #FFF;
   list-style: none;
   margin-bottom: 35px;
 }
-.page-course-browse .browse-workshops ul li .cover {
+.page-workshop-browse .browse-workshops ul li .cover {
   float: left;
 }
-.page-course-browse .browse-workshops ul li .right {
+.page-workshop-browse .browse-workshops ul li .right {
   margin-left: 275px;
 }
-.page-course-browse .browse-workshops ul li .title a {
+.page-workshop-browse .browse-workshops ul li .title a {
   font-size: 17px;
   font-weight: bold;
   line-height: 26px;
 }
-.page-course-browse .browse-workshops ul li .title a:link,
-.page-course-browse .browse-workshops ul li .title a:active,
-.page-course-browse .browse-workshops ul li .title a:visited {
+.page-workshop-browse .browse-workshops ul li .title a:link,
+.page-workshop-browse .browse-workshops ul li .title a:active,
+.page-workshop-browse .browse-workshops ul li .title a:visited {
   color: #29ace4;
 }
-.page-course-browse .browse-workshops ul li .title a:hover {
+.page-workshop-browse .browse-workshops ul li .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-course-browse .browse-workshops ul li .teacher {
+.page-workshop-browse .browse-workshops ul li .teacher {
   color: #888;
   margin-top: 5px;
 }
-.page-course-browse .browse-workshops ul li .teacher a {
+.page-workshop-browse .browse-workshops ul li .teacher a {
   color: #555;
   font-weight: bold;
 }
-.page-course-browse .browse-workshops ul li .at_glance {
+.page-workshop-browse .browse-workshops ul li .at_glance {
   color: #888;
   font-size: 14px;
   margin-top: 8px;
 }
-.page-course-browse .browse-workshops ul li .at_glance a {
+.page-workshop-browse .browse-workshops ul li .at_glance a {
   color: #555;
 }
-.page-course-browse .browse-workshops ul li .at_glance a:hover {
+.page-workshop-browse .browse-workshops ul li .at_glance a:hover {
   text-decoration: underline;
 }
-.page-course-browse .browse-workshops ul li .at_glance span {
+.page-workshop-browse .browse-workshops ul li .at_glance span {
   color: #555;
 }
-.page-course-browse .browse-workshops ul li .course-details {
+.page-workshop-browse .browse-workshops ul li .workshop-details {
   color: #666;
   margin-top: 15px;
 }
-.page-course-browse .browse-workshops ul li .course-details span {
+.page-workshop-browse .browse-workshops ul li .workshop-details span {
   border: 1px solid #DDD;
   border-radius: 4px;
   display: inline-block;
@@ -3246,108 +3246,108 @@ body {
   margin-right: 7px;
   padding: 4px 10px;
 }
-.page-course-browse .browse-workshops ul li .course-details span em {
+.page-workshop-browse .browse-workshops ul li .workshop-details span em {
   font-size: 14px;
   font-weight: bold;
 }
-.page-course-browse .browse-workshops ul li .course-details i {
+.page-workshop-browse .browse-workshops ul li .workshop-details i {
   color: #777;
   font-size: 15px;
   margin-right: 2px;
 }
-.page-course-browse .browse-workshops ul li .course-details i.icon-comment {
+.page-workshop-browse .browse-workshops ul li .workshop-details i.icon-comment {
   vertical-align: 1px;
 }
-.page-my-courses .courses-body {
+.page-my-workshops .workshops-body {
   margin: 30px 0px 35px;
 }
-.page-my-courses .courses-body ul.courses {
+.page-my-workshops .workshops-body ul.workshops {
   margin: 0;
 }
-.page-my-courses .courses-body ul.courses li.course {
+.page-my-workshops .workshops-body ul.workshops li.workshop {
   list-style: none;
 }
-.page-my-courses .courses-body .courses-sidebar .head {
+.page-my-workshops .workshops-body .workshops-sidebar .head {
   color: #444;
   font-size: 12.5px;
   font-weight: bold;
   margin-bottom: 10px;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops {
   margin: 0;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop {
   border: 1px solid #DDD;
   box-shadow: 2px 2px 0px #EEE;
   list-style: none;
   margin-bottom: 15px;
   padding: 5px 10px;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .do {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .do {
   color: #555;
   font-size: 13px;
   font-weight: bold;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .countdown {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .countdown {
   color: #777;
   float: right;
   font-size: 12px;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a {
   font-size: 13px;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:link,
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:active,
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:visited {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:link,
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:active,
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:visited {
   color: #29ace4;
 }
-.page-my-courses .courses-body .courses-sidebar ul.courses li.course .title a:hover {
+.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-payments ul.enrollments {
+.page-my-workshops-payments ul.enrollments {
   margin: 0;
 }
-.page-my-courses-payments ul.enrollments li.enrollment {
+.page-my-workshops-payments ul.enrollments li.enrollment {
   list-style: none;
   margin-bottom: 35px;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .cover {
+.page-my-workshops-payments ul.enrollments li.enrollment .cover {
   float: left;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .right {
+.page-my-workshops-payments ul.enrollments li.enrollment .right {
   margin-left: 280px;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .title a {
+.page-my-workshops-payments ul.enrollments li.enrollment .title a {
   font-size: 17px;
   font-weight: bold;
   line-height: 26px;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .title a:link,
-.page-my-courses-payments ul.enrollments li.enrollment .title a:active,
-.page-my-courses-payments ul.enrollments li.enrollment .title a:visited {
+.page-my-workshops-payments ul.enrollments li.enrollment .title a:link,
+.page-my-workshops-payments ul.enrollments li.enrollment .title a:active,
+.page-my-workshops-payments ul.enrollments li.enrollment .title a:visited {
   color: #29ace4;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .title a:hover {
+.page-my-workshops-payments ul.enrollments li.enrollment .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .teacher {
+.page-my-workshops-payments ul.enrollments li.enrollment .teacher {
   color: #888;
   margin-top: 5px;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .teacher a {
+.page-my-workshops-payments ul.enrollments li.enrollment .teacher a {
   color: #555;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .schedule {
+.page-my-workshops-payments ul.enrollments li.enrollment .schedule {
   color: #555;
   font-size: 13px;
   margin-top: 5px;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .actions {
+.page-my-workshops-payments ul.enrollments li.enrollment .actions {
   margin-top: 10px;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .actions .price {
+.page-my-workshops-payments ul.enrollments li.enrollment .actions .price {
   background-color: #ffe89b;
   border: 1px solid #ffd54a;
   border-radius: 4px;
@@ -3355,14 +3355,14 @@ body {
   padding: 3px 10px;
   vertical-align: middle;
 }
-.page-my-courses-payments ul.enrollments li.enrollment .actions a.btn {
+.page-my-workshops-payments ul.enrollments li.enrollment .actions a.btn {
   margin-left: 10px;
   vertical-align: middle;
 }
-.page-my-courses-upcoming ul.courses li.course {
+.page-my-workshops-upcoming ul.workshops li.workshop {
   margin-bottom: 30px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-countdown {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-countdown {
   background-color: #cfdff1;
   color: #444;
   display: block;
@@ -3374,17 +3374,17 @@ body {
   text-align: center;
   width: 80px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-countdown em {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-countdown em {
   display: block;
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 2px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-countdown em i {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-countdown em i {
   font-size: 18px;
   font-style: normal;
 }
-.page-my-courses-upcoming ul.courses li.course .course-countdown:after {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-countdown:after {
   border: solid transparent;
   border-color: rgba(207, 223, 241, 0);
   border-left-color: #cfdff1;
@@ -3398,158 +3398,158 @@ body {
   top: 50%;
   width: 0;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content {
   margin-left: 100px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .course-cover {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .workshop-cover {
   float: left;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .right {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .right {
   margin-left: 275px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .title a {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .title a {
   font-size: 17px;
   line-height: 25px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .title a:link,
-.page-my-courses-upcoming ul.courses li.course .course-content .title a:active,
-.page-my-courses-upcoming ul.courses li.course .course-content .title a:visited {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .title a:link,
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .title a:active,
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .title a:visited {
   color: #29ace4;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .title a:hover {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .organizer {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .organizer {
   color: #999;
   font-size: 13px;
   margin-top: 8px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .organizer a {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .organizer a {
   color: #555;
   font-size: 15px;
   text-decoration: none;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .schedule-location {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .schedule-location {
   color: #999;
   font-size: 13px;
   margin-top: 8px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .schedule {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .schedule-location .schedule {
   color: #555;
   font-size: 15px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .at {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .schedule-location .at {
   margin: 0 3px 0 15px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .schedule-location .location a {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .schedule-location .location a {
   color: #555;
   font-size: 15px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .students {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .students {
   color: #777;
   font-size: 13px;
   margin-top: 8px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .students em {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .students em {
   color: #555;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions {
   margin-top: 14px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a {
   margin-right: 10px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a i {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a i {
   margin-right: 3px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a.link {
   font-size: 13px;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:link,
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:active,
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:visited {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a.link:link,
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a.link:active,
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a.link:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-my-courses-upcoming ul.courses li.course .course-content .actions a.link:hover {
+.page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a.link:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-attended .attended-schools .head {
+.page-my-workshops-attended .attended-schools .head {
   color: #777;
   font-size: 12px;
   font-weight: bold;
   margin-bottom: 7px;
 }
-.page-my-courses-attended .attended-schools .style-sidebar-navigation {
+.page-my-workshops-attended .attended-schools .style-sidebar-navigation {
   margin-right: 15px;
 }
-.page-my-courses-attended ul.enrollments {
+.page-my-workshops-attended ul.enrollments {
   margin: 0;
 }
-.page-my-courses-attended ul.enrollments li.enrollment {
+.page-my-workshops-attended ul.enrollments li.enrollment {
   border-bottom: 1px solid #DDD;
   list-style: none;
   margin-bottom: 20px;
   padding-bottom: 15px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .feedback {
+.page-my-workshops-attended ul.enrollments li.enrollment .feedback {
   float: right;
   margin-top: 5px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .feedback a {
+.page-my-workshops-attended ul.enrollments li.enrollment .feedback a {
   font-size: 12px;
   margin-left: 10px;
   padding: 4px 25px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .title a {
+.page-my-workshops-attended ul.enrollments li.enrollment .title a {
   font-size: 16px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .title a:link,
-.page-my-courses-attended ul.enrollments li.enrollment .title a:active,
-.page-my-courses-attended ul.enrollments li.enrollment .title a:visited {
+.page-my-workshops-attended ul.enrollments li.enrollment .title a:link,
+.page-my-workshops-attended ul.enrollments li.enrollment .title a:active,
+.page-my-workshops-attended ul.enrollments li.enrollment .title a:visited {
   color: #29ace4;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .title a:hover {
+.page-my-workshops-attended ul.enrollments li.enrollment .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .details {
+.page-my-workshops-attended ul.enrollments li.enrollment .details {
   font-size: 13px;
   margin-top: 8px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .details .caption {
+.page-my-workshops-attended ul.enrollments li.enrollment .details .caption {
   color: #777;
   margin-right: 2px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .details em {
+.page-my-workshops-attended ul.enrollments li.enrollment .details em {
   color: #555;
   font-weight: bold;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .details a {
+.page-my-workshops-attended ul.enrollments li.enrollment .details a {
   color: #555;
   font-weight: bold;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .details .teacher {
+.page-my-workshops-attended ul.enrollments li.enrollment .details .teacher {
   margin-right: 15px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .actions {
+.page-my-workshops-attended ul.enrollments li.enrollment .actions {
   margin-top: 10px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .actions a.link {
+.page-my-workshops-attended ul.enrollments li.enrollment .actions a.link {
   font-size: 13px;
   margin-right: 10px;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .actions a.link:link,
-.page-my-courses-attended ul.enrollments li.enrollment .actions a.link:active,
-.page-my-courses-attended ul.enrollments li.enrollment .actions a.link:visited {
+.page-my-workshops-attended ul.enrollments li.enrollment .actions a.link:link,
+.page-my-workshops-attended ul.enrollments li.enrollment .actions a.link:active,
+.page-my-workshops-attended ul.enrollments li.enrollment .actions a.link:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-my-courses-attended ul.enrollments li.enrollment .actions a.link:hover {
+.page-my-workshops-attended ul.enrollments li.enrollment .actions a.link:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
@@ -3557,7 +3557,7 @@ body {
 }
 .page-my-workshops-organizing {
   /*
-    #modal-publish-course {
+    #modal-publish-workshop {
 
         #publish-date {
             float: left;
@@ -3685,78 +3685,78 @@ body {
   color: #C30;
   margin-right: 5px;
 }
-.page-my-workshops-organizing .teaching-courses {
+.page-my-workshops-organizing .teaching-workshops {
   margin-top: 25px;
 }
-.page-my-workshops-organizing .teaching-courses .teaching-status .head {
+.page-my-workshops-organizing .teaching-workshops .teaching-status .head {
   color: #777;
   font-size: 12px;
   font-weight: bold;
   margin-bottom: 7px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses {
+.page-my-workshops-organizing .teaching-workshops ul.workshops {
   margin: 20px 0 0;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop {
   border-bottom: 1px solid #DDD;
   margin-bottom: 15px;
   padding-bottom: 20px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .title a {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .title a {
   font-size: 15px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .title a:link,
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .title a:active,
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .title a:visited {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .title a:link,
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .title a:active,
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .title a:visited {
   color: #29ace4;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .title a:hover {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .details {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .details {
   margin-top: 5px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .details .details-item {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .details .details-item {
   display: inline-block;
   margin-right: 15px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .details .caption {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .details .caption {
   color: #777;
   font-size: 12px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .details .value {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .details .value {
   color: #555;
   font-weight: bold;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .status {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .status {
   margin-top: 6px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .status .name {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .status .name {
   color: #444;
   font-size: 13px;
   font-weight: bold;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .status .name i {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .status .name i {
   color: #AAA;
   font-size: 16px;
   margin-right: 3px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .status .name i.icon-light {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .status .name i.icon-light {
   font-size: 10px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .status .draft i {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .status .draft i {
   color: #555;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .status .published i {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .status .published i {
   color: #00ac71;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .upcoming {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .upcoming {
   color: #777;
   font-size: 13px;
   margin-top: 8px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .upcoming a {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .upcoming a {
   background-color: #EEE;
   color: #444;
   display: inline-block;
@@ -3764,117 +3764,117 @@ body {
   margin-left: 7px;
   padding: 3px 15px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .upcoming a:hover {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .upcoming a:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: none;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions {
   margin-top: 10px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions a {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions a {
   margin-right: 10px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions .completeness {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions .completeness {
   font-size: 13px;
   vertical-align: middle;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions .completeness em {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions .completeness em {
   font-weight: bold;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions a.link {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions a.link {
   font-size: 13px;
   margin-right: 10px;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions a.link:link,
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions a.link:active,
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions a.link:visited {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions a.link:link,
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions a.link:active,
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions a.link:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions a.link:hover {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions a.link:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-workshops-organizing .teaching-courses ul.courses li.course .actions i.icon-check-sign {
+.page-my-workshops-organizing .teaching-workshops ul.workshops li.workshop .actions i.icon-check-sign {
   color: #00ac71;
   margin-right: 2px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses {
+.page-my-workshops-organizing .teaching-workshops table.workshops {
   border: none;
   width: 100%;
 }
-.page-my-workshops-organizing .teaching-courses table.courses th {
+.page-my-workshops-organizing .teaching-workshops table.workshops th {
   border: none;
   color: #999;
   font-size: 13px;
   font-weight: normal;
   padding-top: 0;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td {
+.page-my-workshops-organizing .teaching-workshops table.workshops td {
   padding-bottom: 15px;
   padding-top: 15px;
   vertical-align: middle;
 }
-.page-my-workshops-organizing .teaching-courses table.courses .status {
+.page-my-workshops-organizing .teaching-workshops table.workshops .status {
   text-align: center;
   width: 100px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses .title {
+.page-my-workshops-organizing .teaching-workshops table.workshops .title {
   padding-left: 20px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses .actions {
+.page-my-workshops-organizing .teaching-workshops table.workshops .actions {
   text-align: right;
   width: 220px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses .actions a {
+.page-my-workshops-organizing .teaching-workshops table.workshops .actions a {
   margin-left: 5px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses .actions i.icon-check-sign {
+.page-my-workshops-organizing .teaching-workshops table.workshops .actions i.icon-check-sign {
   color: #00ac71;
   margin-right: 2px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title a {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title a {
   font-family: 'QuarkLight', sans-serif;
   font-size: 24px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title a:link,
-.page-my-workshops-organizing .teaching-courses table.courses td.title a:active,
-.page-my-workshops-organizing .teaching-courses table.courses td.title a:visited {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title a:link,
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title a:active,
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title a:visited {
   color: #29ace4;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title a:hover {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .status-stats {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .status-stats {
   margin-top: 5px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .status-stats .workshop-status {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .status-stats .workshop-status {
   display: inline-block;
   margin-right: 15px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .status-stats .workshop-status span {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .status-stats .workshop-status span {
   border-radius: 4px;
   padding: 4px 15px;
   font-size: 12px;
   background-color: #00ac71;
   color: #FFF;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .status-stats .stats {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .status-stats .stats {
   color: #888;
   display: inline-block;
   font-size: 14px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .status-stats .stats span {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .status-stats .stats span {
   margin-right: 12px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .status-stats .stats em {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .status-stats .stats em {
   color: #444;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .next {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .next {
   border: 1px dashed #DDD;
   color: #555;
   display: inline-block;
@@ -3882,59 +3882,59 @@ body {
   margin-top: 15px;
   padding: 6px 15px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.title .next i {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.title .next i {
   color: #C30;
   margin-right: 5px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.status {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.status {
   color: #444;
   font-size: 12px;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.status .style-course-status {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.status .style-workshop-status {
   border-radius: 4px;
   display: block;
   padding: 4px 0;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.status .draft {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.status .draft {
   background-color: #EEE;
   color: #333;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.status .wait_for_approval {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.status .wait_for_approval {
   background-color: #FFC;
   color: #333;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.status .ready_to_publish {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.status .ready_to_publish {
   background-color: #e7fee7;
   color: #333;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.status .published {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.status .published {
   background-color: #00ac71;
   color: #FFF;
 }
-.page-my-workshops-organizing .teaching-courses table.courses td.actions .style-outline-button {
+.page-my-workshops-organizing .teaching-workshops table.workshops td.actions .style-outline-button {
   font-size: 12px;
   padding: 5px 15px;
 }
-.page-my-workshops-organizing .no-teaching-course {
+.page-my-workshops-organizing .no-teaching-workshop {
   margin-top: 30px;
   text-align: center;
 }
-.page-my-workshops-organizing .no-teaching-course .head1 {
+.page-my-workshops-organizing .no-teaching-workshop .head1 {
   color: #444;
   font-size: 24px;
 }
-.page-my-workshops-organizing .no-teaching-course .head2 {
+.page-my-workshops-organizing .no-teaching-workshop .head2 {
   color: #555;
   font-size: 16px;
   margin-top: 12px;
 }
-.page-my-workshops-organizing .no-teaching-course .call_to_action {
+.page-my-workshops-organizing .no-teaching-workshop .call_to_action {
   margin-top: 18px;
 }
-.page-course-modify #backend-container {
+.page-workshop-modify #backend-container {
   background: url('../images/ui/100-95-3.png') repeat #8696a0;
 }
-.page-course-modify .approving-message {
+.page-workshop-modify .approving-message {
   background-color: #FFD;
   color: #555;
   font-size: 14px;
@@ -3942,21 +3942,21 @@ body {
   padding: 20px 50px;
   text-align: center;
 }
-.page-course-modify .approving-message p {
+.page-workshop-modify .approving-message p {
   line-height: 27px;
   margin-bottom: 2px;
 }
-.page-course-modify .approving-message .head1 {
+.page-workshop-modify .approving-message .head1 {
   font-size: 16px;
   font-weight: bold;
 }
-.page-course-modify .approving-message form {
+.page-workshop-modify .approving-message form {
   margin: 0;
 }
-.page-course-modify .approving-message .btn {
+.page-workshop-modify .approving-message .btn {
   margin-top: 10px;
 }
-.page-course-modify .form-errors {
+.page-workshop-modify .form-errors {
   background-color: #FCC;
   color: #444;
   font-size: 13px;
@@ -3965,17 +3965,17 @@ body {
   padding: 8px 0;
   text-align: center;
 }
-.page-course-modify .form-errors .close {
+.page-workshop-modify .form-errors .close {
   margin: -2px 10px 0 0;
 }
-.page-course-modify .form-errors p {
+.page-workshop-modify .form-errors p {
   margin: 0;
 }
-.page-course-modify .form-content {
+.page-workshop-modify .form-content {
   background-color: #FFF;
   padding: 40px 50px;
 }
-.page-course-modify .form-content h3 {
+.page-workshop-modify .form-content h3 {
   background: url('../images/ui/100-95-3.png') repeat #8696a0;
   color: #FFF;
   font-family: 'QuarkLight', sans-serif;
@@ -3985,14 +3985,14 @@ body {
   margin: 35px 0 25px;
   padding: 9px 20px 7px;
 }
-.page-course-modify .form-content h3 i {
+.page-workshop-modify .form-content h3 i {
   font-size: 0.7em;
   margin-right: 3px;
 }
-.page-course-modify .form-content .form-group {
+.page-workshop-modify .form-content .form-group {
   margin-bottom: 20px;
 }
-.page-course-modify .form-content .form-group label {
+.page-workshop-modify .form-content .form-group label {
   color: #666;
   display: inline-block;
   font-family: 'QuarkLight', sans-serif;
@@ -4000,58 +4000,58 @@ body {
   font-weight: normal;
   margin-bottom: 3px;
 }
-.page-course-modify .form-content .form-group .sublabel {
+.page-workshop-modify .form-content .form-group .sublabel {
   color: #777;
   font-size: 13px;
   margin-bottom: 10px;
 }
-.page-course-modify .form-content .form-group input,
-.page-course-modify .form-content .form-group select {
+.page-workshop-modify .form-content .form-group input,
+.page-workshop-modify .form-content .form-group select {
   margin: 0;
 }
-.page-course-modify .form-content .form-group input.error,
-.page-course-modify .form-content .form-group select.error {
+.page-workshop-modify .form-content .form-group input.error,
+.page-workshop-modify .form-content .form-group select.error {
   background-color: #FCC;
 }
-.page-course-modify .form-content .form-group .number-control input {
+.page-workshop-modify .form-content .form-group .number-control input {
   display: inline-block;
   font-size: 16px;
   text-align: center;
 }
-.page-course-modify .form-content .form-group .number-control .unit {
+.page-workshop-modify .form-content .form-group .number-control .unit {
   color: #555;
   margin-left: 6px;
   vertical-align: middle;
 }
-.page-course-modify .form-content .form-group .help-block {
+.page-workshop-modify .form-content .form-group .help-block {
   color: #999;
   font-size: 13px;
   margin-top: 10px;
 }
-.page-course-modify .form-content .form-group .help-block strong {
+.page-workshop-modify .form-content .form-group .help-block strong {
   color: #777;
 }
-.page-course-modify .form-content .control-group {
+.page-workshop-modify .form-content .control-group {
   margin-bottom: 20px;
 }
-.page-course-modify .form-content .control-group .control-label {
+.page-workshop-modify .form-content .control-group .control-label {
   color: #666;
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
-.page-course-modify .form-content .control-group .control-label i {
+.page-workshop-modify .form-content .control-group .control-label i {
   color: #6c9fd4;
   font-weight: normal;
   margin-right: 3px;
 }
-.page-course-modify .form-content .control-group .controls-with-guide {
+.page-workshop-modify .form-content .control-group .controls-with-guide {
   clear: left;
   display: inline-block;
   vertical-align: top;
 }
-.page-course-modify .form-content .control-group .control-guide {
+.page-workshop-modify .form-content .control-group .control-guide {
   border-left: 1px solid #DDD;
   color: #666;
   display: inline-block;
@@ -4061,24 +4061,24 @@ body {
   vertical-align: top;
   width: 400px;
 }
-.page-course-modify .form-content .control-group .controls-text input {
+.page-workshop-modify .form-content .control-group .controls-text input {
   font-size: 18px;
   height: 23px;
   text-align: center;
 }
-.page-course-modify .form-content .control-group .controls-text input.error {
+.page-workshop-modify .form-content .control-group .controls-text input.error {
   background-color: #FCC;
 }
-.page-course-modify .form-content .control-group .controls-text .unit {
+.page-workshop-modify .form-content .control-group .controls-text .unit {
   color: #555;
   margin-left: 6px;
 }
-.page-course-modify .form-content .control-group .fileinput-button {
+.page-workshop-modify .form-content .control-group .fileinput-button {
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
 }
-.page-course-modify .form-content .control-group .fileinput-button input {
+.page-workshop-modify .form-content .control-group .fileinput-button input {
   position: absolute;
   top: 0;
   right: 0;
@@ -4090,40 +4090,40 @@ body {
   direction: ltr;
   cursor: pointer;
 }
-.page-course-modify .form-content .control-row {
+.page-workshop-modify .form-content .control-row {
   margin-bottom: 10px;
 }
-.page-course-modify .form-content .control-row .form-group {
+.page-workshop-modify .form-content .control-row .form-group {
   display: inline-block;
   margin-right: 60px;
   vertical-align: top;
 }
-.page-course-modify .form-content .row-for-cover-pictures .span6,
-.page-course-modify .form-content .row-for-place .span6 {
+.page-workshop-modify .form-content .row-for-cover-pictures .span6,
+.page-workshop-modify .form-content .row-for-place .span6 {
   width: 665px;
 }
-.page-course-modify .form-content .title-control {
+.page-workshop-modify .form-content .title-control {
   margin-bottom: 30px;
 }
-.page-course-modify .form-content .title-control input {
+.page-workshop-modify .form-content .title-control input {
   font-size: 20px;
   height: 48px;
   width: 1040px;
 }
-.page-course-modify .form-content .activities-control {
+.page-workshop-modify .form-content .activities-control {
   margin-bottom: 30px;
 }
-.page-course-modify .form-content .activities-control .controls ul {
+.page-workshop-modify .form-content .activities-control .controls ul {
   margin: 0;
   padding: 0;
 }
-.page-course-modify .form-content .activities-control .controls ul li {
+.page-workshop-modify .form-content .activities-control .controls ul li {
   border: 1px solid #999;
   border-left: 5px solid #999;
   list-style: none;
   margin-bottom: 15px;
 }
-.page-course-modify .form-content .activities-control .controls ul li .icon-remove {
+.page-workshop-modify .form-content .activities-control .controls ul li .icon-remove {
   color: #AAA;
   cursor: pointer;
   display: block;
@@ -4132,21 +4132,21 @@ body {
   line-height: normal;
   padding: 15px 12px;
 }
-.page-course-modify .form-content .activities-control .controls ul li .icon-remove:hover {
+.page-workshop-modify .form-content .activities-control .controls ul li .icon-remove:hover {
   color: #c30;
 }
-.page-course-modify .form-content .activities-control .controls ul li .icon-reorder,
-.page-course-modify .form-content .activities-control .controls ul li .icon-plus {
+.page-workshop-modify .form-content .activities-control .controls ul li .icon-reorder,
+.page-workshop-modify .form-content .activities-control .controls ul li .icon-plus {
   color: #AAA;
   display: inline-block;
   line-height: 38px;
   padding: 0 14px;
   vertical-align: middle;
 }
-.page-course-modify .form-content .activities-control .controls ul li .icon-reorder {
+.page-workshop-modify .form-content .activities-control .controls ul li .icon-reorder {
   cursor: move;
 }
-.page-course-modify .form-content .activities-control .controls ul li input {
+.page-workshop-modify .form-content .activities-control .controls ul li input {
   background-color: transparent;
   border: none;
   box-shadow: none;
@@ -4157,64 +4157,64 @@ body {
   vertical-align: middle;
   width: 90%;
 }
-.page-course-modify .form-content .activities-control .controls ul li.ui-state-highlight {
+.page-workshop-modify .form-content .activities-control .controls ul li.ui-state-highlight {
   border: 1px dashed #CCC;
   height: 38px;
 }
-.page-course-modify .form-content .activities-control .controls ul li.add {
+.page-workshop-modify .form-content .activities-control .controls ul li.add {
   border: 1px dashed #CCC;
   box-shadow: none;
   list-style: none;
   margin-bottom: 10px;
   padding-left: 4px;
 }
-.page-course-modify .form-content .activities-control .controls ul li.add a {
+.page-workshop-modify .form-content .activities-control .controls ul li.add a {
   color: #666;
   font-size: 13px;
   font-weight: bold;
 }
-.page-course-modify .form-content .activities-control .displays ul li {
+.page-workshop-modify .form-content .activities-control .displays ul li {
   color: #444;
   font-size: 15px;
   line-height: 26px;
 }
-.page-course-modify .form-content .story-control {
+.page-workshop-modify .form-content .story-control {
   margin-bottom: 30px;
 }
-.page-course-modify .form-content .story-control .displays {
+.page-workshop-modify .form-content .story-control .displays {
   background-color: #F7F7F7;
   border: 1px solid #DDD;
   padding: 15px 20px 0;
 }
-.page-course-modify .form-content .cover-control {
+.page-workshop-modify .form-content .cover-control {
   margin-bottom: 0;
 }
-.page-course-modify .form-content .cover-control .cover {
+.page-workshop-modify .form-content .cover-control .cover {
   border: 1px solid #CCC;
   height: 130px;
   margin-bottom: 20px;
   width: 255px;
 }
-.page-course-modify .form-content .cover-control .cover .progress {
+.page-workshop-modify .form-content .cover-control .cover .progress {
   height: 20px;
   margin: 40px auto 0;
   width: 200px;
 }
-.page-course-modify .form-content .cover-control .cover .error {
+.page-workshop-modify .form-content .cover-control .cover .error {
   color: #C30;
   font-size: 13px;
   margin-top: 40px;
   text-align: center;
 }
-.page-course-modify .form-content .cover-control .help-block {
+.page-workshop-modify .form-content .cover-control .help-block {
   font-size: 13px;
   margin-top: 0;
 }
-.page-course-modify .form-content .pictures-control ul.pictures {
+.page-workshop-modify .form-content .pictures-control ul.pictures {
   margin: 0;
   padding: 0;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li {
+.page-workshop-modify .form-content .pictures-control ul.pictures li {
   border: 1px solid #DDD;
   float: left;
   height: 188px;
@@ -4225,11 +4225,11 @@ body {
   vertical-align: middle;
   width: 308px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.picture img {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture img {
   height: 180px;
   width: 300px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.picture .delete {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture .delete {
   background-color: rgba(0, 0, 0, 0.5);
   border-left: 1px solid #EEE;
   border-top: 1px solid #EEE;
@@ -4243,13 +4243,13 @@ body {
   text-align: center;
   width: 25px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.picture .delete:hover,
-.page-course-modify .form-content .pictures-control ul.pictures li.picture .deletefocus {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture .delete:hover,
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture .deletefocus {
   background-color: #C30;
   color: #FFF;
   text-decoration: none;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.picture .confirm-delete {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture .confirm-delete {
   background-color: rgba(0, 0, 0, 0.5);
   height: 180px;
   padding-top: 66px;
@@ -4257,118 +4257,118 @@ body {
   text-align: center;
   width: 300px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.picture .confirm-delete .actions {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture .confirm-delete .actions {
   background-color: rgba(255, 255, 255, 0.5);
   padding: 10px 0;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.picture .confirm-delete a {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.picture .confirm-delete a {
   font-size: 13px;
   margin: 0 8px;
   padding: 3px 15px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.uploading .progress {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.uploading .progress {
   height: 15px;
   margin: 75px auto 0;
   width: 200px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.uploading .progress-text {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.uploading .progress-text {
   color: #555;
   font-size: 13px;
   font-weight: bold;
   margin-top: 5px;
   text-align: center;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.error .dismiss {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .dismiss {
   padding: 2px 4px;
   text-align: right;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.error .dismiss i {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .dismiss i {
   color: #CCC;
   font-size: 18px;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.error .dismiss a:hover,
-.page-course-modify .form-content .pictures-control ul.pictures li.error .dismiss a:focus {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .dismiss a:hover,
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .dismiss a:focus {
   text-decoration: none;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.error .dismiss a:hover i,
-.page-course-modify .form-content .pictures-control ul.pictures li.error .dismiss a:focus i {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .dismiss a:hover i,
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .dismiss a:focus i {
   color: #C30;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.error .error-text {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .error-text {
   color: #C30;
   font-size: 13px;
   margin-top: 50px;
   text-align: center;
 }
-.page-course-modify .form-content .pictures-control ul.pictures li.error .error-text i {
+.page-workshop-modify .form-content .pictures-control ul.pictures li.error .error-text i {
   display: block;
   margin-bottom: 4px;
 }
-.page-course-modify .form-content .pictures-control .controls ul.pictures li.picture img {
+.page-workshop-modify .form-content .pictures-control .controls ul.pictures li.picture img {
   cursor: move;
 }
-.page-course-modify .form-content .pictures-control .controls .reorder {
+.page-workshop-modify .form-content .pictures-control .controls .reorder {
   color: #777;
   font-size: 13px;
   margin-bottom: 7px;
 }
-.page-course-modify .form-content .pictures-control .controls .input {
+.page-workshop-modify .form-content .pictures-control .controls .input {
   border-bottom: 1px dashed #DDD;
   margin-bottom: 35px;
   padding-bottom: 15px;
 }
-.page-course-modify .form-content .pictures-control .controls .input label {
+.page-workshop-modify .form-content .pictures-control .controls .input label {
   font-size: 19px;
   margin-bottom: 7px;
 }
-.page-course-modify .form-content .tuition-control input {
+.page-workshop-modify .form-content .tuition-control input {
   width: 100px;
 }
-.page-course-modify .form-content .duration-control input {
+.page-workshop-modify .form-content .duration-control input {
   width: 70px;
 }
-.page-course-modify .form-content .capacity-control input {
+.page-workshop-modify .form-content .capacity-control input {
   width: 70px;
 }
-.page-course-modify .form-content .topic-control select {
+.page-workshop-modify .form-content .topic-control select {
   width: 350px;
 }
-.page-course-modify .form-content .place-control .place-label input {
+.page-workshop-modify .form-content .place-control .place-label input {
   margin-right: 5px;
   vertical-align: 1px;
 }
-.page-course-modify .form-content .place-control #id_place_userdefined {
+.page-workshop-modify .form-content .place-control #id_place_userdefined {
   display: inline-block;
   width: 350px;
 }
-.page-course-modify .form-content .place-control .or {
+.page-workshop-modify .form-content .place-control .or {
   color: #777;
   font-size: 13px;
   margin: 0 6px;
 }
-.page-course-modify .form-content .place-control .place-note {
+.page-workshop-modify .form-content .place-control .place-note {
   color: #888;
   font-size: 13px;
   line-height: 24px;
   margin-top: 15px;
 }
-.page-course-modify .form-content .place-control .place-note i {
+.page-workshop-modify .form-content .place-control .place-note i {
   color: #888;
   margin-right: 3px;
 }
-.page-course-modify .form-content .place-form-loading {
+.page-workshop-modify .form-content .place-form-loading {
   color: #555;
   font-size: 13px;
 }
-.page-course-modify .form-content .place-form-loading img {
+.page-workshop-modify .form-content .place-form-loading img {
   margin-right: 5px;
 }
-.page-course-modify .form-content .place-form {
+.page-workshop-modify .form-content .place-form {
   background-color: #F7F7F7;
   border: 1px solid #DDD;
   padding: 15px 20px 0 20px;
 }
-.page-course-modify .form-content .place-form .head {
+.page-workshop-modify .form-content .place-form .head {
   border-bottom: 1px solid #DDD;
   color: #555;
   font-size: 13px;
@@ -4376,34 +4376,34 @@ body {
   margin-bottom: 17px;
   padding-bottom: 7px;
 }
-.page-course-modify .form-content .place-form .form-row .form-group {
+.page-workshop-modify .form-content .place-form .form-row .form-group {
   display: inline-block;
   vertical-align: top;
 }
-.page-course-modify .form-content .place-form label {
+.page-workshop-modify .form-content .place-form label {
   color: #444;
   display: inline-block;
   font-size: 18px;
   font-weight: normal;
   margin-bottom: 3px;
 }
-.page-course-modify .form-content .place-form #id_place_name {
+.page-workshop-modify .form-content .place-form #id_place_name {
   width: 365px;
 }
-.page-course-modify .form-content .place-form #id_place_address {
+.page-workshop-modify .form-content .place-form #id_place_address {
   height: 60px;
   margin: 0 20px 0 0;
   width: 365px;
 }
-.page-course-modify .form-content .place-form #id_place_province {
+.page-workshop-modify .form-content .place-form #id_place_province {
   width: 250px;
 }
-.page-course-modify .form-content .place-form #id_place_direction {
+.page-workshop-modify .form-content .place-form #id_place_direction {
   height: 120px;
   margin-right: 25px;
   width: 300px;
 }
-.page-course-modify .form-content .place-form .place-location-control .minimap {
+.page-workshop-modify .form-content .place-form .place-location-control .minimap {
   background-color: #F9F9F9;
   border: 1px solid #EEE;
   height: 188px;
@@ -4411,56 +4411,56 @@ body {
   text-align: center;
   width: 278px;
 }
-.page-course-modify .form-content .place-form .place-location-control .minimap img {
+.page-workshop-modify .form-content .place-form .place-location-control .minimap img {
   border: 1px solid #DDDDDD;
   height: 180px;
   width: 270px;
 }
-.page-course-modify .form-content .place-form .place-location-control .actions {
+.page-workshop-modify .form-content .place-form .place-location-control .actions {
   text-align: center;
 }
-.page-course-modify .form-content .place-form .place-location-control .actions .button-input-latlng {
+.page-workshop-modify .form-content .place-form .place-location-control .actions .button-input-latlng {
   margin-top: 5px;
   padding: 2px 15px;
 }
-.page-course-modify #form-footer-container {
+.page-workshop-modify #form-footer-container {
   margin-top: 30px;
   min-height: 60px;
 }
-.page-course-modify #form-footer-container .form-footer .container {
+.page-workshop-modify #form-footer-container .form-footer .container {
   padding: 0;
 }
-.page-course-modify #form-footer-container .form-footer button {
+.page-workshop-modify #form-footer-container .form-footer button {
   margin-right: 15px;
   padding: 14px 40px;
 }
-.page-course-modify #form-footer-container .form-footer .button-submit {
+.page-workshop-modify #form-footer-container .form-footer .button-submit {
   font-weight: bold;
 }
-.page-course-modify #form-footer-container .form-footer .link {
+.page-workshop-modify #form-footer-container .form-footer .link {
   vertical-align: bottom;
 }
-.page-course-modify #form-footer-container .form-footer .link a {
+.page-workshop-modify #form-footer-container .form-footer .link a {
   font-size: 13px;
 }
-.page-course-modify #form-footer-container .form-footer .link a:link,
-.page-course-modify #form-footer-container .form-footer .link a:active,
-.page-course-modify #form-footer-container .form-footer .link a:visited {
+.page-workshop-modify #form-footer-container .form-footer .link a:link,
+.page-workshop-modify #form-footer-container .form-footer .link a:active,
+.page-workshop-modify #form-footer-container .form-footer .link a:visited {
   color: #888;
   text-decoration: underline;
 }
-.page-course-modify #form-footer-container .form-footer .link a:hover {
+.page-workshop-modify #form-footer-container .form-footer .link a:hover {
   background-color: #3a71a9;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
 }
-.page-course-modify #form-footer-container .form-footer .link i {
+.page-workshop-modify #form-footer-container .form-footer .link i {
   color: #777;
   font-size: 12px;
   margin-right: 2px;
 }
-.page-course-modify .form-footer-floating {
+.page-workshop-modify .form-footer-floating {
   background-color: rgba(255, 255, 255, 0.9);
   border-top: 1px solid #EEE;
   bottom: 0px;
@@ -4469,64 +4469,64 @@ body {
   position: fixed;
   width: 100%;
 }
-.page-course-modify .form-footer-floating .container {
+.page-workshop-modify .form-footer-floating .container {
   padding: 0 15px !important;
 }
-.page-course-modify #modal-place-map {
+.page-workshop-modify #modal-place-map {
   margin-left: -350px;
   width: 700px;
 }
-.page-course-modify #modal-place-map .search button {
+.page-workshop-modify #modal-place-map .search button {
   vertical-align: middle;
 }
-.page-course-modify #modal-place-map .search input {
+.page-workshop-modify #modal-place-map .search input {
   margin: 0 7px 0 0;
   vertical-align: middle;
   width: 300px;
 }
-.page-course-modify #modal-place-map .map {
+.page-workshop-modify #modal-place-map .map {
   margin-top: 15px;
 }
-.page-course-modify #modal-place-map .map #map-canvas {
+.page-workshop-modify #modal-place-map .map #map-canvas {
   height: 300px;
   width: 660px;
 }
-.page-course-modify #modal-place-map .map #map-canvas img {
+.page-workshop-modify #modal-place-map .map #map-canvas img {
   max-width: none;
 }
-.page-course-modify #modal-place-map .modal-footer .note {
+.page-workshop-modify #modal-place-map .modal-footer .note {
   color: #555;
   float: left;
   font-size: 13px;
   text-align: left;
   width: 370px;
 }
-.page-course-modify #modal-place-map .modal-footer .note strong {
+.page-workshop-modify #modal-place-map .modal-footer .note strong {
   color: #444;
   font-size: 14px;
   font-weight: bold;
   margin-right: 3px;
 }
-.page-course-modify #modal-place-map .modal-footer .note em {
+.page-workshop-modify #modal-place-map .modal-footer .note em {
   font-style: italic;
 }
-.page-course-modify #modal-course-submitted .head1 {
+.page-workshop-modify #modal-workshop-submitted .head1 {
   color: #444;
   font-size: 16px;
   line-height: 25px;
 }
-.page-course-modify .select2-results .topic {
+.page-workshop-modify .select2-results .topic {
   color: #555;
   font-size: 13px;
 }
-.page-course-modify .select2-results .topic strong {
+.page-workshop-modify .select2-results .topic strong {
   color: #444;
   font-size: 14px;
 }
-.page-course-modify .select2-results .select2-highlighted .topic {
+.page-workshop-modify .select2-results .select2-highlighted .topic {
   color: #FFF;
 }
-.page-course-modify .select2-results .select2-highlighted .topic strong {
+.page-workshop-modify .select2-results .select2-highlighted .topic strong {
   color: #FFF;
 }
 .page-manage-workshop .manage-workshop-content {
@@ -4819,65 +4819,65 @@ body {
   margin-right: 15px;
   padding: 8px 35px;
 }
-.page-enrollment-details .enrollment-course {
+.page-enrollment-details .enrollment-workshop {
   border: 1px solid #DDD;
 }
-.page-enrollment-details .enrollment-course .course {
+.page-enrollment-details .enrollment-workshop .workshop {
   margin: 5px;
 }
-.page-enrollment-details .enrollment-course .cover {
+.page-enrollment-details .enrollment-workshop .cover {
   float: left;
 }
-.page-enrollment-details .enrollment-course .right {
+.page-enrollment-details .enrollment-workshop .right {
   margin-left: 275px;
 }
-.page-enrollment-details .enrollment-course .title {
+.page-enrollment-details .enrollment-workshop .title {
   margin-top: 5px;
 }
-.page-enrollment-details .enrollment-course .title a {
+.page-enrollment-details .enrollment-workshop .title a {
   font-size: 20px;
 }
-.page-enrollment-details .enrollment-course .title a:link,
-.page-enrollment-details .enrollment-course .title a:active,
-.page-enrollment-details .enrollment-course .title a:visited {
+.page-enrollment-details .enrollment-workshop .title a:link,
+.page-enrollment-details .enrollment-workshop .title a:active,
+.page-enrollment-details .enrollment-workshop .title a:visited {
   color: #29ace4;
 }
-.page-enrollment-details .enrollment-course .title a:hover {
+.page-enrollment-details .enrollment-workshop .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-enrollment-details .enrollment-course .teacher {
+.page-enrollment-details .enrollment-workshop .teacher {
   color: #888;
   font-size: 15px;
   margin-top: 10px;
 }
-.page-enrollment-details .enrollment-course .teacher a {
+.page-enrollment-details .enrollment-workshop .teacher a {
   color: #555;
   font-weight: bold;
 }
-.page-enrollment-details .enrollment-course .schedule {
+.page-enrollment-details .enrollment-workshop .schedule {
   color: #555;
   font-size: 15px;
   margin-top: 10px;
 }
-.page-enrollment-details .enrollment-course .enrollment {
+.page-enrollment-details .enrollment-workshop .enrollment {
   border-top: 1px dashed #DDD;
   padding: 8px 15px;
 }
-.page-enrollment-details .enrollment-course .enrollment ul {
+.page-enrollment-details .enrollment-workshop .enrollment ul {
   margin: 0;
 }
-.page-enrollment-details .enrollment-course .enrollment ul li {
+.page-enrollment-details .enrollment-workshop .enrollment ul li {
   display: inline-block;
   list-style: none;
   margin-right: 30px;
 }
-.page-enrollment-details .enrollment-course .enrollment ul li .caption {
+.page-enrollment-details .enrollment-workshop .enrollment ul li .caption {
   color: #777;
   font-size: 13px;
   margin-bottom: 2px;
 }
-.page-enrollment-details .enrollment-course .enrollment ul li .value {
+.page-enrollment-details .enrollment-workshop .enrollment ul li .value {
   color: #555;
   font-size: 16px;
   font-weight: bold;
@@ -5060,7 +5060,7 @@ body {
 .page-profile .profile-workshops ul.workshops li.workshop .details i.icon-comment {
   vertical-align: 1px;
 }
-.page-profile .profile-workshops ul.workshops li.workshop .style-course-feedback {
+.page-profile .profile-workshops ul.workshops li.workshop .style-workshop-feedback {
   margin-top: 10px;
 }
 .page-user-settings h2 {

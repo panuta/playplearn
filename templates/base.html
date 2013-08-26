@@ -76,7 +76,7 @@
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-reorder"></i></a>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="{% url 'view_my_courses_attended' %}">เวิร์คช็อป</a></li>
+                            <li><a href="{% url 'view_my_workshops_attended' %}">เวิร์คช็อป</a></li>
                             <li class="divider"></li>
                             <li><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าผู้ใช้</a></li>
                             <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
@@ -107,12 +107,12 @@
                             <div class="dropdown">
                                 <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-list"></i> {% trans 'Activities' %} <i class="icon-caret-down"></i></a>
                                 <ul class="dropdown-menu pull-right">
-                                    {% if user.stats_waiting_for_payment_courses %}<li><a href="{% url 'view_my_courses_payment' %}">{% trans 'Waiting for payment' %} <span class="number">{{ user.stats_waiting_for_payment_courses }}</span></a></li>{% endif %}
-                                    {% if user.stats_upcoming_courses %}<li><a href="{% url 'view_my_courses_upcoming' %}">{% trans 'Upcoming activities' %} <span class="number">{{ user.stats_upcoming_courses }}</span></a></li>{% endif %}
-                                    <li><a href="{% url 'view_my_courses_attended' %}">{% trans 'Attended activities' %}</a></li>
-                                    {% if user.stats_total_activities_organizing %}<li><a href="{% url 'view_all_my_courses_teaching' %}">{% trans 'Organizing activities' %}</a></li>{% endif %}
+                                    {% if user.stats_waiting_for_payment_workshops %}<li><a href="{% url 'view_my_workshops_payment' %}">{% trans 'Waiting for payment' %} <span class="number">{{ user.stats_waiting_for_payment_workshops }}</span></a></li>{% endif %}
+                                    {% if user.stats_upcoming_workshops %}<li><a href="{% url 'view_my_workshops_upcoming' %}">{% trans 'Upcoming activities' %} <span class="number">{{ user.stats_upcoming_workshops }}</span></a></li>{% endif %}
+                                    <li><a href="{% url 'view_my_workshops_attended' %}">{% trans 'Attended activities' %}</a></li>
+                                    {% if user.stats_total_activities_organizing %}<li><a href="{% url 'view_all_my_workshops_teaching' %}">{% trans 'Organizing activities' %}</a></li>{% endif %}
                                     <li class="divider"></li>
-                                    <li><a href="{% url 'create_course' %}"><i class="icon-plus"></i> {% trans 'Organize new activity' %}</a></li>
+                                    <li><a href="{% url 'create_workshop' %}"><i class="icon-plus"></i> {% trans 'Organize new activity' %}</a></li>
                                 </ul>
                             </div>
                         </li>

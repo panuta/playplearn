@@ -6,7 +6,7 @@ from django import template
 from django.conf import settings
 from django.template.defaultfilters import safe
 from django.utils.timezone import now
-from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
+from common.constants.workshop import WORKSHOP_ENROLLMENT_STATUS_MAP, WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.feedback import FEEDBACK_FEELING_CHOICES, FEEDBACK_FEELING_MAP
 from common.constants.payment import BANK_ACCOUNT_LIST, BANK_ACCOUNT_MAP
 
@@ -216,19 +216,19 @@ def name_or_me(user, logged_in_user):
 @register.filter
 def enrollment_status_for_student(enrollment):
     if enrollment.payment_status == 'WAIT_FOR_PAYMENT':
-        return COURSE_ENROLLMENT_PAYMENT_STATUS_MAP['WAIT_FOR_PAYMENT']['name']
+        return WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP['WAIT_FOR_PAYMENT']['name']
 
-    return COURSE_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
+    return WORKSHOP_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
 
 
 @register.filter
 def enrollment_status(enrollment):
-    return COURSE_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
+    return WORKSHOP_ENROLLMENT_STATUS_MAP[enrollment.status]['name']
 
 
 @register.filter
 def enrollment_payment_status(enrollment):
-    return COURSE_ENROLLMENT_PAYMENT_STATUS_MAP[enrollment.payment_status]['name']
+    return WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP[enrollment.payment_status]['name']
 
 
 # COURSE FEEDBACK ######################################################################################################

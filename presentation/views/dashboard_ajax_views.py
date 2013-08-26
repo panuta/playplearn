@@ -16,163 +16,163 @@ from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 
 from common import errors
-from common.constants.course import COURSE_ENROLLMENT_STATUS_MAP, COURSE_ENROLLMENT_PAYMENT_STATUS_MAP
+from common.constants.workshop import WORKSHOP_ENROLLMENT_STATUS_MAP, WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 from common.constants.payment import BANK_ACCOUNT_MAP
 from common.shortcuts import response_json_success, response_json_error_with_message, response_json_error
 from common.utilities import format_full_datetime, format_datetime_string
 
-from workshop import functions as domain_function
+from workshop import functions as workshop_functions
 from workshop.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
 
+from presentation.templatetags.presentation_tags import workshop_pictures_ordering_as_comma_separated
 
-# COURSE ###############################################################################################################
-from presentation.templatetags.presentation_tags import course_picture_ordering_as_comma_separated
 
+# WORKSHOP #############################################################################################################
 
 @require_POST
 @login_required
-def ajax_save_course(request):
+def ajax_save_workshop(request):
     if not request.is_ajax():
         raise Http404
 
-    course_uid = request.POST.get('uid')
+    workshop_uid = request.POST.get('uid')
 
     try:
-        course = Workshop.objects.get(uid=course_uid)
+        workshop = Workshop.objects.get(uid=workshop_uid)
     except Workshop.DoesNotExist:
-        course = Workshop.objects.create(
-            uid=course_uid,
+        workshop = Workshop.objects.create(
+            uid=workshop_uid,
             teacher=request.user,
             status='DRAFT',
         )
     else:
-        if course.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+        if workshop.teacher != request.user:
+            return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if course.status == 'WAIT_FOR_APPROVAL':
-        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    domain_function.save_course(course, request.POST)
+    workshop_functions.save_workshop(workshop, request.POST)
 
     submit_action = request.POST.get('submit')
 
     if submit_action == 'approval':
-        if course.status == 'DRAFT':
-            if domain_function.is_course_outline_completed(course):
-                course.status = 'WAIT_FOR_APPROVAL'
-                course.save()
+        if workshop.status == 'DRAFT':
+            if workshop_functions.is_workshop_outline_completed(workshop):
+                workshop.status = 'WAIT_FOR_APPROVAL'
+                workshop.save()
             else:
-                return response_json_error_with_message('course-incomplete', errors.COURSE_MODIFICATION_ERRORS)
+                return response_json_error_with_message('workshop-incomplete', errors.WORKSHOP_MODIFICATION_ERRORS)
         else:
-            return response_json_error_with_message('status-no-ready-to-submit', errors.COURSE_MODIFICATION_ERRORS)
+            return response_json_error_with_message('status-no-ready-to-submit', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     return response_json_success({
-        'course_uid': course.uid,
-        'is_completed': domain_function.is_course_outline_completed(course),
-        'preview_url': reverse('view_course_outline', args=[course.uid]),
-        'edit_url': reverse('edit_course', args=[course.uid]),
+        'workshop_uid': workshop.uid,
+        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'preview_url': reverse('view_workshop_outline', args=[workshop.uid]),
+        'edit_url': reverse('edit_workshop', args=[workshop.uid]),
     })
 
 
 @require_POST
 @login_required
-def ajax_upload_course_cover(request):
+def ajax_upload_workshop_cover(request):
     if not request.is_ajax():
         raise Http404
 
-    course_uid = request.POST.get('uid')
+    workshop_uid = request.POST.get('uid')
 
     try:
-        course = Workshop.objects.get(uid=course_uid)
+        workshop = Workshop.objects.get(uid=workshop_uid)
     except Workshop.DoesNotExist:
-        course = Workshop.objects.create(
-            uid=course_uid,
+        workshop = Workshop.objects.create(
+            uid=workshop_uid,
             teacher=request.user,
             status='DRAFT',
         )
     else:
-        if course.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+        if workshop.teacher != request.user:
+            return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if course.status == 'WAIT_FOR_APPROVAL':
-        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     cover_file = request.FILES['cover']
 
-    if cover_file.size > settings.COURSE_COVER_MAXIMUM_SIZE:
+    if cover_file.size > settings.WORKSHOP_COVER_MAXIMUM_SIZE:
         return response_json_error('file-size-exceeded')
 
-    if course.status == 'DRAFT':
-        editing_course = course
-    elif course.status in ('PUBLISHED', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        editing_course, _ = EditingCourse.objects.get_or_create(course=course)
+    if workshop.status == 'DRAFT':
+        editing_workshop = workshop
+    elif workshop.status in ('PUBLISHED', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        editing_workshop, _ = EditingWorkshop.objects.get_or_create(workshop=workshop)
     else:
-        return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('status-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if editing_course.cover:
-        editing_course.cover.delete()
+    if editing_workshop.cover:
+        editing_workshop.cover.delete()
 
     try:
-        editing_course.cover = cover_file
-        editing_course.save()
-        cover_url = get_thumbnailer(editing_course.cover)['course_cover_small'].url
+        editing_workshop.cover = cover_file
+        editing_workshop.save()
+        cover_url = get_thumbnailer(editing_workshop.cover)['workshop_cover_small'].url
     except InvalidImageFormatError:
-        return response_json_error_with_message('file-type-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('file-type-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     return response_json_success({
-        'is_completed': domain_function.is_course_outline_completed(course),
+        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
         'cover_url': cover_url,
-        'cover_filename': editing_course.cover.name,
+        'cover_filename': editing_workshop.cover.name,
     })
 
 
 @require_POST
 @login_required
-def ajax_upload_course_picture(request):
-    course_uid = request.POST.get('uid')
+def ajax_upload_workshop_picture(request):
+    workshop_uid = request.POST.get('uid')
 
     try:
-        course = Workshop.objects.get(uid=course_uid)
+        workshop = Workshop.objects.get(uid=workshop_uid)
     except Workshop.DoesNotExist:
-        course = Workshop.objects.create(
-            uid=course_uid,
+        workshop = Workshop.objects.create(
+            uid=workshop_uid,
             teacher=request.user,
             status='DRAFT',
         )
     else:
-        if course.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+        if workshop.teacher != request.user:
+            return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if course.status == 'WAIT_FOR_APPROVAL':
-        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if WorkshopPicture.objects.filter(course=course).count() > settings.COURSE_PICTURE_MAXIMUM_NUMBER:
-        return response_json_error_with_message('file-number-exceeded', errors.COURSE_MODIFICATION_ERRORS)
+    if WorkshopPicture.objects.filter(workshop=workshop).count() > settings.WORKSHOP_PICTURE_MAXIMUM_NUMBER:
+        return response_json_error_with_message('file-number-exceeded', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     image_file = request.FILES['pictures[]']
 
-    if image_file.size > settings.COURSE_PICTURE_MAXIMUM_SIZE:
-        return response_json_error_with_message('file-size-exceeded', errors.COURSE_MODIFICATION_ERRORS)
+    if image_file.size > settings.WORKSHOP_PICTURE_MAXIMUM_SIZE:
+        return response_json_error_with_message('file-size-exceeded', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    last_ordering = WorkshopPicture.objects.filter(course=course, mark_deleted=False) \
+    last_ordering = WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False) \
         .aggregate(Max('ordering'))['ordering__max']
 
     if not last_ordering:
         last_ordering = 0
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        course_picture = WorkshopPicture.objects.create(
-            course=course,
+    if workshop.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        workshop_picture = WorkshopPicture.objects.create(
+            workshop=workshop,
             image=image_file,
             ordering=last_ordering+1,
             is_visible=True,
         )
 
-    elif course.status == 'PUBLISHED':
-        course_picture = WorkshopPicture.objects.create(
-            course=course,
+    elif workshop.status == 'PUBLISHED':
+        workshop_picture = WorkshopPicture.objects.create(
+            workshop=workshop,
             image=image_file,
             ordering=last_ordering+1,
             mark_added=True,
@@ -180,67 +180,67 @@ def ajax_upload_course_picture(request):
         )
 
     else:
-        return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('status-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    course_picture_url = get_thumbnailer(course_picture.image)['course_picture_small'].url
+    workshop_picture_url = get_thumbnailer(workshop_picture.image)['workshop_picture_small'].url
 
     return response_json_success({
-        'is_completed': domain_function.is_course_outline_completed(course),
-        'ordering': course_picture_ordering_as_comma_separated(course),
-        'picture_uid': course_picture.uid,
-        'picture_url': course_picture_url,
+        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'ordering': workshop_pictures_ordering_as_comma_separated(workshop),
+        'picture_uid': workshop_picture.uid,
+        'picture_url': workshop_picture_url,
     })
 
 
 @require_POST
 @login_required
-def ajax_delete_course_picture(request):
+def ajax_delete_workshop_picture(request):
     if not request.is_ajax():
         raise Http404
 
-    course_uid = request.POST.get('uid')
-    course = get_object_or_404(Workshop, uid=course_uid)
+    workshop_uid = request.POST.get('uid')
+    workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
     picture_uid = request.POST.get('picture_uid')
 
-    if course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if course.status == 'WAIT_FOR_APPROVAL':
-        return response_json_error_with_message('edit-while-approving', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.status == 'WAIT_FOR_APPROVAL':
+        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     try:
-        course_picture = WorkshopPicture.objects.get(uid=picture_uid)
+        workshop_picture = WorkshopPicture.objects.get(uid=picture_uid)
     except WorkshopPicture.DoesNotExist:
-        return response_json_error_with_message('picture-notfound', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('picture-notfound', errors.WORKSHOP_MODIFICATION_ERRORS)
 
 
-    if course.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        course_picture.image.delete()
-        course_picture.delete()
+    if workshop.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+        workshop_picture.image.delete()
+        workshop_picture.delete()
 
-    elif course.status == 'PUBLISHED':
-        course_picture.mark_deleted = True
-        course_picture.save()
+    elif workshop.status == 'PUBLISHED':
+        workshop_picture.mark_deleted = True
+        workshop_picture.save()
 
     else:
-        return response_json_error_with_message('status-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('status-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     return response_json_success({
-        'is_completed': domain_function.is_course_outline_completed(course),
-        'ordering': course_picture_ordering_as_comma_separated(course),
+        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'ordering': workshop_pictures_ordering_as_comma_separated(workshop),
     })
 
 
 @require_GET
 @login_required
-def ajax_get_course_place(request):
+def ajax_get_workshop_place(request):
     place_id = request.GET.get('place_id')
 
     try:
         place = Place.objects.get(pk=place_id, created_by=request.user)
     except Place.DoesNotExist:
-        return response_json_error_with_message('place-notfound', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('place-notfound', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     return response_json_success({
         'id': place.id,
@@ -254,106 +254,106 @@ def ajax_get_course_place(request):
 
 @require_POST
 @login_required
-def ajax_publish_course(request):
+def ajax_publish_workshop(request):
     if not request.is_ajax():
         raise Http404
 
-    course_uid = request.POST.get('uid')
+    workshop_uid = request.POST.get('uid')
 
-    course = get_object_or_404(Workshop, uid=course_uid)
+    workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
-    if course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if course.status != 'READY_TO_PUBLISH':
-        return response_json_error_with_message('status-no-ready-to-publish', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.status != 'READY_TO_PUBLISH':
+        return response_json_error_with_message('status-no-ready-to-publish', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     try:
         datetime_data = '%s-%s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time'))
         schedule_datetime = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
     except ValueError:
-        return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('input-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    CourseSchedule.objects.create(course=course, start_datetime=schedule_datetime)
+    WorkshopSchedule.objects.create(workshop=workshop, start_datetime=schedule_datetime)
 
     rightnow = now()
 
-    course.status = 'PUBLISHED'
-    course.first_published = rightnow
-    course.last_scheduled = rightnow
-    course.save()
+    workshop.status = 'PUBLISHED'
+    workshop.first_published = rightnow
+    workshop.last_scheduled = rightnow
+    workshop.save()
 
-    CourseOutlineMedia.objects.filter(course=course).update(is_visible=True)
+    WorkshopOutlineMedia.objects.filter(workshop=workshop).update(is_visible=True)
 
-    if course.place.is_userdefined:
-        course.place.is_visible = True
-        course.place.save()
+    if workshop.place.is_userdefined:
+        workshop.place.is_visible = True
+        workshop.place.save()
 
-    messages.success(request, 'Successfully publish your course. You can now promote the course here.')
+    messages.success(request, 'Successfully publish your workshop. You can now promote the workshop here.')
 
     return response_json_success({
-        'redirect_url': reverse('manage_course_promote', args=[course.uid]),
+        'redirect_url': reverse('manage_workshop_promote', args=[workshop.uid]),
     })
 
 
-# COURSE SCHEDULE ######################################################################################################
+# WORKSHOP SCHEDULE ######################################################################################################
 
 @require_POST
 @login_required
-def ajax_add_course_schedule(request):
+def ajax_add_workshop_schedule(request):
     if not request.is_ajax():
         raise Http404
 
-    course_uid = request.POST.get('uid')
+    workshop_uid = request.POST.get('uid')
 
-    course = get_object_or_404(Workshop, uid=course_uid)
+    workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
-    if course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if course.status != 'PUBLISHED':
-        return response_json_error_with_message('status-no-ready-to-publish', errors.COURSE_MODIFICATION_ERRORS)
+    if workshop.status != 'PUBLISHED':
+        return response_json_error_with_message('status-no-ready-to-publish', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     try:
         schedule_datetime = parse_datetime(
             '%s %s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time')))
     except ValueError:
-        return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('input-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     rightnow = now()
 
     if schedule_datetime < rightnow:
-        return response_json_error_with_message('schedule-past', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('schedule-past', errors.WORKSHOP_MODIFICATION_ERRORS)
     elif (schedule_datetime - rightnow).days > settings.SCHEDULE_ADD_DAYS_IN_ADVANCE:
-        return response_json_error_with_message('schedule-future', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('schedule-future', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    schedule, created = CourseSchedule.objects.get_or_create(course=course, start_datetime=schedule_datetime)
+    schedule, created = WorkshopSchedule.objects.get_or_create(workshop=workshop, start_datetime=schedule_datetime)
 
     if not created:
-        return response_json_error_with_message('schedule-duplicated', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('schedule-duplicated', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    course.last_scheduled = rightnow
-    course.save()
+    workshop.last_scheduled = rightnow
+    workshop.save()
 
     return response_json_success({
-        'manage_class_url': reverse('manage_course_class',
-                                    args=[course.uid, format_datetime_string(schedule.start_datetime)])
+        'manage_class_url': reverse('manage_workshop_class',
+                                    args=[workshop.uid, format_datetime_string(schedule.start_datetime)])
     })
 
 
-# COURSE FEEDBACK ######################################################################################################
+# WORKSHOP FEEDBACK ######################################################################################################
 
 @require_GET
 @login_required
-def ajax_view_course_feedback(request):
+def ajax_view_workshop_feedback(request):
     if not request.is_ajax():
         raise Http404
 
     enrollment_code = request.GET.get('code')
-    enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code)
+    enrollment = get_object_or_404(WorkshopEnrollment, code=enrollment_code)
 
-    if enrollment.student != request.user and enrollment.schedule.course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_FEEDBACK_ERRORS)
+    if enrollment.student != request.user and enrollment.schedule.workshop.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     feedback = get_object_or_404(WorkshopFeedback, enrollment=enrollment)
 
@@ -370,28 +370,28 @@ def ajax_view_course_feedback(request):
 
 @require_POST
 @login_required
-def ajax_add_course_feedback(request):
+def ajax_add_workshop_feedback(request):
     if not request.is_ajax():
         raise Http404
 
     enrollment_code = request.POST.get('code')
-    enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code)
+    enrollment = get_object_or_404(WorkshopEnrollment, code=enrollment_code)
 
     if enrollment.student != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_FEEDBACK_ERRORS)
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     try:
         WorkshopFeedback.objects.get(enrollment=enrollment)
     except WorkshopFeedback.DoesNotExist:
         pass
     else:
-        return response_json_error_with_message('existed', errors.COURSE_FEEDBACK_ERRORS)
+        return response_json_error_with_message('existed', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     feeling_list = request.POST.getlist('feelings[]')
     content = request.POST.get('content', '')
 
     if not feeling_list and not content:
-        return response_json_error_with_message('empty', errors.COURSE_FEEDBACK_ERRORS)
+        return response_json_error_with_message('empty', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     valid_feelings = []
     for feeling in feeling_list:
@@ -409,20 +409,20 @@ def ajax_add_course_feedback(request):
 
 @require_POST
 @login_required
-def ajax_delete_course_feedback(request):
+def ajax_delete_workshop_feedback(request):
     if not request.is_ajax():
         raise Http404
 
     enrollment_code = request.POST.get('code')
-    enrollment = get_object_or_404(CourseEnrollment, code=enrollment_code)
+    enrollment = get_object_or_404(WorkshopEnrollment, code=enrollment_code)
 
     if enrollment.student != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_FEEDBACK_ERRORS)
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     try:
         feedback = WorkshopFeedback.objects.get(enrollment=enrollment)
     except WorkshopFeedback.DoesNotExist:
-        return response_json_error_with_message('deleted', errors.COURSE_FEEDBACK_ERRORS)
+        return response_json_error_with_message('deleted', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     feedback.delete()
     return response_json_success()
@@ -430,15 +430,15 @@ def ajax_delete_course_feedback(request):
 
 @require_POST
 @login_required
-def ajax_set_course_feedback_public(request):
+def ajax_set_workshop_feedback_public(request):
     if not request.is_ajax():
         raise Http404
 
     feedback_id = request.POST.get('feedback_id')
     feedback = get_object_or_404(WorkshopFeedback, pk=feedback_id)
 
-    if feedback.enrollment.schedule.course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+    if feedback.enrollment.schedule.workshop.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     feedback.is_public = not feedback.is_public
     feedback.save()
@@ -450,15 +450,15 @@ def ajax_set_course_feedback_public(request):
 
 @require_POST
 @login_required
-def ajax_set_course_feedback_promoted(request):
+def ajax_set_workshop_feedback_promoted(request):
     if not request.is_ajax():
         raise Http404
 
     feedback_id = request.POST.get('feedback_id')
     feedback = get_object_or_404(WorkshopFeedback, pk=feedback_id)
 
-    if feedback.enrollment.schedule.course.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.COURSE_MODIFICATION_ERRORS)
+    if feedback.enrollment.schedule.workshop.teacher != request.user:
+        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     feedback.is_promoted = not feedback.is_promoted
     feedback.save()
@@ -479,18 +479,18 @@ def ajax_view_enrollment_details(request):
     code = request.GET.get('code')
 
     try:
-        enrollment = CourseEnrollment.objects.get(code=code)
-    except CourseEnrollment.DoesNotExist:
+        enrollment = WorkshopEnrollment.objects.get(code=code)
+    except WorkshopEnrollment.DoesNotExist:
         raise Http404
 
-    course = enrollment.schedule.course
+    workshop = enrollment.schedule.workshop
     return response_json_success({
-        'title': course.title,
-        'teacher_name': course.teacher.name,
+        'title': workshop.title,
+        'teacher_name': workshop.teacher.name,
         'schedule_datetime': format_full_datetime(enrollment.schedule.start_datetime),
-        'amount': '%.0f %s' % (enrollment.total, CURRENCY_CODE_MAP[str(course.price_unit)]['name']),
-        'status': COURSE_ENROLLMENT_STATUS_MAP[str(enrollment.status)]['name'],
-        'payment_status': COURSE_ENROLLMENT_PAYMENT_STATUS_MAP[str(enrollment.payment_status)]['name'],
+        'amount': '%.0f %s' % (enrollment.total, CURRENCY_CODE_MAP[str(workshop.price_unit)]['name']),
+        'status': WORKSHOP_ENROLLMENT_STATUS_MAP[str(enrollment.status)]['name'],
+        'payment_status': WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP[str(enrollment.payment_status)]['name'],
         'reserved_on': format_full_datetime(enrollment.created),
         'print_url': '',
     })
@@ -505,12 +505,12 @@ def ajax_notify_enrollment_payment(request):
     code = request.POST.get('code')
 
     try:
-        enrollment = CourseEnrollment.objects.get(code=code)
-    except CourseEnrollment.DoesNotExist:
-        return response_json_error_with_message('enrollment-notfound', errors.COURSE_ENROLLMENT_ERRORS)
+        enrollment = WorkshopEnrollment.objects.get(code=code)
+    except WorkshopEnrollment.DoesNotExist:
+        return response_json_error_with_message('enrollment-notfound', errors.WORKSHOP_ENROLLMENT_ERRORS)
 
-    if CourseEnrollmentPaymentNotify.objects.filter(enrollment=enrollment).exists():
-        return response_json_error_with_message('payment-notify-duplicate', errors.COURSE_ENROLLMENT_ERRORS)
+    if WorkshopEnrollmentPaymentNotify.objects.filter(enrollment=enrollment).exists():
+        return response_json_error_with_message('payment-notify-duplicate', errors.WORKSHOP_ENROLLMENT_ERRORS)
 
     bank = request.POST.get('bank', '')
     amount = request.POST.get('amount', '')
@@ -520,22 +520,22 @@ def ajax_notify_enrollment_payment(request):
     remark = request.POST.get('remark', '')
 
     if not bank or bank not in BANK_ACCOUNT_MAP:
-        return response_json_error_with_message('payment-notify-bank-invalid', errors.COURSE_ENROLLMENT_ERRORS)
+        return response_json_error_with_message('payment-notify-bank-invalid', errors.WORKSHOP_ENROLLMENT_ERRORS)
 
     try:
         amount = int(amount)
         if amount < 0:
             raise ValueError
     except ValueError:
-        return response_json_error_with_message('payment-notify-amount-invalid', errors.COURSE_ENROLLMENT_ERRORS)
+        return response_json_error_with_message('payment-notify-amount-invalid', errors.WORKSHOP_ENROLLMENT_ERRORS)
 
     try:
         datetime_data = '%s-%s-%s' % (date, time_hour, time_minute)
         transfered_on = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
     except ValueError:
-        return response_json_error_with_message('input-invalid', errors.COURSE_MODIFICATION_ERRORS)
+        return response_json_error_with_message('input-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    CourseEnrollmentPaymentNotify.objects.create(
+    WorkshopEnrollmentPaymentNotify.objects.create(
         enrollment=enrollment,
         bank=bank,
         amount=amount,
