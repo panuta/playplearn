@@ -12,7 +12,8 @@ from common.constants.course import COURSE_STATUS_MAP
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 
-from domain.models import UserRegistration, WorkshopTopic, Place, WorkshopPicture
+from account.models import UserRegistration
+from workshop.models import WorkshopTopic, Place, WorkshopPicture
 
 register = template.Library()
 

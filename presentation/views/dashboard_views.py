@@ -12,8 +12,8 @@ from django.views.decorators.http import require_POST
 
 from common.decorators import teacher_only
 
-from domain import functions as domain_functions
-from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
+from workshop import functions as domain_functions
+from workshop.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
 
 
 # MY WORKSHOPS #########################################################################################################
@@ -131,17 +131,17 @@ def create_course(request):
 
 @login_required
 def edit_workshop(request, workshop_uid):
-    course = get_object_or_404(Workshop, uid=course_uid)
+    workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
-    if course.teacher != request.user:
+    if workshop.teacher != request.user:
         raise Http404
 
-    course_pictures = WorkshopPicture.objects.filter(course=course, mark_deleted=False)
+    workshop_pictures = WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False)
 
     return render(request, 'dashboard/workshop_modify.html', {
-        'course': course,
-        'course_pictures': course_pictures,
-        'is_completed': domain_functions.is_course_outline_completed(course),
+        'workshop': workshop,
+        'workshop_pictures': workshop_pictures,
+        'is_completed': domain_functions.is_workshop_outline_completed(workshop),
     })
 
 

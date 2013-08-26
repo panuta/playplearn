@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
 urlpatterns = patterns(
-    'accounts.views',
+    'account.views',
     url(r'^login/$', 'view_user_login', {'action':'login'}, name='view_user_login'),
     url(r'^login/signup/$', 'view_user_login', {'action':'signup'}, name='view_user_login_signup'),
     url(r'^login/resend/$', 'view_user_login', {'action':'resend'}, name='view_user_login_resend'),

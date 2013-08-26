@@ -3,7 +3,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from domain.models import UserAccount, Place
+from account.models import UserAccount
 
 
 # USER #################################################################################################################

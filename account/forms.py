@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from common.widgets import EmailWidget
 
-from domain.models import UserRegistration, UserAccount
+from account.models import UserRegistration, UserAccount
 
 
 class EmailAuthenticationForm(forms.Form):

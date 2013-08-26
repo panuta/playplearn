@@ -23,8 +23,8 @@ from common.constants.payment import BANK_ACCOUNT_MAP
 from common.shortcuts import response_json_success, response_json_error_with_message, response_json_error
 from common.utilities import format_full_datetime, format_datetime_string
 
-from domain import functions as domain_function
-from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
+from workshop import functions as domain_function
+from workshop.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
 
 
 # COURSE ###############################################################################################################

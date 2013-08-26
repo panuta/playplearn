@@ -3,13 +3,14 @@ from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
-from accounts.forms import EmailAuthenticationForm, EmailSignupForm, EmailSignupResendForm, EmailUserActivationForm
-from accounts.functions import ajax_login_email_user, ajax_register_email_user
 from common.decorators import redirect_if_authenticated
 from common.errors import UserRegistrationException, ACCOUNT_REGISTRATION_ERRORS
 from common.shortcuts import response_json_success, response_json_error_with_message
 from common.utilities import split_filepath
-from domain.models import UserRegistration
+
+from .forms import EmailAuthenticationForm, EmailSignupForm, EmailSignupResendForm, EmailUserActivationForm
+from .functions import ajax_login_email_user, ajax_register_email_user
+from .models import UserRegistration
 
 
 @redirect_if_authenticated

@@ -1,11 +1,10 @@
 
 from django.contrib.auth import login, authenticate
-from common.errors import ACCOUNT_REGISTRATION_ERRORS, UserRegistrationException
+from common.errors import UserRegistrationException
 
-from common.shortcuts import response_json_success, response_json_error_with_message
 from common.utilities import check_email_format
 
-from domain.models import UserRegistration, UserAccount
+from account.models import UserRegistration, UserAccount
 
 
 def ajax_login_email_user(request, email, password):

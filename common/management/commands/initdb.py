@@ -8,7 +8,8 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 
-from domain.models import UserAccount, WorkshopTopic, Workshop, Place
+from account.models import UserAccount
+from workshop.models import WorkshopTopic, Workshop, Place
 
 from reservation import functions as reservation_functions
 from reservation.models import Reservation, BalanceTransaction
@@ -251,7 +252,7 @@ class Command(BaseCommand):
                 schedule3 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 30, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
 
                 reservation4 = Reservation.objects.create(
-                    code='ENROLL1_4',
+                    code='ENROLL2_1',
                     user=user4,
                     schedule=schedule2,
                     price=200,
@@ -262,7 +263,7 @@ class Command(BaseCommand):
                     )
 
                 reservation1 = Reservation.objects.create(
-                    code='ENROLL2_1',
+                    code='ENROLL2_2',
                     user=user_panuta,
                     schedule=schedule1,
                     price=400,
@@ -273,7 +274,7 @@ class Command(BaseCommand):
                 )
 
                 reservation2 = Reservation.objects.create(
-                    code='ENROLL2_2',
+                    code='ENROLL2_3',
                     user=user4,
                     schedule=schedule1,
                     price=400,
@@ -284,7 +285,7 @@ class Command(BaseCommand):
                 )
 
                 reservation3 = Reservation.objects.create(
-                    code='ENROLL2_3',
+                    code='ENROLL2_4',
                     user=user_panuta,
                     schedule=schedule2,
                     price=400,

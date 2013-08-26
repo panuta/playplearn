@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.decorators import available_attrs
-from domain.models import Workshop
+from workshop.models import Workshop
 
 
 def redirect_if_authenticated(function=None):

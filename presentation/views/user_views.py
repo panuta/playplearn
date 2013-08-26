@@ -10,7 +10,8 @@ from django.utils.timezone import now
 
 from common.utilities import split_filepath
 
-from domain.models import UserAccount, Workshop
+from account.models import UserAccount
+from workshop.models import Workshop
 from presentation.forms import EditProfileForm, EditAccountEmailForm
 
 

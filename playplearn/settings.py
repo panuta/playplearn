@@ -63,7 +63,7 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = 'THIS_IS_NOT_A_SECRET_KEY'
 
-AUTH_USER_MODEL = 'domain.UserAccount'
+AUTH_USER_MODEL = 'account.UserAccount'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
@@ -126,8 +126,8 @@ INSTALLED_APPS = (
     'social_auth',
     'taggit',
 
-    'accounts',
-    'domain',
+    'account',
+    'workshop',
     'common',
     'messages',
     'presentation',

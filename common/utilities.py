@@ -7,6 +7,10 @@ from common.constants import datetime as datetime_constants
 from common.l10n import th
 
 
+SHORTUUID_ALPHABETS_NUMBER_ONLY = '1234567890'
+SHORTUUID_ALPHABETS_CHARACTERS_NUMBER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+
 # DATE & TIME ##########################################################################################################
 
 def format_full_datetime(datetime):

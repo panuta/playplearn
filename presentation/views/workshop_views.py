@@ -8,15 +8,15 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from accounts.forms import EmailAuthenticationForm
-from accounts.functions import ajax_login_email_user, ajax_register_email_user
+from account.forms import EmailAuthenticationForm
+from account.functions import ajax_login_email_user, ajax_register_email_user
 
 from common import errors
 from common.errors import CourseEnrollmentException, ACCOUNT_REGISTRATION_ERRORS, UserRegistrationException
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
-from domain import functions as domain_functions
-from domain.models import Workshop, WorkshopTopic, WorkshopPicture
+from workshop import functions as domain_functions
+from workshop.models import Workshop, WorkshopTopic, WorkshopPicture
 from reservation.models import Schedule, Reservation
 
 

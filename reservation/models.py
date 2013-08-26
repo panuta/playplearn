@@ -8,7 +8,7 @@ class Schedule(models.Model):
     STATUS_OPEN = 'O'
     STATUS_CANCELLED = 'C'
 
-    workshop = models.ForeignKey('domain.Workshop')
+    workshop = models.ForeignKey('workshop.Workshop')
 
     start_datetime = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)

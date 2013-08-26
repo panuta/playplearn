@@ -5,7 +5,7 @@ from common.errors import CourseEnrollmentException
 from common.l10n.th import PROVINCE_MAP
 from common.utilities import extract_request_object
 
-from domain.models import WorkshopActivity, WorkshopTopic, Place, WorkshopPicture, Workshop
+from workshop.models import WorkshopActivity, WorkshopTopic, Place, WorkshopPicture, Workshop
 from reservation.models import Schedule
 
 
@@ -35,9 +35,9 @@ def get_upcoming_workshops():
     return upcoming_workshops
 
 
-# COURSE DASHBOARD #####################################################################################################
+# WORKSHOP DASHBOARD ###################################################################################################
 
-def is_course_outline_completed(course):
+def is_workshop_outline_completed(course):
     is_completed = True
 
     if not course.title:
