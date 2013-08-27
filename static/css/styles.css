@@ -3845,7 +3845,7 @@ body {
 .page-workshop-modify #backend-container {
   background: url('../images/ui/100-95-3.png') repeat #8696a0;
 }
-.page-workshop-modify .approving-message {
+.page-workshop-modify .wait-for-approval {
   background-color: #FFD;
   color: #555;
   font-size: 14px;
@@ -3853,19 +3853,16 @@ body {
   padding: 20px 50px;
   text-align: center;
 }
-.page-workshop-modify .approving-message p {
+.page-workshop-modify .wait-for-approval p {
   line-height: 27px;
   margin-bottom: 2px;
 }
-.page-workshop-modify .approving-message .head1 {
+.page-workshop-modify .wait-for-approval .head1 {
   font-size: 16px;
   font-weight: bold;
 }
-.page-workshop-modify .approving-message form {
-  margin: 0;
-}
-.page-workshop-modify .approving-message .btn {
-  margin-top: 10px;
+.page-workshop-modify .wait-for-approval form {
+  margin: 10px 0 0;
 }
 .page-workshop-modify .form-errors {
   background-color: #FCC;
@@ -4232,7 +4229,7 @@ body {
   font-size: 19px;
   margin-bottom: 7px;
 }
-.page-workshop-modify .form-content .tuition-control input {
+.page-workshop-modify .form-content .price-control input {
   width: 100px;
 }
 .page-workshop-modify .form-content .duration-control input {

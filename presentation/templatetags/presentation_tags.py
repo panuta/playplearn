@@ -88,7 +88,6 @@ def workshop_pictures_ordering_as_comma_separated(workshop):
 
 @register.assignment_tag
 def has_user_defined_place(user):
-    print user.id
     return Place.objects.filter(is_userdefined=True, created_by=user).exists()
 
 

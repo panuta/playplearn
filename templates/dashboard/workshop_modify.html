@@ -9,6 +9,7 @@
 <script>
 
 (function() {
+    {% if not workshop.is_status_wait_for_approval %}
     var workshop_uid = '{% if not workshop %}{{ workshop_uid }}{% else %}{{ workshop.uid }}{% endif %}';
     var enable_autosave = {% if workshop.is_status_published %}false{% else %}true{% endif %};
     var page_type = '{% if not workshop %}create{% else %}edit{% endif %}';
@@ -34,6 +35,7 @@
             footer.find('.form-footer').addClass('form-footer-floating');
         }
     });
+    {% endif %}
 })();
 </script>
 {% endblock %}
@@ -46,12 +48,12 @@
 {% block backend_container %}
 <div class="container">
     {% if workshop and workshop.is_status_wait_for_approval %}
-    <div class="approving-message">
-        <p class="head1">ทีมงานของ PlayPlearn กำลังตรวจสอบเพื่อรับรองเวิร์คช็อปนี้</p>
-        <p>ขั้นตอนนี้จะใช้เวลาไม่เกิน 2 วันโดยปกติ ในระหว่างที่มีการตรวจสอบนั้นจะไม่อนุญาติให้มีการแก้ไขข้อมูลใดๆ หากผู้ใช้ต้องการที่จะแก้ไขข้อมูล กรุณากดยกเลิกการตรวจสอบด้านล่างนี้</p>
+    <div class="wait-for-approval">
+        <p class="head1">ทีมงาน PlayPlearn กำลังตรวจสอบเพื่อรับรองเวิร์คช็อปนี้</p>
+        <p>โดยปกติขั้นตอนตรวจสอบจะใช้เวลาไม่เกิน 2 วัน ในระหว่างนี้จะไม่อนุญาตให้มีการแก้ไขข้อมูลใดๆ หากผู้ใช้ต้องการที่จะแก้ไขข้อมูล กรุณากดยกเลิกการตรวจสอบด้านล่างนี้</p>
         <form method="post" action="{% url 'revert_approving_workshop' workshop.uid %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-small">ยกเลิกการตรวจสอบ (กลับไปอยู่ในสถานะฉบับร่าง)</button>
+            <button type="submit" class="style-outline-button">ยกเลิกการตรวจสอบ (กลับไปอยู่ในสถานะฉบับร่าง)</button>
         </form>
     </div>
     {% endif %}
@@ -130,7 +132,7 @@
 
         <div class="control-row">
             <!-- Tuition Fee -->
-            <div class="form-group tuition-control">
+            <div class="form-group price-control">
                 <label for="id_price">ค่าใช้จ่าย</label>
                 <div class="number-control">
                     <input type="number" id="id_price" class="form-control" value="{{ workshop.default_price|floatformat:-2 }}"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}/>

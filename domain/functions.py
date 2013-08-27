@@ -216,7 +216,7 @@ def save_workshop(workshop, request_data):
 
 
 def revert_approving_workshop(workshop):
-    workshop.status = 'DRAFT'
+    workshop.status = Workshop.STATUS_DRAFT
     workshop.save()
 
 

@@ -474,11 +474,6 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
             form_story.data('dirty', false);
         }
 
-        if(form_story.data('dirty') || _is_very_dirty) {
-            data['story'] = form_story.redactor('get');
-            form_story.data('dirty', false);
-        }
-
         if(form_pictures_ordering.data('dirty') || _is_very_dirty) {
             data['picture_ordering'] = form_pictures_ordering.val();
             form_pictures_ordering.data('dirty', false);
@@ -505,7 +500,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
         }
 
         if(form_place.data('dirty') || _is_very_dirty) {
-            var place_choice = form_place.find('input[name="place"]:checked').val();
+            var place_choice = form_place.find('input[name="place-type"]:checked').val();
 
             if(place_choice == 'system-place') {
                 data['place-id'] = $('#id_place_system').find('option:selected').val();
@@ -721,7 +716,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
 
     _init_place();
 
-    form_place.find('input[name="place"]').on('change', function() {
+    form_place.find('input[name="place-type"]').on('change', function() {
         form_place.data('dirty', true);
         set_dirty();
     });
