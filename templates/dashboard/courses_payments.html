@@ -31,8 +31,8 @@
                             <div class="teacher">โดย <a href="{% url 'view_user_profile' course.teacher.uid %}" class="name">{{ course.teacher.name }}</a></div>
                             <div class="schedule">{{ enrollment.schedule|schedule_datetime }}</div>
                             <div class="actions">
-                                <span class="price">{{ enrollment.total|floatformat:-2 }} บาท</span>
-                                <a href="#modal-payment-notify" class="btn btn-orange btn-small" data-enrollment-code="{{ enrollment.code }}" data-amount="{{ enrollment.total|floatformat:-2 }}">แจ้งชำระเงิน</a>
+                                <span class="price">{{ enrollment.total|format_price }} บาท</span>
+                                <a href="#modal-payment-notify" class="btn btn-orange btn-small" data-enrollment-code="{{ enrollment.code }}" data-amount="{{ enrollment.total|format_price }}">แจ้งชำระเงิน</a>
                                 <a href="{% url 'view_enrollment_details' enrollment.code %}" class="btn btn-small">View enrollment</a>
                             </div>
                         </div>

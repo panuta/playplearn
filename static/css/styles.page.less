@@ -1231,13 +1231,23 @@
     }
 }
 
-.page-my-workshops-organizing {
+.page-my-workshops-organize {
     .style-stats-bar {
         margin-top: 20px;
 
+        .number {
+            .positive {
+                color: @colorPositive;
+            }
+
+            .negative {
+                color: @colorNegative;
+            }
+        }
+
         .add-workshop {
             float: right;
-            margin: 12px 17px;
+            margin: 11px 17px;
         }
     }
 
@@ -1258,7 +1268,7 @@
             }
 
             .right {
-                margin-left: 175px;
+                margin-left: 280px;
             }
 
             .title a {
@@ -1270,25 +1280,14 @@
             .subtitle {
                 margin-top: 5px;
 
-                .workshop-status {
-                    display: inline-block;
+                .style-workshop-status {
                     margin-right: 15px;
-
-                    span {
-                        border-radius: 4px;
-                        padding: 4px 15px;
-                        font-size: 12px;
-
-                        background-color: @successColor;
-                        color: #FFF;
-                    }
                 }
 
                 .workshop-stats {
                     color: #888;
                     display: inline-block;
                     font-size: 14px;
-
 
                     span {
                         margin-right: 12px;
@@ -1300,33 +1299,43 @@
                 }
             }
 
+            .next {
+                color: #777;
+                display: inline-block;
+                margin-top: 20px;
+
+                i {
+                    color: #999;
+                    margin-right: 5px;
+                }
+
+                .date, .time {
+                    color: #555;
+                    font-weight: bold;
+                }
+
+                .participant {
+                    margin-left: 10px;
+
+                    em {
+                        color: #555;
+                        font-weight: bold;
+                    }
+                }
+            }
+
             .actions {
-                float: right;
-                text-align: right;
+                margin-top: 20px;
 
                 a {
                     font-size: 12px;
-                    margin-left: 5px;
+                    margin-right: 7px;
                     padding: 5px 15px;
                 }
 
                 i.icon-check-sign {
                     color: @successColor;
                     margin-right: 2px;
-                }
-            }
-
-            .next {
-                border: 1px dashed #DDD;
-                color: #555;
-                display: inline-block;
-                font-size: 13px;
-                margin-top: 15px;
-                padding: 6px 15px;
-
-                i {
-                    color: #C30;
-                    margin-right: 5px;
                 }
             }
         }

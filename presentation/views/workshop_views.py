@@ -15,8 +15,8 @@ from common import errors
 from common.errors import WorkshopEnrollmentException, ACCOUNT_REGISTRATION_ERRORS, UserRegistrationException
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
-from workshop import functions as domain_functions
-from workshop.models import Workshop, WorkshopTopic, WorkshopPicture
+from domain import functions as domain_functions
+from domain.models import Workshop, WorkshopTopic, WorkshopPicture
 from reservation.models import Schedule, Reservation
 
 

@@ -63,7 +63,7 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = 'THIS_IS_NOT_A_SECRET_KEY'
 
-AUTH_USER_MODEL = 'account.UserAccount'
+AUTH_USER_MODEL = 'domain.UserAccount'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
@@ -127,11 +127,11 @@ INSTALLED_APPS = (
     'taggit',
 
     'account',
-    'workshop',
     'common',
     'messages',
     'presentation',
     'reservation',
+    'domain',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -194,7 +194,7 @@ THUMBNAIL_ALIASES = {
 
         'workshop_picture_normal': {'size': (750, 450), 'crop': True},
         'workshop_picture_small': {'size': (450, 270), 'crop': True},
-        'workshop_picture_smaller': {'size': (300, 180), 'crop': True},
+        'workshop_picture_smaller': {'size': (250, 150), 'crop': True},
     },
 }
 
@@ -246,6 +246,12 @@ WORKSHOP_MINIMUM_PRICE = 50  # Baht
 
 WORKSHOP_MAXIMUM_PICTURE_NUMBER = 10
 WORKSHOP_MAXIMUM_PICTURE_SIZE = 5000000
+
+WORKSHOP_DEFAULT_COVER = {
+    'workshop_picture_normal': {'file': 'default/workshop/picture.normal.png'},
+    'workshop_picture_small': {'file': 'default/workshop/picture.small.png'},
+    'workshop_picture_smaller': {'file': 'default/workshop/picture.smaller.png'},
+}
 
 # COURSE SCHEDULE
 

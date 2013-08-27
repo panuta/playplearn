@@ -89,7 +89,8 @@
                         {% workshop_schedule_seats_as_option upcoming_schedule %}
                     </select>
                     <script>$('.workshop-reservation .reserve-seats select').selectpicker({width: '100px'});</script>
-                    <span class="price_per_person"><span class="x">x</span> <span class="price"><em>{{ upcoming_schedule.price|floatformat:-2 }}</em> บาท</span></span>
+                    <span class="price_per_person"><span class="x">x</span> <span class="price"><em>{{ upcoming_schedule.price|format_price }}</em> บาท</span></span>
+                    {{ upcoming_schedule.price }}
                 </div>
                 <div class="reserve-button">
                     <a href="#" class="style-primary-button button-schedule-reserve">ลงชื่อเข้าร่วม</a>
@@ -243,7 +244,7 @@
                         <div class="input"><label><input type="radio" name="schedule"{% if not schedule.seats_left %} disabled="disabled"{% endif %}/> <span class="datetime">{{ schedule|schedule_datetime_duration }}</span></label></div>
                         <div class="right">
                             <div class="availability">{% if schedule.seats_left %}เหลือที่ว่าง <em>{% comment %}{{ schedule.seats_left }}{% endcomment %}3</em> ที่นั่ง{% else %}เต็ม{% endif %}</div>
-                            <div class="price"><em>{{ schedule.price|floatformat:-2 }}</em> บาท</div>
+                            <div class="price"><em>{{ schedule.price|format_price }}</em> บาท</div>
                         </div>
                     </li>
                     {% endfor %}

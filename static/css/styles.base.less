@@ -1039,7 +1039,7 @@ h1.style-page-header {
 .style-stats-bar {
     background-color: #F7F7F7;
     border-bottom: 2px solid #DDD;
-    padding: 6px 0 8px;
+    padding: 10px 0;
 
     ul.stats {
         margin: 0;
@@ -1060,7 +1060,7 @@ h1.style-page-header {
                 color: #555;
                 font-size: 16px;
                 display: block;
-                margin-top: 5px;
+                margin-top: 3px;
 
                 .smaller {
                     font-size: 13px;
@@ -1283,134 +1283,34 @@ h1.style-page-header {
     }
 }
 
-.style-course-box {
-    background-color: #FFF;
-    //border: 1px solid #DDD;
-    //border-radius: 7px;
-    //box-shadow: 0 0 2px #DDD;
+.style-workshop-status {
     display: inline-block;
-    list-style: none;
-    width: 560px;
 
-    .top {
-        padding: 30px 25px 20px;
+    span {
+        border-radius: 4px;
+        display: inline-block;
+        padding: 4px 15px;
+        font-size: 12px;
     }
 
-    .title {
-        a {
-            .content_link;
-            font-family: 'QuarkLight', sans-serif;
-            font-size: 26px;
-            line-height: 26px;
-        }
+    .draft {
+        background-color: #CCC;
+        color: #FFF;
     }
 
-    .at_glance {
-        color: @colorGrey;
-        font-size: 14px;
-        margin-top: 10px;
-
-        a {
-            color: @colorGrey;
-            font-weight: bold;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        span {
-            color: @colorGrey;
-            font-weight: bold;
-        }
+    .wait_for_approval {
+        background-color: @colorNavy;
+        color: #FFF;
     }
 
-    .cover {
-        margin-top: 15px;
-        position: relative;
+    .ready_to_publish {
+        background-color: @colorYellow;
+        color: #333;
     }
 
-    .course-details {
-        color: #666;
-        margin: 20px 0 0;
-
-        span {
-            border: 1px solid #DDD;
-            border-radius: 4px;
-            display: inline-block;
-            font-size: 13px;
-            margin-right: 7px;
-            padding: 4px 10px;
-
-            em {
-                font-size: 14px;
-                font-weight: bold;
-            }
-        }
-
-        i {
-            color: #777;
-            font-size: 15px;
-            margin-right: 2px;
-
-            &.icon-comment {
-                vertical-align: 1px;
-            }
-        }
-    }
-
-    .teacher {
-        margin-top: 12px;
-
-        .avatar {
-            display: block;
-            float: left;
-
-            img {
-                border-radius: 50px;
-                height: 50px;
-                width: 50px;
-            }
-        }
-
-        .teacher_name {
-            margin: 1px 0 0 65px;
-        }
-
-        .name {
-            color: #444;
-            display: block;
-            font-size: 15px;
-            padding-top: 4px;
-        }
-
-        .doing {
-            color: #777;
-            display: block;
-            font-size: 13px;
-            margin-top: 2px;
-        }
-    }
-
-    .next {
-        border-top: 1px dashed #DDD;
-        color: #555;
-        font-size: 13px;
-        padding: 14px 20px;
-
-        i {
-            color: #C30;
-            margin-right: 5px;
-        }
-
-        .date, .time {
-            font-weight: bold;
-        }
-
-        a {
-            .content_link;
-            margin-left: 6px;
-        }
+    .published {
+        background-color: @colorPositive;
+        color: #FFF;
     }
 }
 

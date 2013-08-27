@@ -5,7 +5,7 @@ from common.errors import WorkshopEnrollmentException
 from common.l10n.th import PROVINCE_MAP
 from common.utilities import extract_request_object
 
-from workshop.models import WorkshopActivity, WorkshopTopic, Place, WorkshopPicture, Workshop
+from domain.models import WorkshopActivity, WorkshopTopic, Place, WorkshopPicture, Workshop
 from reservation.models import Schedule
 
 

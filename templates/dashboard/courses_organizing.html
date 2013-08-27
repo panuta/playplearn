@@ -84,20 +84,12 @@
             </div>
             <ul class="stats">
                 <li class="stat">
-                    <span class="caption">รายได้รวม</span>
-                    <span class="number"><em>{{ request.user.stats_total_earning|floatformat:-2|intcomma }}</em> บาท</span>
+                    <span class="caption">ยอดเงินในบัญชี</span>
+                    <span class="number"><em>{{ user.money_balance.amount|format_price }}</em> บาท</span>
                 </li>
                 <li class="stat">
-                    <span class="caption">จำนวนเวิร์คช็อป</span>
-                    <span class="number"><em>{{ request.user.stats_courses_teaching }}</em> เวิร์คช็อป <span class="smaller">/ {{ request.user.stats_classes_teaching }} ครั้ง</span></span>
-                </li>
-                <li class="stat">
-                    <span class="caption">จำนวนนักเรียน</span>
-                    <span class="number"><em>{{ request.user.stats_students_teaching }}</em> คน</span>
-                </li>
-                <li class="stat">
-                    <span class="caption">จำนวนผลตอบรับ</span>
-                    <span class="number"><em>{{ request.user.stats_feedbacks_received }}</em> ข้อความ</span>
+                    <span class="caption">เวิร์คช็อปที่เผยแพร่</span>
+                    <span class="number"><em>{{ user.stats_workshops_organizing }}</em> เวิร์คช็อป</span>
                 </li>
             </ul>
         </div>

@@ -4,7 +4,7 @@ from common.errors import UserRegistrationException
 
 from common.utilities import check_email_format
 
-from account.models import UserRegistration, UserAccount
+from domain.models import UserRegistration, UserAccount
 
 
 def ajax_login_email_user(request, email, password):

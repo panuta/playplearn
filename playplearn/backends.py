@@ -1,6 +1,6 @@
 import re
 
-from account.models import UserAccount
+from domain.models import UserAccount
 
 email_re = re.compile(
     r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom

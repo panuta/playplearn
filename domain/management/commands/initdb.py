@@ -8,8 +8,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 
-from account.models import UserAccount
-from workshop.models import WorkshopTopic, Workshop, Place
+from domain.models import WorkshopTopic, Workshop, Place, UserAccount
 
 from reservation import functions as reservation_functions
 from reservation.models import Reservation, BalanceTransaction

@@ -13,7 +13,7 @@ from postman.api import pm_write
 
 from common import errors
 from common.shortcuts import response_json_success, response_json_error_with_message
-from workshop.models import UserAccount
+from domain.models import UserAccount
 
 
 @login_required

@@ -28,7 +28,7 @@
 {% block backend_container %}
 <div class="container">
     <div class="enrollment-actions">
-        {% if enrollment.payment_status == 'WAIT_FOR_PAYMENT' and not enrollment.is_payment_notified %}<a href="#modal-payment-notify" class="btn btn-orange" data-enrollment-code="{{ enrollment.code }}" data-amount="{{ enrollment.total|floatformat:-2 }}">แจ้งชำระเงิน</a>{% endif %}
+        {% if enrollment.payment_status == 'WAIT_FOR_PAYMENT' and not enrollment.is_payment_notified %}<a href="#modal-payment-notify" class="btn btn-orange" data-enrollment-code="{{ enrollment.code }}" data-amount="{{ enrollment.total|format_price }}">แจ้งชำระเงิน</a>{% endif %}
         <a href="#" class="btn"><i class="icon-print"></i> พิมพ์ใบจอง</a>
     </div>
     <div class="enrollment-course">
@@ -48,7 +48,7 @@
                 </li>
                 <li class="total">
                     <div class="caption">ราคารวม</div>
-                    <div class="value">{{ enrollment.total|floatformat:-2 }} บาท</div>
+                    <div class="value">{{ enrollment.total|format_price }} บาท</div>
                 </li>
                 <li class="people">
                     <div class="caption">จำนวนคน</div>

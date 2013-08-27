@@ -2,8 +2,8 @@
 
 from django.shortcuts import render, get_object_or_404
 
-from workshop import functions as domain_functions
-from workshop.models import Place
+from domain import functions as domain_functions
+from domain.models import Place
 from postman.models import Message
 
 

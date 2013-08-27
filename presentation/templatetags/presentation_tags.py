@@ -6,13 +6,12 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import safe
-from django.utils.translation import ugettext as _
-from common.constants.workshop import WORKSHOP_STATUS_MAP
+
+from easy_thumbnails.files import get_thumbnailer
 
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 
-from account.models import UserRegistration
-from workshop.models import WorkshopTopic, Place, WorkshopPicture
+from domain.models import WorkshopTopic, Place, WorkshopPicture, UserRegistration, Workshop
 
 register = template.Library()
 
@@ -24,8 +23,33 @@ def to_resend_registration(registering_email):
 
 # WORKSHOP #############################################################################################################
 
+# STATUS
+
+@register.filter
+def workshop_status(status):
+    if status == Workshop.STATUS_DRAFT:
+        status_name = 'ฉบับร่าง'
+        status_css = 'draft'
+    elif status == Workshop.STATUS_WAIT_FOR_APPROVAL:
+        status_name = 'รอการรับรอง'
+        status_css = 'wait_for_approval'
+    elif status == Workshop.STATUS_READY_TO_PUBLISH:
+        status_name = 'พร้อมเปิดตัว'
+        status_css = 'ready_to_publish'
+    elif status == Workshop.STATUS_PUBLISHED:
+        status_name = 'เปิดตัว'
+        status_css = 'published'
+    else:
+        status_name = ''
+        status_css = ''
+
+    return safe('<span class="%s">%s</span>' % (status_css, status_name))
+
+
+# TOPIC
+
 @register.simple_tag
-def workshop_topic_as_option(workshop):  # USED
+def workshop_topic_as_option(workshop):
     options = []
     for topic in WorkshopTopic.objects.all():
         selected = ' selected="selected"' if workshop and topic in workshop.topics.all() else ''
@@ -43,6 +67,24 @@ def course_topics_as_li(selected_topic_slug):
 
     return ''.join(li)
 
+
+# PICTURE
+
+@register.simple_tag
+def workshop_cover_picture_url(workshop, thumbnail_size):
+    cover = workshop.cover_picture()
+    if cover:
+        return get_thumbnailer(cover.image)[thumbnail_size].url
+    else:
+        return '%simages/%s' % (settings.STATIC_URL, settings.WORKSHOP_DEFAULT_COVER[thumbnail_size]['file'])
+
+
+@register.simple_tag
+def workshop_pictures_ordering_as_comma_separated(workshop):
+    return ','.join([picture.uid for picture in WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False)])
+
+
+# PLACE
 
 @register.assignment_tag
 def has_user_defined_place(user):
@@ -100,33 +142,6 @@ def get_course_undefined_place(course):
         return Place()
 
 
-@register.simple_tag
-def workshop_pictures_ordering_as_comma_separated(workshop):  # USED
-    return ','.join([picture.uid for picture in WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False)])
-
-
-@register.filter
-def course_status_as_span(course):
-    return course_status_as_span_with_sign(course, False)
-
-
-@register.filter
-def course_status_as_span_with_sign(course, with_sign=True):
-    status = COURSE_STATUS_MAP[course.status]
-
-    if with_sign:
-        if course.status == 'DRAFT':
-            sign = '<i class="icon-edit-sign"></i>'
-        elif course.status in ('WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH', 'PUBLISHED'):
-            sign = '<i class="icon-check-sign"></i>'
-        else:
-            sign = ''
-    else:
-        sign = ''
-
-    return safe('<span class="style-course-status %s">%s%s</span>' % (status['css_class'], sign, _(status['name'])))
-
-
 # WORKSHOP SCHEDULE ####################################################################################################
 
 @register.simple_tag
@@ -150,6 +165,11 @@ def course_schedule_start_datetime_as_comma_separated(schedules):
 @register.filter
 def workshop_schedule_end_datetime(schedule):
     return schedule.start_datetime + timedelta(hours=schedule.course.duration)
+
+
+@register.assignment_tag
+def get_upcoming_schedule(workshop):
+    return workshop.get_upcoming_schedule()
 
 
 @register.assignment_tag

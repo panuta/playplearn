@@ -4,7 +4,8 @@ import re
 
 from django import template
 from django.conf import settings
-from django.template.defaultfilters import safe
+from django.contrib.humanize.templatetags.humanize import intcomma
+from django.template.defaultfilters import safe, floatformat
 from django.utils.timezone import now
 from common.constants.workshop import WORKSHOP_ENROLLMENT_STATUS_MAP, WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.feedback import FEEDBACK_FEELING_CHOICES, FEEDBACK_FEELING_MAP
@@ -158,6 +159,13 @@ def time_minute_as_option():
     for minute in range(0, 60):
         options.append('<option value="%02d">%02d</option>' % (minute, minute))
     return ''.join(options)
+
+
+# NUMBER ###############################################################################################################
+
+@register.filter
+def format_price(number):
+    return intcomma(floatformat(number, -2), use_l10n=True)
 
 
 # TEXT #################################################################################################################

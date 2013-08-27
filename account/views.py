@@ -8,9 +8,10 @@ from common.errors import UserRegistrationException, ACCOUNT_REGISTRATION_ERRORS
 from common.shortcuts import response_json_success, response_json_error_with_message
 from common.utilities import split_filepath
 
+from domain.models import UserRegistration
+
 from .forms import EmailAuthenticationForm, EmailSignupForm, EmailSignupResendForm, EmailUserActivationForm
 from .functions import ajax_login_email_user, ajax_register_email_user
-from .models import UserRegistration
 
 
 @redirect_if_authenticated

@@ -39,8 +39,8 @@
 {% endblock %}
 
 {% block backend_header %}
-    <div class="parent"><a href="{% url 'view_all_my_workshops_teaching' %}">← จัดเวิร์คช็อป</a></div>
-    <h1>{% if not workshop %}จัดเวิร์คช็อป{% else %}แก้ไขข้อมูลเวิร์คช็อป <span class="title">- {{ workshop.title|default:'(No title)' }}</span>{% endif %}</h1>
+    <div class="parent"><a href="{% url 'view_my_workshops_organize' %}">← จัดเวิร์คช็อป</a></div>
+    <h1>{% if not workshop %}จัดเวิร์คช็อปใหม่{% else %}แก้ไขข้อมูลเวิร์คช็อป <span class="title">- {{ workshop.title|default:'(No title)' }}</span>{% endif %}</h1>
 {% endblock %}
 
 {% block backend_container %}
@@ -298,7 +298,7 @@
             <p class="head1">ทีมงานของ PlayPlearn จะตรวจสอบข้อมูลเวิร์คช็อปของคุณซึ่งใช้เวลาโดยปกติไม่เกิน 2 วัน ทางเราจะแจ้งกลับไปเมื่อเราตรวจสอบข้อมูลเรียบร้อยแล้ว</p>
         </div>
         <div class="modal-footer">
-            <a href="{% url 'view_all_my_workshops_teaching' %}" class="style-primary-button">กลับไปหน้าเวิร์คช็อปที่จัด</a>
+            <a href="{% url 'view_my_workshops_organize' %}" class="style-primary-button">กลับไปหน้าเวิร์คช็อปที่จัด</a>
         </div>
     </div>
 </div>

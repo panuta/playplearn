@@ -12,8 +12,8 @@ from django.views.decorators.http import require_POST
 
 from common.decorators import teacher_only
 
-from workshop import functions as workshop_functions
-from workshop.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
+from domain import functions as workshop_functions
+from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
 
 
 # MY WORKSHOPS #########################################################################################################
@@ -110,15 +110,15 @@ def _view_my_workshops_attended(request, workshop_school=None):
 
 
 @login_required
-def view_my_workshops_teaching(request):
-    workshops = Workshop.objects.filter(teacher=request.user).exclude(status='DELETED')
+def view_my_workshops_organize(request):
+    workshops = Workshop.objects.filter(teacher=request.user)
 
-    return render(request, 'dashboard/workshops_organizing.html', {
+    return render(request, 'dashboard/workshops_organize.html', {
         'workshops': workshops
     })
 
 
-# CREATE / EDIT WORKSHOP #################################################################################################
+# CREATE / EDIT WORKSHOP ###############################################################################################
 
 @login_required
 def create_workshop(request):

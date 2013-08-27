@@ -44,9 +44,9 @@ urlpatterns += patterns(
     url(r'^my/activities/upcoming/$', 'view_my_workshops_upcoming', name='view_my_workshops_upcoming'),
     url(r'^my/activities/attended/$', 'view_my_workshops_attended', name='view_my_workshops_attended'),
     url(r'^my/activities/attended/(?P<school_slug>\w+)/$', 'view_my_workshops_attended_in_school', name='view_my_workshops_attended_in_school'),
-    url(r'^my/workshops/organizing/$', 'view_my_workshops_teaching', name='view_all_my_workshops_teaching'),
+    url(r'^my/workshops/organize/$', 'view_my_workshops_organize', name='view_my_workshops_organize'),
 
-    url(r'^my/activities/new/$', 'create_workshop', name='create_workshop'),
+    url(r'^my/workshop/new/$', 'create_workshop', name='create_workshop'),
     url(r'^workshop/(?P<workshop_uid>\w+)/edit/$', 'edit_workshop', name='edit_workshop'),
     url(r'^workshop/(?P<workshop_uid>\w+)/revert/$', 'revert_approving_workshop', name='revert_approving_workshop'),
 
