@@ -96,7 +96,7 @@
                         <div class="right">
                             <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
                             <div class="teacher">by <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-                            {% if enrollment.feedback %}{% include 'snippets/course_feedback_box.html' with feedback=enrollment.feedback hide_user=True %}{% endif %}
+                            {% if enrollment.feedback %}{% include 'snippets/workshop_feedback_box.html' with feedback=enrollment.feedback hide_user=True %}{% endif %}
                         </div>
                     </li>
                 {% endwith %}

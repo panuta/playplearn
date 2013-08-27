@@ -45,13 +45,13 @@ def ajax_save_workshop(request):
         workshop = Workshop.objects.create(
             uid=workshop_uid,
             teacher=request.user,
-            status='DRAFT',
+            status=Workshop.STATUS_DRAFT,
         )
     else:
         if workshop.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if workshop.status == 'WAIT_FOR_APPROVAL':
+    if workshop.is_status_wait_for_approval():
         return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     workshop_functions.save_workshop(workshop, request.POST)
@@ -59,9 +59,9 @@ def ajax_save_workshop(request):
     submit_action = request.POST.get('submit')
 
     if submit_action == 'approval':
-        if workshop.status == 'DRAFT':
+        if workshop.is_status_draft():
             if workshop_functions.is_workshop_outline_completed(workshop):
-                workshop.status = 'WAIT_FOR_APPROVAL'
+                workshop.status = Workshop.STATUS_WAIT_FOR_APPROVAL
                 workshop.save()
             else:
                 return response_json_error_with_message('workshop-incomplete', errors.WORKSHOP_MODIFICATION_ERRORS)
@@ -78,58 +78,6 @@ def ajax_save_workshop(request):
 
 @require_POST
 @login_required
-def ajax_upload_workshop_cover(request):
-    if not request.is_ajax():
-        raise Http404
-
-    workshop_uid = request.POST.get('uid')
-
-    try:
-        workshop = Workshop.objects.get(uid=workshop_uid)
-    except Workshop.DoesNotExist:
-        workshop = Workshop.objects.create(
-            uid=workshop_uid,
-            teacher=request.user,
-            status='DRAFT',
-        )
-    else:
-        if workshop.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    if workshop.status == 'WAIT_FOR_APPROVAL':
-        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    cover_file = request.FILES['cover']
-
-    if cover_file.size > settings.WORKSHOP_COVER_MAXIMUM_SIZE:
-        return response_json_error('file-size-exceeded')
-
-    if workshop.status == 'DRAFT':
-        editing_workshop = workshop
-    elif workshop.status in ('PUBLISHED', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
-        editing_workshop, _ = EditingWorkshop.objects.get_or_create(workshop=workshop)
-    else:
-        return response_json_error_with_message('status-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    if editing_workshop.cover:
-        editing_workshop.cover.delete()
-
-    try:
-        editing_workshop.cover = cover_file
-        editing_workshop.save()
-        cover_url = get_thumbnailer(editing_workshop.cover)['workshop_cover_small'].url
-    except InvalidImageFormatError:
-        return response_json_error_with_message('file-type-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    return response_json_success({
-        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
-        'cover_url': cover_url,
-        'cover_filename': editing_workshop.cover.name,
-    })
-
-
-@require_POST
-@login_required
 def ajax_upload_workshop_picture(request):
     workshop_uid = request.POST.get('uid')
 
@@ -139,21 +87,21 @@ def ajax_upload_workshop_picture(request):
         workshop = Workshop.objects.create(
             uid=workshop_uid,
             teacher=request.user,
-            status='DRAFT',
+            status=Workshop.STATUS_DRAFT,
         )
     else:
         if workshop.teacher != request.user:
             return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if workshop.status == 'WAIT_FOR_APPROVAL':
+    if workshop.is_status_wait_for_approval():
         return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if WorkshopPicture.objects.filter(workshop=workshop).count() > settings.WORKSHOP_PICTURE_MAXIMUM_NUMBER:
+    if WorkshopPicture.objects.filter(workshop=workshop).count() > settings.WORKSHOP_MAXIMUM_PICTURE_NUMBER:
         return response_json_error_with_message('file-number-exceeded', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     image_file = request.FILES['pictures[]']
 
-    if image_file.size > settings.WORKSHOP_PICTURE_MAXIMUM_SIZE:
+    if image_file.size > settings.WORKSHOP_MAXIMUM_PICTURE_SIZE:
         return response_json_error_with_message('file-size-exceeded', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     last_ordering = WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False) \
@@ -162,7 +110,7 @@ def ajax_upload_workshop_picture(request):
     if not last_ordering:
         last_ordering = 0
 
-    if workshop.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+    if workshop.status in (Workshop.STATUS_DRAFT, Workshop.STATUS_WAIT_FOR_APPROVAL, Workshop.STATUS_READY_TO_PUBLISH):
         workshop_picture = WorkshopPicture.objects.create(
             workshop=workshop,
             image=image_file,
@@ -170,7 +118,7 @@ def ajax_upload_workshop_picture(request):
             is_visible=True,
         )
 
-    elif workshop.status == 'PUBLISHED':
+    elif workshop.is_status_published():
         workshop_picture = WorkshopPicture.objects.create(
             workshop=workshop,
             image=image_file,
@@ -206,7 +154,7 @@ def ajax_delete_workshop_picture(request):
     if workshop.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-    if workshop.status == 'WAIT_FOR_APPROVAL':
+    if workshop.is_status_wait_for_approval():
         return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
 
     try:
@@ -214,12 +162,11 @@ def ajax_delete_workshop_picture(request):
     except WorkshopPicture.DoesNotExist:
         return response_json_error_with_message('picture-notfound', errors.WORKSHOP_MODIFICATION_ERRORS)
 
-
-    if workshop.status in ('DRAFT', 'WAIT_FOR_APPROVAL', 'READY_TO_PUBLISH'):
+    if workshop.status in (Workshop.STATUS_DRAFT, Workshop.STATUS_WAIT_FOR_APPROVAL, Workshop.STATUS_READY_TO_PUBLISH):
         workshop_picture.image.delete()
         workshop_picture.delete()
 
-    elif workshop.status == 'PUBLISHED':
+    elif workshop.is_status_published():
         workshop_picture.mark_deleted = True
         workshop_picture.save()
 

@@ -12,7 +12,7 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from taggit.managers import TaggableManager
 
 from common.constants.workshop import *
-from common.utilities import split_filepath, SHORTUUID_ALPHABETS_NUMBER_ONLY
+from common.utilities import split_filepath, SHORTUUID_ALPHABETS_NUMBER_ONLY, SHORTUUID_ALPHABETS_CHARACTERS_NUMBER
 
 from account.models import UserAccount
 from reservation.models import Reservation, Schedule
@@ -90,7 +90,7 @@ class Workshop(models.Model):
     teacher = models.ForeignKey(UserAccount, related_name='workshops')
 
     default_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    default_total_seats = models.PositiveSmallIntegerField(null=True, blank=True)
+    default_capacity = models.PositiveSmallIntegerField(null=True, blank=True)
 
     tags = TaggableManager()
     status = models.CharField(max_length=20, default=STATUS_DRAFT)
@@ -111,6 +111,20 @@ class Workshop(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    # STATUS
+
+    def is_status_draft(self):
+        return self.status == Workshop.STATUS_DRAFT
+
+    def is_status_wait_for_approval(self):
+        return self.status == Workshop.STATUS_WAIT_FOR_APPROVAL
+
+    def is_status_ready_to_publish(self):
+        return self.status == Workshop.STATUS_READY_TO_PUBLISH
+
+    def is_status_published(self):
+        return self.status == Workshop.STATUS_PUBLISHED
 
     # PROPERTIES
 

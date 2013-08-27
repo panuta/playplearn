@@ -61,7 +61,7 @@ def is_workshop_outline_completed(workshop):
     if not workshop.duration:
         is_completed = False
 
-    if not workshop.default_total_seats:
+    if not workshop.default_capacity:
         is_completed = False
 
     if not workshop.place:
@@ -106,19 +106,6 @@ def save_workshop(workshop, request_data):
     if 'story' in request_data:
         workshop.description = request_data['story'].strip(' \t\n\r')
 
-    picture_descriptions = extract_request_object(request_data, 'picture_descriptions')
-    if picture_descriptions:
-        for picture_key in picture_descriptions.keys():
-            media_uid = picture_descriptions[picture_key]['uid']
-
-            try:
-                picture = WorkshopPicture.objects.get(workshop=workshop, uid=media_uid)
-            except WorkshopPicture.DoesNotExist:
-                pass
-            else:
-                picture.description = picture_descriptions[picture_key]['description']
-                picture.save()
-
     if 'picture_ordering' in request_data:
         ordering = 1
         for picture_uid in request_data['picture_ordering'].split(','):
@@ -131,25 +118,16 @@ def save_workshop(workshop, request_data):
                 picture.save()
                 ordering += 1
 
-    if 'school' in request_data:
-        try:
-            school = WorkshopTopic.objects.get(slug=request_data['school'])
-        except WorkshopTopic.DoesNotExist:
-            errors['school'] = 'not-found'
-        else:
-            workshop.schools.clear()
-            workshop.schools.add(school)
-
     if 'price' in request_data:
         try:
             price = int(request_data['price'])
         except ValueError:
             errors['price'] = 'invalid'
         else:
-            if price < settings.WORKSHOP_PRICE_MINIMUM:
+            if price < settings.WORKSHOP_MINIMUM_PRICE:
                 errors['price'] = 'low'
             else:
-                workshop.price = price
+                workshop.default_price = price
 
     if 'duration' in request_data:
         try:
@@ -169,7 +147,16 @@ def save_workshop(workshop, request_data):
         except ValueError:
             errors['capacity'] = 'invalid'
         else:
-            workshop.maximum_people = capacity
+            workshop.default_capacity = capacity
+
+    if 'topic' in request_data:
+        try:
+            topic = WorkshopTopic.objects.get(slug=request_data['topic'])
+        except WorkshopTopic.DoesNotExist:
+            errors['topic'] = 'not-found'
+        else:
+            workshop.topics.clear()
+            workshop.topics.add(topic)
 
     if 'place-id' in request_data:
         place_id = request_data.get('place-id')
@@ -233,7 +220,7 @@ def revert_approving_workshop(workshop):
     workshop.save()
 
 
-# WORKSHOP ENROLLMENT ####################################################################################################
+# WORKSHOP ENROLLMENT ##################################################################################################
 
 def check_if_schedule_enrollable(schedule):
     if schedule.workshop.status != 'PUBLISHED':

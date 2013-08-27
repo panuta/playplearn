@@ -9,17 +9,17 @@
 (function() {
     {% if workshop_pictures %}
         $('#pictures-slider').royalSlider({
-            controlsInside: false,
-            globalCaption: true,
+            controlsInside: true,
             imageScaleMode: 'fill',
-            keyboardNavEnabled: true
+            keyboardNavEnabled: true,
+            controlNavigation: 'bullets'
         });
     {% endif %}
 
     $('.workshop-feedbacks .feedbacks').masonry({
         columnWidth: 540,
         gutter: 50,
-        itemSelector: '.style-course-feedback'
+        itemSelector: '.style-workshop-feedback'
     });
 
     var schedule_picker_modal = $('#modal-schedule-picker');
@@ -69,10 +69,11 @@
         <div class="col-lg-8">
             <div class="workshop-pictures">
                 <div id="pictures-slider" class="royalSlider rsDefault">
-                    {% for picture in course_pictures %}
-                        <img src="{{ picture.image|thumbnail_url:'course_picture_full' }}" alt="{{ picture.description }}" />
+                    {% for picture in workshop_pictures %}
+                        <img src="{{ picture.image|thumbnail_url:'workshop_picture_normal' }}" alt="{{ picture.description }}" />
                     {% endfor %}
                 </div>
+                {% if workshop_pictures %}<script>$('#pictures-slider').royalSlider({imageScaleMode: 'fill', keyboardNavEnabled: true, controlNavigation: 'bullets'});</script>{% endif %}
             </div>
         </div>
         <div class="col-lg-4">
@@ -100,11 +101,8 @@
         </div>
     </div>
 
-    <div class="workshop-story">
-        <!--{{ course.description|safe }}-->
-        <p>รีดไถเจล คลาสสิกห่วยฮาราคีรีว้าวไอติมเซี้ยว แพนงเชิญทำงานคอรัปชัน วานิลาแตงโมอพาร์ทเมนท์แฟรนไชส์งี้แอลมอนด์ เพทนาการไมค์ ติงต๊องบึมสังโฆทับซ้อน ซินโดรมเทรลเล่อร์ปัจเจกชนโอเปร่าคอรัปชันควีน แฟรีนรีแพทย์รอยัลตี้ฮองเฮา มาเฟียเมจิกเฟรชทำงานวอลซ์โพลารอยด์ แซ็กแอ็กชั่นกราวนด์เมจิกไทยแลนด์ รีพอร์ทลอร์ดสปาจีดีพีแอปเปิ้ล สังโฆอันเดอร์ภควัทคีตาอุด้ง มาร์ชโซนี่ พรีเมียร์อีสต์โหงวอุตสาหการ ออโต้ห่วยท็อปบูตคาปูชิโนแชมป์ หลินจือเนิร์สเซอรีไฮกุสหัสวรรษบอร์ดคันธาระ</p>
-        <p>เซ็นทรัลปิโตรเคมีสโรชา เบลอ วอฟเฟิลรีสอร์ทคำสาป เหี่ยวย่นแมกกาซีนพงษ์ แฟรีสจ๊วตธรรมา สเตอริโอโบว์ลิ่งเยน ผู้นำสปิริตแกงค์เทค สปายแม่ค้าสเตเดียมไรเฟิลรีสอร์ต กิฟท์ เนอะราเม็งฮองเฮา ภควัทคีตาพุดดิ้ง สกรัมโปรดิวเซอร์ ติงต๊อง แคร็กเกอร์ พอเพียงไอซียูจูนรัมโฮปฟลุต ลอร์ดออร์เดอร์วอร์รูมสเตชันฟรุต</p>
-        <p>พุทธภูมิโอเพ่นบราแบคโฮ ไฮเอนด์โปรเจ็คท์โปสเตอร์ยังไงฮาราคีรีเครป ตุ๊กอมาตยาธิปไตยคอรัปชันรีโมตกับดัก ว้อดก้า บุญคุณเกรดเบิร์ดเคลมกรอบรูปแจ๊กพอต ชีสเอ๋ไชน่า ดีพาร์ทเมนท์แบคโฮอีสต์เคอร์ฟิวแป๋วแคนยอน สไตล์โอเคสะบึมส์โปสเตอร์ เวิลด์พฤหัส ต้าอ่วยสามแยก ฟินิกซ์ต้าอ่วยบิลแพกเกจเจได ฮ็อตปอดแหกแก๊สโซฮอล์ไฮกุศิลปากรราเม็ง แอสเตอร์จุ๊ย รีโมทโต๊ะจีนแฟนตาซีอินเตอร์เฟอร์นิเจอร์เดโม เกรดเฟอร์นิเจอร์เซรามิกราเมนเบบี้ ราชานุญาตปิยมิตรปฏิสัมพันธ์โฮปแอดมิชชั่นกับดัก</p>
+    <div class="workshop-story style-workshop-story">
+        {{ workshop.description|safe }}
     </div>
 
     <div class="row workshop-activities-place">
@@ -112,8 +110,6 @@
             <div class="workshop-activities">
                 <div class="head"><i class="icon-th-list"></i> กิจกรรม</div>
                 <ul>
-                    <li>แซ็กโซโฟนโปรเจกต์อินดอร์ ซาตานเอสเพรสโซลิสต์แซลมอนฮิต สเต็ปง่าวจิตเภทเนิร์สเซอรีง่าว วีซ่าเจ็ตมหาอุปราชา</li>
-                    <li>หยวนเตี๊ยมเซนเซอร์ คอมเมนต์ปิกอัพแพ็คทริป ศิรินทร์วัจนะ แบคโฮสกรัมควิก คอร์ปพาวเวอร์นิวส์พันธุวิศวกรรม คำสาปตังค์แจมบ๊วยอีสต์</li>
                     {% for activity in workshop.activities.all %}
                         <li>{{ activity.title }}</li>
                     {% endfor %}
@@ -148,7 +144,7 @@
     <div class="workshop-feedbacks">
         <h2>คำนิยม</h2>
         <ul class="feedbacks">
-            <li class="feedback style-course-feedback">
+            <li class="feedback style-workshop-feedback">
                 <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
                 <div class="feedback-right">
                     <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
@@ -157,7 +153,7 @@
                     </div>
                 </div>
             </li>
-            <li class="feedback style-course-feedback">
+            <li class="feedback style-workshop-feedback">
                 <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
                 <div class="feedback-right">
                     <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
@@ -166,7 +162,7 @@
                     </div>
                 </div>
             </li>
-            <li class="feedback style-course-feedback">
+            <li class="feedback style-workshop-feedback">
                 <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
                 <div class="feedback-right">
                     <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
@@ -175,7 +171,7 @@
                     </div>
                 </div>
             </li>
-            <li class="feedback style-course-feedback">
+            <li class="feedback style-workshop-feedback">
                 <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
                 <div class="feedback-right">
                     <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
@@ -185,7 +181,7 @@
                 </div>
             </li>
             {% for feedback in feedbacks %}
-                {% include 'snippets/course_feedback_box.html' %}
+                {% include 'snippets/workshop_feedback_box.html' %}
             {% endfor %}
         </ul>
     </div>
@@ -264,7 +260,7 @@
 
 {% block body1 %}
 
-<!-- Similar Courses -->
+<!-- Similar Workshops -->
 
 <div class="modal fade hide" id="modal-enrollment-login"></div>
 

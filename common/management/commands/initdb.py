@@ -162,7 +162,7 @@ class Command(BaseCommand):
                     description='I will show you how to take a photo',
                     default_price=200,
                     duration=6,
-                    default_total_seats=8,
+                    default_capacity=8,
                     prerequisites='a camera',
                     place=hubba_place,
 
@@ -174,9 +174,9 @@ class Command(BaseCommand):
                 workshop1.topics.add(photography_topic)
                 workshop1.save()
 
-                schedule1 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_total_seats)
-                schedule2 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_total_seats)
-                schedule3 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 12, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_total_seats)
+                schedule1 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_capacity)
+                schedule2 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_capacity)
+                schedule3 = reservation_functions.create_schedule(workshop1, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 12, 9, 0), is_dst=None), workshop1.default_price, workshop1.default_capacity)
 
                 reservation1 = Reservation.objects.create(
                     code='ENROLL1_1',
@@ -236,7 +236,7 @@ class Command(BaseCommand):
                     description='I will show you how to grow a plant',
                     default_price=400,
                     duration=8,
-                    default_total_seats=10,
+                    default_capacity=10,
                     place=home_place,
 
                     teacher=user2,
@@ -247,9 +247,9 @@ class Command(BaseCommand):
                 workshop2.topics.add(gardening_topic)
                 workshop2.save()
 
-                schedule1 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
-                schedule2 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
-                schedule3 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 30, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_total_seats)
+                schedule1 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 8, 15, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_capacity)
+                schedule2 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 1, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_capacity)
+                schedule3 = reservation_functions.create_schedule(workshop2, pytz.timezone('UTC').localize(datetime.datetime(2013, 9, 30, 10, 0), is_dst=None), workshop2.default_price, workshop2.default_capacity)
 
                 reservation4 = Reservation.objects.create(
                     code='ENROLL2_1',

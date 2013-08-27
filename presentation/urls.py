@@ -65,7 +65,6 @@ urlpatterns += patterns(
     'presentation.views.dashboard_ajax_views',
 
     url(r'^ajax/workshop/save/$', 'ajax_save_workshop', name='ajax_save_workshop'),
-    url(r'^ajax/workshop/cover/upload/$', 'ajax_upload_workshop_cover', name='ajax_upload_workshop_cover'),
     url(r'^ajax/workshop/picture/upload/$', 'ajax_upload_workshop_picture', name='ajax_upload_workshop_picture'),
     url(r'^ajax/workshop/picture/delete/$', 'ajax_delete_workshop_picture', name='ajax_delete_workshop_picture'),
     url(r'^ajax/workshop/place/get/$', 'ajax_get_workshop_place', name='ajax_get_workshop_place'),

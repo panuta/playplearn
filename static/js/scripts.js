@@ -14,10 +14,10 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
     var form_story = $('#id_story');
     var form_pictures = $('#upload-pictures');
     var form_pictures_ordering = $('#id_pictures_ordering');
-    var form_school = $('#id_school');
     var form_price = $('#id_price');
     var form_duration = $('#id_duration');
     var form_capacity = $('#id_capacity');
+    var form_topic = $('#id_topic');
     var form_place = $('#id_place');
 
     var _is_saving = false;
@@ -484,9 +484,9 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
             form_pictures_ordering.data('dirty', false);
         }
 
-        if(form_school.data('dirty') || _is_very_dirty) {
-            data['school'] = form_school.find('option:selected').val();
-            form_school.data('dirty', false);
+        if(form_topic.data('dirty') || _is_very_dirty) {
+            data['topic'] = form_topic.find('option:selected').val();
+            form_topic.data('dirty', false);
         }
 
         if(form_price.data('dirty') || _is_very_dirty) {
@@ -597,7 +597,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
         if(!$.isNumeric(form_price.val())) is_completed = false;
         if(!$.isNumeric(form_duration.val())) is_completed = false;
         if(!$.isNumeric(form_capacity.val())) is_completed = false;
-        if(!form_school.val().trim()) is_completed = false;
+        if(!form_topic.val().trim()) is_completed = false;
 
         var place_type = form_place.find('input[name="place-type"]:checked').val();
         if(place_type == 'system-place') {
@@ -675,20 +675,15 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
         set_dirty();
     });
 
-    form_story.redactor({
-        minHeight: 200,
-        buttons: ['html', '|', 'bold', 'italic', 'deleted', '|',
-            'unorderedlist', 'orderedlist', '|', 'link', '|'],
-        keyupCallback: function(e) {
-            form_story.data('dirty', true);
-            set_dirty();
-        }
+    form_story.on('redactor-keyup', function() {
+        form_story.data('dirty', true);
+        set_dirty();
     });
 
     _init_pictures();
 
-    form_school.on('change', function() {
-        form_school.data('dirty', true);
+    form_topic.on('change', function() {
+        form_topic.data('dirty', true);
         set_dirty();
     });
 

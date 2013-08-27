@@ -12,7 +12,7 @@ class Schedule(models.Model):
 
     start_datetime = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    total_seats = models.PositiveSmallIntegerField()
+    capacity = models.PositiveSmallIntegerField()
 
     status = models.CharField(max_length=10, default=STATUS_OPEN)
     seats_left = models.PositiveSmallIntegerField()  # calculated

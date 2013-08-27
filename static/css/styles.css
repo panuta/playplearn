@@ -1406,36 +1406,41 @@ h1.style-page-header {
   font-size: 13.5px;
   line-height: 23px;
 }
-.style-course-story p {
-  color: #444;
-  font-size: 15px;
-  line-height: 26px;
+.style-workshop-story p {
+  color: #555;
+  font-family: 'ChiangSaenRegular', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
   margin-bottom: 15px;
 }
-.style-course-story ul,
-.style-course-story ol {
+.style-workshop-story ul,
+.style-workshop-story ol {
   margin-bottom: 20px;
 }
-.style-course-story li {
-  color: #444;
-  font-size: 14.5px;
-  line-height: 26px;
-  margin-bottom: 5px;
+.style-workshop-story li {
+  color: #555;
+  font-family: 'ChiangSaenRegular', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 3px;
 }
-.style-course-story a:link,
-.style-course-story a:active,
-.style-course-story a:visited {
+.style-workshop-story a:link,
+.style-workshop-story a:active,
+.style-workshop-story a:visited {
   color: #29ace4;
 }
-.style-course-story a:hover {
+.style-workshop-story a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.style-course-story strong {
-  font-weight: bold;
+.style-workshop-story strong {
+  color: #333;
+  font-family: 'ChiangSaenBold', sans-serif;
+  font-weight: normal;
 }
-.style-course-story em {
-  font-style: italic;
+.style-workshop-story em {
+  font-family: 'ChiangSaenItalic', sans-serif;
+  font-style: normal;
 }
 @font-face {
   font-family: 'QuarkBold';
@@ -2746,13 +2751,15 @@ body {
 }
 .page-workshop-outline .workshop-pictures .rsNav {
   background-color: transparent;
-  bottom: -20px;
+  bottom: -18px;
+  line-height: normal;
 }
 .page-workshop-outline .workshop-pictures .rsNav .rsBullet {
   cursor: pointer;
+  margin: 0 2px;
 }
 .page-workshop-outline .workshop-pictures .rsNav .rsBullet span {
-  background-color: #777;
+  background-color: #AAA;
 }
 .page-workshop-outline .workshop-pictures .rsNav .rsBullet.rsNavSelected span {
   background-color: #444;
@@ -2893,14 +2900,7 @@ body {
   margin-top: 10px;
 }
 .page-workshop-outline .workshop-story {
-  color: #555;
-  font-family: 'ChiangSaenRegular', sans-serif;
-  font-size: 24px;
-  line-height: 32px;
-  margin-top: 30px;
-}
-.page-workshop-outline .workshop-story p {
-  margin-bottom: 20px;
+  margin-top: 40px;
 }
 .page-workshop-outline .workshop-activities-place {
   margin: 40px 0;
@@ -2924,7 +2924,7 @@ body {
   color: #555;
   font-family: 'ChiangSaenRegular', sans-serif;
   font-size: 22px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .page-workshop-outline .workshop-place .head {
   color: #4b5c66;
