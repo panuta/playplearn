@@ -30,20 +30,25 @@ def workshop_status(status):
     if status == Workshop.STATUS_DRAFT:
         status_name = 'ฉบับร่าง'
         status_css = 'draft'
+        status_icon = 'icon-pencil'
     elif status == Workshop.STATUS_WAIT_FOR_APPROVAL:
         status_name = 'รอการรับรอง'
         status_css = 'wait_for_approval'
+        status_icon = 'icon-time'
     elif status == Workshop.STATUS_READY_TO_PUBLISH:
         status_name = 'พร้อมเปิดตัว'
         status_css = 'ready_to_publish'
+        status_icon = 'icon-ok'
     elif status == Workshop.STATUS_PUBLISHED:
         status_name = 'เปิดตัว'
         status_css = 'published'
+        status_icon = 'icon-ok'
     else:
         status_name = ''
         status_css = ''
+        status_icon = ''
 
-    return safe('<span class="%s">%s</span>' % (status_css, status_name))
+    return safe('<span class="%s"><i class="%s"></i> %s</span>' % (status_css, status_icon, status_name))
 
 
 # TOPIC

@@ -1246,10 +1246,12 @@ h1.style-page-header {
   display: inline-block;
 }
 .style-workshop-status span {
-  border-radius: 4px;
   display: inline-block;
-  padding: 4px 15px;
+  padding: 4px 12px;
   font-size: 12px;
+}
+.style-workshop-status span i {
+  margin-right: 4px;
 }
 .style-workshop-status .draft {
   background-color: #CCC;
