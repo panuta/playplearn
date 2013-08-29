@@ -1,0 +1,121 @@
+{% load common_tags %}
+<div class="modal fade modal-add-schedule" id="modal-publish-workshop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">เปิดตัวเวิร์คช็อป</h4>
+                <div class="subtitle">เลือกวันที่และเวลาที่จะจัดเวิร์คช็อป</div>
+            </div>
+            <div class="modal-body">
+                <div class="schedule-datetime">
+                    <div class="schedule-date">
+                        <div id="id_publish_schedule_date" class="calendar"></div>
+                    </div>
+                    <div class="schedule-input schedule-time">
+                        <label>เวลาเริ่ม</label>
+                        <select class="schedule-time-hour">{% hour_as_options %}</select>
+                        <span class="separator">:</span>
+                        <select class="schedule-time-minute">{% minute_as_options %}</select>
+                    </div>
+                </div>
+
+                <div class="schedule-default">
+                    <div class="expand"><i class="icon-caret-right"></i> <a href="#">แก้ไขค่าใช้จ่ายหรือจำนวนคนสำหรับรอบนี้</a></div>
+                    <div class="input hide">
+                        <div class="schedule-price">
+                            <label>ค่าใช้จ่าย</label>
+                            <input type="text" name="price" value="500" /> <span class="unit">บาท</span>
+                        </div>
+                        <div class="schedule-capacity">
+                            <label>จำกัดจำนวน</label>
+                            <input type="text" name="capacity" value="10" /> <span class="unit">คน</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="style-primary-button">เปิดตัว</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+jQuery(function($){
+    var publish_workshop_modal = $('#modal-publish-workshop');
+    var publish_date_datepicker = $('#id_publish_schedule_date');
+
+    publish_date_datepicker.datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        todayHighlight: true,
+        minDate: 0,
+        maxDate: {{ settings.WORKSHOP_SCHEDULE_ALLOW_DAYS_IN_ADVANCE }}
+    });
+
+    publish_workshop_modal.find('.schedule-time select').selectBoxIt();
+
+    publish_workshop_modal.find('.schedule-default a').on('click', function() {
+        if(publish_workshop_modal.find('.schedule-default .input').is(':visible')) {
+            publish_workshop_modal.find('.expand i').removeClass('icon-caret-down').addClass('icon-caret-right');
+            publish_workshop_modal.find('.schedule-default .input').slideUp(function() {$(this).hide();});
+        } else {
+            publish_workshop_modal.find('.expand i').removeClass('icon-caret-right').addClass('icon-caret-down');
+            publish_workshop_modal.find('.schedule-default .input').removeClass('hide').hide().slideDown();
+        }
+
+        return false;
+    });
+
+    publish_workshop_modal.find('button').on('click', function() {
+        var schedule_date = moment(publish_date_datepicker.datepicker('getDate')).format('YYYY-MM-DD');
+        var schedule_time_hour = publish_workshop_modal.find('.schedule-time .schedule-time-hour').selectBoxIt().val();
+        var schedule_time_minute = publish_workshop_modal.find('.schedule-time .schedule-time-minute').selectBoxIt().val();
+
+        var schedule_datetime = schedule_date + '-' + schedule_time_hour + '-' + schedule_time_minute;
+
+        var schedule_price = '';
+        var schedule_capacity = '';
+
+        if(publish_workshop_modal.find('.schedule-default .input').is(':visible')) {
+            schedule_price = publish_workshop_modal.find('.schedule-default input[name="price"]').val();
+            if(!$.isNumeric(schedule_price)) {
+                publish_workshop_modal.find('.schedule-default input[name="price"]').addClass('error');
+            } else {
+                publish_workshop_modal.find('.schedule-default input[name="price"]').removeClass('error');
+            }
+
+            schedule_capacity = publish_workshop_modal.find('.schedule-default input[name="capacity"]').val();
+            if(!$.isNumeric(schedule_capacity)) {
+                publish_workshop_modal.find('.schedule-default input[name="capacity"]').addClass('error');
+            } else {
+                publish_workshop_modal.find('.schedule-default input[name="capacity"]').removeClass('error');
+            }
+        }
+
+        var jqxhr = $.post('/ajax/workshop/publish/', {uid: publish_workshop_modal.data('workshop-uid'), schedule_datetime:schedule_datetime, schedule_price:schedule_price, schedule_capacity:schedule_capacity}, function(response) {
+            if(response.status == 'success') {
+                //window.location = response.data.redirect_url;
+                // TODO Show modal to choose between redirect to promote or stay here
+
+            } else {
+                if(response.message) {
+                    _addModalErrorMessage('modal-publish-workshop', response.message);
+                } else {
+                    _addModalErrorMessage('modal-publish-workshop', 'Cannot publish: unknown error occurred');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            _addModalErrorMessage('modal-publish-workshop', 'Cannot publish: ' + errorThrown);
+        });
+
+        return false;
+    });
+
+    $('.button-publish-workshop').on('click', function() {
+        publish_workshop_modal.data('workshop-uid', $(this).closest('li.workshop').attr('data-workshop-uid'));
+    });
+});
+</script>

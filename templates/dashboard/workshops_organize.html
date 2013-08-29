@@ -30,16 +30,18 @@
 
             <ul class="workshops">
                 {% for workshop in workshops %}
-                <li class="workshop clearfix">
+                <li class="workshop clearfix" data-workshop-uid="{{ workshop.uid }}">
                     <div class="cover"><a href="{% url 'view_workshop_outline' workshop.uid %}"><img src="{% workshop_cover_picture_url workshop 'workshop_picture_smaller' %}" {% thumbnail_img_size 'workshop_picture_smaller' %} /></a></div>
                     <div class="right">
-                        <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title|default:'ไม่มีชื่อเวิร์คช็อป' }}</a></div>
+                        <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title|default:'(ไม่มีชื่อเวิร์คช็อป)' }}</a></div>
                         <div class="subtitle">
                             <div class="style-workshop-status">{{ workshop.status|workshop_status }}</div>
+                            {% if workshop.is_status_published %}
                             <div class="workshop-stats">
                                 <span>จัดอีก <em>{{ workshop.stats_upcoming_classes }} รอบ</em></span>
                                 <span>คำนิยม <em>{{ workshop.stats_feedbacks }} ข้อความ</em></span>
                             </div>
+                            {% endif %}
                         </div>
                         {% get_upcoming_schedule workshop as upcoming_schedule %}
                         {% if upcoming_schedule %}
@@ -50,39 +52,20 @@
                         {% endif %}
                         <div class="actions">
                             {% if workshop.is_status_ready_to_publish %}
-                                <a href="#" class="style-outline-button open-modal-publish-workshop" data-toggle="modal" data-target="#modal-publish-workshop"><i class="icon-check-sign"></i> เปิดตัวเวิร์คช็อป</a>
+                                <a href="#" class="style-primary-button button-publish-workshop" data-toggle="modal" data-target="#modal-publish-workshop"><i class="icon-ok"></i> เปิดตัวเวิร์คช็อป</a>
                             {% elif workshop.is_status_published %}
-                                <a href="{% url 'manage_workshop_overview' workshop.uid %}" class="style-outline-button"><i class="icon-book"></i> การจัดการ</a>
+                                <a href="{% url 'manage_workshop_overview' workshop.uid %}" class="style-outline-button"><i class="icon-book"></i> หน้าการจัดการ</a>
                             {% endif %}
                             <a href="{% url 'edit_workshop' workshop.uid %}" class="style-outline-button{% if workshop.is_status_wait_for_approval %} disabled{% endif %}">แก้ไขข้อมูล</a>
+                            {% if workshop.is_status_published %}<a href="#" class="style-outline-button button-add-schedule" data-toggle="modal" data-target="#modal-add-schedule"><i class="icon-plus-sign"></i> เพิ่มรอบ</a>{% endif %}
                         </div>
                     </div>
                 </li>
                 {% endfor %}
             </ul>
 
-            <div class="modal fade hide modal-add-schedule" id="modal-publish-workshop">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3>เลือกวันที่และเวลาที่จะจัดเวิร์คช็อป</h3>
-                </div>
-                <div class="modal-body">
-                    <div id="id_publish_schedule_date" class="schedule-date">
-                        <div class="head"><i class="icon-calendar"></i> วันที่</div>
-                        <div class="control">
-                            <div class="calendar"></div>
-                        </div>
-                    </div>
-                    <div id="id_publish_schedule_time" class="schedule-time">
-                        <div class="head"><i class="icon-time"></i> เวลา</div>
-                        <select size="12">{% time_options %}</select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="style-button button-cancel" data-dismiss="modal">Cancel</button>
-                    <button class="style-primary-button button-submit">Publish</button>
-                </div>
-            </div>
+            {% include 'modals/modal_publish_workshop.html' %}
+            {% include 'modals/modal_add_schedule.html' %}
 
         {% else %}
             <div class="no-teaching-workshop">

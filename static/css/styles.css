@@ -86,7 +86,7 @@ select:focus:invalid:focus {
 .dropdown-menu > li > a:focus,
 .dropdown-submenu:hover > a,
 .dropdown-submenu:focus > a {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   background-image: none;
 }
 .form-actions {
@@ -99,44 +99,32 @@ select:focus:invalid:focus {
   margin-right: 15px;
   padding: 8px 30px;
 }
-.btn-blue {
-  background-color: #2469b2 !important;
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3c87d7", endColorstr="#2468b1");
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#3c87d7), to(#2468b1));
-  background-image: -moz-linear-gradient(top, #3c87d7, #2468b1);
-  background-image: -ms-linear-gradient(top, #3c87d7, #2468b1);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3c87d7), color-stop(100%, #2468b1));
-  background-image: -webkit-linear-gradient(top, #3c87d7, #2468b1);
-  background-image: -o-linear-gradient(top, #3c87d7, #2468b1);
-  background-image: linear-gradient(#3c87d7, #2468b1);
-  border-color: #2468b1 #2468b1 #2261a5;
-  color: #fff !important;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.19);
-  -webkit-font-smoothing: antialiased;
+.tooltip.top .tooltip-arrow {
+  border-top-color: #e56068;
 }
-.btn-orange {
-  background-color: #c96213 !important;
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eb7f2d", endColorstr="#c86112");
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#eb7f2d), to(#c86112));
-  background-image: -moz-linear-gradient(top, #eb7f2d, #c86112);
-  background-image: -ms-linear-gradient(top, #eb7f2d, #c86112);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eb7f2d), color-stop(100%, #c86112));
-  background-image: -webkit-linear-gradient(top, #eb7f2d, #c86112);
-  background-image: -o-linear-gradient(top, #eb7f2d, #c86112);
-  background-image: linear-gradient(#eb7f2d, #c86112);
-  border-color: #c86112 #c86112 #bb5b11;
-  color: #fff !important;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.19);
-  -webkit-font-smoothing: antialiased;
+.tooltip.top .tooltip-inner {
+  background-color: #e56068;
 }
 .modal .modal-dialog .modal-content {
   border-radius: 0px;
 }
 .modal .modal-dialog .modal-content .modal-header {
   border-bottom: none;
-  padding: 15px 15px 10px;
+  padding: 15px 20px 10px;
+}
+.modal .modal-dialog .modal-content .modal-header .subtitle {
+  color: #666;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+}
+.modal .modal-dialog .modal-content .modal-error {
+  background-color: #e56068;
+  color: #FFF;
+  margin-bottom: 15px;
+  padding: 8px 20px;
+}
+.modal .modal-dialog .modal-content .modal-error i {
+  vertical-align: -2px;
 }
 .modal .modal-dialog .modal-content .modal-title {
   color: #29ace4;
@@ -229,6 +217,35 @@ body.modal-open {
   background-image: linear-gradient(to bottom, #149bdf, #0480be);
   opacity: 1;
 }
+.selectboxit-container .selectboxit {
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 0;
+}
+.selectboxit-container .selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+  top: 40%;
+}
+.selectboxit-container .selectboxit-options {
+  border-radius: 0;
+}
+.selectboxit-container .selectboxit-options li {
+  border-radius: 0;
+}
+.selectboxit-container .selectboxit-options .selectboxit-selected {
+  background-color: #29ace4;
+}
+.selectboxit-container .selectboxit-options .selectboxit-selected a {
+  color: #FFF;
+}
+.selectboxit-container .selectboxit-option-first,
+.selectboxit-container .selectboxit-optgroup-header + .selectboxit-option-first {
+  border-radius: 0;
+}
+.selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor {
+  background-color: #29ace4;
+  background-image: none;
+}
 .ui-datepicker {
   padding: 0;
   width: auto;
@@ -268,8 +285,7 @@ body.modal-open {
 }
 .ui-datepicker .ui-datepicker-header .ui-datepicker-title {
   color: #444;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 15px;
   line-height: normal;
 }
 .ui-datepicker .ui-datepicker-calendar {
@@ -284,116 +300,41 @@ body.modal-open {
   background-color: #FFF;
   border: 1px solid #DDD;
   border-radius: 0;
-  height: 38px;
-  padding: 0;
+  height: 34px;
+  padding: 1px;
   outline: 0px;
   text-align: center;
-  width: 42px;
+  width: 38px;
+}
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-other-month a {
+  color: #666;
+  font-weight: normal;
 }
 .ui-datepicker .ui-datepicker-calendar td a,
 .ui-datepicker .ui-datepicker-calendar td span {
   color: #444;
   font-size: 13px;
-  height: 38px;
-  line-height: 38px;
+  font-weight: bold;
+  height: 32px;
+  line-height: 32px;
   padding: 0;
   text-align: center;
-  width: 42px;
-}
-.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-other-month {
-  background-color: #F8F8F8;
-  color: #444;
-}
-.ui-datepicker .ui-datepicker-calendar td.ui-state-disabled {
-  background-color: #F8F8F8;
-  color: #777;
-}
-.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-today {
-  background-color: #FFC;
-}
-.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-current-day {
-  background-color: #3a71a9;
+  width: 36px;
 }
 .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-current-day a {
+  background-color: #29ace4;
   color: #FFF;
 }
-.datepicker-inline {
-  width: auto;
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-unselectable,
+.ui-datepicker .ui-datepicker-calendar td.ui-state-disabled {
+  background-color: #F7F7F7;
 }
-.datepicker thead tr {
-  height: 30px;
-}
-.datepicker th.datepicker-switch {
-  color: #444;
-  cursor: default !important;
-  font-size: 16px;
-  font-weight: bold;
-}
-.datepicker .prev,
-.datepicker .next {
-  cursor: pointer;
-  overflow: hidden;
-  text-indent: -9999px;
-  vertical-align: middle;
-}
-.datepicker .prev i,
-.datepicker .next i {
-  background-repeat: no-repeat;
-  text-indent: -9999px;
-  display: block;
-  height: 16px;
-  width: 30px;
-}
-.datepicker .prev i {
-  background-image: url(../images/ui/calendar-left.png);
-  background-position: 0 0;
-}
-.datepicker .next i {
-  background-image: url(../images/ui/calendar-right.png);
-  background-position: right center;
-}
-.datepicker .dow {
-  color: #888;
-  padding: 5px 0 4px;
-}
-.datepicker td {
-  background-color: #FFF;
-  border: 1px solid #DDD;
-  border-radius: 0;
-  color: #444;
-  font-size: 14px;
-  height: 35px;
-  outline: 0px;
-  padding: 0;
-  text-align: center;
-  width: 42px;
-}
-.datepicker td.today {
-  background-color: #FFC;
-}
-.datepicker td.new,
-.datepicker td.old {
-  background-color: #F9F9F9;
-  color: #444;
-}
-.datepicker td.day:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  cursor: pointer;
-}
-.datepicker td.active {
-  background-color: #3a71a9;
-  color: #FFF;
-}
-.datepicker td.disabled {
-  color: #AAA;
-  font-size: 13px;
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-unselectable a,
+.ui-datepicker .ui-datepicker-calendar td.ui-state-disabled a,
+.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-unselectable span,
+.ui-datepicker .ui-datepicker-calendar td.ui-state-disabled span {
+  color: #999;
   font-weight: normal;
-}
-.datepicker td.disabled:hover {
-  background-color: transparent;
-  color: #AAA;
-  cursor: default;
 }
 .ui-pnotify.custom .ui-pnotify-container {
   background-color: #404040;
@@ -898,8 +839,8 @@ h1.style-page-header {
   color: #444;
 }
 .style-sidebar-nav li a:hover {
-  background-color: #3a71a9;
-  border-top: 1px solid #3a71a9;
+  background-color: #29ace4;
+  border-top: 1px solid #29ace4;
   color: #FFF;
   text-shadow: -1px -1px #2d5883;
 }
@@ -1142,7 +1083,7 @@ h1.style-page-header {
   text-decoration: underline;
 }
 .style-registration-modal .backend-email form .forgot a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1254,7 +1195,7 @@ h1.style-page-header {
   margin-right: 4px;
 }
 .style-workshop-status .draft {
-  background-color: #CCC;
+  background-color: #AAA;
   color: #FFF;
 }
 .style-workshop-status .wait_for_approval {
@@ -1889,12 +1830,12 @@ body {
   padding: 0 3px 4px;
 }
 .page-backend .backend-page-nav a.active {
-  border-bottom: 4px solid #3a71a9;
+  border-bottom: 4px solid #29ace4;
   color: #444;
   font-weight: bold;
 }
 .page-backend .backend-page-nav a:hover {
-  border-bottom: 4px solid #3a71a9;
+  border-bottom: 4px solid #29ace4;
   color: #444;
   text-decoration: none;
 }
@@ -1963,7 +1904,7 @@ body {
   text-decoration: underline;
 }
 #modal-enrollment-login .registration .backend-social .email a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -1979,7 +1920,7 @@ body {
   text-decoration: underline;
 }
 #modal-enrollment-login .registration .backend-email .back:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -2251,45 +2192,163 @@ body {
   height: 80px;
   width: 97%;
 }
-.modal-add-schedule {
-  margin-left: -280px;
-  width: 560px;
+.modal-add-schedule .modal-dialog {
+  width: 460px;
 }
-.modal-add-schedule .head {
-  color: #555;
+.modal-add-schedule .modal-body {
+  padding: 0px 20px 0;
+}
+.modal-add-schedule .schedule-datetime {
+  margin-bottom: 20px;
+}
+.modal-add-schedule .schedule-datetime .schedule-date {
+  margin-bottom: 20px;
+}
+.modal-add-schedule .schedule-datetime .schedule-date .calendar {
+  display: inline-block;
+}
+.modal-add-schedule .schedule-datetime .schedule-date .ui-datepicker {
+  border: 1px solid #EEE;
+  padding: 15px 26px 20px;
+}
+.modal-add-schedule .schedule-datetime .schedule-date .ui-datepicker .ui-datepicker-calendar td {
+  height: 36px;
+  width: 48px;
+}
+.modal-add-schedule .schedule-datetime .schedule-date .ui-datepicker .ui-datepicker-calendar td a,
+.modal-add-schedule .schedule-datetime .schedule-date .ui-datepicker .ui-datepicker-calendar td span {
+  font-size: 14px;
+  height: 34px;
+  line-height: 34px;
+  width: 46px;
+}
+.modal-add-schedule .schedule-datetime .schedule-time {
+  padding-left: 5px;
+}
+.modal-add-schedule .schedule-datetime .schedule-time label {
   font-size: 15px;
+  font-weight: normal;
+  margin: 0 7px 0 0;
+  vertical-align: middle;
+}
+.modal-add-schedule .schedule-datetime .schedule-time .selectboxit-container {
+  vertical-align: middle;
+}
+.modal-add-schedule .schedule-datetime .schedule-time .separator {
+  color: #888;
+  font-size: 16px;
+  margin: 0 5px;
+}
+.modal-add-schedule .schedule-default {
   margin-bottom: 10px;
 }
-.modal-add-schedule .head i {
-  color: #3a71a9;
+.modal-add-schedule .schedule-default .expand i {
+  color: #777;
 }
-.modal-add-schedule .schedule-date {
-  float: left;
-  padding-top: 10px;
-}
-.modal-add-schedule .schedule-date .control {
-  border: 1px solid #CCC;
-  padding: 15px;
-}
-.modal-add-schedule .schedule-date .note {
+.modal-add-schedule .schedule-default .expand a {
   color: #666;
-  font-size: 12px;
-  margin-top: 4px;
+  font-size: 13px;
+  text-decoration: underline;
+}
+.modal-add-schedule .schedule-default .expand a:hover,
+.modal-add-schedule .schedule-default .expand a:focus {
+  color: #29ace4;
+}
+.modal-add-schedule .schedule-default .input {
+  padding: 10px 0;
+}
+.modal-add-schedule .schedule-default .schedule-price,
+.modal-add-schedule .schedule-default .schedule-capacity {
+  display: inline-block;
+  margin-right: 15px;
+}
+.modal-add-schedule .schedule-default .schedule-price label,
+.modal-add-schedule .schedule-default .schedule-capacity label {
+  color: #444;
+  font-weight: normal;
+  margin-right: 5px;
+}
+.modal-add-schedule .schedule-default .schedule-price input,
+.modal-add-schedule .schedule-default .schedule-capacity input {
+  border: 1px solid #CCC;
+  font-size: 14px;
+  height: 27px;
+  padding: 3px 10px;
   text-align: center;
+  width: 60px;
 }
-.modal-add-schedule .schedule-time {
-  margin-left: 360px;
-  padding-top: 10px;
+.modal-add-schedule .schedule-default .schedule-price input.error,
+.modal-add-schedule .schedule-default .schedule-capacity input.error {
+  background-color: #ffdddd;
 }
-.modal-add-schedule .schedule-time select {
-  display: block;
-  font-size: 16px;
-  width: 150px;
+.modal-add-schedule .schedule-default .schedule-price .unit,
+.modal-add-schedule .schedule-default .schedule-capacity .unit {
+  color: #444;
+  margin-left: 7px;
 }
-.modal-add-schedule .schedule-time select option {
-  padding: 2px 5px;
-  text-align: center;
+/*
+.modal-add-schedule {
+    margin-left: -280px;
+    width: 560px;
+
+    .head {
+
+        color: #555;
+        font-size: 15px;
+        margin-bottom: 10px;
+
+        i {
+            color: @primaryColor;
+        }
+    }
+
+
+
+    .schedule-date {
+        float: left;
+        padding-top: 10px;
+        //padding: 10px 0 0 15px;
+
+        .control {
+            border: 1px solid #CCC;
+            padding: 15px;
+        }
+
+        .note {
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+            text-align: center;
+        }
+    }
+
+    .schedule-time {
+        margin-left: 360px;
+        padding-top: 10px;
+        //padding-top: 65px;
+
+        .head {
+            //color: #555;
+            //font-weight: bold;
+            //margin-bottom: 9px;
+            //text-align: center;
+        }
+
+        select {
+            display: block;
+            font-size: 16px;
+            //margin: 25px 0 0 30px;
+            //margin: 0 auto;
+            width: 150px;
+
+            option {
+                padding: 2px 5px;
+                text-align: center;
+            }
+        }
+    }
 }
+*/
 #modal-add-class {
   margin-left: -300px;
   width: 600px;
@@ -3380,7 +3439,7 @@ body {
   text-decoration: underline;
 }
 .page-my-workshops-upcoming ul.workshops li.workshop .workshop-content .actions a.link:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -3457,7 +3516,7 @@ body {
   text-decoration: underline;
 }
 .page-my-workshops-attended ul.enrollments li.enrollment .actions a.link:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -3511,7 +3570,7 @@ body {
   color: #00ac71;
 }
 .page-my-workshops-organize .style-stats-bar .number .negative {
-  color: #cc3300;
+  color: #e56068;
 }
 .page-my-workshops-organize .style-stats-bar .add-workshop {
   float: right;
@@ -3594,10 +3653,6 @@ body {
   margin-right: 7px;
   padding: 5px 15px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .actions i.icon-check-sign {
-  color: #00ac71;
-  margin-right: 2px;
-}
 .page-my-workshops-organize .teaching-workshops {
   margin-top: 25px;
 }
@@ -3678,7 +3733,7 @@ body {
   padding: 3px 15px;
 }
 .page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .upcoming a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: none;
 }
@@ -3706,7 +3761,7 @@ body {
   text-decoration: underline;
 }
 .page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a.link:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -4360,7 +4415,7 @@ body {
   text-decoration: underline;
 }
 .page-workshop-modify #form-footer-container .form-footer .link a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -4524,7 +4579,7 @@ body {
   text-decoration: none;
 }
 .page-manage-workshop-class .classes-list ul li a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
 }
 .page-manage-workshop-class .students-table th.date {
@@ -4589,7 +4644,7 @@ body {
   font-weight: bold;
 }
 .page-manage-workshop-class .classes li a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
 }
 .page-manage-workshop-class .classes li a:hover .upcoming {
@@ -5015,7 +5070,7 @@ body {
   font-weight: bold;
 }
 .page-messages ul.nav-messages li a:hover {
-  background-color: #3a71a9;
+  background-color: #29ace4;
   color: #FFF;
   text-decoration: none;
 }

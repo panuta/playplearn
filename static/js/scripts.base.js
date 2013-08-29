@@ -30,6 +30,14 @@ $.ajaxSetup({
     }
 });
 
+function _showErrorTooltip(selector, text) {
+    selector.tooltip({title: text, trigger: 'manual'}).tooltip('show');
+}
+
+function _hideErrorTooltip(selector, text) {
+    selector.tooltip('destroy');
+}
+
 $('form button').on('click', function(){
     var f = $(this).get(0).form;
 

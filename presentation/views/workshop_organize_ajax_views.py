@@ -20,16 +20,25 @@ from common.constants.workshop import WORKSHOP_ENROLLMENT_STATUS_MAP, WORKSHOP_E
 from common.constants.currency import CURRENCY_CODE_MAP
 from common.constants.feedback import FEEDBACK_FEELING_MAP
 from common.constants.payment import BANK_ACCOUNT_MAP
+from common.errors import WorkshopScheduleException
 from common.shortcuts import response_json_success, response_json_error_with_message, response_json_error
 from common.utilities import format_full_datetime, format_datetime_string
 
-from domain import functions as workshop_functions
+from domain import functions as domain_functions
 from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
+
+from reservation import functions as reservation_functions
 
 from presentation.templatetags.presentation_tags import workshop_pictures_ordering_as_comma_separated
 
 
+def _response_with_workshop_error(error_code):
+    return response_json_error_with_message(error_code, errors.WORKSHOP_ORGANIZE_ERRORS)
+
+
 # WORKSHOP #############################################################################################################
+from reservation.models import Schedule
+
 
 @require_POST
 @login_required
@@ -49,28 +58,28 @@ def ajax_save_workshop(request):
         )
     else:
         if workshop.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
+            return _response_with_workshop_error('unauthorized')
 
     if workshop.is_status_wait_for_approval():
-        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('edit-while-approving')
 
-    workshop_functions.save_workshop(workshop, request.POST)
+    domain_functions.save_workshop(workshop, request.POST)
 
     submit_action = request.POST.get('submit')
 
     if submit_action == 'approval':
         if workshop.is_status_draft():
-            if workshop_functions.is_workshop_outline_completed(workshop):
+            if domain_functions.is_workshop_outline_completed(workshop):
                 workshop.status = Workshop.STATUS_WAIT_FOR_APPROVAL
                 workshop.save()
             else:
-                return response_json_error_with_message('workshop-incomplete', errors.WORKSHOP_MODIFICATION_ERRORS)
+                return _response_with_workshop_error('submit-before-complete')
         else:
-            return response_json_error_with_message('status-no-ready-to-submit', errors.WORKSHOP_MODIFICATION_ERRORS)
+            return _response_with_workshop_error('submit-not-draft')
 
     return response_json_success({
         'workshop_uid': workshop.uid,
-        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'is_completed': domain_functions.is_workshop_outline_completed(workshop),
         'preview_url': reverse('view_workshop_outline', args=[workshop.uid]),
         'edit_url': reverse('edit_workshop', args=[workshop.uid]),
     })
@@ -91,18 +100,18 @@ def ajax_upload_workshop_picture(request):
         )
     else:
         if workshop.teacher != request.user:
-            return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
+            return _response_with_workshop_error('unauthorized')
 
     if workshop.is_status_wait_for_approval():
-        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('edit-while-approving')
 
     if WorkshopPicture.objects.filter(workshop=workshop).count() > settings.WORKSHOP_MAXIMUM_PICTURE_NUMBER:
-        return response_json_error_with_message('file-number-exceeded', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('file-numbers-exceeded')
 
     image_file = request.FILES['pictures[]']
 
     if image_file.size > settings.WORKSHOP_MAXIMUM_PICTURE_SIZE:
-        return response_json_error_with_message('file-size-exceeded', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('file-size-exceeded')
 
     last_ordering = WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False) \
         .aggregate(Max('ordering'))['ordering__max']
@@ -110,14 +119,13 @@ def ajax_upload_workshop_picture(request):
     if not last_ordering:
         last_ordering = 0
 
-    if workshop.status in (Workshop.STATUS_DRAFT, Workshop.STATUS_WAIT_FOR_APPROVAL, Workshop.STATUS_READY_TO_PUBLISH):
+    if workshop.is_status_draft() or workshop.is_status_ready_to_publish():
         workshop_picture = WorkshopPicture.objects.create(
             workshop=workshop,
             image=image_file,
             ordering=last_ordering+1,
             is_visible=True,
         )
-
     elif workshop.is_status_published():
         workshop_picture = WorkshopPicture.objects.create(
             workshop=workshop,
@@ -126,14 +134,13 @@ def ajax_upload_workshop_picture(request):
             mark_added=True,
             is_visible=False,
         )
-
     else:
-        return response_json_error_with_message('status-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('picture-status-invalid')
 
     workshop_picture_url = get_thumbnailer(workshop_picture.image)['workshop_picture_small'].url
 
     return response_json_success({
-        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'is_completed': domain_functions.is_workshop_outline_completed(workshop),
         'ordering': workshop_pictures_ordering_as_comma_separated(workshop),
         'picture_uid': workshop_picture.uid,
         'picture_url': workshop_picture_url,
@@ -152,29 +159,28 @@ def ajax_delete_workshop_picture(request):
     picture_uid = request.POST.get('picture_uid')
 
     if workshop.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('unauthorized')
 
     if workshop.is_status_wait_for_approval():
-        return response_json_error_with_message('edit-while-approving', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('edit-while-approving')
 
     try:
         workshop_picture = WorkshopPicture.objects.get(uid=picture_uid)
     except WorkshopPicture.DoesNotExist:
-        return response_json_error_with_message('picture-notfound', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('picture-notfound')
 
-    if workshop.status in (Workshop.STATUS_DRAFT, Workshop.STATUS_WAIT_FOR_APPROVAL, Workshop.STATUS_READY_TO_PUBLISH):
+    if workshop.is_status_draft() or workshop.is_status_ready_to_publish():
         workshop_picture.image.delete()
         workshop_picture.delete()
 
     elif workshop.is_status_published():
         workshop_picture.mark_deleted = True
         workshop_picture.save()
-
     else:
-        return response_json_error_with_message('status-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('picture-status-invalid')
 
     return response_json_success({
-        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'is_completed': domain_functions.is_workshop_outline_completed(workshop),
         'ordering': workshop_pictures_ordering_as_comma_separated(workshop),
     })
 
@@ -187,7 +193,7 @@ def ajax_get_workshop_place(request):
     try:
         place = Place.objects.get(pk=place_id, created_by=request.user)
     except Place.DoesNotExist:
-        return response_json_error_with_message('place-notfound', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('place-notfound')
 
     return response_json_success({
         'id': place.id,
@@ -206,35 +212,42 @@ def ajax_publish_workshop(request):
         raise Http404
 
     workshop_uid = request.POST.get('uid')
-
     workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
     if workshop.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('unauthorized')
 
-    if workshop.status != 'READY_TO_PUBLISH':
-        return response_json_error_with_message('status-no-ready-to-publish', errors.WORKSHOP_MODIFICATION_ERRORS)
+    if not workshop.is_status_ready_to_publish():
+        return _response_with_workshop_error('publish-status-invalid')
 
     try:
-        datetime_data = '%s-%s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time'))
-        schedule_datetime = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+        schedule_datetime = datetime.datetime.strptime(request.POST.get('schedule_datetime'), '%Y-%m-%d-%H-%M')
     except ValueError:
-        return response_json_error_with_message('input-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    WorkshopSchedule.objects.create(workshop=workshop, start_datetime=schedule_datetime)
+        return _response_with_workshop_error('schedule-invalid')
 
     rightnow = now()
 
-    workshop.status = 'PUBLISHED'
-    workshop.first_published = rightnow
-    workshop.last_scheduled = rightnow
-    workshop.save()
+    if schedule_datetime < rightnow:
+        return _response_with_workshop_error('schedule-past')
+    elif (schedule_datetime - rightnow).days > settings.WORKSHOP_SCHEDULE_ALLOW_DAYS_IN_ADVANCE:
+        return _response_with_workshop_error('schedule-far')
 
-    WorkshopOutlineMedia.objects.filter(workshop=workshop).update(is_visible=True)
+    try:
+        schedule_price = int(request.POST.get('schedule_price'))
+    except ValueError:
+        schedule_price = workshop.default_price
 
-    if workshop.place.is_userdefined:
-        workshop.place.is_visible = True
-        workshop.place.save()
+    try:
+        schedule_capacity = int(request.POST.get('schedule_capacity'))
+    except ValueError:
+        schedule_capacity = workshop.default_capacity
+
+    try:
+        schedule = reservation_functions.create_schedule(workshop, schedule_datetime, schedule_price, schedule_capacity)
+    except WorkshopScheduleException, e:
+        return _response_with_workshop_error(e.exception_code)
+
+    domain_functions.publish_workshop(workshop)
 
     messages.success(request, 'Successfully publish your workshop. You can now promote the workshop here.')
 
@@ -252,35 +265,40 @@ def ajax_add_workshop_schedule(request):
         raise Http404
 
     workshop_uid = request.POST.get('uid')
-
     workshop = get_object_or_404(Workshop, uid=workshop_uid)
 
     if workshop.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('unauthorized')
 
-    if workshop.status != 'PUBLISHED':
-        return response_json_error_with_message('status-no-ready-to-publish', errors.WORKSHOP_MODIFICATION_ERRORS)
+    if not workshop.is_status_published():
+        return _response_with_workshop_error('schedule-while-not-published')
 
     try:
-        schedule_datetime = parse_datetime(
-            '%s %s' % (request.POST.get('schedule_date'), request.POST.get('schedule_time')))
+        schedule_datetime = datetime.datetime.strptime(request.POST.get('schedule_datetime'), '%Y-%m-%d-%H-%M')
     except ValueError:
-        return response_json_error_with_message('input-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('schedule-invalid')
 
     rightnow = now()
 
     if schedule_datetime < rightnow:
-        return response_json_error_with_message('schedule-past', errors.WORKSHOP_MODIFICATION_ERRORS)
-    elif (schedule_datetime - rightnow).days > settings.SCHEDULE_ADD_DAYS_IN_ADVANCE:
-        return response_json_error_with_message('schedule-future', errors.WORKSHOP_MODIFICATION_ERRORS)
+        return _response_with_workshop_error('schedule-past')
+    elif (schedule_datetime - rightnow).days > settings.WORKSHOP_SCHEDULE_ALLOW_DAYS_IN_ADVANCE:
+        return _response_with_workshop_error('schedule-far')
 
-    schedule, created = WorkshopSchedule.objects.get_or_create(workshop=workshop, start_datetime=schedule_datetime)
+    try:
+        schedule_price = int(request.POST.get('schedule_price'))
+    except ValueError:
+        schedule_price = workshop.default_price
 
-    if not created:
-        return response_json_error_with_message('schedule-duplicated', errors.WORKSHOP_MODIFICATION_ERRORS)
+    try:
+        schedule_capacity = request.POST.get('schedule_capacity')
+    except ValueError:
+        schedule_capacity = workshop.default_capacity
 
-    workshop.last_scheduled = rightnow
-    workshop.save()
+    try:
+        schedule = reservation_functions.create_schedule(workshop, schedule_datetime, schedule_price, schedule_capacity)
+    except WorkshopScheduleException, e:
+        return _response_with_workshop_error(e.exception_code)
 
     return response_json_success({
         'manage_class_url': reverse('manage_workshop_class',

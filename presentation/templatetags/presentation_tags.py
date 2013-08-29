@@ -38,7 +38,7 @@ def workshop_status(status):
     elif status == Workshop.STATUS_READY_TO_PUBLISH:
         status_name = 'พร้อมเปิดตัว'
         status_css = 'ready_to_publish'
-        status_icon = 'icon-ok'
+        status_icon = 'icon-time'
     elif status == Workshop.STATUS_PUBLISHED:
         status_name = 'เปิดตัว'
         status_css = 'published'

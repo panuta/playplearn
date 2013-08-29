@@ -1,11 +1,9 @@
 # -*- encoding: utf-8 -*-
 import datetime
-import re
 
 from django import template
 from django.conf import settings
-from django.contrib.humanize.templatetags.humanize import intcomma
-from django.template.defaultfilters import safe, floatformat
+from django.template.defaultfilters import safe
 from django.utils.timezone import now
 from common.constants.workshop import WORKSHOP_ENROLLMENT_STATUS_MAP, WORKSHOP_ENROLLMENT_PAYMENT_STATUS_MAP
 from common.constants.feedback import FEEDBACK_FEELING_CHOICES, FEEDBACK_FEELING_MAP
@@ -111,6 +109,26 @@ def datetime_string(datetime):
 
 
 @register.simple_tag
+def hour_as_options(selected_hour=''):
+    options = []
+    for hour in range(0, 24):
+        selected = ' selected="selected"' if selected_hour == hour else ''
+        options.append('<option value="%02d"%s>%02d</option>' %(hour, selected, hour))
+
+    return ''.join(options)
+
+
+@register.simple_tag
+def minute_as_options(selected_minute=''):
+    options = []
+    for minute in (0, 15, 30, 45):
+        selected = ' selected="selected"' if selected_minute == minute else ''
+        options.append('<option value="%02d"%s>%02d</option>' %(minute, selected, minute))
+
+    return ''.join(options)
+
+
+@register.simple_tag
 def time_options(selected_datetime=''):
     options = []
     for hour in range(0, 24):
@@ -165,7 +183,10 @@ def time_minute_as_option():
 
 @register.filter
 def format_price(number):
-    return intcomma(floatformat(number, -2), use_l10n=True)
+    if not (number - int(number)):
+        return '{:,}'.format(int(number))
+    else:
+        return '{:,.2f}'.format(number)
 
 
 # TEXT #################################################################################################################

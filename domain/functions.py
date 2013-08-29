@@ -35,7 +35,7 @@ def get_upcoming_workshops():
     return upcoming_workshops
 
 
-# WORKSHOP DASHBOARD ###################################################################################################
+# WORKSHOP #############################################################################################################
 
 def is_workshop_outline_completed(workshop):
     is_completed = True
@@ -218,6 +218,22 @@ def save_workshop(workshop, request_data):
 def revert_approving_workshop(workshop):
     workshop.status = Workshop.STATUS_DRAFT
     workshop.save()
+
+
+def publish_workshop(workshop):
+    rightnow = now()
+
+    workshop.status = Workshop.STATUS_PUBLISHED
+    workshop.date_published = rightnow
+    workshop.save()
+
+    WorkshopPicture.objects.filter(workshop=workshop).update(is_visible=True)
+
+    if workshop.place.is_userdefined:
+        workshop.place.is_visible = True
+        workshop.place.save()
+
+    return workshop
 
 
 # WORKSHOP ENROLLMENT ##################################################################################################

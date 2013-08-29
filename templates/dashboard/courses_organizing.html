@@ -204,6 +204,6 @@
 
 {% block modals %}
     {% if num_of_courses.all %}
-        {% include 'snippets/modal_add_class.html' with trigger='.open-modal-add-class' %}
+        {% include 'modals/modal_add_schedule.html' with trigger='.open-modal-add-class' %}
     {% endif %}
 {% endblock %}

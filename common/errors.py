@@ -1,7 +1,14 @@
 # -*- encoding: utf-8 -*-
+from django.conf import settings
 
 
 class UserRegistrationException(Exception):
+    def __init__(self, exception_code, *args, **kwargs):
+        Exception.__init__(self, *args, **kwargs)
+        self.exception_code = exception_code
+
+
+class WorkshopScheduleException(Exception):
     def __init__(self, exception_code, *args, **kwargs):
         Exception.__init__(self, *args, **kwargs)
         self.exception_code = exception_code
@@ -23,22 +30,28 @@ ACCOUNT_REGISTRATION_ERRORS = {
     'email-registered': u'อีเมลนี้ถูกใช้ลงทะเบียนแล้ว',
 }
 
-WORKSHOP_MODIFICATION_ERRORS = {
+WORKSHOP_ORGANIZE_ERRORS = {
     'unauthorized': u'Unauthorized action',
-    'status-invalid': u'Workshop status is read only',
-    'edit-while-approving': u'Cannot make a modification while this workshop is approving',
-    'status-no-ready-to-submit': u'Workshop is still not ready to be submitted',
-    'status-no-ready-to-publish': u'Workshop is still not ready to be published',
-    'input-invalid': u'Input is invalid',
-    'workshop-incomplete': u'Incomplete workshop details',
-    'picture-notfound': u'Picture file is no longer in the system',
-    'file-type-invalid': u'File format is invalid',
-    'file-number-exceeded': u'Too many files',
-    'file-size-exceeded': u'File is too large',
-    'place-notfound': u'Place record is not found',
-    'schedule-duplicated': u'Duplicated schedule',
-    'schedule-past': u'Schedule is already past',
-    'schedule-future': u'Schedule is too long',
+
+    'edit-while-approving': u'ไม่อนุญาตให้แก้ไขข้อมูลเวิร์คช็อปในขณะกำลังอนุมัติ',
+    'submit-before-complete': u'กรุณากรอกข้อมูลเวิร์คช็อปให้ครบถ้วนก่อนส่งอนุมัติ',
+    'submit-not-draft': u'เวิร์คช็อปไม่อยู่ในสถานะฉบับร่าง',
+
+    'picture-status-invalid': u'เวิร์คช็อปไม่อยู่ในสถานะที่สามารถแก้ไขได้',
+    'picture-notfound': u'ไม่พบไฟล์รูปภาพที่ต้องการแก้ไข',
+    'picture-type-invalid': u'ไฟล์ที่อัพโหลดไม่ใช่ไฟล์รูป',
+    'picture-numbers-exceed': u'อัพโหลดรูปได้ไม่เกิน %d รูป' % settings.WORKSHOP_MAXIMUM_PICTURE_NUMBER,
+    'picture-size-exceed': u'ขนาดของไฟล์รูปไม่เกิน %s เมกะไบต์' % settings.WORKSHOP_MAXIMUM_PICTURE_SIZE_TEXT,
+
+    'place-notfound': u'ไม่พบสถานที่ๆ ต้องการแก้ไข',
+
+    'publish-status-invalid': u'เวิร์คช็อปไม่อยู่ในสถานะที่สามารถเปิดตัวได้',
+    'schedule-while-not-published': u'ไม่สามารถเพิ่มรอบได้เพราะเวิร์คช็อปไม่อยู่ในสถานะเปิดตัว',
+
+    'schedule-invalid': u'ข้อมูลที่กรอกไม่อยู่ในรูปแบบที่ถูกต้อง',
+    'schedule-duplicated': u'รอบที่ต้องการเพิ่มซ้ำกับรอบที่มีอยู่แล้ว',
+    'schedule-past': u'เวลาของรอบที่ต้องการเพิ่มได้ผ่านไปแล้ว',
+    'schedule-far': u'ไม่อนุญาตให้เพิ่มรอบที่นานกว่า %d วัน' % settings.WORKSHOP_SCHEDULE_ALLOW_DAYS_IN_ADVANCE,
 }
 
 WORKSHOP_FEEDBACK_ERRORS = {

@@ -39,7 +39,7 @@ urlpatterns += patterns(
 """
 
 urlpatterns += patterns(
-    'presentation.views.dashboard_views',
+    'presentation.views.workshop_organize_views',
     url(r'^my/activities/payment/$', 'view_my_workshops_payment', name='view_my_workshops_payment'),
     url(r'^my/activities/upcoming/$', 'view_my_workshops_upcoming', name='view_my_workshops_upcoming'),
     url(r'^my/activities/attended/$', 'view_my_workshops_attended', name='view_my_workshops_attended'),
@@ -62,7 +62,7 @@ urlpatterns += patterns(
 )
 
 urlpatterns += patterns(
-    'presentation.views.dashboard_ajax_views',
+    'presentation.views.workshop_organize_ajax_views',
 
     url(r'^ajax/workshop/save/$', 'ajax_save_workshop', name='ajax_save_workshop'),
     url(r'^ajax/workshop/picture/upload/$', 'ajax_upload_workshop_picture', name='ajax_upload_workshop_picture'),
