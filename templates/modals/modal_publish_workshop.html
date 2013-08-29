@@ -102,13 +102,13 @@ jQuery(function($){
                 if(response.message) {
                     _addModalErrorMessage('modal-publish-workshop', response.message);
                 } else {
-                    _addModalErrorMessage('modal-publish-workshop', 'Cannot publish: unknown error occurred');
+                    _addModalErrorMessage('modal-publish-workshop', 'ไม่สามารถเปิดตัวได้ - เกิดความผิดพลาด');
                 }
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _addModalErrorMessage('modal-publish-workshop', 'Cannot publish: ' + errorThrown);
+            _addModalErrorMessage('modal-publish-workshop', 'ไม่สามารถเปิดตัวได้ - ' + errorThrown);
         });
 
         return false;

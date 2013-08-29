@@ -54,7 +54,7 @@ $('form button').on('click', function(){
     }
 });
 
-$('.modal').on('show', function() {
+$('.modal').on('show.bs.modal', function() {
     $(this).find('.modal-error').remove();
 });
 

@@ -124,7 +124,7 @@ select:focus:invalid:focus {
   padding: 8px 20px;
 }
 .modal .modal-dialog .modal-content .modal-error i {
-  vertical-align: -2px;
+  margin-right: 4px;
 }
 .modal .modal-dialog .modal-content .modal-title {
   color: #29ace4;

@@ -41,10 +41,10 @@
 </div>
 <script>
 jQuery(function($){
-    var publish_workshop_modal = $('#modal-add-schedule');
-    var publish_date_datepicker = $('#id_add_schedule_date');
+    var add_schedule_modal = $('#modal-add-schedule');
+    var schedule_date_datepicker = $('#id_add_schedule_date');
 
-    publish_date_datepicker.datepicker({
+    schedule_date_datepicker.datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
         todayHighlight: true,
@@ -52,47 +52,47 @@ jQuery(function($){
         maxDate: {{ settings.WORKSHOP_SCHEDULE_ALLOW_DAYS_IN_ADVANCE }}
     });
 
-    publish_workshop_modal.find('.schedule-time select').selectBoxIt();
+    add_schedule_modal.find('.schedule-time select').selectBoxIt();
 
-    publish_workshop_modal.find('.schedule-default a').on('click', function() {
-        if(publish_workshop_modal.find('.schedule-default .input').is(':visible')) {
-            publish_workshop_modal.find('.expand i').removeClass('icon-caret-down').addClass('icon-caret-right');
-            publish_workshop_modal.find('.schedule-default .input').slideUp(function() {$(this).hide();});
+    add_schedule_modal.find('.schedule-default a').on('click', function() {
+        if(add_schedule_modal.find('.schedule-default .input').is(':visible')) {
+            add_schedule_modal.find('.expand i').removeClass('icon-caret-down').addClass('icon-caret-right');
+            add_schedule_modal.find('.schedule-default .input').slideUp(function() {$(this).hide();});
         } else {
-            publish_workshop_modal.find('.expand i').removeClass('icon-caret-right').addClass('icon-caret-down');
-            publish_workshop_modal.find('.schedule-default .input').removeClass('hide').hide().slideDown();
+            add_schedule_modal.find('.expand i').removeClass('icon-caret-right').addClass('icon-caret-down');
+            add_schedule_modal.find('.schedule-default .input').removeClass('hide').hide().slideDown();
         }
 
         return false;
     });
 
-    publish_workshop_modal.find('button').on('click', function() {
-        var schedule_date = moment(publish_date_datepicker.datepicker('getDate')).format('YYYY-MM-DD');
-        var schedule_time_hour = publish_workshop_modal.find('.schedule-time .schedule-time-hour').selectBoxIt().val();
-        var schedule_time_minute = publish_workshop_modal.find('.schedule-time .schedule-time-minute').selectBoxIt().val();
+    add_schedule_modal.find('button').on('click', function() {
+        var schedule_date = moment(schedule_date_datepicker.datepicker('getDate')).format('YYYY-MM-DD');
+        var schedule_time_hour = add_schedule_modal.find('.schedule-time .schedule-time-hour').selectBoxIt().val();
+        var schedule_time_minute = add_schedule_modal.find('.schedule-time .schedule-time-minute').selectBoxIt().val();
 
         var schedule_datetime = schedule_date + '-' + schedule_time_hour + '-' + schedule_time_minute;
 
         var schedule_price = '';
         var schedule_capacity = '';
 
-        if(publish_workshop_modal.find('.schedule-default .input').is(':visible')) {
-            schedule_price = publish_workshop_modal.find('.schedule-default input[name="price"]').val();
+        if(add_schedule_modal.find('.schedule-default .input').is(':visible')) {
+            schedule_price = add_schedule_modal.find('.schedule-default input[name="price"]').val();
             if(!$.isNumeric(schedule_price)) {
-                publish_workshop_modal.find('.schedule-default input[name="price"]').addClass('error');
+                add_schedule_modal.find('.schedule-default input[name="price"]').addClass('error');
             } else {
-                publish_workshop_modal.find('.schedule-default input[name="price"]').removeClass('error');
+                add_schedule_modal.find('.schedule-default input[name="price"]').removeClass('error');
             }
 
-            schedule_capacity = publish_workshop_modal.find('.schedule-default input[name="capacity"]').val();
+            schedule_capacity = add_schedule_modal.find('.schedule-default input[name="capacity"]').val();
             if(!$.isNumeric(schedule_capacity)) {
-                publish_workshop_modal.find('.schedule-default input[name="capacity"]').addClass('error');
+                add_schedule_modal.find('.schedule-default input[name="capacity"]').addClass('error');
             } else {
-                publish_workshop_modal.find('.schedule-default input[name="capacity"]').removeClass('error');
+                add_schedule_modal.find('.schedule-default input[name="capacity"]').removeClass('error');
             }
         }
 
-        var jqxhr = $.post('/ajax/workshop/schedule/add/', {uid: publish_workshop_modal.data('workshop-uid'), schedule_datetime:schedule_datetime, schedule_price:schedule_price, schedule_capacity:schedule_capacity}, function(response) {
+        var jqxhr = $.post('/ajax/workshop/schedule/add/', {uid: add_schedule_modal.data('workshop-uid'), schedule_datetime:schedule_datetime, schedule_price:schedule_price, schedule_capacity:schedule_capacity}, function(response) {
             if(response.status == 'success') {
                 $.pnotify({
                     addclass:'custom',
@@ -110,20 +110,20 @@ jQuery(function($){
                 if(response.message) {
                     _addModalErrorMessage('modal-add-schedule', response.message);
                 } else {
-                    _addModalErrorMessage('modal-add-schedule', 'Cannot publish: unknown error occurred');
+                    _addModalErrorMessage('modal-add-schedule', 'ไม่สามารถเพิ่มรอบได้ - เกิดความผิดพลาด');
                 }
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _addModalErrorMessage('modal-add-schedule', 'Cannot publish: ' + errorThrown);
+            _addModalErrorMessage('modal-add-schedule', 'ไม่สามารถเพิ่มรอบได้ - ' + errorThrown);
         });
 
         return false;
     });
 
-    $('.button-publish-workshop').on('click', function() {
-        publish_workshop_modal.data('workshop-uid', $(this).closest('li.workshop').attr('data-workshop-uid'));
+    $('.button-add-schedule').on('click', function() {
+        add_schedule_modal.data('workshop-uid', $(this).closest('li.workshop').attr('data-workshop-uid'));
     });
 });
 </script>
