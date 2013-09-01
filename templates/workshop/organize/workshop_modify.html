@@ -7,7 +7,6 @@
 {% block scripts %}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
 <script>
-
 (function() {
     {% if not workshop.is_status_wait_for_approval %}
     var workshop_uid = '{% if not workshop %}{{ workshop_uid }}{% else %}{{ workshop.uid }}{% endif %}';
@@ -272,35 +271,43 @@
         {% endif %}
     </div>
 
-    <div class="modal fade hide" id="modal-place-map">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>ชี้ตำแหน่งจากแผนที่</h3>
-        </div>
-        <div class="modal-body">
-            <div class="search">
-                <input type="text" placeholder="ค้นหาไปยังตำแหน่งใกล้เคียง" /> <button class="btn btn-small">ค้นหา</button>
-                <input type="hidden" id="id_place_location_temp" />
+    <div class="modal fade" id="modal-place-map" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">ชี้ตำแหน่งจากแผนที่</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="search">
+                        <input type="text" placeholder="ค้นหาไปยังตำแหน่งใกล้เคียง" /> <button class="btn btn-small">ค้นหา</button>
+                        <input type="hidden" id="id_place_location_temp" />
+                    </div>
+                    <div class="map"><div id="map-canvas"></div></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="note"><strong>คำแนะนำ</strong> พิมพ์ชื่อสถานที่หรือสถานที่ใกล้เคียงลงไปยังช่อง <em>ค้นหาไปยังสถานที่ใกล้เคียง</em> แล้วจากนั้นค่อยเลื่อนหมุดไปยังตำแหน่งที่แน่นอน</div>
+                    <button class="style-button" data-dismiss="modal">ยกเลิก</button>
+                    <button class="style-primary-button button-set-location">ตั้งค่าตำแหน่ง</button>
+                </div>
             </div>
-            <div class="map"><div id="map-canvas"></div></div>
-        </div>
-        <div class="modal-footer">
-            <div class="note"><strong>คำแนะนำ</strong> พิมพ์ชื่อสถานที่หรือสถานที่ใกล้เคียงลงไปยังช่อง <em>ค้นหาไปยังสถานที่ใกล้เคียง</em> แล้วจากนั้นค่อยเลื่อนหมุดไปยังตำแหน่งที่แน่นอน</div>
-            <button class="style-button" data-dismiss="modal">ยกเลิก</button>
-            <button class="style-primary-button button-set-location">ตั้งค่าตำแหน่ง</button>
         </div>
     </div>
 
-    <div class="modal fade hide" id="modal-workshop-submitted">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>ข้อมูลเวิร์คช็อปถูกส่งเรียบร้อย</h3>
-        </div>
-        <div class="modal-body">
-            <p class="head1">ทีมงานของ PlayPlearn จะตรวจสอบข้อมูลเวิร์คช็อปของคุณซึ่งใช้เวลาโดยปกติไม่เกิน 2 วัน ทางเราจะแจ้งกลับไปเมื่อเราตรวจสอบข้อมูลเรียบร้อยแล้ว</p>
-        </div>
-        <div class="modal-footer">
-            <a href="{% url 'view_my_workshops_organize' %}" class="style-primary-button">กลับไปหน้าเวิร์คช็อปที่จัด</a>
+    <div class="modal fade" id="modal-workshop-submitted" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">ข้อมูลเวิร์คช็อปถูกส่งเรียบร้อย</h4>
+                </div>
+                <div class="modal-body">
+                    <p>ทีมงานของ PlayPlearn จะตรวจสอบข้อมูลเวิร์คช็อปของคุณซึ่งใช้เวลาโดยปกติไม่เกิน 2 วัน ทางเราจะแจ้งกลับไปเมื่อเราตรวจสอบข้อมูลเรียบร้อยแล้ว</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'view_my_workshops_organize' %}" class="style-primary-button">กลับไปหน้าจัดเวิร์คช็อป</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

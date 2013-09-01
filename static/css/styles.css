@@ -2202,6 +2202,48 @@ body {
   height: 80px;
   width: 97%;
 }
+#modal-place-map .modal-dialog {
+  width: 700px;
+}
+#modal-place-map .search button {
+  vertical-align: middle;
+}
+#modal-place-map .search input {
+  margin: 0 7px 0 0;
+  vertical-align: middle;
+  width: 300px;
+}
+#modal-place-map .map {
+  margin-top: 15px;
+}
+#modal-place-map .map #map-canvas {
+  height: 300px;
+  width: 660px;
+}
+#modal-place-map .map #map-canvas img {
+  max-width: none;
+}
+#modal-place-map .modal-footer .note {
+  color: #555;
+  float: left;
+  font-size: 13px;
+  text-align: left;
+  width: 370px;
+}
+#modal-place-map .modal-footer .note strong {
+  color: #444;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 3px;
+}
+#modal-place-map .modal-footer .note em {
+  font-style: italic;
+}
+#modal-workshop-submitted .modal-body p {
+  color: #444;
+  font-size: 16px;
+  line-height: 25px;
+}
 #modal-publish-workshop .modal-body .promote-panel {
   padding-bottom: 10px;
 }
@@ -2311,103 +2353,6 @@ body {
 .modal-add-schedule .schedule-default .schedule-capacity .unit {
   color: #444;
   margin-left: 7px;
-}
-/*
-.modal-add-schedule {
-    margin-left: -280px;
-    width: 560px;
-
-    .head {
-
-        color: #555;
-        font-size: 15px;
-        margin-bottom: 10px;
-
-        i {
-            color: @primaryColor;
-        }
-    }
-
-
-
-    .schedule-date {
-        float: left;
-        padding-top: 10px;
-        //padding: 10px 0 0 15px;
-
-        .control {
-            border: 1px solid #CCC;
-            padding: 15px;
-        }
-
-        .note {
-            color: #666;
-            font-size: 12px;
-            margin-top: 4px;
-            text-align: center;
-        }
-    }
-
-    .schedule-time {
-        margin-left: 360px;
-        padding-top: 10px;
-        //padding-top: 65px;
-
-        .head {
-            //color: #555;
-            //font-weight: bold;
-            //margin-bottom: 9px;
-            //text-align: center;
-        }
-
-        select {
-            display: block;
-            font-size: 16px;
-            //margin: 25px 0 0 30px;
-            //margin: 0 auto;
-            width: 150px;
-
-            option {
-                padding: 2px 5px;
-                text-align: center;
-            }
-        }
-    }
-}
-*/
-#modal-add-class {
-  margin-left: -300px;
-  width: 600px;
-}
-#modal-add-class .class-date {
-  float: left;
-  padding: 15px 0 0 15px;
-}
-#modal-add-class .class-date .note {
-  color: #666;
-  font-size: 12px;
-  margin-top: 4px;
-  text-align: center;
-}
-#modal-add-class .class-time {
-  margin-left: 325px;
-  padding-top: 16px;
-}
-#modal-add-class .class-time .head {
-  color: #555;
-  font-weight: bold;
-  margin-bottom: 9px;
-  text-align: center;
-}
-#modal-add-class .class-time select {
-  display: block;
-  font-size: 16px;
-  margin: 0 auto;
-  width: 150px;
-}
-#modal-add-class .class-time select option {
-  padding: 2px 5px;
-  text-align: center;
 }
 #modal-write-feedback .feedback-head {
   color: #3a71a9;
@@ -3547,48 +3492,6 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-workshops-organize {
-  /*
-    #modal-publish-workshop {
-
-        #publish-date {
-            float: left;
-            padding: 15px 0 0 15px;
-
-            .note {
-                color: #666;
-                font-size: 12px;
-                margin-top: 4px;
-                text-align: center;
-            }
-        }
-
-        #publish-time {
-            margin-left: 325px;
-            padding-top: 50px;
-
-            .head {
-                color: #555;
-                font-weight: bold;
-                margin-bottom: 9px;
-                text-align: center;
-            }
-
-            select {
-                display: block;
-                font-size: 16px;
-                margin: 0 auto;
-                width: 150px;
-
-                option {
-                    padding: 2px 5px;
-                    text-align: center;
-                }
-            }
-        }
-    }*/
-
-}
 .page-my-workshops-organize .style-stats-bar {
   margin-top: 20px;
 }
@@ -3686,236 +3589,6 @@ body {
 .page-my-workshops-organize ul.workshops li.workshop .actions a {
   font-size: 12px;
   margin-right: 7px;
-  padding: 5px 15px;
-}
-.page-my-workshops-organize .teaching-workshops {
-  margin-top: 25px;
-}
-.page-my-workshops-organize .teaching-workshops .teaching-status .head {
-  color: #777;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 7px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops {
-  margin: 20px 0 0;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop {
-  border-bottom: 1px solid #DDD;
-  margin-bottom: 15px;
-  padding-bottom: 20px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .title a {
-  font-size: 15px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .title a:link,
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .title a:active,
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .title a:visited {
-  color: #29ace4;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .title a:hover {
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .details {
-  margin-top: 5px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .details .details-item {
-  display: inline-block;
-  margin-right: 15px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .details .caption {
-  color: #777;
-  font-size: 12px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .details .value {
-  color: #555;
-  font-weight: bold;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .status {
-  margin-top: 6px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .status .name {
-  color: #444;
-  font-size: 13px;
-  font-weight: bold;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .status .name i {
-  color: #AAA;
-  font-size: 16px;
-  margin-right: 3px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .status .name i.icon-light {
-  font-size: 10px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .status .draft i {
-  color: #555;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .status .published i {
-  color: #00ac71;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .upcoming {
-  color: #777;
-  font-size: 13px;
-  margin-top: 8px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .upcoming a {
-  background-color: #EEE;
-  color: #444;
-  display: inline-block;
-  font-size: 13px;
-  margin-left: 7px;
-  padding: 3px 15px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .upcoming a:hover {
-  background-color: #29ace4;
-  color: #FFF;
-  text-decoration: none;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions {
-  margin-top: 10px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a {
-  margin-right: 10px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions .completeness {
-  font-size: 13px;
-  vertical-align: middle;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions .completeness em {
-  font-weight: bold;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a.link {
-  font-size: 13px;
-  margin-right: 10px;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a.link:link,
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a.link:active,
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a.link:visited {
-  color: #888;
-  text-decoration: underline;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions a.link:hover {
-  background-color: #29ace4;
-  color: #FFF;
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-my-workshops-organize .teaching-workshops ul.workshops li.workshop .actions i.icon-check-sign {
-  color: #00ac71;
-  margin-right: 2px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops {
-  border: none;
-  width: 100%;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops th {
-  border: none;
-  color: #999;
-  font-size: 13px;
-  font-weight: normal;
-  padding-top: 0;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td {
-  padding-bottom: 15px;
-  padding-top: 15px;
-  vertical-align: middle;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops .status {
-  text-align: center;
-  width: 100px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops .title {
-  padding-left: 20px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops .actions {
-  text-align: right;
-  width: 220px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops .actions a {
-  margin-left: 5px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops .actions i.icon-check-sign {
-  color: #00ac71;
-  margin-right: 2px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title a {
-  font-family: 'QuarkLight', sans-serif;
-  font-size: 24px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title a:link,
-.page-my-workshops-organize .teaching-workshops table.workshops td.title a:active,
-.page-my-workshops-organize .teaching-workshops table.workshops td.title a:visited {
-  color: #29ace4;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title a:hover {
-  text-decoration: underline;
-  text-shadow: none;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .status-stats {
-  margin-top: 5px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .status-stats .workshop-status {
-  display: inline-block;
-  margin-right: 15px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .status-stats .workshop-status span {
-  border-radius: 4px;
-  padding: 4px 15px;
-  font-size: 12px;
-  background-color: #00ac71;
-  color: #FFF;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .status-stats .stats {
-  color: #888;
-  display: inline-block;
-  font-size: 14px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .status-stats .stats span {
-  margin-right: 12px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .status-stats .stats em {
-  color: #444;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .next {
-  border: 1px dashed #DDD;
-  color: #555;
-  display: inline-block;
-  font-size: 13px;
-  margin-top: 15px;
-  padding: 6px 15px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.title .next i {
-  color: #C30;
-  margin-right: 5px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.status {
-  color: #444;
-  font-size: 12px;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.status .style-workshop-status {
-  border-radius: 4px;
-  display: block;
-  padding: 4px 0;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.status .draft {
-  background-color: #EEE;
-  color: #333;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.status .wait_for_approval {
-  background-color: #FFC;
-  color: #333;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.status .ready_to_publish {
-  background-color: #e7fee7;
-  color: #333;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.status .published {
-  background-color: #00ac71;
-  color: #FFF;
-}
-.page-my-workshops-organize .teaching-workshops table.workshops td.actions .style-outline-button {
-  font-size: 12px;
   padding: 5px 15px;
 }
 .page-my-workshops-organize .no-teaching-workshop {
@@ -4471,49 +4144,6 @@ body {
 }
 .page-workshop-modify .form-footer-floating .container {
   padding: 0 15px !important;
-}
-.page-workshop-modify #modal-place-map {
-  margin-left: -350px;
-  width: 700px;
-}
-.page-workshop-modify #modal-place-map .search button {
-  vertical-align: middle;
-}
-.page-workshop-modify #modal-place-map .search input {
-  margin: 0 7px 0 0;
-  vertical-align: middle;
-  width: 300px;
-}
-.page-workshop-modify #modal-place-map .map {
-  margin-top: 15px;
-}
-.page-workshop-modify #modal-place-map .map #map-canvas {
-  height: 300px;
-  width: 660px;
-}
-.page-workshop-modify #modal-place-map .map #map-canvas img {
-  max-width: none;
-}
-.page-workshop-modify #modal-place-map .modal-footer .note {
-  color: #555;
-  float: left;
-  font-size: 13px;
-  text-align: left;
-  width: 370px;
-}
-.page-workshop-modify #modal-place-map .modal-footer .note strong {
-  color: #444;
-  font-size: 14px;
-  font-weight: bold;
-  margin-right: 3px;
-}
-.page-workshop-modify #modal-place-map .modal-footer .note em {
-  font-style: italic;
-}
-.page-workshop-modify #modal-workshop-submitted .head1 {
-  color: #444;
-  font-size: 16px;
-  line-height: 25px;
 }
 .page-workshop-modify .select2-results .topic {
   color: #555;
