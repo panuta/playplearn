@@ -110,12 +110,21 @@ select:focus:invalid:focus {
 }
 .modal .modal-dialog .modal-content .modal-header {
   border-bottom: none;
-  padding: 15px 20px 10px;
+  padding: 15px 20px;
 }
 .modal .modal-dialog .modal-content .modal-header .subtitle {
   color: #666;
   font-family: 'QuarkLight', sans-serif;
   font-size: 20px;
+}
+.modal .modal-dialog .modal-content .modal-success {
+  background-color: #00ac71;
+  color: #FFF;
+  margin-bottom: 15px;
+  padding: 8px 20px;
+}
+.modal .modal-dialog .modal-content .modal-success i {
+  margin-right: 4px;
 }
 .modal .modal-dialog .modal-content .modal-error {
   background-color: #e56068;
@@ -131,10 +140,13 @@ select:focus:invalid:focus {
   font-family: 'QuarkLight', sans-serif;
   font-size: 26px;
 }
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 0 20px;
+}
 .modal .modal-dialog .modal-content .modal-footer {
   border-top: none;
   margin: 0;
-  padding-top: 5px;
+  padding-top: 15px;
 }
 /*
 .modal-backdrop {
@@ -314,7 +326,6 @@ body.modal-open {
 .ui-datepicker .ui-datepicker-calendar td span {
   color: #444;
   font-size: 13px;
-  font-weight: bold;
   height: 32px;
   line-height: 32px;
   padding: 0;
@@ -345,8 +356,7 @@ body.modal-open {
 }
 .ui-pnotify.custom .ui-pnotify-title {
   color: #FFF;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 16px;
   padding-left: 28px;
   line-height: 18px;
   margin: 5px 0 7px;
@@ -363,15 +373,15 @@ body.modal-open {
   text-shadow: none;
 }
 .ui-pnotify.custom .alert-success {
-  background: url(../images/ui/alert_success.png) 15px 15px no-repeat;
+  background: url(../images/ui/alert_success.png) 17px 17px no-repeat;
   background-color: #00ac71;
 }
 .ui-pnotify.custom .alert-info {
-  background: url(../images/ui/alert_notice.png) 15px 15px no-repeat;
+  background: url(../images/ui/alert_notice.png) 17px 17px no-repeat;
   background-color: #666;
 }
 .ui-pnotify.custom .alert-error {
-  background: url(../images/ui/alert_error.png) 15px 15px no-repeat;
+  background: url(../images/ui/alert_error.png) 17px 17px no-repeat;
   background-color: #C30;
 }
 .style-form .control-group {
@@ -1188,7 +1198,7 @@ h1.style-page-header {
 }
 .style-workshop-status span {
   display: inline-block;
-  padding: 4px 12px;
+  padding: 3px 10px;
   font-size: 12px;
 }
 .style-workshop-status span i {
@@ -2191,6 +2201,22 @@ body {
 #modal-message-write .modal-body .body textarea {
   height: 80px;
   width: 97%;
+}
+#modal-publish-workshop .modal-body .promote-panel {
+  padding-bottom: 10px;
+}
+#modal-publish-workshop .modal-body .promote-panel label {
+  color: #555;
+  font-weight: normal;
+  margin-right: 6px;
+}
+#modal-publish-workshop .modal-body .promote-panel input {
+  border: 1px solid #BBB;
+  color: #555;
+  display: block;
+  font-size: 13px;
+  padding: 6px 10px;
+  width: 100%;
 }
 .modal-add-schedule .modal-dialog {
   width: 460px;
@@ -3610,36 +3636,45 @@ body {
 .page-my-workshops-organize ul.workshops li.workshop .subtitle {
   margin-top: 5px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .style-workshop-status {
-  margin-right: 15px;
-}
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .workshop-stats {
-  color: #888;
+.page-my-workshops-organize ul.workshops li.workshop .subtitle .subtitle-data {
   display: inline-block;
-  font-size: 14px;
+  margin-right: 17px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .workshop-stats span {
-  margin-right: 12px;
+.page-my-workshops-organize ul.workshops li.workshop .subtitle .caption {
+  color: #777;
+  font-size: 13px;
+  margin-right: 2px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .workshop-stats em {
-  color: #444;
+.page-my-workshops-organize ul.workshops li.workshop .subtitle .value {
+  color: #555;
+  font-weight: bold;
+}
+.page-my-workshops-organize ul.workshops li.workshop .subtitle .style-workshop-status {
+  margin-left: 2px;
 }
 .page-my-workshops-organize ul.workshops li.workshop .next {
+  border: 1px dashed #CCC;
+  padding: 10px 15px;
   color: #777;
   display: inline-block;
   margin-top: 20px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next i {
-  color: #999;
-  margin-right: 5px;
+.page-my-workshops-organize ul.workshops li.workshop .next .datetime {
+  display: inline-block;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next .date,
-.page-my-workshops-organize ul.workshops li.workshop .next .time {
+.page-my-workshops-organize ul.workshops li.workshop .next .datetime i {
+  color: #777;
+  margin-right: 5px;
+  vertical-align: 1px;
+}
+.page-my-workshops-organize ul.workshops li.workshop .next .datetime .date,
+.page-my-workshops-organize ul.workshops li.workshop .next .datetime .time {
   color: #555;
   font-weight: bold;
 }
 .page-my-workshops-organize ul.workshops li.workshop .next .participant {
-  margin-left: 10px;
+  display: inline-block;
+  margin-left: 15px;
 }
 .page-my-workshops-organize ul.workshops li.workshop .next .participant em {
   color: #555;

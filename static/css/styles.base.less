@@ -137,12 +137,23 @@ select:focus:invalid:focus {
 
     .modal-header {
         border-bottom: none;
-        padding: 15px 20px 10px;
+        padding: 15px 20px;
 
         .subtitle {
             color: #666;
             font-family: 'QuarkLight', sans-serif;
             font-size: 20px;
+        }
+    }
+
+    .modal-success {
+        background-color: @colorPositive;
+        color: #FFF;
+        margin-bottom: 15px;
+        padding: 8px 20px;
+
+        i {
+            margin-right: 4px;
         }
     }
 
@@ -163,10 +174,14 @@ select:focus:invalid:focus {
         font-size: 26px;
     }
 
+    .modal-body {
+        padding: 0 20px;
+    }
+
     .modal-footer {
         border-top: none;
         margin: 0;
-        padding-top: 5px;
+        padding-top: 15px;
     }
 }
 
@@ -379,7 +394,6 @@ body.modal-open {
             a, span {
                 color: #444;
                 font-size: 13px;
-                font-weight: bold;
                 height: 32px;
                 line-height: 32px;
                 padding: 0;
@@ -424,8 +438,7 @@ body.modal-open {
 
 .ui-pnotify.custom .ui-pnotify-title {
     color: #FFF;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
     padding-left: 28px;
     line-height: 18px;
     margin: 5px 0 7px;
@@ -445,17 +458,17 @@ body.modal-open {
 }
 
 .ui-pnotify.custom .alert-success {
-    background: url(../images/ui/alert_success.png) 15px 15px no-repeat;
+    background: url(../images/ui/alert_success.png) 17px 17px no-repeat;
     background-color: @alertGreenColor;
 }
 
 .ui-pnotify.custom .alert-info {
-    background: url(../images/ui/alert_notice.png) 15px 15px no-repeat;
+    background: url(../images/ui/alert_notice.png) 17px 17px no-repeat;
     background-color: #666;
 }
 
 .ui-pnotify.custom .alert-error {
-    background: url(../images/ui/alert_error.png) 15px 15px no-repeat;
+    background: url(../images/ui/alert_error.png) 17px 17px no-repeat;
     background-color: #C30;
 }
 
@@ -1230,7 +1243,7 @@ h1.style-page-header {
 
     span {
         display: inline-block;
-        padding: 4px 12px;
+        padding: 3px 10px;
         font-size: 12px;
 
         i {

@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="style-primary-button">เพิ่มรอบ</button>
+                <button type="button" class="style-primary-button button-submit">เพิ่มรอบ</button>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@ jQuery(function($){
         return false;
     });
 
-    add_schedule_modal.find('button').on('click', function() {
+    add_schedule_modal.find('.button-submit').on('click', function() {
         var schedule_date = moment(schedule_date_datepicker.datepicker('getDate')).format('YYYY-MM-DD');
         var schedule_time_hour = add_schedule_modal.find('.schedule-time .schedule-time-hour').selectBoxIt().val();
         var schedule_time_minute = add_schedule_modal.find('.schedule-time .schedule-time-minute').selectBoxIt().val();
@@ -94,18 +94,9 @@ jQuery(function($){
 
         var jqxhr = $.post('/ajax/workshop/schedule/add/', {uid: add_schedule_modal.data('workshop-uid'), schedule_datetime:schedule_datetime, schedule_price:schedule_price, schedule_capacity:schedule_capacity}, function(response) {
             if(response.status == 'success') {
-                $.pnotify({
-                    addclass:'custom',
-                    animation: 'none',
-                    hide: false,
-                    history: false,
-                    icon:false,
-                    sticker: false,
-                    title: 'เพิ่มรอบเรียบร้อย',
-                    type:'success'
-                });
-                modal.modal('hide');
-
+                _notify('success', 'เพิ่มรอบเรียบร้อย');
+                add_schedule_modal.trigger('ws.schedule.add', [add_schedule_modal.data('workshop-uid'), response.data]);
+                add_schedule_modal.modal('hide');
             } else {
                 if(response.message) {
                     _addModalErrorMessage('modal-add-schedule', response.message);

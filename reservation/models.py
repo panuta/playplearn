@@ -22,8 +22,17 @@ class Schedule(models.Model):
 
     # DATA
 
-    def seats_reserved(self):
-        return self.reservations.filter(status=Reservation.STATUS_CONFIRMED).count()
+    def seats_confirmed_and_paid(self):
+        return self.reservations.filter(
+            status=Reservation.STATUS_CONFIRMED,
+            payment_status=Reservation.PAYMENT_STATUS_PAID
+        ).count()
+
+    def seats_confirmed_and_wait_for_payment(self):
+        return self.reservations.filter(
+            status=Reservation.STATUS_CONFIRMED,
+            payment_status=Reservation.PAYMENT_STATUS_WAIT_FOR_PAYMENT
+        ).count()
 
 
 class Reservation(models.Model):

@@ -1,0 +1,63 @@
+{% extends 'base_backend.html' %}
+{% load i18n thumbnail common_tags presentation_tags %}
+
+{% block head_title %}จัดเวิร์คช็อป - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block body_class %}{{ block.super }} page-my-workshops-organize{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(function($){
+    $('#modal-add-schedule').on('ws.schedule.add', function(e, workshop_uid, data) {
+        var workshopRow = $('li.workshop[data-workshop-uid="' + workshop_uid + '"]');
+        workshopRow.find('.subtitle .upcoming .value').text(data.upcoming_schedule_count + ' รอบ');
+        workshopRow.find('.next .datetime .text').html(data.upcoming_schedule_datetime);
+        workshopRow.find('.next .participant .confirmed').text(data.upcoming_participant_comfirmed + ' คน');
+        workshopRow.find('.next .participant .waiting').text(data.upcoming_participant_waiting + ' คน');
+    });
+
+    $('#modal-publish-workshop').on('ws.publish', function(e, workshop_uid, data) {
+        var workshopRow = $('li.workshop[data-workshop-uid="' + workshop_uid + '"]');
+        workshopRow.html(data.workshop_html);
+    });
+});
+</script>
+{% endblock %}
+
+{% block backend_header %}
+    <h1>จัดเวิร์คช็อป</h1>
+{% endblock %}
+
+{% block backend_container %}
+<div class="workshops-body">
+    <div class="container">
+        {% if workshops %}
+            <div class="style-stats-bar">
+                <div class="add-workshop"><a href="{% url 'create_workshop' %}" class="style-primary-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></div>
+                <ul class="stats">
+                    <li class="stat"><span class="caption">ยอดเงินในบัญชี</span><span class="number"><em class="{% if user.money_balance.amount > 0 %}positive{% elif user.money_balance.amount < 0 %}negative{% endif %}">{{ user.money_balance.amount|format_price }}</em> บาท</span></li>
+                    <li class="stat"><span class="caption">เวิร์คช็อปที่เปิดตัว</span><span class="number"><em>{{ user.stats_workshops_organizing }}</em> เวิร์คช็อป</span></li>
+                </ul>
+            </div>
+
+            <ul class="workshops">
+                {% for workshop in workshops %}
+                <li class="workshop clearfix" data-workshop-uid="{{ workshop.uid }}">
+                    {% include 'workshop/organize/snippets/organize_workshop_row.html' %}
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% include 'modals/modal_publish_workshop.html' %}
+            {% include 'modals/modal_add_schedule.html' %}
+
+        {% else %}
+            <div class="no-teaching-workshop">
+                <!-- TODO -->
+                <div class="head1">Do you have a passion on something?</div>
+                <div class="head2">Why don't you share that passion with others by giving a workshop to learn from you</div>
+                <div class="call_to_action"><a href="{% url 'create_workshop' %}" class="style-primary-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% load common_tags presentation_tags %}
+<div class="cover"><a href="{% url 'view_workshop_outline' workshop.uid %}"><img src="{% workshop_cover_picture_url workshop 'workshop_picture_smaller' %}" {% thumbnail_img_size 'workshop_picture_smaller' %} /></a></div>
+<div class="right">
+    <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title|default:'(ไม่มีชื่อเวิร์คช็อป)' }}</a></div>
+    <div class="subtitle">
+        <div class="subtitle-data status"><span class="caption">สถานะ</span> <span class="style-workshop-status">{{ workshop.status|workshop_status }}</span></div>
+        {% if workshop.is_status_published %}
+            <div class="subtitle-data upcoming"><span class="caption">มีจัดอีก</span> <span class="value">{{ workshop.stats_upcoming_classes }} รอบ</span></div>
+            <div class="subtitle-data feedbacks"><span class="caption">ได้รับคำนิยม</span> <span class="value">{{ workshop.stats_feedbacks }} ข้อความ</span></div>
+        {% endif %}
+    </div>
+    {% if workshop.is_status_published %}
+        {% get_upcoming_schedule workshop as upcoming_schedule %}
+        {% if upcoming_schedule %}
+            <div class="next">
+                <div class="datetime"><i class="icon-calendar"></i> จัดครั้งต่อไป <span class="text">{{ upcoming_schedule|schedule_datetime }}</span></div>
+                <div class="participant">ยืนยันเข้าร่วม <em class="confirmed">{{ upcoming_schedule.seats_confirmed_and_paid }} คน</em> / รอชำระเงิน <em class="waiting">{{ upcoming_schedule.seats_confirmed_and_wait_for_payment }} คน</em></div>
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="actions">
+        <a href="{% url 'edit_workshop' workshop.uid %}" class="style-outline-button{% if workshop.is_status_wait_for_approval %} disabled{% endif %}">แก้ไขข้อมูล</a>
+        {% if workshop.is_status_ready_to_publish %}
+            <a href="#" class="style-primary-button button-publish-workshop" data-toggle="modal" data-target="#modal-publish-workshop"><i class="icon-ok"></i> เปิดตัวเวิร์คช็อป</a>
+        {% endif %}
+        {% if workshop.is_status_published %}
+            <a href="{% url 'manage_workshop_overview' workshop.uid %}" class="style-outline-button"><i class="icon-book"></i> หน้าการจัดการ</a>
+            <a href="#" class="style-outline-button button-add-schedule" data-toggle="modal" data-target="#modal-add-schedule"><i class="icon-plus-sign"></i> เพิ่มรอบ</a>
+        {% endif %}
+    </div>
+</div>

@@ -55,6 +55,7 @@ $('form button').on('click', function(){
 });
 
 $('.modal').on('show.bs.modal', function() {
+    $(this).find('.modal-success').remove();
     $(this).find('.modal-error').remove();
 });
 
@@ -63,6 +64,11 @@ function _alertModal(type, title, message) {
     modal.find('.modal-header h3').html(title)
     modal.find('.modal-body').html('<p class="' + type + '">' + message + '</p>')
     modal.modal();
+}
+
+function _addModalSuccessMessage(modal_id, message) {
+    $('#' + modal_id + ' .modal-success').remove();
+    $('#' + modal_id + ' .modal-header').after('<div class="modal-success"><i class="icon-ok-sign icon-white"></i> ' + message + '</div>');
 }
 
 function _addModalErrorMessage(modal_id, message) {

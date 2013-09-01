@@ -354,6 +354,10 @@ class Workshop(models.Model):
 
     # DATA
 
+    def is_outline_completed(self):
+        from .functions import is_workshop_outline_completed
+        return is_workshop_outline_completed(self)
+
     def get_upcoming_schedule(self):
         rightnow = timezone.now()
         schedules = Schedule.objects.filter(workshop=self, status=Schedule.STATUS_OPEN, start_datetime__gte=rightnow).order_by('start_datetime')

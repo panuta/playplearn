@@ -249,10 +249,11 @@ def ajax_publish_workshop(request):
 
     domain_functions.publish_workshop(workshop)
 
-    messages.success(request, 'Successfully publish your workshop. You can now promote the workshop here.')
+    from django.template.loader import render_to_string
 
     return response_json_success({
-        'redirect_url': reverse('manage_workshop_promote', args=[workshop.uid]),
+        'workshop_url': '%s%s' % (settings.WEBSITE_URL, reverse('view_workshop_outline', args=[workshop.uid])),
+        'workshop_html': render_to_string('workshop/organize/snippets/organize_workshop_row.html', {'workshop': workshop}),
     })
 
 
@@ -291,7 +292,7 @@ def ajax_add_workshop_schedule(request):
         schedule_price = workshop.default_price
 
     try:
-        schedule_capacity = request.POST.get('schedule_capacity')
+        schedule_capacity = int(request.POST.get('schedule_capacity'))
     except ValueError:
         schedule_capacity = workshop.default_capacity
 
@@ -300,9 +301,14 @@ def ajax_add_workshop_schedule(request):
     except WorkshopScheduleException, e:
         return _response_with_workshop_error(e.exception_code)
 
+    from common.templatetags.common_tags import schedule_datetime as format_schedule_datetime
+    upcoming_schedule = workshop.get_upcoming_schedule()
+
     return response_json_success({
-        'manage_class_url': reverse('manage_workshop_class',
-                                    args=[workshop.uid, format_datetime_string(schedule.start_datetime)])
+        'upcoming_schedule_datetime': format_schedule_datetime(upcoming_schedule),
+        'upcoming_schedule_count': workshop.stats_upcoming_classes(),
+        'upcoming_participant_comfirmed': upcoming_schedule.seats_confirmed_and_paid(),
+        'upcoming_participant_waiting': upcoming_schedule.seats_confirmed_and_wait_for_payment(),
     })
 
 

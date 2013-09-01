@@ -113,7 +113,7 @@ def _view_my_workshops_attended(request, workshop_school=None):
 def view_my_workshops_organize(request):
     workshops = Workshop.objects.filter(teacher=request.user)
 
-    return render(request, 'dashboard/workshops_organize.html', {
+    return render(request, 'workshop/organize/workshops_organize.html', {
         'workshops': workshops
     })
 
@@ -123,7 +123,7 @@ def view_my_workshops_organize(request):
 @login_required
 def create_workshop(request):
     workshop_uid = Workshop.objects.generate_workshop_uid()
-    return render(request, 'dashboard/workshop_modify.html', {
+    return render(request, 'workshop/organize/workshop_modify.html', {
         'workshop_uid': workshop_uid,
         'is_completed': False,
     })
@@ -138,7 +138,7 @@ def edit_workshop(request, workshop_uid):
 
     workshop_pictures = WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False)
 
-    return render(request, 'dashboard/workshop_modify.html', {
+    return render(request, 'workshop/organize/workshop_modify.html', {
         'workshop': workshop,
         'workshop_pictures': workshop_pictures,
         'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
