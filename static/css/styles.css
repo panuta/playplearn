@@ -977,8 +977,7 @@ h1.style-page-header {
   padding-bottom: 10px;
 }
 .style-stats-bar {
-  background-color: #F7F7F7;
-  border-bottom: 2px solid #DDD;
+  border: 1px solid #DDD;
   padding: 10px 0;
 }
 .style-stats-bar ul.stats {
@@ -986,10 +985,10 @@ h1.style-page-header {
   padding: 0;
 }
 .style-stats-bar ul.stats li.stat {
-  border-right: 1px solid #DDD;
+  border-right: 1px solid #EEE;
   display: inline-block;
   list-style: none;
-  padding: 0 20px;
+  padding: 0 30px;
 }
 .style-stats-bar ul.stats li.stat .caption {
   color: #777;
@@ -1500,6 +1499,9 @@ body {
 #body-top {
   height: 72px;
 }
+#body-top .container {
+  padding: 0;
+}
 #body-top .top-left {
   float: left;
 }
@@ -1661,8 +1663,8 @@ body {
   border: none;
 }
 .page-backend #backend-header {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
-  padding: 25px 0 15px;
+  border-top: 1px solid #DDD;
+  padding: 25px 0 0;
 }
 .page-backend #backend-header .parent {
   margin-bottom: 8px;
@@ -1707,12 +1709,13 @@ body {
   box-shadow: 0px 2px 0px #AAA;
 }
 .page-backend #backend-header h1 {
-  color: #FFF;
-  font-family: 'QuarkLight', sans-serif;
-  font-size: 34px;
+  color: #4b5c66;
+  font-family: 'QuarkBold', sans-serif;
+  font-size: 38px;
   font-weight: normal;
   line-height: normal;
   margin: 0;
+  vertical-align: middle;
 }
 .page-backend #backend-header h1 span {
   color: #FFF;
@@ -1724,29 +1727,13 @@ body {
 .page-backend #backend-header .with_actions ul {
   display: inline-block;
   float: right;
-  margin: 10px 0 0;
+  margin: 10px 0 0 15px;
+  padding: 0;
 }
 .page-backend #backend-header .with_actions ul li {
   display: inline-block;
   list-style: none;
   margin-left: 12px;
-}
-.page-backend #backend-header .with_actions ul li a {
-  background-color: #bbd3eb;
-  border-radius: 4px;
-  color: #3a71a9;
-  display: inline-block;
-  font-size: 13px;
-  font-weight: bold;
-  padding: 5px 15px;
-}
-.page-backend #backend-header .with_actions ul li a i {
-  margin-right: 3px;
-}
-.page-backend #backend-header .with_actions ul li a:hover {
-  background-color: #3a71a9;
-  color: #FFF;
-  text-decoration: none;
 }
 .page-backend .backend-tabs {
   background: url('../images/ui/100-95-3.png') repeat #8696a0;
@@ -3493,7 +3480,7 @@ body {
   text-shadow: none;
 }
 .page-my-workshops-organize .style-stats-bar {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .page-my-workshops-organize .style-stats-bar .number .positive {
   color: #00ac71;
@@ -3506,14 +3493,15 @@ body {
   margin: 11px 17px;
 }
 .page-my-workshops-organize ul.workshops {
-  margin: 35px 0 0;
+  border-bottom: 1px solid #DDD;
+  margin: 0;
   padding: 0;
 }
 .page-my-workshops-organize ul.workshops li.workshop {
-  border-bottom: 1px solid #DDD;
+  border-top: 1px solid #DDD;
   list-style: none;
-  margin-bottom: 25px;
-  padding-bottom: 25px;
+  margin: 15px 0 25px;
+  padding-top: 25px;
 }
 .page-my-workshops-organize ul.workshops li.workshop .cover {
   border: 1px solid #DDDDDD;
@@ -3591,20 +3579,55 @@ body {
   margin-right: 7px;
   padding: 5px 15px;
 }
-.page-my-workshops-organize .no-teaching-workshop {
-  margin-top: 30px;
+.page-my-workshops-organize .first-workshop {
+  margin: 30px 0 70px;
   text-align: center;
 }
-.page-my-workshops-organize .no-teaching-workshop .head1 {
+.page-my-workshops-organize .first-workshop h1 {
+  color: #444;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 38px;
+  font-weight: normal;
+  line-height: normal;
+}
+.page-my-workshops-organize .first-workshop form label {
+  color: #666;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: normal;
+}
+.page-my-workshops-organize .first-workshop form input {
+  font-size: 16px;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px 15px;
+  text-align: center;
+  width: 600px;
+}
+.page-my-workshops-organize .first-workshop form .errorlist {
+  margin: 5px 0 0;
+  padding: 0;
+}
+.page-my-workshops-organize .first-workshop form .help-block {
+  color: #888;
+  font-size: 12px;
+}
+.page-my-workshops-organize .first-workshop form button {
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  padding: 14px 70px 9px;
+}
+.page-my-workshops-organize .first-workshop .head1 {
   color: #444;
   font-size: 24px;
 }
-.page-my-workshops-organize .no-teaching-workshop .head2 {
+.page-my-workshops-organize .first-workshop .head2 {
   color: #555;
   font-size: 16px;
   margin-top: 12px;
 }
-.page-my-workshops-organize .no-teaching-workshop .call_to_action {
+.page-my-workshops-organize .first-workshop .call_to_action {
   margin-top: 18px;
 }
 .page-workshop-modify #backend-container {

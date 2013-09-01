@@ -37,6 +37,11 @@ def get_upcoming_workshops():
 
 # WORKSHOP #############################################################################################################
 
+def create_first_workshop(title, teacher):
+    title = title.strip(' \t\n\r')
+    return Workshop.objects.create(title=title, teacher=teacher, status=Workshop.STATUS_DRAFT)
+
+
 def is_workshop_outline_completed(workshop):
     is_completed = True
 

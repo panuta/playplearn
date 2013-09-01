@@ -24,21 +24,20 @@ jQuery(function($){
 {% endblock %}
 
 {% block backend_header %}
-    <h1>จัดเวิร์คช็อป</h1>
+    {% if workshops %}
+    <div class="with_actions">
+        <h1>จัดเวิร์คช็อป</h1>
+        <ul>
+            <li><a href="{% url 'create_workshop' %}" class="style-primary-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></li>
+        </ul>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block backend_container %}
 <div class="workshops-body">
     <div class="container">
         {% if workshops %}
-            <div class="style-stats-bar">
-                <div class="add-workshop"><a href="{% url 'create_workshop' %}" class="style-primary-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></div>
-                <ul class="stats">
-                    <li class="stat"><span class="caption">ยอดเงินในบัญชี</span><span class="number"><em class="{% if user.money_balance.amount > 0 %}positive{% elif user.money_balance.amount < 0 %}negative{% endif %}">{{ user.money_balance.amount|format_price }}</em> บาท</span></li>
-                    <li class="stat"><span class="caption">เวิร์คช็อปที่เปิดตัว</span><span class="number"><em>{{ user.stats_workshops_organizing }}</em> เวิร์คช็อป</span></li>
-                </ul>
-            </div>
-
             <ul class="workshops">
                 {% for workshop in workshops %}
                 <li class="workshop clearfix" data-workshop-uid="{{ workshop.uid }}">
@@ -46,16 +45,21 @@ jQuery(function($){
                 </li>
                 {% endfor %}
             </ul>
-
             {% include 'modals/modal_publish_workshop.html' %}
             {% include 'modals/modal_add_schedule.html' %}
-
         {% else %}
-            <div class="no-teaching-workshop">
-                <!-- TODO -->
-                <div class="head1">Do you have a passion on something?</div>
-                <div class="head2">Why don't you share that passion with others by giving a workshop to learn from you</div>
-                <div class="call_to_action"><a href="{% url 'create_workshop' %}" class="style-primary-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></div>
+            <div class="first-workshop">
+                <h1>ส่งต่อความหลงไหลของคุณผ่านกิจกรรมเวิร์คช็อป</h1>
+                <form method="post" action="." role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_title">ชื่อเวิร์คช็อป</label>
+                        {{ form.title }}
+                        {{ form.title.errors }}
+                        <div class="help-block">สามารถเปลี่ยนได้ภายหลัง</div>
+                    </div>
+                    <button type="submit" class="style-primary-button">จัดเวิร์คช็อป</button>
+                </form>
             </div>
         {% endif %}
     </div>

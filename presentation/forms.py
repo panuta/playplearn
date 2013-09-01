@@ -30,3 +30,9 @@ class EditAccountEmailForm(forms.Form):
             raise forms.ValidationError(_('This email has already been registered.'))
 
         return email
+
+
+# WORKSHOP
+
+class CreateFirstWorkshop(forms.Form):
+    title = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control'}))

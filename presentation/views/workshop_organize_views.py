@@ -12,11 +12,13 @@ from django.views.decorators.http import require_POST
 
 from common.decorators import teacher_only
 
-from domain import functions as workshop_functions
+from domain import functions as domain_functions
 from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
 
 
 # MY WORKSHOPS #########################################################################################################
+from presentation.forms import CreateFirstWorkshop
+
 
 @login_required
 def view_my_workshops_payment(request):
@@ -113,8 +115,19 @@ def _view_my_workshops_attended(request, workshop_school=None):
 def view_my_workshops_organize(request):
     workshops = Workshop.objects.filter(teacher=request.user)
 
+    if request.method == 'POST':
+        form = CreateFirstWorkshop(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            workshop = domain_functions.create_first_workshop(title, request.user)
+            return redirect('edit_workshop', workshop.uid)
+
+    else:
+        form = CreateFirstWorkshop()
+
     return render(request, 'workshop/organize/workshops_organize.html', {
-        'workshops': workshops
+        'workshops': workshops,
+        'form': form,
     })
 
 
@@ -141,7 +154,7 @@ def edit_workshop(request, workshop_uid):
     return render(request, 'workshop/organize/workshop_modify.html', {
         'workshop': workshop,
         'workshop_pictures': workshop_pictures,
-        'is_completed': workshop_functions.is_workshop_outline_completed(workshop),
+        'is_completed': domain_functions.is_workshop_outline_completed(workshop),
     })
 
 
@@ -153,7 +166,7 @@ def revert_approving_workshop(request, workshop_uid):
     if workshop.teacher != request.user:
         raise Http404
 
-    workshop_functions.revert_approving_workshop(workshop)
+    domain_functions.revert_approving_workshop(workshop)
     return redirect('edit_workshop', workshop_uid=workshop_uid)
 
 

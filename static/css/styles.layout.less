@@ -10,6 +10,10 @@ html, body {
 #body-top {
     height: 72px;
 
+    .container {
+        padding: 0;
+    }
+
     .top-left {
         float: left;
 
@@ -209,8 +213,8 @@ html, body {
 
 .page-backend {
     #backend-header {
-        background: @headerBackground;
-        padding: 25px 0 15px;
+        border-top: 1px solid #DDD;
+        padding: 25px 0 0;
 
         .parent {
             margin-bottom: 8px;
@@ -264,12 +268,13 @@ html, body {
         }
 
         h1 {
-            color: #FFF;
-            font-family: 'QuarkLight', sans-serif;
-            font-size: 34px;
+            color: @colorNavy;
+            font-family: 'QuarkBold', sans-serif;
+            font-size: 38px;
             font-weight: normal;
             line-height: normal;
             margin: 0;
+            vertical-align: middle;
 
             span {
                 color: #FFF;
@@ -283,35 +288,15 @@ html, body {
             }
 
             ul {
-
                 display: inline-block;
                 float: right;
-                margin: 10px 0 0;
+                margin: 10px 0 0 15px;
+                padding: 0;
 
                 li {
                     display: inline-block;
                     list-style: none;
                     margin-left: 12px;
-
-                    a {
-                        background-color: #bbd3eb;
-                        border-radius: 4px;
-                        color: @primaryColor;
-                        display: inline-block;
-                        font-size: 13px;
-                        font-weight: bold;
-                        padding: 5px 15px;
-
-                        i {
-                            margin-right: 3px;
-                        }
-
-                        &:hover {
-                            background-color: @primaryColor;
-                            color: #FFF;
-                            text-decoration: none;
-                        }
-                    }
                 }
             }
         }
