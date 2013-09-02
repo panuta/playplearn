@@ -1662,9 +1662,38 @@ body {
 #body-footer .subscribe input {
   border: none;
 }
+.page-backend #backend-container {
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+}
 .page-backend #backend-header {
-  border-top: 1px solid #DDD;
-  padding: 25px 0 0;
+  padding: 30px 0 10px;
+  /*
+        .actions {
+            float: right;
+
+            a {
+                background-color: #F7F7F7;
+                box-shadow: 0px 2px 0px #CCC;
+                border-radius: 4px;
+                color: #555;
+                display: inline-block;
+                font-size: 13px;
+                margin-left: 10px;
+                padding: 5px 25px;
+                text-decoration: none;
+
+                i {
+                    margin-right: 2px;
+                }
+
+                &:hover {
+                    background-color: #DDD;
+                    box-shadow: 0px 2px 0px #AAA;
+                }
+            }
+        }
+*/
+
 }
 .page-backend #backend-header .parent {
   margin-bottom: 8px;
@@ -1686,30 +1715,8 @@ body {
   font-size: 15px;
   margin: 0 6px;
 }
-.page-backend #backend-header .actions {
-  float: right;
-  margin-top: 5px;
-}
-.page-backend #backend-header .actions a {
-  background-color: #F7F7F7;
-  box-shadow: 0px 2px 0px #CCC;
-  border-radius: 4px;
-  color: #555;
-  display: inline-block;
-  font-size: 13px;
-  margin-left: 10px;
-  padding: 5px 25px;
-  text-decoration: none;
-}
-.page-backend #backend-header .actions a i {
-  margin-right: 2px;
-}
-.page-backend #backend-header .actions a:hover {
-  background-color: #DDD;
-  box-shadow: 0px 2px 0px #AAA;
-}
 .page-backend #backend-header h1 {
-  color: #4b5c66;
+  color: #FFF;
   font-family: 'QuarkBold', sans-serif;
   font-size: 38px;
   font-weight: normal;
@@ -1727,7 +1734,7 @@ body {
 .page-backend #backend-header .with_actions ul {
   display: inline-block;
   float: right;
-  margin: 10px 0 0 15px;
+  margin: 5px 0 0;
   padding: 0;
 }
 .page-backend #backend-header .with_actions ul li {
@@ -1736,7 +1743,7 @@ body {
   margin-left: 12px;
 }
 .page-backend .backend-tabs {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
 }
 .page-backend .backend-tabs .nav {
   margin: 0;
@@ -1788,11 +1795,12 @@ body {
   background-color: #BBB;
   color: #FFF;
 }
-.page-backend #backend-container {
+.page-backend #backend-body {
   background-color: #FFF;
-  padding-bottom: 30px;
+  margin-bottom: 50px;
+  padding: 25px;
 }
-.page-backend #backend-container .alert {
+.page-backend #backend-body .alert {
   border: none;
   border-radius: 0;
   color: #FFF;
@@ -1801,18 +1809,18 @@ body {
   padding: 15px 35px 15px 56px;
   text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 }
-.page-backend #backend-container .alert p {
+.page-backend #backend-body .alert p {
   margin: 0;
 }
-.page-backend #backend-container .alert-success {
+.page-backend #backend-body .alert-success {
   background: url(../images/ui/messages.png) #1abc9c 15px 13px no-repeat;
   border-left: 10px solid #16A085;
 }
-.page-backend #backend-container .alert-warning {
+.page-backend #backend-body .alert-warning {
   background: url(../images/ui/messages.png) #f1c40f 15px -48px no-repeat;
   border-left: 10px solid #F39C12;
 }
-.page-backend #backend-container .alert-error {
+.page-backend #backend-body .alert-error {
   background: url(../images/ui/messages.png) #e74c3c 18px -108px no-repeat;
   border-left: 10px solid #C0392B;
 }
@@ -2423,7 +2431,7 @@ body {
   margin-right: 10px;
 }
 .page-registration {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
   /*
     .registration-body {
         border-top: 1px solid @headerLightBorder;
@@ -3058,7 +3066,7 @@ body {
   width: 540px;
 }
 .page-workshop-browse .browse-header {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
   margin-bottom: 25px;
   padding: 25px 0 25px;
 }
@@ -3182,53 +3190,60 @@ body {
 .page-workshop-browse .browse-workshops ul li .workshop-details i.icon-comment {
   vertical-align: 1px;
 }
-.page-my-workshops .workshops-body {
-  margin: 30px 0px 35px;
-}
-.page-my-workshops .workshops-body ul.workshops {
-  margin: 0;
-}
-.page-my-workshops .workshops-body ul.workshops li.workshop {
-  list-style: none;
-}
-.page-my-workshops .workshops-body .workshops-sidebar .head {
-  color: #444;
-  font-size: 12.5px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops {
-  margin: 0;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop {
-  border: 1px solid #DDD;
-  box-shadow: 2px 2px 0px #EEE;
-  list-style: none;
-  margin-bottom: 15px;
-  padding: 5px 10px;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .do {
-  color: #555;
-  font-size: 13px;
-  font-weight: bold;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .countdown {
-  color: #777;
-  float: right;
-  font-size: 12px;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a {
-  font-size: 13px;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:link,
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:active,
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:visited {
-  color: #29ace4;
-}
-.page-my-workshops .workshops-body .workshops-sidebar ul.workshops li.workshop .title a:hover {
-  text-decoration: underline;
-  text-shadow: none;
-}
+/*
+.page-my-workshops {
+    .workshops-body {
+        margin: 30px 0px 35px;
+
+        ul.workshops {
+            margin: 0;
+
+            li.workshop {
+                list-style: none;
+            }
+        }
+
+        .workshops-sidebar {
+            .head {
+                color: #444;
+                font-size: 12.5px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            ul.workshops {
+                margin: 0;
+
+                li.workshop {
+                    border: 1px solid #DDD;
+                    box-shadow: 2px 2px 0px #EEE;
+                    list-style: none;
+                    margin-bottom: 15px;
+                    padding: 5px 10px;
+
+                    .do {
+                        color: #555;
+                        font-size: 13px;
+                        font-weight: bold;
+                    }
+
+                    .countdown {
+                        color: #777;
+                        float: right;
+                        font-size: 12px;
+                    }
+
+                    .title {
+                        a {
+                            .content_link;
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}*/
 .page-my-workshops-payments ul.enrollments {
   margin: 0;
 }
@@ -3493,15 +3508,18 @@ body {
   margin: 11px 17px;
 }
 .page-my-workshops-organize ul.workshops {
-  border-bottom: 1px solid #DDD;
   margin: 0;
   padding: 0;
 }
 .page-my-workshops-organize ul.workshops li.workshop {
-  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
   list-style: none;
-  margin: 15px 0 25px;
-  padding-top: 25px;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+}
+.page-my-workshops-organize ul.workshops li.workshop.last-workshop {
+  border-bottom: none;
+  margin-bottom: 0;
 }
 .page-my-workshops-organize ul.workshops li.workshop .cover {
   border: 1px solid #DDDDDD;
@@ -3631,7 +3649,7 @@ body {
   margin-top: 18px;
 }
 .page-workshop-modify #backend-container {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
 }
 .page-workshop-modify .wait-for-approval {
   background-color: #FFD;
@@ -3672,7 +3690,7 @@ body {
   padding: 40px 50px;
 }
 .page-workshop-modify .form-content h3 {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
   color: #FFF;
   font-family: 'QuarkLight', sans-serif;
   font-size: 24px;
@@ -4536,7 +4554,7 @@ body {
   font-weight: bold;
 }
 .page-profile .profile-header {
-  background: url('../images/ui/100-95-3.png') repeat #8696a0;
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
   padding: 40px 0 45px;
 }
 .page-profile .profile-header .profile-header-box {

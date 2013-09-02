@@ -34,34 +34,30 @@ jQuery(function($){
     {% endif %}
 {% endblock %}
 
-{% block backend_container %}
-<div class="workshops-body">
-    <div class="container">
-        {% if workshops %}
-            <ul class="workshops">
-                {% for workshop in workshops %}
-                <li class="workshop clearfix" data-workshop-uid="{{ workshop.uid }}">
-                    {% include 'workshop/organize/snippets/organize_workshop_row.html' %}
-                </li>
-                {% endfor %}
-            </ul>
-            {% include 'modals/modal_publish_workshop.html' %}
-            {% include 'modals/modal_add_schedule.html' %}
-        {% else %}
-            <div class="first-workshop">
-                <h1>ส่งต่อความหลงไหลของคุณผ่านกิจกรรมเวิร์คช็อป</h1>
-                <form method="post" action="." role="form">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_title">ชื่อเวิร์คช็อป</label>
-                        {{ form.title }}
-                        {{ form.title.errors }}
-                        <div class="help-block">สามารถเปลี่ยนได้ภายหลัง</div>
-                    </div>
-                    <button type="submit" class="style-primary-button">จัดเวิร์คช็อป</button>
-                </form>
+{% block backend_body %}
+{% if workshops %}
+    <ul class="workshops">
+        {% for workshop in workshops %}
+        <li class="workshop clearfix{% if forloop.last %} last-workshop{% endif %}" data-workshop-uid="{{ workshop.uid }}">
+            {% include 'workshop/organize/snippets/organize_workshop_row.html' %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% include 'modals/modal_publish_workshop.html' %}
+    {% include 'modals/modal_add_schedule.html' %}
+{% else %}
+    <div class="first-workshop">
+        <h1>ส่งต่อความหลงไหลของคุณผ่านกิจกรรมเวิร์คช็อป</h1>
+        <form method="post" action="." role="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_title">ชื่อเวิร์คช็อป</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+                <div class="help-block">สามารถเปลี่ยนได้ภายหลัง</div>
             </div>
-        {% endif %}
+            <button type="submit" class="style-primary-button">จัดเวิร์คช็อป</button>
+        </form>
     </div>
-</div>
+{% endif %}
 {% endblock %}
