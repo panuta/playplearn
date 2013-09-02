@@ -308,7 +308,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
             $('#id_place_direction').val('');
             $('#id_place_location').val('');
 
-            place_form.find('.minimap').html('').hide();
+            place_form.find('.minimap').html('').addClass('hide');
 
             return false;
         });
@@ -317,13 +317,13 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
             var selected = id_place_userdefined.find('option:selected').val();
 
             if(selected) {
-                place_form.hide();
+                place_form.addClass('hide');
 
                 var place_form_loading = $('.place-form-loading');
-                place_form_loading.show();
+                place_form_loading.removeClass('hide');
 
                 var jqxhr = $.get('/ajax/workshop/place/get/', {place_id:selected}, function(response) {
-                    place_form_loading.hide();
+                    place_form_loading.addClass('hide');
                     if(response.status == 'success') {
                         $('#id_place_id').val(response.data.id);
                         $('#id_place_name').val(response.data.name);
@@ -339,7 +339,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
                         }
 
                         place_form.find('.head').text('แก้ไขสถานที่');
-                        place_form.show();
+                        place_form.removeClass('hide');
 
                         form_place.find('input[value="userdefined-place"]').trigger('click');
                         form_place.data('dirty', true);
@@ -355,7 +355,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
                 }, 'json');
 
                 jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                    place_form_loading.hide();
+                    place_form_loading.addClass('hide');
                     _notify('error', 'Cannot load', errorThrown);
                 });
             } else {
@@ -367,7 +367,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
                 $('#id_place_location').val('');
 
                 form_place.find('input[value="userdefined-place"]').trigger('click');
-                place_form.hide();
+                place_form.addClass('hide');
                 form_place.data('dirty', true);
                 set_dirty();
             }
@@ -378,7 +378,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
         var marker;
         var geocoder;
 
-        placeModal.on('shown', function() {
+        placeModal.on('shown.bs.modal', function() {
             if(!map) {
                 var latlng = $('#id_place_location').val();
                 var lat, lng;
@@ -441,7 +441,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
 
         placeModal.find('.button-set-location').on('click', function() {
             var temp_input = $('#id_place_location_temp');
-            $('.place-form .minimap').html('<img src="http://maps.googleapis.com/maps/api/staticmap?center=' + temp_input.val() + '&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C' + temp_input.val() + '&sensor=false" />').show();
+            $('.place-form .minimap').html('<img src="http://maps.googleapis.com/maps/api/staticmap?center=' + temp_input.val() + '&zoom=13&size=270x180&markers=color:red%7Clabel:S%7C' + temp_input.val() + '&sensor=false" />').removeClass('hide');
             $('#id_place_location').val(temp_input.val()).change();
             placeModal.modal('hide');
         });
@@ -532,7 +532,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
 
     function save_changes(submit_action, notify) {
         _is_saving = true;
-        $('.form-footer .loading').show();
+        $('.form-footer .loading').removeClass('hide');
         $('.form-footer button').addClass('disabled');
 
         var data = collect_data();
@@ -540,15 +540,13 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
 
         if(data) {
             var jqxhr = $.post('/ajax/workshop/save/', data, function(response) {
-                $('.form-footer .loading').hide();
+                $('.form-footer .loading').addClass('hide');
 
                 if(response.status == 'success') {
                     if(submit_action == 'draft' && window.location.pathname != response.data.edit_url) {
                         window.onbeforeunload = function() {};
                         window.location = response.data.edit_url;
                     } else {
-                        $('.form-footer .preview').show();
-                        $('.form-footer .preview a').attr('href', response.data.preview_url).attr('target', 'workshop-' + response.data.workshop_uid);
                         $('.form-content').trigger('saved');
                         if(notify) _notify('success', 'บันทึกเรียบร้อย', '');
                     }
@@ -567,7 +565,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                $('.form-footer .loading').hide();
+                $('.form-footer .loading').addClass('hide');
                 _notify('error', 'Cannot save', errorThrown);
                 _is_saving = false;
                 _is_dirty = false;

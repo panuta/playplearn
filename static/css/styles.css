@@ -1,3 +1,6 @@
+.invisible {
+  display: none;
+}
 em {
   font-style: normal;
 }
@@ -147,6 +150,10 @@ select:focus:invalid:focus {
   border-top: none;
   margin: 0;
   padding-top: 15px;
+}
+.modal .modal-dialog .modal-content .modal-footer a,
+.modal .modal-dialog .modal-content .modal-footer button {
+  margin-left: 15px;
 }
 /*
 .modal-backdrop {
@@ -1726,6 +1733,7 @@ body {
 }
 .page-backend #backend-header h1 span {
   color: #FFF;
+  font-family: 'QuarkLight', sans-serif;
   font-size: 26px;
 }
 .page-backend #backend-header .with_actions h1 {
@@ -2200,10 +2208,12 @@ body {
 #modal-place-map .modal-dialog {
   width: 700px;
 }
-#modal-place-map .search button {
+#modal-place-map .search-control button {
+  padding: 6px 30px;
   vertical-align: middle;
 }
-#modal-place-map .search input {
+#modal-place-map .search-control input {
+  display: inline;
   margin: 0 7px 0 0;
   vertical-align: middle;
   width: 300px;
@@ -2213,7 +2223,7 @@ body {
 }
 #modal-place-map .map #map-canvas {
   height: 300px;
-  width: 660px;
+  width: 638px;
 }
 #modal-place-map .map #map-canvas img {
   max-width: none;
@@ -2222,8 +2232,9 @@ body {
   color: #555;
   float: left;
   font-size: 13px;
+  line-height: 22px;
   text-align: left;
-  width: 370px;
+  width: 340px;
 }
 #modal-place-map .modal-footer .note strong {
   color: #444;
@@ -3648,9 +3659,6 @@ body {
 .page-my-workshops-organize .first-workshop .call_to_action {
   margin-top: 18px;
 }
-.page-workshop-modify #backend-container {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
-}
 .page-workshop-modify .wait-for-approval {
   background-color: #FFD;
   color: #555;
@@ -3687,7 +3695,7 @@ body {
 }
 .page-workshop-modify .form-content {
   background-color: #FFF;
-  padding: 40px 50px;
+  padding: 10px;
 }
 .page-workshop-modify .form-content h3 {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
@@ -3745,65 +3753,6 @@ body {
 .page-workshop-modify .form-content .form-group .help-block strong {
   color: #777;
 }
-.page-workshop-modify .form-content .control-group {
-  margin-bottom: 20px;
-}
-.page-workshop-modify .form-content .control-group .control-label {
-  color: #666;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.page-workshop-modify .form-content .control-group .control-label i {
-  color: #6c9fd4;
-  font-weight: normal;
-  margin-right: 3px;
-}
-.page-workshop-modify .form-content .control-group .controls-with-guide {
-  clear: left;
-  display: inline-block;
-  vertical-align: top;
-}
-.page-workshop-modify .form-content .control-group .control-guide {
-  border-left: 1px solid #DDD;
-  color: #666;
-  display: inline-block;
-  font-size: 12.5px;
-  margin-left: 50px;
-  padding: 0 15px;
-  vertical-align: top;
-  width: 400px;
-}
-.page-workshop-modify .form-content .control-group .controls-text input {
-  font-size: 18px;
-  height: 23px;
-  text-align: center;
-}
-.page-workshop-modify .form-content .control-group .controls-text input.error {
-  background-color: #FCC;
-}
-.page-workshop-modify .form-content .control-group .controls-text .unit {
-  color: #555;
-  margin-left: 6px;
-}
-.page-workshop-modify .form-content .control-group .fileinput-button {
-  margin-bottom: 10px;
-  overflow: hidden;
-  position: relative;
-}
-.page-workshop-modify .form-content .control-group .fileinput-button input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  transform: translate(-300px, 0) scale(4);
-  font-size: 23px;
-  direction: ltr;
-  cursor: pointer;
-}
 .page-workshop-modify .form-content .control-row {
   margin-bottom: 10px;
 }
@@ -3812,17 +3761,13 @@ body {
   margin-right: 60px;
   vertical-align: top;
 }
-.page-workshop-modify .form-content .row-for-cover-pictures .span6,
-.page-workshop-modify .form-content .row-for-place .span6 {
-  width: 665px;
-}
 .page-workshop-modify .form-content .title-control {
   margin-bottom: 30px;
 }
 .page-workshop-modify .form-content .title-control input {
   font-size: 20px;
   height: 48px;
-  width: 1040px;
+  width: 1070px;
 }
 .page-workshop-modify .form-content .activities-control {
   margin-bottom: 30px;
@@ -3935,7 +3880,7 @@ body {
   padding: 3px;
   position: relative;
   list-style: none;
-  margin: 0 19px 30px 19px;
+  margin: 0 24px 30px;
   vertical-align: middle;
   width: 308px;
 }
@@ -4080,13 +4025,13 @@ body {
 .page-workshop-modify .form-content .place-form {
   background-color: #F7F7F7;
   border: 1px solid #DDD;
-  padding: 15px 20px 0 20px;
+  padding: 25px 30px 10px 30px;
 }
 .page-workshop-modify .form-content .place-form .head {
   border-bottom: 1px solid #DDD;
   color: #555;
-  font-size: 13px;
-  font-weight: bold;
+  font-family: 'QuarkBold';
+  font-size: 20px;
   margin-bottom: 17px;
   padding-bottom: 7px;
 }
@@ -4107,7 +4052,7 @@ body {
 .page-workshop-modify .form-content .place-form #id_place_address {
   height: 60px;
   margin: 0 20px 0 0;
-  width: 365px;
+  width: 367px;
 }
 .page-workshop-modify .form-content .place-form #id_place_province {
   width: 250px;
@@ -4115,20 +4060,20 @@ body {
 .page-workshop-modify .form-content .place-form #id_place_direction {
   height: 120px;
   margin-right: 25px;
-  width: 300px;
+  width: 304px;
 }
 .page-workshop-modify .form-content .place-form .place-location-control .minimap {
   background-color: #F9F9F9;
   border: 1px solid #EEE;
-  height: 188px;
+  height: 178px;
   padding: 3px;
   text-align: center;
-  width: 278px;
+  width: 308px;
 }
 .page-workshop-modify .form-content .place-form .place-location-control .minimap img {
   border: 1px solid #DDDDDD;
-  height: 180px;
-  width: 270px;
+  height: 170px;
+  width: 300px;
 }
 .page-workshop-modify .form-content .place-form .place-location-control .actions {
   text-align: center;

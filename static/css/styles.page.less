@@ -1416,10 +1416,6 @@
 }
 
 .page-workshop-modify {
-    #backend-container {
-        background: @headerBackground;
-    }
-
     .wait-for-approval {
         background-color: #FFD;
         color: #555;
@@ -1463,7 +1459,7 @@
 
     .form-content {
         background-color: #FFF;
-        padding: 40px 50px;
+        padding: 10px;
 
         h3 {
             background: @headerBackground;
@@ -1532,83 +1528,6 @@
             }
         }
 
-        .control-group {
-            margin-bottom: 20px;
-
-            .control-label {
-                color: #666;
-                display: inline-block;
-                font-size: 16px;
-                font-weight: bold;
-                margin-bottom: 10px;
-
-                i {
-                    color: #6c9fd4;
-                    font-weight: normal;
-                    margin-right: 3px;
-                }
-            }
-
-
-
-            .controls-with-guide {
-                clear: left;
-                display: inline-block;
-                vertical-align: top;
-            }
-
-            .control-guide {
-                border-left: 1px solid #DDD;
-                color: #666;
-                display: inline-block;
-                font-size: 12.5px;
-                margin-left: 50px;
-                padding: 0 15px;
-                vertical-align: top;
-                width: 400px;
-            }
-
-
-
-            .controls-text {
-                input {
-                    font-size: 18px;
-                    height: 23px;
-                    text-align: center;
-
-                    &.error {
-                        background-color: #FCC;
-                    }
-                }
-
-                .unit {
-                    color: #555;
-                    margin-left: 6px;
-                }
-            }
-
-            .fileinput-button {
-                margin-bottom: 10px;
-                overflow: hidden;
-                position: relative;
-            }
-
-            .fileinput-button input {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 0;
-                opacity: 0;
-                filter: alpha(opacity=0);
-                transform: translate(-300px, 0) scale(4);
-                font-size: 23px;
-                direction: ltr;
-                cursor: pointer;
-            }
-
-
-        }
-
         .control-row {
             margin-bottom: 10px;
 
@@ -1619,19 +1538,13 @@
             }
         }
 
-        .row-for-cover-pictures, .row-for-place {
-            .span6 {
-                width: 665px;
-            }
-        }
-
         .title-control {
             margin-bottom: 30px;
 
             input {
                 font-size: 20px;
                 height: 48px;
-                width: 1040px; // 1040px -12px
+                width: 1070px;
             }
         }
 
@@ -1769,7 +1682,7 @@
                     padding: 3px;
                     position: relative;
                     list-style: none;
-                    margin: 0 19px 30px 19px;
+                    margin: 0 24px 30px;
                     vertical-align: middle;
                     width: 308px;
 
@@ -1956,13 +1869,13 @@
         .place-form {
             background-color: #F7F7F7;
             border: 1px solid #DDD;
-            padding: 15px 20px 0 20px;
+            padding: 25px 30px 10px 30px;
 
             .head {
                 border-bottom: 1px solid #DDD;
                 color: #555;
-                font-size: 13px;
-                font-weight: bold;
+                font-family: 'QuarkBold';
+                font-size: 20px;
                 margin-bottom: 17px;
                 padding-bottom: 7px;
             }
@@ -1987,7 +1900,7 @@
             #id_place_address {
                 height: 60px;
                 margin: 0 20px 0 0;
-                width: 365px;
+                width: 367px;
             }
 
             #id_place_province {
@@ -1997,22 +1910,22 @@
             #id_place_direction {
                 height: 120px;
                 margin-right: 25px;
-                width: 300px;
+                width: 304px;
             }
 
             .place-location-control {
                 .minimap {
                     background-color: #F9F9F9;
                     border: 1px solid #EEE;
-                    height: 188px;
+                    height: 178px;
                     padding: 3px;
                     text-align: center;
-                    width: 278px;
+                    width: 308px;
 
                     img {
                         border: 1px solid #DDDDDD;
-                        height: 180px;
-                        width: 270px;
+                        height: 170px;
+                        width: 300px;
                     }
                 }
 
