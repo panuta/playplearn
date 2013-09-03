@@ -383,26 +383,25 @@ class Workshop(models.Model):
 
     # STATS
 
-    def stats_upcoming_classes(self):
+    def stats_upcoming_schedules(self):
         rightnow = timezone.now()
         return Schedule.objects.filter(workshop=self, status=Schedule.STATUS_OPEN, start_datetime__gte=rightnow).count()
 
-    def stats_opening_classes(self):  # TODO Rename to all classes
+    def stats_opening_schedules(self):
         return Schedule.objects.filter(workshop=self, status=Schedule.STATUS_OPEN).count()
 
     def stats_students(self):
         return UserAccount.objects.filter(
-            enrollments__schedule__workshop=self,
-            enrollments__status='CONFIRMED',
-            enrollments__payment_status='PAYMENT_RECEIVED',
-            enrollments__schedule__status='OPENING'
+            reservations__schedule__workshop=self,
+            reservations__status=Reservation.STATUS_CONFIRMED,
+            reservations__payment_status=Reservation.PAYMENT_STATUS_PAID,
         ).distinct().count()
 
     def stats_feedbacks(self):
         return WorkshopFeedback.objects.filter(reservation__schedule__workshop=self).count()
 
-    def stats_total_earning(self):
-        total_earning = WorkshopEnrollment.objects.filter(schedule__workshop=self, status='CONFIRMED', payment_status='PAYMENT_RECEIVED').aggregate(Sum('total'))['total__sum']
+    def stats_total_earned(self):
+        total_earning = Reservation.objects.filter(schedule__workshop=self, status=Reservation.STATUS_CONFIRMED, payment_status=Reservation.PAYMENT_STATUS_PAID).aggregate(Sum('total'))['total__sum']
         return total_earning if total_earning else 0
 
 

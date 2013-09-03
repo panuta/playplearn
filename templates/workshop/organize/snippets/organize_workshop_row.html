@@ -5,7 +5,7 @@
     <div class="subtitle">
         <div class="subtitle-data status"><span class="caption">สถานะ</span> <span class="style-workshop-status">{{ workshop.status|workshop_status }}</span></div>
         {% if workshop.is_status_published %}
-            <div class="subtitle-data upcoming"><span class="caption">มีจัดอีก</span> <span class="value">{{ workshop.stats_upcoming_classes }} รอบ</span></div>
+            <div class="subtitle-data upcoming"><span class="caption">มีจัดอีก</span> <span class="value">{{ workshop.stats_upcoming_schedules }} รอบ</span></div>
             <div class="subtitle-data feedbacks"><span class="caption">ได้รับคำนิยม</span> <span class="value">{{ workshop.stats_feedbacks }} ข้อความ</span></div>
         {% endif %}
     </div>

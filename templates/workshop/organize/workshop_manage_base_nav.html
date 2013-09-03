@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+    <li {% if tab_name == 'overview' %} class="active"{% endif %}><a href="{% url 'manage_workshop_overview' workshop.uid %}">ภาพรวม</a></li>
+    <li {% if tab_name == 'schedules' %} class="active"{% endif %}><a href="{% url 'manage_workshop_schedules' workshop.uid %}">รอบ / รายชื่อ</a></li>
+    <li {% if tab_name == 'feedback' %} class="active"{% endif %}><a href="{% url 'manage_workshop_feedbacks' workshop.uid %}">คำนิยม</a></li>
+</ul>

@@ -1231,26 +1231,7 @@
     }
 }
 
-.page-my-workshops-organize {
-    .style-stats-bar {
-        margin-top: 10px;
-
-        .number {
-            .positive {
-                color: @colorPositive;
-            }
-
-            .negative {
-                color: @colorNegative;
-            }
-        }
-
-        .add-workshop {
-            float: right;
-            margin: 11px 17px;
-        }
-    }
-
+.page-workshops-organize {
     ul.workshops {
         margin: 0;
         padding: 0;
@@ -2033,61 +2014,97 @@
 }
 
 .page-manage-workshop-overview {
+    #backend-body {
+        padding: 15px;
+    }
+
     .style-stats-bar {
-        margin: 25px 0 25px;
+        margin-bottom: 25px;
     }
 
     .upcoming_classes {
+        padding: 0 15px;
+
         .head {
-            color: #444;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+
+            h2 {
+                color: #444;
+                display: inline;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 28px;
+                font-weight: normal;
+                line-height: normal;
+            }
 
             span {
-                color: #666;
+                color: #888;
                 font-size: 16px;
-                margin-left: 4px;
+                margin-left: 10px;
             }
         }
 
         ul {
             margin: 0;
+            padding: 0;
 
             li {
-                border: 1px solid #DDD;
                 list-style: none;
-                margin-bottom: 15px;
-                padding: 10px 15px;
+                margin-bottom: 25px;
             }
         }
 
         .datetime {
+            margin-right: 25px;
+
             a {
-                .content_link;
+                background-color: #EEE;
+                color: #555;
                 font-size: 15px;
+                display: inline-block;
+                padding: 6px 10px;
+
+                &:hover, &:focus {
+                    background-color: @colorYellow;
+                    color: #444;
+                    text-decoration: none;
+                }
             }
         }
 
-        .details {
-            margin-top: 5px;
+        .attendance {
+            margin: 10px 0 0 10px;
 
-            .students {
-                color: #444;
-                font-size: 13px;
+            em {
                 font-weight: bold;
+            }
+
+            .total {
+                color: #555;
+                font-size: 15px;
+
+                i {
+                    color: @colorPositive;
+                    font-size: 18px;
+                    margin-right: 3px;
+
+                    &.grey {
+                        color: #999;
+                    }
+                }
 
                 em {
-                    font-weight: bold;
-                }
-
-                .max {
-                    color: #666;
-                    font-weight: normal;
+                    color: #555;
+                    font-size: 20px;
                 }
             }
-        }
 
+            .categorize {
+                color: #777;
+                font-size: 14px;
+                margin-left: 15px;
+            }
+        }
     }
 }
 

@@ -14,11 +14,11 @@ from common.decorators import teacher_only
 
 from domain import functions as domain_functions
 from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture, Place
+from presentation.forms import CreateFirstWorkshop
+from reservation.models import Schedule
 
 
 # MY WORKSHOPS #########################################################################################################
-from presentation.forms import CreateFirstWorkshop
-
 
 @login_required
 def view_my_workshops_payment(request):
@@ -176,18 +176,42 @@ def revert_approving_workshop(request, workshop_uid):
 @teacher_only
 def manage_workshop_overview(request, workshop, workshop_uid):
     rightnow = now()
-    upcoming_schedules = WorkshopSchedule.objects.filter(
+    upcoming_schedules = Schedule.objects.filter(
         workshop=workshop,
         start_datetime__gt=rightnow,
-        status='OPENING'
+        status=Schedule.STATUS_OPEN
     ).order_by('start_datetime')
 
-    return render(request, 'dashboard/manage_workshop_overview.html', {
+    return render(request, 'workshop/organize/workshop_manage_overview.html', {
         'workshop': workshop,
         'upcoming_schedules': upcoming_schedules
     })
 
 
+@login_required
+@teacher_only
+def manage_workshop_schedules(request, workshop, workshop_uid):
+    return render(request, 'workshop/organize/workshop_manage_schedules.html', {
+        'workshop': workshop,
+    })
+
+
+@login_required
+@teacher_only
+def manage_workshop_schedule(request, workshop, workshop_uid, datetime_string):
+    pass
+
+
+@login_required
+@teacher_only
+def manage_workshop_feedbacks(request, workshop, workshop_uid):
+    return render(request, 'workshop/organize/workshop_manage_feedbacks.html', {
+        'workshop': workshop,
+    })
+
+
+
+"""
 @login_required
 @teacher_only
 def manage_workshop_class(request, workshop, workshop_uid, datetime_string):
@@ -272,7 +296,7 @@ def manage_workshop_feedback(request, workshop, workshop_uid, category):
 @teacher_only
 def manage_workshop_promote(request, workshop, workshop_uid):
     return render(request, 'dashboard/manage_workshop_promote.html', {'workshop': workshop})
-
+"""
 
 # ENROLLMENT ###########################################################################################################
 

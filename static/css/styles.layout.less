@@ -270,6 +270,11 @@ html, body {
             }
         }
 */
+
+        .head {
+            float: left;
+        }
+
         h1 {
             color: #FFF;
             font-family: 'QuarkBold', sans-serif;
@@ -286,6 +291,77 @@ html, body {
             }
         }
 
+        .subtitle {
+            color: #FFF;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 22px;
+            font-weight: normal;
+            line-height: normal;
+            margin: 0 0 5px;
+
+            a {
+                color: #FFF;
+            }
+        }
+
+        .actions {
+            float: right;
+            margin: 7px 0 0;
+            padding: 0;
+
+            li {
+                display: inline-block;
+                list-style: none;
+                margin-left: 12px;
+            }
+
+            .button_base() {
+                border-radius: 4px;
+                display: inline-block;
+                font-size: 13.5px;
+                padding: 9px 30px 8px;
+                cursor: pointer;
+
+                i {
+                    margin-right: 3px;
+                    vertical-align: 0px;
+                }
+
+                &:hover, &:focus {
+                    background-color: @colorYellow;
+                    color: #333;
+                    text-decoration: none;
+
+                    i {
+                        color: #333 !important;
+                    }
+                }
+
+                &[disabled], &.disabled {
+                    background-color: @colorGrey;
+                    color: #CCC;
+                    cursor: default;
+
+                    &:hover, &:focus {
+                        background-color: @colorGrey;
+                        color: #CCC;
+                    }
+                }
+            }
+
+            .primary {
+                .button_base;
+                background-color: @colorBlue;
+                color: #FFF;
+            }
+
+            .secondary {
+                .button_base;
+                background-color: #FFF;
+                color: #555;
+            }
+        }
+/*
         .with_actions {
             h1 {
                 display: inline-block;
@@ -307,7 +383,7 @@ html, body {
                     }
                 }
             }
-        }
+        }*/
     }
 
     .backend-tabs {

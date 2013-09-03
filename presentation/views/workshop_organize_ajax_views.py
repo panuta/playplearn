@@ -302,7 +302,7 @@ def ajax_add_workshop_schedule(request):
 
     return response_json_success({
         'upcoming_schedule_datetime': format_schedule_datetime(upcoming_schedule),
-        'upcoming_schedule_count': workshop.stats_upcoming_classes(),
+        'upcoming_schedule_count': workshop.stats_upcoming_schedules(),
         'upcoming_participant_comfirmed': upcoming_schedule.seats_confirmed_and_paid(),
         'upcoming_participant_waiting': upcoming_schedule.seats_confirmed_and_wait_for_payment(),
     })

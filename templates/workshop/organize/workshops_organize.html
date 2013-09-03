@@ -2,7 +2,7 @@
 {% load i18n thumbnail common_tags presentation_tags %}
 
 {% block head_title %}จัดเวิร์คช็อป - {{ settings.WEBSITE_NAME }}{% endblock %}
-{% block body_class %}{{ block.super }} page-my-workshops-organize{% endblock %}
+{% block body_class %}{{ block.super }} page-workshops-organize{% endblock %}
 
 {% block scripts %}
 <script>
@@ -25,12 +25,12 @@ jQuery(function($){
 
 {% block backend_header %}
     {% if workshops %}
-    <div class="with_actions">
-        <h1>จัดเวิร์คช็อป</h1>
-        <ul>
-            <li><a href="{% url 'create_workshop' %}" class="style-primary-button"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></li>
+        <div class="head">
+            <h1>จัดเวิร์คช็อป</h1>
+        </div>
+        <ul class="actions">
+            <li><a href="{% url 'create_workshop' %}" class="primary"><i class="icon-plus"></i> จัดเวิร์คช็อปใหม่</a></li>
         </ul>
-    </div>
     {% endif %}
 {% endblock %}
 

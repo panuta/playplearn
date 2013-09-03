@@ -22,6 +22,11 @@ class Schedule(models.Model):
 
     # DATA
 
+    def seats_confirmed(self):
+        return self.reservations.filter(
+            status=Reservation.STATUS_CONFIRMED,
+        ).count()
+
     def seats_confirmed_and_paid(self):
         return self.reservations.filter(
             status=Reservation.STATUS_CONFIRMED,

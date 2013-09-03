@@ -13,7 +13,7 @@
         <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
     </div>
     <div class="convincing">
-        <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ workshop.stats_upcoming_classes }}</em> รอบ</span>
+        <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ workshop.stats_upcoming_schedules }}</em> รอบ</span>
         {% if workshop.stats_feedbacks %}<span class="feedbacks"><i class="icon-heart"></i> ได้รับ <em>{{ workshop.stats_feedbacks }}</em> คำนิยม</span>{% endif %}
     </div>
     <div class="next">

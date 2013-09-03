@@ -1,0 +1,51 @@
+{% extends 'workshop/organize/workshop_manage_base.html' %}
+{% load common_tags %}
+
+{% block body_class %}{{ block.super }} page-manage-workshop-overview{% endblock %}
+{% block manage_workshop_nav %}{% include 'workshop/organize/workshop_manage_base_nav.html' with tab_name='overview' %}{% endblock %}
+
+{% block manage_workshop_body %}
+<div class="style-stats-bar">
+    <ul class="stats">
+        <li class="stat">
+            <span class="caption">รายได้รวม</span>
+            <span class="number"><em>400{{ workshop.stats_total_earned }}</em> บาท</span>
+        </li>
+        <li class="stat">
+            <span class="caption">จำนวนรอบ</span>
+            <span class="number"><em>{{ workshop.stats_opening_schedules }}</em> รอบ</span>
+        </li>
+        <li class="stat">
+            <span class="caption">จำนวนคนเข้าร่วม</span>
+            <span class="number"><em>{{ workshop.stats_students }}</em> คน</span>
+        </li>
+        <li class="stat">
+            <span class="caption">คำนิยม</span>
+            <span class="number"><em>{{ workshop.stats_feedbacks }}</em> ข้อความ</span>
+        </li>
+    </ul>
+</div>
+
+<div class="upcoming_classes">
+    <div class="head">
+        <h2>รอบที่จะถึง</h2>
+        {% if upcoming_schedules %} <span>({{ upcoming_schedules|length }} รอบ)</span>{% endif %}
+    </div>
+
+    {% if upcoming_schedules %}
+        <ul>
+            {% for schedule in upcoming_schedules %}
+                <li>
+                    <div class="datetime"><a href="{% url 'manage_workshop_schedule' workshop.uid schedule.start_datetime|datetime_string %}">{{ schedule|schedule_datetime }}</a></div>
+                    <div class="attendance">
+                        <span class="total"><i class="icon-user{% if not schedule.seats_confirmed %} grey{% endif %}"></i> <em>{{ schedule.seats_confirmed }}</em> / {{ schedule.capacity }} คนยืนยันการเข้าร่วม</span>
+                        <span class="categorize">ชำระเงินเรียบร้อย <em>{{ schedule.seats_confirmed_and_paid }} คน</em> / รอการชำระเงิน <em>{{ schedule.seats_confirmed_and_wait_for_payment }} คน</em></span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="style-no-information">ไม่มีรอบที่จะถึง</div>
+    {% endif %}
+</div>
+{% endblock %}

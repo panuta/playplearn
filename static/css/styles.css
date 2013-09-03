@@ -992,8 +992,8 @@ h1.style-page-header {
   padding-bottom: 10px;
 }
 .style-stats-bar {
-  border: 1px solid #DDD;
-  padding: 10px 0;
+  border-bottom: 1px solid #DDD;
+  padding: 3px 0 7px;
 }
 .style-stats-bar ul.stats {
   margin: 0;
@@ -1003,11 +1003,12 @@ h1.style-page-header {
   border-right: 1px solid #EEE;
   display: inline-block;
   list-style: none;
-  padding: 0 30px;
+  margin-left: 15px;
+  padding-right: 40px;
 }
 .style-stats-bar ul.stats li.stat .caption {
   color: #777;
-  font-size: 13px;
+  font-size: 14px;
 }
 .style-stats-bar ul.stats li.stat .number {
   color: #555;
@@ -1709,6 +1710,30 @@ body {
         }
 */
 
+  /*
+        .with_actions {
+            h1 {
+                display: inline-block;
+            }
+
+            ul {
+                display: inline-block;
+                float: right;
+                margin: 5px 0 0;
+                padding: 0;
+
+                li {
+                    display: inline-block;
+                    list-style: none;
+                    margin-left: 12px;
+
+                    a {
+                        padding: 10px 40px;
+                    }
+                }
+            }
+        }*/
+
 }
 .page-backend #backend-header .parent {
   margin-bottom: 8px;
@@ -1730,6 +1755,9 @@ body {
   font-size: 15px;
   margin: 0 6px;
 }
+.page-backend #backend-header .head {
+  float: left;
+}
 .page-backend #backend-header h1 {
   color: #FFF;
   font-family: 'QuarkBold', sans-serif;
@@ -1744,22 +1772,98 @@ body {
   font-family: 'QuarkLight', sans-serif;
   font-size: 26px;
 }
-.page-backend #backend-header .with_actions h1 {
-  display: inline-block;
+.page-backend #backend-header .subtitle {
+  color: #FFF;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: normal;
+  margin: 0 0 5px;
 }
-.page-backend #backend-header .with_actions ul {
-  display: inline-block;
+.page-backend #backend-header .subtitle a {
+  color: #FFF;
+}
+.page-backend #backend-header .actions {
   float: right;
-  margin: 5px 0 0;
+  margin: 7px 0 0;
   padding: 0;
 }
-.page-backend #backend-header .with_actions ul li {
+.page-backend #backend-header .actions li {
   display: inline-block;
   list-style: none;
   margin-left: 12px;
 }
-.page-backend #backend-header .with_actions ul li a {
-  padding: 10px 40px;
+.page-backend #backend-header .actions .primary {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13.5px;
+  padding: 9px 30px 8px;
+  cursor: pointer;
+  background-color: #29ace4;
+  color: #FFF;
+}
+.page-backend #backend-header .actions .primary i {
+  margin-right: 3px;
+  vertical-align: 0px;
+}
+.page-backend #backend-header .actions .primary:hover,
+.page-backend #backend-header .actions .primary:focus {
+  background-color: #f9e25c;
+  color: #333;
+  text-decoration: none;
+}
+.page-backend #backend-header .actions .primary:hover i,
+.page-backend #backend-header .actions .primary:focus i {
+  color: #333 !important;
+}
+.page-backend #backend-header .actions .primary[disabled],
+.page-backend #backend-header .actions .primary.disabled {
+  background-color: #8696a0;
+  color: #CCC;
+  cursor: default;
+}
+.page-backend #backend-header .actions .primary[disabled]:hover,
+.page-backend #backend-header .actions .primary.disabled:hover,
+.page-backend #backend-header .actions .primary[disabled]:focus,
+.page-backend #backend-header .actions .primary.disabled:focus {
+  background-color: #8696a0;
+  color: #CCC;
+}
+.page-backend #backend-header .actions .secondary {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13.5px;
+  padding: 9px 30px 8px;
+  cursor: pointer;
+  background-color: #FFF;
+  color: #555;
+}
+.page-backend #backend-header .actions .secondary i {
+  margin-right: 3px;
+  vertical-align: 0px;
+}
+.page-backend #backend-header .actions .secondary:hover,
+.page-backend #backend-header .actions .secondary:focus {
+  background-color: #f9e25c;
+  color: #333;
+  text-decoration: none;
+}
+.page-backend #backend-header .actions .secondary:hover i,
+.page-backend #backend-header .actions .secondary:focus i {
+  color: #333 !important;
+}
+.page-backend #backend-header .actions .secondary[disabled],
+.page-backend #backend-header .actions .secondary.disabled {
+  background-color: #8696a0;
+  color: #CCC;
+  cursor: default;
+}
+.page-backend #backend-header .actions .secondary[disabled]:hover,
+.page-backend #backend-header .actions .secondary.disabled:hover,
+.page-backend #backend-header .actions .secondary[disabled]:focus,
+.page-backend #backend-header .actions .secondary.disabled:focus {
+  background-color: #8696a0;
+  color: #CCC;
 }
 .page-backend .backend-tabs {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
@@ -3516,128 +3620,115 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-workshops-organize .style-stats-bar {
-  margin-top: 10px;
-}
-.page-my-workshops-organize .style-stats-bar .number .positive {
-  color: #00ac71;
-}
-.page-my-workshops-organize .style-stats-bar .number .negative {
-  color: #e56068;
-}
-.page-my-workshops-organize .style-stats-bar .add-workshop {
-  float: right;
-  margin: 11px 17px;
-}
-.page-my-workshops-organize ul.workshops {
+.page-workshops-organize ul.workshops {
   margin: 0;
   padding: 0;
 }
-.page-my-workshops-organize ul.workshops li.workshop {
+.page-workshops-organize ul.workshops li.workshop {
   border-bottom: 1px solid #DDD;
   list-style: none;
   margin-bottom: 25px;
   padding-bottom: 25px;
 }
-.page-my-workshops-organize ul.workshops li.workshop.last-workshop {
+.page-workshops-organize ul.workshops li.workshop.last-workshop {
   border-bottom: none;
   margin-bottom: 0;
 }
-.page-my-workshops-organize ul.workshops li.workshop .cover {
+.page-workshops-organize ul.workshops li.workshop .cover {
   border: 1px solid #DDDDDD;
   float: left;
   padding: 2px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .right {
+.page-workshops-organize ul.workshops li.workshop .right {
   margin-left: 280px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .title a {
+.page-workshops-organize ul.workshops li.workshop .title a {
   font-family: 'QuarkLight', sans-serif;
   font-size: 24px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .title a:link,
-.page-my-workshops-organize ul.workshops li.workshop .title a:active,
-.page-my-workshops-organize ul.workshops li.workshop .title a:visited {
+.page-workshops-organize ul.workshops li.workshop .title a:link,
+.page-workshops-organize ul.workshops li.workshop .title a:active,
+.page-workshops-organize ul.workshops li.workshop .title a:visited {
   color: #29ace4;
 }
-.page-my-workshops-organize ul.workshops li.workshop .title a:hover {
+.page-workshops-organize ul.workshops li.workshop .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle {
+.page-workshops-organize ul.workshops li.workshop .subtitle {
   margin-top: 5px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .subtitle-data {
+.page-workshops-organize ul.workshops li.workshop .subtitle .subtitle-data {
   display: inline-block;
   margin-right: 17px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .caption {
+.page-workshops-organize ul.workshops li.workshop .subtitle .caption {
   color: #777;
   font-size: 13px;
   margin-right: 2px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .value {
+.page-workshops-organize ul.workshops li.workshop .subtitle .value {
   color: #555;
   font-weight: bold;
 }
-.page-my-workshops-organize ul.workshops li.workshop .subtitle .style-workshop-status {
+.page-workshops-organize ul.workshops li.workshop .subtitle .style-workshop-status {
   margin-left: 2px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next {
+.page-workshops-organize ul.workshops li.workshop .next {
   border: 1px dashed #CCC;
   padding: 10px 15px;
   color: #777;
   display: inline-block;
   margin-top: 20px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next .datetime {
+.page-workshops-organize ul.workshops li.workshop .next .datetime {
   display: inline-block;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next .datetime i {
+.page-workshops-organize ul.workshops li.workshop .next .datetime i {
   color: #777;
   margin-right: 5px;
   vertical-align: 1px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next .datetime .date,
-.page-my-workshops-organize ul.workshops li.workshop .next .datetime .time {
+.page-workshops-organize ul.workshops li.workshop .next .datetime .date,
+.page-workshops-organize ul.workshops li.workshop .next .datetime .time {
   color: #555;
   font-weight: bold;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next .participant {
+.page-workshops-organize ul.workshops li.workshop .next .participant {
   display: inline-block;
   margin-left: 15px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .next .participant em {
+.page-workshops-organize ul.workshops li.workshop .next .participant em {
   color: #555;
   font-weight: bold;
 }
-.page-my-workshops-organize ul.workshops li.workshop .actions {
+.page-workshops-organize ul.workshops li.workshop .actions {
   margin-top: 20px;
 }
-.page-my-workshops-organize ul.workshops li.workshop .actions a {
+.page-workshops-organize ul.workshops li.workshop .actions a {
   font-size: 12px;
   margin-right: 7px;
   padding: 5px 15px;
 }
-.page-my-workshops-organize .first-workshop {
+.page-workshops-organize .first-workshop {
   margin: 30px 0 70px;
   text-align: center;
 }
-.page-my-workshops-organize .first-workshop h1 {
+.page-workshops-organize .first-workshop h1 {
   color: #444;
   font-family: 'QuarkLight', sans-serif;
   font-size: 38px;
   font-weight: normal;
   line-height: normal;
 }
-.page-my-workshops-organize .first-workshop form label {
+.page-workshops-organize .first-workshop form label {
   color: #666;
   font-family: 'QuarkLight', sans-serif;
   font-size: 22px;
   font-weight: normal;
   line-height: normal;
 }
-.page-my-workshops-organize .first-workshop form input {
+.page-workshops-organize .first-workshop form input {
   font-size: 16px;
   height: auto;
   margin: 0 auto;
@@ -3645,29 +3736,29 @@ body {
   text-align: center;
   width: 600px;
 }
-.page-my-workshops-organize .first-workshop form .errorlist {
+.page-workshops-organize .first-workshop form .errorlist {
   margin: 5px 0 0;
   padding: 0;
 }
-.page-my-workshops-organize .first-workshop form .help-block {
+.page-workshops-organize .first-workshop form .help-block {
   color: #888;
   font-size: 12px;
 }
-.page-my-workshops-organize .first-workshop form button {
+.page-workshops-organize .first-workshop form button {
   font-family: 'QuarkLight', sans-serif;
   font-size: 22px;
   padding: 14px 70px 9px;
 }
-.page-my-workshops-organize .first-workshop .head1 {
+.page-workshops-organize .first-workshop .head1 {
   color: #444;
   font-size: 24px;
 }
-.page-my-workshops-organize .first-workshop .head2 {
+.page-workshops-organize .first-workshop .head2 {
   color: #555;
   font-size: 16px;
   margin-top: 12px;
 }
-.page-my-workshops-organize .first-workshop .call_to_action {
+.page-workshops-organize .first-workshop .call_to_action {
   margin-top: 18px;
 }
 .page-workshop-modify .wait-for-approval {
@@ -4166,55 +4257,81 @@ body {
 .page-manage-workshop .manage-workshop-content {
   margin-bottom: 40px;
 }
+.page-manage-workshop-overview #backend-body {
+  padding: 15px;
+}
 .page-manage-workshop-overview .style-stats-bar {
-  margin: 25px 0 25px;
+  margin-bottom: 25px;
+}
+.page-manage-workshop-overview .upcoming_classes {
+  padding: 0 15px;
 }
 .page-manage-workshop-overview .upcoming_classes .head {
+  margin-bottom: 10px;
+}
+.page-manage-workshop-overview .upcoming_classes .head h2 {
   color: #444;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  display: inline;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 28px;
+  font-weight: normal;
+  line-height: normal;
 }
 .page-manage-workshop-overview .upcoming_classes .head span {
-  color: #666;
+  color: #888;
   font-size: 16px;
-  margin-left: 4px;
+  margin-left: 10px;
 }
 .page-manage-workshop-overview .upcoming_classes ul {
   margin: 0;
+  padding: 0;
 }
 .page-manage-workshop-overview .upcoming_classes ul li {
-  border: 1px solid #DDD;
   list-style: none;
-  margin-bottom: 15px;
-  padding: 10px 15px;
+  margin-bottom: 25px;
+}
+.page-manage-workshop-overview .upcoming_classes .datetime {
+  margin-right: 25px;
 }
 .page-manage-workshop-overview .upcoming_classes .datetime a {
+  background-color: #EEE;
+  color: #555;
+  font-size: 15px;
+  display: inline-block;
+  padding: 6px 10px;
+}
+.page-manage-workshop-overview .upcoming_classes .datetime a:hover,
+.page-manage-workshop-overview .upcoming_classes .datetime a:focus {
+  background-color: #f9e25c;
+  color: #444;
+  text-decoration: none;
+}
+.page-manage-workshop-overview .upcoming_classes .attendance {
+  margin: 10px 0 0 10px;
+}
+.page-manage-workshop-overview .upcoming_classes .attendance em {
+  font-weight: bold;
+}
+.page-manage-workshop-overview .upcoming_classes .attendance .total {
+  color: #555;
   font-size: 15px;
 }
-.page-manage-workshop-overview .upcoming_classes .datetime a:link,
-.page-manage-workshop-overview .upcoming_classes .datetime a:active,
-.page-manage-workshop-overview .upcoming_classes .datetime a:visited {
-  color: #29ace4;
+.page-manage-workshop-overview .upcoming_classes .attendance .total i {
+  color: #00ac71;
+  font-size: 18px;
+  margin-right: 3px;
 }
-.page-manage-workshop-overview .upcoming_classes .datetime a:hover {
-  text-decoration: underline;
-  text-shadow: none;
+.page-manage-workshop-overview .upcoming_classes .attendance .total i.grey {
+  color: #999;
 }
-.page-manage-workshop-overview .upcoming_classes .details {
-  margin-top: 5px;
+.page-manage-workshop-overview .upcoming_classes .attendance .total em {
+  color: #555;
+  font-size: 20px;
 }
-.page-manage-workshop-overview .upcoming_classes .details .students {
-  color: #444;
-  font-size: 13px;
-  font-weight: bold;
-}
-.page-manage-workshop-overview .upcoming_classes .details .students em {
-  font-weight: bold;
-}
-.page-manage-workshop-overview .upcoming_classes .details .students .max {
-  color: #666;
-  font-weight: normal;
+.page-manage-workshop-overview .upcoming_classes .attendance .categorize {
+  color: #777;
+  font-size: 14px;
+  margin-left: 15px;
 }
 .page-manage-workshop-class {
   padding-top: 30px;

@@ -1,0 +1,35 @@
+{% extends 'base_backend.html' %}
+{% load i18n thumbnail common_tags presentation_tags %}
+
+{% block head_title %}เวิร์คช็อป - {{ workshop.title }} - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block body_class %}{{ block.super }} page-workshop-manage{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(function($){
+
+});
+</script>
+{% endblock %}
+
+{% block backend_header %}
+<div class="head">
+    <h1>เวิร์คช็อป</h1>
+    <div class="subtitle"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+</div>
+<ul class="actions">
+    <li><a href="#" class="secondary"><i class="icon-pencil"></i> แก้ไขข้อมูล</a></li>
+    <li><a href="#" class="secondary"><i class="icon-plus-sign"></i> เพิ่มรอบ</a></li>
+</ul>
+{% endblock %}
+
+{% block backend_tabs %}
+<div class="backend-tabs">
+    {% block manage_workshop_nav %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block backend_body %}
+    {% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
+    <div class="manage-workshop-content">{% block manage_workshop_body %}{% endblock %}</div>
+{% endblock %}

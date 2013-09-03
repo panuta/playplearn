@@ -7,9 +7,10 @@
 {% block body %}
 <div id="backend-container">
     <div class="container">
-        <div id="backend-header">
+        <div id="backend-header" class="clearfix">
             {% block backend_header %}{% endblock %}
         </div>
+        {% block backend_tabs %}{% endblock %}
         <div id="backend-body">
             {% block backend_body %}{% endblock %}
         </div>
