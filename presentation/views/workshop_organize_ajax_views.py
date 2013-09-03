@@ -37,8 +37,6 @@ def _response_with_workshop_error(error_code):
 
 
 # WORKSHOP #############################################################################################################
-from reservation.models import Schedule
-
 
 @require_POST
 @login_required
@@ -66,12 +64,10 @@ def ajax_save_workshop(request):
     domain_functions.save_workshop(workshop, request.POST)
 
     submit_action = request.POST.get('submit')
-
     if submit_action == 'approval':
         if workshop.is_status_draft():
             if domain_functions.is_workshop_outline_completed(workshop):
-                workshop.status = Workshop.STATUS_WAIT_FOR_APPROVAL
-                workshop.save()
+                domain_functions.submit_workshop(workshop)
             else:
                 return _response_with_workshop_error('submit-before-complete')
         else:

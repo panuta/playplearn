@@ -97,11 +97,11 @@ def has_user_defined_place(user):
 
 
 @register.assignment_tag
-def get_user_defined_place(user, course):
-    if course and course.place and course.place.is_userdefined:
-        return course.place
+def get_user_defined_place(user, workshop):
+    if workshop and workshop.place and workshop.place.is_userdefined:
+        return workshop.place
 
-    if not course and not Place.objects.filter(is_userdefined=True, created_by=user).exists():
+    if not workshop and not Place.objects.filter(is_userdefined=True, created_by=user).exists():
         return Place()
 
     return None
@@ -124,15 +124,14 @@ def workshop_place_as_option(place_type, teacher, workshop=None):
     if place_type == 'system':
         places = Place.objects.filter(is_userdefined=False, is_visible=True)
     elif place_type == 'userdefined':
-        places = Place.objects.filter(is_userdefined=True, created_by=teacher)
+        places = Place.objects.filter(is_userdefined=True, created_by=teacher, is_visible=True)
     else:
         places = []
 
     options = []
     for place in places:
         selected = ' selected="selected"' if workshop and workshop.place == place else ''
-        place_name = place.name if place.name else '(No name)'
-        options.append('<option value="%s"%s>%s</option>' %(place.id, selected, place_name))
+        options.append('<option value="%s"%s>%s</option>' %(place.id, selected, place.name))
 
     return ''.join(options)
 

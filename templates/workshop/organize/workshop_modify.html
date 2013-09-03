@@ -173,6 +173,88 @@
     <!-- Place -->
     <div id="id_place">
         <div class="row">
+            <div class="col-lg-7">
+                <div class="place-control">
+                    {% has_user_defined_place user as has_user_defined_place %}
+                    {% get_user_defined_place user workshop as user_defined_place %}
+{% comment %}
+Create Workshop
+    Have userdefined -> SELECT EMPTY
+    Don't have userdefined -> SELECT NEW
+
+Edit Workshop
+    System place -> SELECT EMPTY
+    Userdefined place
+        Is visible -> SELECT PLACE
+        Is not visible -> SELECT NEW
+    N/A
+        Have userdefined -> SELECT EMPTY
+        Don't have userdefined -> SELECT NEW
+{% endcomment %}
+                    <div class="form-horizontal place-form">
+                        <input type="hidden" id="id_place_id" value="{% if user_defined_place.pk %}{{ user_defined_place.pk }}{% endif %}{% if not workshop and not has_user_defined_place or workshop and not workshop.place and not has_user_defined_place %}new{% endif %}" />
+                        <div class="form-group">
+                            <label for="id_place_userdefined" class="col-lg-3 control-label"></label>
+                            <select class="form-control col-lg-5" id="id_place_userdefined"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>
+                                <option{% if not workshop and has_user_defined_place or workshop and workshop.place and not workshop.place.is_userdefined or workshop and not workshop.place and has_user_defined_place %} selected="selected"{% endif %}></option>
+                                <option value="new"{% if not workshop and not has_user_defined_place or workshop and workshop.place and workshop.place.is_userdefined and not workshop.place.is_visible or workshop and not workshop.place and not has_user_defined_place %} selected="selected"{% endif %}>-- กรอกสถานที่ใหม่ --</option>
+                                {% workshop_place_as_option 'userdefined' user workshop %}
+                            </select>
+                            <span class="place-form-loading hide"><img src="{{ STATIC_URL }}images/ui/loading.gif" /></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_place_name" class="col-lg-3 control-label">ชื่อสถานที่</label>
+                            <input type="text" class="form-control col-lg-5" id="id_place_name" value="{{ user_defined_place.name }}"{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}/>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_place_address" class="col-lg-3 control-label">ที่อยู่</label>
+                            <textarea class="form-control col-lg-5" id="id_place_address"{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>{{ user_defined_place.address }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_place_province" class="col-lg-3 control-label">จังหวัด</label>
+                            <select class="form-control col-lg-5" id="id_place_province"{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>
+                                <option></option>
+                                {% province_options user_defined_place.province_code %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_place_direction" class="col-lg-3 control-label">วิธีการเดินทาง</label>
+                            <textarea class="form-control col-lg-5" id="id_place_direction"{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>{{ user_defined_place.direction }}</textarea>
+                        </div>
+                        <div class="form-group place-location-control">
+                            <label class="col-lg-3 control-label">ตำแหน่งบนแผนที่</label>
+                            <div class="col-lg-5 location-map">
+                                <input class="form-control" type="hidden" id="id_place_location" value="{{ user_defined_place.latlng }}"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}/>
+                                <div class="actions">
+                                    <a href="#modal-place-map" class="style-outline-button button-input-latlng{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled{% endif %}"{% if not workshop.is_status_wait_for_approval %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
+                                </div>
+                                {% if user_defined_place.latlng %}
+                                    <div class="minimap"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ user_defined_place.latlng }}&zoom=13&size=300x170&markers=color:red%7Clabel:S%7C{{ user_defined_place.latlng }}&sensor=false" /></div>
+                                {% else %}
+                                    <div class="minimap hide"></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="popular-place">
+                    <div class="form-group">
+                        <label>สถานที่ยอดนิยม</label>
+                        <select class="form-control" id="id_place_system"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>
+                            <option{% if workshop and workshop.place and workshop.place.is_userdefined %} selected="selected"{% endif %}></option>
+                            {% workshop_place_as_option 'system' user workshop %}
+                        </select>
+                        <div class="place-note"><i class="icon-info-sign"></i> เราแนะนำให้ผู้ใช้ติดต่อกับสถานที่เพื่อยืนยันเวลาที่ต้องการจัดหลังจากที่ PlayPlearn ได้รับรองให้เวิร์คช็อปนี้เปิดตัวได้แล้ว</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% comment %}
+        <div class="row">
             <div class="col-lg-4">
                 <div class="form-group place-control">
                     <label class="place-label"><input type="radio" name="place-type" value="system-place" {% if workshop and workshop.place and not workshop.place.is_userdefined %}checked="checked"{% endif %}{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}/> สถานที่ยอดนิยม</label>
@@ -250,7 +332,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>{% endcomment %}
     </div>
 
     {% if not workshop.is_status_wait_for_approval %}
@@ -279,7 +361,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group search-control">
-                    <input type="text" placeholder="ค้นหาสถานที่" class="form-control" >
+                    <input type="text" name="keyword" placeholder="ค้นหาสถานที่" class="form-control" >
                     <button class="style-outline-button">ค้นหา</button>
                     <input type="hidden" id="id_place_location_temp" />
                 </div>

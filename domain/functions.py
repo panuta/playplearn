@@ -166,7 +166,13 @@ def save_workshop(workshop, request_data):
     if 'place-id' in request_data:
         place_id = request_data.get('place-id')
         if place_id == 'new':
-            place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=workshop.teacher)
+            if workshop.place and workshop.place.is_userdefined and not workshop.place.is_visible:
+                print 'EXISTING'
+                place = workshop.place
+            else:
+                print 'CREATE NEW'
+                place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=workshop.teacher)
+
         elif place_id:
             try:
                 place = Place.objects.get(pk=request_data.get('place-id'))
@@ -218,6 +224,17 @@ def save_workshop(workshop, request_data):
 
     workshop.save()
     return errors
+
+
+def submit_workshop(workshop):
+
+    # Remove unnecessary places
+    for place in Place.objects.filter(is_visible=False, is_userdefined=True, created_by=workshop.teacher):
+        if not Workshop.objects.filter(place=place).exists():
+            place.delete()
+
+    workshop.status = Workshop.STATUS_WAIT_FOR_APPROVAL
+    workshop.save()
 
 
 def revert_approving_workshop(workshop):

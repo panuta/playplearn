@@ -295,7 +295,7 @@ class Workshop(models.Model):
     topics = models.ManyToManyField(WorkshopTopic, null=True)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)
     prerequisites = models.CharField(max_length=500, blank=True)
-    place = models.ForeignKey(Place, null=True)
+    place = models.ForeignKey(Place, null=True, related_name='workshops')
     teacher = models.ForeignKey(UserAccount, related_name='workshops')
 
     default_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)

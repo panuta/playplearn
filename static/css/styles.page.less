@@ -1462,14 +1462,14 @@
         padding: 10px;
 
         h3 {
-            background: @headerBackground;
-            color: #FFF;
+            border-bottom: 2px solid @colorNavy;
+            color: @colorNavy;
             font-family: 'QuarkLight', sans-serif;
-            font-size: 24px;
-            font-weight: 200;
+            font-size: 28px;
+            font-weight: normal;
             line-height: normal;
             margin: 35px 0 25px;
-            padding: 9px 20px 7px;
+            padding-bottom: 6px;
 
             i {
                 font-size: 0.7em;
@@ -1641,35 +1641,6 @@
             }
         }
 
-        .cover-control {
-            margin-bottom: 0;
-
-            .cover {
-                border: 1px solid #CCC;
-                height: 130px;
-                margin-bottom: 20px;
-                width: 255px;
-
-                .progress {
-                    height: 20px;
-                    margin: 40px auto 0;
-                    width: 200px;
-                }
-
-                .error {
-                    color: #C30;
-                    font-size: 13px;
-                    margin-top: 40px;
-                    text-align: center;
-                }
-            }
-
-            .help-block {
-                font-size: 13px;
-                margin-top: 0;
-            }
-        }
-
         .pictures-control {
             ul.pictures {
                 margin: 0;
@@ -1826,22 +1797,147 @@
         }
 
         .place-control {
-            .place-label {
-                input {
-                    margin-right: 5px;
-                    vertical-align: 1px;
+            background-color: #FFF;
+            //border: 1px solid #DDD;
+
+            .place-select {
+                //background-color: #F7F7F7;
+                //border-bottom: 1px solid #DDD;
+                border-bottom: 1px solid #DDD;
+                color: #777;
+                font-size: 13px;
+                margin-bottom: 0;
+                //padding: 25px 0 15px 25px;
+
+                #id_place_userdefined {
+                    display: inline-block;
+                    margin: 0 0 5px 6px;
+                    width: 250px;
+                }
+
+                .or {
+                    margin: 0 6px;
+                }
+
+                .button-new-location {
+                    margin-bottom: 5px;
+                    padding: 6px 25px;
+                }
+
+                .place-name {
+                    color: #555;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 24px;
+                }
+
+                .switch-userdefined {
+                    float: right;
+                    padding: 7px 15px 0 0;
+
+                    a {
+                        color: #777;
+                        font-size: 13px;
+                        text-decoration: underline;
+
+                        &:hover, &:focus {
+                            background-color: @linkColor;
+                            color: #FFF;
+                        }
+                    }
                 }
             }
 
-            #id_place_userdefined {
-                display: inline-block;
-                width: 350px;
+            .place-form {
+                .place-form-loading {
+                    margin: 3px 0 0 15px;
+                }
             }
 
-            .or {
-                color: #777;
-                font-size: 13px;
-                margin: 0 6px;
+            label {
+                color: #444;
+                display: inline-block;
+                font-size: 18px;
+                font-weight: normal;
+                margin-bottom: 3px;
+            }
+
+            #id_place_userdefined {
+                width: 300px;
+            }
+
+            #id_place_name {
+                width: 400px;
+            }
+
+            #id_place_address {
+                height: 60px;
+                margin: 0 20px 0 0;
+                width: 400px;
+            }
+
+            #id_place_province {
+                width: 250px;
+            }
+
+            #id_place_direction {
+                height: 120px;
+                margin-right: 25px;
+                width: 400px;
+            }
+
+            .place-location-control {
+                .location-map {
+                    padding: 0;
+                }
+
+                .actions {
+                    margin-top: 5px;
+
+                    .button-input-latlng {
+                        font-size: 12px;
+                        padding: 4px 15px;
+
+                        i {
+                            color: #555;
+                            vertical-align: 1px;
+                        }
+                    }
+                }
+
+                .minimap {
+                    border: 1px solid #EEE;
+                    height: 178px;
+                    margin-top: 15px;
+                    padding: 3px;
+                    width: 308px;
+
+                    img {
+                        border: 1px solid #DDDDDD;
+                        height: 170px;
+                        width: 300px;
+                    }
+                }
+            }
+        }
+
+        .place-form-loading {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+
+            img {
+                margin-right: 5px;
+            }
+        }
+
+        .popular-place {
+            background-color: #F7F7F7;
+            //border: 1px solid #DDD;
+            padding: 20px 25px 10px;
+
+            label {
+                font-weight: normal;
             }
 
             .place-note {
@@ -1853,89 +1949,6 @@
                 i {
                     color: #888;
                     margin-right: 3px;
-                }
-            }
-        }
-
-        .place-form-loading {
-            color: #555;
-            font-size: 13px;
-
-            img {
-                margin-right: 5px;
-            }
-        }
-
-        .place-form {
-            background-color: #F7F7F7;
-            border: 1px solid #DDD;
-            padding: 25px 30px 10px 30px;
-
-            .head {
-                border-bottom: 1px solid #DDD;
-                color: #555;
-                font-family: 'QuarkBold';
-                font-size: 20px;
-                margin-bottom: 17px;
-                padding-bottom: 7px;
-            }
-
-            .form-row .form-group {
-                display: inline-block;
-                vertical-align: top;
-            }
-
-            label {
-                color: #444;
-                display: inline-block;
-                font-size: 18px;
-                font-weight: normal;
-                margin-bottom: 3px;
-            }
-
-            #id_place_name {
-                width: 365px;
-            }
-
-            #id_place_address {
-                height: 60px;
-                margin: 0 20px 0 0;
-                width: 367px;
-            }
-
-            #id_place_province {
-                width: 250px;
-            }
-
-            #id_place_direction {
-                height: 120px;
-                margin-right: 25px;
-                width: 304px;
-            }
-
-            .place-location-control {
-                .minimap {
-                    background-color: #F9F9F9;
-                    border: 1px solid #EEE;
-                    height: 178px;
-                    padding: 3px;
-                    text-align: center;
-                    width: 308px;
-
-                    img {
-                        border: 1px solid #DDDDDD;
-                        height: 170px;
-                        width: 300px;
-                    }
-                }
-
-                .actions {
-                    text-align: center;
-
-                    .button-input-latlng {
-                        margin-top: 5px;
-                        padding: 2px 15px;
-                    }
                 }
             }
         }

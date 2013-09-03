@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 from common.decorators import teacher_only
 
 from domain import functions as domain_functions
-from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture
+from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture, Place
 
 
 # MY WORKSHOPS #########################################################################################################

@@ -635,6 +635,10 @@ form .avatar-control .errorlist {
   background-color: #29ace4;
   border: 1px solid #29ace4;
 }
+.style-outline-button:hover i,
+.style-outline-button:focus i {
+  color: #FFF !important;
+}
 .style-outline-button[disabled],
 .style-outline-button.disabled {
   border: 1px solid #D9D9D9;
@@ -675,6 +679,10 @@ form .avatar-control .errorlist {
 .style-outline-danger-button:focus {
   background-color: #c30;
   border: 1px solid #c30;
+}
+.style-outline-danger-button:hover i,
+.style-outline-danger-button:focus i {
+  color: #FFF !important;
 }
 .style-outline-danger-button[disabled],
 .style-outline-danger-button.disabled {
@@ -1749,6 +1757,9 @@ body {
   display: inline-block;
   list-style: none;
   margin-left: 12px;
+}
+.page-backend #backend-header .with_actions ul li a {
+  padding: 10px 40px;
 }
 .page-backend .backend-tabs {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
@@ -3698,14 +3709,14 @@ body {
   padding: 10px;
 }
 .page-workshop-modify .form-content h3 {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
-  color: #FFF;
+  border-bottom: 2px solid #4b5c66;
+  color: #4b5c66;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 24px;
-  font-weight: 200;
+  font-size: 28px;
+  font-weight: normal;
   line-height: normal;
   margin: 35px 0 25px;
-  padding: 9px 20px 7px;
+  padding-bottom: 6px;
 }
 .page-workshop-modify .form-content h3 i {
   font-size: 0.7em;
@@ -3845,30 +3856,6 @@ body {
   border: 1px solid #DDD;
   padding: 15px 20px 0;
 }
-.page-workshop-modify .form-content .cover-control {
-  margin-bottom: 0;
-}
-.page-workshop-modify .form-content .cover-control .cover {
-  border: 1px solid #CCC;
-  height: 130px;
-  margin-bottom: 20px;
-  width: 255px;
-}
-.page-workshop-modify .form-content .cover-control .cover .progress {
-  height: 20px;
-  margin: 40px auto 0;
-  width: 200px;
-}
-.page-workshop-modify .form-content .cover-control .cover .error {
-  color: #C30;
-  font-size: 13px;
-  margin-top: 40px;
-  text-align: center;
-}
-.page-workshop-modify .form-content .cover-control .help-block {
-  font-size: 13px;
-  margin-top: 0;
-}
 .page-workshop-modify .form-content .pictures-control ul.pictures {
   margin: 0;
   padding: 0;
@@ -3992,95 +3979,126 @@ body {
 .page-workshop-modify .form-content .topic-control select {
   width: 350px;
 }
-.page-workshop-modify .form-content .place-control .place-label input {
-  margin-right: 5px;
-  vertical-align: 1px;
+.page-workshop-modify .form-content .place-control {
+  background-color: #FFF;
 }
-.page-workshop-modify .form-content .place-control #id_place_userdefined {
-  display: inline-block;
-  width: 350px;
-}
-.page-workshop-modify .form-content .place-control .or {
+.page-workshop-modify .form-content .place-control .place-select {
+  border-bottom: 1px solid #DDD;
   color: #777;
   font-size: 13px;
+  margin-bottom: 0;
+}
+.page-workshop-modify .form-content .place-control .place-select #id_place_userdefined {
+  display: inline-block;
+  margin: 0 0 5px 6px;
+  width: 250px;
+}
+.page-workshop-modify .form-content .place-control .place-select .or {
   margin: 0 6px;
 }
-.page-workshop-modify .form-content .place-control .place-note {
-  color: #888;
-  font-size: 13px;
-  line-height: 24px;
-  margin-top: 15px;
+.page-workshop-modify .form-content .place-control .place-select .button-new-location {
+  margin-bottom: 5px;
+  padding: 6px 25px;
 }
-.page-workshop-modify .form-content .place-control .place-note i {
-  color: #888;
-  margin-right: 3px;
-}
-.page-workshop-modify .form-content .place-form-loading {
+.page-workshop-modify .form-content .place-control .place-select .place-name {
   color: #555;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 24px;
+}
+.page-workshop-modify .form-content .place-control .place-select .switch-userdefined {
+  float: right;
+  padding: 7px 15px 0 0;
+}
+.page-workshop-modify .form-content .place-control .place-select .switch-userdefined a {
+  color: #777;
   font-size: 13px;
+  text-decoration: underline;
 }
-.page-workshop-modify .form-content .place-form-loading img {
-  margin-right: 5px;
+.page-workshop-modify .form-content .place-control .place-select .switch-userdefined a:hover,
+.page-workshop-modify .form-content .place-control .place-select .switch-userdefined a:focus {
+  background-color: #29ace4;
+  color: #FFF;
 }
-.page-workshop-modify .form-content .place-form {
-  background-color: #F7F7F7;
-  border: 1px solid #DDD;
-  padding: 25px 30px 10px 30px;
+.page-workshop-modify .form-content .place-control .place-form .place-form-loading {
+  margin: 3px 0 0 15px;
 }
-.page-workshop-modify .form-content .place-form .head {
-  border-bottom: 1px solid #DDD;
-  color: #555;
-  font-family: 'QuarkBold';
-  font-size: 20px;
-  margin-bottom: 17px;
-  padding-bottom: 7px;
-}
-.page-workshop-modify .form-content .place-form .form-row .form-group {
-  display: inline-block;
-  vertical-align: top;
-}
-.page-workshop-modify .form-content .place-form label {
+.page-workshop-modify .form-content .place-control label {
   color: #444;
   display: inline-block;
   font-size: 18px;
   font-weight: normal;
   margin-bottom: 3px;
 }
-.page-workshop-modify .form-content .place-form #id_place_name {
-  width: 365px;
+.page-workshop-modify .form-content .place-control #id_place_userdefined {
+  width: 300px;
 }
-.page-workshop-modify .form-content .place-form #id_place_address {
+.page-workshop-modify .form-content .place-control #id_place_name {
+  width: 400px;
+}
+.page-workshop-modify .form-content .place-control #id_place_address {
   height: 60px;
   margin: 0 20px 0 0;
-  width: 367px;
+  width: 400px;
 }
-.page-workshop-modify .form-content .place-form #id_place_province {
+.page-workshop-modify .form-content .place-control #id_place_province {
   width: 250px;
 }
-.page-workshop-modify .form-content .place-form #id_place_direction {
+.page-workshop-modify .form-content .place-control #id_place_direction {
   height: 120px;
   margin-right: 25px;
-  width: 304px;
+  width: 400px;
 }
-.page-workshop-modify .form-content .place-form .place-location-control .minimap {
-  background-color: #F9F9F9;
+.page-workshop-modify .form-content .place-control .place-location-control .location-map {
+  padding: 0;
+}
+.page-workshop-modify .form-content .place-control .place-location-control .actions {
+  margin-top: 5px;
+}
+.page-workshop-modify .form-content .place-control .place-location-control .actions .button-input-latlng {
+  font-size: 12px;
+  padding: 4px 15px;
+}
+.page-workshop-modify .form-content .place-control .place-location-control .actions .button-input-latlng i {
+  color: #555;
+  vertical-align: 1px;
+}
+.page-workshop-modify .form-content .place-control .place-location-control .minimap {
   border: 1px solid #EEE;
   height: 178px;
+  margin-top: 15px;
   padding: 3px;
-  text-align: center;
   width: 308px;
 }
-.page-workshop-modify .form-content .place-form .place-location-control .minimap img {
+.page-workshop-modify .form-content .place-control .place-location-control .minimap img {
   border: 1px solid #DDDDDD;
   height: 170px;
   width: 300px;
 }
-.page-workshop-modify .form-content .place-form .place-location-control .actions {
+.page-workshop-modify .form-content .place-form-loading {
+  color: #555;
+  font-size: 13px;
+  margin-bottom: 20px;
   text-align: center;
 }
-.page-workshop-modify .form-content .place-form .place-location-control .actions .button-input-latlng {
-  margin-top: 5px;
-  padding: 2px 15px;
+.page-workshop-modify .form-content .place-form-loading img {
+  margin-right: 5px;
+}
+.page-workshop-modify .form-content .popular-place {
+  background-color: #F7F7F7;
+  padding: 20px 25px 10px;
+}
+.page-workshop-modify .form-content .popular-place label {
+  font-weight: normal;
+}
+.page-workshop-modify .form-content .popular-place .place-note {
+  color: #888;
+  font-size: 13px;
+  line-height: 24px;
+  margin-top: 15px;
+}
+.page-workshop-modify .form-content .popular-place .place-note i {
+  color: #888;
+  margin-right: 3px;
 }
 .page-workshop-modify #form-footer-container {
   margin-top: 30px;
