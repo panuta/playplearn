@@ -224,7 +224,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
 
         $(document).on('click', '#upload-pictures li.picture a.delete', function() {
             $(this).hide();
-            $(this).closest('.picture').prepend('<div class="confirm-delete"><div class="actions"><a href="#" class="style-outline-danger-button button-remove-picture">ลบรูปภาพ</a><a href="#" class="style-outline-button button-remove-picture-cancel">ยกเลิก</a></div></div>');
+            $(this).closest('.picture').prepend('<div class="confirm-delete"><div class="actions"><a href="#" class="style-outline-danger-button button-remove-picture">ลบรูปภาพ</a><a href="#" class="style-button button-remove-picture-cancel">ยกเลิก</a></div></div>');
             return false;
         });
 

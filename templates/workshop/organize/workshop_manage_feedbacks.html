@@ -1,0 +1,67 @@
+{% extends 'workshop/organize/workshop_manage_base.html' %}
+{% load common_tags %}
+
+{% block body_class %}{{ block.super }} page-manage-workshop-feedbacks{% endblock %}
+{% block manage_workshop_nav %}{% include 'workshop/organize/workshop_manage_base_nav.html' with tab_name='feedbacks' %}{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(function($){
+    var set_public_button = $('.button-set-public');
+    set_public_button.hover(function() {
+        $(this).data('old-text', $(this).html());
+
+        if($(this).hasClass('is_shown')) {
+            $(this).text('ซ่อน');
+        } else if($(this).hasClass('is_hidden')) {
+            $(this).text('แสดง');
+        }
+    }, function() {
+        $(this).html($(this).data('old-text'));
+    });
+
+    set_public_button.on('click', function() {
+
+    });
+});
+</script>
+{% endblock %}
+
+{% block manage_workshop_body %}
+<ul class="feedbacks">
+    <li class="feedback">
+        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+        <div class="right">
+            <div class="name">
+                <a href="#">Panu Tangchalermkul</a>
+                <span>feeling <em>excited</em></span> <span>feeling <em>inspired</em></span>
+            </div>
+            <div class="content">
+                <p>แบตเปโซจีดีพีครัวซองต์มุมมองไฟลต์ หมิง วอลนัทเอฟเฟ็กต์แซวอึ๋มฟรังก์ คอนเซ็ปต์เซอร์ซิมโฟนี่แจ็กพอต แอสเตอร์ ไหร่โปรโมชั่นช็อปเปอร์เคลียร์ แรงผลักโฮลวีตภูมิทัศน์ เปเปอร์ยิมพลาซ่า โทรรวมมิตรบริกรพล็อตเอฟเฟ็กต์แดนซ์ โปรโมท ฟยอร์ดยูโรอุปนายิกาไลท์ โอเลี้ยงชนะเลิศภูมิทัศน์แจมไฮเวย์ แอดมิชชั่นนายแบบโปลิศโดมิโนแจ็กพ็อตซ้อ คอนโดโปรดักชั่นดิกชันนารี ฟลุกคอร์รัปชั่น เยอร์บีรา</p>
+            </div>
+            <div class="footer">
+                <a href="#" class="style-button button-set-public is_shown"><i class="icon-check-sign"></i> คำนิยมถูกแสดง</a>
+                <span class="datetime">เขียนเมื่อวันที่ <em>14 ก.ย. 2556 เวลา 15:00 น.</em></span>
+                <span class="schedule">จากรอบวันที่ <em>09 ก.ย. 2556 รอบเวลา 09:00 น.</em></span>
+            </div>
+        </div>
+    </li>
+    <li class="feedback">
+        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
+        <div class="right">
+            <div class="name">
+                <a href="#">Panu Tangchalermkul</a>
+                <span>feeling <em>excited</em></span> <span>feeling <em>inspired</em></span>
+            </div>
+            <div class="content">
+                <p>แบตเปโซจีดีพีครัวซองต์มุมมองไฟลต์ หมิง วอลนัทเอฟเฟ็กต์แซวอึ๋มฟรังก์ คอนเซ็ปต์เซอร์ซิมโฟนี่แจ็กพอต แอสเตอร์ ไหร่โปรโมชั่นช็อปเปอร์เคลียร์ แรงผลักโฮลวีตภูมิทัศน์ เปเปอร์ยิมพลาซ่า โทรรวมมิตรบริกรพล็อตเอฟเฟ็กต์แดนซ์ โปรโมท ฟยอร์ดยูโรอุปนายิกาไลท์ โอเลี้ยงชนะเลิศภูมิทัศน์แจมไฮเวย์ แอดมิชชั่นนายแบบโปลิศโดมิโนแจ็กพ็อตซ้อ คอนโดโปรดักชั่นดิกชันนารี ฟลุกคอร์รัปชั่น เยอร์บีรา</p>
+            </div>
+            <div class="footer">
+                <a href="#" class="style-button button-set-public is_hidden"><i class="icon-minus-sign-alt"></i> คำนิยมถูกซ่อน</a>
+                <span class="datetime">เขียนเมื่อวันที่ <em>14 ก.ย. 2556 เวลา 15:00 น.</em></span>
+                <span class="schedule">จากรอบวันที่ <em>09 ก.ย. 2556 รอบเวลา 09:00 น.</em></span>
+            </div>
+        </div>
+    </li>
+</ul>
+{% endblock %}

@@ -53,7 +53,7 @@
             <p>โดยปกติขั้นตอนตรวจสอบจะใช้เวลาไม่เกิน 2 วัน ในระหว่างนี้จะไม่อนุญาตให้มีการแก้ไขข้อมูลใดๆ หากผู้ใช้ต้องการที่จะแก้ไขข้อมูล กรุณากดยกเลิกการตรวจสอบด้านล่างนี้</p>
             <form method="post" action="{% url 'revert_approving_workshop' workshop.uid %}">
                 {% csrf_token %}
-                <button type="submit" class="style-outline-button">ยกเลิกการตรวจสอบ (กลับไปอยู่ในสถานะฉบับร่าง)</button>
+                <button type="submit" class="style-button">ยกเลิกการตรวจสอบ (กลับไปอยู่ในสถานะฉบับร่าง)</button>
             </form>
         </div>
     {% endif %}
@@ -227,7 +227,7 @@ Edit Workshop
                             <div class="col-lg-5 location-map">
                                 <input class="form-control" type="hidden" id="id_place_location" value="{{ user_defined_place.latlng }}"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}/>
                                 <div class="actions">
-                                    <a href="#modal-place-map" class="style-outline-button button-input-latlng{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled{% endif %}"{% if not workshop.is_status_wait_for_approval %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
+                                    <a href="#modal-place-map" class="style-button button-input-latlng{% if workshop and workshop.place and not workshop.place.is_userdefined or workshop.is_status_wait_for_approval %} disabled{% endif %}"{% if not workshop.is_status_wait_for_approval %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
                                 </div>
                                 {% if user_defined_place.latlng %}
                                     <div class="minimap"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ user_defined_place.latlng }}&zoom=13&size=300x170&markers=color:red%7Clabel:S%7C{{ user_defined_place.latlng }}&sensor=false" /></div>
@@ -282,7 +282,7 @@ Edit Workshop
                                 </select>
                                 <span class="or">หรือ</span>
                             {% endif %}
-                            {% if workshop or has_user_defined_place %}<a href="#" class="style-outline-button button-new-location{% if workshop.is_status_wait_for_approval %} disabled{% endif %}">กรอกสถานที่ใหม่</a>{% endif %}
+                            {% if workshop or has_user_defined_place %}<a href="#" class="style-button button-new-location{% if workshop.is_status_wait_for_approval %} disabled{% endif %}">กรอกสถานที่ใหม่</a>{% endif %}
                         </div>
                     {% endif %}
 
@@ -325,7 +325,7 @@ Edit Workshop
                                         <div class="minimap hide"></div>
                                     {% endif %}
                                     <div class="actions">
-                                        <a href="#modal-place-map" class="style-outline-button button-input-latlng{% if workshop.is_status_wait_for_approval %} disabled{% endif %}"{% if not workshop.is_status_wait_for_approval %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
+                                        <a href="#modal-place-map" class="style-button button-input-latlng{% if workshop.is_status_wait_for_approval %} disabled{% endif %}"{% if not workshop.is_status_wait_for_approval %} data-toggle="modal"{% endif %}><i class="icon-screenshot"></i> ชี้ตำแหน่ง</a>
                                     </div>
                                 </div>
                             </div>
@@ -363,7 +363,7 @@ Edit Workshop
             <div class="modal-body">
                 <div class="form-group search-control">
                     <input type="text" name="keyword" placeholder="ค้นหาสถานที่" class="form-control" >
-                    <button class="style-outline-button">ค้นหา</button>
+                    <button class="style-button">ค้นหา</button>
                     <input type="hidden" id="id_place_location_temp" />
                 </div>
                 <div class="map"><div id="map-canvas"></div></div>

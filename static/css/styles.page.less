@@ -742,7 +742,7 @@
         border: 1px dashed #CCC;
         padding: 20px 25px;
 
-        .style-outline-button {
+        .style-button {
             font-size: 13px;
             margin-right: 10px;
             padding: 5px 15px;
@@ -2220,6 +2220,127 @@
 
                 i {
                     color: #555;
+                }
+            }
+        }
+    }
+}
+
+.page-manage-workshop-feedbacks {
+
+    ul.feedbacks {
+        margin: 0;
+        padding: 0;
+
+        li.feedback {
+            border-bottom: 1px solid #DDD;
+            list-style: none;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+
+            .avatar {
+                float: left;
+
+                img {
+                    border-radius: 70px;
+                    height: 70px;
+                    width: 70px;
+                }
+            }
+
+            .right {
+                margin-left: 88px;
+
+                .name {
+                    a {
+                        color: #444;
+                        display: inline-block;
+                        font-size: 16px;
+                        font-weight: bold;
+                        vertical-align: middle;
+                    }
+
+                    span {
+                        background-color: #cfe18f;
+                        color: #333;
+                        display: inline-block;
+                        font-size: 13px;
+                        margin-left: 10px;
+                        padding: 3px 14px;
+                        vertical-align: middle;
+
+                        em {
+
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .content {
+                    color: #444;
+                    font-size: 14px;
+                    line-height: 25px;
+                    margin-top: 10px;
+
+                    p {
+                        margin: 0;
+                        padding-bottom: 12px;
+                    }
+                }
+
+                .footer {
+                    .datetime, .schedule {
+                        color: #888;
+                        font-size: 13px;
+                        margin-left: 15px;
+                        vertical-align: middle;
+
+                        em {
+                            color: #666;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .button-set-public {
+                        padding: 4px 0;
+                        text-align: center;
+                        width: 150px;
+
+                        &.is_shown {
+                            background-color: @colorPositive;
+                            border: 1px solid @colorPositive;
+                            color: #FFF;
+
+                            i {
+                                color: #FFF;
+                            }
+
+                            &:hover {
+                                background-color: @colorNegative;
+                                border: 1px solid @colorNegative;
+
+                                i {
+                                    color: #FFF;
+                                }
+                            }
+                        }
+
+                        &.is_hidden {
+                            i {
+                                color: @colorNegative;
+                            }
+
+                            &:hover {
+                                background-color: @colorPositive;
+                                border: 1px solid @colorPositive;
+                                color: #FFF;
+
+                                i {
+                                    color: #FFF;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

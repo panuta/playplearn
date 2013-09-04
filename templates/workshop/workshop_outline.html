@@ -137,8 +137,8 @@
 
     {% if user.is_authenticated and user == workshop.teacher %}
     <div class="workshop-tools">
-        <a href="{% url 'edit_workshop' workshop.uid %}" class="style-outline-button"><i class="icon-pencil"></i> Edit workshop</a>
-        <a href="{% url 'manage_workshop_overview' workshop.uid %}" class="style-outline-button"><i class="icon-book"></i> Manage workshop</a>
+        <a href="{% url 'edit_workshop' workshop.uid %}" class="style-button"><i class="icon-pencil"></i> Edit workshop</a>
+        <a href="{% url 'manage_workshop_overview' workshop.uid %}" class="style-button"><i class="icon-book"></i> Manage workshop</a>
     </div>
     {% endif %}
 

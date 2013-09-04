@@ -495,21 +495,28 @@ form .avatar-control .errorlist {
   padding: 7px 30px;
   cursor: pointer;
   background-color: #FFF;
-  border: 1px solid #DDD;
+  border: 1px solid #CCC;
   color: #555;
 }
 .style-button:hover,
 .style-button:focus {
-  color: #FFF;
+  background-color: #f9e25c;
+  border: 1px solid #f9e25c;
+  color: #333;
   text-decoration: none;
+}
+.style-button:hover i,
+.style-button:focus i {
+  color: #333;
 }
 .style-button i {
   margin-right: 3px;
-  vertical-align: middle;
+  vertical-align: 0px;
 }
 .style-button[disabled],
 .style-button.disabled {
   background-color: #D9D9D9;
+  border: 1px solid #D9D9D9;
   color: #AAA;
   cursor: default;
 }
@@ -518,12 +525,11 @@ form .avatar-control .errorlist {
 .style-button[disabled]:focus,
 .style-button.disabled:focus {
   background-color: #D9D9D9;
+  border: 1px solid #D9D9D9;
   color: #AAA;
 }
-.style-button:hover,
-.style-button:focus {
-  background-color: #5892ce;
-  border: 1px solid #5892ce;
+.style-button i {
+  color: #555;
 }
 .style-primary-button {
   border-radius: 4px;
@@ -532,21 +538,28 @@ form .avatar-control .errorlist {
   padding: 7px 30px;
   cursor: pointer;
   background-color: #29ace4;
-  border: none;
+  border: 1px solid #29ace4;
   color: #FFF;
 }
 .style-primary-button:hover,
 .style-primary-button:focus {
-  color: #FFF;
+  background-color: #f9e25c;
+  border: 1px solid #f9e25c;
+  color: #333;
   text-decoration: none;
+}
+.style-primary-button:hover i,
+.style-primary-button:focus i {
+  color: #333;
 }
 .style-primary-button i {
   margin-right: 3px;
-  vertical-align: middle;
+  vertical-align: 0px;
 }
 .style-primary-button[disabled],
 .style-primary-button.disabled {
   background-color: #D9D9D9;
+  border: 1px solid #D9D9D9;
   color: #AAA;
   cursor: default;
 }
@@ -555,175 +568,124 @@ form .avatar-control .errorlist {
 .style-primary-button[disabled]:focus,
 .style-primary-button.disabled:focus {
   background-color: #D9D9D9;
+  border: 1px solid #D9D9D9;
   color: #AAA;
 }
-.style-primary-button:hover,
-.style-primary-button:focus {
-  background-color: #1ba0d8;
+/*
+.style-button-base() {
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 13.5px;
+    padding: 7px 30px;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    i {
+        margin-right: 3px;
+        vertical-align: middle;
+    }
+
+    &[disabled], &.disabled {
+        background-color: #D9D9D9;
+        color: #AAA;
+        cursor: default;
+
+        &:hover, &:focus {
+            background-color: #D9D9D9;
+            color: #AAA;
+        }
+    }
 }
+
+.style-button {
+    .style-button-base;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: @colorSky;
+        border: 1px solid @colorSky;
+    }
+}
+
+.style-primary-button {
+    .style-button-base;
+    background-color: @colorBlue;
+    border: none;
+    color: #FFF;
+
+    &:hover, &:focus {
+        background-color: #1ba0d8;
+    }
+}
+
 .style-white-button {
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 13.5px;
-  padding: 7px 30px;
-  cursor: pointer;
-  background-color: #FFF;
-  border: none;
-  color: #555;
+    .style-button-base;
+    background-color: #FFF;
+    border: none;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: #1ba0d8;
+        color: #FFF;
+    }
 }
-.style-white-button:hover,
-.style-white-button:focus {
-  color: #FFF;
-  text-decoration: none;
-}
-.style-white-button i {
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.style-white-button[disabled],
-.style-white-button.disabled {
-  background-color: #D9D9D9;
-  color: #AAA;
-  cursor: default;
-}
-.style-white-button[disabled]:hover,
-.style-white-button.disabled:hover,
-.style-white-button[disabled]:focus,
-.style-white-button.disabled:focus {
-  background-color: #D9D9D9;
-  color: #AAA;
-}
-.style-white-button:hover,
-.style-white-button:focus {
-  background-color: #1ba0d8;
-  color: #FFF;
-}
+
 .style-outline-button {
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 13.5px;
-  padding: 7px 30px;
-  cursor: pointer;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  color: #555;
+    .style-button-base;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: @colorBlue;
+        border: 1px solid @colorBlue;
+
+        i {
+            color: #FFF !important;
+        }
+    }
+
+    &[disabled], &.disabled {
+        border: 1px solid #D9D9D9;
+    }
 }
-.style-outline-button:hover,
-.style-outline-button:focus {
-  color: #FFF;
-  text-decoration: none;
-}
-.style-outline-button i {
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.style-outline-button[disabled],
-.style-outline-button.disabled {
-  background-color: #D9D9D9;
-  color: #AAA;
-  cursor: default;
-}
-.style-outline-button[disabled]:hover,
-.style-outline-button.disabled:hover,
-.style-outline-button[disabled]:focus,
-.style-outline-button.disabled:focus {
-  background-color: #D9D9D9;
-  color: #AAA;
-}
-.style-outline-button:hover,
-.style-outline-button:focus {
-  background-color: #29ace4;
-  border: 1px solid #29ace4;
-}
-.style-outline-button:hover i,
-.style-outline-button:focus i {
-  color: #FFF !important;
-}
-.style-outline-button[disabled],
-.style-outline-button.disabled {
-  border: 1px solid #D9D9D9;
-}
+
 .style-outline-danger-button {
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 13.5px;
-  padding: 7px 30px;
-  cursor: pointer;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  color: #555;
+    .style-button-base;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    color: #555;
+
+    &:hover, &:focus {
+        background-color: #c30;
+        border: 1px solid #c30;
+
+        i {
+            color: #FFF !important;
+        }
+    }
+
+    &[disabled], &.disabled {
+        border: 1px solid #D9D9D9;
+    }
 }
-.style-outline-danger-button:hover,
-.style-outline-danger-button:focus {
-  color: #FFF;
-  text-decoration: none;
-}
-.style-outline-danger-button i {
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.style-outline-danger-button[disabled],
-.style-outline-danger-button.disabled {
-  background-color: #D9D9D9;
-  color: #AAA;
-  cursor: default;
-}
-.style-outline-danger-button[disabled]:hover,
-.style-outline-danger-button.disabled:hover,
-.style-outline-danger-button[disabled]:focus,
-.style-outline-danger-button.disabled:focus {
-  background-color: #D9D9D9;
-  color: #AAA;
-}
-.style-outline-danger-button:hover,
-.style-outline-danger-button:focus {
-  background-color: #c30;
-  border: 1px solid #c30;
-}
-.style-outline-danger-button:hover i,
-.style-outline-danger-button:focus i {
-  color: #FFF !important;
-}
-.style-outline-danger-button[disabled],
-.style-outline-danger-button.disabled {
-  border: 1px solid #D9D9D9;
-}
+
 .style-dark-outline-button {
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 13.5px;
-  padding: 7px 30px;
-  cursor: pointer;
-  border: 1px solid #29ace4;
-  color: #29ace4;
-}
-.style-dark-outline-button:hover,
-.style-dark-outline-button:focus {
-  color: #FFF;
-  text-decoration: none;
-}
-.style-dark-outline-button i {
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.style-dark-outline-button[disabled],
-.style-dark-outline-button.disabled {
-  background-color: #D9D9D9;
-  color: #AAA;
-  cursor: default;
-}
-.style-dark-outline-button[disabled]:hover,
-.style-dark-outline-button.disabled:hover,
-.style-dark-outline-button[disabled]:focus,
-.style-dark-outline-button.disabled:focus {
-  background-color: #D9D9D9;
-  color: #AAA;
-}
-.style-dark-outline-button:hover,
-.style-dark-outline-button:focus {
-  background-color: #5892ce;
-  border: 1px solid #5892ce;
-}
+    .style-button-base;
+    border: 1px solid @colorBlue;
+    color: @colorBlue;
+
+    &:hover, &:focus {
+        background-color: @colorSky;
+        border: 1px solid @colorSky;
+    }
+}*/
 /*
 .style-button-base() {
     border: none;
@@ -3171,12 +3133,12 @@ body {
   border: 1px dashed #CCC;
   padding: 20px 25px;
 }
-.page-workshop-outline .workshop-tools .style-outline-button {
+.page-workshop-outline .workshop-tools .style-button {
   font-size: 13px;
   margin-right: 10px;
   padding: 5px 15px;
 }
-.page-workshop-outline .workshop-tools .style-outline-button i {
+.page-workshop-outline .workshop-tools .style-button i {
   vertical-align: 0px;
 }
 .page-workshop-outline .workshop-feedbacks h2 {
@@ -4419,6 +4381,99 @@ body {
 }
 .page-manage-workshop-schedules table td.actions a i {
   color: #555;
+}
+.page-manage-workshop-feedbacks ul.feedbacks {
+  margin: 0;
+  padding: 0;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback {
+  border-bottom: 1px solid #DDD;
+  list-style: none;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .avatar {
+  float: left;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .avatar img {
+  border-radius: 70px;
+  height: 70px;
+  width: 70px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right {
+  margin-left: 88px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .name a {
+  color: #444;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .name span {
+  background-color: #cfe18f;
+  color: #333;
+  display: inline-block;
+  font-size: 13px;
+  margin-left: 10px;
+  padding: 3px 14px;
+  vertical-align: middle;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .name span em {
+  font-weight: bold;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .content {
+  color: #444;
+  font-size: 14px;
+  line-height: 25px;
+  margin-top: 10px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .content p {
+  margin: 0;
+  padding-bottom: 12px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .datetime,
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .schedule {
+  color: #888;
+  font-size: 13px;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .datetime em,
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .schedule em {
+  color: #666;
+  font-weight: bold;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public {
+  padding: 4px 0;
+  text-align: center;
+  width: 150px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown {
+  background-color: #00ac71;
+  border: 1px solid #00ac71;
+  color: #FFF;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown i {
+  color: #FFF;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown:hover {
+  background-color: #e56068;
+  border: 1px solid #e56068;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown:hover i {
+  color: #FFF;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_hidden i {
+  color: #e56068;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_hidden:hover {
+  background-color: #00ac71;
+  border: 1px solid #00ac71;
+  color: #FFF;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_hidden:hover i {
+  color: #FFF;
 }
 .page-manage-workshop-class {
   padding-top: 30px;
