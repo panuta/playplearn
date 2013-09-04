@@ -1736,7 +1736,7 @@ body {
 
 }
 .page-backend #backend-header .parent {
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 .page-backend #backend-header .parent a {
   color: #FFF;
@@ -1772,10 +1772,13 @@ body {
   font-family: 'QuarkLight', sans-serif;
   font-size: 26px;
 }
+.page-backend #backend-header h1 a {
+  color: #FFF;
+}
 .page-backend #backend-header .subtitle {
   color: #FFF;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 5px;
@@ -4332,6 +4335,90 @@ body {
   color: #777;
   font-size: 14px;
   margin-left: 15px;
+}
+.page-manage-workshop-schedules .col-lg-4 {
+  width: 28%;
+}
+.page-manage-workshop-schedules .col-lg-8 {
+  width: 72%;
+}
+.page-manage-workshop-schedules #id_schedule_calendar {
+  width: 273px;
+}
+.page-manage-workshop-schedules .times {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.page-manage-workshop-schedules .times ul {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.page-manage-workshop-schedules .times ul li {
+  display: inline-block;
+  list-style: none;
+}
+.page-manage-workshop-schedules .times ul li a {
+  background-color: #DDD;
+  color: #444;
+  display: block;
+  margin-left: 10px;
+  padding: 4px 15px;
+}
+.page-manage-workshop-schedules .times ul li.selected a {
+  background-color: #29ace4;
+  color: #FFF;
+}
+.page-manage-workshop-schedules .no-reservation {
+  color: #555;
+  padding: 20px 0;
+  text-align: center;
+}
+.page-manage-workshop-schedules table .date {
+  text-align: center;
+  width: 200px;
+}
+.page-manage-workshop-schedules table .status {
+  text-align: center;
+  width: 120px;
+}
+.page-manage-workshop-schedules table .payment {
+  text-align: center;
+  width: 140px;
+}
+.page-manage-workshop-schedules table .actions {
+  text-align: center;
+  width: 60px;
+}
+.page-manage-workshop-schedules table td.status {
+  color: #444;
+}
+.page-manage-workshop-schedules table td.status i {
+  color: #888;
+  margin-right: 3px;
+}
+.page-manage-workshop-schedules table td.status .confirmed i {
+  color: #00ac71;
+}
+.page-manage-workshop-schedules table td.payment {
+  color: #444;
+}
+.page-manage-workshop-schedules table td.payment i {
+  color: #888;
+  margin-right: 3px;
+}
+.page-manage-workshop-schedules table td.payment .paid i {
+  color: #00ac71;
+}
+.page-manage-workshop-schedules table td.actions a {
+  border: 1px solid #CCC;
+  border-radius: 3px;
+  display: inline-block;
+  padding: 1px 5px 3px;
+}
+.page-manage-workshop-schedules table td.actions a i {
+  color: #555;
 }
 .page-manage-workshop-class {
   padding-top: 30px;

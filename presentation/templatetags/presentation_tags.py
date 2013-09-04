@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django import template
 from django.conf import settings
@@ -10,8 +10,10 @@ from django.template.defaultfilters import safe
 from easy_thumbnails.files import get_thumbnailer
 
 from common.constants.feedback import FEEDBACK_FEELING_MAP
+from common.utilities import format_date_url_string, format_time_url_string
 
 from domain.models import WorkshopTopic, Place, WorkshopPicture, UserRegistration, Workshop
+from reservation.models import Schedule
 
 register = template.Library()
 
@@ -161,8 +163,34 @@ def workshop_schedule_seats_as_option(schedule):
 
 
 @register.simple_tag
-def course_schedule_start_datetime_as_comma_separated(schedules):
-    return ','.join(['"%d/%d/%d"' % (schedule.start_datetime.year, schedule.start_datetime.month, schedule.start_datetime.day) for schedule in schedules])
+def workshop_schedule_start_date_as_comma_separated(schedules):
+    return ','.join(['"%02d/%02d/%d"' % (schedule.start_datetime.day, schedule.start_datetime.month, schedule.start_datetime.year) for schedule in schedules])
+
+
+@register.simple_tag
+def workshop_schedule_times_on_same_date_as_li(schedule):
+    schedules = Schedule.objects.filter(
+        workshop=schedule.workshop,
+        start_datetime__year=schedule.start_datetime.year,
+        start_datetime__month=schedule.start_datetime.month,
+        start_datetime__day=schedule.start_datetime.day,
+        status=Schedule.STATUS_OPEN
+    ).order_by('start_datetime')
+
+    li = []
+    for same_date_schedule in schedules:
+        selected = ' class="selected"' if same_date_schedule == schedule else ''
+        li.append('<li%s><a href="%s">%s</a></li>' % (
+            selected,
+            reverse('manage_workshop_schedule_datetime',
+                    args=[schedule.workshop.uid,
+                          format_date_url_string(schedule.start_datetime),
+                          format_time_url_string(schedule.start_datetime)
+                    ]),
+            datetime.strftime(schedule.start_datetime, '%H:%M')
+        ))
+
+    return ''.join(li)
 
 
 @register.filter

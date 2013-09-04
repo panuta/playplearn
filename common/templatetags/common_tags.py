@@ -11,7 +11,7 @@ from common.constants.payment import BANK_ACCOUNT_LIST, BANK_ACCOUNT_MAP
 
 from common.l10n import th
 from common.l10n.th import PROVINCE_LIST, PROVINCE_MAP
-from common.utilities import format_datetime_string, format_date_string, format_abbr_date, get_excerpt
+from common.utilities import format_datetime_url_string, format_date_url_string, format_time_url_string, format_date_string, format_abbr_date, get_excerpt
 
 register = template.Library()
 
@@ -104,8 +104,18 @@ def schedule_datetime_no_weekday(schedule):
 
 
 @register.filter
-def datetime_string(datetime):
-    return format_datetime_string(datetime)
+def date_url_string(datetime):
+    return format_date_url_string(datetime)
+
+
+@register.filter
+def time_url_string(datetime):
+    return format_time_url_string(datetime)
+
+
+@register.filter
+def datetime_url_string(datetime):
+    return format_datetime_url_string(datetime)
 
 
 @register.simple_tag

@@ -11,11 +11,12 @@ from django.utils.timezone import now
 from django.views.decorators.http import require_POST
 
 from common.decorators import teacher_only
+from common.utilities import format_date_url_string, format_time_url_string
 
 from domain import functions as domain_functions
 from domain.models import Workshop, WorkshopTopic, WorkshopFeedback, WorkshopPicture, Place
 from presentation.forms import CreateFirstWorkshop
-from reservation.models import Schedule
+from reservation.models import Schedule, Reservation
 
 
 # MY WORKSHOPS #########################################################################################################
@@ -190,16 +191,74 @@ def manage_workshop_overview(request, workshop, workshop_uid):
 
 @login_required
 @teacher_only
-def manage_workshop_schedules(request, workshop, workshop_uid):
+def manage_workshop_schedule(request, workshop, workshop_uid, date_string, time_string):
+    schedules = Schedule.objects.filter(workshop=workshop, status=Schedule.STATUS_OPEN)
+
+    if not schedules:
+        return render(request, 'workshop/organize/workshop_manage_schedules.html', {
+            'workshop': workshop,
+        })
+
+    if not date_string:
+        schedule = workshop.get_upcoming_schedule()
+
+        if not schedule:
+            rightnow = now()
+            past_schedules = Schedule.objects.filter(
+                workshop=workshop,
+                start_datetime__lte=rightnow,
+                status=Schedule.STATUS_OPEN
+            ).order_by('-start_datetime')
+
+            schedule = past_schedules[0]
+
+        return redirect('manage_workshop_schedule_datetime',
+                        workshop_uid=workshop_uid,
+                        date_string=format_date_url_string(schedule.start_datetime),
+                        time_string=format_time_url_string(schedule.start_datetime))
+
+    elif not time_string:
+        try:
+            schedule_date = datetime.datetime.strptime(date_string, '%d_%m_%Y')
+        except ValueError:
+            raise Http404
+
+        same_date_schedules = Schedule.objects.filter(
+            workshop=workshop,
+            start_datetime__year=schedule_date.year,
+            start_datetime__month=schedule_date.month,
+            start_datetime__day=schedule_date.day,
+            status=Schedule.STATUS_OPEN
+        ).order_by('start_datetime')
+
+        if not same_date_schedules:
+            raise Http404
+
+        schedule = same_date_schedules[0]
+
+        return redirect('manage_workshop_schedule_datetime',
+                        workshop_uid=workshop_uid,
+                        date_string=format_date_url_string(schedule.start_datetime),
+                        time_string=format_time_url_string(schedule.start_datetime))
+
+    try:
+        schedule_datetime = datetime.datetime.strptime('%s_%s' % (date_string, time_string), '%d_%m_%Y_%H_%M')
+    except ValueError:
+        raise Http404
+
+    schedule = get_object_or_404(Schedule, workshop=workshop, start_datetime=schedule_datetime)
+
+    if schedule.status != Schedule.STATUS_OPEN:
+        raise Http404
+
+    reservations = Reservation.objects.filter(schedule=schedule).order_by('-date_created')
+
     return render(request, 'workshop/organize/workshop_manage_schedules.html', {
         'workshop': workshop,
+        'available_schedules': schedules,
+        'schedule': schedule,
+        'reservations': reservations,
     })
-
-
-@login_required
-@teacher_only
-def manage_workshop_schedule(request, workshop, workshop_uid, datetime_string):
-    pass
 
 
 @login_required

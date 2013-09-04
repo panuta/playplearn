@@ -9,7 +9,7 @@
     <ul class="stats">
         <li class="stat">
             <span class="caption">รายได้รวม</span>
-            <span class="number"><em>400{{ workshop.stats_total_earned }}</em> บาท</span>
+            <span class="number"><em>{{ workshop.stats_total_earned|format_price }}</em> บาท</span>
         </li>
         <li class="stat">
             <span class="caption">จำนวนรอบ</span>
@@ -36,7 +36,7 @@
         <ul>
             {% for schedule in upcoming_schedules %}
                 <li>
-                    <div class="datetime"><a href="{% url 'manage_workshop_schedule' workshop.uid schedule.start_datetime|datetime_string %}">{{ schedule|schedule_datetime }}</a></div>
+                    <div class="datetime"><a href="{% url 'manage_workshop_schedule_datetime' workshop.uid schedule.start_datetime|date_url_string schedule.start_datetime|time_url_string %}">{{ schedule|schedule_datetime }}</a></div>
                     <div class="attendance">
                         <span class="total"><i class="icon-user{% if not schedule.seats_confirmed %} grey{% endif %}"></i> <em>{{ schedule.seats_confirmed }}</em> / {{ schedule.capacity }} คนยืนยันการเข้าร่วม</span>
                         <span class="categorize">ชำระเงินเรียบร้อย <em>{{ schedule.seats_confirmed_and_paid }} คน</em> / รอการชำระเงิน <em>{{ schedule.seats_confirmed_and_wait_for_payment }} คน</em></span>

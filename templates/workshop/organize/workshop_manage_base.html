@@ -14,6 +14,7 @@ jQuery(function($){
 
 {% block backend_header %}
 <div class="head">
+    <div class="parent"><a href="{% url 'view_my_workshops_organize' %}">← จัดเวิร์คช็อป</a></div>
     <h1>เวิร์คช็อป</h1>
     <div class="subtitle"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
 </div>

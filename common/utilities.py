@@ -38,12 +38,33 @@ def format_abbr_date(datetime):
         return ''
 
 
-def format_datetime_string(datetime):
+def format_date_url_string(datetime):
     try:
-        return '%d_%02d_%02d_%02d_%02d' % (
-            datetime.year,
-            datetime.month,
+        return '%02d_%02d_%d' % (
             datetime.day,
+            datetime.month,
+            datetime.year,
+        )
+    except ValueError:
+        return ''
+
+
+def format_time_url_string(datetime):
+    try:
+        return '%02d_%02d' % (
+            datetime.hour,
+            datetime.minute,
+        )
+    except ValueError:
+        return ''
+
+
+def format_datetime_url_string(datetime):
+    try:
+        return '%02d_%02d_%d_%02d_%02d' % (
+            datetime.day,
+            datetime.month,
+            datetime.year,
             datetime.hour,
             datetime.minute,
         )

@@ -41,7 +41,8 @@
 
 {% block backend_header %}
     <div class="parent"><a href="{% url 'view_my_workshops_organize' %}">← จัดเวิร์คช็อป</a></div>
-    <h1>{% if not workshop %}จัดเวิร์คช็อปใหม่{% else %}แก้ไขข้อมูลเวิร์คช็อป <span class="title">- {{ workshop.title|default:'(ไม่มีชื่อเวิร์คช็อป)' }}</span>{% endif %}</h1>
+    <h1>{% if not workshop %}จัดเวิร์คช็อปใหม่{% else %}แก้ไขข้อมูลเวิร์คช็อป{% endif %}</h1>
+    {% if workshop %}<div class="subtitle">{{ workshop.title|default:'(ไม่มีชื่อเวิร์คช็อป)' }}</div>{% endif %}
 {% endblock %}
 
 {% block backend_body %}

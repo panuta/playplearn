@@ -1,0 +1,127 @@
+{% extends 'workshop/organize/workshop_manage_base.html' %}
+{% load common_tags presentation_tags %}
+
+{% block body_class %}{{ block.super }} page-manage-workshop-schedules{% endblock %}
+{% block manage_workshop_nav %}{% include 'workshop/organize/workshop_manage_base_nav.html' with tab_name='schedules' %}{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(function($){
+    var available_schedules = [{% workshop_schedule_start_date_as_comma_separated available_schedules %}];
+
+    var schedule_calendar = $('#id_schedule_calendar');
+    schedule_calendar.datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        todayHighlight: false,
+        beforeShowDay: function(date) {
+            var available = available_schedules.indexOf(moment(date).format('DD/MM/YYYY')) != -1;
+            return [available, ''];
+        },
+        onSelect: function(dateText, datepicker) {
+            window.location = '/workshop/{{ workshop.uid }}/manage/schedule/' + moment(dateText, 'DD/MM/YYYY').format('DD_MM_YYYY') + '/';
+        }
+    });
+
+    schedule_calendar.datepicker('setDate', '{{ schedule.start_datetime|date:'d/m/Y' }}');
+});
+</script>
+{% endblock %}
+
+{% block manage_workshop_body %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="calendar">
+            <div id="id_schedule_calendar"></div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="times">
+            รอบเวลา
+            <ul>
+                {% workshop_schedule_times_on_same_date_as_li schedule %}
+            </ul>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="name">ชื่อ</th>
+                <th class="date">วันที่ลงชื่อ</th>
+                <th class="status">สถานะ</th>
+                <th class="payment">การชำระเงิน</th>
+                <th class="actions"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="name">ภาณุ ตั้งเฉลิมกุล</td>
+                <td class="date">4 ก.ย. 2556 เวลา 11:15 น.</td>
+                <td class="status"><span class="confirmed"><i class="icon-check-sign"></i> ยืนยัน</span></td>
+                <td class="payment"><span class="paid"><i class="icon-check-sign"></i> จ่ายเงินแล้ว</span></td>
+                <td class="actions"><a href="#"><i class="icon-comment"></i></a></td>
+            </tr>
+            <tr>
+                <td class="name">ภาณุ ตั้งเฉลิมกุล</td>
+                <td class="date">4 ก.ย. 2556 เวลา 11:15 น.</td>
+                <td class="status"><span class="confirmed"><i class="icon-check-sign"></i> ยืนยัน</span></td>
+                <td class="payment"><span class="paid"><i class="icon-check-sign"></i> จ่ายเงินแล้ว</span></td>
+                <td class="actions"><a href="#"><i class="icon-comment"></i></a></td>
+            </tr>
+            <tr>
+                <td class="name">ภาณุ ตั้งเฉลิมกุล</td>
+                <td class="date">4 ก.ย. 2556 เวลา 11:15 น.</td>
+                <td class="status"><span class="confirmed"><i class="icon-check-sign"></i> ยกเลิก</span></td>
+                <td class="payment"><span class="wait"><i class="icon-check-sign"></i> รอชำระเงิน</span></td>
+                <td class="actions">
+                    {% comment %}
+                        <div class="btn-group">
+                            <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret"></span></a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="#" data-toggle="message-modal" data-message-recipient="{{ enrollment.student.id }}" data-message-recipient-name="{{ enrollment.student.name }}"><i class="icon-comment"></i> Send message</a></li>
+                            </ul>
+                        </div>
+
+                        STATUS_PENDING = 'P'
+    STATUS_CONFIRMED = 'CO'
+    STATUS_CANCELLED = 'C'
+
+    PAYMENT_STATUS_PENDING = 'P'
+    PAYMENT_STATUS_WAIT_FOR_PAYMENT = 'W'
+    PAYMENT_STATUS_PAID = 'PD'
+    PAYMENT_STATUS_FAILED = 'F'
+    PAYMENT_STATUS_REFUNDED = 'R'
+
+                        {% endcomment %}
+                </td>
+            </tr>
+            {% if reservations %}
+            {% for reservation in reservations %}
+                <tr>
+                    <td class="name">{{ reservation.user.name }}</td>
+                    <td class="date">{{ reservation.date_created|timestamp }}</td>
+                    <td class="status">{% comment %}{{ reservation|enrollment_status }}{% endcomment %}</td>
+                    <td class="payment">{% comment %}{{ reservation|enrollment_payment_status }}{% endcomment %}</td>
+                    <td class="actions">
+                        {% comment %}
+                        <div class="btn-group">
+                            <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret"></span></a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="#" data-toggle="message-modal" data-message-recipient="{{ enrollment.student.id }}" data-message-recipient-name="{{ enrollment.student.name }}"><i class="icon-comment"></i> Send message</a></li>
+                            </ul>
+                        </div>
+                        {% endcomment %}
+                    </td>
+                </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                <td colspan="5" class="no-reservation">ไม่มีคนลงชื่อ</td>
+                </tr>
+            {% endif %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+{% endblock %}

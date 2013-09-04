@@ -2108,6 +2108,124 @@
     }
 }
 
+.page-manage-workshop-schedules {
+    .col-lg-4 {
+        width: 28%;
+    }
+
+    .col-lg-8 {
+        width: 72%;
+    }
+
+    #id_schedule_calendar {
+        width: 273px;
+    }
+
+    .times {
+        color: #555;
+        font-size: 15px;
+        margin-bottom: 20px;
+
+        ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+
+            li {
+                display: inline-block;
+                list-style: none;
+
+                a {
+                    background-color: #DDD;
+                    color: #444;
+                    display: block;
+                    margin-left: 10px;
+                    padding: 4px 15px;
+                }
+
+                &.selected {
+                    a {
+                        background-color: @colorBlue;
+                        color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+
+    .no-reservation {
+        color: #555;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    table {
+        .date {
+            text-align: center;
+            width: 200px;
+        }
+
+        .status {
+            text-align: center;
+            width: 120px;
+        }
+
+        .payment {
+            text-align: center;
+            width: 140px;
+        }
+
+        .actions {
+            text-align: center;
+            width: 60px;
+        }
+
+
+        td.status {
+            color: #444;
+
+            i {
+                color: #888;
+                margin-right: 3px;
+            }
+
+            .confirmed {
+                i {
+                    color: @colorPositive;
+                }
+            }
+        }
+
+        td.payment {
+            color: #444;
+
+            i {
+                color: #888;
+                margin-right: 3px;
+            }
+
+            .paid {
+                i {
+                    color: @colorPositive;
+                }
+            }
+        }
+
+        td.actions {
+            a {
+                border: 1px solid #CCC;
+                border-radius: 3px;
+                display: inline-block;
+                padding: 1px 5px 3px;
+
+                i {
+                    color: #555;
+                }
+            }
+        }
+    }
+}
+
 .page-manage-workshop-class {
     padding-top: 30px;
 

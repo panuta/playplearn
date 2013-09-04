@@ -51,12 +51,10 @@ urlpatterns += patterns(
     url(r'^workshop/(?P<workshop_uid>\w+)/revert/$', 'revert_approving_workshop', name='revert_approving_workshop'),
 
     url(r'^workshop/(?P<workshop_uid>\w+)/manage/overview/$', 'manage_workshop_overview', name='manage_workshop_overview'),
-    url(r'^workshop/(?P<workshop_uid>\w+)/manage/schedule/$', 'manage_workshop_schedules', {'datetime_string': ''}, name='manage_workshop_schedules'),
-    url(r'^workshop/(?P<workshop_uid>\w+)/manage/schedule/(?P<datetime_string>\w+)/$', 'manage_workshop_schedule', name='manage_workshop_schedule'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/manage/schedule/$', 'manage_workshop_schedule', {'date_string': '', 'time_string': ''}, name='manage_workshop_schedule'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/manage/schedule/(?P<date_string>\w+)/$', 'manage_workshop_schedule', {'time_string': ''}, name='manage_workshop_schedule_date'),
+    url(r'^workshop/(?P<workshop_uid>\w+)/manage/schedule/(?P<date_string>\w+)/(?P<time_string>\w+)/$', 'manage_workshop_schedule', name='manage_workshop_schedule_datetime'),
     url(r'^workshop/(?P<workshop_uid>\w+)/manage/feedbacks/$', 'manage_workshop_feedbacks', name='manage_workshop_feedbacks'),
-
-    #url(r'^activity/(?P<workshop_uid>\w+)/manage/feedback/$', 'manage_workshop_feedback', {'category': 'all'}, name='manage_workshop_all_feedback'),
-    #url(r'^activity/(?P<workshop_uid>\w+)/manage/feedback/(?P<category>\w+)/$', 'manage_workshop_feedback', name='manage_workshop_feedback'),
 
     url(r'^enrollment/(?P<enrollment_code>\d+)/$', 'view_enrollment_details', {'with_payment': False}, name='view_enrollment_details'),
     url(r'^enrollment/(?P<enrollment_code>\d+)/payment/$', 'view_enrollment_details', {'with_payment': True}, name='view_enrollment_details_with_payment'),

@@ -22,7 +22,7 @@ from common.constants.feedback import FEEDBACK_FEELING_MAP
 from common.constants.payment import BANK_ACCOUNT_MAP
 from common.errors import WorkshopScheduleException
 from common.shortcuts import response_json_success, response_json_error_with_message, response_json_error
-from common.utilities import format_full_datetime, format_datetime_string
+from common.utilities import format_full_datetime, format_datetime_url_string
 
 from domain import functions as domain_functions
 from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
