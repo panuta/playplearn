@@ -54,10 +54,24 @@ def timestamp(datetime):
 
 
 @register.filter
-def schedule_datetime(schedule):
+def schedule_datetime_with_weekday(schedule):
     try:
         return safe(u'<span class="date">%s, %d %s %d</span> <span class="time">เวลา %02d:%02d น.</span>' % (
             th.TH_WEEKDAY_NAME[schedule.start_datetime.isoweekday()],
+            schedule.start_datetime.day,
+            th.TH_MONTH_ABBR_NAME[schedule.start_datetime.month],
+            schedule.start_datetime.year + 543,
+            schedule.start_datetime.hour,
+            schedule.start_datetime.minute
+        ))
+    except ValueError:
+        return ''
+
+
+@register.filter
+def schedule_datetime(schedule):
+    try:
+        return safe(u'<span class="date">%d %s %d</span> <span class="time">เวลา %02d:%02d น.</span>' % (
             schedule.start_datetime.day,
             th.TH_MONTH_ABBR_NAME[schedule.start_datetime.month],
             schedule.start_datetime.year + 543,

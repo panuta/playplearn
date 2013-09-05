@@ -3585,115 +3585,240 @@ body {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-workshops-organize ul.workshops {
+.page-workshops-backend-attend h2 {
+  color: #555;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 30px;
+  font-weight: normal;
+  line-height: normal;
+  margin: 0;
+}
+.page-workshops-backend-attend ul.reservations {
   margin: 0;
   padding: 0;
 }
-.page-workshops-organize ul.workshops li.workshop {
+.page-workshops-backend-attend ul.reservations li.reservation {
+  list-style: none;
+}
+.page-workshops-backend-attend ul.reservations li.reservation .title a {
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 24px;
+}
+.page-workshops-backend-attend ul.reservations li.reservation .title a:link,
+.page-workshops-backend-attend ul.reservations li.reservation .title a:active,
+.page-workshops-backend-attend ul.reservations li.reservation .title a:visited {
+  color: #29ace4;
+}
+.page-workshops-backend-attend ul.reservations li.reservation .title a:hover {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.page-workshops-backend-attend ul.reservations li.reservation .details {
+  font-size: 15px;
+}
+.page-workshops-backend-attend ul.reservations li.reservation .details .teacher,
+.page-workshops-backend-attend ul.reservations li.reservation .details .schedule {
+  color: #888;
+  margin-right: 15px;
+}
+.page-workshops-backend-attend ul.reservations li.reservation .details a,
+.page-workshops-backend-attend ul.reservations li.reservation .details em {
+  color: #555;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation {
+  margin: 15px 0 30px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .notification {
+  float: left;
+  margin: 6px 20px 0 0;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .countdown {
+  background-color: #29ace4;
+  color: #FFF;
+  display: block;
+  padding: 10px 0px 6px;
+  position: relative;
+  text-align: center;
+  width: 80px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .countdown em {
+  display: block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+  line-height: normal;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .countdown em i {
+  font-size: 24px;
+  font-style: normal;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .countdown:after {
+  border: solid transparent;
+  border-color: rgba(41, 172, 228, 0);
+  border-left-color: #29ace4;
+  border-width: 10px;
+  content: " ";
+  height: 0;
+  left: 100%;
+  margin-top: -10px;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  width: 0;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .cover {
+  border: 1px solid #DDD;
+  float: left;
+  margin-left: 5px;
+  padding: 2px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content {
+  margin-left: 380px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .details {
+  margin-bottom: 15px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .schedule,
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .place {
+  color: #555;
+  font-size: 15px;
+  margin-top: 10px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .schedule i,
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .place i {
+  color: #29ace4;
+  font-size: 16px;
+  margin-right: 4px;
+}
+.page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .place i {
+  margin-left: 3px;
+}
+.page-workshops-backend-attend ul.past-reservations {
+  margin-top: 10px;
+}
+.page-workshops-backend-attend ul.past-reservations li.reservation {
+  border-top: 1px solid #DDD;
+  padding: 12px 0;
+  position: relative;
+}
+.page-workshops-backend-attend ul.past-reservations li.reservation .feedback {
+  position: absolute;
+  bottom: 21px;
+  right: 0;
+}
+.page-workshops-backend-organize .page-actions {
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+}
+.page-workshops-backend-organize ul.workshops {
+  margin: 0;
+  padding: 0;
+}
+.page-workshops-backend-organize ul.workshops li.workshop {
   border-bottom: 1px solid #DDD;
   list-style: none;
   margin-bottom: 25px;
   padding-bottom: 25px;
 }
-.page-workshops-organize ul.workshops li.workshop.last-workshop {
+.page-workshops-backend-organize ul.workshops li.workshop.last-workshop {
   border-bottom: none;
   margin-bottom: 0;
 }
-.page-workshops-organize ul.workshops li.workshop .cover {
+.page-workshops-backend-organize ul.workshops li.workshop .cover {
   border: 1px solid #DDDDDD;
   float: left;
   padding: 2px;
 }
-.page-workshops-organize ul.workshops li.workshop .right {
+.page-workshops-backend-organize ul.workshops li.workshop .right {
   margin-left: 280px;
 }
-.page-workshops-organize ul.workshops li.workshop .title a {
+.page-workshops-backend-organize ul.workshops li.workshop .title a {
   font-family: 'QuarkLight', sans-serif;
   font-size: 24px;
 }
-.page-workshops-organize ul.workshops li.workshop .title a:link,
-.page-workshops-organize ul.workshops li.workshop .title a:active,
-.page-workshops-organize ul.workshops li.workshop .title a:visited {
+.page-workshops-backend-organize ul.workshops li.workshop .title a:link,
+.page-workshops-backend-organize ul.workshops li.workshop .title a:active,
+.page-workshops-backend-organize ul.workshops li.workshop .title a:visited {
   color: #29ace4;
 }
-.page-workshops-organize ul.workshops li.workshop .title a:hover {
+.page-workshops-backend-organize ul.workshops li.workshop .title a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
-.page-workshops-organize ul.workshops li.workshop .subtitle {
+.page-workshops-backend-organize ul.workshops li.workshop .subtitle {
   margin-top: 5px;
 }
-.page-workshops-organize ul.workshops li.workshop .subtitle .subtitle-data {
+.page-workshops-backend-organize ul.workshops li.workshop .subtitle .subtitle-data {
   display: inline-block;
   margin-right: 17px;
 }
-.page-workshops-organize ul.workshops li.workshop .subtitle .caption {
+.page-workshops-backend-organize ul.workshops li.workshop .subtitle .caption {
   color: #777;
   font-size: 13px;
   margin-right: 2px;
 }
-.page-workshops-organize ul.workshops li.workshop .subtitle .value {
+.page-workshops-backend-organize ul.workshops li.workshop .subtitle .value {
   color: #555;
   font-weight: bold;
 }
-.page-workshops-organize ul.workshops li.workshop .subtitle .style-workshop-status {
+.page-workshops-backend-organize ul.workshops li.workshop .subtitle .style-workshop-status {
   margin-left: 2px;
 }
-.page-workshops-organize ul.workshops li.workshop .next {
+.page-workshops-backend-organize ul.workshops li.workshop .next {
   border: 1px dashed #CCC;
   padding: 10px 15px;
   color: #777;
   display: inline-block;
   margin-top: 20px;
 }
-.page-workshops-organize ul.workshops li.workshop .next .datetime {
+.page-workshops-backend-organize ul.workshops li.workshop .next .datetime {
   display: inline-block;
 }
-.page-workshops-organize ul.workshops li.workshop .next .datetime i {
+.page-workshops-backend-organize ul.workshops li.workshop .next .datetime i {
   color: #777;
   margin-right: 5px;
   vertical-align: 1px;
 }
-.page-workshops-organize ul.workshops li.workshop .next .datetime .date,
-.page-workshops-organize ul.workshops li.workshop .next .datetime .time {
+.page-workshops-backend-organize ul.workshops li.workshop .next .datetime .date,
+.page-workshops-backend-organize ul.workshops li.workshop .next .datetime .time {
   color: #555;
   font-weight: bold;
 }
-.page-workshops-organize ul.workshops li.workshop .next .participant {
+.page-workshops-backend-organize ul.workshops li.workshop .next .participant {
   display: inline-block;
   margin-left: 15px;
 }
-.page-workshops-organize ul.workshops li.workshop .next .participant em {
+.page-workshops-backend-organize ul.workshops li.workshop .next .participant em {
   color: #555;
   font-weight: bold;
 }
-.page-workshops-organize ul.workshops li.workshop .actions {
+.page-workshops-backend-organize ul.workshops li.workshop .actions {
   margin-top: 20px;
 }
-.page-workshops-organize ul.workshops li.workshop .actions a {
+.page-workshops-backend-organize ul.workshops li.workshop .actions a {
   font-size: 12px;
   margin-right: 7px;
   padding: 5px 15px;
 }
-.page-workshops-organize .first-workshop {
+.page-workshops-backend-organize .first-workshop {
   margin: 30px 0 70px;
   text-align: center;
 }
-.page-workshops-organize .first-workshop h1 {
+.page-workshops-backend-organize .first-workshop h1 {
   color: #444;
   font-family: 'QuarkLight', sans-serif;
   font-size: 38px;
   font-weight: normal;
   line-height: normal;
 }
-.page-workshops-organize .first-workshop form label {
+.page-workshops-backend-organize .first-workshop form label {
   color: #666;
   font-family: 'QuarkLight', sans-serif;
   font-size: 22px;
   font-weight: normal;
   line-height: normal;
 }
-.page-workshops-organize .first-workshop form input {
+.page-workshops-backend-organize .first-workshop form input {
   font-size: 16px;
   height: auto;
   margin: 0 auto;
@@ -3701,29 +3826,29 @@ body {
   text-align: center;
   width: 600px;
 }
-.page-workshops-organize .first-workshop form .errorlist {
+.page-workshops-backend-organize .first-workshop form .errorlist {
   margin: 5px 0 0;
   padding: 0;
 }
-.page-workshops-organize .first-workshop form .help-block {
+.page-workshops-backend-organize .first-workshop form .help-block {
   color: #888;
   font-size: 12px;
 }
-.page-workshops-organize .first-workshop form button {
+.page-workshops-backend-organize .first-workshop form button {
   font-family: 'QuarkLight', sans-serif;
   font-size: 22px;
   padding: 14px 70px 9px;
 }
-.page-workshops-organize .first-workshop .head1 {
+.page-workshops-backend-organize .first-workshop .head1 {
   color: #444;
   font-size: 24px;
 }
-.page-workshops-organize .first-workshop .head2 {
+.page-workshops-backend-organize .first-workshop .head2 {
   color: #555;
   font-size: 16px;
   margin-top: 12px;
 }
-.page-workshops-organize .first-workshop .call_to_action {
+.page-workshops-backend-organize .first-workshop .call_to_action {
   margin-top: 18px;
 }
 .page-workshop-modify .wait-for-approval {

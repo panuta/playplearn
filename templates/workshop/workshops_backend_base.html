@@ -1,0 +1,30 @@
+{% extends 'base_backend.html' %}
+{% load i18n thumbnail common_tags presentation_tags %}
+
+{% block head_title %}เวิร์คช็อป - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block body_class %}{{ block.super }} page-workshops-backend{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(function($){
+
+});
+</script>
+{% endblock %}
+
+{% block backend_header %}
+<div class="head">
+    <h1>เวิร์คช็อป</h1>
+</div>
+{% endblock %}
+
+{% block backend_tabs %}
+<div class="backend-tabs">
+    {% block workshop_backend_nav %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block backend_body %}
+{% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
+{% block workshop_backend_body %}{% endblock %}
+{% endblock %}

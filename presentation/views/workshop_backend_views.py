@@ -65,6 +65,28 @@ def view_my_workshops_upcoming(request):
 
 
 @login_required
+def view_my_workshops_attend(request):
+    rightnow = now()
+
+    upcoming_reservations = Reservation.objects.filter(
+        user=request.user,
+        status=Reservation.STATUS_CONFIRMED,
+        schedule__start_datetime__gt=rightnow,
+    ).order_by('schedule__start_datetime')
+
+    past_reservations = Reservation.objects.filter(
+        user=request.user,
+        status=Reservation.STATUS_CONFIRMED,
+        schedule__start_datetime__lte=rightnow,
+    ).order_by('-schedule__start_datetime')
+
+    return render(request, 'workshop/workshops_backend_attend.html', {
+        'upcoming_reservations': upcoming_reservations,
+        'past_reservations': past_reservations,
+    })
+
+
+@login_required
 def view_my_workshops_attended(request):
     return _view_my_workshops_attended(request)
 
@@ -126,7 +148,7 @@ def view_my_workshops_organize(request):
     else:
         form = CreateFirstWorkshop()
 
-    return render(request, 'workshop/organize/workshops_organize.html', {
+    return render(request, 'workshop/workshops_backend_organize.html', {
         'workshops': workshops,
         'form': form,
     })

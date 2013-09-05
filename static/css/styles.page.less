@@ -1231,7 +1231,151 @@
     }
 }
 
-.page-workshops-organize {
+.page-workshops-backend {
+
+}
+
+.page-workshops-backend-attend {
+    h2 {
+        color: #555;
+        font-family: 'QuarkLight', sans-serif;
+        font-size: 30px;
+        font-weight: normal;
+        line-height: normal;
+        margin: 0;
+    }
+
+    ul.reservations {
+        margin: 0;
+        padding: 0;
+
+        li.reservation {
+            list-style: none;
+
+            .title a {
+                .content_link;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 24px;
+            }
+
+            .details {
+                font-size: 15px;
+
+                .teacher, .schedule {
+                    color: #888;
+                    margin-right: 15px;
+                }
+
+                a, em {
+                    color: #555;
+                }
+            }
+        }
+    }
+
+    ul.upcoming-reservations {
+        li.reservation {
+            margin: 15px 0 30px;
+
+            .notification {
+                float: left;
+                margin: 6px 20px 0 0;
+            }
+
+            .countdown {
+                background-color: #29ace4;
+                color: #FFF;
+                display: block;
+                padding: 10px 0px 6px;
+                position: relative;
+                text-align: center;
+                width: 80px;
+
+                em {
+                    display: block;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 20px;
+                    line-height: normal;
+
+                    i {
+                        font-size: 24px;
+                        font-style: normal;
+                    }
+                }
+
+                &:after {
+                    border: solid transparent;
+                    border-color: rgba(41, 172, 228, 0);
+                    border-left-color: #29ace4;
+                    border-width: 10px;
+                    content: " ";
+                    height: 0;
+                    left: 100%;
+                    margin-top: -10px;
+                    pointer-events: none;
+                    position: absolute;
+                    top: 50%;
+                    width: 0;
+                }
+            }
+
+            .cover {
+                border: 1px solid #DDD;
+                float: left;
+                margin-left: 5px;
+                padding: 2px;
+            }
+
+            .content {
+                margin-left: 380px;
+
+                .details {
+                    margin-bottom: 15px;
+                }
+
+                .schedule, .place {
+                    color: #555;
+                    font-size: 15px;
+                    margin-top: 10px;
+
+                    i {
+                        color: @colorBlue;
+                        font-size: 16px;
+                        margin-right: 4px;
+                    }
+                }
+
+                .place i {
+                    margin-left: 3px;
+                }
+            }
+        }
+    }
+
+    ul.past-reservations {
+        margin-top: 10px;
+
+        li.reservation {
+            border-top: 1px solid #DDD;
+            padding: 12px 0;
+            position: relative;
+
+            .feedback {
+                position: absolute;
+                bottom: 21px;
+                right: 0;
+            }
+        }
+    }
+}
+
+.page-workshops-backend-organize {
+    .page-actions {
+        border-bottom: 1px solid #DDD;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+    }
+
     ul.workshops {
         margin: 0;
         padding: 0;

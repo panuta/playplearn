@@ -1,0 +1,4 @@
+<ul class="nav nav-tabs">
+    <li {% if tab_name == 'attend' %} class="active"{% endif %}><a href="{% url 'view_my_workshops_attend' %}">เข้าร่วมเวิร์คช็อป</a></li>
+    <li {% if tab_name == 'organize' %} class="active"{% endif %}><a href="{% url 'view_my_workshops_organize' %}">จัดเวิร์คช็อป</a></li>
+</ul>

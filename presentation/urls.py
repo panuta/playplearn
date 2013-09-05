@@ -39,11 +39,13 @@ urlpatterns += patterns(
 """
 
 urlpatterns += patterns(
-    'presentation.views.workshop_organize_views',
-    url(r'^my/activities/payment/$', 'view_my_workshops_payment', name='view_my_workshops_payment'),
-    url(r'^my/activities/upcoming/$', 'view_my_workshops_upcoming', name='view_my_workshops_upcoming'),
-    url(r'^my/activities/attended/$', 'view_my_workshops_attended', name='view_my_workshops_attended'),
-    url(r'^my/activities/attended/(?P<school_slug>\w+)/$', 'view_my_workshops_attended_in_school', name='view_my_workshops_attended_in_school'),
+    'presentation.views.workshop_backend_views',
+    #url(r'^my/activities/payment/$', 'view_my_workshops_payment', name='view_my_workshops_payment'),
+    #url(r'^my/activities/upcoming/$', 'view_my_workshops_upcoming', name='view_my_workshops_upcoming'),
+
+    url(r'^my/workshops/attend/$', 'view_my_workshops_attend', name='view_my_workshops_attend'),
+
+    #url(r'^my/activities/attended/(?P<school_slug>\w+)/$', 'view_my_workshops_attended_in_school', name='view_my_workshops_attended_in_school'),
     url(r'^my/workshops/organize/$', 'view_my_workshops_organize', name='view_my_workshops_organize'),
 
     url(r'^my/workshop/new/$', 'create_workshop', name='create_workshop'),
@@ -61,7 +63,7 @@ urlpatterns += patterns(
 )
 
 urlpatterns += patterns(
-    'presentation.views.workshop_organize_ajax_views',
+    'presentation.views.workshop_backend_ajax_views',
 
     url(r'^ajax/workshop/save/$', 'ajax_save_workshop', name='ajax_save_workshop'),
     url(r'^ajax/workshop/picture/upload/$', 'ajax_upload_workshop_picture', name='ajax_upload_workshop_picture'),

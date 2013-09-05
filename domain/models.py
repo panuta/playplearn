@@ -349,7 +349,7 @@ class Workshop(models.Model):
         return WORKSHOP_STATUS_MAP[str(self.status)]['name']
 
     def cover_picture(self):
-        pictures = self.pictures.filter(is_visible=True).order_by('ordering')
+        pictures = WorkshopPicture.objects.filter(workshop=self, is_visible=True).order_by('ordering')
         return pictures[0] if pictures else None
 
     # DATA

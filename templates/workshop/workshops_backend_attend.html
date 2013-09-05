@@ -1,0 +1,51 @@
+{% extends 'workshop/workshops_backend_base.html' %}
+{% load thumbnail common_tags %}
+
+{% block head_title %}เข้าร่วมเวิร์คช็อป - {{ settings.WEBSITE_NAME }}{% endblock %}
+{% block body_class %}{{ block.super }} page-workshops-backend-attend{% endblock %}
+{% block workshop_backend_nav %}{% include 'workshop/workshops_backend_base_nav.html' with tab_name='attend' %}{% endblock %}
+
+{% block workshop_backend_body %}
+    {% if upcoming_reservations or past_reservations %}
+    {% if upcoming_reservations %}
+    <h2>เวิร์คช็อปที่กำลังจะถึง</h2>
+    <ul class="reservations upcoming-reservations">
+        {% for reservation in upcoming_reservations %}
+            {% with workshop=reservation.schedule.workshop %}
+            <li class="reservation clearfix">
+                <div class="notification">
+                    <div class="countdown"><em><i>{{ reservation.schedule.start_datetime|daysuntil }}</i> วัน</em></div>
+                </div>
+                <div class="cover"><a href="{% url 'view_workshop_outline' workshop.uid %}"><img src="{{ workshop.cover_picture.image|thumbnail_url:'workshop_picture_smaller' }}" {% thumbnail_img_size 'workshop_picture_smaller' %} /></a></div>
+                <div class="content">
+                    <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+                    <div class="details">
+                        <span class="teacher">สอนโดย <a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></span>
+                    </div>
+                    <div class="schedule"><i class="icon-time"></i> <em>{{ reservation.schedule|schedule_datetime_duration }}</em></div>
+                    <div class="place"><i class="icon-map-marker"></i> สถานที่ <em>{{ workshop.place.name }}</em></div>
+                </div>
+            </li>
+            {% endwith %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if past_reservations %}
+    <h2>เวิร์คช็อปที่ผ่านมา</h2>
+    <ul class="reservations past-reservations">
+        {% for reservation in past_reservations %}
+            <li class="reservation">
+                <div class="title"><a href="{% url 'view_workshop_outline' reservation.schedule.workshop.uid %}">{{ reservation.schedule.workshop.title }}</a></div>
+                <div class="details">
+                    <span class="teacher">สอนโดย <a href="{% url 'view_user_profile' reservation.schedule.workshop.teacher.uid %}">{{ reservation.schedule.workshop.teacher.name }}</a></span>
+                    <span class="schedule">เมื่อวันที่ <em>{{ reservation.schedule|schedule_datetime }}</em></span>
+                </div>
+                <div class="feedback"><a href="#" class="style-button"><i class="icon-pencil"></i> เขียนคำนิยม</a></div><!-- TODO -->
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% else %}
+        <div class="style-no-information">ยังไม่เคยเข้าร่วมเวิร์คช็อป</div>
+    {% endif %}
+{% endblock %}
