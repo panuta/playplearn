@@ -2625,9 +2625,11 @@ body {
 }
 .page-homepage .headline {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
-  padding: 45px 0 35px;
   overflow: hidden;
   text-align: center;
+}
+.page-homepage .headline .logo {
+  margin-top: 45px;
 }
 .page-homepage .headline .text {
   color: #EEE;
@@ -2635,6 +2637,7 @@ body {
   font-size: 40px;
   font-weight: normal;
   margin-top: 20px;
+  margin-bottom: 35px;
 }
 .page-homepage .homepage-header {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
