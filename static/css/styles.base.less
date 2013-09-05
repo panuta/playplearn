@@ -100,12 +100,24 @@ select:focus:invalid:focus {
     }
 }
 
+.dropdown-menu {
+    margin-top: 10px;
+}
+
+.dropdown-menu > li > a {
+    color: @colorNavy;
+    font-size: 14px;
+    padding: 8px 45px 8px 25px;
+}
+
+
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
 .dropdown-submenu:hover > a,
 .dropdown-submenu:focus > a {
-    background-color: @linkColor;
+    background-color: @colorYellow;
     background-image: none;
+    color: #333;
 }
 
 .form-actions {

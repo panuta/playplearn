@@ -85,12 +85,21 @@ select:focus:invalid:focus {
 .dropdown-menu li.divider {
   margin: 7px 1px;
 }
+.dropdown-menu {
+  margin-top: 10px;
+}
+.dropdown-menu > li > a {
+  color: #4b5c66;
+  font-size: 14px;
+  padding: 8px 45px 8px 25px;
+}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
 .dropdown-submenu:hover > a,
 .dropdown-submenu:focus > a {
-  background-color: #29ace4;
+  background-color: #f9e25c;
   background-image: none;
+  color: #333;
 }
 .form-actions {
   background-color: transparent;
@@ -1546,8 +1555,15 @@ body {
   text-decoration: none;
 }
 #body-top .top-right .user .menu i.icon-reorder {
+  border: 1px solid #BBB;
   color: #4b5c66;
-  font-size: 22px;
+  font-size: 24px;
+  padding: 4px 6px 3px 8px;
+}
+#body-top .top-right .user .menu .open i.icon-reorder {
+  background-color: #4b5c66;
+  border: 1px solid #4b5c66;
+  color: #FFF;
 }
 #body-header {
   background-color: #FFF;
