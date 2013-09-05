@@ -2626,6 +2626,7 @@ body {
 .page-homepage .headline {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
   padding: 45px 0 35px;
+  overflow: hidden;
   text-align: center;
 }
 .page-homepage .headline .text {
