@@ -2623,7 +2623,20 @@ body {
   background-color: #FFF;
   margin: 30px auto 0;
 }
+.page-homepage .headline {
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  padding: 45px 0 35px;
+  text-align: center;
+}
+.page-homepage .headline .text {
+  color: #EEE;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 40px;
+  font-weight: normal;
+  margin-top: 20px;
+}
 .page-homepage .homepage-header {
+  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
   text-align: center;
 }
 .page-homepage .homepage-header .logo {
