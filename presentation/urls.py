@@ -3,7 +3,9 @@ from django.conf.urls import patterns, url
 urlpatterns = patterns(
     'presentation.views.views',
     url(r'^$', 'view_homepage', name='view_homepage'),
+    url(r'^about_us/$', 'view_about_us_page', name='view_about_us_page'),
     url(r'^faq/$', 'view_faq_page', name='view_faq_page'),
+    url(r'^policy/$', 'view_policy_page', name='view_policy_page'),
 
     url(r'^place/id/(?P<place_id>\d+)/$', 'view_place_info_by_id', name='view_place_info_by_id'),
     url(r'^place/(?P<place_code>\w+)/$', 'view_place_info_by_code', name='view_place_info_by_code'),

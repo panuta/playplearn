@@ -1508,15 +1508,15 @@ body {
 #body-footer .logo {
   margin-bottom: 5px;
 }
-#body-footer .links {
-  font-size: 13px;
+#body-footer .links a {
+  font-size: 14px;
 }
-#body-footer .links:link,
-#body-footer .links:active,
-#body-footer .links:visited {
+#body-footer .links a:link,
+#body-footer .links a:active,
+#body-footer .links a:visited {
   color: #29ace4;
 }
-#body-footer .links:hover {
+#body-footer .links a:hover {
   text-decoration: underline;
   text-shadow: none;
 }
@@ -1524,34 +1524,33 @@ body {
   color: #DDD;
   margin: 0 6px;
 }
-#body-footer .copyright {
-  color: #888;
-  font-size: 12px;
-  margin-top: 5px;
+#body-footer .socials {
+  margin-top: 15px;
 }
-#body-footer .contact .head {
-  color: #777;
-  font-size: 13px;
-  margin-bottom: 7px;
-}
-#body-footer .contact ul {
-  margin: 0;
-  padding: 0;
-}
-#body-footer .contact ul li {
-  list-style: none;
-  margin-bottom: 10px;
-}
-#body-footer .contact ul li i {
-  color: #888;
+#body-footer .socials .facebook {
+  background: url('../images/ui/social-icons.png') 0 0;
   display: inline-block;
-  text-align: center;
-  width: 20px;
+  height: 32px;
+  margin-right: 8px;
+  text-indent: -9999px;
+  vertical-align: middle;
+  width: 32px;
 }
-#body-footer .contact ul li a {
-  color: #444;
-  font-size: 13px;
-  font-weight: bold;
+#body-footer .socials .twitter {
+  background: url('../images/ui/social-icons.png') -32px 0;
+  display: inline-block;
+  height: 32px;
+  margin-right: 8px;
+  text-indent: -9999px;
+  vertical-align: middle;
+  width: 32px;
+}
+#body-footer .socials .email {
+  color: #888;
+  vertical-align: middle;
+}
+#body-footer .socials .email a {
+  color: #555;
 }
 #body-footer .subscribe .head {
   color: #777;
@@ -1559,17 +1558,14 @@ body {
   margin-bottom: 7px;
 }
 #body-footer .subscribe .box {
-  background-color: #29ace4;
+  border: 1px solid #DDD;
   border-radius: 4px;
   padding: 15px;
 }
 #body-footer .subscribe .offer {
-  color: #FFF;
+  color: #555;
   font-size: 13px;
   margin-bottom: 10px;
-}
-#body-footer .subscribe input {
-  border: none;
 }
 .page-backend #backend-container {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;

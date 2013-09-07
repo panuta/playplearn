@@ -148,8 +148,10 @@ html, body {
     }
 
     .links {
-        .content_link;
-        font-size: 13px;
+        a {
+            .content_link;
+            font-size: 14px;
+        }
 
         .separator {
             color: #DDD;
@@ -157,39 +159,35 @@ html, body {
         }
     }
 
-    .copyright {
-        color: #888;
-        font-size: 12px;
-        margin-top: 5px;
-    }
+    .socials {
+        margin-top: 15px;
 
-    .contact {
-        .head {
-            color: #777;
-            font-size: 13px;
-            margin-bottom: 7px;
+        .facebook {
+            background: url('../images/ui/social-icons.png') 0 0;
+            display: inline-block;
+            height: 32px;
+            margin-right: 8px;
+            text-indent: -9999px;
+            vertical-align: middle;
+            width: 32px;
         }
 
-        ul {
-            margin: 0;
-            padding: 0;
+        .twitter {
+            background: url('../images/ui/social-icons.png') -32px 0;
+            display: inline-block;
+            height: 32px;
+            margin-right: 8px;
+            text-indent: -9999px;
+            vertical-align: middle;
+            width: 32px;
+        }
 
-            li {
-                list-style: none;
-                margin-bottom: 10px;
+        .email {
+            color: #888;
+            vertical-align: middle;
 
-                i {
-                    color: #888;
-                    display: inline-block;
-                    text-align: center;
-                    width: 20px;
-                }
-
-                a {
-                    color: #444;
-                    font-size: 13px;
-                    font-weight: bold;
-                }
+            a {
+                color: #555;
             }
         }
     }
@@ -202,19 +200,15 @@ html, body {
         }
 
         .box {
-            background-color: @colorBlue;
+            border: 1px solid #DDD;
             border-radius: 4px;
             padding: 15px;
         }
 
         .offer {
-            color: #FFF;
+            color: #555;
             font-size: 13px;
             margin-bottom: 10px;
-        }
-
-        input {
-            border: none;
         }
     }
 }

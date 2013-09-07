@@ -167,39 +167,33 @@
 <div id="body-footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-7">
                 <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a></div>
+
                 <div class="links">
-                    <a href="#">About us</a>
+                    <a href="{% url 'view_about_us_page' %}">About us</a>
                     <span class="separator">|</span>
-                    <a href="#">Blog</a>
+                    <a href="http://www.tumblr.com/">Blog</a>
                     <span class="separator">|</span>
-                    <a href="#">FAQ</a>
+                    <a href="{% url 'view_about_us_page' %}">FAQ</a>
                     <span class="separator">|</span>
-                    <a href="#">Privacy & Terms of service</a>
+                    <a href="{% url 'view_policy_page' %}">Privacy & Terms of service</a>
                 </div>
-                <div class="copyright">© 2013</div>
-            </div>
-            <div class="col-lg-3">
-                <div class="contact">
-                    <div class="head">Contact us</div>
-                    <ul>
-                        <li><i class="icon-envelope"></i> <a href="mailto:panuta@gmail.com">panuta@gmail.com</a></li>
-                        <li><i class="icon-facebook"></i> <a href="#">PlayPlearn</a></li>
-                        <li><i class="icon-twitter"></i> <a href="#">PlayPlearn</a></li>
-                    </ul>
+                <div class="socials">
+                    <a href="#" class="facebook">Facebook</a>
+                    <a href="#" class="twitter">Twitter</a>
+                    <span class="email">Support: <a href="#">panuta@gmail.com</a></span>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <div class="subscribe">
-                    <div class="head">Email Subscription</div>
                     <div class="box">
-                        <div class="offer">Subscribe to get our workshop updates and special promotions</div>
+                        <div class="offer"><i class="icon-envelope"></i> สมัครรับข่าวสารทางอีเมล</div>
                         <form action="" method="post">
                             <div class="form-group">
                                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                             </div>
-                            <button type="submit" class="style-white-button">Submit</button>
+                            <button type="submit" class="style-button">Submit</button>
                         </form>
                     </div>
                 </div>

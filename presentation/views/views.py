@@ -26,5 +26,13 @@ def _view_place_info(request, place):
     return render(request, 'page/place_info.html', {'place': place})
 
 
+def view_policy_page(request):
+    return render(request, 'page/policy.html')
+
+
+def view_about_us_page(request):
+    return render(request, 'page/about_us.html')
+
+
 def view_faq_page(request):
     return render(request, 'page/faq.html')
