@@ -108,8 +108,6 @@
 .page-homepage {
     .headline {
         background: @headerBackground;
-        //padding: 45px 0 35px;
-        overflow: hidden;
         text-align: center;
 
         .logo {
@@ -123,23 +121,6 @@
             font-weight: normal;
             margin-top: 20px;
             margin-bottom: 35px;
-        }
-    }
-
-    .homepage-header {
-        background: @headerBackground;
-        text-align: center;
-
-        .logo {
-            margin-top: 55px;
-        }
-
-        .headline {
-            color: #8696a0;
-            font-family: 'QuarkLight', sans-serif;
-            font-size: 40px;
-            font-weight: normal;
-            margin-top: 15px;
         }
     }
 
@@ -178,12 +159,134 @@
         }
 
         li.workshop {
+            .workshop-cover {
+                border: 1px solid #DDD;
+                float: left;
+                padding: 3px;
+            }
 
+            .right {
+                margin-left: 380px;
+            }
+
+            .title a {
+                color: @colorBlue;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 30px;
+                line-height: 45px;
+            }
+
+            .summary {
+                color: #666;
+                font-size: 15px;
+                line-height: 26px;
+            }
+
+            .details {
+                margin: 15px 0 0;
+
+                .teacher {
+                    display: inline-block;
+
+                    .avatar {
+                        display: inline-block;
+                        margin-right: 7px;
+                        vertical-align: middle;
+
+                        img {
+                            border-radius: 50px;
+                        }
+                    }
+
+                    .name {
+                        display: inline-block;
+                        vertical-align: middle;
+
+                        a {
+                            color: @colorNavy;
+                            font-family: 'QuarkLight', sans-serif;
+                            font-size: 19px;
+                            font-size: 24px;
+                        }
+                    }
+                }
+
+                .stats {
+                    display: inline-block;
+                    margin-left: 20px;
+
+                    span.item {
+                        color: #666;
+                        border: 1px solid #DDD;
+                        display: inline-block;
+                        margin-right: 15px;
+                        padding: 3px 10px;
+
+                        i {
+                            color: #777;
+                            margin-right: 2px;
+                        }
+
+                        em {
+                            font-weight: bold;
+                        }
+                    }
+
+                    .feedback {
+                        i.available {
+                            color: #f4605d;
+                        }
+                    }
+
+                    .schedule {
+                        i.available {
+                            color: @colorPositive;
+                        }
+                    }
+                }
+            }
+
+            .next {
+                border-top: 1px dashed #DDD;
+                padding-top: 15px;
+                margin-top: 20px;
+
+                .icon-stack {
+                    vertical-align: middle;
+
+                    i.icon-sign-blank {
+                        color: @colorPositive;
+                    }
+                }
+
+                .schedule {
+                    color: #666;
+                    font-size: 15px;
+                    margin-left: 3px;
+                    vertical-align: middle;
+
+                    .date, .time {
+                        color: #444;
+                        font-weight: bold;
+                    }
+                }
+
+                .available {
+                    color: #666;
+                    font-size: 13px;
+                    margin-left: 20px;
+                    vertical-align: middle;
+
+                    i {
+                        color: #888;
+                    }
+                }
+            }
         }
     }
 
     .homepage-teach {
-        background-color: #e2ecf6;
+        border-top: 1px solid #DDD;
         margin: 20px auto 50px;
         padding: 40px 0;
         text-align: center;

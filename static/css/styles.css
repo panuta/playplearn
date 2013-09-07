@@ -1094,100 +1094,6 @@ h1.style-page-header {
   vertical-align: top;
   width: 319px;
 }
-.style-workshop-row .workshop-cover {
-  border: 1px solid #DDD;
-  float: left;
-  padding: 3px;
-}
-.style-workshop-row .right {
-  margin-left: 380px;
-}
-.style-workshop-row .title a {
-  color: #29ace4;
-  font-family: 'QuarkLight', sans-serif;
-  font-size: 30px;
-  line-height: 45px;
-}
-.style-workshop-row .summary {
-  color: #666;
-  font-size: 15px;
-  line-height: 26px;
-}
-.style-workshop-row .details {
-  margin: 15px 0 0;
-}
-.style-workshop-row .details .teacher {
-  display: inline-block;
-}
-.style-workshop-row .details .teacher .avatar {
-  display: inline-block;
-  margin-right: 7px;
-  vertical-align: middle;
-}
-.style-workshop-row .details .teacher .avatar img {
-  border-radius: 50px;
-}
-.style-workshop-row .details .teacher .name {
-  display: inline-block;
-  vertical-align: middle;
-}
-.style-workshop-row .details .teacher .name a {
-  color: #4b5c66;
-  font-family: 'QuarkLight', sans-serif;
-  font-size: 19px;
-  font-size: 24px;
-}
-.style-workshop-row .details .stats {
-  display: inline-block;
-  margin-left: 20px;
-}
-.style-workshop-row .details .stats span.item {
-  color: #666;
-  border: 1px solid #DDD;
-  display: inline-block;
-  margin-right: 15px;
-  padding: 3px 10px;
-}
-.style-workshop-row .details .stats span.item i {
-  color: #777;
-  margin-right: 2px;
-}
-.style-workshop-row .details .stats span.item em {
-  font-weight: bold;
-}
-.style-workshop-row .details .stats .feedback i.available {
-  color: #f4605d;
-}
-.style-workshop-row .details .stats .schedule i.available {
-  color: #00ac71;
-}
-.style-workshop-row .next {
-  border: 1px dashed #CCC;
-  margin-top: 20px;
-  padding: 14px 18px;
-}
-.style-workshop-row .next .button-enroll {
-  float: right;
-  margin: 6px 5px 0 0;
-}
-.style-workshop-row .next .schedule {
-  color: #666;
-  font-size: 15px;
-}
-.style-workshop-row .next .schedule i {
-  color: #C30;
-  margin-right: 4px;
-}
-.style-workshop-row .next .schedule .date,
-.style-workshop-row .next .schedule .time {
-  color: #444;
-  font-weight: bold;
-}
-.style-workshop-row .next .available {
-  color: #666;
-  font-size: 13px;
-  margin: 7px 0 0 23px;
-}
 .style-workshop-status {
   display: inline-block;
 }
@@ -2650,7 +2556,6 @@ body {
 }
 .page-homepage .headline {
   background: url('../images/ui/100-95-3.png') repeat #4b5c66;
-  overflow: hidden;
   text-align: center;
 }
 .page-homepage .headline .logo {
@@ -2663,20 +2568,6 @@ body {
   font-weight: normal;
   margin-top: 20px;
   margin-bottom: 35px;
-}
-.page-homepage .homepage-header {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
-  text-align: center;
-}
-.page-homepage .homepage-header .logo {
-  margin-top: 55px;
-}
-.page-homepage .homepage-header .headline {
-  color: #8696a0;
-  font-family: 'QuarkLight', sans-serif;
-  font-size: 40px;
-  font-weight: normal;
-  margin-top: 15px;
 }
 .page-homepage .upcoming-workshops .head {
   line-height: 12px;
@@ -2706,8 +2597,106 @@ body {
   list-style: none;
   margin-bottom: 40px;
 }
+.page-homepage .upcoming-workshops li.workshop .workshop-cover {
+  border: 1px solid #DDD;
+  float: left;
+  padding: 3px;
+}
+.page-homepage .upcoming-workshops li.workshop .right {
+  margin-left: 380px;
+}
+.page-homepage .upcoming-workshops li.workshop .title a {
+  color: #29ace4;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 30px;
+  line-height: 45px;
+}
+.page-homepage .upcoming-workshops li.workshop .summary {
+  color: #666;
+  font-size: 15px;
+  line-height: 26px;
+}
+.page-homepage .upcoming-workshops li.workshop .details {
+  margin: 15px 0 0;
+}
+.page-homepage .upcoming-workshops li.workshop .details .teacher {
+  display: inline-block;
+}
+.page-homepage .upcoming-workshops li.workshop .details .teacher .avatar {
+  display: inline-block;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.workshop .details .teacher .avatar img {
+  border-radius: 50px;
+}
+.page-homepage .upcoming-workshops li.workshop .details .teacher .name {
+  display: inline-block;
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.workshop .details .teacher .name a {
+  color: #4b5c66;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 19px;
+  font-size: 24px;
+}
+.page-homepage .upcoming-workshops li.workshop .details .stats {
+  display: inline-block;
+  margin-left: 20px;
+}
+.page-homepage .upcoming-workshops li.workshop .details .stats span.item {
+  color: #666;
+  border: 1px solid #DDD;
+  display: inline-block;
+  margin-right: 15px;
+  padding: 3px 10px;
+}
+.page-homepage .upcoming-workshops li.workshop .details .stats span.item i {
+  color: #777;
+  margin-right: 2px;
+}
+.page-homepage .upcoming-workshops li.workshop .details .stats span.item em {
+  font-weight: bold;
+}
+.page-homepage .upcoming-workshops li.workshop .details .stats .feedback i.available {
+  color: #f4605d;
+}
+.page-homepage .upcoming-workshops li.workshop .details .stats .schedule i.available {
+  color: #00ac71;
+}
+.page-homepage .upcoming-workshops li.workshop .next {
+  border-top: 1px dashed #DDD;
+  padding-top: 15px;
+  margin-top: 20px;
+}
+.page-homepage .upcoming-workshops li.workshop .next .icon-stack {
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.workshop .next .icon-stack i.icon-sign-blank {
+  color: #00ac71;
+}
+.page-homepage .upcoming-workshops li.workshop .next .schedule {
+  color: #666;
+  font-size: 15px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.workshop .next .schedule .date,
+.page-homepage .upcoming-workshops li.workshop .next .schedule .time {
+  color: #444;
+  font-weight: bold;
+}
+.page-homepage .upcoming-workshops li.workshop .next .available {
+  color: #666;
+  font-size: 13px;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+.page-homepage .upcoming-workshops li.workshop .next .available i {
+  color: #888;
+}
 .page-homepage .homepage-teach {
-  background-color: #e2ecf6;
+  border-top: 1px solid #DDD;
   margin: 20px auto 50px;
   padding: 40px 0;
   text-align: center;

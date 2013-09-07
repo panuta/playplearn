@@ -7,11 +7,7 @@
 {% block scripts %}
 <script>
 (function() {
-    $('.royalSlider').royalSlider({
-        controlsInside: true,
-        controlNavigation: 'none',
-        imageScaleMode: 'fill'
-    });
+
 })();
 </script>
 {% endblock %}
@@ -41,21 +37,19 @@
                                 <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
                             </div>
                             <div class="stats">
-                                <span class="item feedback"><i class="icon-heart available"></i> <em>7</em></span>
-                                <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
+                                <span class="item feedback"><i class="icon-heart{% if workshop.stats_feedbacks %} available{% endif %}"></i> <em>{{ workshop.stats_feedbacks }}</em></span>
+                                <span class="item schedule"><i class="icon-calendar{% if workshop.stats_upcoming_schedules %} available{% endif %}"></i> จัดอีก {{ workshop.stats_upcoming_schedules }} รอบ</span>
                             </div>
-                        </div>
-
-                        <!--
-                        <div class="convincing">
-                            <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ workshop.stats_upcoming_schedules }}</em> รอบ</span>
-                            {% if workshop.stats_feedbacks %}<span class="feedbacks"><i class="icon-heart"></i> ได้รับ <em>{{ workshop.stats_feedbacks }}</em> คำนิยม</span>{% endif %}
                         </div>
                         <div class="next">
                             {% get_available_upcoming_schedule workshop as upcoming_schedule %}
-                            <div class="schedule"><i class="icon-bullhorn"></i> คลาสถัดไป {{ upcoming_schedule|schedule_datetime }}</div>
-                            <div class="available">เหลือที่นั่งว่างอีก {{ upcoming_schedule.seats_left }} ที่นั่ง</div>
-                        </div>-->
+                            <span class="icon-stack">
+                                <i class="icon-sign-blank icon-stack-base"></i>
+                                <i class="icon-calendar icon-light"></i>
+                            </span>
+                            <span class="schedule">รอบถัดไป {{ upcoming_schedule|schedule_datetime }}</span>
+                            <span class="available"><i class="icon-user"></i> เหลือที่นั่งว่างอีก {{ upcoming_schedule.seats_left }} ที่นั่ง</span>
+                        </div>
                     </div>
                 </li>
             {% endfor %}
@@ -68,9 +62,8 @@
         <div class="head1">หากคุณมีความหลงไหลในบางสิ่ง อยากถ่ายทอดให้คนอื่นได้ร่วมสนุกไปกับคุณบ้าง</div>
         <div class="head2">เราช่วยจัดการเรื่องปวดหัว ให้คุณเริ่มต้นจัดเวิร์คช็อปได้อย่างสบายใจ</div>
         <div class="action">
-            <a href="#" class="style-primary-button button-start-workshop">เริ่มจัดเวิร์คช็อป</a>
+            <a href="{% url 'create_workshop' %}" class="style-primary-button button-start-workshop">เริ่มจัดเวิร์คช็อป</a>
         </div>
     </div>
 </div>
-
 {% endblock %}
