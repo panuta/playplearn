@@ -7,28 +7,98 @@
 {% block body %}
 <div class="profile-header">
     <div class="container">
+        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user5.jpg" width="140" height="140" /></div>
+        <div class="right">
+            <div class="name">ภาณุ ตั้งเฉลิมกุล</div>
+            <div class="aboutme">ช่างภาพมือฉมัง</div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="stats clearfix">
+        <ul>
+            <li>เปิดสอน <em>10</em> เวิร์คช็อป</li>
+            <li>ได้รับคำนิยม <em>10</em> ข้อความ</li>
+            <li>เข้าร่วม <em>10</em> เวิร์คช็อป</li>
+            <li>เขียนคำนิยม <em>10</em> ข้อความ</li>
+        </ul>
+    </div>
+    <div class="profile-organizing">
+        <h2>จัดเวิร์คช็อป</h2>
+        <ul class="workshops">
+            <li class="workshop clearfix">
+                <div class="cover"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="250" height="150"></div>
+                <div class="right">
+                    <div class="title"><a href="#">สตูดิโอซูเอี๋ยเทรลเลอร์สามช่าเพลซภคันทลาพาธ</a></div>
+                    <div class="meta">
+                        <span class="item feedback"><i class="icon-heart"></i> <em>7</em></span>
+                        <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
+                    </div>
+                    <div class="description">เหมยเรซินวิทย์แอพพริคอทเพียบแปร้ มลภาวะ คลาสสิกวิทย์เซี้ยว อิเหนาโก๊ะโก๊ะโมเต็ลซีรีส์เทรนด์ โลชั่นมาร์คชัวร์ พอเพียง หงวนซีนีเพล็กซ์ ไหร่อัตลักษณ์มวลชน เมาท์เชอร์รี่ทริปต่อยอดเฟอร์รี่จตุคาม มอคค่าเหมยแชมปิยอง</div>
+                </div>
+            </li>
+            <li class="workshop clearfix">
+                <div class="cover"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="250" height="150"></div>
+                <div class="right">
+                    <div class="title"><a href="#">สตูดิโอซูเอี๋ยเทรลเลอร์สามช่าเพลซภคันทลาพาธ</a></div>
+                    <div class="meta">
+                        <span class="item feedback"><i class="icon-heart"></i> <em>7</em></span>
+                        <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
+                    </div>
+                    <div class="description">เหมยเรซินวิทย์แอพพริคอทเพียบแปร้ มลภาวะ คลาสสิกวิทย์เซี้ยว อิเหนาโก๊ะโก๊ะโมเต็ลซีรีส์เทรนด์ โลชั่นมาร์คชัวร์ พอเพียง หงวนซีนีเพล็กซ์ ไหร่อัตลักษณ์มวลชน เมาท์เชอร์รี่ทริปต่อยอดเฟอร์รี่จตุคาม มอคค่าเหมยแชมปิยอง</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="profile-feedbacks">
+        <h2>คำนิยม</h2>
+        <ul class="feedbacks">
+            <li class="feedback">
+                <div class="cover"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="250" height="150"></div>
+                <div class="right">
+                    <div class="title"><a href="#">สตูดิโอซูเอี๋ยเทรลเลอร์สามช่าเพลซภคันทลาพาธ</a></div>
+                    <div class="feedback-box">
+
+                        <div class="content">
+                            <p>ฮิปฮอปโฟน สเกตช์มิลค์ฮาราคีรี เนิร์สเซอรี่ยูวี ออยล์ มินต์ม้ง โปรดิวเซอร์โซลาร์ติงต๊องเปียโนไดเอ็ตลีเมอร์ แลนด์จิตพิสัยไฟลต์พ่อค้าซีเรียส เวสต์หลวงปู่ดัมพ์แพนงเชิญบรา เคลมเช็งเม้งแซมบ้า แซมบ้าทำงานแคมเปญอัลไซเมอร์ สเปกเพลซ แลนด์เอ๊าะโฟนโอ้ยชาร์ตเพลย์บอย แรงใจน็อก มินท์พาสเจอร์ไรส์แชมปิยองพาเหรดซินโดรมแฟนตาซี อิเหนา หมิงเบอร์รีคอร์รัปชั่นอุปทานเป่ายิ้งฉุบ</p>
+                        </div>
+
+                        <div class="feelings"><i class="icon-smile"></i> <em>ตื่นเต้น</em>, <em>เฮฮา</em></div>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+{% comment %}
+<div class="profile-header">
+    <div class="container">
         <div class="row">
-            <div class="span9">
+            <div class="col-lg-9">
                 <div class="profile-header-box">
                     <div class="box-header clearfix">
                         <div class="avatar"><img src="{{ context_user.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></div>
                         <div class="right">
-                            {% comment %}<div class="follow"><a href="#" class="style-orange-button">Follow</a></div>{% endcomment %}
                             <div class="name">{{ context_user.name }}</div>
                             <div class="headline">{{ context_user.headline }}</div>
                         </div>
                     </div>
                     <div class="stats clearfix">
                         <ul>
-                            <li><div class="title">Teaching</div><div class="number"><em>{{ context_user.stats_courses_teaching }}</em> workshop{{ context_user.stats_courses_teaching|pluralize }}</div></li>
-                            <li><div class="title">Feedback received</div><div class="number"><em>{{ context_user.stats_feedbacks_received }}</em> feedback{{ context_user.stats_feedbacks_received|pluralize }}</div></li>
-                            <li><div class="title">Attended</div><div class="number"><em>{{ context_user.stats_courses_attended }}</em> workshop{{ context_user.stats_courses_attended|pluralize }}</div></li>
-                            <li class="last"><div class="title">Feedback given</div><div class="number"><em>{{ context_user.stats_feedbacks_given }}</em> feedback{{ context_user.stats_feedbacks_given|pluralize }}</div></li>
+                            <li><div class="title">Teaching</div><div class="number"><em>1</em> workshop</div></li>
+                            <li><div class="title">Feedback received</div><div class="number"><em>2</em> feedback</div></li>
+                            <li><div class="title">Attended</div><div class="number"><em>3</em> workshop</div></li>
+                            <li class="last"><div class="title">Feedback given</div><div class="number"><em>4</em> feedback</div></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="span3">
+            <div class="col-lg-3">
                 <div class="reputations">
                     <div class="head">Reputations & Trustworthiness</div>
                     <ul>
@@ -107,5 +177,5 @@
             <div class="style-no-information">No workshop activities</div>
         {% endif %}
     </div>
-</div>
+</div>{% endcomment %}
 {% endblock %}

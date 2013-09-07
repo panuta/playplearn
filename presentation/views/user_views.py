@@ -27,16 +27,16 @@ def view_user_profile(request, user_uid):
 def _view_user_profile(request, user):
     rightnow = now()
 
-    teaching_workshops = Workshop.objects.filter(teacher=user, status='PUBLISHED').order_by('-first_published')
+    organizing_workshops = Workshop.objects.filter(teacher=user, status=Workshop.STATUS_PUBLISHED).order_by('-first_published')
 
-    attending_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__gt=rightnow)
-    attended_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__lte=rightnow)
+    #attending_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__gt=rightnow)
+    #attended_workshops = CourseEnrollment.objects.filter(student=user, is_public=True, status='CONFIRMED', schedule__start_datetime__lte=rightnow)
 
     return render(request, 'user/profile.html', {
         'context_user': user,
-        'teaching_workshops': teaching_workshops,
-        'attending_workshops': attending_workshops,
-        'attended_workshops': attended_workshops,
+        'organizing_workshops': organizing_workshops,
+        #'attending_workshops': attending_workshops,
+        #'attended_workshops': attended_workshops,
     })
 
 

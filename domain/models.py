@@ -141,6 +141,11 @@ class UserAccount(AbstractBaseUser):
 
     # STATS
 
+
+
+
+
+
     def stats_waiting_for_payment_courses(self):
         return CourseEnrollment.objects.filter(
             student=self, status='PENDING', payment_status='WAIT_FOR_PAYMENT'
@@ -175,7 +180,7 @@ class UserAccount(AbstractBaseUser):
             schedules__start_datetime__lte=rightnow,
             schedules__enrollments__status='CONFIRMED',
             schedules__enrollments__student=self,
-            ).count()
+        ).count()
 
     def stats_courses_attended_and_attending(self):
         # TODO distinct
