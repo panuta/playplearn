@@ -32,5 +32,5 @@ jQuery(function($){
 
 {% block backend_body %}
     {% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
-    <div class="manage-workshop-content">{% block manage_workshop_body %}{% endblock %}</div><!-- TODO Is manage-workshop-content necessary?? -->
+    {% block manage_workshop_body %}{% endblock %}
 {% endblock %}

@@ -2,61 +2,47 @@
 
 {% block settings_nav %}{% include 'user/settings/settings_base_nav.html' with tab_name='profile' %}{% endblock %}
 
-{% block settings_content %}
-<h2>Profile settings</h2>
-
-<form method="post" action="." class="form-horizontal style-form" enctype="multipart/form-data">
+{% block settings_body %}
+<form role="form" method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
-
-    <div class="control-group avatar-control clearfix">
-        <label class="control-label" for="id_name">Profile picture</label>
-        <div class="controls">
-            <img src="{{ user.small_avatar_url }}" class="avatar" {% if not user.avatar %}title="No picture"{% endif %}/>
-            <div class="tools">
-                <div class="upload-tool">
-                    {{ form.avatar }}
-                    <p class="help-block">Maximum file size is 1MB. Accept only JPG, GIF, and PNG.</p>
-                </div>
-                {% if user.avatar %}
-                    <button class="btn btn-mini remove-avatar" type="submit" name="submit" value="remove-avatar">Remove picture</button>
-                {% endif %}
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="form-group name-control">
+                <label for="id_name">ชื่อผู้ใช้</label>
+                {{ form.name }}{{ form.name.errors }}
             </div>
-            {{ form.avatar.errors }}
+            <div class="form-group about_me-control">
+                <label for="id_about_me">อะไรคือตัวคุณ</label>
+                {{ form.about_me }}{{ form.about_me.errors }}
+                <div class="help-block">ความสามารถเฉพาะ ความสนใจ อาชีพการงาน หรือสิ่งที่คุณหลงไหล</div>
+            </div>
+            <div class="form-group phone-control">
+                <label for="id_name">เบอร์ติดต่อ</label>
+                {{ form.phone_number }}{{ form.phone_number.errors }}
+                <div class="help-block">ใช้สำหรับการติดต่อระหว่างคนที่เข้าร่วมเวิร์คช็อปเท่านั้น</div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="form-group avatar-control clearfix">
+                <label for="id_avatar">รูปผู้ใช้</label>
+                <div class="control">
+                    <img src="{{ user.normal_avatar_url }}" class="avatar" {% if not user.avatar %}title="No picture"{% endif %}/>
+                    <div class="tools">
+                        <div class="upload-tool">
+                            {{ form.avatar }}
+                            <p class="help-block">ขนาดรูปอย่างต่ำ 140x140 พิกเซล ขนาดไม่เกิน 1 เมกกะไบต์</p>
+                        </div>
+                        {% if user.avatar %}
+                            <button class="btn btn-mini remove-avatar" type="submit" name="submit" value="remove-avatar">Remove picture</button>
+                        {% endif %}
+                    </div>
+                    {{ form.avatar.errors }}
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="control-group name-control">
-        <label class="control-label" for="id_name">Name</label>
-        <div class="controls">
-            {{ form.name }}{{ form.name.errors }}
-        </div>
-    </div>
-
-    <div class="control-group headline-control">
-        <label class="control-label" for="id_headline">What define you?</label>
-        <div class="controls">
-            {{ form.headline }}{{ form.headline.errors }}
-            <div class="help-block">Your expertises, Your passions, or What you are born to be.</div>
-        </div>
-    </div>
-
-    <div class="control-group website-control">
-        <label class="control-label" for="id_website">Your website</label>
-        <div class="controls">
-            {{ form.website }}{{ form.website.errors }}
-        </div>
-    </div>
-
-    <div class="control-group phone-control">
-        <label class="control-label" for="id_phone_number">Phone number</label>
-        <div class="controls">
-            {{ form.phone_number }}{{ form.phone_number.errors }}
-            <div class="help-block">Only be shared to the teacher of a course you are attending.</div>
-        </div>
-    </div>
-
     <div class="form-actions">
-        <button type="submit" class="style-primary-button">Update settings</button>
+        <button type="submit" class="style-primary-button">บันทึกข้อมูล</button>
     </div>
 </form>
 {% endblock %}

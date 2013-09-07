@@ -447,17 +447,20 @@ form .errorlist li {
   list-style: none;
   margin-bottom: 8px;
 }
-form .avatar-control img.avatar {
-  border-radius: 50px;
+form .avatar-control .control {
+  margin: 10px 0px 10px;
+}
+form .avatar-control .control img.avatar {
+  border-radius: 120px;
   float: left;
 }
-form .avatar-control .tools {
-  margin-left: 100px;
+form .avatar-control .control .tools {
+  margin-left: 150px;
 }
-form .avatar-control .tools .help-block {
-  margin-top: 5px;
+form .avatar-control .control .tools .help-block {
+  margin-top: 10px;
 }
-form .avatar-control .tools .remove-avatar {
+form .avatar-control .control .tools .remove-avatar {
   color: #555;
   font-size: 12px;
   padding: 2px 15px;
@@ -465,6 +468,13 @@ form .avatar-control .tools .remove-avatar {
 form .avatar-control .errorlist {
   margin-left: 100px;
   margin-top: 5px;
+}
+form .form-actions {
+  margin-top: 15px;
+}
+form .form-actions .style-primary-button,
+form .form-actions .style-button {
+  padding: 10px 50px;
 }
 .style-modal-form .control-group-inline .control-group {
   display: inline-block;
@@ -4384,9 +4394,6 @@ body {
 .page-workshop-modify .select2-results .select2-highlighted .topic strong {
   color: #FFF;
 }
-.page-manage-workshop .manage-workshop-content {
-  margin-bottom: 40px;
-}
 .page-manage-workshop-overview #backend-body {
   padding: 15px;
 }
@@ -4948,13 +4955,13 @@ body {
 }
 .page-profile .profile-header .avatar img {
   border: 4px solid #FFF;
-  border-radius: 100px;
+  border-radius: 120px;
   left: 0;
   position: absolute;
   top: 20px;
 }
 .page-profile .profile-header .right {
-  margin-left: 165px;
+  margin-left: 150px;
   padding: 20px 0 8px;
 }
 .page-profile .profile-header .name {
@@ -4968,7 +4975,7 @@ body {
   font-size: 20px;
 }
 .page-profile .profile-stats {
-  margin-left: 165px;
+  margin-left: 150px;
   padding-top: 15px;
 }
 .page-profile .profile-stats ul {
@@ -5154,17 +5161,25 @@ body {
   margin: 20px 0 20px;
   padding-bottom: 10px;
 }
+.page-user-settings form .form-group {
+  margin-bottom: 25px;
+}
+.page-user-settings form .form-group label {
+  color: #666;
+  display: inline-block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  font-weight: normal;
+  margin-bottom: 3px;
+}
 .page-user-settings form {
-  margin-top: 25px;
+  padding: 15px;
 }
 .page-user-settings form .name-control input {
   width: 300px;
 }
-.page-user-settings form .headline-control input {
+.page-user-settings form .about_me-control input {
   width: 500px;
-}
-.page-user-settings form .website-control input {
-  width: 400px;
 }
 .page-user-settings form .phone-control input {
   width: 200px;

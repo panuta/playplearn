@@ -1,14 +1,5 @@
-{% comment %}
-<ul class="style-sidebar-nav">
-    <li class="profile{% if tab_name == 'profile' %} active{% endif %}"><a href="{% url 'edit_my_settings_profile' %}"><i class="icon-user icon-large"></i> Profile</a></li>
-    <li class="social{% if tab_name == 'social' %} active{% endif %}"><a href="{% url 'edit_my_settings_social' %}"><i class="icon-group icon-large"></i> Social</a></li>
-    <li class="notifications{% if tab_name == 'notifications' %} active{% endif %}"><a href="{% url 'edit_my_settings_notifications' %}"><i class="icon-bell-alt icon-large"></i> Notifications</a></li>
-    <li class="account last{% if tab_name == 'account' %} active{% endif %}"><a href="{% url 'edit_my_settings_account_email' %}"><i class="icon-cog icon-large"></i> Account</a></li>
-</ul>
-{% endcomment %}
 <ul class="nav nav-tabs">
-    <li {% if tab_name == 'profile' %} class="active"{% endif %}><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าข้อมูลผู้ใช้</a></li>
-    <li {% if tab_name == 'social' %} class="active"{% endif %}><a href="{% url 'edit_my_settings_social' %}">Social networks</a></li>
+    <li {% if tab_name == 'profile' %} class="active"{% endif %}><a href="{% url 'edit_my_settings_profile' %}">ข้อมูลผู้ใช้</a></li>
     <li {% if tab_name == 'notifications' %} class="active"{% endif %}><a href="{% url 'edit_my_settings_notifications' %}">การแจ้งเตือน</a></li>
-    <li {% if tab_name == 'account' %} class="active"{% endif %}><a href="{% url 'edit_my_settings_account_email' %}">ตั้งค่าบัญชีผู้ใช้</a></li>
+    <li {% if tab_name == 'account' %} class="active"{% endif %}><a href="{% url 'edit_my_settings_account_email' %}">บัญชีผู้ใช้</a></li>
 </ul>

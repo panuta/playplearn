@@ -537,28 +537,40 @@ form {
     }
 
     .avatar-control {
-        img.avatar {
-            border-radius: 50px;
-            float: left;
-        }
+        .control {
+            margin: 10px 0px 10px;
 
-        .tools {
-            margin-left: 100px;
-
-            .help-block {
-                margin-top: 5px;
+            img.avatar {
+                border-radius: 120px;
+                float: left;
             }
 
-            .remove-avatar {
-                color: #555;
-                font-size: 12px;
-                padding: 2px 15px;
+            .tools {
+                margin-left: 150px;
+
+                .help-block {
+                    margin-top: 10px;
+                }
+
+                .remove-avatar {
+                    color: #555;
+                    font-size: 12px;
+                    padding: 2px 15px;
+                }
             }
         }
 
         .errorlist {
             margin-left: 100px;
             margin-top: 5px;
+        }
+    }
+
+    .form-actions {
+        margin-top: 15px;
+
+        .style-primary-button, .style-button {
+            padding: 10px 50px;
         }
     }
 }

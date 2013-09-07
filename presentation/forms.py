@@ -9,11 +9,10 @@ from domain.models import UserAccount
 # USER #################################################################################################################
 
 class EditProfileForm(forms.Form):
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     avatar = forms.ImageField(required=False, widget=forms.FileInput())
-    name = forms.CharField(max_length=100)
-    headline = forms.CharField(required=False, max_length=300)
-    website = forms.URLField(required=False, max_length=255)
-    phone_number = forms.CharField(required=False, max_length=50)
+    about_me = forms.CharField(required=False, max_length=300, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone_number = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 
 class EditAccountEmailForm(forms.Form):

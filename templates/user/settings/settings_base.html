@@ -1,21 +1,19 @@
 {% extends 'base_backend.html' %}
 
+{% block head_title %}ตั้งค่าการใช้งาน - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}{{ block.super }} page-user-settings{% endblock %}
 
 {% block backend_header %}
-<h1>Set the things</h1>
+<h1>ตั้งค่าการใช้งาน</h1>
 {% endblock %}
 
-{% block backend_container %}
+{% block backend_tabs %}
 <div class="backend-tabs">
-    <div class="container">
-        {% block settings_nav %}{% endblock %}
-    </div>
+    {% block settings_nav %}{% endblock %}
 </div>
-<div class="settings-body">
-    <div class="container">
-        {% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
-        {% block settings_content %}{% endblock %}
-    </div>
-</div>
+{% endblock %}
+
+{% block backend_body %}
+{% if messages %}{% for message in messages %}<div class="alert alert-{% if message.tags %}{{message.tags}}{% endif %}"><p>{{message}}</p></div>{% endfor %}{% endif %}
+{% block settings_body %}{% endblock %}
 {% endblock %}

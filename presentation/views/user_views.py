@@ -56,7 +56,7 @@ def edit_my_settings_profile(request):
             form = EditProfileForm(request.POST, request.FILES)
             if form.is_valid():
                 user.name = form.cleaned_data['name']
-                user.headline = form.cleaned_data['headline']
+                user.about_me = form.cleaned_data['about_me']
                 user.website = form.cleaned_data['website']
                 user.phone_number = form.cleaned_data['phone_number']
                 user.save()
@@ -72,7 +72,7 @@ def edit_my_settings_profile(request):
     else:
         form = EditProfileForm(initial={
             'name': user.name,
-            'headline': user.headline,
+            'about_me': user.about_me,
             'website': user.website,
             'phone_number': user.phone_number,
         })

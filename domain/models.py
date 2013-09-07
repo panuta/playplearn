@@ -67,7 +67,7 @@ class UserAccount(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True, db_index=True)
 
     name = models.CharField(max_length=300)
-    headline = models.CharField(max_length=300, blank=True)
+    about_me = models.CharField(max_length=300, blank=True)
     avatar = ThumbnailerImageField(upload_to=user_avatar_dir, blank=True, null=True)
     phone_number = models.CharField(max_length=100, blank=True)
     website = models.CharField(max_length=255, blank=True)
@@ -126,12 +126,6 @@ class UserAccount(AbstractBaseUser):
         if self.avatar:
             return get_thumbnailer(self.avatar)['avatar_small'].url
         return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_SMALL)
-
-    @property
-    def smaller_avatar_url(self):
-        if self.avatar:
-            return get_thumbnailer(self.avatar)['avatar_smaller'].url
-        return '%simages/%s' % (settings.STATIC_URL, settings.USER_AVATAR_DEFAULT_SMALLER)
 
     @property
     def tiny_avatar_url(self):
