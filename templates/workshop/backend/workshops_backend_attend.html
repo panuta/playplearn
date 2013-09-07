@@ -1,9 +1,9 @@
-{% extends 'workshop/workshops_backend_base.html' %}
+{% extends 'workshop/backend/workshops_backend_base.html' %}
 {% load thumbnail common_tags %}
 
 {% block head_title %}เข้าร่วมเวิร์คช็อป - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}{{ block.super }} page-workshops-backend-attend{% endblock %}
-{% block workshop_backend_nav %}{% include 'workshop/workshops_backend_base_nav.html' with tab_name='attend' %}{% endblock %}
+{% block workshop_backend_nav %}{% include 'workshop/backend/workshops_backend_base_nav.html' with tab_name='attend' %}{% endblock %}
 
 {% block workshop_backend_body %}
     {% if upcoming_reservations or past_reservations %}

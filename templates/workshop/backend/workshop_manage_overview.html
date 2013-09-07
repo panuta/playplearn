@@ -1,8 +1,8 @@
-{% extends 'workshop/organize/workshop_manage_base.html' %}
+{% extends 'workshop/backend/workshop_manage_base.html' %}
 {% load common_tags %}
 
 {% block body_class %}{{ block.super }} page-manage-workshop-overview{% endblock %}
-{% block manage_workshop_nav %}{% include 'workshop/organize/workshop_manage_base_nav.html' with tab_name='overview' %}{% endblock %}
+{% block manage_workshop_nav %}{% include 'workshop/backend/workshop_manage_base_nav.html' with tab_name='overview' %}{% endblock %}
 
 {% block manage_workshop_body %}
 <div class="style-stats-bar">

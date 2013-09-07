@@ -1,8 +1,8 @@
-{% extends 'workshop/organize/workshop_manage_base.html' %}
+{% extends 'workshop/backend/workshop_manage_base.html' %}
 {% load common_tags %}
 
 {% block body_class %}{{ block.super }} page-manage-workshop-feedbacks{% endblock %}
-{% block manage_workshop_nav %}{% include 'workshop/organize/workshop_manage_base_nav.html' with tab_name='feedbacks' %}{% endblock %}
+{% block manage_workshop_nav %}{% include 'workshop/backend/workshop_manage_base_nav.html' with tab_name='feedbacks' %}{% endblock %}
 
 {% block scripts %}
 <script>

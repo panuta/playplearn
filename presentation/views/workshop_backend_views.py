@@ -80,7 +80,7 @@ def view_my_workshops_attend(request):
         schedule__start_datetime__lte=rightnow,
     ).order_by('-schedule__start_datetime')
 
-    return render(request, 'workshop/workshops_backend_attend.html', {
+    return render(request, 'workshop/backend/workshops_backend_attend.html', {
         'upcoming_reservations': upcoming_reservations,
         'past_reservations': past_reservations,
     })
@@ -148,7 +148,7 @@ def view_my_workshops_organize(request):
     else:
         form = CreateFirstWorkshop()
 
-    return render(request, 'workshop/workshops_backend_organize.html', {
+    return render(request, 'workshop/backend/workshops_backend_organize.html', {
         'workshops': workshops,
         'form': form,
     })
@@ -159,7 +159,7 @@ def view_my_workshops_organize(request):
 @login_required
 def create_workshop(request):
     workshop_uid = Workshop.objects.generate_workshop_uid()
-    return render(request, 'workshop/organize/workshop_modify.html', {
+    return render(request, 'workshop/backend/workshop_modify.html', {
         'workshop_uid': workshop_uid,
         'is_completed': False,
     })
@@ -174,7 +174,7 @@ def edit_workshop(request, workshop_uid):
 
     workshop_pictures = WorkshopPicture.objects.filter(workshop=workshop, mark_deleted=False)
 
-    return render(request, 'workshop/organize/workshop_modify.html', {
+    return render(request, 'workshop/backend/workshop_modify.html', {
         'workshop': workshop,
         'workshop_pictures': workshop_pictures,
         'is_completed': domain_functions.is_workshop_outline_completed(workshop),
@@ -205,7 +205,7 @@ def manage_workshop_overview(request, workshop, workshop_uid):
         status=Schedule.STATUS_OPEN
     ).order_by('start_datetime')
 
-    return render(request, 'workshop/organize/workshop_manage_overview.html', {
+    return render(request, 'workshop/backend/workshop_manage_overview.html', {
         'workshop': workshop,
         'upcoming_schedules': upcoming_schedules
     })
@@ -217,7 +217,7 @@ def manage_workshop_schedule(request, workshop, workshop_uid, date_string, time_
     schedules = Schedule.objects.filter(workshop=workshop, status=Schedule.STATUS_OPEN)
 
     if not schedules:
-        return render(request, 'workshop/organize/workshop_manage_schedules.html', {
+        return render(request, 'workshop/backend/workshop_manage_schedules.html', {
             'workshop': workshop,
         })
 
@@ -275,7 +275,7 @@ def manage_workshop_schedule(request, workshop, workshop_uid, date_string, time_
 
     reservations = Reservation.objects.filter(schedule=schedule).order_by('-date_created')
 
-    return render(request, 'workshop/organize/workshop_manage_schedules.html', {
+    return render(request, 'workshop/backend/workshop_manage_schedules.html', {
         'workshop': workshop,
         'available_schedules': schedules,
         'schedule': schedule,
@@ -286,7 +286,7 @@ def manage_workshop_schedule(request, workshop, workshop_uid, date_string, time_
 @login_required
 @teacher_only
 def manage_workshop_feedbacks(request, workshop, workshop_uid):
-    return render(request, 'workshop/organize/workshop_manage_feedbacks.html', {
+    return render(request, 'workshop/backend/workshop_manage_feedbacks.html', {
         'workshop': workshop,
     })
 
