@@ -1239,86 +1239,72 @@ h1.style-page-header {
         line-height: 45px;
     }
 
-    .meta {
-        margin-top: 2px;
-
-        span.item {
-            color: #666;
-            margin-right: 20px;
-
-            i {
-                color: #777;
-                margin-right: 2px;
-            }
-
-            em {
-                font-weight: bold;
-            }
-        }
-
-        .feedback {
-            i.available {
-                color: #f4605d;
-            }
-        }
-
-        .schedule {
-            i.available {
-                color: @colorPositive;
-            }
-        }
+    .summary {
+        color: #666;
+        font-size: 15px;
+        line-height: 26px;
     }
 
-    .description {
-        color: #555;
-        line-height: 24px;
-        margin: 10px 0 10px;
-    }
+    .details {
+        margin: 15px 0 0;
 
-    .teacher {
-        margin-top: 6px;
-
-        .avatar {
+        .teacher {
             display: inline-block;
-            margin-right: 7px;
-            vertical-align: middle;
 
-            img {
-                border-radius: 50px;
+            .avatar {
+                display: inline-block;
+                margin-right: 7px;
+                vertical-align: middle;
+
+                img {
+                    border-radius: 50px;
+                }
+            }
+
+            .name {
+                display: inline-block;
+                vertical-align: middle;
+
+                a {
+                    color: @colorNavy;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 19px;
+                    font-size: 24px;
+                }
             }
         }
 
-        .name {
+        .stats {
             display: inline-block;
-            vertical-align: middle;
+            margin-left: 20px;
 
-            a {
-                color: @colorNavy;
-                font-family: 'QuarkLight', sans-serif;
-                font-size: 19px;
-                font-size: 24px;
-            }
-        }
-    }
+            span.item {
+                color: #666;
+                border: 1px solid #DDD;
+                display: inline-block;
+                margin-right: 15px;
+                padding: 3px 10px;
 
-    .convincing {
-        margin-top: 15px;
+                i {
+                    color: #777;
+                    margin-right: 2px;
+                }
 
-        span {
-            background-color: #F7F7F7;
-            color: #666;
-            display: inline-block;
-            font-size: 15px;
-            margin-right: 10px;
-            padding: 9px 15px;
-
-            i {
-                margin-right: 3px;
+                em {
+                    font-weight: bold;
+                }
             }
 
-            em {
-                color: #555;
-                font-weight: bold;
+            .feedback {
+                i.available {
+                    color: #f4605d;
+                }
+            }
+
+            .schedule {
+                i.available {
+                    color: @colorPositive;
+                }
             }
         }
     }

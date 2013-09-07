@@ -4,16 +4,18 @@
 </div>
 <div class="right">
     <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+    <div class="summary">ติวสเต็ปคันถธุระปาร์ตี้ เทวาธิราชไคลแมกซ์ธรรมาภิบาลมายองเนส ละตินไฮเอนด์คลาสสิกแบคโฮทิปเตี๊ยม</div>
+    <div class="details">
+        <div class="teacher">
+            <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a></div>
+            <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
+        </div>
+        <div class="stats">
+            <span class="item feedback"><i class="icon-heart available"></i> <em>7</em></span>
+            <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
+        </div>
+    </div>
 
-    <div class="meta">
-        <span class="item feedback"><i class="icon-heart available"></i> <em>7</em></span>
-        <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
-    </div>
-    <div class="description">ติวสเต็ปคันถธุระปาร์ตี้ เทวาธิราชไคลแมกซ์ธรรมาภิบาลมายองเนส ละตินไฮเอนด์คลาสสิกแบคโฮทิปเตี๊ยม โมเต็ลแครกเกอร์ทำงานมอลล์เทียมทานเดชานุภาพ อิมพีเรียลโต๋เต๋ สมาพันธ์รูบิกทับซ้อนรากหญ้าแรลลี่เอ็นเตอร์เทน กฤษณ์มอบตัวจ๊าบเกรด</div>
-    <div class="teacher">
-        <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a></div>
-        <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
-    </div>
 <!--
     <div class="convincing">
         <span class="schedules"><i class="icon-calendar"></i> จัดอีก <em>{{ workshop.stats_upcoming_schedules }}</em> รอบ</span>
