@@ -187,13 +187,13 @@ THUMBNAIL_PRESERVE_EXTENSIONS = ('png',)
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar_normal': {'size': (100, 100), 'crop': True},
+        'avatar_normal': {'size': (140, 140), 'crop': True},
         'avatar_small': {'size': (70, 70), 'crop': True},
         'avatar_smaller': {'size': (50, 50), 'crop': True},
         'avatar_tiny': {'size': (30, 30), 'crop': True},
 
         'workshop_picture_normal': {'size': (750, 450), 'crop': True},
-        'workshop_picture_small': {'size': (450, 270), 'crop': True},
+        'workshop_picture_small': {'size': (350, 210), 'crop': True},
         'workshop_picture_smaller': {'size': (250, 150), 'crop': True},
     },
 }
