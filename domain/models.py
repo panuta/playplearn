@@ -141,31 +141,6 @@ class UserAccount(AbstractBaseUser):
 
     # STATS
 
-
-
-
-
-
-    def stats_waiting_for_payment_courses(self):
-        return CourseEnrollment.objects.filter(
-            student=self, status='PENDING', payment_status='WAIT_FOR_PAYMENT'
-        ).count()
-
-    def stats_upcoming_courses(self):
-        rightnow = timezone.now()
-
-        attending = CourseEnrollment.objects.filter(
-            student=self,
-            schedule__start_datetime__gt=rightnow,
-            status='CONFIRMED').count()
-
-        teaching = CourseSchedule.objects.filter(
-            status='OPENING',
-            start_datetime__gt=rightnow,
-            course__teacher=self).count()
-
-        return attending + teaching
-
     def stats_workshops_organizing(self):
         return Workshop.objects.filter(
             teacher=self,
@@ -173,28 +148,26 @@ class UserAccount(AbstractBaseUser):
         ).count()
 
     def stats_courses_attended(self):
-        # TODO distinct
-
         rightnow = timezone.now()
-        return Workshop.objects.filter(
-            schedules__start_datetime__lte=rightnow,
-            schedules__enrollments__status='CONFIRMED',
-            schedules__enrollments__student=self,
+        return Reservation.objects.filter(
+            user=self,
+            status=Reservation.STATUS_CONFIRMED,
+            schedule__start_datetime__lte=rightnow,
+            schedule__status=Schedule.STATUS_OPEN,
         ).count()
 
-    def stats_courses_attended_and_attending(self):
-        # TODO distinct
-
-        return Workshop.objects.filter(
-            schedules__enrollments__status='CONFIRMED',
-            schedules__enrollments__student=self,
-            ).count()
-
     def stats_feedbacks_received(self):
-        return WorkshopFeedback.objects.filter(reservation__schedule__workshop__teacher=self).count()
+        return WorkshopFeedback.objects.filter(reservation__schedule__workshop__teacher=self, is_visible=True).count()
 
     def stats_feedbacks_given(self):
-        return WorkshopFeedback.objects.filter(reservation__student=self).count()
+        return WorkshopFeedback.objects.filter(reservation__user=self, is_visible=True).count()
+
+    def stats_waiting_for_payment_courses(self):
+        return Reservation.objects.filter(
+            user=self,
+            status=Reservation.STATUS_PENDING,
+            payment_status=Reservation.PAYMENT_STATUS_WAIT_FOR_PAYMENT,
+        ).count()
 
     def stats_total_earning(self):
         total_earning = BalanceTransaction.objects.filter(transaction_type=BalanceTransaction.RECEIVED_TRANSACTION).aggregate(Sum('amount'))['amount__sum']
@@ -399,14 +372,17 @@ class Workshop(models.Model):
         return UserAccount.objects.filter(
             reservations__schedule__workshop=self,
             reservations__status=Reservation.STATUS_CONFIRMED,
-            reservations__payment_status=Reservation.PAYMENT_STATUS_PAID,
         ).distinct().count()
 
     def stats_feedbacks(self):
         return WorkshopFeedback.objects.filter(reservation__schedule__workshop=self).count()
 
     def stats_total_earned(self):
-        total_earning = Reservation.objects.filter(schedule__workshop=self, status=Reservation.STATUS_CONFIRMED, payment_status=Reservation.PAYMENT_STATUS_PAID).aggregate(Sum('total'))['total__sum']
+        total_earning = Reservation.objects.filter(
+            schedule__workshop=self,
+            status=Reservation.STATUS_CONFIRMED,
+            payment_status=Reservation.PAYMENT_STATUS_PAID
+        ).aggregate(Sum('total'))['total__sum']
         return total_earning if total_earning else 0
 
 
@@ -464,5 +440,4 @@ class WorkshopFeedback(models.Model):
     content = models.CharField(max_length=2000, blank=True)
     feelings = models.CharField(max_length=500, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    is_public = models.BooleanField(default=False)
-    is_promoted = models.BooleanField(default=False)
+    is_visible = models.BooleanField(default=False)

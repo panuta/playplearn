@@ -1,15 +1,17 @@
 # -*- encoding: utf-8 -*-
 
 FEEDBACK_FEELING_CHOICES = (
-    ('like', 'Like'),
-    ('laugh', 'Laugh'),
-    ('inspiring', 'Inspiring'),
-    ('improve', 'Could be better'),
+    ('like', u'ชื่นชอบ'),
+    ('exciting', u'ตื่นเต้น'),
+    ('laugh', u'สนุกสนาน'),
+    ('inspiring', u'เปี่ยมด้วยแรงบันดาลใจ'),
+    ('improve', u'ยังปรับปรุงได้อีก'),
 )
 
 FEEDBACK_FEELING_MAP = {
-    'like': {'name': 'Like'},
-    'laugh': {'name': 'Laugh'},
-    'inspiring': {'name': 'Inspiring'},
-    'improve': {'name': 'Could be better'},
+    'like': {'name': u'ชื่นชอบ'},
+    'exciting': {'name': u'ตื่นเต้น'},
+    'laugh': {'name': u'สนุกสนาน'},
+    'inspiring': {'name': u'เปี่ยมด้วยแรงบันดาลใจ'},
+    'improve': {'name': u'ยังปรับปรุงได้อีก'},
 }

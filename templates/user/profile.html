@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load common_tags %}
+{% load thumbnail common_tags presentation_tags %}
 
 {% block head_title %}{{ context_user.name }} @ {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}page-profile{% endblock %}
@@ -7,177 +7,65 @@
 {% block body %}
 <div class="profile-header">
     <div class="container">
-        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user5.jpg" width="140" height="140" /></div>
+        <div class="avatar"><img src="{{ context_user.normal_avatar_url }}" {% thumbnail_img_size 'avatar_normal' %} /></div>
         <div class="right">
-            <div class="name">ภาณุ ตั้งเฉลิมกุล</div>
-            <div class="aboutme">ช่างภาพมือฉมัง</div>
+            <div class="name">{{ context_user.name }}</div>
+            <div class="aboutme">{{ context_user.headline }}</div>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="profile-stats clearfix">
         <ul>
-            <li>เปิดสอน <em>10</em> เวิร์คช็อป</li>
-            <li>ได้รับคำนิยม <em>10</em> ข้อความ</li>
-            <li>เข้าร่วม <em>10</em> เวิร์คช็อป</li>
-            <li>เขียนคำนิยม <em>10</em> ข้อความ</li>
+            <li>เปิดสอน <em>{{ context_user.stats_workshops_organizing }}</em> เวิร์คช็อป</li>
+            <li>ได้รับคำนิยม <em>{{ context_user.stats_feedbacks_received }}</em> ข้อความ</li>
+            <li>เข้าร่วม <em>{{ context_user.stats_courses_attended }}</em> เวิร์คช็อป</li>
+            <li>เขียนคำนิยม <em>{{ context_user.stats_feedbacks_given }}</em> ข้อความ</li>
         </ul>
     </div>
+
+    {% if organizing_workshops or feedbacks %}
+    {% if organizing_workshops %}
     <div class="profile-organizing">
         <h2>จัดเวิร์คช็อป</h2>
         <ul class="workshops">
-            <li class="workshop clearfix">
-                <div class="cover"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="250" height="150"></div>
-                <div class="right">
-                    <div class="title"><a href="#">สตูดิโอซูเอี๋ยเทรลเลอร์สามช่าเพลซภคันทลาพาธ</a></div>
-                    <div class="summary">เหมยเรซินวิทย์แอพพริคอทเพียบแปร้ มลภาวะ คลาสสิกวิทย์เซี้ยว อิเหนาโก๊ะโก๊ะโมเต็ลซีรีส์เทรนด์ โลชั่นมาร์คชัวร์ พอเพียง หงวนซีนีเพล็กซ์ ไหร่อัตลักษณ์มวลชน เมาท์เชอร์รี่ทริปต่อยอดเฟอร์รี่จตุคาม มอคค่าเหมยแชมปิยอง</div>
-                    <div class="stats">
-                        <span class="item feedback"><i class="icon-heart"></i> <em>7</em></span>
-                        <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
-                    </div>
-
-                </div>
-            </li>
-            <li class="workshop clearfix">
-                <div class="cover"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="250" height="150"></div>
-                <div class="right">
-                    <div class="title"><a href="#">สตูดิโอซูเอี๋ยเทรลเลอร์สามช่าเพลซภคันทลาพาธ</a></div>
-                    <div class="summary">เหมยเรซินวิทย์แอพพริคอทเพียบแปร้ มลภาวะ คลาสสิกวิทย์เซี้ยว อิเหนาโก๊ะโก๊ะโมเต็ลซีรีส์เทรนด์ โลชั่นมาร์คชัวร์ พอเพียง หงวนซีนีเพล็กซ์ ไหร่อัตลักษณ์มวลชน เมาท์เชอร์รี่ทริปต่อยอดเฟอร์รี่จตุคาม มอคค่าเหมยแชมปิยอง</div>
-                    <div class="stats">
-                        <span class="item feedback"><i class="icon-heart"></i> <em>7</em></span>
-                        <span class="item schedule"><i class="icon-calendar available"></i> จัดอีก 2 รอบ</span>
-                    </div>
-
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="profile-feedbacks">
-        <h2>คำนิยม</h2>
-        <ul class="feedbacks">
-            <li class="feedback">
-                <div class="cover"><img src="{{ STATIC_URL }}images/sample/course1-picture1.jpg" width="250" height="150"></div>
-                <div class="right">
-                    <div class="title"><a href="#">สตูดิโอซูเอี๋ยเทรลเลอร์สามช่าเพลซภคันทลาพาธ</a></div>
-                    <div class="feedback-box">
-
-                        <div class="content">
-                            <p>ฮิปฮอปโฟน สเกตช์มิลค์ฮาราคีรี เนิร์สเซอรี่ยูวี ออยล์ มินต์ม้ง โปรดิวเซอร์โซลาร์ติงต๊องเปียโนไดเอ็ตลีเมอร์ แลนด์จิตพิสัยไฟลต์พ่อค้าซีเรียส เวสต์หลวงปู่ดัมพ์แพนงเชิญบรา เคลมเช็งเม้งแซมบ้า แซมบ้าทำงานแคมเปญอัลไซเมอร์ สเปกเพลซ แลนด์เอ๊าะโฟนโอ้ยชาร์ตเพลย์บอย แรงใจน็อก มินท์พาสเจอร์ไรส์แชมปิยองพาเหรดซินโดรมแฟนตาซี อิเหนา หมิงเบอร์รีคอร์รัปชั่นอุปทานเป่ายิ้งฉุบ</p>
-                        </div>
-
-                        <div class="feelings"><i class="icon-smile"></i> <em>ตื่นเต้น</em>, <em>เฮฮา</em></div>
-                    </div>
-
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-
-
-
-
-{% comment %}
-<div class="profile-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="profile-header-box">
-                    <div class="box-header clearfix">
-                        <div class="avatar"><img src="{{ context_user.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></div>
-                        <div class="right">
-                            <div class="name">{{ context_user.name }}</div>
-                            <div class="headline">{{ context_user.headline }}</div>
-                        </div>
-                    </div>
-                    <div class="stats clearfix">
-                        <ul>
-                            <li><div class="title">Teaching</div><div class="number"><em>1</em> workshop</div></li>
-                            <li><div class="title">Feedback received</div><div class="number"><em>2</em> feedback</div></li>
-                            <li><div class="title">Attended</div><div class="number"><em>3</em> workshop</div></li>
-                            <li class="last"><div class="title">Feedback given</div><div class="number"><em>4</em> feedback</div></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="reputations">
-                    <div class="head">Reputations & Trustworthiness</div>
-                    <ul>
-                        {% if user.stats_feedbacks_received %}<li><div class="caption"><i class="icon-star"></i> {{ user.stats_feedbacks_received }} feedback{{ user.stats_feedbacks_received|pluralize }} received</div></li>{% endif %}
-                        <li><div class="caption"><i class="icon-facebook"></i> 321 Facebook friends</div></li>
-                        <li><div class="caption"><i class="icon-twitter"></i> 14 Twitter followers</div></li>
-                        <li><div class="caption"><i class="icon-phone"></i> Phone number is verified</div></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="profile-workshops">
-    <div class="container">
-        {% if teaching_workshops or attending_workshops or attended_workshops %}
-            {% if teaching_workshops %}
-            <h2>Teaching workshops</h2>
-            <ul class="workshops">
-                {% for course in teaching_workshops %}
+            {% for workshop in organizing_workshops %}
                 <li class="workshop clearfix">
-                    <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" {% thumbnail_img_size 'course_cover_small' %} /></a></div>
+                    <div class="cover"><img src="{{ workshop.cover_picture.image|thumbnail_url:'workshop_picture_smaller' }}" {% thumbnail_img_size 'workshop_picture_smaller' %} /></div>
                     <div class="right">
-                        <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                        <div class="at_glance">
-                            <a href="#" class="school">{{ course.get_school.name }}</a> workshop
-                            in <span class="duration">{{ course.duration }} hour{{ course.duration|pluralize }}</span>
-                            with <span class="people">{{ course.maximum_people }} other {{ course.maximum_people|pluralize:'person,people' }}</span>
-                        </div>
-                        <div class="details">
-                            <span class="schedules"><i class="icon-time"></i> <em>{{ course.stats_upcoming_classes }}</em></span><span class="feedbacks"><i class="icon-comment"></i> <em>{{ course.stats_feedbacks }}</em></span><span class="place"><i class="icon-map-marker"></i> {{ course.place.province_code|province_name }}</span>
+                        <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+                        <div class="summary">{{ workshop.summary }}</div>
+                        <div class="stats">
+                            <span class="item feedback"><i class="icon-heart{% if workshop.stats_feedbacks %} available{% endif %}"></i> <em>{{ workshop.stats_feedbacks }}</em></span>
+                            <span class="item schedule"><i class="icon-calendar{% if workshop.stats_upcoming_schedules %} available{% endif %}"></i> จัดอีก {{ workshop.stats_upcoming_schedules }} รอบ</span>
                         </div>
                     </div>
                 </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if attending_workshops %}
-            <h2>Attending workshops</h2>
-            <ul class="workshops">
-                {% for enrollment in attending_workshops %}
-                {% with course=enrollment.schedule.course %}
-                    <li class="workshop clearfix">
-                        <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" {% thumbnail_img_size 'course_cover_small' %} /></a></div>
-                        <div class="right">
-                            <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                            <div class="teacher">by <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-                            <div class="schedule">{{ enrollment.schedule|schedule_datetime }}</div>
-                        </div>
-                    </li>
-                {% endwith %}
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if attended_workshops %}
-            <h2>Attended workshops</h2>
-            <ul class="workshops">
-                {% for enrollment in attended_workshops %}
-                {% with course=enrollment.schedule.course %}
-                    <li class="workshop clearfix">
-                        <div class="cover"><a href="{% url 'view_course_outline' course.uid %}"><img src="{{ course.small_cover_url }}" {% thumbnail_img_size 'course_cover_small' %} /></a></div>
-                        <div class="right">
-                            <div class="title"><a href="{% url 'view_course_outline' course.uid %}">{{ course.title }}</a></div>
-                            <div class="teacher">by <a href="{% url 'view_user_profile' course.teacher.uid %}">{{ course.teacher.name }}</a></div>
-                            {% if enrollment.feedback %}{% include 'snippets/workshop_feedback_box.html' with feedback=enrollment.feedback hide_user=True %}{% endif %}
-                        </div>
-                    </li>
-                {% endwith %}
-                {% endfor %}
-            </ul>
-            {% endif %}
-        {% else %}
-            <div class="style-no-information">No workshop activities</div>
-        {% endif %}
+            {% endfor %}
+        </ul>
     </div>
-</div>{% endcomment %}
+    {% endif %}
+    {% if feedbacks %}
+    <div class="profile-feedbacks">
+        <h2>คำนิยม</h2>
+        <ul class="feedbacks">
+            {% for feedback in feedbacks %}
+            <li class="feedback">
+                <div class="cover"><img src="{{ feedback.reservation.schedule.workshop.cover_picture.image|thumbnail_url:'workshop_picture_smaller' }}" {% thumbnail_img_size 'workshop_picture_smaller' %} /></div>
+                <div class="right">
+                    <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+                    <div class="feedback-box">
+                        <div class="content">{{ feedback.content|linebreaks }}</div>
+                        {% if feedback.feelings %}<div class="feelings"><i class="icon-smile"></i> {% feedback_feelings_as_em feedback %}</div>{% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% else %}
+        <div class="style-no-information">ยังไม่มีความเคลื่อนไหว <i class="sleep"></i></div>
+    {% endif %}
+</div>
 {% endblock %}

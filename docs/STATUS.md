@@ -2,13 +2,9 @@
 Workshop Schedule
 ==========
 
-PENDING
+OPEN
 
- * Not used
-
-OPENING
-
- * When schedule is confirmed
+ * When schedule is open and confirmed
 
 CANCELLED
 
@@ -20,7 +16,7 @@ Workshop Enrollment
 
 PENDING
 
- * When student is paying for an enrollment, will change to CONFIRMED after the student paid.
+ * When student is paying for a reservation, will change to CONFIRMED after the student have paid.
 
 CONFIRMED
 

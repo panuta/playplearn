@@ -241,3 +241,14 @@ def feedback_feelings_as_li(feedback):
             li.append('<li>%s</li>' % feeling_name)
 
     return ''.join(li)
+
+
+@register.simple_tag
+def feedback_feelings_as_em(feedback):
+    em = []
+    for feeling in feedback.feelings.split(','):
+        feeling_name = FEEDBACK_FEELING_MAP.get(feeling)
+        if feeling_name:
+            em.append('<em>%s</em>' % feeling_name)
+
+    return ', '.join(em)
