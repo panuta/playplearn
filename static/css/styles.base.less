@@ -1222,27 +1222,57 @@ h1.style-page-header {
 }
 
 .style-workshop-row {
-    .workshop-pictures {
+    .workshop-cover {
         border: 1px solid #DDD;
         float: left;
         padding: 3px;
-        position: relative;
-
-        .royalSlider {
-            width: 450px;
-            height: 270px;
-        }
     }
 
     .right {
-        margin-left: 480px;
+        margin-left: 380px;
     }
 
     .title a {
         color: @colorBlue;
         font-family: 'QuarkLight', sans-serif;
-        font-size: 34px;
+        font-size: 30px;
         line-height: 45px;
+    }
+
+    .meta {
+        margin-top: 2px;
+
+        span.item {
+            color: #666;
+            margin-right: 20px;
+
+            i {
+                color: #777;
+                margin-right: 2px;
+            }
+
+            em {
+                font-weight: bold;
+            }
+        }
+
+        .feedback {
+            i.available {
+                color: #f4605d;
+            }
+        }
+
+        .schedule {
+            i.available {
+                color: @colorPositive;
+            }
+        }
+    }
+
+    .description {
+        color: #555;
+        line-height: 24px;
+        margin: 10px 0 10px;
     }
 
     .teacher {

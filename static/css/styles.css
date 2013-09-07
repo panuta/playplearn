@@ -1094,24 +1094,44 @@ h1.style-page-header {
   vertical-align: top;
   width: 319px;
 }
-.style-workshop-row .workshop-pictures {
+.style-workshop-row .workshop-cover {
   border: 1px solid #DDD;
   float: left;
   padding: 3px;
-  position: relative;
-}
-.style-workshop-row .workshop-pictures .royalSlider {
-  width: 450px;
-  height: 270px;
 }
 .style-workshop-row .right {
-  margin-left: 480px;
+  margin-left: 380px;
 }
 .style-workshop-row .title a {
   color: #29ace4;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 34px;
+  font-size: 30px;
   line-height: 45px;
+}
+.style-workshop-row .meta {
+  margin-top: 2px;
+}
+.style-workshop-row .meta span.item {
+  color: #666;
+  margin-right: 20px;
+}
+.style-workshop-row .meta span.item i {
+  color: #777;
+  margin-right: 2px;
+}
+.style-workshop-row .meta span.item em {
+  font-weight: bold;
+}
+.style-workshop-row .meta .feedback i.available {
+  color: #f4605d;
+}
+.style-workshop-row .meta .schedule i.available {
+  color: #00ac71;
+}
+.style-workshop-row .description {
+  color: #555;
+  line-height: 24px;
+  margin: 10px 0 10px;
 }
 .style-workshop-row .teacher {
   margin-top: 6px;
@@ -5209,7 +5229,7 @@ body {
 .page-profile .profile-organizing h2 {
   color: #555;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 26px;
+  font-size: 30px;
 }
 .page-profile .profile-organizing ul {
   margin: 0;
@@ -5271,7 +5291,7 @@ body {
 .page-profile .profile-feedbacks h2 {
   color: #555;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 26px;
+  font-size: 30px;
 }
 .page-profile .profile-feedbacks ul.feedbacks {
   margin: 0;
