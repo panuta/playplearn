@@ -34,7 +34,7 @@ jQuery(function($){
     <ul class="workshops">
         {% for workshop in workshops %}
             <li class="workshop clearfix{% if forloop.last %} last-workshop{% endif %}" data-workshop-uid="{{ workshop.uid }}">
-                {% include 'workshop/backend/snippets/organize_workshop_row.html' %}
+                {% include 'workshop/backend/snippets/row_of_organize_workshop.html' %}
             </li>
         {% endfor %}
     </ul>

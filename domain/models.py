@@ -295,7 +295,7 @@ class Workshop(models.Model):
 
     uid = models.CharField(max_length=50, db_index=True, unique=True)
     title = models.CharField(max_length=500)
-    short_description = models.CharField(max_length=1000)
+    summary = models.CharField(max_length=1000)
     description = models.TextField(blank=True)
     topics = models.ManyToManyField(WorkshopTopic, null=True)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)

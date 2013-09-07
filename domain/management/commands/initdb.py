@@ -158,7 +158,7 @@ class Command(BaseCommand):
                 workshop1 = Workshop.objects.create(
                     uid='1111111111',
                     title=u'ถ่ายรูปและแต่งรูปอย่างไรให้อวดเพื่อนได้ไม่อายใคร',
-                    short_description=u'คาวบอยควีนโอเวอร์เมจิคแอพพริคอทแพนงเชิญ ลิสต์โก๊ะ ตอกย้ำ คอนแทคฟรุตม็อบสปอต เซ็นเซอร์จิ๊กซอว์ โบรกเกอร์',
+                    summary=u'คาวบอยควีนโอเวอร์เมจิคแอพพริคอทแพนงเชิญ ลิสต์โก๊ะ ตอกย้ำ คอนแทคฟรุตม็อบสปอต เซ็นเซอร์จิ๊กซอว์ โบรกเกอร์',
                     description='I will show you how to take a photo',
                     default_price=200,
                     duration=6,
@@ -233,7 +233,7 @@ class Command(BaseCommand):
                 workshop2 = Workshop.objects.create(
                     uid='2222222222',
                     title=u'ทำสวนผักสำหรับคนเมือง',
-                    short_description=u'วิลล์สวีทเอ็นจีโอ ไฮแจ็คสเตอริโอ สุริยยาตร์ม้าหินอ่อนแต๋วสตาร์รุสโซแทงโก้ มยุราภิรมย์ว้าวเบนโตะแฟกซ์แคร็กเกอร์',
+                    summary=u'วิลล์สวีทเอ็นจีโอ ไฮแจ็คสเตอริโอ สุริยยาตร์ม้าหินอ่อนแต๋วสตาร์รุสโซแทงโก้ มยุราภิรมย์ว้าวเบนโตะแฟกซ์แคร็กเกอร์',
                     description='I will show you how to grow a plant',
                     default_price=400,
                     duration=8,

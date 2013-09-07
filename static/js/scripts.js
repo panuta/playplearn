@@ -10,6 +10,7 @@ $(document).ready(function() {
 
 function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
     var form_title = $('#id_title');
+    var form_summary = $('#id_summary');
     var form_activity = $('#control_activity_list');
     var form_story = $('#id_story');
     var form_pictures = $('#upload-pictures');
@@ -476,6 +477,11 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
             form_title.data('dirty', false);
         }
 
+        if(form_summary.data('dirty') || _is_very_dirty) {
+            data['summary'] = form_summary.val();
+            form_summary.data('dirty', false);
+        }
+
         form_activity = $('#control_activity_list');
         if(form_activity.data('dirty') || _is_very_dirty) {
             var activities = [];
@@ -598,6 +604,7 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
     function _is_completed() {
         var is_completed = true;
         if(!form_title.val().trim()) is_completed = false;
+        if(!form_summary.val().trim()) is_completed = false;
 
         var has_activity_value = false;
         form_activity.find('input').each(function() {
@@ -674,6 +681,11 @@ function initWorkshopModifyPage(workshop_uid, enable_autosave, page_type) {
 
     form_title.on('change', function() {
         $('#id_title').data('dirty', true);
+        set_dirty();
+    });
+
+    form_summary.on('change', function() {
+        $('#id_summary').data('dirty', true);
         set_dirty();
     });
 

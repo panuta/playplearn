@@ -48,6 +48,9 @@ def is_workshop_outline_completed(workshop):
     if not workshop.title:
         is_completed = False
 
+    if not workshop.summary:
+        is_completed = False
+
     if not WorkshopActivity.objects.filter(workshop=workshop).exists():
         is_completed = False
 
@@ -88,6 +91,9 @@ def save_workshop(workshop, request_data):
 
     if 'title' in request_data:
         workshop.title = request_data['title'].strip(' \t\n\r')
+
+    if 'summary' in request_data:
+        workshop.summary = request_data['summary'].strip(' \t\n\r')
 
     if 'activity[]' in request_data:
         WorkshopActivity.objects.filter(workshop=workshop).delete()
@@ -167,10 +173,8 @@ def save_workshop(workshop, request_data):
         place_id = request_data.get('place-id')
         if place_id == 'new':
             if workshop.place and workshop.place.is_userdefined and not workshop.place.is_visible:
-                print 'EXISTING'
                 place = workshop.place
             else:
-                print 'CREATE NEW'
                 place = Place.objects.create(is_userdefined=True, is_visible=False, created_by=workshop.teacher)
 
         elif place_id:

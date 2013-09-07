@@ -61,8 +61,15 @@
     <!-- Title -->
     <div class="form-group title-control">
         <label for="id_title">ชื่อเวิร์คช็อป</label>
-        <input type="text" id="id_title" class="form-control" placeholder="Title" value="{{ workshop.title }}"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>
+        <input type="text" id="id_title" class="form-control" value="{{ workshop.title }}"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>
         <p class="help-block">แนะนำให้ใช้ชื่อที่กระชับ น่าสนใจ และสามารถสื่อสารสิ่งที่ต้องการ</p>
+    </div>
+
+    <!-- Summary -->
+    <div class="form-group summary-control">
+        <label for="id_summary">อธิบายเวิร์คช็อปแบบสั้นๆ</label>
+        <input type="text" id="id_summary" class="form-control" value="{{ workshop.summary }}"{% if workshop.is_status_wait_for_approval %} disabled="disabled"{% endif %}>
+        <p class="help-block">เช่นความน่าสนใจของเวิร์คช็อป เป้าหมาย กิจกรรม ประเภท หรืออื่นๆ</p>
     </div>
 
     <!-- Activities -->

@@ -249,7 +249,7 @@ def ajax_publish_workshop(request):
 
     return response_json_success({
         'workshop_url': '%s%s' % (settings.WEBSITE_URL, reverse('view_workshop_outline', args=[workshop.uid])),
-        'workshop_html': render_to_string('workshop/backend/snippets/organize_workshop_row.html', {'workshop': workshop}),
+        'workshop_html': render_to_string('workshop/backend/snippets/row_of_organize_workshop.html', {'workshop': workshop}),
     })
 
 

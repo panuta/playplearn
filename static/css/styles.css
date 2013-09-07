@@ -4008,6 +4008,14 @@ body {
   height: 48px;
   width: 1070px;
 }
+.page-workshop-modify .form-content .summary-control {
+  margin-bottom: 30px;
+}
+.page-workshop-modify .form-content .summary-control input {
+  font-size: 20px;
+  height: 48px;
+  width: 1070px;
+}
 .page-workshop-modify .form-content .activities-control {
   margin-bottom: 30px;
 }

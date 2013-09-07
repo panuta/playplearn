@@ -59,7 +59,7 @@
 {% block body %}
 <div class="container">
     <h1>{{ workshop.title }}</h1>
-    <div class="workshop-summary">อิเหนาโก๊ะโก๊ะโมเต็ลซีรีส์เทรนด์ โลชั่นมาร์คชัวร์ พอเพียง หงวนซีนีเพล็กซ์ ไหร่อัตลักษณ์มวลชน เมาท์เชอร์รี่ทริปต่อยอดเฟอร์รี่จตุคาม มอคค่าเหมยแชมปิยอง</div>
+    <div class="workshop-summary">{{ workshop.summary }}</div>
 
     <div class="workshop-teacher">
         <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.smaller_avatar_url }}" {% thumbnail_img_size 'avatar_smaller' %} /></a></div>
