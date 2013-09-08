@@ -186,6 +186,7 @@
                 </div>
             </div>
             <div class="col-lg-5">
+                {% if not user.is_authenticated %}
                 <div class="subscribe">
                     <div class="box">
                         <div class="offer"><i class="icon-envelope"></i> สมัครรับข่าวสารทางอีเมล</div>
@@ -197,6 +198,7 @@
                         </form>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
