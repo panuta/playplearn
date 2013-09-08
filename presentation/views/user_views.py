@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from operator import itemgetter
+from django.conf import settings
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -7,10 +8,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.timezone import now
+from easy_thumbnails.files import get_thumbnailer
 
 from common.utilities import split_filepath
 
-from domain.models import Workshop, UserAccount, WorkshopFeedback
+from domain.models import Workshop, UserAccount, WorkshopFeedback, user_avatar_dir
 from presentation.forms import EditProfileForm, EditAccountEmailForm
 
 
@@ -57,14 +59,33 @@ def edit_my_settings_profile(request):
             if form.is_valid():
                 user.name = form.cleaned_data['name']
                 user.about_me = form.cleaned_data['about_me']
-                user.website = form.cleaned_data['website']
                 user.phone_number = form.cleaned_data['phone_number']
                 user.save()
 
                 avatar = form.cleaned_data['avatar']
                 if avatar:
+                    # TODO Make rounded avatar
+
                     (root, name, ext) = split_filepath(avatar.name)
                     user.avatar.save('avatar.%s' % ext, avatar)
+
+                    #avatar_thumbnail = get_thumbnailer(user.avatar)['avatar_normal']
+
+                    #from PIL import Image, ImageOps
+
+                    #filename = '%s/%s' % (settings.MEDIA_ROOT, user_avatar_dir(user, 'avatar.jpg'))
+
+                    #mask = Image.open('%s/%s' % (settings.STATIC_ROOT, 'images/masking/avatar_normal.png')).convert('L')
+                    #image = Image.open(avatar_thumbnail.file)
+                    #image = Image.open(user.avatar.file)
+
+                    #output = ImageOps.fit(avatar_thumbnail.image, mask.size, centering=(0.5, 0.5))
+                    #output.putalpha(mask)
+                    #output.save('output.png')
+
+
+
+
 
                 messages.success(request, u'Success! Your profile is updated.')
                 return redirect('edit_my_settings_profile')
@@ -73,7 +94,6 @@ def edit_my_settings_profile(request):
         form = EditProfileForm(initial={
             'name': user.name,
             'about_me': user.about_me,
-            'website': user.website,
             'phone_number': user.phone_number,
         })
 

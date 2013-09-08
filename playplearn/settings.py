@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import os
-base_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), os.path.pardir)
+base_path = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.path.pardir))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -49,7 +49,7 @@ USE_TZ = False
 MEDIA_ROOT = os.path.join(base_path, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(base_path, 'sitestatic/')
+STATIC_ROOT = os.path.join(base_path, 'sitestatic')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
@@ -187,15 +187,21 @@ THUMBNAIL_PRESERVE_EXTENSIONS = ('png',)
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar_normal': {'size': (120, 120), 'crop': True},
-        'avatar_small': {'size': (50, 50), 'crop': True},
-        'avatar_tiny': {'size': (30, 30), 'crop': True},
+        'avatar_normal': {'size': (120, 120), 'crop': True, 'circular': True},
+        'avatar_small': {'size': (50, 50), 'crop': True, 'circular': True},
+        'avatar_tiny': {'size': (30, 30), 'crop': True, 'circular': True},
 
         'workshop_picture_normal': {'size': (750, 450), 'crop': True},
         'workshop_picture_small': {'size': (350, 210), 'crop': True},
         'workshop_picture_smaller': {'size': (250, 150), 'crop': True},
     },
 }
+
+from easy_thumbnails.conf import Settings as easy_thumbnails_defaults
+
+THUMBNAIL_PROCESSORS = easy_thumbnails_defaults.THUMBNAIL_PROCESSORS + (
+    'common.thumbnail_processors.circular_crop_processor',
+)
 
 # SOCIAL AUTH ##########################################################################################################
 
