@@ -135,6 +135,15 @@ class UserAccount(AbstractBaseUser):
 
     # STATS
 
+    def stats_schedules_upcoming(self):
+        rightnow = timezone.now()
+        return Reservation.objects.filter(
+            user=self,
+            status__in=(Reservation.STATUS_PENDING, Reservation.STATUS_CONFIRMED),
+            schedule__start_datetime__gt=rightnow,
+            schedule__status=Schedule.STATUS_OPEN,
+        ).count()
+
     def stats_workshops_organizing(self):
         return Workshop.objects.filter(
             teacher=self,

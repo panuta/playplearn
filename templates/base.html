@@ -12,8 +12,6 @@
     <!--<meta name="viewport" content="width=device-width">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
     {% comment %}
     <link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png" />
     <link rel="icon" href="{{ STATIC_URL }}favicon.ico" />
@@ -74,10 +72,9 @@
                     <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="avatar"><img src="{{ user.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a>
                     <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="name">{{ user.name }}</a>
                 </div>
-                <div class="top-item notification"><a href="#"><i class="icon-comments"></i> 10</a></div><!-- TODO: Add link destination -->
-                <div class="top-item notification"><a href="#"><i class="icon-bell"></i> 10</a></div><!-- TODO: Add link destination -->
+                {% if user.stats_schedules_upcoming %}<div class="top-item notification"><a href="{% url 'view_my_workshops_attend' %}" title="มี {{ user.stats_schedules_upcoming }} เวิร์คช็อปที่กำลังจะถึง"><i class="icon-bullhorn"></i> {{ user.stats_schedules_upcoming }}</a></div>{% endif %}
+                {% comment %}<div class="top-item notification"><a href="#"><i class="icon-bell"></i> 10</a></div><!-- TODO: Add link destination -->{% endcomment %}
                 <div class="top-item menu">
-
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-reorder"></i></a>
                         <ul class="dropdown-menu pull-right">
@@ -92,73 +89,8 @@
             </div>
             {% endif %}
         </div>
-
-        {% comment %}
-        {% spaceless %}
-        <div class="social">
-            <ul class="buttons">
-                <li class="button home"><a href="/" class="top-button"><img src="{{ STATIC_URL }}images/ui/logo.top.png" width="105" height="27"/></a></li>
-                <li class="button facebook"><a href="#" class="top-button"><i class="icon-facebook-sign"></i> Facebook</a></li>
-                <li class="button twitter"><a href="#" class="top-button"><i class="icon-twitter-sign"></i> Twitter</a></li>
-            </ul>
-        </div>
-        <div class="account">
-            {% if user.is_authenticated %}
-                <div class="user">
-                    <ul class="buttons">
-                        <li class="button username"><a href="{% url 'view_my_profile' %}" class="top-button" title="ไปหน้าข้อมูลผู้ใช้">{{ user.name }}</a></li>
-                        <li class="button alerts"><a href="#" class="top-button"><i class="icon-bell-alt"></i><span class="num">14</span></a></li>
-                        <li class="button messages"><a href="{% url 'postman_inbox' %}" class="top-button dropdown-toggle"><i class="icon-comments"></i>{% if postman_unread_count %} <span class="num">{{ postman_unread_count }}</span>{% endif %}</a></li>
-                        <li class="button activities">
-                            <div class="dropdown">
-                                <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-list"></i> {% trans 'Activities' %} <i class="icon-caret-down"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    {% if user.stats_waiting_for_payment_workshops %}<li><a href="{% url 'view_my_workshops_payment' %}">{% trans 'Waiting for payment' %} <span class="number">{{ user.stats_waiting_for_payment_workshops }}</span></a></li>{% endif %}
-                                    {% if user.stats_upcoming_workshops %}<li><a href="{% url 'view_my_workshops_upcoming' %}">{% trans 'Upcoming activities' %} <span class="number">{{ user.stats_upcoming_workshops }}</span></a></li>{% endif %}
-                                    <li><a href="{% url 'view_my_workshops_attended' %}">{% trans 'Attended activities' %}</a></li>
-                                    {% if user.stats_total_activities_organizing %}<li><a href="{% url 'view_all_my_workshops_teaching' %}">{% trans 'Organizing activities' %}</a></li>{% endif %}
-                                    <li class="divider"></li>
-                                    <li><a href="{% url 'create_workshop' %}"><i class="icon-plus"></i> {% trans 'Organize new activity' %}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="button settings">
-                            <div class="dropdown">
-                                <a href="#" class="top-button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-gear"></i> <i class="icon-caret-down"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าข้อมูลผู้ใช้</a>
-                                    <li><a href="{% url 'edit_my_settings_notifications' %}">การแจ้งเตือน</a></li>
-                                    <li><a href="{% url 'edit_my_settings_account_email' %}">ตั้งค่าบัญชีผู้ใช้</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            {% else %}
-                <div class="registration">
-                    <ul class="buttons">
-                        <li class="button login"><a href="{% url 'view_user_login' %}?next={{ request.path }}" class="top-button">เข้าสู่ระบบ / สมัครสมาชิก</a></li>
-                    </ul>
-                </div>
-            {% endif %}
-        </div>
-        {% endspaceless %}
-        {% endcomment %}
     </div>
 </div>
-
-{% comment %}
-{% block body_header %}
-<div id="body-header">
-    <div class="container">
-        <div class="logo"><a href="{% url 'view_homepage' %}"><img src="{{ STATIC_URL }}images/ui/logo.small.png" /></a></div>
-    </div>
-</div>
-{% endblock %}
-{% endcomment %}
-
 <div id="body-content">
     {% block body %}{% endblock %}
     <div class="push"></div>

@@ -53,17 +53,26 @@ html, body {
             }
 
             .notification a {
-                background-color: @colorYellow;
+                background-color: @colorBlue;
                 border-radius: 4px;
-                color: #555;
-                font-weight: bold;
+                color: #FFF;
                 margin-right: 10px;
-                padding: 3px 10px;
+                padding: 5px 10px;
+                vertical-align: 1px;
+
+                i {
+                    color: #FFF;
+                    margin-right: 3px;
+                }
 
                 &:hover, &:focus {
-                    background-color: @colorSky;
-                    color: #FFF;
+                    background-color: @colorYellow;
+                    color: #333;
                     text-decoration: none;
+
+                    i {
+                        color: #333;
+                    }
                 }
             }
 
@@ -76,7 +85,7 @@ html, body {
                 color: @colorGrey;
                 display: inline-block;
                 font-family: 'QuarkLight', sans-serif;
-                font-size: 19px;
+                font-size: 21px;
                 margin-right: 15px;
                 vertical-align: -1px;
             }
