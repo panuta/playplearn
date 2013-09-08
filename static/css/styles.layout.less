@@ -211,7 +211,7 @@ html, body {
 
 .page-backend {
     #backend-container {
-        background: @darkBackground;
+        background: @backgroundNavy;
     }
 
 
@@ -389,7 +389,7 @@ html, body {
     }
 
     .backend-tabs {
-        background: @headerBackground;
+        background: @backgroundNavy;
 
         .nav {
             margin: 0;
@@ -404,7 +404,7 @@ html, body {
         }
 
         .nav-tabs > li > a {
-            background-color: @headerNavBackground;
+            background-color: @backgroundLightNavy;
             border: 0;
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
@@ -457,7 +457,7 @@ html, body {
             border-radius: 0;
             color: #FFF;
             font-size: 15px;
-            margin: 25px 0 0;
+            margin: 0 0 25px;
             padding: 15px 35px 15px 56px;
             text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 
@@ -467,8 +467,8 @@ html, body {
         }
 
         .alert-success {
-            background:url(../images/ui/messages.png) #1ABC9C 15px 13px no-repeat;
-            border-left: 10px solid #16A085;
+            background:url(../images/ui/messages.png) @colorPositive 15px 14px no-repeat;
+            border-left: 10px solid #009260;
         }
 
         .alert-warning {
@@ -477,8 +477,8 @@ html, body {
         }
 
         .alert-error {
-            background:url(../images/ui/messages.png) #E74C3C 18px -108px no-repeat;
-            border-left: 10px solid #C0392B;
+            background:url(../images/ui/messages.png) @colorNegative 18px -108px no-repeat;
+            border-left: 10px solid #cc464e;
         }
     }
 

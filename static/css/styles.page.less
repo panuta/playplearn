@@ -1,6 +1,6 @@
 
 .page-registration {
-    background: @headerBackground;
+    background: @backgroundNavy;
 
     #body-header {
         border-bottom: 1px solid #E9E9E9;
@@ -107,7 +107,7 @@
 
 .page-homepage {
     .headline {
-        background: @headerBackground;
+        background: @backgroundNavy;
         text-align: center;
 
         .logo {
@@ -896,7 +896,7 @@
 
 .page-workshop-browse {
     .browse-header {
-        background: @headerBackground;
+        background: @backgroundNavy;
 
         margin-bottom: 25px;
         padding: 25px 0 25px;
@@ -2983,7 +2983,7 @@
 
 .page-profile {
     .profile-header {
-        background: @headerBackground;
+        background: @backgroundNavy;
 
         .avatar {
             position: relative;
@@ -3227,10 +3227,8 @@
 }
 
 .page-user-settings {
-    h2 {
-        border-bottom: 1px solid #DDD;
-        margin: 20px 0 20px;
-        padding-bottom: 10px;
+    #backend-body {
+        padding: 35px;
     }
 
     form {
@@ -3247,14 +3245,6 @@
             }
         }
 
-        .name-control {
-
-        }
-    }
-
-    form {
-        padding: 15px;
-
         .name-control input {
             width: 300px;
         }
@@ -3265,6 +3255,14 @@
 
         .phone-control input {
             width: 200px;
+        }
+
+        .email-control input {
+            width: 300px;
+        }
+
+        .password-control input {
+            width: 300px;
         }
     }
 }

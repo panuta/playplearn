@@ -13,7 +13,7 @@ from easy_thumbnails.files import get_thumbnailer
 from common.utilities import split_filepath
 
 from domain.models import Workshop, UserAccount, WorkshopFeedback, user_avatar_dir
-from presentation.forms import EditProfileForm, EditAccountEmailForm
+from presentation.forms import EditProfileForm, EditAccountEmailForm, EditAccountPasswordForm
 
 
 @login_required
@@ -51,7 +51,7 @@ def edit_my_settings_profile(request):
         if submit_type == 'remove-avatar':
             user.avatar.delete()
             user.save()
-            messages.success(request, u'Success! Your profile picture is removed.')
+            messages.success(request, u'ลบรูปผู้ใช้เรียบร้อย')
             return redirect('edit_my_settings_profile')
 
         else:
@@ -64,30 +64,10 @@ def edit_my_settings_profile(request):
 
                 avatar = form.cleaned_data['avatar']
                 if avatar:
-                    # TODO Make rounded avatar
-
                     (root, name, ext) = split_filepath(avatar.name)
                     user.avatar.save('avatar.%s' % ext, avatar)
 
-                    #avatar_thumbnail = get_thumbnailer(user.avatar)['avatar_normal']
-
-                    #from PIL import Image, ImageOps
-
-                    #filename = '%s/%s' % (settings.MEDIA_ROOT, user_avatar_dir(user, 'avatar.jpg'))
-
-                    #mask = Image.open('%s/%s' % (settings.STATIC_ROOT, 'images/masking/avatar_normal.png')).convert('L')
-                    #image = Image.open(avatar_thumbnail.file)
-                    #image = Image.open(user.avatar.file)
-
-                    #output = ImageOps.fit(avatar_thumbnail.image, mask.size, centering=(0.5, 0.5))
-                    #output.putalpha(mask)
-                    #output.save('output.png')
-
-
-
-
-
-                messages.success(request, u'Success! Your profile is updated.')
+                messages.success(request, u'บันทึกการเปลี่ยนแปลงข้อมูลผู้ใช้เรียบร้อย')
                 return redirect('edit_my_settings_profile')
 
     else:
@@ -128,16 +108,16 @@ def edit_my_settings_account_email(request):
 @login_required
 def edit_my_settings_account_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = EditAccountPasswordForm(request.user, request.POST)
         if form.is_valid():
             request.user.set_password(form.cleaned_data['new_password1'])
             request.user.save()
 
-            messages.success(request, u'Success! Your password is changed.')
+            messages.success(request, u'เปลี่ยนรหัสผ่านเรียบร้อย')
             return redirect('edit_my_password')
 
     else:
-        form = PasswordChangeForm(request.user)
+        form = EditAccountPasswordForm(request.user)
 
     return render(request, 'user/settings/settings_password.html', {'form': form})
 

@@ -1571,7 +1571,7 @@ body {
   margin-bottom: 10px;
 }
 .page-backend #backend-container {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  background: url('../images/ui/noise.png') repeat #4b5c66;
 }
 .page-backend #backend-header {
   padding: 30px 0 10px;
@@ -1761,7 +1761,7 @@ body {
   color: #CCC;
 }
 .page-backend .backend-tabs {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  background: url('../images/ui/noise.png') repeat #4b5c66;
 }
 .page-backend .backend-tabs .nav {
   margin: 0;
@@ -1823,7 +1823,7 @@ body {
   border-radius: 0;
   color: #FFF;
   font-size: 15px;
-  margin: 25px 0 0;
+  margin: 0 0 25px;
   padding: 15px 35px 15px 56px;
   text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 }
@@ -1831,16 +1831,16 @@ body {
   margin: 0;
 }
 .page-backend #backend-body .alert-success {
-  background: url(../images/ui/messages.png) #1abc9c 15px 13px no-repeat;
-  border-left: 10px solid #16A085;
+  background: url(../images/ui/messages.png) #00ac71 15px 14px no-repeat;
+  border-left: 10px solid #009260;
 }
 .page-backend #backend-body .alert-warning {
   background: url(../images/ui/messages.png) #f1c40f 15px -48px no-repeat;
   border-left: 10px solid #F39C12;
 }
 .page-backend #backend-body .alert-error {
-  background: url(../images/ui/messages.png) #e74c3c 18px -108px no-repeat;
-  border-left: 10px solid #C0392B;
+  background: url(../images/ui/messages.png) #e56068 18px -108px no-repeat;
+  border-left: 10px solid #cc464e;
 }
 .page-backend .backend-page-nav {
   margin-bottom: 35px;
@@ -2452,7 +2452,7 @@ body {
   margin-right: 10px;
 }
 .page-registration {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  background: url('../images/ui/noise.png') repeat #4b5c66;
   /*
     .registration-body {
         border-top: 1px solid @headerLightBorder;
@@ -2554,7 +2554,7 @@ body {
   margin: 30px auto 0;
 }
 .page-homepage .headline {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  background: url('../images/ui/noise.png') repeat #4b5c66;
   text-align: center;
 }
 .page-homepage .headline .logo {
@@ -3184,7 +3184,7 @@ body {
   width: 540px;
 }
 .page-workshop-browse .browse-header {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  background: url('../images/ui/noise.png') repeat #4b5c66;
   margin-bottom: 25px;
   padding: 25px 0 25px;
 }
@@ -4923,7 +4923,7 @@ body {
   font-weight: bold;
 }
 .page-profile .profile-header {
-  background: url('../images/ui/100-95-3.png') repeat #4b5c66;
+  background: url('../images/ui/noise.png') repeat #4b5c66;
 }
 .page-profile .profile-header .avatar {
   position: relative;
@@ -5130,10 +5130,8 @@ body {
   height: 32px;
   width: 32px;
 }
-.page-user-settings h2 {
-  border-bottom: 1px solid #DDD;
-  margin: 20px 0 20px;
-  padding-bottom: 10px;
+.page-user-settings #backend-body {
+  padding: 35px;
 }
 .page-user-settings form .form-group {
   margin-bottom: 25px;
@@ -5146,9 +5144,6 @@ body {
   font-weight: normal;
   margin-bottom: 3px;
 }
-.page-user-settings form {
-  padding: 15px;
-}
 .page-user-settings form .name-control input {
   width: 300px;
 }
@@ -5157,6 +5152,12 @@ body {
 }
 .page-user-settings form .phone-control input {
   width: 200px;
+}
+.page-user-settings form .email-control input {
+  width: 300px;
+}
+.page-user-settings form .password-control input {
+  width: 300px;
 }
 .page-messages ul.nav-messages {
   margin: 30px 0 0;

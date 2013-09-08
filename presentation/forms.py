@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.translation import ugettext_lazy as _
 
 from domain.models import UserAccount
@@ -16,7 +17,7 @@ class EditProfileForm(forms.Form):
 
 
 class EditAccountEmailForm(forms.Form):
-    email = forms.EmailField(max_length=100)
+    email = forms.EmailField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -29,6 +30,12 @@ class EditAccountEmailForm(forms.Form):
             raise forms.ValidationError(_('This email has already been registered.'))
 
         return email
+
+
+class EditAccountPasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
 # WORKSHOP
