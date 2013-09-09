@@ -1162,47 +1162,6 @@ h1.style-page-header {
   background-color: #00ac71;
   color: #FFF;
 }
-.style-course-feedback {
-  list-style: none;
-}
-.style-course-feedback .feedback-avatar {
-  float: left;
-  margin-top: 5px;
-}
-.style-course-feedback .feedback-right {
-  background: #fbeb8d;
-  margin-left: 67px;
-  padding: 15px 20px 5px;
-  position: relative;
-}
-.style-course-feedback .feedback-right:after {
-  border: solid transparent;
-  border-color: rgba(251, 235, 141, 0);
-  border-right-color: #fbeb8d;
-  border-width: 10px;
-  content: " ";
-  height: 0;
-  margin-top: -10px;
-  position: absolute;
-  pointer-events: none;
-  right: 100%;
-  top: 29px;
-  width: 0;
-}
-.style-course-feedback .feedback-from {
-  color: #666;
-  margin-bottom: 8px;
-}
-.style-course-feedback .feedback-from a {
-  color: #444;
-  font-weight: bold;
-  margin-right: 2px;
-}
-.style-course-feedback .feedback-content p {
-  color: #444;
-  font-size: 13.5px;
-  line-height: 23px;
-}
 .style-workshop-story p {
   color: #555;
   font-family: 'ChiangSaenRegular', sans-serif;
@@ -2671,9 +2630,9 @@ body {
   font-style: italic;
 }
 #modal-view-feedback .content p {
-  font-family: 'ChiangSaenRegular';
-  font-size: 21px;
-  line-height: 28px;
+  color: #444;
+  font-size: 13.5px;
+  line-height: 23px;
   margin-bottom: 15px;
 }
 #modal-view-feedback .button-delete-feedback {
@@ -3368,9 +3327,56 @@ body {
   margin: 0;
   padding: 0;
 }
-.page-workshop-outline .workshop-feedbacks .feedbacks .style-workshop-feedback {
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback {
+  list-style: none;
   margin-bottom: 50px;
   width: 540px;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-avatar {
+  float: left;
+  margin-top: 5px;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-right {
+  background: #fbeb8d;
+  margin-left: 67px;
+  padding: 15px 20px 20px;
+  position: relative;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-right:after {
+  border: solid transparent;
+  border-color: rgba(251, 235, 141, 0);
+  border-right-color: #fbeb8d;
+  border-width: 10px;
+  content: " ";
+  height: 0;
+  margin-top: -10px;
+  position: absolute;
+  pointer-events: none;
+  right: 100%;
+  top: 29px;
+  width: 0;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-from {
+  color: #666;
+  margin-bottom: 3px;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-from a {
+  color: #444;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 24px;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-content p {
+  color: #444;
+  font-size: 13.5px;
+  line-height: 23px;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-feelings i {
+  font-size: 16px;
+  margin-right: 3px;
+}
+.page-workshop-outline .workshop-feedbacks .feedbacks .feedback .feedback-feelings em {
+  color: #444;
+  font-style: italic;
 }
 .page-workshop-browse .browse-header {
   background: url('../images/ui/noise.png') repeat #4b5c66;

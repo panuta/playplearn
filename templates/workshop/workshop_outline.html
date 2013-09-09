@@ -20,7 +20,7 @@
     $('.workshop-feedbacks .feedbacks').masonry({
         columnWidth: 540,
         gutter: 50,
-        itemSelector: '.style-workshop-feedback'
+        itemSelector: '.feedback'
     });
 
     var schedule_picker_modal = $('#modal-schedule-picker');
@@ -147,44 +147,17 @@
     <div class="workshop-feedbacks">
         <h2>คำนิยม</h2>
         <ul class="feedbacks">
-            <li class="feedback style-workshop-feedback">
-                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
-                <div class="feedback-right">
-                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
-                    <div class="feedback-content">
-                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
-                    </div>
-                </div>
-            </li>
-            <li class="feedback style-workshop-feedback">
-                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
-                <div class="feedback-right">
-                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
-                    <div class="feedback-content">
-                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
-                    </div>
-                </div>
-            </li>
-            <li class="feedback style-workshop-feedback">
-                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
-                <div class="feedback-right">
-                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
-                    <div class="feedback-content">
-                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
-                    </div>
-                </div>
-            </li>
-            <li class="feedback style-workshop-feedback">
-                <div class="feedback-avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user4.jpg" width="50" height="50" /></div>
-                <div class="feedback-right">
-                    <div class="feedback-from"><a href="#">Sample Review</a> was feeling <em>excited</em></div>
-                    <div class="feedback-content">
-                        <p>เยอร์บีร่าโพลารอยด์เลกเชอร์ฟรุตแมนชั่นรวมมิตร งั้นเจลฮอตดอกพาสปอร์ตตนเองแพ็ค กับดักวัคค์ไฮเวย์วาทกรรม ห่วยเหมยเซาท์ เพรสอุปทาน ป๊อกนิวส์ปิยมิตรเฟอร์รี่เสือโคร่ง สามแยกเยอร์บีร่าแคร็กเกอร์โรแมนติคชะโนดโซนี่ ปาสคาลแต๋วไฮกุเช็ก</p>
-                    </div>
-                </div>
-            </li>
             {% for feedback in feedbacks %}
-                {% include 'snippets/workshop_feedback_box.html' %}
+                <li class="feedback">
+                    <div class="feedback-avatar"><a href="{% url 'view_user_profile' feedback.reservation.user.uid %}"><img src="{{ feedback.reservation.user.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></a></div>
+                    <div class="feedback-right">
+                        <div class="feedback-from"><a href="{% url 'view_user_profile' feedback.reservation.user.uid %}">{{ feedback.reservation.user.name }}</a></div>
+                        <div class="feedback-content">
+                            {{ feedback.content|linebreaks }}
+                        </div>
+                        <div class="feedback-feelings"><i class="icon-smile"></i> {% feedback_feelings_as_em feedback %}</div>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     </div>

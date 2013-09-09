@@ -16,7 +16,7 @@ from common.errors import WorkshopEnrollmentException, ACCOUNT_REGISTRATION_ERRO
 from common.shortcuts import response_json_error, response_json_error_with_message, response_json_success
 
 from domain import functions as domain_functions
-from domain.models import Workshop, WorkshopTopic, WorkshopPicture
+from domain.models import Workshop, WorkshopTopic, WorkshopPicture, WorkshopFeedback
 from reservation.models import Schedule, Reservation
 
 
@@ -39,6 +39,11 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
 
     reservation = get_object_or_404(Reservation, code=reservation_code) if reservation_code else None
 
+    feedbacks = WorkshopFeedback.objects.filter(
+        reservation__schedule__workshop=workshop,
+        is_visible=True
+    ).order_by('-created')
+
     return render(request, 'workshop/workshop_outline.html', {
         'workshop': workshop,
         'workshop_pictures': pictures,
@@ -46,6 +51,7 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
         'workshop_schedules': schedules,
         'page_action': page_action,
         'reservation': reservation,
+        'feedbacks': feedbacks,
     })
 
 
