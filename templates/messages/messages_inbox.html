@@ -5,6 +5,7 @@
 {% block messages_nav %}{% include 'messages/messages_nav.html' with tab_name='inbox' %}{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script>
 (function() {
     $('table.messages tr').on('click', function() {

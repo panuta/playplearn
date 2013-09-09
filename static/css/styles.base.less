@@ -528,6 +528,7 @@ body.modal-open {
 form {
     .errorlist {
         margin: 0;
+        padding: 0;
 
         li {
             color: #C30;
@@ -1131,26 +1132,21 @@ h1.style-page-header {
 
 // COMPONENT ###########################################################################################################
 
-.style-registration-modal {
-
+.style-registration-panel {
     .backend-social {
-        text-align: center;
-
         .facebook {
             .login_facebook_button;
-            margin: 0 15px;
+            margin-right: 30px;
         }
 
         .twitter {
             .login_twitter_button;
-            margin: 0 15px;
         }
     }
 
     .or {
         line-height: 12px;
         margin: 35px auto 5px;
-        text-align: center;
 
         hr {
             border: none;
@@ -1163,41 +1159,27 @@ h1.style-page-header {
             color: #888;
             font-size: 12.5px;
             display: inline-block;
-            padding: 0 10px;
+            padding: 0 10px 0 0;
             position: relative;
             top: -13px;
         }
     }
 
     .backend-email {
-        margin-bottom: 20px;
-
         .head {
             color: #666;
             font-family: 'QuarkLight', sans-serif;
             font-size: 20px;
-            margin-bottom: 10px;
-            text-align: center;
+            margin-bottom: 8px;
         }
 
         form {
-            margin: 0;
-            text-align: center;
-
             input {
-                font-size: 15px;
-                margin: 0 auto 15px;
-                width: 230px;
+                width: 280px;
             }
 
-            .actions {
-                margin-top: 2px;
-
-                .error {
-                    color: #C30;
-                    font-size: 13px;
-                    margin-bottom: 8px;
-                }
+            .form-actions {
+                margin: 0;
 
                 .style-button {
                     font-size: 13px;
@@ -1220,14 +1202,15 @@ h1.style-page-header {
 
         .email-login {
             float: left;
+            margin-right: 50px;
             vertical-align: top;
-            width: 319px;
+            width: 280px;
         }
 
         .email-register {
             float: left;
             vertical-align: top;
-            width: 319px;
+            width: 280px;
         }
     }
 }

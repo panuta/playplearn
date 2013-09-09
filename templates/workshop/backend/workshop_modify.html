@@ -1,10 +1,11 @@
-{% extends 'base_backend.html' %}
+{% extends 'base_page_backend.html' %}
 {% load i18n common_tags presentation_tags thumbnail %}
 
 {% block head_title %}{% if not workshop %}จัดเวิร์คช็อป{% else %}แก้ไขข้อมูลเวิร์คช็อป{% endif %} - {{ settings.WEBSITE_NAME }}{% endblock %}
 {% block body_class %}{{ block.super }} page-workshop-modify{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrt6cxEWjNaPrR30RYFJOcFgC8AmR20ZQ&sensor=true"></script>
 <script>
 (function() {

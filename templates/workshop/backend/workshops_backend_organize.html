@@ -6,6 +6,7 @@
 {% block workshop_backend_nav %}{% include 'workshop/backend/workshops_backend_base_nav.html' with tab_name='organize' %}{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script>
 jQuery(function($){
     $('#modal-add-schedule').on('ws.schedule.add', function(e, workshop_uid, data) {

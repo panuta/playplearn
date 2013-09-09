@@ -107,11 +107,17 @@ function _notify(type, title, message) {
 function initializeRegistrationModal() {
     var registration_modal = $('#registration-modal');
 
+    registration_modal.find('input').keypress(function(e) {
+        if(e.which == 13) {
+            $(this).closest('form').submit();
+        }
+    });
+
     registration_modal.on('shown', function() {
         registration_modal.find('.email-login .actions .error').remove();
         registration_modal.find('.email-register .actions .error').remove();
     });
-
+/*
     registration_modal.find('.email-login button').on('click', function() {
         var email = registration_modal.find('.email-login input[name="email"]').val();
         var password = registration_modal.find('.email-login input[name="password"]').val();
@@ -162,5 +168,5 @@ function initializeRegistrationModal() {
         }
 
         return false;
-    });
+    });*/
 }

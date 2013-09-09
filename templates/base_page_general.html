@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load i18n common_tags %}
+
+{% block body_class %}page-general{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+{% if not user.is_authenticated %}
+<div id="body-registration" class="hide">
+    <div class="registration-panel">
+        <div class="container">
+            <h3>เข้าสู่ระบบ / สมัครสมาชิก</h3>
+            {% include 'snippets/registration_signup_login.html' %}
+        </div>
+    </div>
+    <div class="registration-close">
+        <div class="close-button"><a href="#"><i class="icon-remove-sign"></i> ปิด</a></div>
+    </div>
+</div>
+{% endif %}
+<div id="body-top">
+    <div class="container">
+        <div class="top-left">
+            <a href="/" class="logo"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a>
+            <a href="#">ค้นหาเวิร์คช็อป</a>
+            <a href="{% url 'view_my_workshops_organize' %}">จัดเวิร์คช็อป</a>
+        </div>
+        <div class="top-right">
+            {% if not user.is_authenticated %}
+            <div class="registration">
+                <a href="{% url 'view_user_login' %}" class="button-signup-login">เข้าสู่ระบบ / สมัครสมาชิก</a>
+            </div>
+            {% else %}
+            <div class="user">
+                <div class="top-item">
+                    <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="avatar"><img src="{{ user.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a>
+                    <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="name">{{ user.name }}</a>
+                </div>
+                {% if user.stats_schedules_upcoming %}<div class="top-item notification"><a href="{% url 'view_my_workshops_attend' %}" title="มี {{ user.stats_schedules_upcoming }} เวิร์คช็อปที่กำลังจะถึง"><i class="icon-bullhorn"></i> {{ user.stats_schedules_upcoming }}</a></div>{% endif %}
+                {% comment %}<div class="top-item notification"><a href="#"><i class="icon-bell"></i> 10</a></div><!-- TODO: Add link destination -->{% endcomment %}
+                <div class="top-item menu">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-reorder"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="{% url 'view_my_workshops_attend' %}">เข้าร่วมเวิร์คช็อป</a></li>
+                            <li><a href="{% url 'view_my_workshops_organize' %}">จัดเวิร์คช็อป</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าการใช้งาน</a></li>
+                            <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div id="body-content">
+    {% block body_content %}{% endblock %}
+    <div class="push"></div>
+</div>
+</div>
+<div id="body-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a></div>
+
+                <div class="links">
+                    <a href="{% url 'view_about_us_page' %}">About us</a>
+                    <span class="separator">|</span>
+                    <a href="http://www.tumblr.com/">Blog</a>
+                    <span class="separator">|</span>
+                    <a href="{% url 'view_about_us_page' %}">FAQ</a>
+                    <span class="separator">|</span>
+                    <a href="{% url 'view_policy_page' %}">Privacy & Terms of service</a>
+                </div>
+                <div class="socials">
+                    <a href="#" class="facebook">Facebook</a>
+                    <a href="#" class="twitter">Twitter</a>
+                    <span class="email">Support: <a href="mailto:{{ settings.SUPPORT_EMAIL }}">{{ settings.SUPPORT_EMAIL }}</a></span>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                {% if not user.is_authenticated %}
+                <div class="subscribe">
+                    <div class="box">
+                        <div class="offer"><i class="icon-envelope"></i> สมัครรับข่าวสารทางอีเมล</div>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <button type="submit" class="style-button">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal hide" id="alert-modal">
+    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3></h3></div>
+    <div class="modal-body"></div>
+    <div class="modal-footer"><a href="#" class="style-button" data-dismiss="modal">Close</a></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if not user.is_authenticated %}
+<script>
+jQuery(function($){
+    var body_registration = $('#body-registration');
+
+    $('.button-signup-login').on('click', function() {
+        body_registration.removeClass('hide').hide().slideDown('slow');
+        return false;
+    });
+
+    body_registration.find('.registration-close a').on('click', function() {
+        body_registration.slideUp('slow');
+        return false;
+    });
+});
+</script>
+{% endif %}
+{% endblock %}

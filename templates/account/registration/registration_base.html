@@ -1,11 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base_page_registration.html' %}
 
-{% block body_class %}page-registration{% endblock %}
-
-{% block body %}
-<div class="registration-body">
-    <div class="container">
-        {% block registration_body %}{% endblock %}
-    </div>
+{% block body_content %}
+<div class="container">
+    {% block registration_body %}{% endblock %}
 </div>
 {% endblock %}

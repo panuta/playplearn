@@ -12,6 +12,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+SUPPORT_EMAIL = 'panuta@gmail.com'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -89,6 +91,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     'postman.context_processors.inbox',
 
+    'playplearn.context_processors.registration_form',
     'playplearn.context_processors.site_settings',
 )
 

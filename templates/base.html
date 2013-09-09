@@ -1,4 +1,4 @@
-{% load i18n common_tags %}<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -48,196 +48,7 @@
     <!--<script src="{{ STATIC_URL }}libs/modernizr-2.6.2-respond-1.1.0.min.js"></script> Firefox Don't Remember Scroll Position-->
 </head>
 <body class="{% block body_class %}{% endblock %}">
-<div class="wrapper">
-<!--[if lt IE 7]>
-<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-<![endif]-->
-<!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-
-<div id="body-top">
-    <div class="container">
-        <div class="top-left">
-            <a href="/" class="logo"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a>
-            <a href="#">ค้นหาเวิร์คช็อป</a>
-            <a href="{% url 'view_my_workshops_organize' %}">จัดเวิร์คช็อป</a>
-        </div>
-        <div class="top-right">
-            {% if not user.is_authenticated %}
-            <div class="registration">
-                <a href="#registration-modal" data-toggle="modal">เข้าสู่ระบบ / สมัครสมาชิก</a>
-            </div>
-            {% else %}
-            <div class="user">
-                <div class="top-item">
-                    <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="avatar"><img src="{{ user.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a>
-                    <a href="{% url 'view_my_profile' %}" title="ไปหน้าโปรไฟล์ผู้ใช้" class="name">{{ user.name }}</a>
-                </div>
-                {% if user.stats_schedules_upcoming %}<div class="top-item notification"><a href="{% url 'view_my_workshops_attend' %}" title="มี {{ user.stats_schedules_upcoming }} เวิร์คช็อปที่กำลังจะถึง"><i class="icon-bullhorn"></i> {{ user.stats_schedules_upcoming }}</a></div>{% endif %}
-                {% comment %}<div class="top-item notification"><a href="#"><i class="icon-bell"></i> 10</a></div><!-- TODO: Add link destination -->{% endcomment %}
-                <div class="top-item menu">
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100"><i class="icon-reorder"></i></a>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="{% url 'view_my_workshops_attend' %}">เข้าร่วมเวิร์คช็อป</a></li>
-                            <li><a href="{% url 'view_my_workshops_organize' %}">จัดเวิร์คช็อป</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{% url 'edit_my_settings_profile' %}">ตั้งค่าการใช้งาน</a></li>
-                            <li><a href="{% url 'auth_logout' %}">ออกจากระบบ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
-<div id="body-content">
-    {% block body %}{% endblock %}
-    <div class="push"></div>
-</div>
-</div>
-<div id="body-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7">
-                <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/ui/logo.top.png" /></a></div>
-
-                <div class="links">
-                    <a href="{% url 'view_about_us_page' %}">About us</a>
-                    <span class="separator">|</span>
-                    <a href="http://www.tumblr.com/">Blog</a>
-                    <span class="separator">|</span>
-                    <a href="{% url 'view_about_us_page' %}">FAQ</a>
-                    <span class="separator">|</span>
-                    <a href="{% url 'view_policy_page' %}">Privacy & Terms of service</a>
-                </div>
-                <div class="socials">
-                    <a href="#" class="facebook">Facebook</a>
-                    <a href="#" class="twitter">Twitter</a>
-                    <span class="email">Support: <a href="#">panuta@gmail.com</a></span>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                {% if not user.is_authenticated %}
-                <div class="subscribe">
-                    <div class="box">
-                        <div class="offer"><i class="icon-envelope"></i> สมัครรับข่าวสารทางอีเมล</div>
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                            </div>
-                            <button type="submit" class="style-button">Submit</button>
-                        </form>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal hide" id="alert-modal">
-    <div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3></h3></div>
-    <div class="modal-body"></div>
-    <div class="modal-footer"><a href="#" class="style-button" data-dismiss="modal">Close</a></div>
-</div>
-
-{% if not user.is_authenticated %}
-<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content style-registration-modal">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">เข้าสู่ระบบ / สมัครสมาชิก</h4>
-            </div>
-            <div class="modal-body">
-                <div class="backend-social">
-                    <a href="#" class="facebook">Connect with Facebook</a>
-                    <a href="#" class="twitter">Connect with Twitter</a>
-                </div>
-                <div class="or"><hr><span>หรือใช้อีเมล</span></div>
-                <div class="backend-email">
-                    <div class="clearfix">
-                        <div class="email-login">
-                            <div class="head">เข้าสู่ระบบ</div>
-                            <form action="{% url 'ajax_email_login' %}" method="post" role="form">
-                                {% csrf_token %}
-                                <div class="inputs">
-                                    <input type="email" name="email" class="form-control" id="modal_registration_login_email" placeholder="อีเมล">
-                                    <input type="password" name="password" class="form-control" id="modal_registration_login_password" placeholder="รหัสผ่าน">
-                                </div>
-                                <div class="actions">
-                                    <button type="button" class="style-button">เข้าสู่ระบบ</button>
-                                </div>
-                                <div class="forgot"><a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a></div>
-                            </form>
-                        </div>
-                        <div class="email-register">
-                            <div class="head">สมัครสมาชิก</div>
-                            <form action="{% url 'ajax_email_register' %}" method="post" role="form">
-                                {% csrf_token %}
-                                <div class="inputs">
-                                    <input type="email" name="email" class="form-control" id="modal_registration_register_email" placeholder="อีเมล">
-                                </div>
-                                <div class="actions">
-                                    <button type="button" class="style-button">สมัครสมาชิก</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% comment %}
-<div class="modal hide" id="registration-modal">
-    <div class="modal-body style-registration-login">
-        <div class="backend-social">
-            <div class="head"><b>เข้าสู่ระบบ</b> หรือ <b>สมัครสมาชิก</b></div>
-            <a href="#" class="facebook">Sign up / login with Facebook</a>
-            <a href="#" class="twitter">Sign up / login with Twitter</a>
-        </div>
-        <div class="or">
-            <hr><span>หรือใช้อีเมล</span>
-        </div>
-        <div class="backend-email">
-            <div class="clearfix">
-                <div class="email-login">
-                    <div class="head">เข้าสู่ระบบ</div>
-                    <form action="{% url 'ajax_email_login' %}" method="post">
-                        {% csrf_token %}
-                        <div class="input">
-                            <input type="email" id="modal_login_email" name="email" placeholder="อีเมล" />
-                        </div>
-                        <div class="input">
-                            <input type="password" id="modal_login_password" name="password" placeholder="รหัสผ่าน" />
-                        </div>
-                        <div class="actions">
-                            <button type="button" class="style-button">เข้าสู่ระบบ</button>
-                        </div>
-                        <div class="forgot"><a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a></div>
-                    </form>
-                </div>
-                <div class="email-register">
-                    <div class="head">สมัครสมาชิก</div>
-                    <form action="{% url 'ajax_email_register' %}" method="post">
-                        {% csrf_token %}
-                        <div class="input">
-                            <input type="email" id="modal_register_email" name="email" placeholder="อีเมล" />
-                        </div>
-                        <div class="actions">
-                            <button type="button" class="style-button">สมัครสมาชิก</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endcomment %}
-{% endif %}
+{% block body %}{% endblock %}
 
 <script type="text/javascript" src="{{ STATIC_URL }}libs/moment.min.js"></script>
 
@@ -259,19 +70,10 @@
 <script type="text/javascript" src="{{ STATIC_URL }}libs/select2/select2.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/slider/js/bootstrap-slider.js"></script>
 
-<!--<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery.easydropdown/jquery.easydropdown.js"></script>-->
-
 <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.base.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/scripts.js"></script>
 
-{% if not user.is_authenticated %}
-<script>
-    initializeRegistrationModal();
-</script>
-{% endif %}
-
 {% block modals %}{% endblock %}
 {% block scripts %}{% endblock %}
-
 </body>
 </html>

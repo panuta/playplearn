@@ -1,10 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base_page_general.html' %}
 {% load i18n thumbnail common_tags presentation_tags %}
 
 {% block head_title %}{{ settings.WEBSITE_NAME }} - เปลี่ยนวันว่างธรรมดา ให้เป็นวันที่สนุกเพลิดเพลิน{% endblock %}
-{% block body_class %}page-homepage{% endblock %}
+{% block body_class %}{{ block.super }} page-homepage{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script>
 (function() {
 
@@ -12,7 +13,7 @@
 </script>
 {% endblock %}
 
-{% block body %}
+{% block body_content %}
 <div class="headline">
     <div class="container">
         <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.homepage.white.png" /></div>

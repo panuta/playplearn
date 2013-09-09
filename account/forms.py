@@ -8,14 +8,13 @@ from common.widgets import EmailWidget
 
 from domain.models import UserRegistration, UserAccount
 
-
 class EmailAuthenticationForm(forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
     email/password logins.
     """
-    email = forms.EmailField(widget=EmailWidget(attrs={'placeholder': 'อีเมล'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'รหัสผ่าน'}))
+    email = forms.EmailField(widget=EmailWidget(attrs={'placeholder': 'อีเมล', 'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'รหัสผ่าน', 'class': 'form-control'}))
 
     def __init__(self, request=None, *args, **kwargs):
         """
@@ -36,7 +35,7 @@ class EmailAuthenticationForm(forms.Form):
             self.user_cache = authenticate(email=email, password=password)
             if self.user_cache is None:
                 raise forms.ValidationError(
-                    _('Please enter a correct username and password. Note that both fields are case-sensitive.'))
+                    _('Please enter a correct username and password.'))
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_('This account is inactive.'))
         self.check_for_test_cookie()
@@ -57,16 +56,16 @@ class EmailAuthenticationForm(forms.Form):
 
 
 class EmailSignupForm(forms.Form):
-    email = forms.EmailField(widget=EmailWidget(attrs={'placeholder': 'อีเมล'}))
+    email = forms.EmailField(widget=EmailWidget(attrs={'placeholder': 'อีเมล', 'class': 'form-control'}))
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
         if UserAccount.objects.filter(email=email).count():
-            raise forms.ValidationError(_('This email is already registered.'))
+            raise forms.ValidationError(_('This email was already registered.'))
 
         if UserRegistration.objects.filter(email=email).count():
-            raise forms.ValidationError(_('This email is already signed up, but not yet activated.'))
+            raise forms.ValidationError(_('This email was already registered but not yet activated.'))
 
         return email
 
@@ -78,12 +77,12 @@ class EmailSignupResendForm(forms.Form):
         email = self.cleaned_data.get('email')
 
         if UserAccount.objects.filter(email=email).count():
-            raise forms.ValidationError(_('This email is already registered.'))
+            raise forms.ValidationError(_('This email was already registered.'))
 
         try:
             UserRegistration.objects.get(email=email)
         except UserRegistration.DoesNotExist:
-            raise forms.ValidationError(_('This email is not yet requested to sign up.'))
+            raise forms.ValidationError(_('There is no record of this email in the system.'))
 
         return email
 

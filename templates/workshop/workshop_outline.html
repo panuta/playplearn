@@ -1,10 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base_page_general.html' %}
 {% load thumbnail common_tags presentation_tags %}
 
 {% block head_title %}{{ workshop.title }} - {{ settings.WEBSITE_NAME }}{% endblock %}
-{% block body_class %}page-workshop-outline{% endblock %}
+{% block body_class %}{{ block.super }} page-workshop-outline{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script>
 (function() {
     {% if workshop_pictures %}
@@ -56,7 +57,7 @@
 </script>
 {% endblock %}
 
-{% block body %}
+{% block body_content %}
 <div class="container">
     <h1>{{ workshop.title }}</h1>
     <div class="workshop-summary">{{ workshop.summary }}</div>

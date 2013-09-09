@@ -48,7 +48,7 @@ urlpatterns += patterns(
     url(r'^my/workshops/attend/$', 'view_my_workshops_attend', name='view_my_workshops_attend'),
 
     #url(r'^my/activities/attended/(?P<school_slug>\w+)/$', 'view_my_workshops_attended_in_school', name='view_my_workshops_attended_in_school'),
-    url(r'^my/workshops/backend/$', 'view_my_workshops_organize', name='view_my_workshops_organize'),
+    url(r'^my/workshops/organize/$', 'view_my_workshops_organize', name='view_my_workshops_organize'),
 
     url(r'^my/workshop/new/$', 'create_workshop', name='create_workshop'),
     url(r'^workshop/(?P<workshop_uid>\w+)/edit/$', 'edit_workshop', name='edit_workshop'),

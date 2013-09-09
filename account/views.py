@@ -1,6 +1,9 @@
+
 from django.conf import settings
-from django.contrib.auth import REDIRECT_FIELD_NAME, authenticate, login
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, authenticate
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404, resolve_url
+from django.utils.http import is_safe_url
 from django.views.decorators.http import require_POST
 
 from common.decorators import redirect_if_authenticated
@@ -16,6 +19,8 @@ from .functions import ajax_login_email_user, ajax_register_email_user
 
 @redirect_if_authenticated
 def view_user_login(request, action):
+    redirect_to = request.REQUEST.get(REDIRECT_FIELD_NAME, '/')
+
     if request.method == 'POST':
         if action == 'signup':
             signup_form = EmailSignupForm(request.POST)
@@ -37,26 +42,30 @@ def view_user_login(request, action):
                 return redirect('view_user_signup_done')
 
         if action == 'login':
-            from django.contrib.auth.views import login
-            response = login(request,
-                             authentication_form=EmailAuthenticationForm,
-                             template_name='account/registration/registration_login.html',
-                             extra_context={'signup_form': signup_form})
-            return response
-        else:
-            form = EmailAuthenticationForm()
+            login_form = EmailAuthenticationForm(data=request.POST)
+            if login_form.is_valid():
+                # Ensure the user-originating redirection url is safe.
+                if not is_safe_url(url=redirect_to, host=request.get_host()):
+                    redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
-        next = request.POST.get(REDIRECT_FIELD_NAME, '/')
+                auth_login(request, login_form.get_user())
+
+                if request.session.test_cookie_worked():
+                    request.session.delete_test_cookie()
+
+                return HttpResponseRedirect(redirect_to)
+
+        else:
+            login_form = EmailAuthenticationForm()
 
     else:
-        form = EmailAuthenticationForm()
+        login_form = EmailAuthenticationForm()
         signup_form = EmailSignupForm()
-        next = request.GET.get(REDIRECT_FIELD_NAME, '/')
 
     return render(request, 'account/registration/registration_login.html', {
-        'form': form,
+        'login_form': login_form,
         'signup_form': signup_form,
-        'next': next,
+        'redirect_to': redirect_to,
     })
 
 
@@ -100,8 +109,9 @@ def activate_email_user(request, key):
                 user_account.avatar.save('avatar.%s' % ext, avatar)
 
             user = authenticate(email=user_account.email, password=password)
-            login(request, user)
+            auth_login(request, user)
 
+            """
             try:
                 unauthenticated_enrollment = UnauthenticatedCourseEnrollment.objects.get(key=key)
             except UnauthenticatedCourseEnrollment.DoesNotExist:
@@ -110,6 +120,7 @@ def activate_email_user(request, key):
                 enrollment = CourseEnrollment.objects.create_enrollment_from_unauthenticated(request.user, unauthenticated_enrollment)
                 unauthenticated_enrollment.delete()
                 return redirect('view_course_outline_with_payment', enrollment.schedule.course.uid, enrollment.code)
+            """
 
             return redirect(settings.LOGIN_REDIRECT_URL)
 

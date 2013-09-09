@@ -5,6 +5,7 @@
 {% block manage_workshop_nav %}{% include 'workshop/backend/workshop_manage_base_nav.html' with tab_name='feedbacks' %}{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script>
 jQuery(function($){
     var set_public_button = $('.button-set-public');

@@ -1,9 +1,10 @@
-{% extends 'base_backend.html' %}
+{% extends 'base_page_backend.html' %}
 {% load common_tags presentation_tags thumbnail %}
 
 {% block body_class %}{{ block.super }} page-enrollment-details{% endblock %}
 
 {% block scripts %}
+{{ block.super }}
 <script>
 (function() {
     var notify_modal = $('#modal-payment-notify');

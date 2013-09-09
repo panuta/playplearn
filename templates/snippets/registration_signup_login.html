@@ -1,0 +1,56 @@
+{% load presentation_tags %}
+<div class="style-registration-panel">
+    <div class="backend-social">
+        <a href="#" class="facebook">Connect with Facebook</a>
+        <a href="#" class="twitter">Connect with Twitter</a>
+    </div>
+    <div class="or"><hr><span>หรือใช้อีเมล</span></div>
+    <div class="backend-email clearfix">
+        <div class="email-login">
+            <div class="head">เข้าสู่ระบบ</div>
+            <form action="{% url 'view_user_login' %}" method="post" role="form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ login_form.email }}{{ login_form.email.errors }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.password }}{{ login_form.password.errors }}
+                </div>
+                {{ login_form.non_field_errors }}
+                <div class="actions">
+                    <input type="hidden" value="{{ redirect_to|default:request.path }}" name="next" />
+                    <button type="submit" name="submit" value="login" class="style-button">เข้าสู่ระบบ</button>
+                </div>
+                <div class="forgot"><a href="{% url 'auth_password_reset' %}">ลืมรหัสผ่าน?</a></div>
+            </form>
+        </div>
+        <div class="email-register">
+            <div class="head">สมัครสมาชิก</div>
+            {% to_resend_registration signup_form.email.data as resend_registration %}
+            <form action="{% if resend_registration %}{% url 'view_user_login_resend' %}{% else %}{% url 'view_user_login_signup' %}{% endif %}" method="post" role="form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ signup_form.email }}{{ signup_form.email.errors }}
+                </div>
+                {{ signup_form.non_field_errors }}
+                <div class="actions">
+                    {% if resend_registration %}
+                        <button class="style-button" type="submit" name="submit" value="resend"><i class="icon-envelope"></i> ส่งอีเมลอีกครั้ง</button>
+                        <a href="{% url 'view_user_login' %}">ยกเลิก</a>
+                    {% else %}
+                        <button class="style-button" type="submit" name="submit" value="signup">สมัครสมาชิก</button>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+jQuery(function($){
+    $('.style-registration-panel').find('form input').keypress(function(e) {
+        if(e.which == 13) {
+            $(this).closest('form').submit();
+        }
+    });
+});
+</script>

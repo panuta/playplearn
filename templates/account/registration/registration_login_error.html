@@ -1,11 +1,13 @@
-{% extends 'accounts/registration/registration_base.html' %}
+{% extends 'base_page_registration.html' %}
 
-{% block head_title %}Entering to PlayPlanet{% endblock %}
-{% block registration_head %}Entering to PlayPlanet{% endblock %}
+{% block head_title %}เข้าสู่ระบบ | {{ settings.WEBSITE_NAME }}{% endblock %}
 
-{% block registration_body %}
+{% block registration_header %}เข้าสู่ระบบ{% endblock %}
+
+{% block registration_content %}
 <div class="registration-error">
-    <div class="title">Logging you into PlayPlanet website has failed</div>
-    <p>Please try login again and if the problem persists, please contact our support.</p>
+    <i class="icon-warning-sign"></i>
+    <h2>ไม่สามารถเข้าสู่ระบบได้</h2>
+    <p>กรุณาลองเข้าสู่ระบบอีกครั้ง หากยังเกิดปัญหาเดิม กรุณาติดต่อเจ้าหน้าที่ดูแลเว็บไซต์ที่ <a href="mailto:{{ settings.SUPPORT_EMAIL }}" class="email">{{ settings.SUPPORT_EMAIL }}</a></p>
 </div>
 {% endblock %}
