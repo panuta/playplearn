@@ -5,6 +5,21 @@
 {% block body_class %}{{ block.super }} page-workshops-backend-attend{% endblock %}
 {% block workshop_backend_nav %}{% include 'workshop/backend/workshops_backend_base_nav.html' with tab_name='attend' %}{% endblock %}
 
+{% block scripts %}
+{{ block.super }}
+<script>
+jQuery(function($){
+    $(document).on('feedback.add', function(e, reservation_code) {
+        $('.past-reservations a[data-reservation="' + reservation_code + '"]').attr('href', '#modal-view-feedback').removeClass('style-primary-button').addClass('style-button').html('<i class="icon-search"></i> อ่านคำนิยม');
+    });
+
+    $(document).on('feedback.delete', function(e, reservation_code) {
+        $('.past-reservations a[data-reservation="' + reservation_code + '"]').attr('href', '#modal-write-feedback').removeClass('style-button').addClass('style-primary-button').html('<i class="icon-pencil"></i> เขียนคำนิยม');
+    });
+});
+</script>
+{% endblock %}
+
 {% block workshop_backend_body %}
     {% if upcoming_reservations or past_reservations %}
     {% if upcoming_reservations %}
@@ -40,7 +55,13 @@
                     <span class="teacher">สอนโดย <a href="{% url 'view_user_profile' reservation.schedule.workshop.teacher.uid %}">{{ reservation.schedule.workshop.teacher.name }}</a></span>
                     <span class="schedule">เมื่อวันที่ <em>{{ reservation.schedule|schedule_datetime }}</em></span>
                 </div>
-                <div class="feedback"><a href="#" class="style-button"><i class="icon-pencil"></i> เขียนคำนิยม</a></div><!-- TODO -->
+                <div class="feedback">
+                    {% if reservation.has_feedback %}
+                        <a href="#modal-view-feedback" class="style-button" data-toggle="modal" data-reservation="{{ reservation.code }}"><i class="icon-search"></i> อ่านคำนิยม</a>
+                    {% else %}
+                        <a href="#modal-write-feedback" class="style-primary-button" data-toggle="modal" data-reservation="{{ reservation.code }}"><i class="icon-pencil"></i> เขียนคำนิยม</a>
+                    {% endif %}
+                </div>
             </li>
         {% endfor %}
     </ul>
@@ -48,4 +69,11 @@
     {% else %}
         <div class="style-no-information">ยังไม่เคยเข้าร่วมเวิร์คช็อป</div>
     {% endif %}
+{% endblock %}
+
+{% block modals %}
+{% if past_reservations %}
+    {% include 'snippets/modal_write_feedback.html' %}
+    {% include 'snippets/modal_view_feedback.html' %}
+{% endif %}
 {% endblock %}

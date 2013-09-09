@@ -30,6 +30,7 @@ from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
 from reservation import functions as reservation_functions
 
 from presentation.templatetags.presentation_tags import workshop_pictures_ordering_as_comma_separated
+from reservation.models import Reservation
 
 
 def _response_with_workshop_error(error_code):
@@ -316,13 +317,13 @@ def ajax_view_workshop_feedback(request):
     if not request.is_ajax():
         raise Http404
 
-    enrollment_code = request.GET.get('code')
-    enrollment = get_object_or_404(WorkshopEnrollment, code=enrollment_code)
+    reservation_code = request.GET.get('code')
+    reservation = get_object_or_404(Reservation, code=reservation_code)
 
-    if enrollment.student != request.user and enrollment.schedule.workshop.teacher != request.user:
+    if reservation.user != request.user and reservation.schedule.workshop.teacher != request.user:
         return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
 
-    feedback = get_object_or_404(WorkshopFeedback, enrollment=enrollment)
+    feedback = get_object_or_404(WorkshopFeedback, reservation=reservation)
 
     feeling_names = []
     for feeling in feedback.feelings.split(','):
@@ -341,14 +342,14 @@ def ajax_add_workshop_feedback(request):
     if not request.is_ajax():
         raise Http404
 
-    enrollment_code = request.POST.get('code')
-    enrollment = get_object_or_404(WorkshopEnrollment, code=enrollment_code)
+    reservation_code = request.POST.get('code')
+    reservation = get_object_or_404(Reservation, code=reservation_code)
 
-    if enrollment.student != request.user:
+    if reservation.user != request.user:
         return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     try:
-        WorkshopFeedback.objects.get(enrollment=enrollment)
+        WorkshopFeedback.objects.get(reservation=reservation)
     except WorkshopFeedback.DoesNotExist:
         pass
     else:
@@ -366,7 +367,7 @@ def ajax_add_workshop_feedback(request):
             valid_feelings.append(feeling)
 
     WorkshopFeedback.objects.create(
-        enrollment=enrollment,
+        reservation=reservation,
         content=content,
         feelings=','.join(valid_feelings),
     )
@@ -380,14 +381,14 @@ def ajax_delete_workshop_feedback(request):
     if not request.is_ajax():
         raise Http404
 
-    enrollment_code = request.POST.get('code')
-    enrollment = get_object_or_404(WorkshopEnrollment, code=enrollment_code)
+    reservation_code = request.POST.get('code')
+    reservation = get_object_or_404(Reservation, code=reservation_code)
 
-    if enrollment.student != request.user:
+    if reservation.user != request.user:
         return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
 
     try:
-        feedback = WorkshopFeedback.objects.get(enrollment=enrollment)
+        feedback = WorkshopFeedback.objects.get(reservation=reservation)
     except WorkshopFeedback.DoesNotExist:
         return response_json_error_with_message('deleted', errors.WORKSHOP_FEEDBACK_ERRORS)
 

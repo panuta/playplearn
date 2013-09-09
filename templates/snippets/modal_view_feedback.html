@@ -1,25 +1,25 @@
 {% load common_tags %}
-<div class="modal hide" id="modal-view-feedback">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>My feedback</h3>
-    </div>
-    <div class="modal-body">
-        <div class="modal-loading"><div class="style-loading"><img src="{{ STATIC_URL }}images/ui/loading.gif"> Loading</div></div>
+<div class="modal fade" id="modal-view-feedback">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="feelings">
-                <ul>
-                    <li>Like</li>
-                    <li>Love</li>
-                    <li>Crazy</li>
-                </ul>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">คำนิยม</h4>
             </div>
-            <div class="content"></div>
+            <div class="modal-body">
+                <div class="modal-loading hide"><div class="style-loading"><img src="{{ STATIC_URL }}images/ui/loading.gif"> กำลังโหลด</div></div>
+                <div class="modal-feedback">
+                    <div class="feelings">
+                        <ul></ul>
+                    </div>
+                    <div class="content"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="button-delete-feedback">ลบคำนิยม</a>
+                <button class="style-primary-button" data-dismiss="modal">ปิด</button>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="button-delete-feedback">Delete feedback</a>
-        <button class="style-primary-button" data-dismiss="modal">Close</button>
     </div>
 </div>
 <script>
@@ -29,12 +29,12 @@
     $(document).on('click', 'a[href="#modal-view-feedback"]', function() {
         modal.modal();
         modal.find('.modal-loading').show();
-        modal.find('.modal-content').hide();
+        modal.find('.modal-feedback').hide();
 
-        var code = $(this).attr('data-code');
-        modal.data('enrollment-code', code);
+        var code = $(this).attr('data-reservation');
+        modal.data('reservation-code', code);
 
-        var jqxhr = $.get('{% url 'ajax_view_course_feedback' %}', {code:code}, function(response) {
+        var jqxhr = $.get('{% url 'ajax_view_workshop_feedback' %}', {code:code}, function(response) {
             if(response.status == 'success') {
                 modal.find('.feelings ul li').remove();
                 for(var i=0; i<response.data.feelings.length; i++) {
@@ -44,19 +44,19 @@
                 modal.find('.content').html(response.data.content);
 
                 modal.find('.modal-loading').hide();
-                modal.find('.modal-content').show();
+                modal.find('.modal-feedback').show();
 
             } else {
                 if(response.message) {
-                    _addModalErrorMessage('modal-view-feedback', 'Cannot view feedback: ' + response.message);
+                    _addModalErrorMessage('modal-view-feedback', 'ไม่สามารถเรียกดูคำนิยมได้ - ' + response.message);
                 } else {
-                    _addModalErrorMessage('modal-view-feedback', 'Cannot view feedback: Unknown error occurred');
+                    _addModalErrorMessage('modal-view-feedback', 'ไม่สามารถเรียกดูคำนิยมได้ - เกิดข้อผิดพลาดขึ้น');
                 }
             }
         }, 'json');
 
         jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-            _addModalErrorMessage('modal-view-feedback', 'Cannot view feedback: ' + errorThrown);
+            _addModalErrorMessage('modal-view-feedback', 'ไม่สามารถเรียกดูคำนิยมได้ - ' + errorThrown);
         });
 
         return false;
@@ -67,43 +67,34 @@
         html: true,
         placement: 'right',
         trigger: 'manual',
-        content: '<a href="#" class="btn btn-mini btn-danger button-feedback-delete">Confirm delete</a> <a href="#" class="btn btn-mini button-feedback-delete-cancel">Cancel</a>'
+        content: '<a href="#" class="btn btn-mini btn-danger button-feedback-delete">ยืนยัน</a> <a href="#" class="btn btn-mini button-feedback-delete-cancel">ยกเลิก</a>'
     });
 
     delete_feedback_button.on('click', function() {
-        delete_feedback_button.popover('show')
+        delete_feedback_button.popover('show');
 
         modal.find('.button-feedback-delete').on('click', function() {
-            var code = modal.data('enrollment-code');
+            var code = modal.data('reservation-code');
 
-            var jqxhr = $.post('{% url 'ajax_delete_course_feedback' %}', {code:code}, function(response) {
+            var jqxhr = $.post('{% url 'ajax_delete_workshop_feedback' %}', {code:code}, function(response) {
                 if(response.status == 'success') {
-                    $.pnotify({
-                        addclass:'custom',
-                        animation: 'none',
-                        history: false,
-                        icon:false,
-                        sticker: false,
-                        text:'Your feedback is deleted',
-                        title: 'Successful',
-                        type:'success'
-                    });
+                    _notify('success', 'ลบคำนิยมเรียบร้อย');
 
                     delete_feedback_button.popover('hide');
                     modal.modal('hide');
-                    $(document).trigger('feedbackdelete', [code]);
+                    $(document).trigger('feedback.delete', [code]);
 
                 } else {
                     if(response.message) {
-                        _addModalErrorMessage('modal-view-feedback', 'Cannot delete feedback: ' + response.message);
+                        _addModalErrorMessage('modal-view-feedback', 'ไม่สามารถลบคำนิยมได้ - ' + response.message);
                     } else {
-                        _addModalErrorMessage('modal-view-feedback', 'Cannot delete feedback: Unknown error occurred');
+                        _addModalErrorMessage('modal-view-feedback', 'ไม่สามารถลบคำนิยมได้ - เกิดข้อผิดพลาดขึ้น');
                     }
                 }
             }, 'json');
 
             jqxhr.error(function(jqXHR, textStatus, errorThrown) {
-                _addModalErrorMessage('modal-view-feedback', 'Cannot delete feedback: ' + errorThrown);
+                _addModalErrorMessage('modal-view-feedback', 'ไม่สามารถลบคำนิยมได้ - ' + errorThrown);
             });
 
             return false;

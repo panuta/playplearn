@@ -713,27 +713,33 @@
 }
 
 #modal-write-feedback {
-    .feedback-head {
-        color: @primaryColor;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 6px;
+    .modal-body {
+        label.form-label {
+            color: #555;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 20px;
+            font-weight: normal;
+        }
     }
 
-    .feeling {
+    .input-feelings {
+        margin-bottom: 20px;
+
         ul {
-            margin: 0 0 20px;
+            margin: 0;
+            padding: 0;
 
             li {
                 background-color: #EEE;
                 display: inline-block;
                 list-style: none;
-                margin-right: 5px;
+                margin: 0 1px 1px 0;
 
                 label {
                     color: #444;
-                    font-size: 13px;
-                    line-height: 30px;
+                    font-size: 15px;
+                    font-weight: normal;
+                    line-height: 38px;
                     margin: 0;
                     padding: 0 10px;
                     vertical-align: middle;
@@ -743,22 +749,37 @@
                     margin: 0 3px 0 0;
                     vertical-align: 1px;
                 }
+
+                &.checked {
+                    background-color: @colorBlue;
+
+                    label {
+                        color: #FFF;
+                    }
+                }
             }
         }
     }
 
-    .content {
+    .input-content {
+        margin-bottom: 15px;
+
         textarea {
+            border-radius: 0;
+            display: block;
             height: 80px;
-            width: 95%;
         }
     }
 }
 
 #modal-view-feedback {
-    .modal-content {
-        background-color: #EEE;
-        padding: 10px;
+    .modal-loading {
+        font-size: 15px;
+
+        img {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
     }
 
     .feelings {
@@ -766,23 +787,27 @@
 
         ul {
             margin: 0;
+            padding: 0;
 
             li {
-                background-color: #F7F7F7;
-                color: #555;
+                background-color: @colorYellow;
+                color: #444;
                 display: inline-block;
                 font-size: 13px;
-                font-weight: bold;
-                line-height: normal;
                 list-style: none;
-                margin-right: 5px;
-                padding: 4px 10px;
+                margin: 0 1px 1px 0;
+                padding: 7px 15px 4px;
             }
         }
     }
 
     .content {
-        background-color: #EEE;
+        p {
+            font-family: 'ChiangSaenRegular';
+            font-size: 21px;
+            line-height: 28px;
+            margin-bottom: 15px;
+        }
     }
 
     .button-delete-feedback {

@@ -74,6 +74,10 @@ class Reservation(models.Model):
             self.schedule.seats_left -= self.seats
             self.schedule.save()
 
+    def has_feedback(self):
+        from domain.models import WorkshopFeedback
+        return WorkshopFeedback.objects.filter(reservation=self).exists()
+
 
 # USER BALANCE #########################################################################################################
 

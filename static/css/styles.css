@@ -519,14 +519,14 @@ form .form-actions .style-button {
 }
 .style-button:hover,
 .style-button:focus {
-  background-color: #f9e25c;
-  border: 1px solid #f9e25c;
-  color: #333;
+  background-color: #188fc2;
+  border: 1px solid #188fc2;
+  color: #FFF;
   text-decoration: none;
 }
 .style-button:hover i,
 .style-button:focus i {
-  color: #333;
+  color: #FFF;
 }
 .style-button i {
   margin-right: 3px;
@@ -562,14 +562,14 @@ form .form-actions .style-button {
 }
 .style-primary-button:hover,
 .style-primary-button:focus {
-  background-color: #f9e25c;
-  border: 1px solid #f9e25c;
-  color: #333;
+  background-color: #188fc2;
+  border: 1px solid #188fc2;
+  color: #FFF;
   text-decoration: none;
 }
 .style-primary-button:hover i,
 .style-primary-button:focus i {
-  color: #333;
+  color: #FFF;
 }
 .style-primary-button i {
   margin-right: 3px;
@@ -1426,7 +1426,7 @@ body {
   vertical-align: middle;
 }
 #body-top .top-right .user .notification a {
-  background-color: #29ace4;
+  background-color: #f67f4d;
   border-radius: 4px;
   color: #FFF;
   margin-right: 10px;
@@ -1439,13 +1439,13 @@ body {
 }
 #body-top .top-right .user .notification a:hover,
 #body-top .top-right .user .notification a:focus {
-  background-color: #f9e25c;
-  color: #333;
+  background-color: #188fc2;
+  color: #FFF;
   text-decoration: none;
 }
 #body-top .top-right .user .notification a:hover i,
 #body-top .top-right .user .notification a:focus i {
-  color: #333;
+  color: #FFF;
 }
 #body-top .top-right .user .avatar {
   display: inline-block;
@@ -1788,13 +1788,13 @@ body {
 }
 .page-backend #backend-header .actions .primary:hover,
 .page-backend #backend-header .actions .primary:focus {
-  background-color: #f9e25c;
-  color: #333;
+  background-color: #188fc2;
+  color: #FFF;
   text-decoration: none;
 }
 .page-backend #backend-header .actions .primary:hover i,
 .page-backend #backend-header .actions .primary:focus i {
-  color: #333 !important;
+  color: #FFF !important;
 }
 .page-backend #backend-header .actions .primary[disabled],
 .page-backend #backend-header .actions .primary.disabled {
@@ -1824,13 +1824,13 @@ body {
 }
 .page-backend #backend-header .actions .secondary:hover,
 .page-backend #backend-header .actions .secondary:focus {
-  background-color: #f9e25c;
-  color: #333;
+  background-color: #188fc2;
+  color: #FFF;
   text-decoration: none;
 }
 .page-backend #backend-header .actions .secondary:hover i,
 .page-backend #backend-header .actions .secondary:focus i {
-  color: #333 !important;
+  color: #FFF !important;
 }
 .page-backend #backend-header .actions .secondary[disabled],
 .page-backend #backend-header .actions .secondary.disabled {
@@ -2556,60 +2556,80 @@ body {
   color: #444;
   margin-left: 7px;
 }
-#modal-write-feedback .feedback-head {
-  color: #3a71a9;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 6px;
+#modal-write-feedback .modal-body label.form-label {
+  color: #555;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+  font-weight: normal;
 }
-#modal-write-feedback .feeling ul {
-  margin: 0 0 20px;
+#modal-write-feedback .input-feelings {
+  margin-bottom: 20px;
 }
-#modal-write-feedback .feeling ul li {
+#modal-write-feedback .input-feelings ul {
+  margin: 0;
+  padding: 0;
+}
+#modal-write-feedback .input-feelings ul li {
   background-color: #EEE;
   display: inline-block;
   list-style: none;
-  margin-right: 5px;
+  margin: 0 1px 1px 0;
 }
-#modal-write-feedback .feeling ul li label {
+#modal-write-feedback .input-feelings ul li label {
   color: #444;
-  font-size: 13px;
-  line-height: 30px;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 38px;
   margin: 0;
   padding: 0 10px;
   vertical-align: middle;
 }
-#modal-write-feedback .feeling ul li input {
+#modal-write-feedback .input-feelings ul li input {
   margin: 0 3px 0 0;
   vertical-align: 1px;
 }
-#modal-write-feedback .content textarea {
-  height: 80px;
-  width: 95%;
+#modal-write-feedback .input-feelings ul li.checked {
+  background-color: #29ace4;
 }
-#modal-view-feedback .modal-content {
-  background-color: #EEE;
-  padding: 10px;
+#modal-write-feedback .input-feelings ul li.checked label {
+  color: #FFF;
+}
+#modal-write-feedback .input-content {
+  margin-bottom: 15px;
+}
+#modal-write-feedback .input-content textarea {
+  border-radius: 0;
+  display: block;
+  height: 80px;
+}
+#modal-view-feedback .modal-loading {
+  font-size: 15px;
+}
+#modal-view-feedback .modal-loading img {
+  margin-right: 5px;
+  vertical-align: middle;
 }
 #modal-view-feedback .feelings {
   margin-bottom: 15px;
 }
 #modal-view-feedback .feelings ul {
   margin: 0;
+  padding: 0;
 }
 #modal-view-feedback .feelings ul li {
-  background-color: #F7F7F7;
-  color: #555;
+  background-color: #f9e25c;
+  color: #444;
   display: inline-block;
   font-size: 13px;
-  font-weight: bold;
-  line-height: normal;
   list-style: none;
-  margin-right: 5px;
-  padding: 4px 10px;
+  margin: 0 1px 1px 0;
+  padding: 7px 15px 4px;
 }
-#modal-view-feedback .content {
-  background-color: #EEE;
+#modal-view-feedback .content p {
+  font-family: 'ChiangSaenRegular';
+  font-size: 21px;
+  line-height: 28px;
+  margin-bottom: 15px;
 }
 #modal-view-feedback .button-delete-feedback {
   display: inline-block;
@@ -2624,7 +2644,7 @@ body {
   text-decoration: underline;
 }
 #modal-view-feedback .button-delete-feedback:hover {
-  background-color: #C30;
+  background-color: #e56068;
   color: #FFF;
   text-decoration: underline;
   text-shadow: none;
@@ -3784,7 +3804,7 @@ body {
   margin: 6px 20px 0 0;
 }
 .page-workshops-backend-attend ul.upcoming-reservations li.reservation .countdown {
-  background-color: #29ace4;
+  background-color: #f67f4d;
   color: #FFF;
   display: block;
   padding: 10px 0px 6px;
@@ -3804,8 +3824,8 @@ body {
 }
 .page-workshops-backend-attend ul.upcoming-reservations li.reservation .countdown:after {
   border: solid transparent;
-  border-color: rgba(41, 172, 228, 0);
-  border-left-color: #29ace4;
+  border-color: rgba(246, 127, 77, 0);
+  border-left-color: #f67f4d;
   border-width: 10px;
   content: " ";
   height: 0;
@@ -3836,7 +3856,7 @@ body {
 }
 .page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .schedule i,
 .page-workshops-backend-attend ul.upcoming-reservations li.reservation .content .place i {
-  color: #29ace4;
+  color: #666;
   font-size: 16px;
   margin-right: 4px;
 }
