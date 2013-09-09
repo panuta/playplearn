@@ -42,7 +42,7 @@ def timepast(from_datetime):
 @register.filter
 def timestamp(datetime):
     try:
-        return safe(u'%d %s %d เวลา %02d:%02d' % (
+        return safe(u'%d %s %d เวลา %02d:%02d น.' % (
             datetime.day,
             th.TH_MONTH_ABBR_NAME[datetime.month],
             datetime.year + 543,

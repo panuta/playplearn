@@ -1,5 +1,5 @@
 {% extends 'workshop/backend/workshop_manage_base.html' %}
-{% load common_tags %}
+{% load common_tags presentation_tags %}
 
 {% block body_class %}{{ block.super }} page-manage-workshop-feedbacks{% endblock %}
 {% block manage_workshop_nav %}{% include 'workshop/backend/workshop_manage_base_nav.html' with tab_name='feedbacks' %}{% endblock %}
@@ -8,61 +8,120 @@
 {{ block.super }}
 <script>
 jQuery(function($){
-    var set_public_button = $('.button-set-public');
-    set_public_button.hover(function() {
-        $(this).data('old-text', $(this).html());
+    var all_set_public_button = $('.button-set-public');
+    all_set_public_button.hover(function() {
+        if(!$(this).closest('li.feedback').find('.popover').length) {
+            $(this).data('old-text', $(this).html());
 
-        if($(this).hasClass('is_shown')) {
-            $(this).text('ซ่อน');
-        } else if($(this).hasClass('is_hidden')) {
-            $(this).text('แสดง');
+            if($(this).hasClass('is_shown')) {
+                $(this).text('ซ่อน');
+            } else if($(this).hasClass('is_hidden')) {
+                $(this).text('แสดง');
+            }
         }
     }, function() {
-        $(this).html($(this).data('old-text'));
+        if(!$(this).closest('li.feedback').find('.popover').length) {
+            $(this).html($(this).data('old-text'));
+        }
     });
 
-    set_public_button.on('click', function() {
+    all_set_public_button.popover({
+        html: true,
+        placement: 'right',
+        trigger: 'manual',
+        content: '<a href="#" class="style-primary-button button-set-visibility">ยืนยัน</a> <a href="#" class="cancel button-set-visibility-cancel">ยกเลิก</a>'
+    });
 
+    all_set_public_button.on('click', function() {
+        $(this).html($(this).data('old-text'));
+
+        var feedback_row = $(this).closest('li.feedback');
+        var set_visibility_button = $(this);
+        set_visibility_button.popover('show');
+
+        feedback_row.find('.button-set-visibility').on('click', function() {
+            var feedback_id = feedback_row.attr('data-feedback-id');
+            var visibility = '';
+
+            if(set_visibility_button.hasClass('is_shown')) {
+                visibility = false;
+            } else if(set_visibility_button.hasClass('is_hidden')) {
+                visibility = true;
+            } else {
+                return;
+            }
+
+            var jqxhr = $.post('{% url 'ajax_set_workshop_feedback_visibility' %}', {feedback_id:feedback_id, visibility:visibility}, function(response) {
+                if(response.status == 'success') {
+                    _notify('success', 'เปลี่ยนสถานะการแสดงคำนิยมเรียบร้อย');
+
+                    if(visibility) {
+                        set_visibility_button.removeClass('is_hidden').addClass('is_shown').html('<i class="icon-check-sign"></i> คำนิยมถูกแสดง');
+                    } else {
+                        set_visibility_button.removeClass('is_shown').addClass('is_hidden').html('<i class="icon-minus-sign-alt"></i> คำนิยมถูกซ่อน');
+                    }
+
+                } else {
+                    if(response.message) {
+                        _notify('error', 'ไม่สามารถเปลี่ยนสถานะได้ - ' + response.message);
+
+                    } else {
+                        _notify('error', 'ไม่สามารถเปลี่ยนสถานะได้ - เกิดความผิดพลาดขึ้น');
+                    }
+                }
+
+                set_visibility_button.popover('hide');
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                _notify('error', 'ไม่สามารถเปลี่ยนสถานะได้ - ' + errorThrown);
+                set_visibility_button.popover('hide');
+            });
+
+            return false;
+        });
+
+        feedback_row.find('.button-set-visibility-cancel').on('click', function() {
+            set_visibility_button.popover('hide');
+            return false;
+        });
+
+        return false;
     });
 });
 </script>
 {% endblock %}
 
 {% block manage_workshop_body %}
+{% if feedbacks %}
 <ul class="feedbacks">
-    <li class="feedback">
-        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-        <div class="right">
-            <div class="name">
-                <a href="#">Panu Tangchalermkul</a>
-                <span>feeling <em>excited</em></span> <span>feeling <em>inspired</em></span>
+    {% for feedback in feedbacks %}
+        {% with reservation=feedback.reservation %}
+        <li class="feedback" data-feedback-id="{{ feedback.id }}">
+            <div class="avatar"><img src="{{ reservation.user.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></div>
+            <div class="feedback-right">
+                <div class="name">
+                    <a href="{% url 'view_user_profile' reservation.user.uid %}">{{ reservation.user.name }}</a>
+                    <ul class="feelings">{% feedback_feelings_as_li feedback %}</ul>
+                </div>
+                <div class="content">
+                    {{ feedback.content|linebreaks }}
+                </div>
+                <div class="footer">
+                    {% if feedback.is_visible %}
+                        <a href="#" class="style-button button-set-public is_shown"><i class="icon-check-sign"></i> คำนิยมถูกแสดง</a>
+                    {% else %}
+                        <a href="#" class="style-button button-set-public is_hidden"><i class="icon-minus-sign-alt"></i> คำนิยมถูกซ่อน</a>
+                    {% endif %}
+                    <span class="datetime">เขียนเมื่อวันที่ <em>{{ feedback.created|timestamp }}</em></span>
+                    <span class="schedule">จากรอบวันที่ <em>{{ reservation.schedule|schedule_datetime }}</em></span>
+                </div>
             </div>
-            <div class="content">
-                <p>แบตเปโซจีดีพีครัวซองต์มุมมองไฟลต์ หมิง วอลนัทเอฟเฟ็กต์แซวอึ๋มฟรังก์ คอนเซ็ปต์เซอร์ซิมโฟนี่แจ็กพอต แอสเตอร์ ไหร่โปรโมชั่นช็อปเปอร์เคลียร์ แรงผลักโฮลวีตภูมิทัศน์ เปเปอร์ยิมพลาซ่า โทรรวมมิตรบริกรพล็อตเอฟเฟ็กต์แดนซ์ โปรโมท ฟยอร์ดยูโรอุปนายิกาไลท์ โอเลี้ยงชนะเลิศภูมิทัศน์แจมไฮเวย์ แอดมิชชั่นนายแบบโปลิศโดมิโนแจ็กพ็อตซ้อ คอนโดโปรดักชั่นดิกชันนารี ฟลุกคอร์รัปชั่น เยอร์บีรา</p>
-            </div>
-            <div class="footer">
-                <a href="#" class="style-button button-set-public is_shown"><i class="icon-check-sign"></i> คำนิยมถูกแสดง</a>
-                <span class="datetime">เขียนเมื่อวันที่ <em>14 ก.ย. 2556 เวลา 15:00 น.</em></span>
-                <span class="schedule">จากรอบวันที่ <em>09 ก.ย. 2556 รอบเวลา 09:00 น.</em></span>
-            </div>
-        </div>
-    </li>
-    <li class="feedback">
-        <div class="avatar"><img src="{{ STATIC_URL }}images/sample/avatars/user1.jpg" /></div>
-        <div class="right">
-            <div class="name">
-                <a href="#">Panu Tangchalermkul</a>
-                <span>feeling <em>excited</em></span> <span>feeling <em>inspired</em></span>
-            </div>
-            <div class="content">
-                <p>แบตเปโซจีดีพีครัวซองต์มุมมองไฟลต์ หมิง วอลนัทเอฟเฟ็กต์แซวอึ๋มฟรังก์ คอนเซ็ปต์เซอร์ซิมโฟนี่แจ็กพอต แอสเตอร์ ไหร่โปรโมชั่นช็อปเปอร์เคลียร์ แรงผลักโฮลวีตภูมิทัศน์ เปเปอร์ยิมพลาซ่า โทรรวมมิตรบริกรพล็อตเอฟเฟ็กต์แดนซ์ โปรโมท ฟยอร์ดยูโรอุปนายิกาไลท์ โอเลี้ยงชนะเลิศภูมิทัศน์แจมไฮเวย์ แอดมิชชั่นนายแบบโปลิศโดมิโนแจ็กพ็อตซ้อ คอนโดโปรดักชั่นดิกชันนารี ฟลุกคอร์รัปชั่น เยอร์บีรา</p>
-            </div>
-            <div class="footer">
-                <a href="#" class="style-button button-set-public is_hidden"><i class="icon-minus-sign-alt"></i> คำนิยมถูกซ่อน</a>
-                <span class="datetime">เขียนเมื่อวันที่ <em>14 ก.ย. 2556 เวลา 15:00 น.</em></span>
-                <span class="schedule">จากรอบวันที่ <em>09 ก.ย. 2556 รอบเวลา 09:00 น.</em></span>
-            </div>
-        </div>
-    </li>
+        </li>
+        {% endwith %}
+    {% endfor %}
 </ul>
+{% else %}
+    <div class="style-no-information">ยังไม่มีคำนิยม</div>
+{% endif %}
 {% endblock %}

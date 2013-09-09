@@ -236,7 +236,7 @@ def return_matching_enrollment(user, schedule):
 def feedback_feelings_as_li(feedback):
     li = []
     for feeling in feedback.feelings.split(','):
-        feeling_name = FEEDBACK_FEELING_MAP.get(feeling)
+        feeling_name = FEEDBACK_FEELING_MAP.get(feeling)['name']
         if feeling_name:
             li.append('<li>%s</li>' % feeling_name)
 

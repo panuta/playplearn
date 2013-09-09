@@ -30,7 +30,7 @@ ACCOUNT_REGISTRATION_ERRORS = {
     'email-registered': u'อีเมลนี้ถูกใช้ลงทะเบียนแล้ว',
 }
 
-WORKSHOP_ORGANIZE_ERRORS = {
+WORKSHOP_BACKEND_ERRORS = {
     'unauthorized': u'Unauthorized action',
 
     'edit-while-approving': u'ไม่อนุญาตให้แก้ไขข้อมูลเวิร์คช็อปในขณะกำลังอนุมัติ',
@@ -52,6 +52,10 @@ WORKSHOP_ORGANIZE_ERRORS = {
     'schedule-duplicated': u'รอบที่ต้องการเพิ่มซ้ำกับรอบที่มีอยู่แล้ว',
     'schedule-past': u'เวลาของรอบที่ต้องการเพิ่มได้ผ่านไปแล้ว',
     'schedule-far': u'ไม่อนุญาตให้เพิ่มรอบที่นานกว่า %d วัน' % settings.WORKSHOP_SCHEDULE_ALLOW_DAYS_IN_ADVANCE,
+
+    'feedback-existed': u'ผู้ใช้เขียนคำนิยมสำหรับรอบนี้ไปแล้ว',
+    'feedback-empty': u'กรุณากรอกข้อมูล',
+    'feedback-notfound': u'ไม่พบคำนิยมที่ต้องการ',
 }
 
 WORKSHOP_FEEDBACK_ERRORS = {

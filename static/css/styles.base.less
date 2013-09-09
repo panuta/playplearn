@@ -132,6 +132,22 @@ select:focus:invalid:focus {
     }
 }
 
+.popover {
+    .popover-content {
+        .style-primary-button {
+            font-size: 13px;
+            padding: 5px 25px;
+        }
+
+        a.cancel {
+            color: #666;
+            font-size: 13px;
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+    }
+}
+
 .tooltip.top {
     .tooltip-arrow {
         border-top-color: @colorNegative;
@@ -674,7 +690,12 @@ form {
     color: #FFF;
 }
 
-
+.style-danger-button {
+    .style-button-base;
+    background-color: @colorNegative;
+    border: 1px solid @colorNegative;
+    color: #FFF;
+}
 
 
 

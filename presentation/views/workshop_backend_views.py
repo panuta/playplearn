@@ -286,8 +286,11 @@ def manage_workshop_schedule(request, workshop, workshop_uid, date_string, time_
 @login_required
 @teacher_only
 def manage_workshop_feedbacks(request, workshop, workshop_uid):
+    feedbacks = WorkshopFeedback.objects.filter(reservation__schedule__workshop=workshop).order_by('-created')
+
     return render(request, 'workshop/backend/workshop_manage_feedbacks.html', {
         'workshop': workshop,
+        'feedbacks': feedbacks,
     })
 
 

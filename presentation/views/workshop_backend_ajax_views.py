@@ -34,7 +34,7 @@ from reservation.models import Reservation
 
 
 def _response_with_workshop_error(error_code):
-    return response_json_error_with_message(error_code, errors.WORKSHOP_ORGANIZE_ERRORS)
+    return response_json_error_with_message(error_code, errors.WORKSHOP_BACKEND_ERRORS)
 
 
 # WORKSHOP #############################################################################################################
@@ -321,7 +321,7 @@ def ajax_view_workshop_feedback(request):
     reservation = get_object_or_404(Reservation, code=reservation_code)
 
     if reservation.user != request.user and reservation.schedule.workshop.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
+        return _response_with_workshop_error('unauthorized')
 
     feedback = get_object_or_404(WorkshopFeedback, reservation=reservation)
 
@@ -346,20 +346,20 @@ def ajax_add_workshop_feedback(request):
     reservation = get_object_or_404(Reservation, code=reservation_code)
 
     if reservation.user != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
+        return _response_with_workshop_error('unauthorized')
 
     try:
         WorkshopFeedback.objects.get(reservation=reservation)
     except WorkshopFeedback.DoesNotExist:
         pass
     else:
-        return response_json_error_with_message('existed', errors.WORKSHOP_FEEDBACK_ERRORS)
+        return _response_with_workshop_error('feedback-existed')
 
     feeling_list = request.POST.getlist('feelings[]')
     content = request.POST.get('content', '')
 
     if not feeling_list and not content:
-        return response_json_error_with_message('empty', errors.WORKSHOP_FEEDBACK_ERRORS)
+        return _response_with_workshop_error('feedback-empty')
 
     valid_feelings = []
     for feeling in feeling_list:
@@ -385,12 +385,12 @@ def ajax_delete_workshop_feedback(request):
     reservation = get_object_or_404(Reservation, code=reservation_code)
 
     if reservation.user != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_FEEDBACK_ERRORS)
+        return _response_with_workshop_error('unauthorized')
 
     try:
         feedback = WorkshopFeedback.objects.get(reservation=reservation)
     except WorkshopFeedback.DoesNotExist:
-        return response_json_error_with_message('deleted', errors.WORKSHOP_FEEDBACK_ERRORS)
+        return _response_with_workshop_error('feedback-notfound')
 
     feedback.delete()
     return response_json_success()
@@ -398,41 +398,24 @@ def ajax_delete_workshop_feedback(request):
 
 @require_POST
 @login_required
-def ajax_set_workshop_feedback_public(request):
+def ajax_set_workshop_feedback_visibility(request):
     if not request.is_ajax():
         raise Http404
+
+    visibility = request.POST.get('visibility')
+    visibility = True if visibility == 'true' else False
 
     feedback_id = request.POST.get('feedback_id')
     feedback = get_object_or_404(WorkshopFeedback, pk=feedback_id)
 
-    if feedback.enrollment.schedule.workshop.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
+    if feedback.reservation.schedule.workshop.teacher != request.user:
+        return _response_with_workshop_error('unauthorized')
 
-    feedback.is_public = not feedback.is_public
+    feedback.is_visible = visibility
     feedback.save()
 
     return response_json_success({
-        'is_public': feedback.is_public,
-    })
-
-
-@require_POST
-@login_required
-def ajax_set_workshop_feedback_promoted(request):
-    if not request.is_ajax():
-        raise Http404
-
-    feedback_id = request.POST.get('feedback_id')
-    feedback = get_object_or_404(WorkshopFeedback, pk=feedback_id)
-
-    if feedback.enrollment.schedule.workshop.teacher != request.user:
-        return response_json_error_with_message('unauthorized', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    feedback.is_promoted = not feedback.is_promoted
-    feedback.save()
-
-    return response_json_success({
-        'is_promoted': feedback.is_promoted,
+        'is_visible': feedback.is_visible,
     })
 
 

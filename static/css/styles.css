@@ -111,6 +111,16 @@ select:focus:invalid:focus {
   margin-right: 15px;
   padding: 8px 30px;
 }
+.popover .popover-content .style-primary-button {
+  font-size: 13px;
+  padding: 5px 25px;
+}
+.popover .popover-content a.cancel {
+  color: #666;
+  font-size: 13px;
+  margin-left: 10px;
+  text-decoration: underline;
+}
 .tooltip.top .tooltip-arrow {
   border-top-color: #e56068;
 }
@@ -586,6 +596,46 @@ form .form-actions .style-button {
 .style-primary-button.disabled:hover,
 .style-primary-button[disabled]:focus,
 .style-primary-button.disabled:focus {
+  background-color: #D9D9D9;
+  border: 1px solid #D9D9D9;
+  color: #AAA;
+}
+.style-danger-button {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 13.5px;
+  padding: 7px 30px;
+  cursor: pointer;
+  background-color: #e56068;
+  border: 1px solid #e56068;
+  color: #FFF;
+}
+.style-danger-button:hover,
+.style-danger-button:focus {
+  background-color: #188fc2;
+  border: 1px solid #188fc2;
+  color: #FFF;
+  text-decoration: none;
+}
+.style-danger-button:hover i,
+.style-danger-button:focus i {
+  color: #FFF;
+}
+.style-danger-button i {
+  margin-right: 3px;
+  vertical-align: 0px;
+}
+.style-danger-button[disabled],
+.style-danger-button.disabled {
+  background-color: #D9D9D9;
+  border: 1px solid #D9D9D9;
+  color: #AAA;
+  cursor: default;
+}
+.style-danger-button[disabled]:hover,
+.style-danger-button.disabled:hover,
+.style-danger-button[disabled]:focus,
+.style-danger-button.disabled:focus {
   background-color: #D9D9D9;
   border: 1px solid #D9D9D9;
   color: #AAA;
@@ -4696,17 +4746,32 @@ body {
 .page-manage-workshop-feedbacks ul.feedbacks li.feedback .avatar {
   float: left;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right {
-  margin-left: 88px;
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right {
+  margin-left: 70px;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .name a {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name a {
   color: #444;
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
   vertical-align: middle;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .name span {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name ul.feelings {
+  display: inline-block;
+  margin: 0 0 0 15px;
+  padding: 0;
+  vertical-align: middle;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name ul.feelings li {
+  background-color: #f9e25c;
+  color: #444;
+  display: inline-block;
+  font-size: 13px;
+  list-style: none;
+  margin: 0 1px 1px 0;
+  padding: 7px 15px 4px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name span {
   background-color: #cfe18f;
   color: #333;
   display: inline-block;
@@ -4715,61 +4780,71 @@ body {
   padding: 3px 14px;
   vertical-align: middle;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .name span em {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name span em {
   font-weight: bold;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .content {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .content {
   color: #444;
-  font-size: 14px;
-  line-height: 25px;
+  font-size: 15px;
+  line-height: 28px;
   margin-top: 10px;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .content p {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .content p {
   margin: 0;
   padding-bottom: 12px;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .datetime,
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .schedule {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .datetime,
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .schedule {
   color: #888;
   font-size: 13px;
   margin-left: 15px;
   vertical-align: middle;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .datetime em,
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .schedule em {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .datetime em,
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .schedule em {
   color: #666;
   font-weight: bold;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public {
   padding: 4px 0;
   text-align: center;
   width: 150px;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_shown {
   background-color: #00ac71;
   border: 1px solid #00ac71;
   color: #FFF;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown i {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_shown i {
   color: #FFF;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown:hover {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_shown:hover {
   background-color: #e56068;
   border: 1px solid #e56068;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_shown:hover i {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_shown:hover i {
   color: #FFF;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_hidden i {
-  color: #e56068;
-}
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_hidden:hover {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_shown:focus {
   background-color: #00ac71;
   border: 1px solid #00ac71;
   color: #FFF;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .right .footer .button-set-public.is_hidden:hover i {
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_hidden i {
+  color: #e56068;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_hidden:hover {
+  background-color: #00ac71;
+  border: 1px solid #00ac71;
   color: #FFF;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_hidden:hover i {
+  color: #FFF;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .button-set-public.is_hidden:focus {
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  color: #555;
 }
 .page-manage-workshop-class {
   padding-top: 30px;
