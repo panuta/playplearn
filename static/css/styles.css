@@ -2662,18 +2662,13 @@ body {
 #modal-view-feedback .feelings {
   margin-bottom: 15px;
 }
-#modal-view-feedback .feelings ul {
-  margin: 0;
-  padding: 0;
+#modal-view-feedback .feelings i {
+  font-size: 16px;
+  margin-right: 3px;
 }
-#modal-view-feedback .feelings ul li {
-  background-color: #f9e25c;
+#modal-view-feedback .feelings em {
   color: #444;
-  display: inline-block;
-  font-size: 13px;
-  list-style: none;
-  margin: 0 1px 1px 0;
-  padding: 7px 15px 4px;
+  font-style: italic;
 }
 #modal-view-feedback .content p {
   font-family: 'ChiangSaenRegular';
@@ -4756,33 +4751,6 @@ body {
   font-weight: bold;
   vertical-align: middle;
 }
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name ul.feelings {
-  display: inline-block;
-  margin: 0 0 0 15px;
-  padding: 0;
-  vertical-align: middle;
-}
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name ul.feelings li {
-  background-color: #f9e25c;
-  color: #444;
-  display: inline-block;
-  font-size: 13px;
-  list-style: none;
-  margin: 0 1px 1px 0;
-  padding: 7px 15px 4px;
-}
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name span {
-  background-color: #cfe18f;
-  color: #333;
-  display: inline-block;
-  font-size: 13px;
-  margin-left: 10px;
-  padding: 3px 14px;
-  vertical-align: middle;
-}
-.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .name span em {
-  font-weight: bold;
-}
 .page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .content {
   color: #444;
   font-size: 15px;
@@ -4792,6 +4760,17 @@ body {
 .page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .content p {
   margin: 0;
   padding-bottom: 12px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .feelings {
+  margin-bottom: 20px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .feelings i {
+  font-size: 16px;
+  margin-right: 3px;
+}
+.page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .feelings em {
+  color: #444;
+  font-style: italic;
 }
 .page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .datetime,
 .page-manage-workshop-feedbacks ul.feedbacks li.feedback .feedback-right .footer .schedule {
@@ -5330,6 +5309,7 @@ body {
   padding-top: 20px;
 }
 .page-profile .profile-feedbacks ul.feedbacks li.feedback .right .feelings i {
+  font-size: 16px;
   margin-right: 3px;
 }
 .page-profile .profile-feedbacks ul.feedbacks li.feedback .right .feelings em {

@@ -102,11 +102,11 @@ jQuery(function($){
             <div class="feedback-right">
                 <div class="name">
                     <a href="{% url 'view_user_profile' reservation.user.uid %}">{{ reservation.user.name }}</a>
-                    <ul class="feelings">{% feedback_feelings_as_li feedback %}</ul>
                 </div>
                 <div class="content">
                     {{ feedback.content|linebreaks }}
                 </div>
+                <div class="feelings"><i class="icon-smile"></i> {% feedback_feelings_as_em feedback %}</div>
                 <div class="footer">
                     {% if feedback.is_visible %}
                         <a href="#" class="style-button button-set-public is_shown"><i class="icon-check-sign"></i> คำนิยมถูกแสดง</a>

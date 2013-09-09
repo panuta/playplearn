@@ -53,7 +53,7 @@
             <li class="feedback">
                 <div class="cover"><img src="{{ feedback.reservation.schedule.workshop.cover_picture.image|thumbnail_url:'workshop_picture_smaller' }}" {% thumbnail_img_size 'workshop_picture_smaller' %} /></div>
                 <div class="right">
-                    <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
+                    <div class="title"><a href="{% url 'view_workshop_outline' feedback.reservation.schedule.workshop.uid %}">{{ feedback.reservation.schedule.workshop.title }}</a></div>
                     <div class="feedback-box">
                         <div class="content">{{ feedback.content|linebreaks }}</div>
                         {% if feedback.feelings %}<div class="feelings"><i class="icon-smile"></i> {% feedback_feelings_as_em feedback %}</div>{% endif %}

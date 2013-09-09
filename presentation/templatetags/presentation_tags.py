@@ -240,6 +240,8 @@ def feedback_feelings_as_li(feedback):
         if feeling_name:
             li.append('<li>%s</li>' % feeling_name)
 
+    print li
+
     return ''.join(li)
 
 
@@ -247,7 +249,7 @@ def feedback_feelings_as_li(feedback):
 def feedback_feelings_as_em(feedback):
     em = []
     for feeling in feedback.feelings.split(','):
-        feeling_name = FEEDBACK_FEELING_MAP.get(feeling)
+        feeling_name = FEEDBACK_FEELING_MAP.get(feeling)['name']
         if feeling_name:
             em.append('<em>%s</em>' % feeling_name)
 

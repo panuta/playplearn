@@ -9,10 +9,8 @@
             <div class="modal-body">
                 <div class="modal-loading hide"><div class="style-loading"><img src="{{ STATIC_URL }}images/ui/loading.gif"> กำลังโหลด</div></div>
                 <div class="modal-feedback">
-                    <div class="feelings">
-                        <ul></ul>
-                    </div>
                     <div class="content"></div>
+                    <div class="feelings"><i class="icon-smile"></i> <span></span></div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -36,12 +34,8 @@
 
         var jqxhr = $.get('{% url 'ajax_view_workshop_feedback' %}', {code:code}, function(response) {
             if(response.status == 'success') {
-                modal.find('.feelings ul li').remove();
-                for(var i=0; i<response.data.feelings.length; i++) {
-                    modal.find('.feelings ul').append('<li>' + response.data.feelings[i] + '</li>');
-                }
-
                 modal.find('.content').html(response.data.content);
+                modal.find('.feelings span').html(response.data.feelings);
 
                 modal.find('.modal-loading').hide();
                 modal.find('.modal-feedback').show();

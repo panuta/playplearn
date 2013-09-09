@@ -29,7 +29,7 @@ from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
 
 from reservation import functions as reservation_functions
 
-from presentation.templatetags.presentation_tags import workshop_pictures_ordering_as_comma_separated
+from presentation.templatetags.presentation_tags import workshop_pictures_ordering_as_comma_separated, feedback_feelings_as_em
 from reservation.models import Reservation
 
 
@@ -325,13 +325,8 @@ def ajax_view_workshop_feedback(request):
 
     feedback = get_object_or_404(WorkshopFeedback, reservation=reservation)
 
-    feeling_names = []
-    for feeling in feedback.feelings.split(','):
-        if feeling in FEEDBACK_FEELING_MAP:
-            feeling_names.append(FEEDBACK_FEELING_MAP[feeling]['name'])
-
     return response_json_success({
-        'feelings': feeling_names,
+        'feelings': feedback_feelings_as_em(feedback),
         'content': linebreaks(feedback.content),
     })
 
