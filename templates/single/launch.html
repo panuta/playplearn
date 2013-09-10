@@ -1,0 +1,40 @@
+{% extends 'base_single.html' %}
+
+{% block body_class %}page-launch{% endblock %}
+
+{% block body %}
+<div class="socials">
+    <a href="http://www.facebook.com/playplearn.workshops" class="facebook">Facebook</a>
+    <a href="http://www.twitter.com/playplearn" class="twitter">Twitter</a>
+</div>
+<div class="headline">
+    <img src="{{ STATIC_URL }}images/ui/logo.homepage.white.png" width="400" height="142" />
+    <h1>เปลี่ยนวันว่างธรรมดาๆ ให้เป็นวันที่สนุกสนานเพลิดเพลิน</h1>
+    <div class="text">
+        <p>ใช้เวลาว่างของคุณให้ได้ทั้งความรู้และความสนุกสนานด้วยกิจกรรมเวิร์คช็อปที่สามารถเข้าร่วมได้ทุกคน นอกจากคุณจะได้พบกับเพื่อนใหม่ๆ แล้ว นี่ยังจะเป็นโอกาสที่คุณได้ใช้เวลาใกล้ชิดกับคนสนิทมากขึ้นอีกด้วย</p>
+    </div>
+</div>
+<div class="form">
+    {% if is_subscribed %}
+        <div class="subscribed">
+            <div class="thanks">เราดีใจและขอบคุณที่ให้ความสนใจเรา ^_^</div>
+        </div>
+    {% else %}
+        <h2>ลงชื่อเพื่อเป็นกลุ่มแรกที่จะได้รู้เมื่อเราเปิดตัว</h2>
+        <form action="http://playplearn.createsend.com/t/i/s/nviu/" method="post">
+            <div class="form-input">
+                <label for="fieldName">ชื่อ</label><br />
+                <input id="fieldName" name="cm-name" type="text" />
+            </div>
+            <div class="form-input">
+                <label for="fieldEmail">อีเมล</label><br />
+                <input id="fieldEmail" name="cm-nviu-nviu" type="email" required />
+            </div>
+            <div class="form-action">
+                <button type="submit">ลงชื่อ</button>
+            </div>
+        </form>
+    {% endif %}
+
+</div>
+{% endblock %}

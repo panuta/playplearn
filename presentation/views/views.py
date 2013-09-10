@@ -7,6 +7,12 @@ from domain.models import Place
 from postman.models import Message
 
 
+def view_launch_page(request):
+    return render(request, 'single/launch.html', {
+        'is_subscribed': 'subscribed' in request.GET,
+    })
+
+
 def view_homepage(request):
     upcoming_workshops = domain_functions.get_upcoming_workshops()
     return render(request, 'page/homepage.html', {'upcoming_workshops': upcoming_workshops})

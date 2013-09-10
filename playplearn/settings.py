@@ -5,14 +5,13 @@ base_path = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file_
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+SITE_LAUNCHING = True  # Only allow access to launch page
 
 ADMINS = (
     ('Panu Tangchalermkul', 'panuta@gmail.com'),
 )
 
 MANAGERS = ADMINS
-
-SUPPORT_EMAIL = 'panuta@gmail.com'
 
 DATABASES = {
     'default': {
@@ -235,6 +234,8 @@ POSTMAN_SHOW_USER_AS = 'get_full_name'
 
 
 # PLAYPLEARN SETTINGS ##################################################################################################
+
+SUPPORT_EMAIL = 'panuta@gmail.com'
 
 # DISPLAY SETTINGS
 
