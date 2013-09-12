@@ -11,7 +11,7 @@
     <img src="{{ STATIC_URL }}images/ui/logo.homepage.white.png" width="400" height="142" />
     <h1>เปลี่ยนวันว่างธรรมดาๆ ให้เป็นวันที่สนุกสนานเพลิดเพลิน</h1>
     <div class="text">
-        <p>ใช้เวลาว่างของคุณให้ได้ทั้งความรู้และความสนุกสนานด้วยกิจกรรมเวิร์คช็อปที่สามารถเข้าร่วมได้ทุกคน นอกจากคุณจะได้พบกับเพื่อนใหม่ๆ แล้ว นี่ยังจะเป็นโอกาสที่คุณได้ใช้เวลาใกล้ชิดกับคนสนิทมากขึ้นอีกด้วย</p>
+        <p>ใช้เวลาว่างให้ได้ทั้งความรู้และความสนุก ด้วยหลากหลายกิจกรรมเวิร์คช็อปที่จัดโดยคนที่หลงไหลในสิ่งนั้น เน้นการได้สัมผัสและลงมือทำจริง พร้อมเรียนรู้ไปกับเพื่อนใหม่ๆ ที่มีความสนใจเหมือนๆ กัน</p>
     </div>
 </div>
 <div class="form">
@@ -20,21 +20,12 @@
             <div class="thanks">เราดีใจและขอบคุณที่ให้ความสนใจเรา ^_^</div>
         </div>
     {% else %}
-        <h2>ลงชื่อเพื่อเป็นกลุ่มแรกที่จะได้รู้เมื่อเราเปิดตัว</h2>
+        <h2>หากคุณอยากรู้ว่าความเพลิดเพลินจะเริ่มต้นขึ้นเมื่อใด? ลงชื่อไว้สิ แล้วเราจะบอกคุณเป็นคนแรก</h2>
         <form action="http://playplearn.createsend.com/t/i/s/nviu/" method="post">
-            <div class="form-input">
-                <label for="fieldName">ชื่อ</label><br />
-                <input id="fieldName" name="cm-name" type="text" />
-            </div>
-            <div class="form-input">
-                <label for="fieldEmail">อีเมล</label><br />
-                <input id="fieldEmail" name="cm-nviu-nviu" type="email" required />
-            </div>
-            <div class="form-action">
-                <button type="submit">ลงชื่อ</button>
-            </div>
+            <input id="fieldName" name="cm-name" type="text" placeholder="ชื่อ" />
+            <input id="fieldEmail" name="cm-nviu-nviu" type="email" placeholder="อีเมล" />
+            <button type="submit">ลงชื่อ</button>
         </form>
     {% endif %}
-
 </div>
 {% endblock %}
