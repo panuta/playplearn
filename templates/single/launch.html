@@ -8,13 +8,11 @@
     <a href="http://www.twitter.com/playplearn" class="twitter">Twitter</a>
 </div>
 <div class="headline">
-    <img src="{{ STATIC_URL }}images/ui/logo.homepage.white.png" width="400" height="142" />
+    <img src="{{ STATIC_URL }}images/ui/logo.homepage.white.smaller.png" width="300" height="107" />
     <h1>เปลี่ยนวันว่างธรรมดาๆ ให้เป็นวันที่สนุกสนานเพลิดเพลิน</h1>
-    <div class="text">
-        <p>ใช้เวลาว่างให้ได้ทั้งความรู้และความสนุก ด้วยหลากหลายกิจกรรมเวิร์คช็อปที่จัดโดยคนที่หลงไหลในสิ่งนั้น เน้นการได้สัมผัสและลงมือทำจริง พร้อมเรียนรู้ไปกับเพื่อนใหม่ๆ ที่มีความสนใจเหมือนๆ กัน</p>
-    </div>
+    <p>ใช้เวลาว่างให้ได้ทั้งความรู้และความสนุก ด้วยหลากหลายกิจกรรมเวิร์คช็อป<br/>จัดขึ้นโดยคนที่หลงไหลในสิ่งนั้น เน้นการได้สัมผัสและลงมือทำจริง<br/>พร้อมเรียนรู้ไปกับเพื่อนใหม่ที่มีความสนใจเหมือนๆ กัน</p>
 </div>
-<div class="form">
+<div class="subscribe">
     {% if is_subscribed %}
         <div class="subscribed">
             <div class="thanks">เราดีใจและขอบคุณที่ให้ความสนใจเรา ^_^</div>
@@ -26,6 +24,9 @@
             <input id="fieldEmail" name="cm-nviu-nviu" type="email" placeholder="อีเมล" />
             <button type="submit">ลงชื่อ</button>
         </form>
+        <div class="organize">
+            <a href="{% url 'view_launch_organize_page' %}">สนใจร่วมจัดเวิร์คช็อปกับเรา?</a>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

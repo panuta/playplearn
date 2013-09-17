@@ -8,6 +8,7 @@ if settings.SITE_LAUNCHING:
     urlpatterns = patterns(
         '',
         url(r'^$', 'presentation.views.views.view_launch_page', name='view_launch_page'),
+        url(r'^organize/$', 'presentation.views.views.view_launch_organize_page', name='view_launch_organize_page'),
         url(r'^admin/', include(admin.site.urls)),
     )
 

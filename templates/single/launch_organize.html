@@ -1,0 +1,72 @@
+{% extends 'base_single.html' %}
+
+{% block body_class %}page-launch-organize{% endblock %}
+
+{% block body %}
+<div class="headline">
+    <img src="{{ STATIC_URL }}images/ui/logo.homepage.white.smaller.png" width="300" height="107" />
+    <h1><strong>เว็บไซต์เพลย์เพลิน</strong> เชิญชวน <strong>คุณ</strong> คนที่มีความหลงไหลในสิ่งใดสิ่งหนึ่ง และสนุกที่จะได้ถ่ายทอดสิ่งนั้น</h1>
+    <p class="organize">จัดเวิร์คช็อปที่เน้นการได้มีส่วนร่วม และได้ลงมือทำของคนเข้าร่วมกิจกรรม</p>
+    <p class="passion">ไม่ว่าสิ่งที่คุณหลงไหลนั้นจะเป็นอะไร</p>
+    <p class="passion_list">ปั่นจักรยาน จ่ายตลาด ซื้อเสื้อผ้าลดราคา ระบายสีน้ำ ถ่ายรูปตัวเอง เดินป่าปีนเขา ซ่อมเครื่องคอม<br/>
+        นวดคลายเส้น ทำกับข้าวกินเอง จัดปาร์ตี้ให้เพื่อนฝูง ตัดเสื้อให้น้องหมา เต้นซัลซ่า เดินจงกรม แต่งเพลงรัก<br/>
+        ทำน้ำผลไม้เพื่อสุขภาพ สร้างเฟอร์นิเจอร์ใช้เอง วาดรูปล้อเลียน ทำเทียนโรแมนติก<br/>
+        ออกแบบลายเสื้อยืด ถ่ายวิดีโอท่องเที่ยว เขียนนิยายหวานแหวว ทำเว็บไซต์ด้วยตัวเอง ฯลฯ</p>
+    <p class="believe">เราเชื่อว่ามีคนอีกมากมาย ที่อยากร่วมหลงไหลสิ่งนั้นไปกับคุณ</p>
+</div>
+<div class="features">
+    <h2>เว็บไซต์เพลย์เพลิน</h2>
+    <div class="help">มีเครื่องมือที่จะช่วยให้คุณจัดเวิร์คช็อปได้ง่ายขึ้น</div>
+    <ul class="primary">
+        <li class="outline">
+            <div class="feature">ข้อมูลเวิร์คช็อป</div>
+            <div class="description">เพียงสมัครสมาชิก ก็สามารถลงมือเขียนข้อมูลเวิร์คช็อปที่ต้องการจัด อัพโหลดรูป กำหนดวันที่ และเปิดให้คนทั่วไปจองเวิร์คช็อปได้อย่างง่ายๆ</div>
+        </li>
+        <li class="payment">
+            <div class="feature">ยืนยันการชำระเงิน</div>
+            <div class="description">เราสามารถช่วยจัดการเรื่องการเงิน ทำให้คุณไม่ต้องคอยตรวจสอบการโอนวันละหลายๆ รอบ หรือกังวลว่าจะมีการตกหล่นอีกต่อไป</div>
+        </li>
+        <li class="audiences">
+            <div class="feature">เข้าถึงกลุ่มคนได้กว้างขึ้น</div>
+            <div class="description">ขยายฐานของกลุ่มคนที่สนใจเข้าร่วมเวิร์คช็อปจากเพียงแค่คนรู้จัก ให้เป็นพลเมืองอินเทอร์เน็ตที่เข้ามาเพื่อค้นหากิจกรรมสนุกๆ ทำในยามว่าง</div>
+        </li>
+    </ul>
+    <ul class="secondary">
+        <li class="start"><div class="feature">เริ่มต้นจัดและประชาสัมพันธ์เวิร์คช็อปได้ด้วยตัวเอง</div></li>
+        <li class="review"><div class="feature">ผู้เข้าร่วมสามารถเขียนคำนิยมให้ผู้จัด เพื่อสร้างความน่าเชื่อถือ</div></li>
+        <li class="communication"><div class="feature">ติดต่อสื่อสารเป็นรายบุคคลหรือทั้งกลุ่มได้ง่ายๆ</div></li>
+        <li class="no_lockin"><div class="feature">ไม่มีพันธสัญญาผูกมัดใดๆ ทั้งสิ้น</div></li>
+    </ul>
+</div>
+<div class="pricing">
+    <div class="text1">ทั้งหมดนี้เราบริการให้เต็มที่ โดยเราคิดเพียง</div>
+    <div class="price"><em>20 บาท</em> / คนเข้าร่วม</div>
+    <div class="text2">ให้คุณมีอิสระในการตั้งค่าใช้จ่ายในการเข้าร่วมเวิร์คช็อปเป็นเท่าไหร่ก็ได้ คุณก็จ่ายเพียงเท่านี้</div>
+</div>
+<div class="signup">
+    <div class="head">อย่ารอช้าที่จะได้เปิดตัวไปพร้อมกับเรา</div>
+    <form action="">
+        <div class="input input-topic">
+            <label>หัวข้อที่อยากจัดเวิร์คช็อป</label>
+            <input id="fieldName" name="cm-name" type="text" placeholder="" />
+        </div>
+        <div class="input">
+            <label for="">ชื่อเสียงเรียงนาม</label>
+            <input id="fieldName" name="cm-name" type="text" />
+        </div>
+        <div class="input">
+            <label for="">อีเมล</label>
+            <input id="fieldEmail" name="cm-nviu-nviu" type="email" />
+        </div>
+        <div class="input">
+            <label for="">เบอร์ติดต่อ (ถ้ามี)</label>
+            <input id="fieldEmail" name="cm-nviu-nviu" type="email" />
+        </div>
+        <div class="button">
+            <button type="submit">ติดต่อเรา</button>
+        </div>
+
+    </form>
+    <div class="or">หรือติดต่อเราได้ที่ <a href="#">panuta@gmail.com</a></div>
+</div>
+{% endblock %}

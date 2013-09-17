@@ -5,6 +5,13 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'QuarkBold';
+  src: url('../fonts/quark/quark-bold-webfont.eot');
+  src: url('../fonts/quark/quark-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/quark/quark-bold-webfont.woff') format('woff'), url('../fonts/quark/quark-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 html,
 body {
   margin: 0;
@@ -37,48 +44,44 @@ body {
 }
 .page-launch .headline {
   clear: both;
-  padding-top: 15px;
+  padding-top: 10px;
   text-align: center;
 }
 .page-launch .headline h1 {
   color: #29ace4;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 40px;
+  font-size: 45px;
   font-weight: normal;
   margin: 15px 0 0;
 }
-.page-launch .headline .text {
-  margin-top: 20px;
-  width: 100%;
-}
-.page-launch .headline .text p {
+.page-launch .headline p {
   color: #EEE;
   font-family: 'QuarkLight', sans-serif;
-  font-size: 24px;
-  line-height: 38px;
-  margin: 0 auto;
+  font-size: 26px;
+  line-height: 42px;
+  margin: 10px auto 0;
   width: 740px;
 }
-.page-launch .form {
+.page-launch .subscribe {
   margin: 35px auto 0;
   text-align: center;
 }
-.page-launch .form h2 {
+.page-launch .subscribe h2 {
   color: #97a9b3;
   font-family: 'QuarkLight', sans-serif;
   font-size: 22px;
   font-weight: normal;
   margin: 0;
 }
-.page-launch .form form {
+.page-launch .subscribe form {
   margin-top: 20px;
 }
-.page-launch .form form input {
+.page-launch .subscribe form input {
   border: none;
   font-size: 16px;
   padding: 8px 10px;
 }
-.page-launch .form form button {
+.page-launch .subscribe form button {
   background-color: #f9e25c;
   border: none;
   color: #444;
@@ -87,10 +90,235 @@ body {
   font-size: 20px;
   padding: 5px 45px 2px;
 }
-.page-launch .form .subscribed .thanks {
+.page-launch .subscribe .organize {
+  margin-top: 35px;
+}
+.page-launch .subscribe .organize a {
+  border: 1px solid #8696a0;
+  color: #EEE;
+  display: inline-block;
+  font-size: 14px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.page-launch .subscribe .organize a:hover,
+.page-launch .subscribe .organize a:focus {
+  background-color: #29ace4;
+  border: 1px solid #29ace4;
+  color: #444;
+}
+.page-launch .subscribe .subscribed .thanks {
   color: #FFF;
   font-family: 'QuarkLight', sans-serif;
   font-size: 28px;
   font-weight: normal;
   margin: 60px 0 0;
+}
+.page-launch-organize {
+  background: url('../images/ui/noise.png') repeat #4b5c66;
+  padding-bottom: 60px;
+}
+.page-launch-organize .headline {
+  margin-top: 70px;
+  text-align: center;
+}
+.page-launch-organize .headline h1 {
+  color: #FFF;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 25px;
+  font-weight: normal;
+  line-height: 42px;
+  margin: 15px 0 0;
+}
+.page-launch-organize .headline h1 strong {
+  color: #29ace4;
+  font-weight: normal;
+}
+.page-launch-organize .headline p {
+  color: #EEE;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 25px;
+  line-height: 36px;
+  margin: 10px auto 0;
+  width: 780px;
+}
+.page-launch-organize .headline p.organize {
+  color: #FFF;
+  font-size: 36px;
+  line-height: 64px;
+  margin-bottom: 20px;
+}
+.page-launch-organize .headline p.passion_list {
+  color: #b4c1c9;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  line-height: 32px;
+}
+.page-launch-organize .headline p.believe {
+  color: #f9e25c;
+  font-size: 32px;
+  line-height: 64px;
+  margin-top: 20px;
+}
+.page-launch-organize .features {
+  margin-top: 35px;
+  text-align: center;
+}
+.page-launch-organize .features h2 {
+  color: #29ace4;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 34px;
+  font-weight: normal;
+  line-height: 42px;
+  margin: 0;
+}
+.page-launch-organize .features .help {
+  color: #EEE;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 24px;
+  margin-top: 10px;
+}
+.page-launch-organize .features ul.primary {
+  margin: 40px 0 0;
+  padding: 0;
+}
+.page-launch-organize .features ul.primary li {
+  background: center top no-repeat;
+  display: inline-block;
+  list-style: none;
+  margin: 0 15px;
+  padding-top: 80px;
+  width: 300px;
+}
+.page-launch-organize .features ul.primary li .feature {
+  color: #FFF;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 28px;
+}
+.page-launch-organize .features ul.primary li .description {
+  color: #DDD;
+  font-size: 15px;
+  line-height: 28px;
+  margin-top: 5px;
+}
+.page-launch-organize .features ul.primary li.outline {
+  background-image: url(../images/page/launch/outline.png);
+}
+.page-launch-organize .features ul.primary li.payment {
+  background-image: url(../images/page/launch/payment.png);
+}
+.page-launch-organize .features ul.primary li.audiences {
+  background-image: url(../images/page/launch/audiences.png);
+}
+.page-launch-organize .features ul.secondary {
+  margin: 40px 0 0;
+  padding: 0;
+}
+.page-launch-organize .features ul.secondary li {
+  list-style: none;
+  margin: 0 10px;
+}
+.page-launch-organize .features ul.secondary li .feature {
+  background: url(../images/page/launch/21-tools.png) left center no-repeat;
+  color: #FFF;
+  display: inline-block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 22px;
+  padding: 16px 0 10px 45px;
+}
+.page-launch-organize .features ul.secondary li.start .feature {
+  background-image: url(../images/page/launch/start.png);
+}
+.page-launch-organize .features ul.secondary li.review .feature {
+  background-image: url(../images/page/launch/review.png);
+}
+.page-launch-organize .features ul.secondary li.communication .feature {
+  background-image: url(../images/page/launch/communication.png);
+}
+.page-launch-organize .features ul.secondary li.no_lockin .feature {
+  background-image: url(../images/page/launch/no_lockin.png);
+}
+.page-launch-organize .pricing {
+  font-family: 'QuarkLight', sans-serif;
+  margin-top: 60px;
+  text-align: center;
+}
+.page-launch-organize .pricing .text1 {
+  color: #EEE;
+  font-size: 36px;
+}
+.page-launch-organize .pricing .price {
+  color: #b4c1c9;
+  font-size: 22px;
+  margin-top: 15px;
+}
+.page-launch-organize .pricing .price em {
+  color: #f9e25c;
+  font-size: 28px;
+  font-style: normal;
+}
+.page-launch-organize .pricing .text2 {
+  color: #EEE;
+  font-size: 24px;
+  margin-top: 15px;
+}
+.page-launch-organize .signup {
+  margin-top: 60px;
+  text-align: center;
+}
+.page-launch-organize .signup .head {
+  color: #FFF;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 36px;
+}
+.page-launch-organize .signup form {
+  border: 1px solid #DDD;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 25px 35px;
+}
+.page-launch-organize .signup form label {
+  color: #FFF;
+  display: block;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.page-launch-organize .signup form .input {
+  margin-bottom: 25px;
+}
+.page-launch-organize .signup form input {
+  border: none;
+  font-size: 16px;
+  padding: 8px 10px;
+  text-align: center;
+  width: 270px;
+}
+.page-launch-organize .signup form .input-topic input {
+  height: 35px;
+  width: 600px;
+}
+.page-launch-organize .signup form .input-name input {
+  width: 340px;
+}
+.page-launch-organize .signup form .button {
+  margin-top: 30px;
+}
+.page-launch-organize .signup form button {
+  background-color: #f9e25c;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  font-family: 'QuarkLight', sans-serif;
+  font-size: 20px;
+  padding: 5px 45px 2px;
+}
+.page-launch-organize .signup .or {
+  color: #97a9b3;
+  margin-top: 30px;
+}
+.page-launch-organize .signup .or a {
+  color: #EEE;
+  margin-left: 6px;
 }

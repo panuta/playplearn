@@ -13,6 +13,10 @@ def view_launch_page(request):
     })
 
 
+def view_launch_organize_page(request):
+    return render(request, 'single/launch_organize.html')
+
+
 def view_homepage(request):
     upcoming_workshops = domain_functions.get_upcoming_workshops()
     return render(request, 'page/homepage.html', {'upcoming_workshops': upcoming_workshops})
