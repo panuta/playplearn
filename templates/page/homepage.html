@@ -16,13 +16,13 @@
 {% block body_content %}
 <div class="headline">
     <div class="container">
-        <div class="logo"><img src="{{ STATIC_URL }}images/ui/logo.homepage.white.png" /></div>
+        <div class="logo"><img src="{{ STATIC_URL }}images/page/homepage/logo.homepage.png" /></div>
         <div class="text">เปลี่ยนวันว่างธรรมดาๆ ให้เป็นวันที่สนุกสนานเพลิดเพลิน</div>
     </div>
 </div>
 <div class="container">
     <div class="upcoming-workshops">
-        <div class="head"><hr><span>เวิร์คช็อปล่าสุด</span></div>
+        <div class="head"><hr><span>เวิร์คช็อปที่กำลังจะถึง</span></div>
         <ul class="workshops">
             {% for workshop in upcoming_workshops %}
                 <li class="workshop style-workshop-row clearfix">
@@ -32,18 +32,26 @@
                     <div class="right">
                         <div class="title"><a href="{% url 'view_workshop_outline' workshop.uid %}">{{ workshop.title }}</a></div>
                         <div class="summary">{{ workshop.summary }}</div>
-                        <div class="details">
-                            <div class="teacher">
-                                <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.tiny_avatar_url }}" {% thumbnail_img_size 'avatar_tiny' %} /></a></div>
-                                <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
-                            </div>
-                            <div class="stats">
-                                <span class="item feedback"><i class="icon-heart{% if workshop.stats_feedbacks %} available{% endif %}"></i> <em>{{ workshop.stats_feedbacks }}</em></span>
-                                <span class="item schedule"><i class="icon-calendar{% if workshop.stats_upcoming_schedules %} available{% endif %}"></i> จัดอีก {{ workshop.stats_upcoming_schedules }} รอบ</span>
-                            </div>
+                        <div class="stats">
+                            <span class="item feedback"><i class="icon-heart{% if workshop.stats_feedbacks %} available{% endif %}"></i> <em>{{ workshop.stats_feedbacks }}</em> คำนิยม</span>
+                            <span class="item schedule"><i class="icon-calendar{% if workshop.stats_upcoming_schedules %} available{% endif %}"></i> จัดอีก <em>{{ workshop.stats_upcoming_schedules }}</em> รอบ</span>
                         </div>
+                        <div class="teacher">
+                            <div class="avatar"><a href="{% url 'view_user_profile' workshop.teacher.uid %}"><img src="{{ workshop.teacher.small_avatar_url }}" {% thumbnail_img_size 'avatar_small' %} /></a></div>
+                            <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
+                        </div>
+
+                        {% get_available_upcoming_schedule workshop as upcoming_schedule %}
+
+
+                        <div class="upcoming">
+                            <span class="days">พรุ่งนี้</span>
+                            <span class="datetime">รอบวันที่ <em>{{ upcoming_schedule|schedule_datetime }}</em></span>
+                            <span class="available"><i class="icon-user"></i> เหลือที่ว่างอีก <em>{{ upcoming_schedule.seats_left }}</em> คน</span>
+                        </div>
+                        {% comment %}
                         <div class="next">
-                            {% get_available_upcoming_schedule workshop as upcoming_schedule %}
+
                             <span class="icon-stack">
                                 <i class="icon-sign-blank icon-stack-base"></i>
                                 <i class="icon-calendar icon-light"></i>
@@ -51,6 +59,7 @@
                             <span class="schedule">รอบถัดไป {{ upcoming_schedule|schedule_datetime }}</span>
                             <span class="available"><i class="icon-user"></i> เหลือที่นั่งว่างอีก {{ upcoming_schedule.seats_left }} ที่นั่ง</span>
                         </div>
+                        {% endcomment %}
                     </div>
                 </li>
             {% endfor %}

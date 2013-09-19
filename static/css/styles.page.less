@@ -57,44 +57,39 @@
 
 .page-homepage {
     .headline {
-        background: @backgroundNavy;
+        padding: 55px 0 80px;
         text-align: center;
 
-        .logo {
-            margin-top: 35px;
-        }
-
         .text {
-            color: #FFF;
+            color: @colorNavy;
             font-family: 'QuarkLight', sans-serif;
             font-size: 36px;
             font-weight: normal;
             margin-top: 15px;
-            margin-bottom: 20px;
         }
     }
 
     .upcoming-workshops {
         .head {
             line-height: 12px;
-            margin: 70px auto 20px;
-            text-align: left;
+            margin: 0 auto 30px;
+            text-align: center;
 
             hr {
                 border: none;
-                border-bottom: 1px solid #EEE;
+                border-bottom: 1px solid #CCC;
                 margin: 5px 0px;
             }
 
             span {
                 background-color: #FFF;
                 color: @colorGrey;
-                font-size: 13px;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 22px;
                 display: inline-block;
-                margin-left: 20px;
                 padding: 0 10px;
                 position: relative;
-                top: -13px;
+                top: -11px;
             }
         }
 
@@ -128,103 +123,99 @@
 
             .summary {
                 color: #666;
-                font-size: 15px;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 21px;
                 line-height: 26px;
             }
 
-            .details {
-                margin: 15px 0 0;
+            .stats {
+                margin-top: 7px;
 
-                .teacher {
+                span.item {
+                    color: #666;
                     display: inline-block;
+                    margin-right: 15px;
 
-                    .avatar {
-                        display: inline-block;
-                        margin-right: 7px;
-                        vertical-align: middle;
+                    i {
+                        color: #BBB;
+                        margin-right: 2px;
                     }
 
-                    .name {
-                        display: inline-block;
-                        vertical-align: middle;
-
-                        a {
-                            color: @colorNavy;
-                            font-family: 'QuarkLight', sans-serif;
-                            font-size: 19px;
-                            font-size: 24px;
-                        }
-                    }
-                }
-
-                .stats {
-                    display: inline-block;
-                    margin-left: 20px;
-
-                    span.item {
-                        color: #666;
-                        border: 1px solid #DDD;
-                        display: inline-block;
-                        margin-right: 15px;
-                        padding: 3px 10px;
-
-                        i {
-                            color: #777;
-                            margin-right: 2px;
-                        }
-
-                        em {
-                            font-weight: bold;
-                        }
-                    }
-
-                    .feedback {
-                        i.available {
-                            color: #f4605d;
-                        }
-                    }
-
-                    .schedule {
-                        i.available {
-                            color: @colorPositive;
-                        }
+                    em {
+                        color: #444;
+                        font-size: 15px;
+                        font-weight: bold;
                     }
                 }
             }
 
-            .next {
-                border-top: 1px dashed #DDD;
-                padding-top: 15px;
-                margin-top: 20px;
+            .teacher {
+                margin-top: 13px;
 
-                .icon-stack {
+                .avatar {
+                    display: inline-block;
+                    margin-right: 7px;
+                    vertical-align: middle;
+                }
+
+                .name {
+                    display: inline-block;
                     vertical-align: middle;
 
-                    i.icon-sign-blank {
-                        color: @colorPositive;
+                    a {
+                        color: @colorNavy;
+                        font-family: 'QuarkLight', sans-serif;
+                        font-size: 19px;
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .upcoming {
+                border: 1px dashed #CCC;
+                margin-top: 13px;
+                padding: 3px;
+
+                .days {
+                    background-color: @colorOrange;
+                    color: #FFF;
+                    display: inline-block;
+                    font-family: 'QuarkLight', sans-serif;
+                    font-size: 18px;
+                    height: 34px;
+                    margin-right: 25px;
+                    padding: 6px 15px 1px;
+                    position: relative;
+                    text-align: center;
+                    vertical-align: middle;
+
+                    &:after {
+                        border: solid transparent;
+                        border-color: rgba(246, 127, 77, 0);
+                        border-left-color: @colorOrange;
+                        border-width: 17px;
+                        content: " ";
+                        height: 0;
+                        left: 100%;
+                        margin-top: -17px;
+                        pointer-events: none;
+                        position: absolute;
+                        top: 50%;
+                        width: 0;
                     }
                 }
 
-                .schedule {
-                    color: #666;
+                .datetime, .available {
+                    color: #555;
                     font-size: 15px;
-                    margin-left: 3px;
                     vertical-align: middle;
-
-                    .date, .time {
-                        color: #444;
-                        font-weight: bold;
-                    }
                 }
 
                 .available {
-                    color: #666;
-                    font-size: 13px;
-                    margin-left: 20px;
-                    vertical-align: middle;
+                    margin-left: 15px;
 
                     i {
-                        color: #888;
+                        color: @colorPositive;
                     }
                 }
             }
