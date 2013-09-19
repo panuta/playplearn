@@ -1,0 +1,143 @@
+{% load common_tags %}
+<div class="modal fade" id="modal-reserve-workshop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="steps">
+                    <ol class="progtrckr">
+                        <li class="active done">ยืนยันการเข้าร่วม</li><li>ชำระเงิน</li><li>แจ้งชำระเงิน</li>
+                    </ol>
+                </div>
+                <div class="reservation-confirm hide">
+                    <div class="workshop">
+                        <div class="title">{{ workshop.title }}</div>
+                        <div class="schedule"></div>
+                        <div class="people"></div>
+                    </div>
+                    <div class="payment">
+                        <span class="price"><em></em> บาท</span> x <span class="people"><em></em> คน</span> <span class="total">รวม <em></em> บาท</span>
+                    </div>
+                </div>
+                <div class="reservation-payment hide">
+                    <div class="success">ยืนยันการเข้าร่วมเรียบร้อย</div>
+                    <div class="pay">กรุณาโอนเงินมาที่บัญชีธนาคารด้านล่างนี้ ภายในเวลา 48 ชั่วโมง</div>
+                    <ul class="banks">
+                        {% bank_account_assign as banks %}
+                        {% for bank in banks %}
+                            <li class="kbank">
+                                <div class="bank">{{ bank.bank_name }} สาขา{{ bank.bank_branch }}</div>
+                                <div class="account-owner"><span class="account-number">{{ bank.account_no }}</span> <span class="account-name">{{ bank.account_name }}</span></div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="note">* หากไม่สามารถโอนมาได้ทันตามเวลาที่กำหนด ทางเว็บไซต์ขอสงวนสิทธิ์ยกเลิกการจอง</div>
+                </div>
+                <div class="reservation-notify">
+                    <form role="form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">ธนาคารที่โอนเข้า</label>
+                                <div class="control bank-control">
+                                    <select name="bank" class="form-control">
+                                        {% for bank in banks %}
+                                            <option>{{ bank.bank_name }} - {{ bank.account_no }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>จำนวนเงิน</label>
+                                <div class="control amount-control">
+                                    <input name="amount" type="text" class="form-control"/> <span class="unit">บาท</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>วันที่โอน</label>
+                                <div class="control date-control">
+                                    <select name="date" class="form-control">{% date_from_today_as_option %}</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">เวลาที่โอน</label>
+                                <div class="control">
+                                    <select name="time_hour" class="form-control">{% time_hour_as_option %}</select>
+                                    <span class="separator">:</span>
+                                    <select name="time_minute" class="form-control">{% time_minute_as_option %}</select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>หมายเหตุ</label>
+                            <div class="control remark-control">
+                                <textarea name="remark" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="reservation-confirm hide">
+                    <button type="button" class="style-primary-button button-confirm"><i class="icon-ok"></i> ยืนยัน</button>
+                </div>
+                <div class="reservation-payment hide">
+                    <button type="button" class="style-primary-button button-confirm-payment">แจ้งการชำระเงิน</button>
+                    <button type="button" class="style-button button-postpone-payment">จ่ายทีหลัง</button>
+                </div>
+                <div class="reservation-notify">
+                    <button type="button" class="style-primary-button button-notify-payment">แจ้งชำระเงิน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+jQuery(function($){
+    var reserve_workshop_modal = $('#modal-reserve-workshop');
+
+    reserve_workshop_modal.find('.button-confirm').on('click', function() {
+        reserve_workshop_modal.find('.modal-footer button').prop('disabled', false);
+
+        var schedule_id = reserve_workshop_modal.data('schedule-id');
+        var people = reserve_workshop_modal.find('.reservation-confirm .payment .people em').text();
+        var price = reserve_workshop_modal.find('.reservation-confirm .payment .price em').text();
+
+        var jqxhr = $.post('{% url 'ajax_create_reservation' %}', {schedule:schedule_id, people:people, price:price}, function(response) {
+            reserve_workshop_modal.find('.modal-footer button').prop('disabled', false);
+
+            if(response.status == 'success') {
+                reserve_workshop_modal.data('code', response.data.code);
+                reserve_workshop_modal.find('.reservation-confirm').hide();
+                reserve_workshop_modal.find('.reservation-payment').removeClass('hide');
+
+            } else {
+                if(response.message) {
+                    _addModalErrorMessage('modal-reserve-workshop', 'ไม่สามารถยืนยันการเข้าร่วมได้ - ' + response.message);
+                } else {
+                    _addModalErrorMessage('modal-reserve-workshop', 'ไม่สามารถยืนยันการเข้าร่วมได้ - เกิดความผิดพลาดขึ้น');
+                }
+            }
+        }, 'json');
+
+        jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+            reserve_workshop_modal.find('.modal-footer button').prop('disabled', false);
+            _addModalErrorMessage('modal-reserve-workshop', 'ไม่สามารถยืนยันการเข้าร่วมได้ - ' + errorThrown);
+        });
+    });
+
+    reserve_workshop_modal.find('.button-confirm-payment').on('click', function() {
+
+    });
+
+    reserve_workshop_modal.find('.button-notify-payment').on('click', function() {
+
+    });
+
+    reserve_workshop_modal.on('hide.bs.modal', function() {
+        if(reserve_workshop_modal.data('code')) {
+            window.location.reload();
+        }
+    });
+});
+</script>

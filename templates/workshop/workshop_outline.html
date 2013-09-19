@@ -30,6 +30,7 @@
 
     schedule_picker_modal.find('.button-schedule-choose').on('click', function() {
         var schedule_li = schedule_picker_modal.find('input:checked').closest('li');
+        $('.workshop-reservation input[name="schedule_id"]').val(schedule_li.attr('data-schedule-id'));
         $('.workshop-reservation .reserve-schedule .datetime').html(schedule_li.find('.datetime').html());
         $('.workshop-reservation .reserve-seats .price').html(schedule_li.find('.price').html());
 
@@ -51,8 +52,25 @@
     });
 
     $('.button-schedule-reserve').on('click', function() {
+        var workshop_reservation = $('#workshop-reservation');
+        var reserve_workshop_modal = $('#modal-reserve-workshop');
 
+        reserve_workshop_modal.data('schedule-id', workshop_reservation.find('input[name="schedule_id"]').val());
+        reserve_workshop_modal.find('.reservation-confirm .schedule').html(workshop_reservation.find('.reserve-schedule .datetime').html());
+
+        var people = parseInt(workshop_reservation.find('.reserve-seats select option:selected').val(), 10);
+        var price = parseInt(workshop_reservation.find('.reserve-seats .price em').text(), 10)
+
+        reserve_workshop_modal.find('.reservation-confirm .payment .people em').text(people);
+        reserve_workshop_modal.find('.reservation-confirm .payment .price em').text(price);
+        reserve_workshop_modal.find('.reservation-confirm .payment .total em').text(numberWithCommas(people * price));
+
+        reserve_workshop_modal.modal();
+        return false;
     });
+
+
+    $('#modal-reserve-workshop').modal();
 })();
 </script>
 {% endblock %}
@@ -79,24 +97,20 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="workshop-reservation">
+            <div class="workshop-reservation" id="workshop-reservation">
                 <div class="head"><i class="icon-signin"></i> เข้าร่วมเวิร์คช็อป</div>
                 <div class="reserve-schedule">
                     <label>รอบวันที่</label>
+                    <input type="hidden" name="schedule_id" value="{{ upcoming_schedule.id }}" />
                     <a href="#modal-schedule-picker" class="btn btn-default button-schedule-picker" data-toggle="modal"><i class="icon-calendar"></i><span class="datetime">{{ upcoming_schedule|schedule_datetime_duration }}</span></a>
                 </div>
                 <div class="reserve-seats">
                     <label>จำนวนคน</label>
-                    <select class="selectpicker">
-                        {% workshop_schedule_seats_as_option upcoming_schedule %}
-                    </select>
+                    <select class="selectpicker">{% workshop_schedule_seats_as_option upcoming_schedule %}</select>
                     <script>$('.workshop-reservation .reserve-seats select').selectpicker({width: '100px'});</script>
                     <span class="price_per_person"><span class="x">x</span> <span class="price"><em>{{ upcoming_schedule.price|format_price }}</em> บาท</span></span>
-                    {{ upcoming_schedule.price }}
                 </div>
-                <div class="reserve-button">
-                    <a href="#" class="style-primary-button button-schedule-reserve">ลงชื่อเข้าร่วม</a>
-                </div>
+                <div class="reserve-button"><a href="#" class="style-primary-button button-schedule-reserve">ลงชื่อเข้าร่วม</a></div>
             </div>
             <div class="workshop-social">
                 <!-- TODO -->
@@ -203,7 +217,7 @@
 {% endblock %}
 
 {% block modals %}
-{% include 'snippets/modal_enrollment_confirm.html' %}
+{% include 'modals/modal_reserve_workshop.html' %}
 
 <div class="modal fade" id="modal-schedule-picker">
     <div class="modal-dialog">

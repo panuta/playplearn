@@ -30,11 +30,15 @@ from domain.models import WorkshopFeedback, Workshop, WorkshopPicture, Place
 from reservation import functions as reservation_functions
 
 from presentation.templatetags.presentation_tags import workshop_pictures_ordering_as_comma_separated, feedback_feelings_as_em
-from reservation.models import Reservation
+from reservation.models import Reservation, Schedule, ReservationPaymentNotification
 
 
 def _response_with_workshop_error(error_code):
     return response_json_error_with_message(error_code, errors.WORKSHOP_BACKEND_ERRORS)
+
+
+def _response_with_reservation_error(error_code):
+    return response_json_error_with_message(error_code, errors.WORKSHOP_RESERVATION_ERRORS)
 
 
 # WORKSHOP #############################################################################################################
@@ -414,7 +418,90 @@ def ajax_set_workshop_feedback_visibility(request):
     })
 
 
-# ENROLLMENT ###########################################################################################################
+# RESERVATION ##########################################################################################################
+
+@require_POST
+@login_required
+def ajax_create_reservation(request):
+    if not request.is_ajax():
+        raise Http404
+
+    schedule_id = request.POST.get('schedule')
+
+    try:
+        schedule = Schedule.objects.get(id=schedule_id)
+    except Schedule.DoesNotExist:
+        return _response_with_reservation_error('schedule-notfound')
+
+    try:
+        people = int(request.POST.get('people'))
+    except ValueError:
+        return _response_with_reservation_error('parameter-invalid')
+
+    try:
+        price = int(request.POST.get('price').strip(','))
+    except ValueError:
+        return _response_with_reservation_error('parameter-invalid')
+
+    if schedule.price != price:
+        return _response_with_reservation_error('price-changed')
+
+    reservation = reservation_functions.create_reservation(schedule, people, price, request.user)
+
+    return response_json_success({
+        'code': reservation.code,
+    })
+
+
+@require_POST
+@login_required
+def ajax_notify_reservation_payment(request):
+    if not request.is_ajax():
+        raise Http404
+
+    code = request.POST.get('code')
+
+    try:
+        reservation = Reservation.objects.get(code=code)
+    except Reservation.DoesNotExist:
+        return _response_with_reservation_error('reservation-notfound')
+
+    if ReservationPaymentNotification.objects.filter(reservation=reservation, status=ReservationPaymentNotification.STATUS_CONFIRMED).exists():
+        return _response_with_reservation_error('payment-already-confirmed')
+
+    bank = request.POST.get('bank', '')
+    amount = request.POST.get('amount', '')
+    date = request.POST.get('date', '')
+    time_hour = request.POST.get('time_hour', '')
+    time_minute = request.POST.get('time_minute', '')
+    remark = request.POST.get('remark', '')
+
+    if not bank or bank not in BANK_ACCOUNT_MAP:
+        return _response_with_reservation_error('payment-bank-invalid')
+
+    try:
+        amount = int(amount)
+        if amount < 0:
+            raise ValueError
+    except ValueError:
+        return _response_with_reservation_error('payment-amount-invalid')
+
+    try:
+        datetime_data = '%s-%s-%s' % (date, time_hour, time_minute)
+        transfered_on = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+    except ValueError:
+        return _response_with_reservation_error('payment-date-invalid')
+
+    ReservationPaymentNotification.objects.create(
+        reservation=reservation,
+        bank=bank,
+        amount=amount,
+        transfered_on=transfered_on,
+        remark=remark,
+    )
+
+    return response_json_success()
+
 
 @require_GET
 @login_required
@@ -440,53 +527,3 @@ def ajax_view_enrollment_details(request):
         'reserved_on': format_full_datetime(enrollment.created),
         'print_url': '',
     })
-
-
-@require_POST
-@login_required
-def ajax_notify_enrollment_payment(request):
-    if not request.is_ajax():
-        raise Http404
-
-    code = request.POST.get('code')
-
-    try:
-        enrollment = WorkshopEnrollment.objects.get(code=code)
-    except WorkshopEnrollment.DoesNotExist:
-        return response_json_error_with_message('enrollment-notfound', errors.WORKSHOP_ENROLLMENT_ERRORS)
-
-    if WorkshopEnrollmentPaymentNotify.objects.filter(enrollment=enrollment).exists():
-        return response_json_error_with_message('payment-notify-duplicate', errors.WORKSHOP_ENROLLMENT_ERRORS)
-
-    bank = request.POST.get('bank', '')
-    amount = request.POST.get('amount', '')
-    date = request.POST.get('date', '')
-    time_hour = request.POST.get('time_hour', '')
-    time_minute = request.POST.get('time_minute', '')
-    remark = request.POST.get('remark', '')
-
-    if not bank or bank not in BANK_ACCOUNT_MAP:
-        return response_json_error_with_message('payment-notify-bank-invalid', errors.WORKSHOP_ENROLLMENT_ERRORS)
-
-    try:
-        amount = int(amount)
-        if amount < 0:
-            raise ValueError
-    except ValueError:
-        return response_json_error_with_message('payment-notify-amount-invalid', errors.WORKSHOP_ENROLLMENT_ERRORS)
-
-    try:
-        datetime_data = '%s-%s-%s' % (date, time_hour, time_minute)
-        transfered_on = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
-    except ValueError:
-        return response_json_error_with_message('input-invalid', errors.WORKSHOP_MODIFICATION_ERRORS)
-
-    WorkshopEnrollmentPaymentNotify.objects.create(
-        enrollment=enrollment,
-        bank=bank,
-        amount=amount,
-        transfered_on=transfered_on,
-        remark=remark,
-    )
-
-    return response_json_success()

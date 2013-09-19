@@ -58,6 +58,13 @@ WORKSHOP_BACKEND_ERRORS = {
     'feedback-notfound': u'ไม่พบคำนิยมที่ต้องการ',
 }
 
+WORKSHOP_RESERVATION_ERRORS = {
+    'schedule-notfound': u'',
+}
+
+
+
+
 WORKSHOP_FEEDBACK_ERRORS = {
     'unauthorized': u'Unauthorized action',
     'existed': u'',

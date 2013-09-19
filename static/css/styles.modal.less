@@ -113,6 +113,183 @@
     }
 }
 
+#modal-reserve-workshop {
+    .steps {
+        margin: 25px 0;
+
+        ol {
+            margin: 0;
+            padding: 0;
+
+            li {
+                border-bottom: 5px solid #DDD;
+                display: inline-block;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 22px;
+                list-style: none;
+                text-align: center;
+                width: 33%;
+
+                &.active {
+                    color: @colorBlue;
+                }
+
+                &.done {
+                    border-bottom: 5px solid @colorBlue;
+                }
+            }
+        }
+    }
+
+    .reservation-confirm {
+        .workshop {
+            .title {
+                color: #444;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 24px;
+            }
+
+            .schedule {
+                color: #666;
+                font-size: 15px;
+                margin-top: 4px;
+            }
+        }
+
+        .payment {
+            border-bottom: 1px solid #DDD;
+            border-top: 1px dashed #DDD;
+            color: #999;
+            margin: 15px 0 10px;
+            padding: 12px 10px 8px;
+
+            .price, .people, .total {
+                color: #444;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 20px;
+            }
+
+            .price {
+                margin-right: 6px;
+            }
+
+            .people {
+                margin-left: 6px;
+            }
+
+            .total {
+                float: right;
+            }
+        }
+
+        .button-confirm {
+            padding: 7px 40px;
+        }
+    }
+
+    .reservation-payment {
+        .success {
+            color: @colorPositive;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 28px;
+        }
+
+        .pay {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        ul.banks {
+            margin: 0;
+            padding: 0;
+
+            li {
+                border: 1px solid #DDD;
+                list-style: none;
+                margin-bottom: 15px;
+                padding: 8px 0px 8px 80px;
+
+                .bank {
+                    color: #555;
+                    font-size: 16px;
+                }
+
+                .account-owner {
+                    margin-top: 5px;
+                }
+
+                .account-number {
+                    color: #555;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+
+                .account-name {
+                    color: #555;
+                    font-size: 16px;
+                    margin-left: 15px;
+                }
+
+                &.kbank {
+                    background: url(../images/banks/kbank.png) 15px center no-repeat;
+                }
+            }
+        }
+
+        .note {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .reservation-notify {
+        form {
+            label {
+                color: #555;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 20px;
+                font-weight: normal;
+                margin: 0;
+            }
+
+            .form-row {
+                margin-bottom: 10px;
+
+                .form-group {
+                    display: inline-block;
+                    margin-right: 25px;
+                    vertical-align: top;
+                }
+            }
+
+            input, select {
+                font-size: 15px;
+                display: inline;
+                width: auto;
+            }
+
+            .unit {
+                color: #555;
+                font-family: 'QuarkLight', sans-serif;
+                font-size: 20px;
+                margin-left: 7px;
+            }
+
+
+            .bank-control select {
+                width: 260px;
+            }
+
+            .amount-control input {
+                text-align: right;
+                width: 100px;
+            }
+        }
+    }
+}
+
 #modal-enrollment-login {
     margin-left: -300px;
     width: 600px;

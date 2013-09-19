@@ -45,7 +45,7 @@ class UserAccountManager(BaseUserManager):
         user = UserAccount.objects.create(
             email=UserAccountManager.normalize_email(email),
             name=name,
-            )
+        )
 
         user.set_password(password)
         user.save()

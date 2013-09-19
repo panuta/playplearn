@@ -2,6 +2,8 @@ import decimal
 
 from django.conf import settings
 from django.db import models
+import shortuuid
+from common.utilities import SHORTUUID_ALPHABETS_CHARACTERS_ONLY
 
 
 class Schedule(models.Model):
@@ -59,15 +61,22 @@ class Reservation(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
 
     code = models.CharField(max_length=20, db_index=True, unique=True)
-    status = models.CharField(max_length=20, default=STATUS_PENDING)
+    status = models.CharField(max_length=5, default=STATUS_PENDING)
     status_reason = models.CharField(max_length=100, blank=True)
-    payment_status = models.CharField(max_length=30, default=PAYMENT_STATUS_PENDING)
+    payment_status = models.CharField(max_length=5, default=PAYMENT_STATUS_PENDING)
     note = models.CharField(max_length=1000, blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        if not self.code:
+            shortuuid.set_alphabet(SHORTUUID_ALPHABETS_CHARACTERS_ONLY)
+            temp_uuid = shortuuid.uuid()[:6]
+            while Reservation.objects.filter(code=temp_uuid).exists():
+                temp_uuid = shortuuid.uuid()[:6]
+            self.code = temp_uuid
+
         super(Reservation, self).save(*args, **kwargs)
 
         if not self.pk:
@@ -77,6 +86,20 @@ class Reservation(models.Model):
     def has_feedback(self):
         from domain.models import WorkshopFeedback
         return WorkshopFeedback.objects.filter(reservation=self).exists()
+
+
+class ReservationPaymentNotification(models.Model):
+    STATUS_PENDING = 'P'
+    STATUS_CONFIRMED = 'C'
+    STATUS_REJECTED = 'R'
+
+    enrollment = models.ForeignKey(Reservation)
+    bank = models.CharField(max_length=20)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date_transfered = models.DateTimeField()
+    date_notified = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=5, default=STATUS_PENDING)
+    remark = models.CharField(max_length=500)
 
 
 # USER BALANCE #########################################################################################################
