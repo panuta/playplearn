@@ -2875,7 +2875,7 @@ body {
 }
 .page-homepage .upcoming-workshops ul.workshops li.workshop {
   list-style: none;
-  margin-bottom: 40px;
+  margin-bottom: 45px;
 }
 .page-homepage .upcoming-workshops li.workshop .workshop-cover {
   border: 1px solid #DDD;
@@ -2893,8 +2893,7 @@ body {
 }
 .page-homepage .upcoming-workshops li.workshop .summary {
   color: #666;
-  font-family: 'QuarkLight', sans-serif;
-  font-size: 21px;
+  font-size: 15px;
   line-height: 26px;
 }
 .page-homepage .upcoming-workshops li.workshop .stats {
