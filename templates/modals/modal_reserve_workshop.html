@@ -3,14 +3,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="steps">
-                    <ol class="progtrckr">
-                        <li class="active done">ยืนยันการเข้าร่วม</li><li>ชำระเงิน</li><li>แจ้งชำระเงิน</li>
-                    </ol>
-                </div>
-                <div class="reservation-confirm hide">
+                <div class="reservation-confirm">
+                    <h4 class="title">ยืนยันการเข้าร่วม</h4>
                     <div class="workshop">
-                        <div class="title">{{ workshop.title }}</div>
+                        <div class="workshop-title">{{ workshop.title }}</div>
                         <div class="schedule"></div>
                         <div class="people"></div>
                     </div>
@@ -19,8 +15,8 @@
                     </div>
                 </div>
                 <div class="reservation-payment hide">
-                    <div class="success">ยืนยันการเข้าร่วมเรียบร้อย</div>
-                    <div class="pay">กรุณาโอนเงินมาที่บัญชีธนาคารด้านล่างนี้ ภายในเวลา 48 ชั่วโมง</div>
+                    <h4 class="title"><i class="icon-ok"></i> ยืนยันการเข้าร่วมเรียบร้อย</h4>
+                    <div class="pay">ผู้เข้าร่วมสามารถโอนเงินมาได้ที่บัญชีธนาคารด้านล่างนี้</div>
                     <ul class="banks">
                         {% bank_account_assign as banks %}
                         {% for bank in banks %}
@@ -30,9 +26,10 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <div class="note">* หากไม่สามารถโอนมาได้ทันตามเวลาที่กำหนด ทางเว็บไซต์ขอสงวนสิทธิ์ยกเลิกการจอง</div>
+                    <div class="note">* กรุณาโอนเงินภายในเวลา 48 ชั่วโมง ทางเว็บไซต์ขอสงวนสิทธิ์ยกเลิกการจองหากผู้เข้าร่วมไม่สามารถโอนเงินได้ทันภายในเวลาที่กำหนด</div>
                 </div>
-                <div class="reservation-notify">
+                <div class="reservation-notify hide">
+                    <h4 class="title">แจ้งการชำระเงิน</h4>
                     <form role="form">
                         <div class="form-row">
                             <div class="form-group">
@@ -40,7 +37,7 @@
                                 <div class="control bank-control">
                                     <select name="bank" class="form-control">
                                         {% for bank in banks %}
-                                            <option>{{ bank.bank_name }} - {{ bank.account_no }}</option>
+                                            <option value="{{ bank.database_value }}">{{ bank.bank_name }} - {{ bank.account_no }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -56,7 +53,7 @@
                             <div class="form-group">
                                 <label>วันที่โอน</label>
                                 <div class="control date-control">
-                                    <select name="date" class="form-control">{% date_from_today_as_option %}</select>
+                                    <select name="date" class="form-control"></select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -78,15 +75,16 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="reservation-confirm hide">
+                <div class="reservation-confirm">
                     <button type="button" class="style-primary-button button-confirm"><i class="icon-ok"></i> ยืนยัน</button>
                 </div>
                 <div class="reservation-payment hide">
                     <button type="button" class="style-primary-button button-confirm-payment">แจ้งการชำระเงิน</button>
                     <button type="button" class="style-button button-postpone-payment">จ่ายทีหลัง</button>
                 </div>
-                <div class="reservation-notify">
+                <div class="reservation-notify hide">
                     <button type="button" class="style-primary-button button-notify-payment">แจ้งชำระเงิน</button>
+                    <button type="button" class="style-button" data-dismiss="modal">ยกเลิกการแจ้ง</button>
                 </div>
             </div>
         </div>
@@ -95,6 +93,11 @@
 <script>
 jQuery(function($){
     var reserve_workshop_modal = $('#modal-reserve-workshop');
+
+    function _show_tab(tab) {
+        reserve_workshop_modal.find('.reservation-confirm,.reservation-payment,.reservation-notify').hide();
+        reserve_workshop_modal.find('.reservation-' + tab).removeClass('hide').show();
+    }
 
     reserve_workshop_modal.find('.button-confirm').on('click', function() {
         reserve_workshop_modal.find('.modal-footer button').prop('disabled', false);
@@ -108,8 +111,8 @@ jQuery(function($){
 
             if(response.status == 'success') {
                 reserve_workshop_modal.data('code', response.data.code);
-                reserve_workshop_modal.find('.reservation-confirm').hide();
-                reserve_workshop_modal.find('.reservation-payment').removeClass('hide');
+                reserve_workshop_modal.data('total', response.data.total);
+                _show_tab('payment');
 
             } else {
                 if(response.message) {
@@ -127,11 +130,54 @@ jQuery(function($){
     });
 
     reserve_workshop_modal.find('.button-confirm-payment').on('click', function() {
+        _show_tab('notify');
 
+        reserve_workshop_modal.find('.reservation-notify input[name="amount"]').val(reserve_workshop_modal.data('total'));
+
+        var rightnow = moment();
+
+        var date_select = reserve_workshop_modal.find('.reservation-notify select[name="date"]');
+
+        date_select.append('<option value="' + rightnow.format('YYYY-MM-DD') + '"> วันนี้ - ' + rightnow.format('DD MMM') + ' ' + (parseInt(rightnow.format('YYYY'), 10) + 543) + '</option>')
+        date_select.append('<option value="' + rightnow.format('YYYY-MM-DD') + '">เมื่อวาน - ' + rightnow.subtract('days', 1).format('DD MMM') + ' ' + (parseInt(rightnow.subtract('days', 1).format('YYYY'), 10) + 543) + '</option>');
+        date_select.append('<option value="' + rightnow.format('YYYY-MM-DD') + '">' + rightnow.subtract('days', 2).format('DD MMM') + ' ' + (parseInt(rightnow.subtract('days', 2).format('YYYY'), 10) + 543) + '</option>');
+
+        reserve_workshop_modal.find('.reservation-notify select[name="time_hour"] option[value="' + rightnow.format('HH') + '"]').prop('selected', true);
+        reserve_workshop_modal.find('.reservation-notify select[name="time_minute"] option[value="' + rightnow.format('mm') + '"]').prop('selected', true);
     });
 
     reserve_workshop_modal.find('.button-notify-payment').on('click', function() {
+        var code = reserve_workshop_modal.data('code');
+        var bank = reserve_workshop_modal.find('.reservation-notify select[name="bank"] option:selected').val();
+        var amount = reserve_workshop_modal.find('.reservation-notify input[name="amount"]').val();
+        var date = reserve_workshop_modal.find('.reservation-notify select[name="date"] option:selected').val();
+        var time_hour = reserve_workshop_modal.find('.reservation-notify select[name="time_hour"] option:selected').val();
+        var time_minute = reserve_workshop_modal.find('.reservation-notify select[name="time_minute"] option:selected').val();
+        var remark = reserve_workshop_modal.find('.reservation-notify textarea[name="remark"]').val();
 
+        var datetime = date + '-' + time_hour + '-' + time_minute;
+
+        if(code && bank && amount && datetime) {
+            var jqxhr = $.post('{% url 'ajax_notify_reservation_payment' %}', {code:code, bank:bank, amount:amount, datetime:datetime, remark:remark}, function(response) {
+                reserve_workshop_modal.find('.modal-footer button').prop('disabled', false);
+
+                if(response.status == 'success') {
+                    window.location.reload();
+
+                } else {
+                    if(response.message) {
+                        _addModalErrorMessage('modal-reserve-workshop', 'ไม่สามารถแจ้งชำระเงินได้ - ' + response.message);
+                    } else {
+                        _addModalErrorMessage('modal-reserve-workshop', 'ไม่สามารถแจ้งชำระเงินได้ - เกิดความผิดพลาดขึ้น');
+                    }
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                reserve_workshop_modal.find('.modal-footer button').prop('disabled', false);
+                _addModalErrorMessage('modal-reserve-workshop', 'ไม่สามารถแจ้งชำระเงินได้ - ' + errorThrown);
+            });
+        }
     });
 
     reserve_workshop_modal.on('hide.bs.modal', function() {

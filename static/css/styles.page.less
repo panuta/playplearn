@@ -263,7 +263,7 @@
         font-family: 'QuarkLight', sans-serif;
         font-size: 24px;
         line-height: 34px;
-        margin-top: 4px;
+        margin-top: 2px;
     }
 
     .workshop-teacher {
@@ -289,24 +289,79 @@
         }
     }
 
-/*
-    .workshop-header {
-        margin: 40px 0 10px;
+    .workshop-reservations {
+        margin: 5px 0 30px;
+        padding: 0;
 
-        .join {
-            background-color: #FFF;
-            border-radius: 5px;
-            float: right;
-            margin: 23px 0 0;
-            padding: 4px 4px 7px;
+        li {
+            background-color: #f7f7f7;
+            border: 1px dashed #AAA;
+            list-style: none;
+            margin-bottom: 25px;
+            padding: 11px 15px 8px;
 
-            a {
-                font-size: 14px;
-                font-weight: 300;
-                padding: 8px 40px;
+            .icon-ticket {
+                font-size: 30px;
+                margin-right: 7px;
+                vertical-align: middle;
+            }
+
+            &.status-fail {
+                background-color: @colorNegative;
+                color: #FFF;
+
+                .status {
+                    border-right: 1px dashed #FFF;
+                }
+            }
+
+            &.status-notice {
+                .icon-ticket {
+                    color: @colorOrange;
+                }
+
+                .status {
+                    color: @colorOrange;
+                }
+            }
+
+            &.status-success {
+                .icon-ticket {
+                    color: @colorPositive;
+                }
+
+                .status {
+                    color: @colorPositive;
+                }
             }
         }
-    }*/
+
+        .status {
+            display: inline-block;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 24px;
+            vertical-align: -3px;
+        }
+
+        .schedule {
+            color: #555;
+            display: inline-block;
+            font-size: 15px;
+            vertical-align: middle;
+
+            .datetime, .seats {
+                padding-left: 20px;
+            }
+        }
+
+        .notify {
+            float: right;
+
+            a {
+                padding: 5px 20px;
+            }
+        }
+    }
 
     .workshop-details {
         margin-left: 50px;
@@ -366,7 +421,7 @@
         }
     }
 
-    .workshop-reservation {
+    .workshop-reserve {
         .head {
             color: #555;
             font-family: 'QuarkLight', sans-serif;
@@ -383,10 +438,9 @@
         label {
             color: #888;
             display: block;
-            font-family: 'QuarkLight', sans-serif;
-            font-size: 19px;
+            font-size: 15px;
             font-weight: normal;
-            margin: 0;
+            margin: 0 0 3px 0;
             padding: 0;
         }
 
@@ -454,7 +508,7 @@
             a {
                 display: block;
                 font-family: 'QuarkLight', sans-serif;
-                font-size: 20px;
+                font-size: 22px;
                 padding: 12px 70px 9px;
                 text-align: center;
             }

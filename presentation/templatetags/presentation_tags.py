@@ -10,6 +10,7 @@ from django.template.defaultfilters import safe
 from easy_thumbnails.files import get_thumbnailer
 
 from common.constants.feedback import FEEDBACK_FEELING_MAP
+from common.templatetags.common_tags import schedule_datetime_with_weekday
 from common.utilities import format_date_url_string, format_time_url_string
 
 from domain.models import WorkshopTopic, Place, WorkshopPicture, UserRegistration, Workshop
@@ -222,6 +223,36 @@ def course_enrollment_people_as_option(schedule):
         options.append(u'<option value="%d">%d คน</option>' % (i, i))
 
     return ''.join(options)
+
+
+@register.simple_tag
+def generate_workshop_reservation_bar(reservation):
+    bar_css = ''
+    bar_text = ''
+    actions = ''
+
+    if reservation.is_status_pending() and reservation.is_payment_status_wait_for_payment():
+        bar_css = 'status-notice'
+        bar_text = u'รอแจ้งชำระเงิน'
+        actions = u'<div class="notify"><a href="#modal-notify-payment" class="style-button" data-code="%s" data-total="%d">แจ้งการชำระเงิน</a></div>' % (reservation.code, reservation.total)
+    elif reservation.is_status_pending and reservation.is_payment_status_notified():
+        bar_css = 'status-notice'
+        bar_text = u'กำลังตรวจสอบการชำระเงิน'
+    elif reservation.is_status_pending and reservation.is_payment_status_failed():
+        bar_css = 'status-fail'
+        bar_text = u'ไม่พบข้อมูลการชำระเงิน'
+    elif reservation.is_status_confirmed and reservation.is_payment_status_paid():
+        bar_css = 'status-success'
+        bar_text = u'ยืนยันแล้ว'
+
+    return u"""<li class="%s">
+        <i class="icon-ticket"></i>
+        <div class="status">%s</div>
+        <div class="schedule">
+            <span class="datetime">%s</span>
+            <span class="seats">จำนวน %s คน</span>
+        </div>%s
+    </li>""" % (bar_css, bar_text, schedule_datetime_with_weekday(reservation.schedule), reservation.seats, actions)
 
 
 @register.assignment_tag

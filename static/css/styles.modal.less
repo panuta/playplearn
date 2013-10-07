@@ -114,43 +114,36 @@
 }
 
 #modal-reserve-workshop {
-    .steps {
-        margin: 25px 0;
-
-        ol {
+    .modal-body {
+        h4.title {
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 28px;
             margin: 0;
-            padding: 0;
+            padding: 20px 0 10px;
 
-            li {
-                border-bottom: 5px solid #DDD;
-                display: inline-block;
-                font-family: 'QuarkLight', sans-serif;
-                font-size: 22px;
-                list-style: none;
-                text-align: center;
-                width: 33%;
-
-                &.active {
-                    color: @colorBlue;
-                }
-
-                &.done {
-                    border-bottom: 5px solid @colorBlue;
-                }
+            i {
+                margin-right: 3px;
             }
         }
     }
 
     .reservation-confirm {
+        .title {
+            color: @colorBlue;
+        }
+
         .workshop {
-            .title {
+            border-top: 1px solid #DDD;
+            padding-top: 13px;
+
+            .workshop-title {
                 color: #444;
                 font-family: 'QuarkLight', sans-serif;
                 font-size: 24px;
             }
 
             .schedule {
-                color: #666;
+                color: #777;
                 font-size: 15px;
                 margin-top: 4px;
             }
@@ -188,16 +181,14 @@
     }
 
     .reservation-payment {
-        .success {
+        .title {
             color: @colorPositive;
-            font-family: 'QuarkLight', sans-serif;
-            font-size: 28px;
         }
 
         .pay {
             color: #666;
             font-size: 15px;
-            margin-bottom: 10px;
+            margin: 10px 0 15px;
         }
 
         ul.banks {
@@ -240,11 +231,16 @@
         .note {
             color: #777;
             font-size: 13px;
+            line-height: 23px;
             margin-bottom: 15px;
         }
     }
 
     .reservation-notify {
+        .title {
+            color: @colorBlue;
+        }
+
         form {
             label {
                 color: #555;
@@ -283,9 +279,52 @@
             }
 
             .amount-control input {
-                text-align: right;
                 width: 100px;
             }
+        }
+    }
+}
+
+#modal-notify-payment {
+    form {
+        label {
+            color: #555;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 20px;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .form-row {
+            margin-bottom: 10px;
+
+            .form-group {
+                display: inline-block;
+                margin-right: 25px;
+                vertical-align: top;
+            }
+        }
+
+        input, select {
+            font-size: 15px;
+            display: inline;
+            width: auto;
+        }
+
+        .unit {
+            color: #555;
+            font-family: 'QuarkLight', sans-serif;
+            font-size: 20px;
+            margin-left: 7px;
+        }
+
+
+        .bank-control select {
+            width: 260px;
+        }
+
+        .amount-control input {
+            width: 100px;
         }
     }
 }

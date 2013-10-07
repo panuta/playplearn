@@ -59,7 +59,12 @@ WORKSHOP_BACKEND_ERRORS = {
 }
 
 WORKSHOP_RESERVATION_ERRORS = {
-    'schedule-notfound': u'',
+    'schedule-notfound': u'ไม่พบรอบที่ต้องการเข้าร่วม',
+
+    'payment-already-confirmed': u'คุณได้แจ้งชำระเงินไปแล้ว',
+    'payment-bank-invalid': u'ข้อมูลธนาคารไม่ถูกต้อง',
+    'payment-amount-invalid': u'ข้อมูลจำนวนเงินไม่ถูกต้อง',
+    'payment-date-invalid': u'ข้อมูลวันที่ไม่ถูกต้อง',
 }
 
 

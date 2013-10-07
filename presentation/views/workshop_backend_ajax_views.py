@@ -450,6 +450,7 @@ def ajax_create_reservation(request):
 
     return response_json_success({
         'code': reservation.code,
+        'total': reservation.total,
     })
 
 
@@ -466,14 +467,14 @@ def ajax_notify_reservation_payment(request):
     except Reservation.DoesNotExist:
         return _response_with_reservation_error('reservation-notfound')
 
-    if ReservationPaymentNotification.objects.filter(reservation=reservation, status=ReservationPaymentNotification.STATUS_CONFIRMED).exists():
+    if ReservationPaymentNotification.objects.filter(
+            reservation=reservation,
+            status=ReservationPaymentNotification.STATUS_CONFIRMED).exists():
         return _response_with_reservation_error('payment-already-confirmed')
 
     bank = request.POST.get('bank', '')
     amount = request.POST.get('amount', '')
-    date = request.POST.get('date', '')
-    time_hour = request.POST.get('time_hour', '')
-    time_minute = request.POST.get('time_minute', '')
+    transfer_datetime = request.POST.get('datetime', '')
     remark = request.POST.get('remark', '')
 
     if not bank or bank not in BANK_ACCOUNT_MAP:
@@ -487,8 +488,7 @@ def ajax_notify_reservation_payment(request):
         return _response_with_reservation_error('payment-amount-invalid')
 
     try:
-        datetime_data = '%s-%s-%s' % (date, time_hour, time_minute)
-        transfered_on = datetime.datetime.strptime(datetime_data, '%Y-%m-%d-%H-%M')
+        date_transfered = datetime.datetime.strptime(transfer_datetime, '%Y-%m-%d-%H-%M')
     except ValueError:
         return _response_with_reservation_error('payment-date-invalid')
 
@@ -496,9 +496,12 @@ def ajax_notify_reservation_payment(request):
         reservation=reservation,
         bank=bank,
         amount=amount,
-        transfered_on=transfered_on,
+        date_transfered=date_transfered,
         remark=remark,
     )
+
+    reservation.payment_status = Reservation.PAYMENT_STATUS_NOTIFIED
+    reservation.save()
 
     return response_json_success()
 

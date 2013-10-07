@@ -70,7 +70,7 @@
     });
 
 
-    $('#modal-reserve-workshop').modal();
+    //$('#modal-reserve-workshop').modal();
 })();
 </script>
 {% endblock %}
@@ -85,6 +85,12 @@
         <div class="name"><a href="{% url 'view_user_profile' workshop.teacher.uid %}">{{ workshop.teacher.name }}</a></div>
     </div>
 
+    <ul class="workshop-reservations">
+        {% for reservation in reservations %}
+            {% generate_workshop_reservation_bar reservation %}
+        {% endfor %}
+    </ul>
+
     <div class="row workshop-pictures-reservation">
         <div class="col-lg-8">
             <div class="workshop-pictures">
@@ -97,7 +103,7 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="workshop-reservation" id="workshop-reservation">
+            <div class="workshop-reserve" id="workshop-reservation">
                 <div class="head"><i class="icon-signin"></i> เข้าร่วมเวิร์คช็อป</div>
                 <div class="reserve-schedule">
                     <label>รอบวันที่</label>
@@ -218,6 +224,7 @@
 
 {% block modals %}
 {% include 'modals/modal_reserve_workshop.html' %}
+{% include 'modals/modal_notify_payment.html' %}
 
 <div class="modal fade" id="modal-schedule-picker">
     <div class="modal-dialog">

@@ -82,6 +82,7 @@ urlpatterns += patterns(
     url(r'^ajax/workshop/feedback/visibility/$', 'ajax_set_workshop_feedback_visibility', name='ajax_set_workshop_feedback_visibility'),
 
     url(r'^ajax/reservation/create/$', 'ajax_create_reservation', name='ajax_create_reservation'),
+    url(r'^ajax/reservation/payment/notify/$', 'ajax_notify_reservation_payment', name='ajax_notify_reservation_payment'),
 
     url(r'^ajax/enrollment/details/$', 'ajax_view_enrollment_details', name='ajax_view_enrollment_details'),
 )

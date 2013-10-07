@@ -44,6 +44,12 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
         is_visible=True
     ).order_by('-created')
 
+    reservations = Reservation.objects.filter(
+        schedule__workshop=workshop,
+        user=request.user,
+        schedule__start_datetime__gte=rightnow,
+    ).order_by('-date_created') if request.user.is_authenticated() else []
+
     return render(request, 'workshop/workshop_outline.html', {
         'workshop': workshop,
         'workshop_pictures': pictures,
@@ -52,6 +58,7 @@ def view_workshop_outline(request, workshop_uid, page_action, reservation_code):
         'page_action': page_action,
         'reservation': reservation,
         'feedbacks': feedbacks,
+        'reservations': reservations,
     })
 
 

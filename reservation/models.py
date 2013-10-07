@@ -49,6 +49,7 @@ class Reservation(models.Model):
 
     PAYMENT_STATUS_PENDING = 'P'
     PAYMENT_STATUS_WAIT_FOR_PAYMENT = 'W'
+    PAYMENT_STATUS_NOTIFIED = 'N'
     PAYMENT_STATUS_PAID = 'PD'
     PAYMENT_STATUS_FAILED = 'F'
     PAYMENT_STATUS_REFUNDED = 'R'
@@ -83,6 +84,42 @@ class Reservation(models.Model):
             self.schedule.seats_left -= self.seats
             self.schedule.save()
 
+    def is_status_pending(self):
+        return self.status == Reservation.STATUS_PENDING
+
+    def is_status_confirmed(self):
+        return self.status == Reservation.STATUS_CONFIRMED
+
+    def is_status_cancelled(self):
+        return self.status == Reservation.STATUS_CANCELLED
+
+    def is_payment_status_pending(self):
+        return self.payment_status == Reservation.PAYMENT_STATUS_PENDING
+
+    def is_payment_status_wait_for_payment(self):
+        return self.payment_status == Reservation.PAYMENT_STATUS_WAIT_FOR_PAYMENT
+
+    def is_payment_status_notified(self):
+        return self.payment_status == Reservation.PAYMENT_STATUS_NOTIFIED
+
+    def is_payment_status_paid(self):
+        return self.payment_status == Reservation.PAYMENT_STATUS_PAID
+
+    def is_payment_status_failed(self):
+        return self.payment_status == Reservation.PAYMENT_STATUS_FAILED
+
+    def is_payment_status_refunded(self):
+        return self.payment_status == Reservation.PAYMENT_STATUS_REFUNDED
+
+    def is_notify_pending(self):
+        ReservationPaymentNotification.objects.filter() # TODO
+
+    def is_notify_confirmed(self):
+        pass
+
+    def is_notify_rejected(self):
+        pass
+
     def has_feedback(self):
         from domain.models import WorkshopFeedback
         return WorkshopFeedback.objects.filter(reservation=self).exists()
@@ -93,7 +130,7 @@ class ReservationPaymentNotification(models.Model):
     STATUS_CONFIRMED = 'C'
     STATUS_REJECTED = 'R'
 
-    enrollment = models.ForeignKey(Reservation)
+    reservation = models.ForeignKey(Reservation)
     bank = models.CharField(max_length=20)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_transfered = models.DateTimeField()

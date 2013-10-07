@@ -1,0 +1,118 @@
+{% load common_tags %}
+<div class="modal fade" id="modal-notify-payment">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">แจ้งการชำระเงิน</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ธนาคารที่โอนเข้า</label>
+                            <div class="control bank-control">
+                                <select name="bank" class="form-control">
+                                    {% bank_account_assign as banks %}
+                                    {% for bank in banks %}
+                                        <option value="{{ bank.database_value }}">{{ bank.bank_name }} - {{ bank.account_no }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>จำนวนเงิน</label>
+                            <div class="control amount-control">
+                                <input name="amount" type="text" class="form-control"/> <span class="unit">บาท</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>วันที่โอน</label>
+                            <div class="control date-control">
+                                <select name="date" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">เวลาที่โอน</label>
+                            <div class="control">
+                                <select name="time_hour" class="form-control">{% time_hour_as_option %}</select>
+                                <span class="separator">:</span>
+                                <select name="time_minute" class="form-control">{% time_minute_as_option %}</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>หมายเหตุ</label>
+                        <div class="control remark-control">
+                            <textarea name="remark" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="style-primary-button button-notify-payment">แจ้งชำระเงิน</button>
+                <button type="button" class="style-button" data-dismiss="modal">ยกเลิกการแจ้ง</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+jQuery(function($){
+    var modal = $('#modal-notify-payment');
+
+    $('a[href="#modal-notify-payment"]').on('click', function() {
+        modal.data('code', $(this).attr('data-code'));
+
+        modal.modal();
+        modal.find('input[name="amount"]').val($(this).attr('data-total'));
+
+        var rightnow = moment();
+        var date_select = modal.find('select[name="date"]');
+
+        date_select.append('<option value="' + rightnow.format('YYYY-MM-DD') + '"> วันนี้ - ' + rightnow.format('DD MMM') + ' ' + (parseInt(rightnow.format('YYYY'), 10) + 543) + '</option>')
+        date_select.append('<option value="' + rightnow.format('YYYY-MM-DD') + '">เมื่อวาน - ' + rightnow.subtract('days', 1).format('DD MMM') + ' ' + (parseInt(rightnow.subtract('days', 1).format('YYYY'), 10) + 543) + '</option>');
+        date_select.append('<option value="' + rightnow.format('YYYY-MM-DD') + '">' + rightnow.subtract('days', 2).format('DD MMM') + ' ' + (parseInt(rightnow.subtract('days', 2).format('YYYY'), 10) + 543) + '</option>');
+
+        modal.find('select[name="time_hour"] option[value="' + rightnow.format('HH') + '"]').prop('selected', true);
+        modal.find('select[name="time_minute"] option[value="' + rightnow.format('mm') + '"]').prop('selected', true);
+
+        return false;
+    });
+
+    modal.find('.button-notify-payment').on('click', function() {
+        var code = modal.data('code');
+        var bank = modal.find('select[name="bank"] option:selected').val();
+        var amount = modal.find('input[name="amount"]').val();
+        var date = modal.find('select[name="date"] option:selected').val();
+        var time_hour = modal.find('select[name="time_hour"] option:selected').val();
+        var time_minute = modal.find('select[name="time_minute"] option:selected').val();
+        var remark = modal.find('textarea[name="remark"]').val();
+
+        var datetime = date + '-' + time_hour + '-' + time_minute;
+
+        if(code && bank && amount && datetime) {
+            var jqxhr = $.post('{% url 'ajax_notify_reservation_payment' %}', {code:code, bank:bank, amount:amount, datetime:datetime, remark:remark}, function(response) {
+                modal.find('.modal-footer button').prop('disabled', false);
+
+                if(response.status == 'success') {
+                    window.location.reload();
+
+                } else {
+                    if(response.message) {
+                        _addModalErrorMessage('modal-notify-payment', 'ไม่สามารถแจ้งชำระเงินได้ - ' + response.message);
+                    } else {
+                        _addModalErrorMessage('modal-notify-payment', 'ไม่สามารถแจ้งชำระเงินได้ - เกิดความผิดพลาดขึ้น');
+                    }
+                }
+            }, 'json');
+
+            jqxhr.error(function(jqXHR, textStatus, errorThrown) {
+                modal.find('.modal-footer button').prop('disabled', false);
+                _addModalErrorMessage('modal-notify-payment', 'ไม่สามารถแจ้งชำระเงินได้ - ' + errorThrown);
+            });
+        }
+    });
+});
+</script>
